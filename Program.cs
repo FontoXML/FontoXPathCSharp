@@ -98,7 +98,9 @@ class Prsc
         return (string input, int offset) =>
         {
             int endOffset = offset + token.Length;
-            if (input.Substring(offset, endOffset) == token)
+            if (endOffset >= input.Length)
+                return new Err<string>(offset, new string[] { token });
+            if (input.Substring(offset, token.Length) == token)
                 return new Ok<string>(endOffset, token);
             return new Err<string>(offset, new string[] { token });
         };
@@ -128,6 +130,33 @@ class Prsc
             );
         };
     }
+
+    public static ParseFunc<ParseResult<T[]>> star<T>(ParseFunc<ParseResult<T>> parser)
+    {
+        return (string input, int offset) =>
+        {
+            List<T> results = new List<T>();
+            int nextOffset = offset;
+
+            while (true)
+            {
+                ParseResult<T> result = parser(input, nextOffset);
+
+                if (result.IsErr())
+                {
+                    Err<T> errorResult = (Err<T>)result;
+                    if (errorResult.Fatal)
+                        return new Err<T[]>(result.Offset, errorResult.Expected, errorResult.Fatal);
+                    break;
+                }
+
+                results.Add(result.Unwrap());
+                nextOffset = result.Offset;
+            }
+
+            return new Ok<T[]>(nextOffset, results.ToArray());
+        };
+    }
 }
 
 
@@ -136,7 +165,7 @@ class Program
 {
     public static void Main(string[] args)
     {
-        var parser = Prsc.optional(Prsc.token("1234"));
-        Console.WriteLine("Text: " + parser("1234", 0).Unwrap());
+        var parser = Prsc.star(Prsc.token("a"));
+        Console.WriteLine("Text: " + string.Join(", ", parser("aaaaaa", 0).Unwrap()));
     }
 }
