@@ -14,8 +14,16 @@ public abstract class ParseResult<O>
     public void Match(Action<O> Ok, Action<string[], bool> Err)
     {
         this.Match<int>(
-            Ok: (value) => { Ok(value); return 0; },
-            Err: (expected, fatal) => { Err(expected, fatal); return 0; }
+            Ok: (value) =>
+            {
+                Ok(value);
+                return 0;
+            },
+            Err: (expected, fatal) =>
+            {
+                Err(expected, fatal);
+                return 0;
+            }
         );
     }
 
@@ -95,32 +103,38 @@ class Prsc
 
     public static ParseFunc<ParseResult<string>> token(string token)
     {
-        return (string input, int offset) =>
+        return (input, offset) =>
         {
             int endOffset = offset + token.Length;
             if (endOffset >= input.Length)
-                return new Err<string>(offset, new string[] { token });
+                return new Err<string>(offset, new string[]
+                {
+                    token
+                });
             if (input.Substring(offset, token.Length) == token)
                 return new Ok<string>(endOffset, token);
-            return new Err<string>(offset, new string[] { token });
+            return new Err<string>(offset, new string[]
+            {
+                token
+            });
         };
     }
 
     public static ParseFunc<ParseResult<U>> map<T, U>(ParseFunc<ParseResult<T>> parser, Func<T, U> func)
     {
-        return (string input, int offset) =>
+        return (input, offset) =>
         {
             ParseResult<T> result = parser(input, offset);
             return result.Match<ParseResult<U>>(
-              Ok: (value) => new Ok<U>(result.Offset, func(value)),
-              Err: (expected, fatal) => new Err<U>(result.Offset, expected, fatal)
+                Ok: (value) => new Ok<U>(result.Offset, func(value)),
+                Err: (expected, fatal) => new Err<U>(result.Offset, expected, fatal)
             );
         };
     }
 
     public static ParseFunc<ParseResult<T?>> optional<T>(ParseFunc<ParseResult<T>> parser)
     {
-        return (string input, int offset) =>
+        return (input, offset) =>
         {
             ParseResult<T> result = parser(input, offset);
             return result.Match(
@@ -133,7 +147,7 @@ class Prsc
 
     public static ParseFunc<ParseResult<T[]>> star<T>(ParseFunc<ParseResult<T>> parser)
     {
-        return (string input, int offset) =>
+        return (input, offset) =>
         {
             List<T> results = new List<T>();
             int nextOffset = offset;
@@ -189,20 +203,51 @@ class Prsc
             return lastError != null ? lastError : new Err<T>(offset, Array.Empty<string>(), false);
         };
     }
-}
 
+    public static ParseResult<T> OkWithValue<T>(int offset, T value)
+    {
+        return new Ok<T>(offset, value);
+    }
+
+    public static ParseFunc<ParseResult<T>> Then<T1, T2, T>(
+        ParseFunc<ParseResult<T1>> parser1, 
+        ParseFunc<ParseResult<T2>> parser2, 
+        Func<T1, T2, T> join)
+    {
+        return (input, offset) =>
+        {
+            var r1 = parser1(input, offset);
+            if (!r1.IsOk())
+            {
+                var r1Err = (Err<T1>)r1;
+                return new Err<T>(r1Err.Offset, r1Err.Expected);
+            }
+            var r2 = parser2(input, r1.Offset);
+            if (!r2.IsOk())
+            {
+                var r2Err = (Err<T2>)r2;
+                return new Err<T>(r2Err.Offset, r2Err.Expected);
+            }
+            return OkWithValue(r2.Offset, join(r1.Unwrap(), r2.Unwrap()));
+        };
+    }
+}
 
 
 class Program
 {
     public static void Main(string[] args)
     {
-        var parser = Prsc.star(Prsc.or(new[]
-        {
-            Prsc.token("A"), Prsc.token("B")
-        }));
-        
-        Console.WriteLine("Text: " + string.Join(", ", parser("AA", 0).Unwrap()));
-        Console.WriteLine("Text: " + string.Join(", ", parser("BA", 0).Unwrap()));
+        // var parser = Prsc.star(Prsc.or(new[]
+        // {
+        //     Prsc.token("A"), Prsc.token("B")
+        // }));
+
+        var parser = Prsc.Then(Prsc.token("A"), Prsc.token("B"), (a, b) => a + " then " + b);
+
+        Console.WriteLine("Text: " + parser("AB", 0).Unwrap());
+
+        // Console.WriteLine("Text: " + string.Join(", ", parser("AA", 0).Unwrap()));
+        // Console.WriteLine("Text: " + string.Join(", ", parser("BA", 0).Unwrap()));
     }
 }
