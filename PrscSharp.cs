@@ -54,10 +54,10 @@ internal static class PrscSharp
             while (true)
             {
                 var result = parser(input, nextOffset);
-
+                
                 if (result.IsErr())
                 {
-                    var errorResult = (Err<T>) result;
+                    var errorResult = result.UnwrapError();
                     if (errorResult.Fatal)
                         return new Err<T[]>(result.Offset, errorResult.Expected, errorResult.Fatal);
                     break;
@@ -82,7 +82,7 @@ internal static class PrscSharp
                 if (res.IsOk())
                     return res;
 
-                var resError = (Err<T>) res;
+                var resError = res.UnwrapError();
 
                 if (lastError == null || res.Offset > lastError.Offset)
                     lastError = resError;

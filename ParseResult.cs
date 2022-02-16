@@ -12,26 +12,15 @@ public abstract class ParseResult<T>
 
     public abstract TR Match<TR>(Func<T, TR> ok, Func<string[], bool, TR> err);
 
-    public void Match(Action<T> ok, Action<string[], bool> err)
+    public abstract bool IsOk();
+
+    public bool IsErr()
     {
-        Match(
-            value =>
-            {
-                ok(value);
-                return 0;
-            },
-            (expected, fatal) =>
-            {
-                err(expected, fatal);
-                return 0;
-            }
-        );
+        return !IsOk();
     }
 
-    public abstract bool IsOk();
-    public abstract bool IsErr();
-
     public abstract T Unwrap();
+    public abstract Err<T> UnwrapError();
 }
 
 public class Ok<T> : ParseResult<T>
@@ -53,14 +42,14 @@ public class Ok<T> : ParseResult<T>
         return true;
     }
 
-    public override bool IsErr()
-    {
-        return false;
-    }
-
     public override T Unwrap()
     {
         return Value;
+    }
+
+    public override Err<T> UnwrapError()
+    {
+        throw new InvalidCastException("Called UnwrapError on Ok result");
     }
 }
 
@@ -85,13 +74,13 @@ public class Err<T> : ParseResult<T>
         return false;
     }
 
-    public override bool IsErr()
-    {
-        return true;
-    }
-
     public override T Unwrap()
     {
         throw new InvalidCastException("Called unwrap on Err result");
+    }
+
+    public override Err<T> UnwrapError()
+    {
+        return this;
     }
 }
