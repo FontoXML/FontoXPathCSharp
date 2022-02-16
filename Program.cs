@@ -57,8 +57,8 @@ public class Ok<O> : ParseResult<O>
 
 public class Err<O> : ParseResult<O>
 {
-    public string[] Expected { get; private set; }
-    public bool Fatal { get; private set; }
+    public string[] Expected;
+    public bool Fatal;
 
 
     public Err(int offset, string[] expected, bool fatal = false) : base(offset)
@@ -157,6 +157,38 @@ class Prsc
             return new Ok<T[]>(nextOffset, results.ToArray());
         };
     }
+
+    public static ParseFunc<ParseResult<T>> or<T>(ParseFunc<ParseResult<T>>[] parsers)
+    {
+        return (input, offset) =>
+        {
+            Err<T>? lastError = null;
+            foreach (var parser in parsers)
+            {
+                var res = parser(input, offset);
+                if (res.IsOk())
+                {
+                    return res;
+                }
+
+                var resError = (Err<T>)res;
+
+                if (lastError == null || res.Offset > lastError.Offset)
+                {
+                    lastError = resError;
+                }
+                else if (res.Offset == lastError.Offset)
+                {
+                    lastError.Expected = lastError.Expected.Concat(resError.Expected).ToArray();
+                }
+                if (resError.Fatal)
+                {
+                    break;
+                }
+            }
+            return lastError != null ? lastError : new Err<T>(offset, Array.Empty<string>(), false);
+        };
+    }
 }
 
 
@@ -165,7 +197,12 @@ class Program
 {
     public static void Main(string[] args)
     {
-        var parser = Prsc.star(Prsc.token("a"));
-        Console.WriteLine("Text: " + string.Join(", ", parser("aaaaaa", 0).Unwrap()));
+        var parser = Prsc.star(Prsc.or(new[]
+        {
+            Prsc.token("A"), Prsc.token("B")
+        }));
+        
+        Console.WriteLine("Text: " + string.Join(", ", parser("AA", 0).Unwrap()));
+        Console.WriteLine("Text: " + string.Join(", ", parser("BA", 0).Unwrap()));
     }
 }
