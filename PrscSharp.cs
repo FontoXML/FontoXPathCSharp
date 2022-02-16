@@ -97,7 +97,7 @@ public class Err<T> : ParseResult<T>
     }
 }
 
-internal static class Prsc
+internal static class PrscSharp
 {
     public delegate TR ParseFunc<out TR>(string input, int offset);
 
@@ -197,9 +197,9 @@ internal static class Program
 {
     public static void Main()
     {
-        var parser = Prsc.Star(Prsc.Or(new[]
+        var parser = PrscSharp.Star(PrscSharp.Or(new[]
         {
-            Prsc.Token("A"), Prsc.Token("B")
+            PrscSharp.Token("A"), PrscSharp.Token("B")
         }));
 
         Console.WriteLine("Text: " + string.Join(", ", parser("AA", 0).Unwrap()));
