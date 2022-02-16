@@ -191,18 +191,23 @@ internal static class PrscSharp
             return lastError ?? new Err<T>(offset, Array.Empty<string>());
         };
     }
+
+    public static ParseFunc<ParseResult<T>> Peek<T>(ParseFunc<ParseResult<T>> parser)
+    {
+        return (input, offset) =>
+        {
+            var result = parser(input, offset);
+            return result.IsErr() ? result : new Ok<T>(offset, result.Unwrap());
+        };
+    }
 }
 
 internal static class Program
 {
     public static void Main()
     {
-        var parser = PrscSharp.Star(PrscSharp.Or(new[]
-        {
-            PrscSharp.Token("A"), PrscSharp.Token("B")
-        }));
+        var parser = PrscSharp.Peek(PrscSharp.Token("A"));
 
-        Console.WriteLine("Text: " + string.Join(", ", parser("AA", 0).Unwrap()));
-        // Console.WriteLine("Text: " + string.Join(", ", parser("BA", 0).Unwrap()));
+        Console.WriteLine("Text: " + parser("AA", 0).Unwrap());
     }
 }
