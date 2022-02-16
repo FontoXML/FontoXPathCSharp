@@ -1,7 +1,6 @@
 ﻿namespace prscsharp;
 
 #nullable enable
-
 internal static class PrscSharp
 {
     public delegate TR ParseFunc<out TR>(string input, int offset);
@@ -12,10 +11,16 @@ internal static class PrscSharp
         {
             var endOffset = offset + token.Length;
             if (endOffset > input.Length)
-                return new Err<string>(offset, new[] {token});
+                return new Err<string>(offset, new[]
+                {
+                    token
+                });
             if (input.Substring(offset, token.Length) == token)
                 return new Ok<string>(endOffset, token);
-            return new Err<string>(offset, new[] {token});
+            return new Err<string>(offset, new[]
+            {
+                token
+            });
         };
     }
 
@@ -54,7 +59,7 @@ internal static class PrscSharp
             while (true)
             {
                 var result = parser(input, nextOffset);
-                
+
                 if (result.IsErr())
                 {
                     var errorResult = result.UnwrapError();
@@ -105,14 +110,45 @@ internal static class PrscSharp
             return result.IsErr() ? result : new Ok<T>(offset, result.Unwrap());
         };
     }
-}
 
+    public static ParseResult<T> OkWithValue<T>(int offset, T value)
+    {
+        return new Ok<T>(offset, value);
+    }
+
+    public static ParseFunc<ParseResult<T>> Then<T1, T2, T>(
+        ParseFunc<ParseResult<T1>> parser1,
+        ParseFunc<ParseResult<T2>> parser2,
+        Func<T1, T2, T> join)
+    {
+        return (input, offset) =>
+        {
+            var r1 = parser1(input, offset);
+            if (!r1.IsOk())
+            {
+                var r1Err = (Err<T1>)r1;
+                return new Err<T>(r1Err.Offset, r1Err.Expected);
+            }
+            var r2 = parser2(input, r1.Offset);
+            if (!r2.IsOk())
+            {
+                var r2Err = (Err<T2>)r2;
+                return new Err<T>(r2Err.Offset, r2Err.Expected);
+            }
+            return OkWithValue(r2.Offset, join(r1.Unwrap(), r2.Unwrap()));
+        };
+    }
+}
 internal static class Program
 {
     public static void Main()
     {
-        var parser = PrscSharp.Peek(PrscSharp.Token("A"));
+        var parser = PrscSharp.Then(
+            PrscSharp.Token("A"),
+            PrscSharp.Token("B"),
+            (a, b) => a + " then " + b
+        );
 
-        Console.WriteLine("Text: " + parser("AA", 0).Unwrap());
+        Console.WriteLine("Text: " + parser("AB", 0).Unwrap());
     }
 }
