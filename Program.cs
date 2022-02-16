@@ -1,42 +1,52 @@
-﻿#nullable enable
+﻿namespace prscsharp;
 
-public abstract class ParseResult<O>
+#nullable enable
+
+public abstract class ParseResult<T>
 {
-    public int Offset { get; private set; }
-
-    public ParseResult(int offset)
+    protected ParseResult(int offset)
     {
-        this.Offset = offset;
+        Offset = offset;
     }
 
-    public abstract T Match<T>(Func<O, T> Ok, Func<string[], bool, T> Err);
+    public int Offset { get; }
 
-    public void Match(Action<O> Ok, Action<string[], bool> Err)
+    public abstract TR Match<TR>(Func<T, TR> ok, Func<string[], bool, TR> err);
+
+    public void Match(Action<T> ok, Action<string[], bool> err)
     {
-        this.Match<int>(
-            Ok: (value) => { Ok(value); return 0; },
-            Err: (expected, fatal) => { Err(expected, fatal); return 0; }
+        Match(
+            value =>
+            {
+                ok(value);
+                return 0;
+            },
+            (expected, fatal) =>
+            {
+                err(expected, fatal);
+                return 0;
+            }
         );
     }
 
     public abstract bool IsOk();
     public abstract bool IsErr();
 
-    public abstract O Unwrap();
+    public abstract T Unwrap();
 }
 
-public class Ok<O> : ParseResult<O>
+public class Ok<T> : ParseResult<T>
 {
-    public O Value { get; private set; }
-
-    public Ok(int offset, O value) : base(offset)
+    public Ok(int offset, T value) : base(offset)
     {
-        this.Value = value;
+        Value = value;
     }
 
-    public override T Match<T>(Func<O, T> Ok, Func<string[], bool, T> _Err)
+    private T Value { get; }
+
+    public override TR Match<TR>(Func<T, TR> ok, Func<string[], bool, TR> err)
     {
-        return Ok(this.Value);
+        return ok(Value);
     }
 
     public override bool IsOk()
@@ -49,27 +59,26 @@ public class Ok<O> : ParseResult<O>
         return false;
     }
 
-    public override O Unwrap()
+    public override T Unwrap()
     {
-        return this.Value;
+        return Value;
     }
 }
 
-public class Err<O> : ParseResult<O>
+public class Err<T> : ParseResult<T>
 {
     public string[] Expected;
-    public bool Fatal;
-
+    public readonly bool Fatal;
 
     public Err(int offset, string[] expected, bool fatal = false) : base(offset)
     {
-        this.Expected = expected;
-        this.Fatal = fatal;
+        Expected = expected;
+        Fatal = fatal;
     }
 
-    public override T Match<T>(Func<O, T> _Ok, Func<string[], bool, T> Err)
+    public override TR Match<TR>(Func<T, TR> ok, Func<string[], bool, TR> err)
     {
-        return Err(this.Expected, this.Fatal);
+        return err(Expected, Fatal);
     }
 
     public override bool IsOk()
@@ -82,69 +91,68 @@ public class Err<O> : ParseResult<O>
         return true;
     }
 
-    public override O Unwrap()
+    public override T Unwrap()
     {
         throw new InvalidCastException("Called unwrap on Err result");
     }
 }
 
-
-class Prsc
+internal static class Prsc
 {
-    public delegate K ParseFunc<out K>(string input, int offset);
+    public delegate TR ParseFunc<out TR>(string input, int offset);
 
-    public static ParseFunc<ParseResult<string>> token(string token)
+    public static ParseFunc<ParseResult<string>> Token(string token)
     {
-        return (string input, int offset) =>
+        return (input, offset) =>
         {
-            int endOffset = offset + token.Length;
+            var endOffset = offset + token.Length;
             if (endOffset >= input.Length)
-                return new Err<string>(offset, new string[] { token });
+                return new Err<string>(offset, new[] {token});
             if (input.Substring(offset, token.Length) == token)
                 return new Ok<string>(endOffset, token);
-            return new Err<string>(offset, new string[] { token });
+            return new Err<string>(offset, new[] {token});
         };
     }
 
-    public static ParseFunc<ParseResult<U>> map<T, U>(ParseFunc<ParseResult<T>> parser, Func<T, U> func)
+    public static ParseFunc<ParseResult<TR>> Map<T, TR>(ParseFunc<ParseResult<T>> parser, Func<T, TR> func)
     {
-        return (string input, int offset) =>
+        return (input, offset) =>
         {
-            ParseResult<T> result = parser(input, offset);
-            return result.Match<ParseResult<U>>(
-              Ok: (value) => new Ok<U>(result.Offset, func(value)),
-              Err: (expected, fatal) => new Err<U>(result.Offset, expected, fatal)
+            var result = parser(input, offset);
+            return result.Match<ParseResult<TR>>(
+                value => new Ok<TR>(result.Offset, func(value)),
+                (expected, fatal) => new Err<TR>(result.Offset, expected, fatal)
             );
         };
     }
 
-    public static ParseFunc<ParseResult<T?>> optional<T>(ParseFunc<ParseResult<T>> parser)
+    public static ParseFunc<ParseResult<T?>> Optional<T>(ParseFunc<ParseResult<T>> parser)
     {
-        return (string input, int offset) =>
+        return (input, offset) =>
         {
-            ParseResult<T> result = parser(input, offset);
+            var result = parser(input, offset);
             return result.Match(
-                Ok: (value) => new Ok<T?>(result.Offset, value),
+                value => new Ok<T?>(result.Offset, value),
                 // NOTE: when not able to parse, we use the default value of T
-                Err: (_expected, _fatal) => new Ok<T?>(result.Offset, default(T))
+                (_, _) => new Ok<T?>(result.Offset, default)
             );
         };
     }
 
-    public static ParseFunc<ParseResult<T[]>> star<T>(ParseFunc<ParseResult<T>> parser)
+    public static ParseFunc<ParseResult<T[]>> Star<T>(ParseFunc<ParseResult<T>> parser)
     {
-        return (string input, int offset) =>
+        return (input, offset) =>
         {
-            List<T> results = new List<T>();
-            int nextOffset = offset;
+            var results = new List<T>();
+            var nextOffset = offset;
 
             while (true)
             {
-                ParseResult<T> result = parser(input, nextOffset);
+                var result = parser(input, nextOffset);
 
                 if (result.IsErr())
                 {
-                    Err<T> errorResult = (Err<T>)result;
+                    var errorResult = (Err<T>) result;
                     if (errorResult.Fatal)
                         return new Err<T[]>(result.Offset, errorResult.Expected, errorResult.Fatal);
                     break;
@@ -158,7 +166,7 @@ class Prsc
         };
     }
 
-    public static ParseFunc<ParseResult<T>> or<T>(ParseFunc<ParseResult<T>>[] parsers)
+    public static ParseFunc<ParseResult<T>> Or<T>(ParseFunc<ParseResult<T>>[] parsers)
     {
         return (input, offset) =>
         {
@@ -167,42 +175,34 @@ class Prsc
             {
                 var res = parser(input, offset);
                 if (res.IsOk())
-                {
                     return res;
-                }
 
-                var resError = (Err<T>)res;
+                var resError = (Err<T>) res;
 
                 if (lastError == null || res.Offset > lastError.Offset)
-                {
                     lastError = resError;
-                }
                 else if (res.Offset == lastError.Offset)
-                {
                     lastError.Expected = lastError.Expected.Concat(resError.Expected).ToArray();
-                }
+
                 if (resError.Fatal)
-                {
                     break;
-                }
             }
-            return lastError != null ? lastError : new Err<T>(offset, Array.Empty<string>(), false);
+
+            return lastError ?? new Err<T>(offset, Array.Empty<string>());
         };
     }
 }
 
-
-
-class Program
+internal static class Program
 {
-    public static void Main(string[] args)
+    public static void Main()
     {
-        var parser = Prsc.star(Prsc.or(new[]
+        var parser = Prsc.Star(Prsc.Or(new[]
         {
-            Prsc.token("A"), Prsc.token("B")
+            Prsc.Token("A"), Prsc.Token("B")
         }));
-        
+
         Console.WriteLine("Text: " + string.Join(", ", parser("AA", 0).Unwrap()));
-        Console.WriteLine("Text: " + string.Join(", ", parser("BA", 0).Unwrap()));
+        // Console.WriteLine("Text: " + string.Join(", ", parser("BA", 0).Unwrap()));
     }
 }
