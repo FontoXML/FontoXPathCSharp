@@ -106,7 +106,7 @@ internal static class Prsc
         return (input, offset) =>
         {
             var endOffset = offset + token.Length;
-            if (endOffset >= input.Length)
+            if (endOffset > input.Length)
                 return new Err<string>(offset, new[] {token});
             if (input.Substring(offset, token.Length) == token)
                 return new Ok<string>(endOffset, token);
