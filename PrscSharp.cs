@@ -1,26 +1,36 @@
-﻿namespace prscsharp;
+﻿using System.Text.RegularExpressions;
+
+namespace prscsharp;
 
 #nullable enable
-internal static class PrscSharp
-{
-    public delegate TR ParseFunc<out TR>(string input, int offset);
 
+public delegate TR ParseFunc<out TR>(string input, int offset);
+
+public static class PrscSharp
+{
     public static ParseFunc<ParseResult<string>> Token(string token)
     {
         return (input, offset) =>
         {
             var endOffset = offset + token.Length;
             if (endOffset > input.Length)
-                return new Err<string>(offset, new[]
-                {
-                    token
-                });
+                return new Err<string>(offset, new[] {token});
             if (input.Substring(offset, token.Length) == token)
                 return new Ok<string>(endOffset, token);
-            return new Err<string>(offset, new[]
-            {
-                token
-            });
+            return new Err<string>(offset, new[] {token});
+        };
+    }
+
+    public static ParseFunc<ParseResult<string>> Regex(string regex)
+    {
+        return (input, offset) =>
+        {
+            Regex rx = new Regex(regex);
+            Match match = rx.Match(input[offset..]);
+            
+            if (match.Success && match.Index == 0)
+                return new Ok<string>(offset + match.Length, match.Value);
+            return new Err<string>(offset, new[] {regex});
         };
     }
 
@@ -111,11 +121,6 @@ internal static class PrscSharp
         };
     }
 
-    public static ParseResult<T> OkWithValue<T>(int offset, T value)
-    {
-        return new Ok<T>(offset, value);
-    }
-
     public static ParseFunc<ParseResult<T>> Then<T1, T2, T>(
         ParseFunc<ParseResult<T1>> parser1,
         ParseFunc<ParseResult<T2>> parser2,
@@ -126,29 +131,15 @@ internal static class PrscSharp
             var r1 = parser1(input, offset);
             if (!r1.IsOk())
             {
-                var r1Err = (Err<T1>)r1;
+                var r1Err = (Err<T1>) r1;
                 return new Err<T>(r1Err.Offset, r1Err.Expected);
             }
-            var r2 = parser2(input, r1.Offset);
-            if (!r2.IsOk())
-            {
-                var r2Err = (Err<T2>)r2;
-                return new Err<T>(r2Err.Offset, r2Err.Expected);
-            }
-            return OkWithValue(r2.Offset, join(r1.Unwrap(), r2.Unwrap()));
-        };
-    }
-}
-internal static class Program
-{
-    public static void Main()
-    {
-        var parser = PrscSharp.Then(
-            PrscSharp.Token("A"),
-            PrscSharp.Token("B"),
-            (a, b) => a + " then " + b
-        );
 
-        Console.WriteLine("Text: " + parser("AB", 0).Unwrap());
+            var r2 = parser2(input, r1.Offset);
+            if (r2.IsOk()) return new Ok<T>(r2.Offset, join(r1.Unwrap(), r2.Unwrap()));
+
+            var r2Err = (Err<T2>) r2;
+            return new Err<T>(r2Err.Offset, r2Err.Expected);
+        };
     }
 }
