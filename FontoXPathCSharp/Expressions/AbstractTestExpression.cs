@@ -3,7 +3,7 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
 
-public abstract class TestAbstractExpression : Expression
+public abstract class AbstractTestExpression : Expression
 {
     public override ISequence Evaluate(XmlNode node, Value contextItem)
     {

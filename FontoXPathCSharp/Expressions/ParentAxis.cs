@@ -5,9 +5,9 @@ namespace FontoXPathCSharp.Expressions;
 
 public class ParentAxis : Expression
 {
-    private readonly TestAbstractExpression _selector;
+    private readonly AbstractTestExpression _selector;
 
-    public ParentAxis(TestAbstractExpression selector)
+    public ParentAxis(AbstractTestExpression selector)
     {
         _selector = selector;
     }

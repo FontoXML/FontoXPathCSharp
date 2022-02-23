@@ -6,9 +6,9 @@ namespace FontoXPathCSharp.Expressions;
 
 public class SelfAxis : Expression
 {
-    private readonly TestAbstractExpression _selector;
+    private readonly AbstractTestExpression _selector;
 
-    public SelfAxis(TestAbstractExpression selector)
+    public SelfAxis(AbstractTestExpression selector)
     {
         _selector = selector;
     }

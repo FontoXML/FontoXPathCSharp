@@ -1,4 +1,8 @@
-﻿using FontoXPathCSharp;
+﻿using System.Xml;
+using FontoXPathCSharp;
+using FontoXPathCSharp.Expressions;
+using Expression = System.Linq.Expressions.Expression;
+using ValueType = FontoXPathCSharp.ValueType;
 
 static void PrintAst(IEnumerable<object> ast, int indent = 0)
 {
@@ -12,5 +16,12 @@ static void PrintAst(IEnumerable<object> ast, int indent = 0)
 var parser = XPathParser.PathExpr();
 
 var result = parser("self::p", 0).Unwrap();
-Console.WriteLine("Result:");
 PrintAst(result);
+
+var xmlDocument = new XmlDocument();
+xmlDocument.LoadXml("<p>Test</p>");
+var document = xmlDocument.FirstChild!;
+
+var pathExpr = new SelfAxis(new NameTest(new Name("p", "", "*")));
+
+Console.WriteLine(pathExpr.Evaluate(document, new Value(document, ValueType.NODE)).ToString());

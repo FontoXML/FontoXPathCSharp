@@ -18,4 +18,9 @@ public class Value
         this.value = value;
         this.type = type;
     }
+
+    public override string ToString()
+    {
+        return "<Value>[type: " + type + ", value: " + value + "]";
+    }
 }

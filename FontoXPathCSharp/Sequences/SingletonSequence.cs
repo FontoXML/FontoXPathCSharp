@@ -28,4 +28,9 @@ public class SingletonSequence : ISequence
     {
         return 1;
     }
+    
+    public override string ToString()
+    {
+        return "<SingletonSequence>[" + _onlyValue + "]";
+    }
 }

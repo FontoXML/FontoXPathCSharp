@@ -28,4 +28,9 @@ public class ArrayBackedSequence : ISequence
     {
         return _values.Length;
     }
+
+    public override string ToString()
+    {
+        return "<ArrayBackedSequence>[" + string.Join(", ", _values.Select(value => value.ToString()!).ToArray()) + "]";
+    }
 }

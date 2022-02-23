@@ -17,7 +17,7 @@ public struct Name
 }
 
 
-public class NameTest : TestAbstractExpression
+public class NameTest : AbstractTestExpression
 {
     private readonly Name _name;
 
@@ -49,6 +49,6 @@ public class NameTest : TestAbstractExpression
         }
 
         // TODO: there is a lot more to add here
-        return node.NamespaceURI == null;
+        return false;
     }
 }
