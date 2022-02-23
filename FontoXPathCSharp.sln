@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontoXPathCSharp", "FontoXPathCSharp\FontoXPathCSharp.csproj", "{3DBB1CF8-87CC-4DB9-B4CA-A5768780E510}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrscSharp", "PrscSharp\PrscSharp.csproj", "{2B7A5D7B-FEFA-4FC3-875E-F0A038C590EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DBB1CF8-87CC-4DB9-B4CA-A5768780E510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DBB1CF8-87CC-4DB9-B4CA-A5768780E510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DBB1CF8-87CC-4DB9-B4CA-A5768780E510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DBB1CF8-87CC-4DB9-B4CA-A5768780E510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B7A5D7B-FEFA-4FC3-875E-F0A038C590EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B7A5D7B-FEFA-4FC3-875E-F0A038C590EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B7A5D7B-FEFA-4FC3-875E-F0A038C590EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B7A5D7B-FEFA-4FC3-875E-F0A038C590EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
