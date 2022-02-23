@@ -14,10 +14,10 @@ public static class PrscSharp
         {
             var endOffset = offset + token.Length;
             if (endOffset > input.Length)
-                return new Err<string>(offset, new[] {token});
+                return new Err<string>(offset, new[] { token });
             if (input.Substring(offset, token.Length) == token)
                 return new Ok<string>(endOffset, token);
-            return new Err<string>(offset, new[] {token});
+            return new Err<string>(offset, new[] { token });
         };
     }
 
@@ -27,10 +27,10 @@ public static class PrscSharp
         {
             Regex rx = new Regex(regex);
             Match match = rx.Match(input[offset..]);
-            
+
             if (match.Success && match.Index == 0)
                 return new Ok<string>(offset + match.Length, match.Value);
-            return new Err<string>(offset, new[] {regex});
+            return new Err<string>(offset, new[] { regex });
         };
     }
 
@@ -131,14 +131,14 @@ public static class PrscSharp
             var r1 = parser1(input, offset);
             if (!r1.IsOk())
             {
-                var r1Err = (Err<T1>) r1;
+                var r1Err = (Err<T1>)r1;
                 return new Err<T>(r1Err.Offset, r1Err.Expected);
             }
 
             var r2 = parser2(input, r1.Offset);
             if (r2.IsOk()) return new Ok<T>(r2.Offset, join(r1.Unwrap(), r2.Unwrap()));
 
-            var r2Err = (Err<T2>) r2;
+            var r2Err = (Err<T2>)r2;
             return new Err<T>(r2Err.Offset, r2Err.Expected);
         };
     }
