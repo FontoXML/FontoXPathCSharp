@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace prscsharp;
+namespace PrscSharp;
 
 #nullable enable
 
@@ -25,8 +25,8 @@ public static class PrscSharp
     {
         return (input, offset) =>
         {
-            Regex rx = new Regex(regex);
-            Match match = rx.Match(input[offset..]);
+            var rx = new Regex(regex);
+            var match = rx.Match(input[offset..]);
 
             if (match.Success && match.Index == 0)
                 return new Ok<string>(offset + match.Length, match.Value);

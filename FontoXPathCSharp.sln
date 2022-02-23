@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontoXPathCSharp", "FontoXP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrscSharp", "PrscSharp\PrscSharp.csproj", "{2B7A5D7B-FEFA-4FC3-875E-F0A038C590EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPathRunner", "XPathRunner\XPathRunner.csproj", "{6CD7BCF5-9A49-40E2-A7FF-FF6E9820BAE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{2B7A5D7B-FEFA-4FC3-875E-F0A038C590EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B7A5D7B-FEFA-4FC3-875E-F0A038C590EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B7A5D7B-FEFA-4FC3-875E-F0A038C590EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CD7BCF5-9A49-40E2-A7FF-FF6E9820BAE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CD7BCF5-9A49-40E2-A7FF-FF6E9820BAE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CD7BCF5-9A49-40E2-A7FF-FF6E9820BAE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CD7BCF5-9A49-40E2-A7FF-FF6E9820BAE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

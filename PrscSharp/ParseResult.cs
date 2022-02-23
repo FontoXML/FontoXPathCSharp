@@ -1,5 +1,4 @@
-namespace prscsharp;
-
+namespace PrscSharp;
 
 public abstract class ParseResult<T>
 {
