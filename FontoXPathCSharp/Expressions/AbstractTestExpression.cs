@@ -1,14 +1,15 @@
-using System.Xml;
-using FontoXPathCSharp.Sequences;
-
 namespace FontoXPathCSharp.Expressions;
+
+using System.Xml;
+using Sequences;
+using Value;
 
 public abstract class AbstractTestExpression : Expression
 {
-    public override ISequence Evaluate(XmlNode node, Value contextItem)
+    public override ISequence Evaluate(XmlNode node, AbstractValue contextItem)
     {
-        return new SingletonSequence(new Value(EvaluateToBoolean(node, contextItem), ValueType.XSBOOLEAN));
+        return new SingletonSequence(new BooleanValue(EvaluateToBoolean(node, contextItem)));
     }
 
-    protected internal abstract bool EvaluateToBoolean(XmlNode node, Value contextItem);
+    protected internal abstract bool EvaluateToBoolean(XmlNode node, AbstractValue contextItem);
 }

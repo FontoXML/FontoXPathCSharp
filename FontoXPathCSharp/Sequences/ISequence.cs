@@ -1,9 +1,11 @@
 namespace FontoXPathCSharp.Sequences;
 
+using Value;
+
 public interface ISequence
 {
     bool IsEmpty();
     bool IsSingleton();
-    Value? First();
+    AbstractValue? First();
     int GetLength();
 }

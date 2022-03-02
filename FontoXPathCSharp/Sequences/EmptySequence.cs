@@ -1,5 +1,7 @@
 namespace FontoXPathCSharp.Sequences;
 
+using Value;
+
 public class EmptySequence : ISequence
 {
     public bool IsEmpty()
@@ -12,7 +14,7 @@ public class EmptySequence : ISequence
         return false;
     }
 
-    public Value? First()
+    public AbstractValue? First()
     {
         return null;
     }

@@ -1,5 +1,6 @@
 using System.Xml;
 using FontoXPathCSharp.Sequences;
+using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
@@ -12,7 +13,7 @@ public class ParentAxis : Expression
         _selector = selector;
     }
 
-    public override ISequence Evaluate(XmlNode node, Value contextItem)
+    public override ISequence Evaluate(XmlNode node, AbstractValue contextItem)
     {
         var parentNode = node.ParentNode;
         if (parentNode == null)

@@ -1,10 +1,12 @@
 namespace FontoXPathCSharp.Sequences;
 
+using Value;
+
 public class SingletonSequence : ISequence
 {
-    private readonly Value _onlyValue;
+    private readonly AbstractValue _onlyValue;
 
-    public SingletonSequence(Value onlyValue)
+    public SingletonSequence(AbstractValue onlyValue)
     {
         _onlyValue = onlyValue;
     }
@@ -19,7 +21,7 @@ public class SingletonSequence : ISequence
         return true;
     }
 
-    public Value First()
+    public AbstractValue First()
     {
         return _onlyValue;
     }
@@ -28,7 +30,7 @@ public class SingletonSequence : ISequence
     {
         return 1;
     }
-    
+
     public override string ToString()
     {
         return "<SingletonSequence>[" + _onlyValue + "]";

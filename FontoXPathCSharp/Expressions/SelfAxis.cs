@@ -1,8 +1,8 @@
-using System.Xml;
-using FontoXPathCSharp.Sequences;
-
 namespace FontoXPathCSharp.Expressions;
 
+using System.Xml;
+using Sequences;
+using Value;
 
 public class SelfAxis : Expression
 {
@@ -13,7 +13,7 @@ public class SelfAxis : Expression
         _selector = selector;
     }
 
-    public override ISequence Evaluate(XmlNode node, Value contextItem)
+    public override ISequence Evaluate(XmlNode node, AbstractValue contextItem)
     {
         var isMatch = _selector.EvaluateToBoolean(node, contextItem);
         return isMatch ? new SingletonSequence(contextItem) : new EmptySequence();

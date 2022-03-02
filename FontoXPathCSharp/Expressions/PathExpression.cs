@@ -1,8 +1,9 @@
+namespace FontoXPathCSharp.Expressions;
+
 using System.Diagnostics;
 using System.Xml;
-using FontoXPathCSharp.Sequences;
-
-namespace FontoXPathCSharp.Expressions;
+using Sequences;
+using Value;
 
 public class PathExpression : Expression
 {
@@ -13,9 +14,9 @@ public class PathExpression : Expression
         _stepExpressions = stepExpressions;
     }
 
-    public override ISequence Evaluate(XmlNode node, Value contextItem)
+    public override ISequence Evaluate(XmlNode node, AbstractValue contextItem)
     {
         Debug.Assert(_stepExpressions.Length == 1);
-        return new ArrayBackedSequence(Array.Empty<Value>());
+        return new ArrayBackedSequence(Array.Empty<AbstractValue>());
     }
 }

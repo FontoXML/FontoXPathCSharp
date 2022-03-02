@@ -1,14 +1,15 @@
 using System.Xml;
+using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public struct Name
+public struct QName
 {
     public readonly string LocalName;
     public readonly string? NamespaceUri;
     public readonly string? Prefix;
 
-    public Name(string localName, string? namespaceUri, string? prefix)
+    public QName(string localName, string? namespaceUri, string? prefix)
     {
         LocalName = localName;
         NamespaceUri = namespaceUri;
@@ -16,30 +17,32 @@ public struct Name
     }
 }
 
-
 public class NameTest : AbstractTestExpression
 {
-    private readonly Name _name;
+    private readonly QName _name;
 
-    public NameTest(Name name)
+    public NameTest(QName name)
     {
         _name = name;
     }
 
-    protected internal override bool EvaluateToBoolean(XmlNode node, Value contextItem)
+    protected internal override bool EvaluateToBoolean(XmlNode node, AbstractValue contextItem)
     {
         if (_name.Prefix == null && _name.NamespaceUri != "" && _name.LocalName == "*")
         {
             return true;
         }
+
         if (_name.Prefix == "*")
         {
             if (_name.LocalName == "*")
             {
                 return true;
             }
+
             return _name.LocalName == node.LocalName;
         }
+
         if (_name.LocalName != "*")
         {
             if (_name.LocalName != node.LocalName)

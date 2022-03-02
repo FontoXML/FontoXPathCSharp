@@ -1,10 +1,12 @@
 namespace FontoXPathCSharp.Sequences;
 
+using Value;
+
 public class ArrayBackedSequence : ISequence
 {
-    private readonly Value[] _values;
+    private readonly AbstractValue[] _values;
 
-    public ArrayBackedSequence(Value[] values)
+    public ArrayBackedSequence(AbstractValue[] values)
     {
         _values = values;
     }
@@ -19,7 +21,7 @@ public class ArrayBackedSequence : ISequence
         return false;
     }
 
-    public Value? First()
+    public AbstractValue? First()
     {
         return _values.Length == 0 ? null : _values[0];
     }
