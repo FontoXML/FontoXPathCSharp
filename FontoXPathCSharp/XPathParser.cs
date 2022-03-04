@@ -1,3 +1,4 @@
+using FontoXPathCSharp.Expressions;
 using PrscSharp;
 using static PrscSharp.PrscSharp;
 
@@ -42,16 +43,13 @@ public static class XPathParser
         );
     }
 
-    private static ParseFunc<ParseResult<object[]>> UnprefixedName()
+    private static ParseFunc<ParseResult<QName>> UnprefixedName()
     {
         return Map(NcName(), x =>
-            new[]
-            {
-                x as object
-            });
+            new QName(x, null, ""));
     }
 
-    private static ParseFunc<ParseResult<object[]>> QName()
+    private static ParseFunc<ParseResult<QName>> QName()
     {
         return Or(new[]
         {
@@ -60,7 +58,7 @@ public static class XPathParser
         });
     }
 
-    private static ParseFunc<ParseResult<object[]>> EqName()
+    private static ParseFunc<ParseResult<QName>> EqName()
     {
         return Or(new[]
         {
@@ -69,26 +67,42 @@ public static class XPathParser
         });
     }
 
-    private static ParseFunc<ParseResult<object[]>> NameTest()
+    private static ParseFunc<ParseResult<Ast>> NameTest()
     {
-        return Map(EqName(), x => new object[] {"nameTest", x});
+        // TODO: add wildcard
+        return Map(EqName(), x =>
+            new Ast("nameTest")
+            {
+                StringAttributes =
+                {
+                    ["URI"] = x.NamespaceUri,
+                    ["prefix"] = x.Prefix
+                },
+                TextContent = x.LocalName
+            });
     }
 
-    private static ParseFunc<ParseResult<object[]>> NodeTest()
+    private static ParseFunc<ParseResult<Ast>> NodeTest()
     {
         return Or(new[] {NameTest()});
     }
 
-    private static ParseFunc<ParseResult<object[]>> ForwardStep()
+    private static ParseFunc<ParseResult<Ast>> ForwardStep()
     {
         return Or(new[]
         {
             Then(ForwardAxis(), NodeTest(),
-                (axis, test) => new[] {"stepExpr" as object, new[] {"xpathAxis", axis as object}, test})
+                (axis, test) =>
+                {
+                    var ast = new Ast("stepExpr");
+                    ast.Children.Add(new Ast("xpathAxis") {TextContent = axis});
+                    ast.Children.Add(test);
+                    return ast;
+                })
         });
     }
 
-    private static ParseFunc<ParseResult<object[]>> AxisStep()
+    private static ParseFunc<ParseResult<Ast>> AxisStep()
     {
         // TODO: add predicateList
         return Or(new[]
@@ -98,7 +112,7 @@ public static class XPathParser
         });
     }
 
-    private static ParseFunc<ParseResult<object[]>> StepExprWithForcedStep()
+    private static ParseFunc<ParseResult<Ast>> StepExprWithForcedStep()
     {
         // TODO: add postfix expr with step
         return Or(new[]
@@ -107,16 +121,21 @@ public static class XPathParser
         });
     }
 
-    private static ParseFunc<ParseResult<object[]>> RelativePathExpr()
+    private static ParseFunc<ParseResult<Ast>> RelativePathExpr()
     {
         return Or(new[]
         {
             // TODO: add other variants
-            Map(StepExprWithForcedStep(), x => new[] {"pathExpr" as object, x})
+            Map(StepExprWithForcedStep(), x =>
+            {
+                var ast = new Ast("pathExpr");
+                ast.Children.Add(x);
+                return ast;
+            })
         });
     }
 
-    public static ParseFunc<ParseResult<object[]>> PathExpr()
+    public static ParseFunc<ParseResult<Ast>> PathExpr()
     {
         return Or(new[]
         {
