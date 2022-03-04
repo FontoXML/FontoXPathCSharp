@@ -8,4 +8,9 @@ public class BooleanValue : AbstractValue
     {
         Value = value;
     }
+
+    public override string ToString()
+    {
+        return "<Value>[type: " + Type + ", value: " + Value + "]";
+    }
 }

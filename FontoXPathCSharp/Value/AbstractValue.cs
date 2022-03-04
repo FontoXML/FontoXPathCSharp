@@ -8,9 +8,4 @@ public abstract class AbstractValue
     {
         Type = type;
     }
-
-    public override string ToString()
-    {
-        return "<Value>[type: " + Type + "]";
-    }
 }

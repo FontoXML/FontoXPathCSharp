@@ -12,6 +12,5 @@ var xmlDocument = new XmlDocument();
 xmlDocument.LoadXml("<p>Test</p>");
 var document = xmlDocument.FirstChild!;
 
-var pathExpr = new SelfAxis(new NameTest(new QName("p", "", "*")));
-
-Console.WriteLine(pathExpr.Evaluate(document, new NodeValue(document)).ToString());
+var expr = CompileAstToExpression.CompileTest(result.FollowPath(new[] {"stepExpr", "nameTest"}));
+Console.WriteLine(expr.Evaluate(document, new NodeValue(document)));

@@ -52,6 +52,6 @@ public class NameTest : AbstractTestExpression
         }
 
         // TODO: there is a lot more to add here
-        return false;
+        return true;
     }
 }

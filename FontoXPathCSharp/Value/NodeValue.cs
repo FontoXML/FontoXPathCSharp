@@ -10,4 +10,9 @@ public class NodeValue : AbstractValue
     {
         Value = value;
     }
+    
+    public override string ToString()
+    {
+        return "<Value>[type: " + Type + ", value: " + Value + "]";
+    }
 }
