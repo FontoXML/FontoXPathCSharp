@@ -2,9 +2,9 @@ namespace FontoXPathCSharp.Value;
 
 public class BooleanValue : AbstractValue
 {
-    public bool Value;
+    private readonly bool Value;
 
-    public BooleanValue(bool value) : base(ValueType.XSBOOLEAN)
+    public BooleanValue(bool value) : base(ValueType.XsBoolean)
     {
         Value = value;
     }

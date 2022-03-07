@@ -2,9 +2,9 @@ namespace FontoXPathCSharp.Value;
 
 public abstract class AbstractValue
 {
-    public ValueType Type;
+    protected readonly ValueType Type;
 
-    public AbstractValue(ValueType type)
+    protected AbstractValue(ValueType type)
     {
         Type = type;
     }

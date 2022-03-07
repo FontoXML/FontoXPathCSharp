@@ -4,9 +4,9 @@ namespace FontoXPathCSharp.Value;
 
 public class NodeValue : AbstractValue
 {
-    public XmlNode Value;
+    private readonly XmlNode Value;
 
-    public NodeValue(XmlNode value) : base(ValueType.NODE)
+    public NodeValue(XmlNode value) : base(ValueType.Node)
     {
         Value = value;
     }

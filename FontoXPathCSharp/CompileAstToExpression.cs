@@ -2,13 +2,13 @@ using FontoXPathCSharp.Expressions;
 
 namespace FontoXPathCSharp;
 
-public class CompileAstToExpression
+public static class CompileAstToExpression
 {
-    public static AbstractTestAbstractExpression CompileTestExpression(Ast ast)
+    private static AbstractTestAbstractExpression CompileTestExpression(Ast ast)
     {
         return ast.Name switch
         {
-            "nameTest" => new NameTestAbstract(new QName(ast.TextContent!, null, null)),
+            "nameTest" => new NameTestAbstract(new QName(ast.TextContent, null, null)),
             _ => throw new InvalidDataException(ast.Name)
         };
     }
@@ -31,14 +31,19 @@ public class CompileAstToExpression
                     "nameTest"
                 });
 
+                if (test == null)
+                    throw new InvalidOperationException("No test found in path expression axis");
+
                 var testExpression = CompileTestExpression(test);
                 switch (axis.TextContent)
                 {
                     case "self":
                         return new SelfAxis(testExpression);
+                    case "parent":
+                        return new ParentAxis(testExpression);
                 }
             }
-            
+
             throw new NotImplementedException();
         });
 

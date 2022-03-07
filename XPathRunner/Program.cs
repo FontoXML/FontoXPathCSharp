@@ -2,18 +2,18 @@
 using FontoXPathCSharp;
 using FontoXPathCSharp.Value;
 
-const string QUERY = "self::p";
-const string DOCUMENT = "<p>Test</p>";
+const string query = "self::p";
+const string xml = "<p>Test</p>";
 
-Console.WriteLine($"Running: `{QUERY}`\n");
+Console.WriteLine($"Running: `{query}`\n");
 
 var parser = XPathParser.PathExpr();
-var result = parser(QUERY, 0).Unwrap();
+var result = parser(query, 0).Unwrap();
 Console.WriteLine("Parsed query: ");
 Console.WriteLine(result);
 
 var xmlDocument = new XmlDocument();
-xmlDocument.LoadXml(DOCUMENT);
+xmlDocument.LoadXml(xml);
 var document = xmlDocument.FirstChild!;
 
 Console.WriteLine("\nResult:");
