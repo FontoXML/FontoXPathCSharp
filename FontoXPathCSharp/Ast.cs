@@ -22,10 +22,15 @@ public class Ast
 
     public Ast? GetFirstChild(string name)
     {
-        return Children.Find(x => name == "*" || name.Contains(x.Name));
+        return Children.Find(x => name == "*" || name == x.Name);
+    }
+    
+    public Ast? GetFirstChild(string[] names)
+    {
+        return Children.Find(x => names.Contains("*") || names.Contains(x.Name));
     }
 
-    public List<Ast?> GetChildren(string name)
+    public IEnumerable<Ast?> GetChildren(string name)
     {
         return Children.FindAll(x => name == "*" || name.Contains(x.Name));
     }

@@ -4,29 +4,53 @@ namespace FontoXPathCSharp;
 
 public class CompileAstToExpression
 {
-    public static AbstractTestExpression CompileTest(Ast ast)
+    public static AbstractTestAbstractExpression CompileTestExpression(Ast ast)
     {
-        if (ast.Name == "nameTest")
+        return ast.Name switch
         {
-            var name = ast.TextContent;
-            return new NameTest(new QName(name!, null, null));
-        }
-
-        throw new InvalidDataException(ast.Name);
+            "nameTest" => new NameTestAbstract(new QName(ast.TextContent!, null, null)),
+            _ => throw new InvalidDataException(ast.Name)
+        };
     }
 
-    public static Expression CompileAst(Ast ast)
+    private static AbstractExpression CompilePathExpression(Ast ast)
     {
-        switch (ast.Name)
+        var steps = ast.GetChildren("stepExpr").Select<Ast, AbstractExpression>(step =>
         {
-            case "pathExpr":
+            var axis = step.GetFirstChild("xpathAxis");
+
+            if (axis != null)
             {
-                var steps = new List<Expression>();
+                var test = step.GetFirstChild(new[]
+                {
+                    // TODO: add others
+                    "attributeTest",
+                    "anyElementTest",
+                    "piTest",
+                    "documentTest",
+                    "nameTest"
+                });
 
-                return new PathExpression(steps.ToArray());
+                var testExpression = CompileTestExpression(test);
+                switch (axis.TextContent)
+                {
+                    case "self":
+                        return new SelfAxis(testExpression);
+                }
             }
-        }
+            
+            throw new NotImplementedException();
+        });
 
-        throw new InvalidDataException(ast.Name);
+        return new PathExpression(steps.ToArray());
+    }
+
+    public static AbstractExpression CompileAst(Ast ast)
+    {
+        return ast.Name switch
+        {
+            "pathExpr" => CompilePathExpression(ast),
+            _ => throw new InvalidDataException(ast.Name)
+        };
     }
 }

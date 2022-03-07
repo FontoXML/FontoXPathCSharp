@@ -4,7 +4,7 @@ using System.Xml;
 using Sequences;
 using Value;
 
-public abstract class AbstractTestExpression : Expression
+public abstract class AbstractTestAbstractExpression : AbstractExpression
 {
     public override ISequence Evaluate(XmlNode node, AbstractValue contextItem)
     {

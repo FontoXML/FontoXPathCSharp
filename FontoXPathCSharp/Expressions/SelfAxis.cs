@@ -4,11 +4,11 @@ using System.Xml;
 using Sequences;
 using Value;
 
-public class SelfAxis : Expression
+public class SelfAxis : AbstractExpression
 {
-    private readonly AbstractTestExpression _selector;
+    private readonly AbstractTestAbstractExpression _selector;
 
-    public SelfAxis(AbstractTestExpression selector)
+    public SelfAxis(AbstractTestAbstractExpression selector)
     {
         _selector = selector;
     }

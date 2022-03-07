@@ -17,11 +17,11 @@ public struct QName
     }
 }
 
-public class NameTest : AbstractTestExpression
+public class NameTestAbstract : AbstractTestAbstractExpression
 {
     private readonly QName _name;
 
-    public NameTest(QName name)
+    public NameTestAbstract(QName name)
     {
         _name = name;
     }

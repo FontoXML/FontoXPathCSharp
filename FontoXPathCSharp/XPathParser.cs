@@ -75,8 +75,8 @@ public static class XPathParser
             {
                 StringAttributes =
                 {
-                    ["URI"] = x.NamespaceUri,
-                    ["prefix"] = x.Prefix
+                    ["URI"] = x.NamespaceUri!,
+                    ["prefix"] = x.Prefix!
                 },
                 TextContent = x.LocalName
             });

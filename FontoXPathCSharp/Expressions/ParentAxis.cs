@@ -4,11 +4,11 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class ParentAxis : Expression
+public class ParentAxis : AbstractExpression
 {
-    private readonly AbstractTestExpression _selector;
+    private readonly AbstractTestAbstractExpression _selector;
 
-    public ParentAxis(AbstractTestExpression selector)
+    public ParentAxis(AbstractTestAbstractExpression selector)
     {
         _selector = selector;
     }

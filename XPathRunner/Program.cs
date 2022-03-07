@@ -1,16 +1,21 @@
 ﻿using System.Xml;
 using FontoXPathCSharp;
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Value;
 
-var parser = XPathParser.PathExpr();
+const string QUERY = "self::p";
+const string DOCUMENT = "<p>Test</p>";
 
-var result = parser("self::p", 0).Unwrap();
+Console.WriteLine($"Running: `{QUERY}`\n");
+
+var parser = XPathParser.PathExpr();
+var result = parser(QUERY, 0).Unwrap();
+Console.WriteLine("Parsed query: ");
 Console.WriteLine(result);
 
 var xmlDocument = new XmlDocument();
-xmlDocument.LoadXml("<p>Test</p>");
+xmlDocument.LoadXml(DOCUMENT);
 var document = xmlDocument.FirstChild!;
 
-var expr = CompileAstToExpression.CompileTest(result.FollowPath(new[] {"stepExpr", "nameTest"}));
+Console.WriteLine("\nResult:");
+var expr = CompileAstToExpression.CompileAst(result);
 Console.WriteLine(expr.Evaluate(document, new NodeValue(document)));
