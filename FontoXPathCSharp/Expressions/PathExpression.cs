@@ -13,8 +13,13 @@ public class PathExpression : AbstractExpression
         _stepExpressions = stepExpressions;
     }
 
-    public override ISequence Evaluate(XmlNode node, AbstractValue contextItem)
+    public override ISequence Evaluate(XmlNode documentNode, AbstractValue contextItem)
     {
-        return _stepExpressions[0].Evaluate(node, contextItem);
+        return _stepExpressions.Aggregate(new ArrayBackedSequence(new[] {contextItem}),
+            (contextItems, step) =>
+            {
+                return new ArrayBackedSequence(contextItems
+                    .SelectMany(c => (IEnumerable<AbstractValue>) step.Evaluate(documentNode, c)).ToArray());
+            });
     }
 }

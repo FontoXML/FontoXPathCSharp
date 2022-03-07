@@ -1,8 +1,9 @@
+using System.Collections;
+using FontoXPathCSharp.Value;
+
 namespace FontoXPathCSharp.Sequences;
 
-using Value;
-
-public class SingletonSequence : ISequence
+public class SingletonSequence : ISequence, IEnumerable<AbstractValue>
 {
     private readonly AbstractValue _onlyValue;
 
@@ -34,5 +35,15 @@ public class SingletonSequence : ISequence
     public override string ToString()
     {
         return "<SingletonSequence>[" + _onlyValue + "]";
+    }
+
+    public IEnumerator<AbstractValue> GetEnumerator()
+    {
+        return new[] {_onlyValue}.ToList().GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

@@ -13,9 +13,9 @@ public class ParentAxis : AbstractExpression
         _selector = selector;
     }
 
-    public override ISequence Evaluate(XmlNode node, AbstractValue contextItem)
+    public override ISequence Evaluate(XmlNode documentNode, AbstractValue contextItem)
     {
-        var parentNode = node.ParentNode;
+        var parentNode = documentNode.ParentNode;
         if (parentNode == null)
         {
             return new EmptySequence();

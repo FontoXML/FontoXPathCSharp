@@ -6,5 +6,5 @@ using Value;
 
 public abstract class AbstractExpression
 {
-    public abstract ISequence Evaluate(XmlNode node, AbstractValue contextItem);
+    public abstract ISequence Evaluate(XmlNode documentNode, AbstractValue contextItem);
 }
