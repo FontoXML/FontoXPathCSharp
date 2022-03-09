@@ -8,4 +8,10 @@ public abstract class AbstractValue
     {
         Type = type;
     }
+
+    public T? GetAs<T>(ValueType type) where T : AbstractValue
+    {
+        if (Type == type) return (T?) this;
+        return null;
+    }
 }
