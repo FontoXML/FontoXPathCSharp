@@ -1,13 +1,14 @@
 ﻿using System.Xml;
 using FontoXPathCSharp;
+using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Value;
 
-const string query = "self::p";
+const string query = "test()";
 const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");
 
-var parser = XPathParser.PathExpr();
+var parser = XPathParser.FunctionCall();
 var result = parser(query, 0).Unwrap();
 Console.WriteLine("Parsed query: ");
 Console.WriteLine(result);

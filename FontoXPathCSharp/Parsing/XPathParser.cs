@@ -1,8 +1,10 @@
 using FontoXPathCSharp.Expressions;
 using PrscSharp;
 using static PrscSharp.PrscSharp;
+using static FontoXPathCSharp.Parsing.NameParser;
+using static FontoXPathCSharp.Parsing.WhitespaceParser;
 
-namespace FontoXPathCSharp;
+namespace FontoXPathCSharp.Parsing;
 
 public static class XPathParser
 {
@@ -15,33 +17,6 @@ public static class XPathParser
         }), x => x[..^2]);
     }
 
-    private static ParseFunc<ParseResult<string>> NcNameStartChar()
-    {
-        return Or(new[]
-        {
-            Regex(
-                @"[A-Z_a-z\xC0-\xD6\xD8-\xF6\xF8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]"),
-            Then(Regex(@"[\uD800-\uDB7F]"), Regex(@"[\uDC00-\uDFFF]"), (a, b) => a + b)
-        });
-    }
-
-    private static ParseFunc<ParseResult<string>> NcNameChar()
-    {
-        return Or(new[]
-        {
-            NcNameStartChar(),
-            Regex(@"[\-\.0-9\xB7\u0300-\u036F\u203F\u2040]")
-        });
-    }
-
-    private static ParseFunc<ParseResult<string>> NcName()
-    {
-        return Then(
-            NcNameStartChar(),
-            Star(NcNameChar()),
-            (a, b) => a + string.Join("", b)
-        );
-    }
 
     private static ParseFunc<ParseResult<QName>> UnprefixedName()
     {
@@ -142,5 +117,48 @@ public static class XPathParser
             RelativePathExpr()
             // TODO: add other variants
         });
+    }
+
+    public static ParseFunc<ParseResult<string>> ReservedFunctionNames()
+    {
+        return Or(new[]
+        {
+            "array",
+            "attribute",
+            "comment",
+            "document-node",
+            "element",
+            "empty-sequence",
+            "function",
+            "if",
+            "item",
+            "map",
+            "namespace-node",
+            "node",
+            "processing-instruction",
+            "schema-attribute",
+            "schema-element",
+            "switch",
+            "text",
+            "typeswitch"
+        }.Select(Token).ToArray());
+    }
+
+    public static ParseFunc<ParseResult<Ast>> FunctionCall()
+    {
+        return Preceded(
+            Not(Followed(ReservedFunctionNames(), new[] {Whitespace(), Token("(")}),
+                new[] {"cannot use reserved keyword for function names"}),
+            // TODO: add support for function arguments
+            Then(EqName(), Token("()"),
+                (name, args) =>
+                {
+                    var ast = new Ast("functionCallExpr");
+                    ast.Children.Add(name.GetAst("functionName"));
+                    // TODO: add children here
+                    return ast;
+                }
+            )
+        );
     }
 }

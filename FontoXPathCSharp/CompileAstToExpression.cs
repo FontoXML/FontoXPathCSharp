@@ -1,4 +1,5 @@
 using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp;
 
@@ -50,11 +51,17 @@ public static class CompileAstToExpression
         return new PathExpression(steps.ToArray());
     }
 
+    public static AbstractExpression CompileFunctionCallExpression(Ast ast)
+    {
+        throw new NotImplementedException("compile to ast: function call expr");
+    }
+
     public static AbstractExpression CompileAst(Ast ast)
     {
         return ast.Name switch
         {
             "pathExpr" => CompilePathExpression(ast),
+            "functionCallExpr" => CompileFunctionCallExpression(ast),
             _ => throw new InvalidDataException(ast.Name)
         };
     }

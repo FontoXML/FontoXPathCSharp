@@ -15,6 +15,20 @@ public struct QName
         NamespaceUri = namespaceUri;
         Prefix = prefix;
     }
+
+    public Ast GetAst(string name)
+    {
+        var ast = new Ast(name)
+        {
+            TextContent = LocalName,
+            StringAttributes =
+            {
+                ["URI"] = NamespaceUri!,
+                ["prefix"] = Prefix!
+            }
+        };
+        return ast;
+    }
 }
 
 public class NameTestAbstract : AbstractTestAbstractExpression

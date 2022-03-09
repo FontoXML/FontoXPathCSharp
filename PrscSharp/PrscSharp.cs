@@ -14,10 +14,10 @@ public static class PrscSharp
         {
             var endOffset = offset + token.Length;
             if (endOffset > input.Length)
-                return new Err<string>(offset, new[] { token });
+                return new Err<string>(offset, new[] {token});
             if (input.Substring(offset, token.Length) == token)
                 return new Ok<string>(endOffset, token);
-            return new Err<string>(offset, new[] { token });
+            return new Err<string>(offset, new[] {token});
         };
     }
 
@@ -30,7 +30,7 @@ public static class PrscSharp
 
             if (match.Success && match.Index == 0)
                 return new Ok<string>(offset + match.Length, match.Value);
-            return new Err<string>(offset, new[] { regex });
+            return new Err<string>(offset, new[] {regex});
         };
     }
 
@@ -121,6 +121,16 @@ public static class PrscSharp
         };
     }
 
+    public static ParseFunc<ParseResult<T?>> Not<T>(ParseFunc<ParseResult<T>> parser, string[] expected)
+    {
+        return (input, offset) =>
+        {
+            var result = parser(input, offset);
+            if (result.IsErr()) return new Ok<T?>(offset, default);
+            return new Err<T?>(offset, expected);
+        };
+    }
+
     public static ParseFunc<ParseResult<T>> Then<T1, T2, T>(
         ParseFunc<ParseResult<T1>> parser1,
         ParseFunc<ParseResult<T2>> parser2,
@@ -131,15 +141,44 @@ public static class PrscSharp
             var r1 = parser1(input, offset);
             if (!r1.IsOk())
             {
-                var r1Err = (Err<T1>)r1;
+                var r1Err = (Err<T1>) r1;
                 return new Err<T>(r1Err.Offset, r1Err.Expected);
             }
 
             var r2 = parser2(input, r1.Offset);
             if (r2.IsOk()) return new Ok<T>(r2.Offset, join(r1.Unwrap(), r2.Unwrap()));
 
-            var r2Err = (Err<T2>)r2;
+            var r2Err = (Err<T2>) r2;
             return new Err<T>(r2Err.Offset, r2Err.Expected);
         };
+    }
+
+
+    public static ParseFunc<ParseResult<T[]>> Plus<T>(ParseFunc<ParseResult<T>> parser)
+    {
+        return Then(parser, Star(parser), (x, xs) => xs.Prepend(x).ToArray());
+    }
+
+    public static ParseFunc<ParseResult<T>> Preceded<TBefore, T>(
+        ParseFunc<ParseResult<TBefore>> before,
+        ParseFunc<ParseResult<T>> parser)
+    {
+        return Then(before, parser, (_, x) => x);
+    }
+
+    public static ParseFunc<ParseResult<T>> Followed<T, TAfter>(
+        ParseFunc<ParseResult<T>> parser,
+        ParseFunc<ParseResult<TAfter>> after
+    )
+    {
+        return Then(parser, after, (x, _) => x);
+    }
+    
+    public static ParseFunc<ParseResult<T>> Followed<T, TAfter>(
+        ParseFunc<ParseResult<T>> parser,
+        ParseFunc<ParseResult<TAfter>>[] after
+    )
+    {
+        return Then(parser, Or(after), (x, _) => x);
     }
 }
