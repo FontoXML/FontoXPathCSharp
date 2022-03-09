@@ -2,15 +2,15 @@ namespace FontoXPathCSharp.Value;
 
 public class BooleanValue : AbstractValue
 {
-    private readonly bool Value;
+    private readonly bool _value;
 
     public BooleanValue(bool value) : base(ValueType.XsBoolean)
     {
-        Value = value;
+        _value = value;
     }
 
     public override string ToString()
     {
-        return "<Value>[type: " + Type + ", value: " + Value + "]";
+        return "<Value>[type: " + Type + ", value: " + _value + "]";
     }
 }

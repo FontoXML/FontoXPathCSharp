@@ -20,40 +20,55 @@ public static class CompileAstToExpression
         {
             var axis = step.GetFirstChild("xpathAxis");
 
-            if (axis != null)
+            if (axis == null) 
+                throw new NotImplementedException();
+            
+            var test = step.GetFirstChild(new[]
             {
-                var test = step.GetFirstChild(new[]
-                {
-                    // TODO: add others
-                    "attributeTest",
-                    "anyElementTest",
-                    "piTest",
-                    "documentTest",
-                    "nameTest"
-                });
+                "attributeTest",
+                "anyElementTest",
+                "piTest",
+                "documentTest",
+                "elementTest",
+                "commentTest",
+                "namespaceTest",
+                "anyKindTest",
+                "textTest",
+                "anyFunctionTest",
+                "typedFunctionTest",
+                "schemaAttributeTest",
+                "atomicType",
+                "anyItemType",
+                "parenthesizedItemType",
+                "typedMapTest",
+                "typedArrayTest",
+                "nameTest",
+                "Wildcard"
+            });
 
-                if (test == null)
-                    throw new InvalidOperationException("No test found in path expression axis");
+            if (test == null)
+                throw new InvalidOperationException("No test found in path expression axis");
 
-                var testExpression = CompileTestExpression(test);
-                switch (axis.TextContent)
-                {
-                    case "self":
-                        return new SelfAxis(testExpression);
-                    case "parent":
-                        return new ParentAxis(testExpression);
-                }
-            }
-
-            throw new NotImplementedException();
+            var testExpression = CompileTestExpression(test);
+            
+            return axis.TextContent switch
+            {
+                "self" => new SelfAxis(testExpression),
+                "parent" => new ParentAxis(testExpression),
+                _ => throw new NotImplementedException()
+            };
         });
 
         return new PathExpression(steps.ToArray());
     }
 
-    public static AbstractExpression CompileFunctionCallExpression(Ast ast)
+    private static AbstractExpression CompileFunctionCallExpression(Ast ast)
     {
-        throw new NotImplementedException("compile to ast: function call expr");
+        var functionName = ast.GetFirstChild("functionName");
+        if (functionName == null)
+            throw new InvalidDataException(ast.Name);
+
+        return new FunctionCall(new NamedFunctionRef(functionName.GetQName(), 0));
     }
 
     public static AbstractExpression CompileAst(Ast ast)

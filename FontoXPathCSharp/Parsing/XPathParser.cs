@@ -1,4 +1,4 @@
-using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Value;
 using PrscSharp;
 using static PrscSharp.PrscSharp;
 using static FontoXPathCSharp.Parsing.NameParser;
@@ -51,7 +51,7 @@ public static class XPathParser
                 StringAttributes =
                 {
                     ["URI"] = x.NamespaceUri!,
-                    ["prefix"] = x.Prefix!
+                    ["prefix"] = x.Prefix
                 },
                 TextContent = x.LocalName
             });
@@ -69,9 +69,14 @@ public static class XPathParser
             Then(ForwardAxis(), NodeTest(),
                 (axis, test) =>
                 {
-                    var ast = new Ast("stepExpr");
-                    ast.Children.Add(new Ast("xpathAxis") {TextContent = axis});
-                    ast.Children.Add(test);
+                    var ast = new Ast("stepExpr")
+                    {
+                        Children = new List<Ast>
+                        {
+                            new("xpathAxis") {TextContent = axis},
+                            test
+                        }
+                    };
                     return ast;
                 })
         });
@@ -119,7 +124,7 @@ public static class XPathParser
         });
     }
 
-    public static ParseFunc<ParseResult<string>> ReservedFunctionNames()
+    private static ParseFunc<ParseResult<string>> ReservedFunctionNames()
     {
         return Or(new[]
         {
@@ -151,11 +156,16 @@ public static class XPathParser
                 new[] {"cannot use reserved keyword for function names"}),
             // TODO: add support for function arguments
             Then(EqName(), Token("()"),
-                (name, args) =>
+                (name, _) =>
                 {
-                    var ast = new Ast("functionCallExpr");
-                    ast.Children.Add(name.GetAst("functionName"));
-                    // TODO: add children here
+                    var ast = new Ast("functionCallExpr")
+                    {
+                        Children = new List<Ast>
+                        {
+                            name.GetAst("functionName")
+                            // TODO: add args here
+                        }
+                    };
                     return ast;
                 }
             )

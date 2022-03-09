@@ -3,34 +3,6 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public struct QName
-{
-    public readonly string LocalName;
-    public readonly string? NamespaceUri;
-    public readonly string? Prefix;
-
-    public QName(string localName, string? namespaceUri, string? prefix)
-    {
-        LocalName = localName;
-        NamespaceUri = namespaceUri;
-        Prefix = prefix;
-    }
-
-    public Ast GetAst(string name)
-    {
-        var ast = new Ast(name)
-        {
-            TextContent = LocalName,
-            StringAttributes =
-            {
-                ["URI"] = NamespaceUri!,
-                ["prefix"] = Prefix!
-            }
-        };
-        return ast;
-    }
-}
-
 public class NameTestAbstract : AbstractTestAbstractExpression
 {
     private readonly QName _name;

@@ -3,7 +3,7 @@ using static PrscSharp.PrscSharp;
 
 namespace FontoXPathCSharp.Parsing;
 
-public class NameParser
+public static class NameParser
 {
     private static ParseFunc<ParseResult<string>> NcNameStartChar()
     {
