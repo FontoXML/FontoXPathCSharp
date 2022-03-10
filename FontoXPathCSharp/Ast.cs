@@ -48,8 +48,8 @@ public class Ast
 
     public QName GetQName()
     {
-        return new QName(TextContent, StringAttributes["URI"], StringAttributes["prefix"]);
-    }
+        return new QName(TextContent, StringAttributes["URI"], StringAttributes.ContainsKey("prefix") ? StringAttributes["prefix"] : null);
+}
 
     public override string ToString()
     {
