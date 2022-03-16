@@ -10,7 +10,9 @@ public class NodeValue : AbstractValue
     {
         _value = value;
     }
-    
+
+    public XmlNode Value() => _value;
+
     public override string ToString()
     {
         return "<Value>[type: " + Type + ", value: " + _value + "]";

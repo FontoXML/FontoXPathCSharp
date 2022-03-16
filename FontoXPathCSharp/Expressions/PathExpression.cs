@@ -13,13 +13,18 @@ public class PathExpression : AbstractExpression
         _stepExpressions = stepExpressions;
     }
 
-    public override ISequence Evaluate(XmlNode documentNode, AbstractValue contextItem)
+    public override ISequence Evaluate(DynamicContext dynamicContext, ExecutionParameters executionParameters)
     {
-        return _stepExpressions.Aggregate(new ArrayBackedSequence(new[] {contextItem}),
+        return _stepExpressions.Aggregate(new ArrayBackedSequence(new[] {dynamicContext.ContextItem}),
             (contextItems, step) =>
             {
                 return new ArrayBackedSequence(contextItems
-                    .SelectMany(c => (IEnumerable<AbstractValue>) step.Evaluate(documentNode, c)).ToArray());
+                    .SelectMany(c =>
+                    {
+                        // NOTE: if dynamicContext is passed as a reference, this will overwrite ut
+                        dynamicContext.ContextItem = c;
+                        return (IEnumerable<AbstractValue>) step.Evaluate(dynamicContext, executionParameters);
+                    }).ToArray());
             });
     }
 }

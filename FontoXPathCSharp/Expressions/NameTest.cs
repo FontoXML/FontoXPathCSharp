@@ -1,5 +1,6 @@
 using System.Xml;
 using FontoXPathCSharp.Value;
+using ValueType = FontoXPathCSharp.Value.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
@@ -12,8 +13,13 @@ public class NameTestAbstract : AbstractTestAbstractExpression
         _name = name;
     }
 
-    protected internal override bool EvaluateToBoolean(XmlNode node, AbstractValue contextItem)
+    protected internal override bool EvaluateToBoolean(
+        DynamicContext _,
+        AbstractValue value,
+        ExecutionParameters executionParameters)
     {
+        var node = value.GetAs<NodeValue>(ValueType.Node)!.Value();   
+        
         if (_name.Prefix == null && _name.NamespaceUri != "" && _name.LocalName == "*")
         {
             return true;

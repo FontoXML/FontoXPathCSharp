@@ -1,10 +1,8 @@
-using System.Xml;
 using FontoXPathCSharp.Sequences;
-using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class FunctionCall :  AbstractExpression
+public class FunctionCall : AbstractExpression
 {
     private readonly AbstractExpression _functionReferenceExpression;
 
@@ -13,9 +11,9 @@ public class FunctionCall :  AbstractExpression
         _functionReferenceExpression = functionReferenceExpression;
     }
 
-    public override ISequence Evaluate(XmlNode documentNode, AbstractValue contextItem)
+    public override ISequence Evaluate(DynamicContext dynamicContext, ExecutionParameters executionParameters)
     {
-        _functionReferenceExpression.Evaluate(documentNode, contextItem);
+        _functionReferenceExpression.Evaluate(dynamicContext, executionParameters);
         throw new NotImplementedException();
     }
 }

@@ -13,15 +13,16 @@ public class ParentAxis : AbstractExpression
         _selector = selector;
     }
 
-    public override ISequence Evaluate(XmlNode documentNode, AbstractValue contextItem)
+    public override ISequence Evaluate(DynamicContext dynamicContext, ExecutionParameters executionParameters)
     {
-        var parentNode = documentNode.ParentNode;
+        var parentNode = executionParameters.DomFacade.ParentNode;
         if (parentNode == null)
         {
             return new EmptySequence();
         }
 
-        var isMatch = _selector.EvaluateToBoolean(parentNode, contextItem);
-        return isMatch ? new SingletonSequence(contextItem) : new EmptySequence();
+        // TODO: we technically need a pointer to parentNode here
+        var isMatch = _selector.EvaluateToBoolean(dynamicContext, new NodeValue(parentNode), executionParameters);
+        return isMatch ? new SingletonSequence(new NodeValue(parentNode)) : new EmptySequence();
     }
 }

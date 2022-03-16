@@ -1,10 +1,8 @@
-namespace FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Sequences;
 
-using System.Xml;
-using Sequences;
-using Value;
+namespace FontoXPathCSharp.Expressions;
 
 public abstract class AbstractExpression
 {
-    public abstract ISequence Evaluate(XmlNode documentNode, AbstractValue contextItem);
+    public abstract ISequence Evaluate(DynamicContext dynamicContext, ExecutionParameters executionParameters);
 }

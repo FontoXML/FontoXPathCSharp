@@ -15,7 +15,7 @@ public class NamedFunctionRef : AbstractExpression
         _arity = arity;
     }
 
-    public override ISequence Evaluate(XmlNode documentNode, AbstractValue contextItem)
+    public override ISequence Evaluate(DynamicContext dynamicContext, ExecutionParameters executionParameters)
     {
         Console.WriteLine(_functionReference.LocalName);
         throw new NotImplementedException();

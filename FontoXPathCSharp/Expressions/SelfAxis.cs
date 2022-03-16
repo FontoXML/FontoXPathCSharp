@@ -13,9 +13,9 @@ public class SelfAxis : AbstractExpression
         _selector = selector;
     }
 
-    public override ISequence Evaluate(XmlNode documentNode, AbstractValue contextItem)
+    public override ISequence Evaluate(DynamicContext dynamicContext, ExecutionParameters executionParameters)
     {
-        var isMatch = _selector.EvaluateToBoolean(documentNode, contextItem);
-        return isMatch ? new SingletonSequence(contextItem) : new EmptySequence();
+        var isMatch = _selector.EvaluateToBoolean(dynamicContext, dynamicContext.ContextItem, executionParameters);
+        return isMatch ? new SingletonSequence(dynamicContext.ContextItem) : new EmptySequence();
     }
 }

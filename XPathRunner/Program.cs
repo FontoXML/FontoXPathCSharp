@@ -19,4 +19,4 @@ var document = xmlDocument.FirstChild!;
 
 Console.WriteLine("\nResult:");
 var expr = CompileAstToExpression.CompileAst(result);
-Console.WriteLine(expr.Evaluate(document, new NodeValue(document)));
+Console.WriteLine(expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document)));

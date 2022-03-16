@@ -1,15 +1,16 @@
-namespace FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Sequences;
+using FontoXPathCSharp.Value;
 
-using System.Xml;
-using Sequences;
-using Value;
+namespace FontoXPathCSharp.Expressions;
 
 public abstract class AbstractTestAbstractExpression : AbstractExpression
 {
-    public override ISequence Evaluate(XmlNode documentNode, AbstractValue contextItem)
+    public override ISequence Evaluate(DynamicContext dynamicContext, ExecutionParameters executionParameters)
     {
-        return new SingletonSequence(new BooleanValue(EvaluateToBoolean(documentNode, contextItem)));
+        return new SingletonSequence(new BooleanValue(EvaluateToBoolean(dynamicContext, dynamicContext.ContextItem, executionParameters)));
     }
 
-    protected internal abstract bool EvaluateToBoolean(XmlNode node, AbstractValue contextItem);
+    protected internal abstract bool EvaluateToBoolean(DynamicContext dynamicContext,
+        AbstractValue value,
+        ExecutionParameters executionParameters);
 }
