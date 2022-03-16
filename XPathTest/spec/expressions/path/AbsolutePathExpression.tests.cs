@@ -6,7 +6,7 @@ namespace XPathTest.spec.expressions;
 [Trait("Category", "Absolute Paths")]
 public class AbsolutePathExpression_tests
 {
-    private XmlDocument documentNode;
+    private XmlNode documentNode;
 
     private void beforeEach()
     {
@@ -18,8 +18,8 @@ public class AbsolutePathExpression_tests
     public void SupportsAbsolutePaths()
     {
         beforeEach();
-        documentNode.CreateElement("someNode");
-        Equals(evaluateXPathToNodes("/someNode", documentNode), new Node[] {});
+        documentNode.AppendChild("someNode");
+        Equals(EvaluateXPathToNodes("/someNode", documentNode), new Node[] {});
     }
 // it('supports absolute paths', () => {
 //     jsonMlMapper.parse(['someNode'], documentNode);
