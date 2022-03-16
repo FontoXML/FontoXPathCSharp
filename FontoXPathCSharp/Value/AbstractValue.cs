@@ -14,4 +14,9 @@ public abstract class AbstractValue
         if (Type == type) return (T?) this;
         return null;
     }
+
+    public ValueType GetValueType()
+    {
+        return Type;
+    }
 }

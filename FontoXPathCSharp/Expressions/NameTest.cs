@@ -4,19 +4,19 @@ using ValueType = FontoXPathCSharp.Value.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class NameTestAbstract : AbstractTestAbstractExpression
+public class NameTest : AbstractTestExpression
 {
     private readonly QName _name;
 
-    public NameTestAbstract(QName name)
+    public NameTest(QName name)
     {
         _name = name;
     }
 
     protected internal override bool EvaluateToBoolean(
-        DynamicContext _,
+        DynamicContext? _,
         AbstractValue value,
-        ExecutionParameters executionParameters)
+        ExecutionParameters? executionParameters)
     {
         var node = value.GetAs<NodeValue>(ValueType.Node)!.Value();   
         

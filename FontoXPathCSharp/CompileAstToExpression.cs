@@ -5,11 +5,11 @@ namespace FontoXPathCSharp;
 
 public static class CompileAstToExpression
 {
-    private static AbstractTestAbstractExpression CompileTestExpression(Ast ast)
+    private static AbstractTestExpression CompileTestExpression(Ast ast)
     {
         return ast.Name switch
         {
-            "nameTest" => new NameTestAbstract(new QName(ast.TextContent, null, null)),
+            "nameTest" => new NameTest(new QName(ast.TextContent, null, null)),
             _ => throw new InvalidDataException(ast.Name)
         };
     }

@@ -5,5 +5,6 @@ public enum ValueType
     XsBoolean,
     XsString,
     XsNumeric,
-    Node
+    Node,
+    Function
 }
