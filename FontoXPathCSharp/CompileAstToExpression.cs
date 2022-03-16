@@ -20,9 +20,9 @@ public static class CompileAstToExpression
         {
             var axis = step.GetFirstChild("xpathAxis");
 
-            if (axis == null) 
+            if (axis == null)
                 throw new NotImplementedException();
-            
+
             var test = step.GetFirstChild(new[]
             {
                 "attributeTest",
@@ -50,7 +50,7 @@ public static class CompileAstToExpression
                 throw new InvalidOperationException("No test found in path expression axis");
 
             var testExpression = CompileTestExpression(test);
-            
+
             return axis.TextContent switch
             {
                 "self" => new SelfAxis(testExpression),

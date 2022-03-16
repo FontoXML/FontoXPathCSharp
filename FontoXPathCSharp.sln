@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrscSharp", "PrscSharp\Prsc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPathRunner", "XPathRunner\XPathRunner.csproj", "{6CD7BCF5-9A49-40E2-A7FF-FF6E9820BAE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPathTest", "XPathTest\XPathTest.csproj", "{62AFBB66-60DB-48C8-B625-0201A11E67C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{6CD7BCF5-9A49-40E2-A7FF-FF6E9820BAE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CD7BCF5-9A49-40E2-A7FF-FF6E9820BAE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CD7BCF5-9A49-40E2-A7FF-FF6E9820BAE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62AFBB66-60DB-48C8-B625-0201A11E67C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62AFBB66-60DB-48C8-B625-0201A11E67C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62AFBB66-60DB-48C8-B625-0201A11E67C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62AFBB66-60DB-48C8-B625-0201A11E67C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

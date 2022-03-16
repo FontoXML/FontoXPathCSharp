@@ -36,3 +36,5 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 
+/XPathTest/assets/QT3TS
+/XPathTest/assets/XQUTS
