@@ -13,13 +13,7 @@ public abstract class PossiblyUpdatingExpression : UpdatingExpression
     {
         return PerformFunctionalEvaluation(dynamicContext, executionParameters);
     }
-
-    public override IIterator<UpdatingExpressionResult> EvaluateWithUpdateList(DynamicContext? dynamicContext,
-        ExecutionParameters executionParameters)
-    {
-        throw new NotImplementedException();
-    }
-
+    
     public abstract ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
         ExecutionParameters? executionParameters /*, SequenceCallbacks sequenceCallbacks TODO: add sequenceCallbacks */);
 

@@ -15,11 +15,11 @@ public struct OptimizationOptions
 public abstract class AbstractExpression
 {
     public readonly bool CanBeStaticallyEvaluated;
-    protected AbstractExpression[] ChildExpressions;
+    private readonly AbstractExpression[] _childExpressions;
 
-    public AbstractExpression(AbstractExpression[] childExpressions, OptimizationOptions optimizationOptions)
+    protected AbstractExpression(AbstractExpression[] childExpressions, OptimizationOptions optimizationOptions)
     {
-        ChildExpressions = childExpressions;
+        _childExpressions = childExpressions;
         CanBeStaticallyEvaluated = optimizationOptions.CanBeStaticallyEvaluated;
     }
 
@@ -42,7 +42,7 @@ public abstract class AbstractExpression
 
     public virtual void PerformStaticEvaluation(StaticContext staticContext)
     {
-        foreach (var expression in ChildExpressions)
+        foreach (var expression in _childExpressions)
         {
             expression.PerformStaticEvaluation(staticContext);
         }

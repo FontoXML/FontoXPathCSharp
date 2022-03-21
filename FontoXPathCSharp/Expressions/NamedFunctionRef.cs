@@ -7,25 +7,33 @@ public class NamedFunctionRef : AbstractExpression
 {
     private readonly int _arity;
     private readonly QName _functionReference;
+    private FunctionProperties? _functionProperties;
 
     public NamedFunctionRef(QName functionReference, int arity) : base(Array.Empty<AbstractExpression>(),
         new OptimizationOptions(true))
     {
-        _functionReference = functionReference;
         _arity = arity;
+        _functionReference = functionReference;
+        _functionProperties = null;
     }
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        if (_functionReference.LocalName == "test")
+        var functionItem = new FunctionValue<ISequence>(_arity, _functionProperties!.Value.CallFunction);
+        return new SingletonSequence(functionItem);
+    }
+
+    public override void PerformStaticEvaluation(StaticContext staticContext)
+    {
+        if (_functionReference.NamespaceUri == null)
         {
-            return new SingletonSequence(new FunctionValue<ISequence>(0, (context, parameters, staticContext, args) =>
-            {
-                Console.WriteLine("Called test function");
-                return new EmptySequence();
-            }));
+            // TODO: resolve function name
+            throw new NotImplementedException();
         }
 
-        throw new NotImplementedException();
+        _functionProperties =
+            staticContext.LookupFunction(_functionReference.NamespaceUri, _functionReference.LocalName, _arity);
+
+        base.PerformStaticEvaluation(staticContext);
     }
 }

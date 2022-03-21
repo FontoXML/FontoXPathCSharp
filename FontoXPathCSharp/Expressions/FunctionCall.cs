@@ -6,13 +6,13 @@ namespace FontoXPathCSharp.Expressions;
 
 public class FunctionCall : PossiblyUpdatingExpression
 {
-    private int _callArity;
+    private readonly int _callArity;
     private FunctionValue<ISequence>? _functionReference;
     private readonly AbstractExpression _functionReferenceExpression;
     private StaticContext? _staticContext;
 
     public FunctionCall(AbstractExpression functionReferenceExpression) : base(
-        Array.Empty<AbstractExpression>() /* TODO: functionReference and args should be added here */,
+        new[] {functionReferenceExpression} /* TODO: add arguments here */,
         new OptimizationOptions(false))
     {
         _callArity = 0;

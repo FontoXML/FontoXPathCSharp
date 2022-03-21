@@ -4,7 +4,7 @@ namespace FontoXPathCSharp;
 
 public class ExecutionParameters
 {
-    public XmlNode DomFacade;
+    public readonly XmlNode DomFacade;
 
     public ExecutionParameters(XmlNode domFacade)
     {
