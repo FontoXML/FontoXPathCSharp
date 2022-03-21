@@ -2,8 +2,8 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Value;
 
-public delegate T FunctionSignature<out T>(DynamicContext dynamicContext, ExecutionParameters executionParameters,
-    StaticContext staticContext, params ISequence[] args);
+public delegate T FunctionSignature<out T>(DynamicContext? dynamicContext, ExecutionParameters? executionParameters,
+    StaticContext? staticContext, params ISequence[] args);
 
 public class FunctionValue<T> : AbstractValue
 {

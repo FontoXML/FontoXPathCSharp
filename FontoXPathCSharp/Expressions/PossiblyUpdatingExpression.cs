@@ -23,7 +23,7 @@ public abstract class PossiblyUpdatingExpression : UpdatingExpression
     public abstract ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
         ExecutionParameters? executionParameters /*, SequenceCallbacks sequenceCallbacks TODO: add sequenceCallbacks */);
 
-    public new void PerformStaticEvaluation(StaticContext staticContext)
+    public override void PerformStaticEvaluation(StaticContext staticContext)
     {
         base.PerformStaticEvaluation(staticContext);
         // TODO: this.DetermineUpdatingness();

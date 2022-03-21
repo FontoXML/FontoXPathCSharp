@@ -19,20 +19,20 @@ public class FunctionCall : PossiblyUpdatingExpression
         _functionReferenceExpression = functionReferenceExpression;
         _staticContext = null;
     }
-    
+
     public override ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
         ExecutionParameters? executionParameters)
     {
         if (_functionReference != null)
         {
-            // TODO: call the actual function here
+            return _functionReference.Value(dynamicContext, executionParameters, null, Array.Empty<ISequence>());
         }
 
         // TODO: perform other evaluation
         throw new NotImplementedException();
     }
 
-    public new void PerformStaticEvaluation(StaticContext staticContext)
+    public override void PerformStaticEvaluation(StaticContext staticContext)
     {
         _staticContext = staticContext.Clone();
 

@@ -40,7 +40,7 @@ public abstract class AbstractExpression
         return Evaluate(dynamicContext, executionParameters);
     }
 
-    public void PerformStaticEvaluation(StaticContext staticContext)
+    public virtual void PerformStaticEvaluation(StaticContext staticContext)
     {
         foreach (var expression in ChildExpressions)
         {

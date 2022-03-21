@@ -17,7 +17,15 @@ public class NamedFunctionRef : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        Console.WriteLine(_functionReference.LocalName);
+        if (_functionReference.LocalName == "test")
+        {
+            return new SingletonSequence(new FunctionValue<ISequence>(0, (context, parameters, staticContext, args) =>
+            {
+                Console.WriteLine("Called test function");
+                return new EmptySequence();
+            }));
+        }
+
         throw new NotImplementedException();
     }
 }

@@ -19,4 +19,6 @@ var document = xmlDocument.FirstChild!;
 
 Console.WriteLine("\nResult:");
 var expr = CompileAstToExpression.CompileAst(result);
+var staticContext = new StaticContext();
+expr.PerformStaticEvaluation(staticContext);
 Console.WriteLine(expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document)));
