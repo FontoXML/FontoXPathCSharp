@@ -24,22 +24,44 @@ public struct FunctionProperties
 
 public class StaticContext
 {
-    public StaticContext Clone()
+    private Dictionary<String, FunctionProperties> _registeredFunctionsByHash;
+
+    public StaticContext()
     {
-        return new StaticContext();
+        _registeredFunctionsByHash = new Dictionary<string, FunctionProperties>();
     }
 
-    public FunctionProperties? LookupFunction(string namespaceUri, string localName, int arity)
+    public StaticContext Clone()
     {
-        if (localName == "test")
+        var staticContext = new StaticContext
         {
-            return new FunctionProperties(arity, (context, parameters, staticContext, args) =>
-            {
-                Console.WriteLine("Called test function");
-                return new EmptySequence();
-            }, localName, namespaceUri);
+            _registeredFunctionsByHash = _registeredFunctionsByHash.ToDictionary(e => e.Key, e => e.Value)
+        };
+        return staticContext;
+    }
+
+    public FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity)
+    {
+        var hashKey = $"Q{{{namespaceUri ?? ""}}}{localName}";
+
+        if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction))
+        {
+            return foundFunction;
         }
 
+        // TODO: look in parent context
         return null;
+    }
+
+    public void RegisterFunctionDefinition(FunctionProperties properties)
+    {
+        var hashKey = $"Q{{{properties.NamespaceUri ?? ""}}}{properties.LocalName}";
+
+        if (_registeredFunctionsByHash.ContainsKey(hashKey))
+        {
+            throw new XPathException($"XQT0049 {properties.NamespaceUri} {properties.LocalName}");
+        }
+
+        _registeredFunctionsByHash[hashKey] = properties;
     }
 }

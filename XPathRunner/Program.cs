@@ -1,6 +1,7 @@
 ﻿using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.Parsing;
+using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
 const string query = "test()";
@@ -20,5 +21,12 @@ var document = xmlDocument.FirstChild!;
 Console.WriteLine("\nResult:");
 var expr = CompileAstToExpression.CompileAst(result);
 var staticContext = new StaticContext();
+
+staticContext.RegisterFunctionDefinition(new FunctionProperties(0, (context, parameters, staticContext, args) =>
+{
+    Console.WriteLine("Called test function");
+    return new EmptySequence();
+}, "test", ""));
+
 expr.PerformStaticEvaluation(staticContext);
 Console.WriteLine(expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document)));
