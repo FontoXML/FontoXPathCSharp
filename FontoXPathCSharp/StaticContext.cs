@@ -24,7 +24,7 @@ public struct FunctionProperties
 
 public class StaticContext
 {
-    private Dictionary<String, FunctionProperties> _registeredFunctionsByHash;
+    private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
 
     public StaticContext()
     {

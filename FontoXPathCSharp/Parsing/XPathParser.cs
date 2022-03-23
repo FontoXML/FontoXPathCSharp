@@ -149,26 +149,59 @@ public static class XPathParser
         }.Select(Token).ToArray());
     }
 
+    private static ParseFunc<ParseResult<Ast>> Argument()
+    {
+        // TODO: add argumentPlaceholder
+        return ExprSingle();
+    }
+
+    private static ParseFunc<ParseResult<Ast[]>> ArgumentList()
+    {
+        return Map(
+            Delimited(
+                Token("("),
+                Surrounded(
+                    Optional(
+                        Then(Argument(), Star(Preceded(Surrounded(Token(","), Whitespace()), Argument())),
+                            (first, following) => following.Prepend(first).ToArray())),
+                    Whitespace()
+                ),
+                Token(")")
+            )
+            ,
+            x => x ?? Array.Empty<Ast>()
+        );
+    }
+
     public static ParseFunc<ParseResult<Ast>> FunctionCall()
     {
         return Preceded(
             Not(Followed(ReservedFunctionNames(), new[] {Whitespace(), Token("(")}),
                 new[] {"cannot use reserved keyword for function names"}),
-            // TODO: add support for function arguments
-            Then(EqName(), Token("()"),
-                (name, _) =>
+            Then(EqName(), Preceded(Whitespace(), ArgumentList()),
+                (name, arguments) =>
                 {
+                    var argumentsAst = new Ast("arguments")
+                    {
+                        Children = arguments.ToList()
+                    };
+                    
                     var ast = new Ast("functionCallExpr")
                     {
                         Children = new List<Ast>
                         {
-                            name.GetAst("functionName")
-                            // TODO: add args here
+                            name.GetAst("functionName"),
+                            argumentsAst
                         }
                     };
                     return ast;
                 }
             )
         );
+    }
+
+    public static ParseFunc<ParseResult<Ast>> ExprSingle()
+    {
+        return PathExpr();
     }
 }

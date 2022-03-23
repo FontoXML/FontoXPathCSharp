@@ -173,12 +173,27 @@ public static class PrscSharp
     {
         return Then(parser, after, (x, _) => x);
     }
-    
+
     public static ParseFunc<ParseResult<T>> Followed<T, TAfter>(
         ParseFunc<ParseResult<T>> parser,
         ParseFunc<ParseResult<TAfter>>[] after
     )
     {
         return Then(parser, Or(after), (x, _) => x);
+    }
+
+    public static ParseFunc<ParseResult<T>> Delimited<T, TBefore, TAfter>(
+        ParseFunc<ParseResult<TBefore>> before,
+        ParseFunc<ParseResult<T>> parser,
+        ParseFunc<ParseResult<TAfter>> after)
+    {
+        return Preceded(before, Followed(parser, after));
+    }
+    
+    public static ParseFunc<ParseResult<T>> Surrounded<T, TAround>(
+        ParseFunc<ParseResult<T>> parser,
+        ParseFunc<ParseResult<TAround>> around)
+    {
+        return Delimited(around, parser, around);
     }
 }

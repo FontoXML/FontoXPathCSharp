@@ -18,6 +18,11 @@ public abstract class ParseResult<T>
         return !IsOk();
     }
 
+    public T UnwrapOr(Func<string[], bool, T> callback)
+    {
+        return Match(value => value, callback);
+    }
+
     public abstract T Unwrap();
     public abstract Err<T> UnwrapError();
 }
