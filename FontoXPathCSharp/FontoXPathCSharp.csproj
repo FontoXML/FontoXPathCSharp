@@ -10,4 +10,8 @@
         <ProjectReference Include="..\PrscSharp\PrscSharp.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Parsing\ConvertXDMReturnValue.cs" />
+    </ItemGroup>
+
 </Project>
