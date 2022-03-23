@@ -68,7 +68,7 @@ public static class CompileAstToExpression
         if (functionName == null)
             throw new InvalidDataException(ast.Name);
 
-        return new FunctionCall(new NamedFunctionRef(functionName.GetQName(), 0));
+        return new FunctionCall(new NamedFunctionRef(functionName.GetQName(), null));
     }
 
     public static AbstractExpression CompileAst(Ast ast)
