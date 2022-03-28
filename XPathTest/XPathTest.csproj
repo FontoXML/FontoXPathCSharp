@@ -20,10 +20,4 @@
         </PackageReference>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="spec\expressions\AbsolutePathExpression.cs" />
-      <Folder Include="spec\parsing" />
-      <Folder Include="spec\types" />
-    </ItemGroup>
-
 </Project>

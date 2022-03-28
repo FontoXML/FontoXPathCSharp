@@ -3,6 +3,8 @@ using FontoXPathCSharp;
 using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 const string query = "test(self::p)";
 const string xml = "<p>Test</p>";
@@ -27,11 +29,13 @@ Console.WriteLine("\nResult:");
 var expr = CompileAstToExpression.CompileAst(result);
 var staticContext = new StaticContext();
 
-staticContext.RegisterFunctionDefinition(new FunctionProperties(0, (context, parameters, staticContext, args) =>
-{
-    Console.WriteLine("Called test function");
-    return new EmptySequence();
-}, "test", ""));
+staticContext.RegisterFunctionDefinition(new FunctionProperties(
+    new[] {new ParameterType(ValueType.Node, SequenceMultiplicity.ExactlyOne)}, 1,
+    (context, parameters, staticContext, args) =>
+    {
+        Console.WriteLine("Called test function");
+        return args[0];
+    }, "test", "", new SequenceType(ValueType.Node, SequenceMultiplicity.ExactlyOne)));
 
 expr.PerformStaticEvaluation(staticContext);
 Console.WriteLine(expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document)));

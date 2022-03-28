@@ -1,5 +1,5 @@
 using FontoXPathCSharp.Value;
-using ValueType = FontoXPathCSharp.Value.ValueType;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 

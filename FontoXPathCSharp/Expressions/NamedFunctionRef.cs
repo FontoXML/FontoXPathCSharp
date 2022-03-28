@@ -19,7 +19,9 @@ public class NamedFunctionRef : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        var functionItem = new FunctionValue<ISequence>(_arity, _functionProperties!.Value.CallFunction);
+        var functionProps = _functionProperties!.Value;
+        var functionItem = new FunctionValue<ISequence>(functionProps.ArgumentTypes, functionProps.Arity,
+            functionProps.CallFunction);
         return new SingletonSequence(functionItem);
     }
 

@@ -1,4 +1,6 @@
 using FontoXPathCSharp.Sequences;
+using FontoXPathCSharp.Value.Types;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
@@ -8,10 +10,13 @@ public delegate T FunctionSignature<out T>(DynamicContext? dynamicContext, Execu
 public class FunctionValue<T> : AbstractValue
 {
     public readonly FunctionSignature<T> Value;
+    private readonly ParameterType[] _argumentTypes;
     private readonly int _arity;
 
-    public FunctionValue(int arity, FunctionSignature<T> value) : base(ValueType.Function)
+    public FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T> value) : base(
+        ValueType.Function)
     {
+        _argumentTypes = argumentTypes;
         _arity = arity;
         Value = value;
     }

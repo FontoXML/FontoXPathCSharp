@@ -1,4 +1,4 @@
-namespace FontoXPathCSharp.Value;
+namespace FontoXPathCSharp.Value.Types;
 
 public enum ValueType
 {
@@ -6,5 +6,6 @@ public enum ValueType
     XsString,
     XsNumeric,
     Node,
-    Function
+    Function,
+    None,
 }

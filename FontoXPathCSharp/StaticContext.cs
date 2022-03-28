@@ -1,24 +1,27 @@
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp;
 
 public struct FunctionProperties
 {
+    public readonly ParameterType[] ArgumentTypes;
     public readonly int Arity;
     public readonly FunctionSignature<ISequence> CallFunction;
     public readonly string LocalName;
-
     public readonly string NamespaceUri;
-    // TODO: add argument and return types
+    public readonly SequenceType ReturnType;
 
-    public FunctionProperties(int arity, FunctionSignature<ISequence> callFunction, string localName,
-        string namespaceUri)
+    public FunctionProperties(ParameterType[] argumentTypes, int arity, FunctionSignature<ISequence> callFunction,
+        string localName, string namespaceUri, SequenceType returnType)
     {
+        ArgumentTypes = argumentTypes;
         Arity = arity;
         CallFunction = callFunction;
         LocalName = localName;
         NamespaceUri = namespaceUri;
+        ReturnType = returnType;
     }
 }
 

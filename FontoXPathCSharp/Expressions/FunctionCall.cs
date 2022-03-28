@@ -1,21 +1,23 @@
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
-using ValueType = FontoXPathCSharp.Value.ValueType;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
 public class FunctionCall : PossiblyUpdatingExpression
 {
+    private readonly AbstractExpression[] _argumentExpressions;
     private readonly int _callArity;
     private FunctionValue<ISequence>? _functionReference;
     private readonly AbstractExpression _functionReferenceExpression;
     private StaticContext? _staticContext;
 
-    public FunctionCall(AbstractExpression functionReferenceExpression) : base(
-        new[] {functionReferenceExpression} /* TODO: add arguments here */,
+    public FunctionCall(AbstractExpression functionReferenceExpression, AbstractExpression[] args) : base(
+        new[] {functionReferenceExpression}.Concat(args).ToArray(),
         new OptimizationOptions(false))
     {
-        _callArity = 0;
+        _argumentExpressions = args;
+        _callArity = args.Length;
         _functionReferenceExpression = functionReferenceExpression;
         _staticContext = null;
     }
@@ -25,7 +27,8 @@ public class FunctionCall : PossiblyUpdatingExpression
     {
         if (_functionReference != null)
         {
-            return _functionReference.Value(dynamicContext, executionParameters, null, Array.Empty<ISequence>());
+            return _functionReference.Value(dynamicContext, executionParameters, null,
+                _argumentExpressions.Select(x => x.Evaluate(dynamicContext, executionParameters)).ToArray());
         }
 
         // TODO: perform other evaluation

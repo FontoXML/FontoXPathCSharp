@@ -68,7 +68,13 @@ public static class CompileAstToExpression
         if (functionName == null)
             throw new InvalidDataException(ast.Name);
 
-        return new FunctionCall(new NamedFunctionRef(functionName.GetQName(), 0));
+        var args = ast.GetFirstChild("arguments")?.GetChildren("*");
+        if (args == null)
+            throw new InvalidDataException($"Missing args for {ast}");
+
+        var argExpressions = args.Select(CompileAst).ToArray();
+
+        return new FunctionCall(new NamedFunctionRef(functionName.GetQName(), args.Count()), argExpressions);
     }
 
     public static AbstractExpression CompileAst(Ast ast)

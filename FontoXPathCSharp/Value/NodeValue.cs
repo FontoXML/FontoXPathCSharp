@@ -1,4 +1,5 @@
 using System.Xml;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 

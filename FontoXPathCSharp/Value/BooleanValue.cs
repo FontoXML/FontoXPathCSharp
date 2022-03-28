@@ -1,3 +1,5 @@
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
+
 namespace FontoXPathCSharp.Value;
 
 public class BooleanValue : AbstractValue
