@@ -21,7 +21,7 @@ public class Evaluate
 		Dictionary<string, object>? variables, 
 		Options? options)
 	{
-		if (options == null) options = new Options();
+		options ??= new Options();
 
 		DynamicContext? dynamicContext = null;
 		AbstractExpression? expression = null;

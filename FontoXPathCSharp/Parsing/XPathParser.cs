@@ -3,6 +3,7 @@ using PrscSharp;
 using static PrscSharp.PrscSharp;
 using static FontoXPathCSharp.Parsing.NameParser;
 using static FontoXPathCSharp.Parsing.WhitespaceParser;
+using static FontoXPathCSharp.Parsing.LiteralParser;
 
 namespace FontoXPathCSharp.Parsing;
 
@@ -92,6 +93,24 @@ public static class XPathParser
         });
     }
 
+    private static ParseFunc<ParseResult<Ast>> Literal()
+    {
+        // TODO: add string literal
+        return Or(new[]
+        {
+            NumericLiteral(),
+        });
+    }
+
+    private static ParseFunc<ParseResult<Ast>> PrimaryExpr()
+    {
+        // TODO: add others
+        return Or(new[]
+        {
+            Literal(),
+        });
+    }
+
     private static ParseFunc<ParseResult<Ast>> StepExprWithForcedStep()
     {
         // TODO: add postfix expr with step
@@ -101,11 +120,29 @@ public static class XPathParser
         });
     }
 
+    private static ParseFunc<ParseResult<Ast>> PostfixExprWithoutStep()
+    {
+        return Followed(
+            PrimaryExpr(),
+            Peek(
+                // TODO: add predicate and lookup
+                Not(Preceded(Whitespace(), Or(new[] {ArgumentList()})),
+                    new[] {"Primary expression not followed by predicate, argumentList, or lookup"})
+            )
+        );
+    }
+
+    private static ParseFunc<ParseResult<Ast>> StepExprWithoutStep()
+    {
+        return PostfixExprWithoutStep();
+    }
+
     private static ParseFunc<ParseResult<Ast>> RelativePathExpr()
     {
         return Or(new[]
         {
             // TODO: add other variants
+            StepExprWithoutStep(),
             Map(StepExprWithForcedStep(), x =>
             {
                 var ast = new Ast("pathExpr");
@@ -185,7 +222,7 @@ public static class XPathParser
                     {
                         Children = arguments.ToList()
                     };
-                    
+
                     var ast = new Ast("functionCallExpr")
                     {
                         Children = new List<Ast>

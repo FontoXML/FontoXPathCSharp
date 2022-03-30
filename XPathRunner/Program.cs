@@ -6,12 +6,12 @@ using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-const string query = "test(self::p)";
+const string query = "12";
 const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");
 
-var parser = XPathParser.FunctionCall();
+var parser = XPathParser.ExprSingle();
 var result = parser(query, 0).UnwrapOr((expected, fatal) =>
 {
     Console.WriteLine("Parsing error ({0}): {1}", fatal, string.Join(", ", expected));
@@ -30,12 +30,17 @@ var expr = CompileAstToExpression.CompileAst(result);
 var staticContext = new StaticContext();
 
 staticContext.RegisterFunctionDefinition(new FunctionProperties(
-    new[] {new ParameterType(ValueType.Node, SequenceMultiplicity.ExactlyOne)}, 1,
+    new[]
+    {
+        new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne),
+        new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)
+    }, 2,
     (context, parameters, staticContext, args) =>
     {
         Console.WriteLine("Called test function");
-        return args[0];
-    }, "test", "", new SequenceType(ValueType.Node, SequenceMultiplicity.ExactlyOne)));
+        return new SingletonSequence(new IntValue(args[0].First().GetAs<IntValue>(ValueType.XsInteger).Value +
+                                                  args[1].First().GetAs<IntValue>(ValueType.XsInteger).Value));
+    }, "test", "", new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)));
 
 expr.PerformStaticEvaluation(staticContext);
 Console.WriteLine(expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document)));
