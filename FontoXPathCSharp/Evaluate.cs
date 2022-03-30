@@ -1,4 +1,6 @@
 using System.Xml;
+using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Types.Node;
@@ -8,26 +10,47 @@ namespace FontoXPathCSharp;
 
 public class Evaluate
 {
+    public static bool EvaluateXPathToBoolean<TSelectorType>(TSelectorType selector, IExternalValue? contextItem,
+        IDomFacade? domFacade, Dictionary<string, IExternalValue> variables, Options? options)
+    {
+        return EvaluateXPath<bool, bool, TSelectorType>(selector, contextItem, domFacade, variables, options);
+    }
 
-	public static bool EvaluateXPathToBoolean(string selector, AbstractValue? contextItem, XmlNode? domFacade, Dictionary<string, object> variables, Options? options)
-	{
-		return EvaluateXPath<bool, bool>(selector, contextItem, domFacade, variables, options);
-	}
-	
-	public static TReturnType EvaluateXPath<TNode, TReturnType>(
-		string selector, 
-		AbstractValue? contextItem, 
-		XmlNode? domFacade, 
-		Dictionary<string, object>? variables, 
-		Options? options)
-	{
-		options ??= new Options();
+    public static TReturn EvaluateXPath<TNode, TReturn, TSelector>(
+        TSelector selector,
+        IExternalValue? contextItem,
+        IDomFacade? domFacade,
+        Dictionary<string, IExternalValue>? variables,
+        Options? options)
+    {
+        options ??= new Options();
 
-		DynamicContext? dynamicContext = null;
-		AbstractExpression? expression = null;
+        DynamicContext? dynamicContext = null;
+        ExecutionParameters? executionParameters = null;
+        AbstractExpression? expression = null;
 
-		throw new NotImplementedException();
-	}
+        try
+        {
+            var context = new EvaluationContext<TSelector>(
+	            selector,
+                contextItem,
+	            domFacade,
+	            variables,
+	            options,
+	            new CompilationOptions(
+		            options.LanguageId == Language.LanguageID.XQUERY_UPDATE_3_1_LANGUAGE, 
+		            (options.LanguageId == Language.LanguageID.XQUERY_3_1_LANGUAGE || options.LanguageId == Language.LanguageID.XQUERY_UPDATE_3_1_LANGUAGE),
+		            options.Debug,
+		            options.DisableCache));
+        }
+        catch(Exception ex)
+        {
+	        Console.WriteLine("Error with selector: " + selector);
+            throw;
+        }
+
+        throw new NotImplementedException();
+    }
 }
 
 /**
