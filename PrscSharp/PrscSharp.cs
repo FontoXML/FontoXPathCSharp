@@ -46,7 +46,19 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<T?>> Optional<T>(ParseFunc<ParseResult<T>> parser)
+    public static ParseFunc<ParseResult<T?>> Optional<T>(ParseFunc<ParseResult<T>> parser) where T : class
+    {
+        return (input, offset) =>
+        {
+            var result = parser(input, offset);
+            return result.Match(
+                value => new Ok<T?>(result.Offset, value),
+                (_, _) => new Ok<T?>(result.Offset, null)
+            );
+        };
+    }
+
+    public static ParseFunc<ParseResult<T?>> OptionalDefaultValue<T>(ParseFunc<ParseResult<T>> parser) where T : struct
     {
         return (input, offset) =>
         {
@@ -86,7 +98,7 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<T>> Or<T>(ParseFunc<ParseResult<T>>[] parsers)
+    public static ParseFunc<ParseResult<T>> Or<T>(params ParseFunc<ParseResult<T>>[] parsers)
     {
         return (input, offset) =>
         {
@@ -131,10 +143,10 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<T>> Then<T1, T2, T>(
+    public static ParseFunc<ParseResult<TR>> Then<T1, T2, TR>(
         ParseFunc<ParseResult<T1>> parser1,
         ParseFunc<ParseResult<T2>> parser2,
-        Func<T1, T2, T> join)
+        Func<T1, T2, TR> join)
     {
         return (input, offset) =>
         {
@@ -142,14 +154,14 @@ public static class PrscSharp
             if (!r1.IsOk())
             {
                 var r1Err = (Err<T1>) r1;
-                return new Err<T>(r1Err.Offset, r1Err.Expected);
+                return new Err<TR>(r1Err.Offset, r1Err.Expected);
             }
 
             var r2 = parser2(input, r1.Offset);
-            if (r2.IsOk()) return new Ok<T>(r2.Offset, join(r1.Unwrap(), r2.Unwrap()));
+            if (r2.IsOk()) return new Ok<TR>(r2.Offset, join(r1.Unwrap(), r2.Unwrap()));
 
             var r2Err = (Err<T2>) r2;
-            return new Err<T>(r2Err.Offset, r2Err.Expected);
+            return new Err<TR>(r2Err.Offset, r2Err.Expected);
         };
     }
 
@@ -165,7 +177,7 @@ public static class PrscSharp
     {
         return Then(before, parser, (_, x) => x);
     }
-
+    
     public static ParseFunc<ParseResult<T>> Followed<T, TAfter>(
         ParseFunc<ParseResult<T>> parser,
         ParseFunc<ParseResult<TAfter>> after
@@ -189,7 +201,7 @@ public static class PrscSharp
     {
         return Preceded(before, Followed(parser, after));
     }
-    
+
     public static ParseFunc<ParseResult<T>> Surrounded<T, TAround>(
         ParseFunc<ParseResult<T>> parser,
         ParseFunc<ParseResult<TAround>> around)
