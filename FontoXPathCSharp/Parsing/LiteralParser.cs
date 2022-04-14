@@ -12,7 +12,7 @@ public class LiteralParser
 
     private static ParseFunc<ParseResult<Ast>> IntegerLiteral()
     {
-        return Map(Digits(), d => new Ast("integerConstantExpr")
+        return Map(Digits(), d => new Ast(AstNodeName.IntegerConstantExpr)
         {
             StringAttributes =
             {

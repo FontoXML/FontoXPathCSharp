@@ -13,7 +13,7 @@ public class QName
         Prefix = prefix ?? "";
     }
 
-    public Ast GetAst(string name)
+    public Ast GetAst(AstNodeName name)
     {
         var ast = new Ast(name)
         {

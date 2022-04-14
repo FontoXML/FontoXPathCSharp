@@ -5,7 +5,7 @@ namespace FontoXPathCSharp.Parsing;
 
 public static class WhitespaceParser
 {
-    private static ParseFunc<ParseResult<string>> WhitespaceCharacter()
+    public static ParseFunc<ParseResult<string>> WhitespaceCharacter()
     {
         return Or(new[]
         {
