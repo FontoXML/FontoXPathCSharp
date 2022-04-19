@@ -17,10 +17,13 @@ public abstract class AbstractExpression
     public readonly bool CanBeStaticallyEvaluated;
     private readonly AbstractExpression[] _childExpressions;
 
+    public bool IsUpdating;
+    
     protected AbstractExpression(AbstractExpression[] childExpressions, OptimizationOptions optimizationOptions)
     {
         _childExpressions = childExpressions;
         CanBeStaticallyEvaluated = optimizationOptions.CanBeStaticallyEvaluated;
+        IsUpdating = false;
     }
 
     public abstract ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters);

@@ -1,13 +1,17 @@
 using System.Xml;
 using FontoXPathCSharp.DocumentWriter;
-using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
+using FontoXPathCSharp.DomFacade;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
 public class EvaluationContext<TSelector>
 {
+    private DynamicContext _dynamicContext;
+    private ExecutionParameters _executionParameters;
+    private AbstractExpression _abstractExpression;
+    
     public EvaluationContext(
         TSelector selector,
         IExternalValue? contextItem,
@@ -36,5 +40,12 @@ public class EvaluationContext<TSelector>
                 FunctionNameResolver = null,
                 NodesFactory = null,
             };
+
+        DomFacade wrappedDomFacade = new DomFacade(domFacade);
+        
+        
     }
+    public DynamicContext DynamicContext => _dynamicContext;
+    public ExecutionParameters ExecutionParameters => _executionParameters;
+    public AbstractExpression Expression => _abstractExpression;
 }
