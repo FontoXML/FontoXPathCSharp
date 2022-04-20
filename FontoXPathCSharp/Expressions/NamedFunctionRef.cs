@@ -34,7 +34,7 @@ public class NamedFunctionRef : AbstractExpression
         }
 
         _functionProperties =
-            staticContext.LookupFunction(_functionReference.NamespaceUri, _functionReference.LocalName, _arity);
+            staticContext.LookupFunction(_functionReference.NamespaceUri, _functionReference.LocalName, _arity, false);
 
         base.PerformStaticEvaluation(staticContext);
     }

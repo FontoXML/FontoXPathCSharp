@@ -1,3 +1,4 @@
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -24,26 +25,43 @@ public struct FunctionProperties
         ReturnType = returnType;
     }
 }
-
-public class StaticContext
+public class StaticContext : AbstractContext
 {
+    private readonly AbstractContext _parentContext;
+
+    private int _scopeDepth;
+    private int _scopeCount;
+
+    private Dictionary<string, string>[] _registeredNamespaceURIByPrefix;
     private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
 
-    public StaticContext()
+    public StaticContext(AbstractContext parentContext)
     {
+        _parentContext = parentContext;
+
+        _scopeDepth = 0;
+        _scopeCount = 0;
+
+        _registeredNamespaceURIByPrefix = new[]
+        {
+            new Dictionary<string, string>()
+        };
+
         _registeredFunctionsByHash = new Dictionary<string, FunctionProperties>();
+
+        registeredDefaultFunctionNamespaceURI = null;
+        registeredVariableDeclarationByHashKey = parentContext.RegisteredVariableDeclarationByHashKey;
+        registeredVariableBindingByHashKey = parentContext.RegisteredVariableBindingByHashKey;
     }
 
     public StaticContext Clone()
     {
-        var staticContext = new StaticContext
-        {
-            _registeredFunctionsByHash = _registeredFunctionsByHash.ToDictionary(e => e.Key, e => e.Value)
-        };
-        return staticContext;
+        var contextAtThisPoint = new StaticContext(_parentContext);
+        contextAtThisPoint._registeredFunctionsByHash = _registeredFunctionsByHash.ToDictionary(e => e.Key, e => e.Value);
+        return contextAtThisPoint;
     }
 
-    public FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity)
+    public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity, bool skipExternal)
     {
         var hashKey = $"Q{{{namespaceUri ?? ""}}}{localName}";
 
@@ -54,6 +72,28 @@ public class StaticContext
 
         // TODO: look in parent context
         return null;
+    }
+    public override string? LookupVariable(string? namespaceUri, string localName)
+    {
+        throw new NotImplementedException("LookupVariable Not Yet Implemented for StaticContext");
+    }
+    public override ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity)
+    {
+        throw new NotImplementedException("ResolveFunctionName Not Yet Implemented for StaticContext");
+    }
+    public override string? ResolveNamespace(string prefix, bool useExternalResolver)
+    {
+        throw new NotImplementedException("ResolveNamespace Not Yet Implemented for StaticContext");
+    }
+
+    public void RegisterNamespace(string prefix, string namespaceUri)
+    {
+        _registeredNamespaceURIByPrefix[_scopeDepth][prefix] = namespaceUri;
+    }
+
+    public void EnhanceWithModule(string uri)
+    {
+        throw new NotImplementedException("enhanceStaticContextWithModule not implemented yet.");
     }
 
     public void RegisterFunctionDefinition(FunctionProperties properties)
