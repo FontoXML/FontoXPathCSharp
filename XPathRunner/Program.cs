@@ -11,7 +11,7 @@ const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");
 
-var result = XPathParser.QueryBody(query, 0).UnwrapOr((expected, fatal) =>
+var result = XPathParser.PrimaryExpr(query, 0).UnwrapOr((expected, fatal) =>
 {
     Console.WriteLine("Parsing error ({0}): {1}", fatal, string.Join(", ", expected));
     Environment.Exit(1);
