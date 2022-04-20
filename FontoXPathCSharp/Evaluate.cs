@@ -3,7 +3,6 @@ using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
-using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp;
@@ -32,37 +31,37 @@ public class Evaluate
         try
         {
             var context = new EvaluationContext<TSelector>(
-	            selector,
+                selector,
                 contextItem,
-	            domFacade,
-	            variables,
-	            options,
-	            new CompilationOptions(
-		            options.LanguageId == Language.LanguageID.XQUERY_UPDATE_3_1_LANGUAGE, 
-		            options.LanguageId is Language.LanguageID.XQUERY_3_1_LANGUAGE or Language.LanguageID.XQUERY_UPDATE_3_1_LANGUAGE,
-		            options.Debug,
-		            options.DisableCache));
+                domFacade,
+                variables,
+                options,
+                new CompilationOptions(
+                    options.LanguageId == Language.LanguageID.XQUERY_UPDATE_3_1_LANGUAGE,
+                    options.LanguageId is Language.LanguageID.XQUERY_3_1_LANGUAGE
+                        or Language.LanguageID.XQUERY_UPDATE_3_1_LANGUAGE,
+                    options.Debug,
+                    options.DisableCache));
             dynamicContext = context.DynamicContext;
             executionParameters = context.ExecutionParameters;
             expression = context.Expression;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-	        Console.WriteLine("Error with selector: " + selector);
+            Console.WriteLine("Error with selector: " + selector);
             throw;
         }
 
         if (expression.IsUpdating)
         {
-	        throw new Exception(
-		        "XUST0001: Updating expressions should be evaluated as updating expressions"
-	        );
+            throw new Exception(
+                "XUST0001: Updating expressions should be evaluated as updating expressions"
+            );
         }
 
 
         if (typeof(TReturn) == typeof(bool) && contextItem != null /* add check to see if nodeType is in contextItem*/)
         {
-	        
         }
 
         throw new NotImplementedException();

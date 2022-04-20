@@ -8,5 +8,5 @@ public enum ValueType
     Node,
     Function,
     None,
-    XsInteger,
+    XsInteger
 }

@@ -12,6 +12,16 @@ public class SingletonSequence : ISequence, IEnumerable<AbstractValue>
         _onlyValue = onlyValue;
     }
 
+    public IEnumerator<AbstractValue> GetEnumerator()
+    {
+        return new[] {_onlyValue}.ToList().GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
     public bool IsEmpty()
     {
         return false;
@@ -35,15 +45,5 @@ public class SingletonSequence : ISequence, IEnumerable<AbstractValue>
     public override string ToString()
     {
         return "<SingletonSequence>[" + _onlyValue + "]";
-    }
-
-    public IEnumerator<AbstractValue> GetEnumerator()
-    {
-        return new[] {_onlyValue}.ToList().GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
     }
 }

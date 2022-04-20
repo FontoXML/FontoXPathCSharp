@@ -28,10 +28,8 @@ public class NamedFunctionRef : AbstractExpression
     public override void PerformStaticEvaluation(StaticContext staticContext)
     {
         if (_functionReference.NamespaceUri == null)
-        {
             // TODO: resolve function name
             throw new NotImplementedException();
-        }
 
         _functionProperties =
             staticContext.LookupFunction(_functionReference.NamespaceUri, _functionReference.LocalName, _arity, false);

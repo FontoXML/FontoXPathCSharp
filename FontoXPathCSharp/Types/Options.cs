@@ -80,10 +80,10 @@ public class Options
 
     public NamespaceResolverFunc? NamespaceResolver { get; set; } = null;
     public FunctionNameResolverFunc? FunctionNameResolver { get; set; } = null;
-    
-    public INodesFactory? NodesFactory { get; set; } = null ;
-    
-    public LoggingFunc? Logger  { get; set; } = null;
+
+    public INodesFactory? NodesFactory { get; set; } = null;
+
+    public LoggingFunc? Logger { get; set; } = null;
 
     public Options(
         bool debug = false,
@@ -95,7 +95,7 @@ public class Options
         Dictionary<string, string>? moduleImports = null,
         NamespaceResolverFunc? namespaceResolver = null,
         FunctionNameResolverFunc? functionNameResolver = null
-        )
+    )
     {
         CurrentContext = currentContext;
         Debug = debug;
@@ -115,7 +115,7 @@ public class CompilationOptions
     public bool AllowXQuery;
     public bool Debug;
     public bool DisableCache;
-    
+
     public CompilationOptions(bool allowUpdating, bool allowXQuery, bool debug, bool disableCache)
     {
         AllowUpdating = allowUpdating;

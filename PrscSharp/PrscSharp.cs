@@ -177,7 +177,7 @@ public static class PrscSharp
     {
         return Then(before, parser, (_, x) => x);
     }
-    
+
     public static ParseFunc<ParseResult<T>> Followed<T, TAfter>(
         ParseFunc<ParseResult<T>> parser,
         ParseFunc<ParseResult<TAfter>> after

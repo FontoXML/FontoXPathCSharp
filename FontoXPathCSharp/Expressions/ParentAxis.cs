@@ -16,10 +16,7 @@ public class ParentAxis : AbstractExpression
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
         var parentNode = executionParameters?.DomFacade.ParentNode;
-        if (parentNode == null)
-        {
-            return new EmptySequence();
-        }
+        if (parentNode == null) return new EmptySequence();
 
         // TODO: we technically need a pointer to parentNode here
         var isMatch =

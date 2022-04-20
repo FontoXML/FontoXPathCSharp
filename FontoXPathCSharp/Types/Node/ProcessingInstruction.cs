@@ -2,6 +2,6 @@ namespace FontoXPathCSharp.Types.Node;
 
 public abstract class ProcessingInstruction
 {
-    string nodeName;
-    string target;
+    private string nodeName;
+    private string target;
 }

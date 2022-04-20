@@ -1,5 +1,4 @@
 using FontoXPathCSharp.Value;
-using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp;
 
@@ -66,6 +65,7 @@ public enum AstNodeName
     Operand,
     UnaryMinusOp,
     UnaryPlusOp,
+    Value,
     All // *
 }
 
@@ -92,7 +92,10 @@ public class Ast
         TextContent = "";
     }
 
-    public Ast? GetFirstChild() => GetFirstChild(AstNodeName.All);
+    public Ast? GetFirstChild()
+    {
+        return GetFirstChild(AstNodeName.All);
+    }
 
     public Ast? GetFirstChild(AstNodeName name)
     {
@@ -128,6 +131,8 @@ public class Ast
             StringAttributes.ContainsKey("prefix") ? StringAttributes["prefix"] : null);
     }
 
+    // NOTE: This might be a bit weird as it does not result in the expected behaviour. This should
+    // probably be changed into a different function or operator.
     public static bool operator ==(Ast ast, AstNodeName name)
     {
         return ast.Name == name;

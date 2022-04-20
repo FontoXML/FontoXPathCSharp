@@ -8,8 +8,8 @@ public class FunctionCall : PossiblyUpdatingExpression
 {
     private readonly AbstractExpression[] _argumentExpressions;
     private readonly int _callArity;
-    private FunctionValue<ISequence>? _functionReference;
     private readonly AbstractExpression _functionReferenceExpression;
+    private FunctionValue<ISequence>? _functionReference;
     private StaticContext? _staticContext;
 
     public FunctionCall(AbstractExpression functionReferenceExpression, AbstractExpression[] args) : base(
@@ -26,10 +26,8 @@ public class FunctionCall : PossiblyUpdatingExpression
         ExecutionParameters? executionParameters)
     {
         if (_functionReference != null)
-        {
             return _functionReference.Value(dynamicContext, executionParameters, null,
                 _argumentExpressions.Select(x => x.Evaluate(dynamicContext, executionParameters)).ToArray());
-        }
 
         // TODO: perform other evaluation
         throw new NotImplementedException();
@@ -44,10 +42,7 @@ public class FunctionCall : PossiblyUpdatingExpression
         if (_functionReferenceExpression.CanBeStaticallyEvaluated)
         {
             var functionRefSequence = _functionReferenceExpression.EvaluateMaybeStatically(null, null);
-            if (!functionRefSequence.IsSingleton())
-            {
-                throw new XPathException("XPTY0004");
-            }
+            if (!functionRefSequence.IsSingleton()) throw new XPathException("XPTY0004");
 
             _functionReference = ValidateFunctionItem<ISequence>(functionRefSequence.First()!, _callArity);
 
@@ -59,15 +54,9 @@ public class FunctionCall : PossiblyUpdatingExpression
     {
         var functionItem = item.GetAs<FunctionValue<T>>(ValueType.Function);
 
-        if (functionItem == null)
-        {
-            throw new XPathException("Expected base expression to evaluate to a function item");
-        }
+        if (functionItem == null) throw new XPathException("Expected base expression to evaluate to a function item");
 
-        if (functionItem.GetArity() != callArity)
-        {
-            throw new XPathException("XPTY0004");
-        }
+        if (functionItem.GetArity() != callArity) throw new XPathException("XPTY0004");
 
         return functionItem;
     }
