@@ -1,5 +1,7 @@
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp;
 
@@ -10,7 +12,7 @@ public static class CompileAstToExpression
         return ast.Name switch
         {
             AstNodeName.NameTest => new NameTest(new QName(ast.TextContent, null, null)),
-            _ => throw new InvalidDataException(ast.Name.ToString())
+            _ => throw new XPathException("Invalid test expression: " + ast.Name)
         };
     }
 
@@ -22,6 +24,7 @@ public static class CompileAstToExpression
 
             if (axis == null)
                 throw new NotImplementedException();
+
             var test = step.GetFirstChild(new[]
             {
                 AstNodeName.AttributeTest,
@@ -42,12 +45,12 @@ public static class CompileAstToExpression
                 AstNodeName.TypedMapTest,
                 AstNodeName.TypedArrayTest,
                 AstNodeName.NameTest,
-                AstNodeName.Wildcard,
+                AstNodeName.Wildcard
             });
 
 
             if (test == null)
-                throw new InvalidOperationException("No test found in path expression axis");
+                throw new XPathException("No test found in path expression axis");
 
             var testExpression = CompileTestExpression(test);
 
@@ -77,12 +80,20 @@ public static class CompileAstToExpression
         return new FunctionCall(new NamedFunctionRef(functionName.GetQName(), args.Count()), argExpressions);
     }
 
+    private static AbstractExpression CompileIntegerConstantExpression(Ast ast)
+    {
+        return new Literal(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
+            new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne));
+    }
+
     public static AbstractExpression CompileAst(Ast ast)
     {
         return ast.Name switch
         {
+            AstNodeName.QueryBody => CompileAst(ast.GetFirstChild()!),
             AstNodeName.PathExpr => CompilePathExpression(ast),
             AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast),
+            AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
     }

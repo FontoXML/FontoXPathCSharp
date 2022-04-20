@@ -1,11 +1,12 @@
-using System.Reflection.Metadata;
 using System.Xml;
 
 namespace FontoXPathCSharp.Types.Node;
 
 public abstract class Document : Node
 {
-    public Document(string namespaceUri, string qualifiedNameStr, XmlNodeType documentType) { }
+    public Document(string namespaceUri, string qualifiedNameStr, XmlNodeType documentType)
+    {
+    }
 
     public abstract Attr CreateAttributeNS(string namespaceUri, string name);
     public abstract CDATASection CreateCDATASection(string contents);

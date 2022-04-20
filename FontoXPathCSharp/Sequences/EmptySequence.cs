@@ -1,6 +1,6 @@
-namespace FontoXPathCSharp.Sequences;
+using FontoXPathCSharp.Value;
 
-using Value;
+namespace FontoXPathCSharp.Sequences;
 
 public class EmptySequence : ISequence
 {

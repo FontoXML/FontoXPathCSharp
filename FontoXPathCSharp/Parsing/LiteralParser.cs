@@ -1,31 +1,67 @@
 using PrscSharp;
 using static PrscSharp.PrscSharp;
+using static FontoXPathCSharp.Parsing.WhitespaceParser;
 
 namespace FontoXPathCSharp.Parsing;
 
 public class LiteralParser
 {
-    private static ParseFunc<ParseResult<string>> Digits()
-    {
-        return Regex(@"[0-9]+");
-    }
+    public static readonly ParseFunc<ParseResult<string>> AssertAdjacentOpeningTerminal =
+        Peek(Or(
+            Token("("), Token("\""), Token("'"), WhitespaceCharacter));
 
-    private static ParseFunc<ParseResult<Ast>> IntegerLiteral()
-    {
-        return Map(Digits(), d => new Ast(AstNodeName.IntegerConstantExpr)
-        {
-            StringAttributes =
+    public static readonly ParseFunc<ParseResult<string>> ForwardAxis =
+        Map(Or(
+            Token("self::")
+            // TODO: add other variants
+        ), x => x[..^2]);
+
+    private static readonly ParseFunc<ParseResult<string>> Digits =
+        Regex(@"[0-9]+");
+
+    private static readonly ParseFunc<ParseResult<Ast>> IntegerLiteral =
+        Map(Digits, d =>
+            new Ast(AstNodeName.IntegerConstantExpr, new Ast(AstNodeName.Value)
             {
-                ["value"] = d
-            }
-        });
-    }
+                TextContent = d
+            }));
 
-    public static ParseFunc<ParseResult<Ast>> NumericLiteral()
-    {
-        return Followed(
-            Or(new[] {IntegerLiteral()}),
+    public static readonly ParseFunc<ParseResult<Ast>> NumericLiteral =
+        Followed(
+            Or(IntegerLiteral),
             Peek(Not(Regex(@"[a-z][A-Z]"), new[] {"No alphabetic characters after numeric literal"}))
         );
-    }
+
+    public static readonly ParseFunc<ParseResult<string>> ReservedFunctionNames =
+        Or(new[]
+        {
+            "array",
+            "attribute",
+            "comment",
+            "document-node",
+            "element",
+            "empty-sequence",
+            "function",
+            "if",
+            "item",
+            "map",
+            "namespace-node",
+            "node",
+            "processing-instruction",
+            "schema-attribute",
+            "schema-element",
+            "switch",
+            "text",
+            "typeswitch"
+        }.Select(Token).ToArray());
+
+    public static readonly ParseFunc<ParseResult<Ast>> LocationPathAbbreviation =
+        Map(Token("//"), _ =>
+            // TODO: convert descendant-or-self to enum
+            new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis)
+                {
+                    TextContent = "descendant-or-self"
+                },
+                new Ast(AstNodeName.AnyKindTest))
+        );
 }

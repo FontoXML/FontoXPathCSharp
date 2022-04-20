@@ -6,7 +6,8 @@ public class SelfAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _selector;
 
-    public SelfAxis(AbstractTestExpression selector) : base(new AbstractExpression[] {selector}, new OptimizationOptions(false))
+    public SelfAxis(AbstractTestExpression selector) : base(new AbstractExpression[] {selector},
+        new OptimizationOptions(false))
     {
         _selector = selector;
     }

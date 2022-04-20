@@ -4,9 +4,9 @@ namespace FontoXPathCSharp.Types;
 
 public class Options
 {
-    bool annotateAst;
-    AbstractValue? currentContext;
-    bool debug;
-    string defaultFunctionNamespaceURI;
-    bool disableCache;
+    private bool annotateAst;
+    private AbstractValue? currentContext;
+    private bool debug;
+    private string defaultFunctionNamespaceURI;
+    private bool disableCache;
 }

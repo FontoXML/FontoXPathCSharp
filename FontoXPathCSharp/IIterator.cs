@@ -23,7 +23,7 @@ public enum IterationHint
     SkipDescendants = 1 << 0
 }
 
-public interface IIterator<T> where T: class
+public interface IIterator<T> where T : class
 {
     public IteratorResult<T> Next(IterationHint hint);
 }

@@ -47,10 +47,7 @@ public class StaticContext
     {
         var hashKey = $"Q{{{namespaceUri ?? ""}}}{localName}";
 
-        if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction))
-        {
-            return foundFunction;
-        }
+        if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction)) return foundFunction;
 
         // TODO: look in parent context
         return null;
@@ -58,12 +55,10 @@ public class StaticContext
 
     public void RegisterFunctionDefinition(FunctionProperties properties)
     {
-        var hashKey = $"Q{{{properties.NamespaceUri ?? ""}}}{properties.LocalName}";
+        var hashKey = $"Q{{{properties.NamespaceUri}}}{properties.LocalName}";
 
         if (_registeredFunctionsByHash.ContainsKey(hashKey))
-        {
             throw new XPathException($"XQT0049 {properties.NamespaceUri} {properties.LocalName}");
-        }
 
         _registeredFunctionsByHash[hashKey] = properties;
     }

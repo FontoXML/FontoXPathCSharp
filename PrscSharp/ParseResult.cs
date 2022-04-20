@@ -59,8 +59,8 @@ public class Ok<T> : ParseResult<T>
 
 public class Err<T> : ParseResult<T>
 {
-    public string[] Expected;
     public readonly bool Fatal;
+    public string[] Expected;
 
     public Err(int offset, string[] expected, bool fatal = false) : base(offset)
     {

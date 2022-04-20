@@ -14,8 +14,8 @@ public struct OptimizationOptions
 
 public abstract class AbstractExpression
 {
-    public readonly bool CanBeStaticallyEvaluated;
     private readonly AbstractExpression[] _childExpressions;
+    public readonly bool CanBeStaticallyEvaluated;
 
     protected AbstractExpression(AbstractExpression[] childExpressions, OptimizationOptions optimizationOptions)
     {
@@ -27,10 +27,7 @@ public abstract class AbstractExpression
 
     public ISequence EvaluateMaybeStatically(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        if (dynamicContext?.ContextItem == null)
-        {
-            return Evaluate(dynamicContext, executionParameters);
-        }
+        if (dynamicContext?.ContextItem == null) return Evaluate(dynamicContext, executionParameters);
 
         if (CanBeStaticallyEvaluated)
         {
@@ -42,10 +39,7 @@ public abstract class AbstractExpression
 
     public virtual void PerformStaticEvaluation(StaticContext staticContext)
     {
-        foreach (var expression in _childExpressions)
-        {
-            expression.PerformStaticEvaluation(staticContext);
-        }
+        foreach (var expression in _childExpressions) expression.PerformStaticEvaluation(staticContext);
 
         // TODO: make sure child expressions are not updating if we cannot be updating
     }

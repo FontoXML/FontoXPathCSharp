@@ -9,9 +9,9 @@ public delegate T FunctionSignature<out T>(DynamicContext? dynamicContext, Execu
 
 public class FunctionValue<T> : AbstractValue
 {
-    public readonly FunctionSignature<T> Value;
     private readonly ParameterType[] _argumentTypes;
     private readonly int _arity;
+    public readonly FunctionSignature<T> Value;
 
     public FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T> value) : base(
         ValueType.Function)

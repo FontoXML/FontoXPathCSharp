@@ -1,33 +1,32 @@
 using System.Xml;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
-using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp;
 
 public class Evaluate
 {
+    public static bool EvaluateXPathToBoolean(string selector, AbstractValue? contextItem, XmlNode? domFacade,
+        Dictionary<string, object> variables, Options? options)
+    {
+        return EvaluateXPath<bool, bool>(selector, contextItem, domFacade, variables, options);
+    }
 
-	public static bool EvaluateXPathToBoolean(string selector, AbstractValue? contextItem, XmlNode? domFacade, Dictionary<string, object> variables, Options? options)
-	{
-		return EvaluateXPath<bool, bool>(selector, contextItem, domFacade, variables, options);
-	}
-	
-	public static TReturnType EvaluateXPath<TNode, TReturnType>(
-		string selector, 
-		AbstractValue? contextItem, 
-		XmlNode? domFacade, 
-		Dictionary<string, object>? variables, 
-		Options? options)
-	{
-		options ??= new Options();
+    public static TReturnType EvaluateXPath<TNode, TReturnType>(
+        string selector,
+        AbstractValue? contextItem,
+        XmlNode? domFacade,
+        Dictionary<string, object>? variables,
+        Options? options)
+    {
+        options ??= new Options();
 
-		DynamicContext? dynamicContext = null;
-		AbstractExpression? expression = null;
+        DynamicContext? dynamicContext = null;
+        AbstractExpression? expression = null;
 
-		throw new NotImplementedException();
-	}
+        throw new NotImplementedException();
+    }
 }
 
 /**

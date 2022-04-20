@@ -6,7 +6,7 @@ namespace FontoXPathCSharp.Parsing;
 public static class WhitespaceParser
 {
     public static readonly ParseFunc<ParseResult<string>> WhitespaceCharacter =
-        Or(new [] {Token(" ")});
+        Or(Token(" "));
 
     private static readonly ParseFunc<ParseResult<string>> ExplicitWhitespace =
         Map(Plus(Token(" ")), x => string.Join("", x));

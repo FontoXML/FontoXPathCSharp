@@ -13,7 +13,7 @@ public abstract class PossiblyUpdatingExpression : UpdatingExpression
     {
         return PerformFunctionalEvaluation(dynamicContext, executionParameters);
     }
-    
+
     public abstract ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
         ExecutionParameters? executionParameters /*, SequenceCallbacks sequenceCallbacks TODO: add sequenceCallbacks */);
 
