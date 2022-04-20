@@ -15,7 +15,7 @@ public static class XPathParser
     {
         return Then(
             expr,
-            Star(Then(Surrounded(op, Whitespace()), expr, (a, b) => (a, b))),
+            Star(Then(Surrounded(op, Whitespace), expr, (a, b) => (a, b))),
             constructionFn
         );
     }
@@ -34,7 +34,7 @@ public static class XPathParser
         return Then(
             expr,
             OptionalDefaultValue(Then(
-                Surrounded(op, Whitespace()),
+                Surrounded(op, Whitespace),
                 expr,
                 (a, b) => (a, b)
             )),
@@ -71,11 +71,10 @@ public static class XPathParser
         return Map(Or(tokenNames.Select(Token).ToArray()), _ => aliasedValue);
     }
 
-    private static ParseFunc<ParseResult<string>> AssertAdjacentOpeningTerminal()
-    {
-        return Peek(Or(
-            Token("("), Token("\""), Token("'"), WhitespaceCharacter()));
-    }
+    private static readonly ParseFunc<ParseResult<string>> AssertAdjacentOpeningTerminal =
+        Peek(Or(
+            Token("("), Token("\""), Token("'"), WhitespaceCharacter));
+
 
     private static readonly ParseFunc<ParseResult<string>> ForwardAxis =
         Map(Or(
@@ -99,9 +98,11 @@ public static class XPathParser
     private static readonly ParseFunc<ParseResult<QName>> EqName = Or(QName);
 
     // TODO: add wildcard
-    private static readonly ParseFunc<ParseResult<Ast>> NameTest =
+    public static readonly ParseFunc<ParseResult<Ast>> NameTest =
         Map(EqName, x =>
-            new Ast(AstNodeName.NameTest)
+        {
+            Console.WriteLine(x);
+            return new Ast(AstNodeName.NameTest)
             {
                 StringAttributes =
                 {
@@ -109,7 +110,8 @@ public static class XPathParser
                     ["prefix"] = x.Prefix
                 },
                 TextContent = x.LocalName
-            });
+            };
+        });
 
     // TODO: add kindTest
     private static readonly ParseFunc<ParseResult<Ast>> NodeTest = Or(NameTest);
@@ -131,14 +133,9 @@ public static class XPathParser
     private static readonly ParseFunc<ParseResult<Ast>> Literal =
         Or(NumericLiteral());
 
-    private static ParseFunc<ParseResult<Ast>> PrimaryExpr()
-    {
-        // TODO: add others
-        return
-            Or(Literal, FunctionCall);
-    }
+    // TODO: add others
+    public static readonly ParseFunc<ParseResult<Ast>> PrimaryExpr = Or(new [] {FunctionCall});
 
-    
     // TODO: add argumentPlaceholder
     private static readonly ParseFunc<ParseResult<Ast>> Argument =
         ExprSingle;
@@ -149,30 +146,33 @@ public static class XPathParser
                 Token("("),
                 Surrounded(
                     Optional(
-                        Then(Argument,
-                            Star(Preceded(Surrounded(Token(","), Whitespace()), Argument)),
-                            (first, following) => following.Prepend(first).ToArray())
+                        Token("AAAAAA")
+                        // Argument
+                        // Then(Argument,
+                        //     Star(Preceded(Surrounded(Token(","), Whitespace), Argument)),
+                        //     (first, following) => following.Prepend(first).ToArray())
                     ),
-                    Whitespace()
+                    Whitespace
                 ),
                 Token(")")
             ),
-            x => x ?? Array.Empty<Ast>()
+            // x => x ?? Array.Empty<Ast>()
+            _ => Array.Empty<Ast>()
         );
 
     private static readonly ParseFunc<ParseResult<Ast>> Predicate =
-        Delimited(Token("["), Surrounded(Expr(), Whitespace()), Token("]"));
+        Delimited(Token("["), Surrounded(Expr(), Whitespace), Token("]"));
 
     private static readonly ParseFunc<ParseResult<Ast>> PostfixExprWithStep =
         Then(
-            Map(PrimaryExpr(), x => /* TODO: Wrap in sequence expr if needed */ x),
+            Map(PrimaryExpr, x => /* TODO: Wrap in sequence expr if needed */ x),
             Star(
                 Or(
-                    Map(Preceded(Whitespace(), Predicate),
+                    Map(Preceded(Whitespace, Predicate),
                         x => new Ast(AstNodeName.Predicate, x)),
-                    Map(Preceded(Whitespace(), ArgumentList),
+                    Map(Preceded(Whitespace, ArgumentList),
                         x => new Ast(AstNodeName.ArgumentList, x))
-                    // TODO: Preceded(Whitespace(), Lookup()),
+                    // TODO: Preceded(Whitespace, Lookup()),
                 )
             ),
             (expression, postfixExpr) =>
@@ -259,10 +259,10 @@ public static class XPathParser
 
     private static readonly ParseFunc<ParseResult<Ast>> PostfixExprWithoutStep =
         Followed(
-            PrimaryExpr(),
+            PrimaryExpr,
             Peek(
                 // TODO: add lookup
-                Not(Preceded(Whitespace(), Or(Predicate, Map(ArgumentList, _ => new Ast(AstNodeName.All)))),
+                Not(Preceded(Whitespace, Or(Predicate, Map(ArgumentList, _ => new Ast(AstNodeName.All)))),
                     new[]
                     {
                         "Primary expression not followed by predicate, argumentList, or lookup"
@@ -271,7 +271,7 @@ public static class XPathParser
         );
 
 
-    private static readonly ParseFunc<ParseResult<Ast>> StepExprWithoutStep =
+    public static readonly ParseFunc<ParseResult<Ast>> StepExprWithoutStep =
         PostfixExprWithoutStep;
 
 
@@ -290,13 +290,13 @@ public static class XPathParser
         Or(
             Then3(
                 StepExprWithForcedStep,
-                Preceded(Whitespace(), LocationPathAbbreviation),
-                Preceded(Whitespace(), RelativePathExprWithForcedStepIndirect),
+                Preceded(Whitespace, LocationPathAbbreviation),
+                Preceded(Whitespace, RelativePathExprWithForcedStepIndirect),
                 (lhs, abbrev, rhs) => new[] {lhs, abbrev}.Concat(rhs).ToArray()
             ),
             Then(
                 StepExprWithForcedStep,
-                Preceded(Surrounded(Token("/"), Whitespace()), RelativePathExprWithForcedStepIndirect),
+                Preceded(Surrounded(Token("/"), Whitespace), RelativePathExprWithForcedStepIndirect),
                 (lhs, rhs) => new[] {lhs}.Concat(rhs).ToArray()), Map(StepExprWithForcedStep, x => new[] {x}),
             Map(StepExprWithForcedStep, x => new[] {x})
         );
@@ -309,14 +309,14 @@ public static class XPathParser
 
     private static readonly ParseFunc<ParseResult<Ast>> RelativePathExpr =
         Or(
-            Then3(StepExprWithForcedStep,
-                Preceded(Whitespace(), LocationPathAbbreviation),
-                Preceded(Whitespace(), RelativePathExprWithForcedStep),
-                (lhs, abbrev, rhs) => new Ast(AstNodeName.PathExpr, new[] {lhs, abbrev}.Concat(rhs).ToArray())),
-            Then(
-                StepExprWithForcedStep,
-                Preceded(Surrounded(Token("/"), Whitespace()), RelativePathExprWithForcedStep),
-                (lhs, rhs) => new Ast(AstNodeName.PathExpr, new[] {lhs}.Concat(rhs).ToArray())),
+            // Then3(StepExprWithForcedStep,
+            //     Preceded(Whitespace, LocationPathAbbreviation),
+            //     Preceded(Whitespace, RelativePathExprWithForcedStep),
+            //     (lhs, abbrev, rhs) => new Ast(AstNodeName.PathExpr, new[] {lhs, abbrev}.Concat(rhs).ToArray())),
+            // Then(
+            //     StepExprWithForcedStep,
+            //     Preceded(Surrounded(Token("/"), Whitespace), RelativePathExprWithForcedStep),
+            //     (lhs, rhs) => new Ast(AstNodeName.PathExpr, new[] {lhs}.Concat(rhs).ToArray())),
             StepExprWithoutStep,
             Map(
                 StepExprWithForcedStep, x =>
@@ -351,11 +351,11 @@ public static class XPathParser
             "typeswitch"
         }.Select(Token).ToArray());
 
-    private static readonly ParseFunc<ParseResult<Ast>> FunctionCall =
+    public static readonly ParseFunc<ParseResult<Ast>> FunctionCall =
         Preceded(
-            Not(Followed(ReservedFunctionNames, new[] {Whitespace(), Token("(")}),
+            Not(Followed(ReservedFunctionNames, new[] {Whitespace, Token("(")}),
                 new[] {"cannot use reserved keyword for function names"}),
-            Then(EqName, Preceded(Whitespace(), ArgumentList),
+            Then(EqName, Preceded(Whitespace, ArgumentList),
                 (name, arguments) =>
                 {
                     var argumentsAst = new Ast(AstNodeName.Arguments, arguments);
@@ -393,7 +393,7 @@ public static class XPathParser
                     Alias(AstNodeName.UnaryMinusOp, "-"),
                     Alias(AstNodeName.UnaryPlusOp, "+")
                 ),
-                Preceded(Whitespace(), UnaryExprIndirect),
+                Preceded(Whitespace, UnaryExprIndirect),
                 (op, value) => new Ast(op, new Ast(AstNodeName.Operand, value))
             ),
             ValueExpr
@@ -417,11 +417,11 @@ public static class XPathParser
                 PrecededMultiple(
                     new[]
                     {
-                        Whitespace(), Token("=>"), Whitespace()
+                        Whitespace, Token("=>"), Whitespace
                     },
                     Then(
                         ArrowFunctionSpecifier,
-                        Preceded(Whitespace(), ArgumentList),
+                        Preceded(Whitespace, ArgumentList),
                         (specifier, argList) => (specifier, argList)
                     )
                 )
@@ -438,12 +438,12 @@ public static class XPathParser
                 PrecededMultiple(
                     new[]
                     {
-                        Whitespace(),
+                        Whitespace,
                         Token("cast"),
-                        WhitespacePlus(),
+                        WhitespacePlus,
                         Token("as"),
-                        AssertAdjacentOpeningTerminal(),
-                        Whitespace()
+                        AssertAdjacentOpeningTerminal,
+                        Whitespace
                     },
                     SingleType())
             ),
@@ -461,12 +461,12 @@ public static class XPathParser
                 PrecededMultiple(
                     new[]
                     {
-                        Whitespace(),
+                        Whitespace,
                         Token("castable"),
-                        WhitespacePlus(),
+                        WhitespacePlus,
                         Token("as"),
-                        AssertAdjacentOpeningTerminal(),
-                        Whitespace()
+                        AssertAdjacentOpeningTerminal,
+                        Whitespace
                     },
                     SingleType())
             ),
@@ -483,12 +483,12 @@ public static class XPathParser
             PrecededMultiple(
                 new[]
                 {
-                    Whitespace(),
+                    Whitespace,
                     Token("treat"),
-                    WhitespacePlus(),
+                    WhitespacePlus,
                     Token("as"),
-                    AssertAdjacentOpeningTerminal(),
-                    Whitespace()
+                    AssertAdjacentOpeningTerminal,
+                    Whitespace
                 },
                 SequenceType())
         ),
@@ -515,12 +515,12 @@ public static class XPathParser
             Optional(
                 PrecededMultiple(new[]
                     {
-                        Whitespace(),
+                        Whitespace,
                         Token("instance"),
-                        WhitespacePlus(),
+                        WhitespacePlus,
                         Token("of"),
-                        AssertAdjacentOpeningTerminal(),
-                        Whitespace(),
+                        AssertAdjacentOpeningTerminal,
+                        Whitespace,
                     },
                     SequenceType())
             ),
@@ -539,7 +539,7 @@ public static class XPathParser
                     Alias(AstNodeName.IntersectOp, "intersectOp"),
                     Alias(AstNodeName.ExceptOp, "exceptOp")
                 ),
-                AssertAdjacentOpeningTerminal()
+                AssertAdjacentOpeningTerminal
             ),
             DefaultBinaryOperatorFn
         );
@@ -548,7 +548,7 @@ public static class XPathParser
         BinaryOperator(IntersectExpr,
             Or(
                 Alias(AstNodeName.UnionOp, "|"),
-                Followed(Alias(AstNodeName.UnionOp, "union"), AssertAdjacentOpeningTerminal())
+                Followed(Alias(AstNodeName.UnionOp, "union"), AssertAdjacentOpeningTerminal)
             ),
             DefaultBinaryOperatorFn
         );
@@ -558,9 +558,9 @@ public static class XPathParser
             UnionExpr,
             Or(
                 Alias(AstNodeName.MultiplyOp, "*"),
-                Followed(Alias(AstNodeName.DivOp, "div"), AssertAdjacentOpeningTerminal()),
-                Followed(Alias(AstNodeName.IdivOp, "idiv"), AssertAdjacentOpeningTerminal()),
-                Followed(Alias(AstNodeName.ModOp, "mod"), AssertAdjacentOpeningTerminal())
+                Followed(Alias(AstNodeName.DivOp, "div"), AssertAdjacentOpeningTerminal),
+                Followed(Alias(AstNodeName.IdivOp, "idiv"), AssertAdjacentOpeningTerminal),
+                Followed(Alias(AstNodeName.ModOp, "mod"), AssertAdjacentOpeningTerminal)
             ),
             DefaultBinaryOperatorFn
         );
@@ -573,7 +573,7 @@ public static class XPathParser
 
     private static readonly ParseFunc<ParseResult<Ast>> RangeExpr =
         NonRepeatableBinaryOperator(AdditiveExpr,
-            Followed(Alias(AstNodeName.RangeSequenceExpr, "to"), AssertAdjacentOpeningTerminal()));
+            Followed(Alias(AstNodeName.RangeSequenceExpr, "to"), AssertAdjacentOpeningTerminal));
 
     private static readonly ParseFunc<ParseResult<Ast>> StringConcatExpr =
         BinaryOperator(RangeExpr, Alias(AstNodeName.StringConcatenateOp, "||"), DefaultBinaryOperatorFn);
@@ -588,12 +588,12 @@ public static class XPathParser
 
     private static readonly ParseFunc<ParseResult<Ast>> AndExpr =
         BinaryOperator(ComparisonExpr,
-            Followed(Alias(AstNodeName.AndOp, "and"), AssertAdjacentOpeningTerminal()),
+            Followed(Alias(AstNodeName.AndOp, "and"), AssertAdjacentOpeningTerminal),
             DefaultBinaryOperatorFn);
 
     private static readonly ParseFunc<ParseResult<Ast>> OrExpr =
         BinaryOperator(AndExpr,
-            Followed(Alias(AstNodeName.OrOp, "or"), AssertAdjacentOpeningTerminal()),
+            Followed(Alias(AstNodeName.OrOp, "or"), AssertAdjacentOpeningTerminal),
             DefaultBinaryOperatorFn);
 
 
