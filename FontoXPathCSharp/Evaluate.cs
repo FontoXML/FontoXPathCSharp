@@ -63,7 +63,7 @@ public class Evaluate
         if (typeof(TReturn) == typeof(bool) && contextItem != null /* add check to see if nodeType is in contextItem*/)
         {
 	        
-        } 
+        }
 
         throw new NotImplementedException();
     }

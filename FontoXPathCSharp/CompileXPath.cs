@@ -1,23 +1,18 @@
+using System.Diagnostics;
 using System.Net.NetworkInformation;
+using System.Numerics;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
+using FontoXPathCSharp.Value;
 using NamespaceResolverFunc = System.Func<string, string?>;
 using FunctionNameResolverFunc = System.Func<LexicalQualifiedName, int, ResolvedQualifiedName?>;
 
 namespace FontoXPathCSharp;
 
-public struct StaticCompilationResult
+public static class CompileXPath
 {
-    AbstractExpression _expression;
-    StaticContext _context;
-
-    public StaticContext StaticContext => _context;
-    public AbstractExpression Expression => _expression;
-}
-public static class CompileXPath<TSelector>
-{
-    public static StaticCompilationResult StaticallyCompileXPath(
-        AbstractExpression expression,
+    public static StaticCompilationResult StaticallyCompileXPath<TSelector>(
+        TSelector selector,
         CompilationOptions compilationOptions,
         NamespaceResolverFunc namespaceResolver,
         Dictionary<string, IExternalValue> variables,
@@ -25,7 +20,8 @@ public static class CompileXPath<TSelector>
         string defaultFunctionNamespaceUri,
         FunctionNameResolverFunc functionNameResolver)
     {
-        var specificStaticContext = new ExecutionSpecificStaticContext(namespaceResolver, variables, defaultFunctionNamespaceUri, functionNameResolver);
+        var specificStaticContext = new ExecutionSpecificStaticContext(namespaceResolver, variables,
+            defaultFunctionNamespaceUri, functionNameResolver);
         var rootStaticContext = new StaticContext(specificStaticContext);
 
         foreach (var modulePrefix in moduleImports.Keys)
@@ -35,15 +31,79 @@ public static class CompileXPath<TSelector>
             rootStaticContext.RegisterNamespace(modulePrefix, moduleUri);
         }
 
+        if (typeof(TSelector) == typeof(string))
+        {
+            selector = NormalizeEndOfLines(selector);
+        }
+
+        var result = CreateExpressionFromSource(
+            selector,
+            compilationOptions,
+            namespaceResolver,
+            variables,
+            moduleImports,
+            defaultFunctionNamespaceUri,
+            functionNameResolver
+        );
+
         throw new NotImplementedException("StaticallyCompileXPath not finished yet.");
     }
+
+    private static ExpressionResult CreateExpressionFromSource<TSelector>(
+        TSelector xpathSource,
+        CompilationOptions compilationOptions,
+        NamespaceResolverFunc namespaceResolver,
+        Dictionary<string, IExternalValue> variables,
+        Dictionary<string, string> moduleImports,
+        string defaultFunctionNamespaceUri,
+        FunctionNameResolverFunc functionNameResolver)
+    {
+        var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
+
+        var fromCache = compilationOptions.DisableCache
+            ? null
+            : CompiledExpressionCache.GetStaticCompilationResultFromCache(
+                xpathSource,
+                language,
+                namespaceResolver,
+                variables,
+                moduleImports,
+                compilationOptions.Debug,
+                defaultFunctionNamespaceUri,
+                functionNameResolver);
+
+        if (fromCache != null)
+        {
+            return new CachedExpressionResult(fromCache.Expression,
+                fromCache.RequiresStaticCompilation ? CacheState.Compiled : CacheState.StaticAnalyzed);
+        }
+        else
+        {
+            var ast =
+                typeof(TSelector) == typeof(string)
+                    ? ParseExpression.ParseXPathOrXQueryExpression(xpathSource, compilationOptions)
+                    : XmlToAst.ConvertXmlToAst(xpathSource);
+
+            return new ParsedExpressionResult(ast);
+        }
+    }
+
+    private static TSelector NormalizeEndOfLines<TSelector>(TSelector selector)
+    {
+        var selectorString = (string)(object)selector!;
+        Debug.WriteLine("Warning, end of line normalization regex might not be correct yet.");
+        return (TSelector)(object)selectorString.Replace("(\x0D\x0A)|(\x0D(?!\x0A))g", "" + 0xa);
+    }
 }
+
 public class ResolvedFunction
 {
     private int _arity;
     private LexicalQualifiedName _lexicalQName;
     private ResolvedQualifiedName _resolvedQName;
-    public ResolvedFunction(LexicalQualifiedName lexicalQualifiedName, int arity, ResolvedQualifiedName resolvedQualifiedName)
+
+    public ResolvedFunction(LexicalQualifiedName lexicalQualifiedName, int arity,
+        ResolvedQualifiedName resolvedQualifiedName)
     {
         _arity = arity;
         _lexicalQName = lexicalQualifiedName;
@@ -54,6 +114,7 @@ public class ResolvedFunction
     public LexicalQualifiedName LexicalQName => _lexicalQName;
     public ResolvedQualifiedName ResolvedQName => _resolvedQName;
 }
+
 public class ExecutionSpecificStaticContext : AbstractContext
 {
     private readonly NamespaceResolverFunc _namespaceResolver;
@@ -66,12 +127,16 @@ public class ExecutionSpecificStaticContext : AbstractContext
     private readonly List<ResolvedFunction> _resolvedFunctions;
     private bool _executionContextWasRequired;
 
-    public ExecutionSpecificStaticContext(NamespaceResolverFunc namespaceResolver, Dictionary<string, IExternalValue> variableByName, string defaultFunctionNamespaceUri, FunctionNameResolverFunc functionNameResolver)
+    public ExecutionSpecificStaticContext(NamespaceResolverFunc namespaceResolver,
+        Dictionary<string, IExternalValue> variableByName, string defaultFunctionNamespaceUri,
+        FunctionNameResolverFunc functionNameResolver)
     {
         _namespaceResolver = namespaceResolver;
-        _variableBindingByName = variableByName.Keys.Aggregate(new Dictionary<string, string>(), (bindings, variableName) =>
+        _variableBindingByName = variableByName.Keys.Aggregate(new Dictionary<string, string>(),
+            (bindings, variableName) =>
             {
-                if (variableByName.ContainsKey(variableName)) bindings[variableName] = generateGlobalVariableBindingName(variableName);
+                if (variableByName.ContainsKey(variableName))
+                    bindings[variableName] = GenerateGlobalVariableBindingName(variableName);
                 return bindings;
             }
         );
@@ -86,7 +151,8 @@ public class ExecutionSpecificStaticContext : AbstractContext
 
         _executionContextWasRequired = false;
     }
-    private string generateGlobalVariableBindingName(string variableName) => $"Q{{}}{variableName}[0]";
+
+    private string GenerateGlobalVariableBindingName(string variableName) => $"Q{{}}{variableName}[0]";
 
     public List<(string, string)> GetReferredNamespaces() => _referredNamespaceByName.Values.ToList();
 
@@ -94,7 +160,8 @@ public class ExecutionSpecificStaticContext : AbstractContext
 
     public List<ResolvedFunction> GetResolvedFunctions() => _resolvedFunctions;
 
-    override public FunctionProperties? LookupFunction(string namespaceUri, string localName, int arity, bool skipExternal)
+    override public FunctionProperties? LookupFunction(string namespaceUri, string localName, int arity,
+        bool skipExternal)
     {
         throw new NotImplementedException("Function lookup not implemented yet.");
     }
@@ -115,7 +182,6 @@ public class ExecutionSpecificStaticContext : AbstractContext
         }
 
         return bindingName;
-
     }
 
     override public ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity)
@@ -134,8 +200,10 @@ public class ExecutionSpecificStaticContext : AbstractContext
                 return new ResolvedQualifiedName(namespaceUri, lexicalQName.LocalName);
             }
         }
+
         return resolvedQName;
     }
+
     override public string? ResolveNamespace(string prefix, bool useExternalResolver = true)
     {
         if (!useExternalResolver) return null;
@@ -145,6 +213,7 @@ public class ExecutionSpecificStaticContext : AbstractContext
         {
             return knownNamespaceUri;
         }
+
         _executionContextWasRequired = true;
 
         var uri = _namespaceResolver(prefix);

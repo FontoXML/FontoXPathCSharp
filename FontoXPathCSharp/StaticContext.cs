@@ -54,6 +54,11 @@ public class StaticContext : AbstractContext
         registeredVariableBindingByHashKey = parentContext.RegisteredVariableBindingByHashKey;
     }
 
+    public StaticContext()
+    {
+        throw new NotImplementedException();
+    }
+
     public StaticContext Clone()
     {
         var contextAtThisPoint = new StaticContext(_parentContext);
