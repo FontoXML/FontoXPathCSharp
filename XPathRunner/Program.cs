@@ -1,12 +1,13 @@
 ﻿using System.Xml;
 using FontoXPathCSharp;
+using FontoXPathCSharp.Expressions.Functions;
 using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-const string query = "test(12, 13)";
+const string query = "node-name(p)";
 const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");
@@ -27,7 +28,13 @@ var document = xmlDocument.FirstChild!;
 Console.WriteLine("\nResult:");
 var expr = CompileAstToExpression.CompileAst(result);
 var staticContext = new StaticContext();
-
+// node-name()
+// string-length()
+// count()
+// zero_or_one()
+// x("string")
+// normalize_string()
+// hours_from_duration()
 staticContext.RegisterFunctionDefinition(new FunctionProperties(
     new[]
     {
@@ -36,10 +43,32 @@ staticContext.RegisterFunctionDefinition(new FunctionProperties(
     }, 2,
     (context, parameters, staticContext, args) =>
     {
-        Console.WriteLine("Called test function");
+        Console.WriteLine("Called add function");
         return new SingletonSequence(new IntValue(args[0].First()!.GetAs<IntValue>(ValueType.XsInteger)!.Value +
                                                   args[1].First()!.GetAs<IntValue>(ValueType.XsInteger)!.Value));
-    }, "test", "", new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)));
+    }, "add", "", new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)));
+
+staticContext.RegisterFunctionDefinition(new FunctionProperties(
+    new[]
+    {
+        new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne),
+        new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne),
+        new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)
+    }, 3,
+    (context, parameters, staticContext, args) =>
+    {
+        Console.WriteLine("Called add function");
+        return new SingletonSequence(new IntValue(args[0].First()!.GetAs<IntValue>(ValueType.XsInteger)!.Value +
+                                                  args[1].First()!.GetAs<IntValue>(ValueType.XsInteger)!.Value +
+                                                  args[2].First()!.GetAs<IntValue>(ValueType.XsInteger)!.Value));
+    }, "add", "", new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)));
+
+foreach (var function in BuiltInFunctions.Declarations)
+{
+    staticContext.RegisterFunctionDefinition(new FunctionProperties(function.ArgumentTypes,
+        function.ArgumentTypes.Length, function.CallFunction, function.LocalName,
+        function.NamespaceUri, function.ReturnType));
+}
 
 expr.PerformStaticEvaluation(staticContext);
 Console.WriteLine(expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document)));

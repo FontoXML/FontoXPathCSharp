@@ -4,7 +4,7 @@ using static FontoXPathCSharp.Parsing.WhitespaceParser;
 
 namespace FontoXPathCSharp.Parsing;
 
-public class LiteralParser
+public static class LiteralParser
 {
     public static readonly ParseFunc<ParseResult<string>> AssertAdjacentOpeningTerminal =
         Peek(Or(
@@ -32,6 +32,10 @@ public class LiteralParser
             Peek(Not(Regex(@"[a-z][A-Z]"), new[] {"No alphabetic characters after numeric literal"}))
         );
 
+    public static readonly ParseFunc<ParseResult<Ast>> ContextItemExpr =
+        Map(Followed(Token("."), Peek(Not(Token("."), new[] {"context item should not be followed by another ."}))),
+            _ => new Ast(AstNodeName.ContextItemExpr));
+
     public static readonly ParseFunc<ParseResult<string>> ReservedFunctionNames =
         Or(new[]
         {
@@ -46,7 +50,8 @@ public class LiteralParser
             "item",
             "map",
             "namespace-node",
-            "node",
+            // TODO: This one should be added back in but this breaks function calls like `node-name(.)`
+            // "node",
             "processing-instruction",
             "schema-attribute",
             "schema-element",

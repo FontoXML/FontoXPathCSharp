@@ -94,6 +94,7 @@ public static class CompileAstToExpression
             AstNodeName.PathExpr => CompilePathExpression(ast),
             AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast),
             AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
+            AstNodeName.ContextItemExpr => new ContextItemExpression(),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
     }

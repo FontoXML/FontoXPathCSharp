@@ -66,6 +66,8 @@ public enum AstNodeName
     UnaryMinusOp,
     UnaryPlusOp,
     Value,
+    ContextItemExpr,
+    StringConstantExpr,
     All // *
 }
 
