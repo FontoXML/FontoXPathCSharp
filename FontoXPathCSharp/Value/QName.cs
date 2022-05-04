@@ -29,4 +29,9 @@ public class QName
 
         return ast;
     }
+
+    public override string ToString()
+    {
+        return $"Q{{{NamespaceUri ?? ""}}}{(Prefix == "" ? "" : Prefix + ":") + LocalName}";
+    }
 }

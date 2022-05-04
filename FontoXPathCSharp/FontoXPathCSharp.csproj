@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\PrscSharp\PrscSharp.csproj"/>
+        <ProjectReference Include="..\PrscSharp\PrscSharp.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="Parsing\ConvertXDMReturnValue.cs"/>
+        <Compile Remove="Parsing\ConvertXDMReturnValue.cs" />
     </ItemGroup>
 
 </Project>

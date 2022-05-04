@@ -43,9 +43,16 @@ public class StaticContext
         return staticContext;
     }
 
+    private static string GetSignatureHash(string namespaceUri, string localName, int arity)
+    {
+        // TODO: add correct namespace uri handling
+        // return $"Q{{{namespaceUri ?? ""}}}{localName}~{arity}";
+        return $"Q{localName}~" + arity;
+    }
+
     public FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity)
     {
-        var hashKey = $"Q{{{namespaceUri ?? ""}}}{localName}";
+        var hashKey = GetSignatureHash(namespaceUri, localName, arity);
 
         if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction)) return foundFunction;
 
@@ -55,7 +62,7 @@ public class StaticContext
 
     public void RegisterFunctionDefinition(FunctionProperties properties)
     {
-        var hashKey = $"Q{{{properties.NamespaceUri}}}{properties.LocalName}";
+        var hashKey = GetSignatureHash(properties.NamespaceUri, properties.LocalName, properties.Arity);
 
         if (_registeredFunctionsByHash.ContainsKey(hashKey))
             throw new XPathException($"XQT0049 {properties.NamespaceUri} {properties.LocalName}");
