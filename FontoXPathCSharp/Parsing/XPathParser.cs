@@ -10,36 +10,32 @@ namespace FontoXPathCSharp.Parsing;
 
 public static class XPathParser
 {
-    private static readonly ParseFunc<ParseResult<Ast>> Predicate =
+    private static readonly ParseFunc<Ast> Predicate =
         Delimited(Token("["), Surrounded(Expr(), Whitespace), Token("]"));
 
     // TODO: add xquery string literal
-    private static readonly ParseFunc<ParseResult<string>> StringLiteral = Map(
+    private static readonly ParseFunc<string> StringLiteral = Map(
         Or(Surrounded(Star(Or(Regex("[^\"]"))), Token("\"")),
             Surrounded(Star(Or(Regex("[^']"))), Token("'"))),
         x => string.Join("", x)
     );
 
     // TODO: add wildcard
-    private static readonly ParseFunc<ParseResult<Ast>> NameTest =
-        Map(EqName, x =>
+    private static readonly ParseFunc<Ast> NameTest =
+        Map(EqName, x => new Ast(AstNodeName.NameTest)
         {
-            Console.WriteLine(x);
-            return new Ast(AstNodeName.NameTest)
+            StringAttributes =
             {
-                StringAttributes =
-                {
-                    ["URI"] = x.NamespaceUri!,
-                    ["prefix"] = x.Prefix
-                },
-                TextContent = x.LocalName
-            };
+                ["URI"] = x.NamespaceUri!,
+                ["prefix"] = x.Prefix
+            },
+            TextContent = x.LocalName
         });
 
     // TODO: add kindTest
-    private static readonly ParseFunc<ParseResult<Ast>> NodeTest = Or(NameTest);
+    private static readonly ParseFunc<Ast> NodeTest = Or(NameTest);
 
-    private static readonly ParseFunc<ParseResult<Ast>> ForwardStep
+    private static readonly ParseFunc<Ast> ForwardStep
         = Or(Then(ForwardAxis, NodeTest,
             (axis, test) =>
                 new Ast(AstNodeName.StepExpr,
@@ -49,11 +45,11 @@ public static class XPathParser
 
     // TODO: add predicateList
     // TODO: add reverse step
-    private static readonly ParseFunc<ParseResult<Ast>> AxisStep =
+    private static readonly ParseFunc<Ast> AxisStep =
         Or(ForwardStep);
 
     // TODO: add string literal
-    private static readonly ParseFunc<ParseResult<Ast>> Literal =
+    private static readonly ParseFunc<Ast> Literal =
         Or(NumericLiteral, Map(StringLiteral, x => new Ast(AstNodeName.StringConstantExpr, new Ast(AstNodeName.Value)
             {
                 TextContent = x
@@ -61,10 +57,10 @@ public static class XPathParser
         ));
 
     // TODO: add argumentPlaceholder
-    private static readonly ParseFunc<ParseResult<Ast>> Argument =
+    private static readonly ParseFunc<Ast> Argument =
         ExprSingle;
 
-    private static readonly ParseFunc<ParseResult<Ast[]>> ArgumentList =
+    private static readonly ParseFunc<Ast[]> ArgumentList =
         Map(
             Delimited(
                 Token("("),
@@ -81,7 +77,7 @@ public static class XPathParser
             x => x ?? Array.Empty<Ast>()
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> FunctionCall =
+    private static readonly ParseFunc<Ast> FunctionCall =
         Preceded(
             Not(Followed(ReservedFunctionNames, new[] {Whitespace, Token("(")}),
                 new[] {"cannot use reserved keyword for function names"}),
@@ -99,13 +95,13 @@ public static class XPathParser
             )
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> SequenceType =
+    private static readonly ParseFunc<Ast> SequenceType =
         Map(Token("AAAAAAAAAAA"), _ => new Ast(AstNodeName.All));
 
     // TODO: add others
-    private static readonly ParseFunc<ParseResult<Ast>> PrimaryExpr = Or(Literal, ContextItemExpr, FunctionCall);
+    private static readonly ParseFunc<Ast> PrimaryExpr = Or(Literal, ContextItemExpr, FunctionCall);
 
-    private static readonly ParseFunc<ParseResult<Ast>> PostfixExprWithStep =
+    private static readonly ParseFunc<Ast> PostfixExprWithStep =
         Then(
             Map(PrimaryExpr, x => /* TODO: Wrap in sequence expr if needed */ x),
             Star(
@@ -195,13 +191,13 @@ public static class XPathParser
             }
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> StepExprWithForcedStep =
+    private static readonly ParseFunc<Ast> StepExprWithForcedStep =
         Or(
             Map(PostfixExprWithStep, x => new Ast(AstNodeName.StepExpr, x)),
             AxisStep
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> PostfixExprWithoutStep =
+    private static readonly ParseFunc<Ast> PostfixExprWithoutStep =
         Followed(
             PrimaryExpr,
             Peek(
@@ -215,10 +211,10 @@ public static class XPathParser
         );
 
 
-    private static readonly ParseFunc<ParseResult<Ast>> StepExprWithoutStep =
+    private static readonly ParseFunc<Ast> StepExprWithoutStep =
         PostfixExprWithoutStep;
 
-    private static readonly ParseFunc<ParseResult<Ast>> RelativePathExpr =
+    private static readonly ParseFunc<Ast> RelativePathExpr =
         Or(
             Then3(StepExprWithForcedStep,
                 Preceded(Whitespace, LocationPathAbbreviation),
@@ -235,7 +231,7 @@ public static class XPathParser
             )
         );
 
-    private static readonly ParseFunc<ParseResult<Ast[]>> RelativePathExprWithForcedStep =
+    private static readonly ParseFunc<Ast[]> RelativePathExprWithForcedStep =
         Or(
             Then3(
                 StepExprWithForcedStep,
@@ -251,10 +247,10 @@ public static class XPathParser
         );
 
     // TODO: add other variants
-    private static readonly ParseFunc<ParseResult<Ast>> PathExpr =
+    private static readonly ParseFunc<Ast> PathExpr =
         Or(RelativePathExpr);
 
-    private static readonly ParseFunc<ParseResult<Ast>> ValueExpr =
+    private static readonly ParseFunc<Ast> ValueExpr =
         Or(
             // TODO: ValidateExpr(),
             // TODO: ExtensionExpr(),
@@ -262,7 +258,7 @@ public static class XPathParser
             PathExpr
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> UnaryExpr =
+    private static readonly ParseFunc<Ast> UnaryExpr =
         Or(
             Then(
                 Or(
@@ -275,13 +271,13 @@ public static class XPathParser
             ValueExpr
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> ArrowFunctionSpecifier =
+    private static readonly ParseFunc<Ast> ArrowFunctionSpecifier =
         Or(Map(EqName, x => x.GetAst(AstNodeName.EqName))
             // TODO: VarRef(),
             // TODO: ParenthesizedExpr(),
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> ArrowExpr =
+    private static readonly ParseFunc<Ast> ArrowExpr =
         Then(
             UnaryExpr,
             Star(
@@ -302,7 +298,7 @@ public static class XPathParser
                     new Ast(AstNodeName.Arguments, part.Item2)))
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> CastExpr =
+    private static readonly ParseFunc<Ast> CastExpr =
         Then(
             ArrowExpr,
             Optional(
@@ -325,7 +321,7 @@ public static class XPathParser
                     : lhs
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> CastableExpr =
+    private static readonly ParseFunc<Ast> CastableExpr =
         Then(
             CastExpr,
             Optional(
@@ -348,7 +344,7 @@ public static class XPathParser
                     : lhs
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> TreatExpr = Then(
+    private static readonly ParseFunc<Ast> TreatExpr = Then(
         CastableExpr,
         Optional(
             PrecededMultiple(
@@ -370,7 +366,7 @@ public static class XPathParser
                 : lhs
     );
 
-    private static readonly ParseFunc<ParseResult<Ast>> InstanceOfExpr =
+    private static readonly ParseFunc<Ast> InstanceOfExpr =
         Then(
             TreatExpr,
             Optional(
@@ -392,7 +388,7 @@ public static class XPathParser
                     : lhs
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> IntersectExpr =
+    private static readonly ParseFunc<Ast> IntersectExpr =
         BinaryOperator(
             InstanceOfExpr,
             Followed(
@@ -405,7 +401,7 @@ public static class XPathParser
             DefaultBinaryOperatorFn
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> UnionExpr =
+    private static readonly ParseFunc<Ast> UnionExpr =
         BinaryOperator(IntersectExpr,
             Or(
                 Alias(AstNodeName.UnionOp, "|"),
@@ -414,7 +410,7 @@ public static class XPathParser
             DefaultBinaryOperatorFn
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> MultiplicativeExpr =
+    private static readonly ParseFunc<Ast> MultiplicativeExpr =
         BinaryOperator(
             UnionExpr,
             Or(
@@ -426,20 +422,20 @@ public static class XPathParser
             DefaultBinaryOperatorFn
         );
 
-    private static readonly ParseFunc<ParseResult<Ast>> AdditiveExpr =
+    private static readonly ParseFunc<Ast> AdditiveExpr =
         BinaryOperator(MultiplicativeExpr, Or(
             Alias(AstNodeName.SubtractOp, "-"),
             Alias(AstNodeName.AddOp, "+")
         ), DefaultBinaryOperatorFn);
 
-    private static readonly ParseFunc<ParseResult<Ast>> RangeExpr =
+    private static readonly ParseFunc<Ast> RangeExpr =
         NonRepeatableBinaryOperator(AdditiveExpr,
             Followed(Alias(AstNodeName.RangeSequenceExpr, "to"), AssertAdjacentOpeningTerminal));
 
-    private static readonly ParseFunc<ParseResult<Ast>> StringConcatExpr =
+    private static readonly ParseFunc<Ast> StringConcatExpr =
         BinaryOperator(RangeExpr, Alias(AstNodeName.StringConcatenateOp, "||"), DefaultBinaryOperatorFn);
 
-    private static readonly ParseFunc<ParseResult<Ast>> ComparisonExpr =
+    private static readonly ParseFunc<Ast> ComparisonExpr =
         NonRepeatableBinaryOperator(StringConcatExpr, Or(
             // TODO: ValueCompare(),
             // TODO: NodeCompare(),
@@ -447,17 +443,17 @@ public static class XPathParser
             Alias(AstNodeName.All, "AAAAAAAAAAAAAAAA")
         ));
 
-    private static readonly ParseFunc<ParseResult<Ast>> AndExpr =
+    private static readonly ParseFunc<Ast> AndExpr =
         BinaryOperator(ComparisonExpr,
             Followed(Alias(AstNodeName.AndOp, "and"), AssertAdjacentOpeningTerminal),
             DefaultBinaryOperatorFn);
 
-    private static readonly ParseFunc<ParseResult<Ast>> OrExpr =
+    private static readonly ParseFunc<Ast> OrExpr =
         BinaryOperator(AndExpr,
             Followed(Alias(AstNodeName.OrOp, "or"), AssertAdjacentOpeningTerminal),
             DefaultBinaryOperatorFn);
 
-    public static readonly ParseFunc<ParseResult<Ast>> QueryBody =
+    public static readonly ParseFunc<Ast> QueryBody =
         Map(Expr(), x => new Ast(AstNodeName.QueryBody, x));
 
     private static Ast DefaultBinaryOperatorFn(Ast lhs, IEnumerable<(AstNodeName, Ast)> rhs)
@@ -466,8 +462,8 @@ public static class XPathParser
             new Ast(rh.Item1, new Ast(AstNodeName.FirstOperand, lh), new Ast(AstNodeName.SecondOperand, rh.Item2)));
     }
 
-    private static ParseFunc<ParseResult<TS>> BinaryOperator<T, TS>(ParseFunc<ParseResult<T>> expr,
-        ParseFunc<ParseResult<AstNodeName>> op,
+    private static ParseFunc<TS> BinaryOperator<T, TS>(ParseFunc<T> expr,
+        ParseFunc<AstNodeName> op,
         Func<T, (AstNodeName, T)[], TS> constructionFn)
     {
         return Then(
@@ -477,8 +473,8 @@ public static class XPathParser
         );
     }
 
-    private static ParseFunc<ParseResult<Ast>> NonRepeatableBinaryOperator(ParseFunc<ParseResult<Ast>> expr,
-        ParseFunc<ParseResult<AstNodeName>> op,
+    private static ParseFunc<Ast> NonRepeatableBinaryOperator(ParseFunc<Ast> expr,
+        ParseFunc<AstNodeName> op,
         AstNodeName firstArgName = AstNodeName.FirstOperand,
         AstNodeName secondArgName = AstNodeName.SecondOperand)
     {
@@ -516,7 +512,7 @@ public static class XPathParser
         return Or(OrExpr)(input, offset);
     }
 
-    private static ParseFunc<ParseResult<Ast>> Expr()
+    private static ParseFunc<Ast> Expr()
     {
         return BinaryOperator(ExprSingle, Alias(AstNodeName.SequenceExpr, ","), (lhs, rhs) =>
             rhs.Length == 0
