@@ -10,45 +10,6 @@ namespace FontoXPathCSharp.Parsing;
 
 public static class XPathParser
 {
-    private static Ast DefaultBinaryOperatorFn(Ast lhs, IEnumerable<(AstNodeName, Ast)> rhs)
-    {
-        return rhs.Aggregate(lhs, (lh, rh) =>
-            new Ast(rh.Item1, new Ast(AstNodeName.FirstOperand, lh), new Ast(AstNodeName.SecondOperand, rh.Item2)));
-    }
-
-    private static ParseFunc<ParseResult<TS>> BinaryOperator<T, TS>(ParseFunc<ParseResult<T>> expr,
-        ParseFunc<ParseResult<AstNodeName>> op,
-        Func<T, (AstNodeName, T)[], TS> constructionFn)
-    {
-        return Then(
-            expr,
-            Star(Then(Surrounded(op, Whitespace), expr, (a, b) => (a, b))),
-            constructionFn
-        );
-    }
-
-    private static ParseFunc<ParseResult<Ast>> NonRepeatableBinaryOperator(ParseFunc<ParseResult<Ast>> expr,
-        ParseFunc<ParseResult<AstNodeName>> op,
-        AstNodeName firstArgName = AstNodeName.FirstOperand,
-        AstNodeName secondArgName = AstNodeName.SecondOperand)
-    {
-        return Then(
-            expr,
-            OptionalDefaultValue(Then(
-                Surrounded(op, Whitespace),
-                expr,
-                (a, b) => (a, b)
-            )),
-            (lhs, rhs) =>
-            {
-                if (rhs == null) return lhs;
-
-                return new Ast(rhs.Value.Item1, new Ast(firstArgName, lhs),
-                    new Ast(secondArgName, rhs.Value.Item2));
-            }
-        );
-    }
-
     private static readonly ParseFunc<ParseResult<Ast>> Predicate =
         Delimited(Token("["), Surrounded(Expr(), Whitespace), Token("]"));
 
@@ -179,7 +140,7 @@ public static class XPathParser
                     flushPredicates(allowSinglePred);
                     if (filters.Count != 0)
                     {
-                        if (toWrap.IsLeft() && toWrap.AsLeft() == AstNodeName.SequenceExpr &&
+                        if (toWrap.IsLeft() && toWrap.AsLeft().IsA(AstNodeName.SequenceExpr) &&
                             toWrap.AsLeft().Children.Count > 1)
                             toWrap = new Ast(AstNodeName.SequenceExpr, toWrap.AsLeft());
 
@@ -498,6 +459,45 @@ public static class XPathParser
 
     public static readonly ParseFunc<ParseResult<Ast>> QueryBody =
         Map(Expr(), x => new Ast(AstNodeName.QueryBody, x));
+
+    private static Ast DefaultBinaryOperatorFn(Ast lhs, IEnumerable<(AstNodeName, Ast)> rhs)
+    {
+        return rhs.Aggregate(lhs, (lh, rh) =>
+            new Ast(rh.Item1, new Ast(AstNodeName.FirstOperand, lh), new Ast(AstNodeName.SecondOperand, rh.Item2)));
+    }
+
+    private static ParseFunc<ParseResult<TS>> BinaryOperator<T, TS>(ParseFunc<ParseResult<T>> expr,
+        ParseFunc<ParseResult<AstNodeName>> op,
+        Func<T, (AstNodeName, T)[], TS> constructionFn)
+    {
+        return Then(
+            expr,
+            Star(Then(Surrounded(op, Whitespace), expr, (a, b) => (a, b))),
+            constructionFn
+        );
+    }
+
+    private static ParseFunc<ParseResult<Ast>> NonRepeatableBinaryOperator(ParseFunc<ParseResult<Ast>> expr,
+        ParseFunc<ParseResult<AstNodeName>> op,
+        AstNodeName firstArgName = AstNodeName.FirstOperand,
+        AstNodeName secondArgName = AstNodeName.SecondOperand)
+    {
+        return Then(
+            expr,
+            OptionalDefaultValue(Then(
+                Surrounded(op, Whitespace),
+                expr,
+                (a, b) => (a, b)
+            )),
+            (lhs, rhs) =>
+            {
+                if (rhs == null) return lhs;
+
+                return new Ast(rhs.Value.Item1, new Ast(firstArgName, lhs),
+                    new Ast(secondArgName, rhs.Value.Item2));
+            }
+        );
+    }
 
 
     private static ParseResult<Ast[]> RelativePathExprWithForcedStepIndirect(string input, int offset)

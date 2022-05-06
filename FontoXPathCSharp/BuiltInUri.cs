@@ -14,9 +14,10 @@ public enum BuiltInUri
     XQUERYX_UPDATING_NAMESPACE_URI,
     XQUERYX_NAMESPACE_URI
 }
-static class StaticallyKnownNamespaceUtils
+
+internal static class StaticallyKnownNamespaceUtils
 {
-    private static Dictionary<BuiltInUri, string> builtInNamespaceUris = new()
+    private static readonly Dictionary<BuiltInUri, string> BuiltInNamespaceUris = new()
     {
         [BuiltInUri.XMLNS_NAMESPACE_URI] = "http://www.w3.org/2000/xmlns/",
         [BuiltInUri.XML_NAMESPACE_URI] = "http://www.w3.org/XML/1998/namespace",
@@ -29,45 +30,35 @@ static class StaticallyKnownNamespaceUtils
         [BuiltInUri.FONTOXPATH_NAMESPACE_URI] = "http://fontoxml.com/fontoxpath",
         [BuiltInUri.XQUERYX_UPDATING_NAMESPACE_URI] = "http://www.w3.org/2007/xquery-update-10",
         [BuiltInUri.XQUERYX_NAMESPACE_URI] = "http://www.w3.org/2005/XQueryX"
-
     };
 
-    private static Dictionary<string, string?> prefixUriLookup = new()
+    private static readonly Dictionary<string, string?> PrefixUriLookup = new()
     {
-        ["xml"] = GetBuiltinNamespaceURI(BuiltInUri.XML_NAMESPACE_URI),
-        ["xs"] = GetBuiltinNamespaceURI(BuiltInUri.XMLSCHEMA_NAMESPACE_URI),
-        ["fn"] = GetBuiltinNamespaceURI(BuiltInUri.FUNCTIONS_NAMESPACE_URI),
-        ["map"] = GetBuiltinNamespaceURI(BuiltInUri.MAP_NAMESPACE_URI),
-        ["array"] = GetBuiltinNamespaceURI(BuiltInUri.ARRAY_NAMESPACE_URI),
-        ["math"] = GetBuiltinNamespaceURI(BuiltInUri.MATH_NAMESPACE_URI),
-        ["fontoxpath"] = GetBuiltinNamespaceURI(BuiltInUri.FONTOXPATH_NAMESPACE_URI),
-        ["local"] = GetBuiltinNamespaceURI(BuiltInUri.LOCAL_NAMESPACE_URI)
+        ["xml"] = GetBuiltinNamespaceUri(BuiltInUri.XML_NAMESPACE_URI),
+        ["xs"] = GetBuiltinNamespaceUri(BuiltInUri.XMLSCHEMA_NAMESPACE_URI),
+        ["fn"] = GetBuiltinNamespaceUri(BuiltInUri.FUNCTIONS_NAMESPACE_URI),
+        ["map"] = GetBuiltinNamespaceUri(BuiltInUri.MAP_NAMESPACE_URI),
+        ["array"] = GetBuiltinNamespaceUri(BuiltInUri.ARRAY_NAMESPACE_URI),
+        ["math"] = GetBuiltinNamespaceUri(BuiltInUri.MATH_NAMESPACE_URI),
+        ["fontoxpath"] = GetBuiltinNamespaceUri(BuiltInUri.FONTOXPATH_NAMESPACE_URI),
+        ["local"] = GetBuiltinNamespaceUri(BuiltInUri.LOCAL_NAMESPACE_URI)
     };
 
-    public static string GetBuiltinNamespaceURI(this BuiltInUri builtInUri)
+    public static string GetBuiltinNamespaceUri(this BuiltInUri builtInUri)
     {
-        if (builtInNamespaceUris.ContainsKey(builtInUri))
-        {
-            return builtInNamespaceUris[builtInUri];
-        }
+        if (BuiltInNamespaceUris.ContainsKey(builtInUri)) return BuiltInNamespaceUris[builtInUri];
         throw new Exception("Built in URI not known: " + builtInUri);
     }
 
     public static string? GetStaticallyKnownNamespaceByPrefix(string prefix)
     {
-        if (prefixUriLookup.ContainsKey(prefix))
-        {
-            return prefixUriLookup[prefix];
-        }
-        return null;
+        return PrefixUriLookup.ContainsKey(prefix) ? PrefixUriLookup[prefix] : null;
     }
 
-    public static void RegisterStaticallyKnownNamespace(string prefix, string? namespaceURI)
+    public static void RegisterStaticallyKnownNamespace(string prefix, string? namespaceUri)
     {
-        if (prefixUriLookup.ContainsKey(prefix))
-        {
+        if (PrefixUriLookup.ContainsKey(prefix))
             throw new Exception("Prefix already registered: Do not register the same prefix twice.");
-        }
-        prefixUriLookup[prefix] = namespaceURI;
+        PrefixUriLookup[prefix] = namespaceUri;
     }
 }

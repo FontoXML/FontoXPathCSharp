@@ -18,7 +18,7 @@ public abstract class AbstractExpression
     public readonly bool CanBeStaticallyEvaluated;
 
     public bool IsUpdating;
-    
+
     protected AbstractExpression(AbstractExpression[] childExpressions, OptimizationOptions optimizationOptions)
     {
         _childExpressions = childExpressions;

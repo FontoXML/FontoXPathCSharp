@@ -42,11 +42,11 @@ public class Either<TL, TR>
 
     public static implicit operator Either<TL, TR>(TL left)
     {
-        return new(left);
+        return new Either<TL, TR>(left);
     }
 
     public static implicit operator Either<TL, TR>(TR right)
     {
-        return new(right);
+        return new Either<TL, TR>(right);
     }
 }

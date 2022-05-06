@@ -8,10 +8,10 @@ public abstract class Document : Node
     {
     }
 
-    public abstract Attr CreateAttributeNS(string namespaceUri, string name);
-    public abstract CDATASection CreateCDATASection(string contents);
+    public abstract Attr CreateAttributeNs(string namespaceUri, string name);
+    public abstract CDataSection CreateCDataSection(string contents);
     public abstract Comment CreateComment(string data);
-    public abstract Element CreateElementNS(string namespaceUri, string qualifiedName);
+    public abstract Element CreateElementNs(string namespaceUri, string qualifiedName);
     public abstract ProcessingInstruction CreateProcessingInstruction(string target, string data);
     public abstract ProcessingInstruction CreateTextNode(string data);
 }

@@ -39,15 +39,14 @@ public class FunctionCall : PossiblyUpdatingExpression
 
         base.PerformStaticEvaluation(staticContext);
 
-        if (_functionReferenceExpression.CanBeStaticallyEvaluated)
-        {
-            var functionRefSequence = _functionReferenceExpression.EvaluateMaybeStatically(null, null);
-            if (!functionRefSequence.IsSingleton()) throw new XPathException("XPTY0004");
+        if (!_functionReferenceExpression.CanBeStaticallyEvaluated) return;
+        
+        var functionRefSequence = _functionReferenceExpression.EvaluateMaybeStatically(null, null);
+        if (!functionRefSequence.IsSingleton()) throw new XPathException("XPTY0004");
 
-            _functionReference = ValidateFunctionItem<ISequence>(functionRefSequence.First()!, _callArity);
+        _functionReference = ValidateFunctionItem<ISequence>(functionRefSequence.First()!, _callArity);
 
-            // TODO: check if function reference is updating
-        }
+        // TODO: check if function reference is updating
     }
 
     private static FunctionValue<T> ValidateFunctionItem<T>(AbstractValue item, int callArity)

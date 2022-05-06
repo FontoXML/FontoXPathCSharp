@@ -14,10 +14,8 @@ public static class BuiltInFunctions
         return (context, parameters, staticContext, args) =>
         {
             if (context?.ContextItem == null)
-            {
                 throw new XPathException(
                     "XPDY0002: The function which was called depends on dynamic context, which is absent.");
-            }
 
             return fn(context, parameters, staticContext, new SingletonSequence(context.ContextItem));
         };

@@ -14,11 +14,9 @@ public enum CacheState
 
 public struct StaticCompilationResult
 {
-    AbstractExpression _expression;
-    StaticContext _context;
+    public StaticContext StaticContext { get; }
 
-    public StaticContext StaticContext => _context;
-    public AbstractExpression Expression => _expression;
+    public AbstractExpression Expression { get; }
 }
 
 public abstract class ExpressionResult
@@ -30,43 +28,37 @@ public abstract class ExpressionResult
 
 public class ParsedExpressionResult : ExpressionResult
 {
-    private IAST _ast;
-
-    public ParsedExpressionResult(IAST ast)
+    public ParsedExpressionResult(Ast ast)
     {
         _cacheState = CacheState.Parsed;
-        _ast = ast;
+        Ast = ast;
     }
 
-    public IAST AST => _ast;
+    public Ast Ast { get; }
 }
 
 public class CachedExpressionResult : ExpressionResult
 {
-    private AbstractExpression _expression;
-
     public CachedExpressionResult(AbstractExpression expression, CacheState cacheState)
     {
         _cacheState = cacheState;
-        _expression = expression;
+        Expression = expression;
     }
 
-    public AbstractExpression Expression => _expression;
+    public AbstractExpression Expression { get; }
 }
 
 public class CachedExpression
 {
-    private AbstractExpression _expression;
-    private bool _requiresStaticCompilation;
-
     public CachedExpression(AbstractExpression expression, bool requiresStaticCompilation)
     {
-        _expression = expression;
-        _requiresStaticCompilation = requiresStaticCompilation;
+        Expression = expression;
+        RequiresStaticCompilation = requiresStaticCompilation;
     }
 
-    public AbstractExpression Expression => _expression;
-    public bool RequiresStaticCompilation => _requiresStaticCompilation;
+    public AbstractExpression Expression { get; }
+
+    public bool RequiresStaticCompilation { get; }
 }
 
 public class CompiledExpressionCache

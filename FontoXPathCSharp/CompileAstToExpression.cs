@@ -75,6 +75,7 @@ public static class CompileAstToExpression
         if (args == null)
             throw new InvalidDataException($"Missing args for {ast}");
 
+        args = args.ToList();
         var argExpressions = args.Select(CompileAst).ToArray();
 
         return new FunctionCall(new NamedFunctionRef(functionName.GetQName(), args.Count()), argExpressions);
@@ -91,7 +92,7 @@ public static class CompileAstToExpression
         return new Literal(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
     }
-    
+
     public static AbstractExpression CompileAst(Ast ast)
     {
         return ast.Name switch

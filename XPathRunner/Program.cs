@@ -68,11 +68,9 @@ staticContext.RegisterFunctionDefinition(new FunctionProperties(
     }, "add", "", new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)));
 
 foreach (var function in BuiltInFunctions.Declarations)
-{
     staticContext.RegisterFunctionDefinition(new FunctionProperties(function.ArgumentTypes,
         function.ArgumentTypes.Length, function.CallFunction, function.LocalName,
         function.NamespaceUri, function.ReturnType));
-}
 
 expr.PerformStaticEvaluation(staticContext);
 Console.WriteLine(expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document)));

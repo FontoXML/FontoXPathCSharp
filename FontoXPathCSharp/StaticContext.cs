@@ -29,12 +29,12 @@ public struct FunctionProperties
 public class StaticContext : AbstractContext
 {
     private readonly AbstractContext _parentContext;
+    private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
 
-    private int _scopeDepth;
+    private readonly Dictionary<string, string>[] _registeredNamespaceUriByPrefix;
     private int _scopeCount;
 
-    private Dictionary<string, string>[] _registeredNamespaceURIByPrefix;
-    private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
+    private readonly int _scopeDepth;
 
     public StaticContext(AbstractContext parentContext)
     {
@@ -43,7 +43,7 @@ public class StaticContext : AbstractContext
         _scopeDepth = 0;
         _scopeCount = 0;
 
-        _registeredNamespaceURIByPrefix = new[]
+        _registeredNamespaceUriByPrefix = new[]
         {
             new Dictionary<string, string>()
         };
@@ -103,10 +103,10 @@ public class StaticContext : AbstractContext
 
     public void RegisterNamespace(string prefix, string namespaceUri)
     {
-        _registeredNamespaceURIByPrefix[_scopeDepth][prefix] = namespaceUri;
+        _registeredNamespaceUriByPrefix[_scopeDepth][prefix] = namespaceUri;
     }
 
-    public void EnhanceWithModule(string uri)
+    public static void EnhanceWithModule(string uri)
     {
         throw new NotImplementedException("enhanceStaticContextWithModule not implemented yet.");
     }

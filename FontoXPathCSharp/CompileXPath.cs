@@ -1,6 +1,4 @@
 using System.Diagnostics;
-using System.Net.NetworkInformation;
-using System.Numerics;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
@@ -27,14 +25,11 @@ public static class CompileXPath
         foreach (var modulePrefix in moduleImports.Keys)
         {
             var moduleUri = moduleImports[modulePrefix];
-            rootStaticContext.EnhanceWithModule(moduleUri);
+            StaticContext.EnhanceWithModule(moduleUri);
             rootStaticContext.RegisterNamespace(modulePrefix, moduleUri);
         }
 
-        if (typeof(TSelector) == typeof(string))
-        {
-            selector = NormalizeEndOfLines(selector);
-        }
+        if (typeof(TSelector) == typeof(string)) selector = NormalizeEndOfLines(selector);
 
         var result = CreateExpressionFromSource(
             selector,
@@ -73,58 +68,52 @@ public static class CompileXPath
                 functionNameResolver);
 
         if (fromCache != null)
-        {
             return new CachedExpressionResult(fromCache.Expression,
                 fromCache.RequiresStaticCompilation ? CacheState.Compiled : CacheState.StaticAnalyzed);
-        }
-        else
-        {
-            var ast =
-                typeof(TSelector) == typeof(string)
-                    ? ParseExpression.ParseXPathOrXQueryExpression(xpathSource, compilationOptions)
-                    : XmlToAst.ConvertXmlToAst(xpathSource);
 
-            return new ParsedExpressionResult(ast);
-        }
+        var ast =
+            typeof(TSelector) == typeof(string)
+                ? ParseExpression.ParseXPathOrXQueryExpression(xpathSource, compilationOptions)
+                : XmlToAst.ConvertXmlToAst(xpathSource);
+
+        return new ParsedExpressionResult(ast);
     }
 
     private static TSelector NormalizeEndOfLines<TSelector>(TSelector selector)
     {
-        var selectorString = (string)(object)selector!;
+        var selectorString = (string) (object) selector!;
         Debug.WriteLine("Warning, end of line normalization regex might not be correct yet.");
-        return (TSelector)(object)selectorString.Replace("(\x0D\x0A)|(\x0D(?!\x0A))g", "" + 0xa);
+        return (TSelector) (object) selectorString.Replace("(\x0D\x0A)|(\x0D(?!\x0A))g", "" + 0xa);
     }
 }
 
 public class ResolvedFunction
 {
-    private int _arity;
-    private LexicalQualifiedName _lexicalQName;
-    private ResolvedQualifiedName _resolvedQName;
-
     public ResolvedFunction(LexicalQualifiedName lexicalQualifiedName, int arity,
         ResolvedQualifiedName resolvedQualifiedName)
     {
-        _arity = arity;
-        _lexicalQName = lexicalQualifiedName;
-        _resolvedQName = resolvedQualifiedName;
+        Arity = arity;
+        LexicalQName = lexicalQualifiedName;
+        ResolvedQName = resolvedQualifiedName;
     }
 
-    public int Arity => _arity;
-    public LexicalQualifiedName LexicalQName => _lexicalQName;
-    public ResolvedQualifiedName ResolvedQName => _resolvedQName;
+    public int Arity { get; }
+
+    public LexicalQualifiedName LexicalQName { get; }
+
+    public ResolvedQualifiedName ResolvedQName { get; }
 }
 
 public class ExecutionSpecificStaticContext : AbstractContext
 {
-    private readonly NamespaceResolverFunc _namespaceResolver;
     private readonly FunctionNameResolverFunc _functionNameResolver;
-
-    private readonly Dictionary<string, string> _variableBindingByName;
-    private readonly Dictionary<string, string> _referredVariableByName;
+    private readonly NamespaceResolverFunc _namespaceResolver;
     private readonly Dictionary<string, (string, string)> _referredNamespaceByName;
+    private readonly Dictionary<string, string> _referredVariableByName;
 
     private readonly List<ResolvedFunction> _resolvedFunctions;
+
+    private readonly Dictionary<string, string> _variableBindingByName;
     private bool _executionContextWasRequired;
 
     public ExecutionSpecificStaticContext(NamespaceResolverFunc namespaceResolver,
@@ -152,39 +141,45 @@ public class ExecutionSpecificStaticContext : AbstractContext
         _executionContextWasRequired = false;
     }
 
-    private string GenerateGlobalVariableBindingName(string variableName) => $"Q{{}}{variableName}[0]";
+    private static string GenerateGlobalVariableBindingName(string variableName)
+    {
+        return $"Q{{}}{variableName}[0]";
+    }
 
-    public List<(string, string)> GetReferredNamespaces() => _referredNamespaceByName.Values.ToList();
+    public List<(string, string)> GetReferredNamespaces()
+    {
+        return _referredNamespaceByName.Values.ToList();
+    }
 
-    public List<string> GetReferredVariables() => _referredVariableByName.Values.ToList();
+    public List<string> GetReferredVariables()
+    {
+        return _referredVariableByName.Values.ToList();
+    }
 
-    public List<ResolvedFunction> GetResolvedFunctions() => _resolvedFunctions;
+    public List<ResolvedFunction> GetResolvedFunctions()
+    {
+        return _resolvedFunctions;
+    }
 
-    override public FunctionProperties? LookupFunction(string namespaceUri, string localName, int arity,
+    public override FunctionProperties? LookupFunction(string namespaceUri, string localName, int arity,
         bool skipExternal)
     {
         throw new NotImplementedException("Function lookup not implemented yet.");
     }
 
-    override public string? LookupVariable(string? namespaceUri, string localName)
+    public override string? LookupVariable(string? namespaceUri, string localName)
     {
         _executionContextWasRequired = true;
-        if (namespaceUri != null)
-        {
-            return null;
-        }
+        if (namespaceUri != null) return null;
 
         var bindingName = _variableBindingByName[localName];
 
-        if (!_referredVariableByName.ContainsKey(localName))
-        {
-            _referredVariableByName.Add(localName, localName);
-        }
+        if (!_referredVariableByName.ContainsKey(localName)) _referredVariableByName.Add(localName, localName);
 
         return bindingName;
     }
 
-    override public ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity)
+    public override ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity)
     {
         var resolvedQName = _functionNameResolver(lexicalQName, arity);
 
@@ -195,33 +190,25 @@ public class ExecutionSpecificStaticContext : AbstractContext
         else
         {
             var namespaceUri = ResolveNamespace(lexicalQName.Prefix);
-            if (namespaceUri != null)
-            {
-                return new ResolvedQualifiedName(namespaceUri, lexicalQName.LocalName);
-            }
+            if (namespaceUri != null) return new ResolvedQualifiedName(namespaceUri, lexicalQName.LocalName);
         }
 
         return resolvedQName;
     }
 
-    override public string? ResolveNamespace(string prefix, bool useExternalResolver = true)
+    public override string? ResolveNamespace(string prefix, bool useExternalResolver = true)
     {
         if (!useExternalResolver) return null;
 
         var knownNamespaceUri = StaticallyKnownNamespaceUtils.GetStaticallyKnownNamespaceByPrefix(prefix);
-        if (knownNamespaceUri != null)
-        {
-            return knownNamespaceUri;
-        }
+        if (knownNamespaceUri != null) return knownNamespaceUri;
 
         _executionContextWasRequired = true;
 
         var uri = _namespaceResolver(prefix);
 
         if (!_referredNamespaceByName.ContainsKey(prefix) && uri != null)
-        {
             _referredNamespaceByName.Add(prefix, (uri, prefix));
-        }
 
         return uri;
     }

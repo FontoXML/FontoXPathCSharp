@@ -2,15 +2,15 @@ namespace FontoXPathCSharp;
 
 public abstract class EvaluableExpression<T>
 {
-    private readonly T expression;
+    private readonly T _expression;
 
     public EvaluableExpression(T expression)
     {
-        this.expression = expression;
+        _expression = expression;
     }
 
     public T Evaluate()
     {
-        return expression;
+        return _expression;
     }
 }

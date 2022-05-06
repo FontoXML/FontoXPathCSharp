@@ -2,10 +2,10 @@ namespace FontoXPathCSharp.Types.Node;
 
 public abstract class Attr : Node
 {
-    private string localName;
-    private string name;
-    private string? namespaceURI;
-    private string nodeName;
-    private string? prefix;
-    private string value;
+    private string _localName;
+    private string _name;
+    private string? _namespaceUri;
+    private string _nodeName;
+    private string? _prefix;
+    private string _value;
 }

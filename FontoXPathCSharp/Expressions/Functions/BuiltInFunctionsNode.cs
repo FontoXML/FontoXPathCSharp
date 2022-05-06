@@ -12,10 +12,7 @@ public static class BuiltInFunctionsNode
     {
         var firstArg = args[0];
         var pointerValue = firstArg.First();
-        if (pointerValue == null)
-        {
-            return new EmptySequence();
-        }
+        if (pointerValue == null) return new EmptySequence();
 
         // TODO: replace this with a node pointer
         var node = pointerValue.GetAs<NodeValue>(ValueType.Node)!;
@@ -36,11 +33,11 @@ public static class BuiltInFunctionsNode
     public static readonly BuiltinDeclarationType[] Declarations =
     {
         new(new[] {new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)},
-            callFunction: FnNodeName, localName: "node-name", namespaceUri: "http://www.w3.org/2005/xpath-functions",
-            returnType: new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne)),
+            FnNodeName, "node-name", "http://www.w3.org/2005/xpath-functions",
+            new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne)),
         new(Array.Empty<ParameterType>(),
-            callFunction: BuiltInFunctions.ContextItemAsFirstArgument(FnNodeName), localName: "node-name",
-            namespaceUri: "http://www.w3.org/2005/xpath-functions",
-            returnType: new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne)),
+            BuiltInFunctions.ContextItemAsFirstArgument(FnNodeName), "node-name",
+            "http://www.w3.org/2005/xpath-functions",
+            new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne))
     };
 }

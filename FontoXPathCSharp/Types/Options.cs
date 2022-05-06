@@ -6,55 +6,49 @@ using LoggingFunc = System.Action<string>;
 
 public class LexicalQualifiedName
 {
-    string localName;
-    string prefix;
-
     public LexicalQualifiedName(string localName, string prefix)
     {
-        this.localName = localName;
-        this.prefix = prefix;
+        LocalName = localName;
+        Prefix = prefix;
     }
 
-    public string LocalName => localName;
+    public string LocalName { get; }
 
-    public string Prefix => prefix;
+    public string Prefix { get; }
 }
 
 public class ResolvedQualifiedName
 {
-    string localName;
-    string namespaceURI;
-
     public ResolvedQualifiedName(string localName, string namespaceUri)
     {
-        this.localName = localName;
-        namespaceURI = namespaceUri;
+        LocalName = localName;
+        NamespaceUri = namespaceUri;
     }
 
-    public string LocalName => localName;
+    public string LocalName { get; }
 
-    public string NamespaceUri => namespaceURI;
+    public string NamespaceUri { get; }
 }
 
 
-public class Language
+public static class Language
 {
-    public enum LanguageID
+    public enum LanguageId
     {
         XPATH_3_1_LANGUAGE,
         XQUERY_3_1_LANGUAGE,
-        XQUERY_UPDATE_3_1_LANGUAGE,
+        XQUERY_UPDATE_3_1_LANGUAGE
     }
 
-    string GetLanguageName(LanguageID lang)
+    private static string GetLanguageName(LanguageId lang)
     {
         switch (lang)
         {
-            case LanguageID.XPATH_3_1_LANGUAGE:
+            case LanguageId.XPATH_3_1_LANGUAGE:
                 return "XPath3.1";
-            case LanguageID.XQUERY_3_1_LANGUAGE:
+            case LanguageId.XQUERY_3_1_LANGUAGE:
                 return "XQuery3.1";
-            case LanguageID.XQUERY_UPDATE_3_1_LANGUAGE:
+            case LanguageId.XQUERY_UPDATE_3_1_LANGUAGE:
                 return "XQueryUpdate3.1";
             default:
                 throw new Exception("Unreachable");
@@ -64,34 +58,13 @@ public class Language
 
 public class Options
 {
-    public object? CurrentContext { get; set; }
-
-    public bool Debug { get; set; }
-
-    public bool DisableCache { get; set; }
-
-    public IDocumentWriter? DocumentWriter { get; set; }
-
-    public Language.LanguageID? LanguageId { get; set; }
-
-    public Dictionary<string, string>? ModuleImports { get; set; }
-
-    public string? DefaultFunctionNamespaceUri { get; set; }
-
-    public NamespaceResolverFunc? NamespaceResolver { get; set; } = null;
-    public FunctionNameResolverFunc? FunctionNameResolver { get; set; } = null;
-
-    public INodesFactory? NodesFactory { get; set; } = null;
-
-    public LoggingFunc? Logger { get; set; } = null;
-
     public Options(
         bool debug = false,
         bool disableCache = false,
-        string defaultFunctionNamespaceUri = null,
+        string? defaultFunctionNamespaceUri = null,
         object? currentContext = null,
         IDocumentWriter? documentWriter = null,
-        Language.LanguageID? languageId = null,
+        Language.LanguageId? languageId = null,
         Dictionary<string, string>? moduleImports = null,
         NamespaceResolverFunc? namespaceResolver = null,
         FunctionNameResolverFunc? functionNameResolver = null
@@ -107,6 +80,27 @@ public class Options
         NamespaceResolver = namespaceResolver;
         FunctionNameResolver = functionNameResolver;
     }
+
+    public object? CurrentContext { get; set; }
+
+    public bool Debug { get; set; }
+
+    public bool DisableCache { get; set; }
+
+    public IDocumentWriter? DocumentWriter { get; set; }
+
+    public Language.LanguageId? LanguageId { get; set; }
+
+    public Dictionary<string, string>? ModuleImports { get; set; }
+
+    public string? DefaultFunctionNamespaceUri { get; set; }
+
+    public NamespaceResolverFunc? NamespaceResolver { get; set; }
+    public FunctionNameResolverFunc? FunctionNameResolver { get; set; }
+
+    public INodesFactory? NodesFactory { get; set; }
+
+    public LoggingFunc? Logger { get; set; }
 }
 
 public class CompilationOptions

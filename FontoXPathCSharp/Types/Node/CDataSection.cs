@@ -1,5 +1,5 @@
 namespace FontoXPathCSharp.Types.Node;
 
-public class CDATASection : CharacterData
+public class CDataSection : CharacterData
 {
 }
