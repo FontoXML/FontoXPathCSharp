@@ -7,7 +7,7 @@ namespace FontoXPathCSharp.Expressions;
 
 public class Literal : AbstractExpression
 {
-    private readonly Func<ISequence> CreateValueSequence;
+    private readonly Func<ISequence> _createValueSequence;
 
     public Literal(string value, SequenceType type) : base(Array.Empty<AbstractExpression>(),
         new OptimizationOptions(true))
@@ -15,7 +15,10 @@ public class Literal : AbstractExpression
         switch (type.ValueType)
         {
             case ValueType.XsInteger:
-                CreateValueSequence = () => new SingletonSequence(new IntValue(int.Parse(value)));
+                _createValueSequence = () => new SingletonSequence(new IntValue(int.Parse(value)));
+                break;
+            case ValueType.XsString:
+                _createValueSequence = () => new SingletonSequence(new StringValue(value));
                 break;
             default:
                 throw new XPathException("Type '" + type + "' not expected in literal");
@@ -24,6 +27,6 @@ public class Literal : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        return CreateValueSequence();
+        return _createValueSequence();
     }
 }

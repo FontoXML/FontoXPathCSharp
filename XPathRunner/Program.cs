@@ -3,11 +3,12 @@ using FontoXPathCSharp;
 using FontoXPathCSharp.Expressions.Functions;
 using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Sequences;
+using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-const string query = "node-name(p)";
+const string query = "string-length(\"test\")";
 const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");
@@ -27,7 +28,10 @@ var document = xmlDocument.FirstChild!;
 
 Console.WriteLine("\nResult:");
 var expr = CompileAstToExpression.CompileAst(result);
-var staticContext = new StaticContext();
+var executionContext =
+    new ExecutionSpecificStaticContext(s => s, new Dictionary<string, IExternalValue>(), "", (name, i) => null);
+var staticContext = new StaticContext(executionContext);
+
 // node-name()
 // string-length()
 // count()

@@ -53,8 +53,9 @@ public static class XPathParser
         Delimited(Token("["), Surrounded(Expr(), Whitespace), Token("]"));
 
     // TODO: add xquery string literal
-    private static ParseFunc<ParseResult<string>> StringLiteral = Map(
-        Or(Surrounded(Star(Or(Regex("/[^\"&]/"))), Token("\"")), Surrounded(Star(Or(Regex("/[^'&]/"))), Token("'"))),
+    private static readonly ParseFunc<ParseResult<string>> StringLiteral = Map(
+        Or(Surrounded(Star(Or(Regex("[^\"]"))), Token("\"")),
+            Surrounded(Star(Or(Regex("[^']"))), Token("'"))),
         x => string.Join("", x)
     );
 
@@ -92,10 +93,11 @@ public static class XPathParser
 
     // TODO: add string literal
     private static readonly ParseFunc<ParseResult<Ast>> Literal =
-        Or(NumericLiteral, Map(StringLiteral, x => new Ast(AstNodeName.StringConstantExpr)
-        {
-            StringAttributes = {["value"] = x}
-        }));
+        Or(NumericLiteral, Map(StringLiteral, x => new Ast(AstNodeName.StringConstantExpr, new Ast(AstNodeName.Value)
+            {
+                TextContent = x
+            })
+        ));
 
     // TODO: add argumentPlaceholder
     private static readonly ParseFunc<ParseResult<Ast>> Argument =

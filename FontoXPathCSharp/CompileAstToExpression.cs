@@ -86,6 +86,12 @@ public static class CompileAstToExpression
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne));
     }
 
+    private static AbstractExpression CompileStringConstantExpr(Ast ast)
+    {
+        return new Literal(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
+    }
+    
     public static AbstractExpression CompileAst(Ast ast)
     {
         return ast.Name switch
@@ -95,6 +101,7 @@ public static class CompileAstToExpression
             AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast),
             AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
             AstNodeName.ContextItemExpr => new ContextItemExpression(),
+            AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
     }
