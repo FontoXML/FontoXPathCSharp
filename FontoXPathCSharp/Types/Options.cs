@@ -6,7 +6,7 @@ using LoggingFunc = System.Action<string>;
 
 public class LexicalQualifiedName
 {
-    public LexicalQualifiedName(string localName, string prefix)
+    public LexicalQualifiedName(string localName, string? prefix)
     {
         LocalName = localName;
         Prefix = prefix;
@@ -14,7 +14,7 @@ public class LexicalQualifiedName
 
     public string LocalName { get; }
 
-    public string Prefix { get; }
+    public string? Prefix { get; }
 }
 
 public class ResolvedQualifiedName
@@ -27,7 +27,7 @@ public class ResolvedQualifiedName
 
     public string LocalName { get; }
 
-    public string NamespaceUri { get; }
+    public string? NamespaceUri { get; }
 }
 
 

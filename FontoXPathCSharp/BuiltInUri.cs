@@ -50,9 +50,9 @@ internal static class StaticallyKnownNamespaceUtils
         throw new Exception("Built in URI not known: " + builtInUri);
     }
 
-    public static string? GetStaticallyKnownNamespaceByPrefix(string prefix)
+    public static string? GetStaticallyKnownNamespaceByPrefix(string? prefix)
     {
-        return PrefixUriLookup.ContainsKey(prefix) ? PrefixUriLookup[prefix] : null;
+        return prefix == null ? null : PrefixUriLookup.ContainsKey(prefix) ? PrefixUriLookup[prefix] : null;
     }
 
     public static void RegisterStaticallyKnownNamespace(string prefix, string? namespaceUri)

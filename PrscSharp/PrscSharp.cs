@@ -4,11 +4,11 @@ namespace PrscSharp;
 
 #nullable enable
 
-public delegate TR ParseFunc<out TR>(string input, int offset);
+public delegate ParseResult<TR> ParseFunc<TR>(string input, int offset);
 
 public static class PrscSharp
 {
-    public static ParseFunc<ParseResult<string>> Token(string token)
+    public static ParseFunc<string> Token(string token)
     {
         return (input, offset) =>
         {
@@ -21,7 +21,7 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<string>> Regex(string regex)
+    public static ParseFunc<string> Regex(string regex)
     {
         return (input, offset) =>
         {
@@ -34,7 +34,7 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<TR>> Map<T, TR>(ParseFunc<ParseResult<T>> parser, Func<T, TR> func)
+    public static ParseFunc<TR> Map<T, TR>(ParseFunc<T> parser, Func<T, TR> func)
     {
         return (input, offset) =>
         {
@@ -46,7 +46,7 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<T?>> Optional<T>(ParseFunc<ParseResult<T>> parser) where T : class
+    public static ParseFunc<T?> Optional<T>(ParseFunc<T> parser) where T : class
     {
         return (input, offset) =>
         {
@@ -58,7 +58,7 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<T?>> OptionalDefaultValue<T>(ParseFunc<ParseResult<T>> parser) where T : struct
+    public static ParseFunc<T?> OptionalDefaultValue<T>(ParseFunc<T> parser) where T : struct
     {
         return (input, offset) =>
         {
@@ -71,7 +71,7 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<T[]>> Star<T>(ParseFunc<ParseResult<T>> parser)
+    public static ParseFunc<T[]> Star<T>(ParseFunc<T> parser)
     {
         return (input, offset) =>
         {
@@ -98,7 +98,7 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<T>> Or<T>(params ParseFunc<ParseResult<T>>[] parsers)
+    public static ParseFunc<T> Or<T>(params ParseFunc<T>[] parsers)
     {
         return (input, offset) =>
         {
@@ -124,7 +124,7 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<T>> Peek<T>(ParseFunc<ParseResult<T>> parser)
+    public static ParseFunc<T> Peek<T>(ParseFunc<T> parser)
     {
         return (input, offset) =>
         {
@@ -133,7 +133,7 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<T?>> Not<T>(ParseFunc<ParseResult<T>> parser, string[] expected)
+    public static ParseFunc<T?> Not<T>(ParseFunc<T> parser, string[] expected)
     {
         return (input, offset) =>
         {
@@ -143,9 +143,9 @@ public static class PrscSharp
         };
     }
 
-    public static ParseFunc<ParseResult<TR>> Then<T1, T2, TR>(
-        ParseFunc<ParseResult<T1>> parser1,
-        ParseFunc<ParseResult<T2>> parser2,
+    public static ParseFunc<TR> Then<T1, T2, TR>(
+        ParseFunc<T1> parser1,
+        ParseFunc<T2> parser2,
         Func<T1, T2, TR> join)
     {
         return (input, offset) =>
@@ -166,45 +166,45 @@ public static class PrscSharp
     }
 
 
-    public static ParseFunc<ParseResult<T[]>> Plus<T>(ParseFunc<ParseResult<T>> parser)
+    public static ParseFunc<T[]> Plus<T>(ParseFunc<T> parser)
     {
         return Then(parser, Star(parser), (x, xs) => xs.Prepend(x).ToArray());
     }
 
-    public static ParseFunc<ParseResult<T>> Preceded<TBefore, T>(
-        ParseFunc<ParseResult<TBefore>> before,
-        ParseFunc<ParseResult<T>> parser)
+    public static ParseFunc<T> Preceded<TBefore, T>(
+        ParseFunc<TBefore> before,
+        ParseFunc<T> parser)
     {
         return Then(before, parser, (_, x) => x);
     }
 
-    public static ParseFunc<ParseResult<T>> Followed<T, TAfter>(
-        ParseFunc<ParseResult<T>> parser,
-        ParseFunc<ParseResult<TAfter>> after
+    public static ParseFunc<T> Followed<T, TAfter>(
+        ParseFunc<T> parser,
+        ParseFunc<TAfter> after
     )
     {
         return Then(parser, after, (x, _) => x);
     }
 
-    public static ParseFunc<ParseResult<T>> Followed<T, TAfter>(
-        ParseFunc<ParseResult<T>> parser,
-        ParseFunc<ParseResult<TAfter>>[] after
+    public static ParseFunc<T> Followed<T, TAfter>(
+        ParseFunc<T> parser,
+        ParseFunc<TAfter>[] after
     )
     {
         return Then(parser, Or(after), (x, _) => x);
     }
 
-    public static ParseFunc<ParseResult<T>> Delimited<T, TBefore, TAfter>(
-        ParseFunc<ParseResult<TBefore>> before,
-        ParseFunc<ParseResult<T>> parser,
-        ParseFunc<ParseResult<TAfter>> after)
+    public static ParseFunc<T> Delimited<T, TBefore, TAfter>(
+        ParseFunc<TBefore> before,
+        ParseFunc<T> parser,
+        ParseFunc<TAfter> after)
     {
         return Preceded(before, Followed(parser, after));
     }
 
-    public static ParseFunc<ParseResult<T>> Surrounded<T, TAround>(
-        ParseFunc<ParseResult<T>> parser,
-        ParseFunc<ParseResult<TAround>> around)
+    public static ParseFunc<T> Surrounded<T, TAround>(
+        ParseFunc<T> parser,
+        ParseFunc<TAround> around)
     {
         return Delimited(around, parser, around);
     }

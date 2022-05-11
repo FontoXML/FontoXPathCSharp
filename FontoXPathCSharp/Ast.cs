@@ -74,14 +74,14 @@ public enum AstNodeName
 public class Ast
 {
     public readonly AstNodeName Name;
-    public readonly Dictionary<string, string> StringAttributes;
+    public readonly Dictionary<string, string?> StringAttributes;
     public List<Ast> Children;
     public string TextContent;
 
     public Ast(AstNodeName name)
     {
         Name = name;
-        StringAttributes = new Dictionary<string, string>();
+        StringAttributes = new Dictionary<string, string?>();
         Children = new List<Ast>();
         TextContent = "";
     }
@@ -89,17 +89,12 @@ public class Ast
     public Ast(AstNodeName name, params Ast[] children)
     {
         Name = name;
-        StringAttributes = new Dictionary<string, string>();
+        StringAttributes = new Dictionary<string, string?>();
         Children = children.ToList();
         TextContent = "";
     }
 
-    public Ast? GetFirstChild()
-    {
-        return GetFirstChild(AstNodeName.All);
-    }
-
-    public Ast? GetFirstChild(AstNodeName name)
+    public Ast? GetFirstChild(AstNodeName name = AstNodeName.All)
     {
         return Children.Find(x => name == AstNodeName.All || name == x.Name);
     }
@@ -130,14 +125,14 @@ public class Ast
     public QName GetQName()
     {
         return new QName(TextContent, StringAttributes["URI"],
-            StringAttributes.ContainsKey("prefix") ? StringAttributes["prefix"] : null);
+            StringAttributes["prefix"]);
     }
 
     public bool IsA(AstNodeName name)
     {
         return Name == name;
     }
-    
+
     public override string ToString()
     {
         return string.Format("<AST \"{0}\", {{{1}}}, \"{2}\", [{3}]>", Name,

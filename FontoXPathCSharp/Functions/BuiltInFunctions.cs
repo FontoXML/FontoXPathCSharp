@@ -1,7 +1,7 @@
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
-namespace FontoXPathCSharp.Expressions.Functions;
+namespace FontoXPathCSharp.Functions;
 
 public static class BuiltInFunctions
 {
@@ -9,7 +9,7 @@ public static class BuiltInFunctions
         BuiltInFunctionsNode.Declarations.Concat(BuiltInFunctionsString.Declarations).ToArray();
 
 
-    public static FunctionSignature<ISequence> ContextItemAsFirstArgument(FunctionSignature<ISequence> fn)
+    public static FunctionDefinitionType<ISequence> ContextItemAsFirstArgument(FunctionDefinitionType<ISequence> fn)
     {
         return (context, parameters, staticContext, args) =>
         {

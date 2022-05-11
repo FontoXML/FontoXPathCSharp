@@ -4,11 +4,11 @@ using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Expressions.Functions;
+namespace FontoXPathCSharp.Functions;
 
 public static class BuiltInFunctionsNode
 {
-    private static readonly FunctionSignature<ISequence> FnNodeName = (context, parameters, staticContext, args) =>
+    private static readonly FunctionDefinitionType<ISequence> FnNodeName = (context, parameters, staticContext, args) =>
     {
         var firstArg = args[0];
         var pointerValue = firstArg.First();

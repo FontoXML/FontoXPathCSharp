@@ -28,9 +28,11 @@ public class NameTest : AbstractTestExpression
             return _name.LocalName == node.LocalName;
         }
 
-        if (_name.LocalName != "*")
-            if (_name.LocalName != node.LocalName)
-                return false;
+        if (_name.LocalName == "*")
+            return true;
+
+        if (_name.LocalName != node.LocalName)
+            return false;
 
         // TODO: there is a lot more to add here
         return true;

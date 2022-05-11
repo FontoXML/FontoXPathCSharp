@@ -16,10 +16,10 @@ public abstract class AbstractContext
     public Dictionary<string, Func<DynamicContext, ExecutionParameters, ISequence>>
         RegisteredVariableDeclarationByHashKey => registeredVariableDeclarationByHashKey;
 
-    public abstract FunctionProperties? LookupFunction(string namespaceUri, string localName, int arity,
+    public abstract FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
         bool skipExternal);
 
     public abstract string? LookupVariable(string? namespaceUri, string localName);
     public abstract ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity);
-    public abstract string? ResolveNamespace(string prefix, bool useExternalResolver);
+    public abstract string? ResolveNamespace(string? prefix, bool useExternalResolver);
 }

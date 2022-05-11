@@ -3,11 +3,11 @@ using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Expressions.Functions;
+namespace FontoXPathCSharp.Functions;
 
 public static class BuiltInFunctionsString
 {
-    private static readonly FunctionSignature<ISequence> FnStringLength = (context, parameters, staticContext, args) =>
+    private static readonly FunctionDefinitionType<ISequence> FnStringLength = (context, parameters, staticContext, args) =>
     {
         if (args.Length == 0) return new SingletonSequence(new IntValue(0));
 

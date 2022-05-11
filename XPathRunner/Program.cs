@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 using FontoXPathCSharp;
-using FontoXPathCSharp.Expressions.Functions;
+using FontoXPathCSharp.Functions;
 using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;

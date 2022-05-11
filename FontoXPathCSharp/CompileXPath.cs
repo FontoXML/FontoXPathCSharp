@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Functions;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using NamespaceResolverFunc = System.Func<string, string?>;
@@ -161,10 +162,10 @@ public class ExecutionSpecificStaticContext : AbstractContext
         return _resolvedFunctions;
     }
 
-    public override FunctionProperties? LookupFunction(string namespaceUri, string localName, int arity,
+    public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
         bool skipExternal)
     {
-        throw new NotImplementedException("Function lookup not implemented yet.");
+        return FunctionRegistry.GetFunctionByArity(namespaceUri, localName, arity);
     }
 
     public override string? LookupVariable(string? namespaceUri, string localName)
@@ -189,14 +190,14 @@ public class ExecutionSpecificStaticContext : AbstractContext
         }
         else
         {
-            var namespaceUri = ResolveNamespace(lexicalQName.Prefix);
+            var namespaceUri = ResolveNamespace(lexicalQName.Prefix, true);
             if (namespaceUri != null) return new ResolvedQualifiedName(namespaceUri, lexicalQName.LocalName);
         }
 
         return resolvedQName;
     }
 
-    public override string? ResolveNamespace(string prefix, bool useExternalResolver = true)
+    public override string? ResolveNamespace(string? prefix, bool useExternalResolver)
     {
         if (!useExternalResolver) return null;
 
