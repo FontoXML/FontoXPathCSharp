@@ -14,6 +14,6 @@ public class ContextItemExpression : AbstractExpression
         if (dynamicContext?.ContextItem == null)
             throw new XPathException("XPDY0002: context is absent, it needs to be present to use the \".\" operator");
 
-        return new SingletonSequence(dynamicContext.ContextItem);
+        return SequenceFactory.CreateFromValue(dynamicContext.ContextItem);
     }
 }

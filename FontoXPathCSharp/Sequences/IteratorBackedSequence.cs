@@ -3,12 +3,12 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
-public class IteratorBackedSequence : ISequence
+internal class IteratorBackedSequence : ISequence
 {
     private readonly Iterator<AbstractValue> _value;
 
     private bool _cacheAllValues;
-    private List<AbstractValue> _cachedValues;
+    private readonly List<AbstractValue> _cachedValues;
     private int _currentPosition;
     private int? _length;
 

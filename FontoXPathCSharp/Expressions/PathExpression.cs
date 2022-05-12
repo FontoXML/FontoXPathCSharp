@@ -14,10 +14,10 @@ public class PathExpression : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        return _stepExpressions.Aggregate(new ArrayBackedSequence(new[] {dynamicContext!.ContextItem!}),
+        return _stepExpressions.Aggregate(SequenceFactory.CreateFromArray(new[] {dynamicContext!.ContextItem!}),
             (contextItems, step) =>
             {
-                return new ArrayBackedSequence(contextItems
+                return SequenceFactory.CreateFromArray(contextItems
                     .SelectMany(c =>
                     {
                         // NOTE: if dynamicContext is passed as a reference, this will overwrite ut

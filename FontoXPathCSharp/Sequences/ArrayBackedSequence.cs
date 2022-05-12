@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
-public class ArrayBackedSequence : ISequence
+internal class ArrayBackedSequence : ISequence
 {
     private readonly AbstractValue[] _values;
 

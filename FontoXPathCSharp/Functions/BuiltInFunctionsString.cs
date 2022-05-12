@@ -7,13 +7,13 @@ namespace FontoXPathCSharp.Functions;
 
 public static class BuiltInFunctionsString
 {
-    private static readonly FunctionDefinitionType<ISequence> FnStringLength = (context, parameters, staticContext, args) =>
+    private static readonly FunctionDefinitionType<ISequence> FnStringLength = (_, _, _, args) =>
     {
-        if (args.Length == 0) return new SingletonSequence(new IntValue(0));
+        if (args.Length == 0) return SequenceFactory.CreateFromValue(new IntValue(0));
 
         var stringValue = args[0].First()!.GetAs<StringValue>(ValueType.XsString)!.Value;
 
-        return new SingletonSequence(new IntValue(stringValue.Length));
+        return SequenceFactory.CreateFromValue(new IntValue(stringValue.Length));
     };
 
     public static readonly BuiltinDeclarationType[] Declarations =

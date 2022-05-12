@@ -22,7 +22,7 @@ public class NamedFunctionRef : AbstractExpression
         var functionProps = _functionProperties!;
         var functionItem = new FunctionValue<ISequence>(functionProps.ArgumentTypes, functionProps.Arity,
             functionProps.CallFunction);
-        return new SingletonSequence(functionItem);
+        return SequenceFactory.CreateFromValue(functionItem);
     }
 
     public override void PerformStaticEvaluation(StaticContext staticContext)

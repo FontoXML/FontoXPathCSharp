@@ -12,7 +12,7 @@ public abstract class AbstractTestExpression : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        return new SingletonSequence(
+        return SequenceFactory.CreateFromValue(
             new BooleanValue(EvaluateToBoolean(dynamicContext, dynamicContext?.ContextItem!, executionParameters)));
     }
 

@@ -12,17 +12,12 @@ public class Literal : AbstractExpression
     public Literal(string value, SequenceType type) : base(Array.Empty<AbstractExpression>(),
         new OptimizationOptions(true))
     {
-        switch (type.ValueType)
+        _createValueSequence = type.ValueType switch
         {
-            case ValueType.XsInteger:
-                _createValueSequence = () => new SingletonSequence(new IntValue(int.Parse(value)));
-                break;
-            case ValueType.XsString:
-                _createValueSequence = () => new SingletonSequence(new StringValue(value));
-                break;
-            default:
-                throw new XPathException("Type '" + type + "' not expected in literal");
-        }
+            ValueType.XsInteger => () => SequenceFactory.CreateFromValue(new IntValue(int.Parse(value))),
+            ValueType.XsString => () => SequenceFactory.CreateFromValue(new StringValue(value)),
+            _ => throw new XPathException("Type '" + type + "' not expected in literal")
+        };
     }
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)

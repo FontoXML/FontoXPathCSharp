@@ -15,6 +15,6 @@ public class SelfAxis : AbstractExpression
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
         var isMatch = _selector.EvaluateToBoolean(dynamicContext, dynamicContext?.ContextItem!, executionParameters);
-        return isMatch ? new SingletonSequence(dynamicContext?.ContextItem!) : new EmptySequence();
+        return isMatch ? SequenceFactory.CreateFromValue(dynamicContext?.ContextItem!) : SequenceFactory.CreateEmpty();
     }
 }

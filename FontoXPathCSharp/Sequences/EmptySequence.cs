@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
-public class EmptySequence : ISequence
+internal class EmptySequence : ISequence
 {
     public bool IsEmpty()
     {

@@ -6,7 +6,8 @@ namespace FontoXPathCSharp.Functions;
 public static class BuiltInFunctions
 {
     public static readonly BuiltinDeclarationType[] Declarations =
-        BuiltInFunctionsNode.Declarations.Concat(BuiltInFunctionsString.Declarations).Concat(BuiltInFunctionsSequences.Declarations).ToArray();
+        BuiltInFunctionsNode.Declarations.Concat(BuiltInFunctionsString.Declarations)
+            .Concat(BuiltInFunctionsSequences.Declarations).ToArray();
 
 
     public static FunctionDefinitionType<ISequence> ContextItemAsFirstArgument(FunctionDefinitionType<ISequence> fn)
@@ -17,7 +18,7 @@ public static class BuiltInFunctions
                 throw new XPathException(
                     "XPDY0002: The function which was called depends on dynamic context, which is absent.");
 
-            return fn(context, parameters, staticContext, new SingletonSequence(context.ContextItem));
+            return fn(context, parameters, staticContext, SequenceFactory.CreateFromValue(context.ContextItem));
         };
     }
 }

@@ -8,11 +8,11 @@ namespace FontoXPathCSharp.Functions;
 
 public static class BuiltInFunctionsNode
 {
-    private static readonly FunctionDefinitionType<ISequence> FnNodeName = (context, parameters, staticContext, args) =>
+    private static readonly FunctionDefinitionType<ISequence> FnNodeName = (_, _, _, args) =>
     {
         var firstArg = args[0];
         var pointerValue = firstArg.First();
-        if (pointerValue == null) return new EmptySequence();
+        if (pointerValue == null) return SequenceFactory.CreateEmpty();
 
         // TODO: replace this with a node pointer
         var node = pointerValue.GetAs<NodeValue>(ValueType.Node)!;
@@ -21,12 +21,12 @@ public static class BuiltInFunctionsNode
         {
             case XmlNodeType.Element:
             case XmlNodeType.Attribute:
-                return new SingletonSequence(new QNameValue(new QName(nodeValue.LocalName, nodeValue.NamespaceURI,
+                return SequenceFactory.CreateFromValue(new QNameValue(new QName(nodeValue.LocalName, nodeValue.NamespaceURI,
                     nodeValue.Prefix)));
             case XmlNodeType.ProcessingInstruction:
                 throw new NotImplementedException("We need to get the target here somehow");
             default:
-                return new EmptySequence();
+                return SequenceFactory.CreateEmpty();
         }
     };
 

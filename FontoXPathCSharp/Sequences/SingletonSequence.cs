@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
-public class SingletonSequence : ISequence
+internal class SingletonSequence : ISequence
 {
     private readonly AbstractValue _onlyValue;
 
