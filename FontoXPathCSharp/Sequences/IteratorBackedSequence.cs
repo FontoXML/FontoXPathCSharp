@@ -15,7 +15,6 @@ internal class IteratorBackedSequence : ISequence
     public IteratorBackedSequence(Iterator<AbstractValue> valueIterator, int? predictedLength)
     {
         _value = valueIterator;
-
         _cacheAllValues = false;
         _cachedValues = new List<AbstractValue>();
         _currentPosition = 0;

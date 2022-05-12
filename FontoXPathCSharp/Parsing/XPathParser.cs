@@ -218,11 +218,11 @@ public static class XPathParser
         Or(
             Then3(StepExprWithForcedStep,
                 Preceded(Whitespace, LocationPathAbbreviation),
-                Preceded(Whitespace, RelativePathExprWithForcedStep),
+                Preceded(Whitespace, RelativePathExprWithForcedStepIndirect),
                 (lhs, abbrev, rhs) => new Ast(AstNodeName.PathExpr, new[] {lhs, abbrev}.Concat(rhs).ToArray())),
             Then(
                 StepExprWithForcedStep,
-                Preceded(Surrounded(Token("/"), Whitespace), RelativePathExprWithForcedStep),
+                Preceded(Surrounded(Token("/"), Whitespace), RelativePathExprWithForcedStepIndirect),
                 (lhs, rhs) => new Ast(AstNodeName.PathExpr, new[] {lhs}.Concat(rhs).ToArray())),
             StepExprWithoutStep,
             Map(
@@ -245,6 +245,11 @@ public static class XPathParser
                 (lhs, rhs) => new[] {lhs}.Concat(rhs).ToArray()), Map(StepExprWithForcedStep, x => new[] {x}),
             Map(StepExprWithForcedStep, x => new[] {x})
         );
+
+    private static ParseResult<Ast[]> RelativePathExprWithForcedStepIndirect(string input, int offset)
+    {
+        return RelativePathExprWithForcedStep(input, offset);
+    }
 
     // TODO: add other variants
     private static readonly ParseFunc<Ast> PathExpr =
@@ -493,12 +498,6 @@ public static class XPathParser
                     new Ast(secondArgName, rhs.Value.Item2));
             }
         );
-    }
-
-
-    private static ParseResult<Ast[]> RelativePathExprWithForcedStepIndirect(string input, int offset)
-    {
-        return RelativePathExprWithForcedStep(input, offset);
     }
 
     private static ParseResult<Ast> UnaryExprIndirect(string input, int offset)

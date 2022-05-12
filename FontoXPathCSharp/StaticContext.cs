@@ -31,7 +31,7 @@ public class StaticContext : AbstractContext
 
         registeredDefaultFunctionNamespaceURI = null;
 
-        // NOTE: not sure if these default values are correct
+        // NOTE: not sure if these default values are correct   
         registeredVariableDeclarationByHashKey = parentContext?.RegisteredVariableDeclarationByHashKey ??
                                                  new Dictionary<string,
                                                      Func<DynamicContext, ExecutionParameters, ISequence>>();
