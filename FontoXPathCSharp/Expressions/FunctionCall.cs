@@ -13,7 +13,7 @@ public class FunctionCall : PossiblyUpdatingExpression
     private StaticContext? _staticContext;
 
     public FunctionCall(AbstractExpression functionReferenceExpression, AbstractExpression[] args) : base(
-        new[] {functionReferenceExpression}.Concat(args).ToArray(),
+        new[] { functionReferenceExpression }.Concat(args).ToArray(),
         new OptimizationOptions(false))
     {
         _argumentExpressions = args;
@@ -40,7 +40,7 @@ public class FunctionCall : PossiblyUpdatingExpression
         base.PerformStaticEvaluation(staticContext);
 
         if (!_functionReferenceExpression.CanBeStaticallyEvaluated) return;
-        
+
         var functionRefSequence = _functionReferenceExpression.EvaluateMaybeStatically(null, null);
         if (!functionRefSequence.IsSingleton()) throw new XPathException("XPTY0004");
 

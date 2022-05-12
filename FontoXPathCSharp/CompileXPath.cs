@@ -188,10 +188,17 @@ public class ExecutionSpecificStaticContext : AbstractContext
         {
             _resolvedFunctions.Add(new ResolvedFunction(lexicalQName, arity, resolvedQName));
         }
+        else if (lexicalQName.Prefix == "")
+        {
+            if (registeredDefaultFunctionNamespaceURI != null)
+            {
+                return new ResolvedQualifiedName(lexicalQName.LocalName, registeredDefaultFunctionNamespaceURI);
+            }
+        }
         else
         {
             var namespaceUri = ResolveNamespace(lexicalQName.Prefix, true);
-            if (namespaceUri != null) return new ResolvedQualifiedName(namespaceUri, lexicalQName.LocalName);
+            if (namespaceUri != null) return new ResolvedQualifiedName(lexicalQName.LocalName, namespaceUri);
         }
 
         return resolvedQName;

@@ -50,9 +50,7 @@ public class StaticContext : AbstractContext
 
     private static string GetSignatureHash(string? namespaceUri, string localName, int arity)
     {
-        // TODO: add correct namespace uri handling
-        // return $"Q{{{namespaceUri ?? ""}}}{localName}~{arity}";
-        return $"Q{localName}~" + arity;
+        return $"Q{{{namespaceUri ?? ""}}}{localName}~{arity}";
     }
 
     public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
@@ -62,9 +60,10 @@ public class StaticContext : AbstractContext
 
         if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction))
         {
+            // TODO: add external support
             // if (!skipExternal && !foundFunction.IsExternal)
             {
-                // return foundFunction
+                return foundFunction;
             }
         }
 
