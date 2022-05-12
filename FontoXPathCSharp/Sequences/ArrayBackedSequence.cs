@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
-public class ArrayBackedSequence : ISequence, IEnumerable<AbstractValue>
+public class ArrayBackedSequence : ISequence
 {
     private readonly AbstractValue[] _values;
 
@@ -19,7 +19,7 @@ public class ArrayBackedSequence : ISequence, IEnumerable<AbstractValue>
 
     public IEnumerator<AbstractValue> GetEnumerator()
     {
-        return _values.ToList().GetEnumerator();
+        return ((IEnumerable<AbstractValue>) _values).GetEnumerator();
     }
 
     public bool IsEmpty()

@@ -15,6 +15,11 @@ public class IteratorResult<T> where T : class
     {
         return new IteratorResult<T>(true, null);
     }
+
+    public static IteratorResult<T> Ready(T value)
+    {
+        return new IteratorResult<T>(false, value);
+    }
 }
 
 public enum IterationHint
@@ -23,7 +28,9 @@ public enum IterationHint
     SkipDescendants = 1 << 0
 }
 
-public interface IIterator<T> where T : class
-{
-    public IteratorResult<T> Next(IterationHint hint);
-}
+// public interface IIterator<T> where T : class
+// {
+//     public IteratorResult<T> Next(IterationHint hint);
+// }
+
+public delegate IteratorResult<T> Iterator<T>(IterationHint hint) where T : class;

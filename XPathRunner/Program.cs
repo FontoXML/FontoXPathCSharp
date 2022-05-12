@@ -41,4 +41,5 @@ foreach (var function in BuiltInFunctions.Declarations)
         function.NamespaceUri, function.ReturnType));
 
 expr.PerformStaticEvaluation(staticContext);
-Console.WriteLine(expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document)));
+var resultSequence = expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document));
+Console.WriteLine(resultSequence.First());

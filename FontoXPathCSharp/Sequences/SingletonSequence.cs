@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
-public class SingletonSequence : ISequence, IEnumerable<AbstractValue>
+public class SingletonSequence : ISequence
 {
     private readonly AbstractValue _onlyValue;
 
@@ -14,7 +14,7 @@ public class SingletonSequence : ISequence, IEnumerable<AbstractValue>
 
     public IEnumerator<AbstractValue> GetEnumerator()
     {
-        return new[] {_onlyValue}.ToList().GetEnumerator();
+        return new[] { _onlyValue }.ToList().GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()

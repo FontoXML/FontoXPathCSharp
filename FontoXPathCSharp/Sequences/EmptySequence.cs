@@ -1,3 +1,4 @@
+using System.Collections;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
@@ -22,6 +23,16 @@ public class EmptySequence : ISequence
     public int GetLength()
     {
         return 0;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+    
+    public IEnumerator<AbstractValue> GetEnumerator()
+    {
+        throw new NotImplementedException();
     }
 
     public override string ToString()

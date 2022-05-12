@@ -7,11 +7,19 @@ namespace FontoXPathCSharp.Functions;
 
 public static class BuiltInFunctionsSequences
 {
-
     private static readonly FunctionDefinitionType<ISequence> FnCount = (context, parameters, staticContext, args) =>
     {
-        // TODO: this should be changed to an iterator
-        return new SingletonSequence(new IntValue(args[0].GetLength()));
+        var hasPassed = false;
+        return new IteratorBackedSequence(_ =>
+        {
+            if (hasPassed)
+            {
+                return IteratorResult<AbstractValue>.Done();
+            }
+
+            hasPassed = true;
+            return IteratorResult<AbstractValue>.Ready(new IntValue(args[0].GetLength()));
+        }, 1);
     };
 
     public static readonly BuiltinDeclarationType[] Declarations =
