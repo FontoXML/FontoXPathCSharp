@@ -14,7 +14,7 @@ public class SingletonSequence : ISequence
 
     public IEnumerator<AbstractValue> GetEnumerator()
     {
-        return new[] { _onlyValue }.ToList().GetEnumerator();
+        return new[] {_onlyValue}.ToList().GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -35,6 +35,11 @@ public class SingletonSequence : ISequence
     public AbstractValue First()
     {
         return _onlyValue;
+    }
+
+    public AbstractValue[] GetAllValues()
+    {
+        return new[] {_onlyValue};
     }
 
     public int GetLength()

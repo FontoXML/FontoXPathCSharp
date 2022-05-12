@@ -42,4 +42,4 @@ foreach (var function in BuiltInFunctions.Declarations)
 
 expr.PerformStaticEvaluation(staticContext);
 var resultSequence = expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document));
-Console.WriteLine(resultSequence.First());
+resultSequence.GetAllValues().ToList().ForEach(Console.WriteLine);

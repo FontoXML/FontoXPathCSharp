@@ -8,7 +8,7 @@ public class IteratorBackedSequence : ISequence
     private readonly Iterator<AbstractValue> _value;
 
     private bool _cacheAllValues;
-    private AbstractValue[] _cachedValues;
+    private List<AbstractValue> _cachedValues;
     private int _currentPosition;
     private int? _length;
 
@@ -17,7 +17,7 @@ public class IteratorBackedSequence : ISequence
         _value = valueIterator;
 
         _cacheAllValues = false;
-        _cachedValues = Array.Empty<AbstractValue>();
+        _cachedValues = new List<AbstractValue>();
         _currentPosition = 0;
         _length = predictedLength;
     }
@@ -39,11 +39,21 @@ public class IteratorBackedSequence : ISequence
             return IteratorResult<AbstractValue>.Done();
         }
 
+        if (_currentPosition < _cachedValues.Count)
+        {
+            return IteratorResult<AbstractValue>.Ready(_cachedValues[_currentPosition++]);
+        }
+
         var value = _value(hint);
         if (value.IsDone)
         {
             _length = _currentPosition;
             return value;
+        }
+
+        if (_cacheAllValues || _currentPosition < 2)
+        {
+            _cachedValues.Add(value.Value!);
         }
 
         _currentPosition++;
@@ -84,7 +94,7 @@ public class IteratorBackedSequence : ISequence
 
     public AbstractValue? First()
     {
-        if (_cachedValues.Length != 0)
+        if (_cachedValues.Count != 0)
         {
             return _cachedValues[0];
         }
@@ -98,7 +108,7 @@ public class IteratorBackedSequence : ISequence
 
     public AbstractValue[] GetAllValues()
     {
-        if (_currentPosition > _cachedValues.Length && _length != _cachedValues.Length)
+        if (_currentPosition > _cachedValues.Count && _length != _cachedValues.Count)
         {
             throw new XPathException("Implementation error: Sequence Iterator has progressed.");
         }
@@ -111,14 +121,14 @@ public class IteratorBackedSequence : ISequence
             val = Next(IterationHint.None);
         }
 
-        return _cachedValues;
+        return _cachedValues.ToArray();
     }
 
     public int GetLength()
     {
         return GetLength(false);
     }
-    
+
     public int GetLength(bool onlyIfCheap)
     {
         if (_length != null)
@@ -131,7 +141,7 @@ public class IteratorBackedSequence : ISequence
         {
             return -1;
         }
-        
+
         var oldPosition = _currentPosition;
 
         var length = GetAllValues().Length;

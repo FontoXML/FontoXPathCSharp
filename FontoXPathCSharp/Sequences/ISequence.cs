@@ -7,5 +7,6 @@ public interface ISequence : IEnumerable<AbstractValue>
     bool IsEmpty();
     bool IsSingleton();
     AbstractValue? First();
+    AbstractValue[] GetAllValues();
     int GetLength();
 }

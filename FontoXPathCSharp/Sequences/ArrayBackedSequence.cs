@@ -37,6 +37,11 @@ public class ArrayBackedSequence : ISequence
         return _values.Length == 0 ? null : _values[0];
     }
 
+    public AbstractValue[] GetAllValues()
+    {
+        return _values;
+    }
+    
     public int GetLength()
     {
         return _values.Length;

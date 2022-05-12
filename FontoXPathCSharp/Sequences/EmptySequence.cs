@@ -20,6 +20,11 @@ public class EmptySequence : ISequence
         return null;
     }
 
+    public AbstractValue[] GetAllValues()
+    {
+        return Array.Empty<AbstractValue>();
+    }
+    
     public int GetLength()
     {
         return 0;
