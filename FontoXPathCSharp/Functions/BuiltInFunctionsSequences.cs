@@ -38,11 +38,11 @@ public static class BuiltInFunctionsSequences
     {
         new(new[] {new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)},
             FnCount, "count",
-            "http://www.w3.org/2005/xpath-functions",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
         new(new[] {new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)},
             FnZeroOrOne, "zero-or-one",
-            "http://www.w3.org/2005/xpath-functions",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne))
     };
 }

@@ -20,12 +20,12 @@ public static class BuiltInFunctionsString
     {
         new(new[] {new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)},
             FnStringLength, "string-length",
-            "http://www.w3.org/2005/xpath-functions",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
 
         new(Array.Empty<ParameterType>(),
             BuiltInFunctions.ContextItemAsFirstArgument(FnStringLength), "string-length",
-            "http://www.w3.org/2005/xpath-functions",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne))
     };
 }

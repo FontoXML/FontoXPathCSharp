@@ -21,7 +21,8 @@ public static class BuiltInFunctionsNode
         {
             case XmlNodeType.Element:
             case XmlNodeType.Attribute:
-                return SequenceFactory.CreateFromValue(new QNameValue(new QName(nodeValue.LocalName, nodeValue.NamespaceURI,
+                return SequenceFactory.CreateFromValue(new QNameValue(new QName(nodeValue.LocalName,
+                    nodeValue.NamespaceURI,
                     nodeValue.Prefix)));
             case XmlNodeType.ProcessingInstruction:
                 throw new NotImplementedException("We need to get the target here somehow");
@@ -33,11 +34,11 @@ public static class BuiltInFunctionsNode
     public static readonly BuiltinDeclarationType[] Declarations =
     {
         new(new[] {new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)},
-            FnNodeName, "node-name", "http://www.w3.org/2005/xpath-functions",
+            FnNodeName, "node-name", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne)),
         new(Array.Empty<ParameterType>(),
             BuiltInFunctions.ContextItemAsFirstArgument(FnNodeName), "node-name",
-            "http://www.w3.org/2005/xpath-functions",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne))
     };
 }
