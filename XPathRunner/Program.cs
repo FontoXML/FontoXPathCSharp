@@ -27,7 +27,7 @@ Console.WriteLine("\nResult:");
 var expr = CompileAstToExpression.CompileAst(result);
 var executionContext =
     new ExecutionSpecificStaticContext(s => s, new Dictionary<string, IExternalValue>(),
-        "http://www.w3.org/2005/xpath-functions", (name, i) => null);
+        "http://www.w3.org/2005/xpath-functions", (_, _) => null);
 var staticContext = new StaticContext(executionContext);
 
 // normalize_string()

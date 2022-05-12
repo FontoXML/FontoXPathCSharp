@@ -33,7 +33,7 @@ internal class IteratorBackedSequence : ISequence
 
     private IteratorResult<AbstractValue> Next(IterationHint hint)
     {
-        if (_length != null && this._currentPosition >= _length)
+        if (_currentPosition >= _length)
         {
             return IteratorResult<AbstractValue>.Done();
         }
@@ -133,7 +133,7 @@ internal class IteratorBackedSequence : ISequence
         if (_length != null)
         {
             // TODO: fix this, why does `_length!` not work? 
-            return (int) _length;
+            return (int)_length;
         }
 
         if (onlyIfCheap)

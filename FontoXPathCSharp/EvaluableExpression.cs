@@ -4,7 +4,7 @@ public abstract class EvaluableExpression<T>
 {
     private readonly T _expression;
 
-    public EvaluableExpression(T expression)
+    protected EvaluableExpression(T expression)
     {
         _expression = expression;
     }

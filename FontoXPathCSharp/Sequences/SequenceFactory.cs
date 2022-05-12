@@ -8,7 +8,7 @@ public static class SequenceFactory
     {
         return new IteratorBackedSequence(iterator, predictedLength);
     }
-    
+
     public static ISequence CreateFromValue(AbstractValue? value)
     {
         if (value == null)

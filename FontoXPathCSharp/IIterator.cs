@@ -5,7 +5,7 @@ public class IteratorResult<T> where T : class
     public readonly bool IsDone;
     public readonly T? Value;
 
-    public IteratorResult(bool isDone, T? value)
+    private IteratorResult(bool isDone, T? value)
     {
         IsDone = isDone;
         Value = value;

@@ -49,7 +49,7 @@ public enum AstNodeName
     SubtractOp,
     MultiplyOp,
     DivOp,
-    IdivOp,
+    IDivOp,
     ModOp,
     UnionOp,
     IntersectOp,

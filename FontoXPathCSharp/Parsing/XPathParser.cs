@@ -39,7 +39,7 @@ public static class XPathParser
         = Or(Then(ForwardAxis, NodeTest,
             (axis, test) =>
                 new Ast(AstNodeName.StepExpr,
-                    new Ast(AstNodeName.XPathAxis) {TextContent = axis},
+                    new Ast(AstNodeName.XPathAxis) { TextContent = axis },
                     test
                 )));
 
@@ -51,9 +51,9 @@ public static class XPathParser
     // TODO: add string literal
     private static readonly ParseFunc<Ast> Literal =
         Or(NumericLiteral, Map(StringLiteral, x => new Ast(AstNodeName.StringConstantExpr, new Ast(AstNodeName.Value)
-            {
-                TextContent = x
-            })
+        {
+            TextContent = x
+        })
         ));
 
     // TODO: add argumentPlaceholder
@@ -79,8 +79,8 @@ public static class XPathParser
 
     private static readonly ParseFunc<Ast> FunctionCall =
         Preceded(
-            Not(Followed(ReservedFunctionNames, new[] {Whitespace, Token("(")}),
-                new[] {"cannot use reserved keyword for function names"}),
+            Not(Followed(ReservedFunctionNames, new[] { Whitespace, Token("(") }),
+                new[] { "cannot use reserved keyword for function names" }),
             Then(EqName, Preceded(Whitespace, ArgumentList),
                 (name, arguments) =>
                 {
@@ -96,7 +96,7 @@ public static class XPathParser
         );
 
     private static readonly ParseFunc<Ast> SequenceType =
-        Map(Token("AAAAAAAAAAA"), _ => new Ast(AstNodeName.All));
+        Map(Token("TODO"), _ => new Ast(AstNodeName.All));
 
     // TODO: add others
     private static readonly ParseFunc<Ast> PrimaryExpr = Or(Literal, ContextItemExpr, FunctionCall);
@@ -110,7 +110,7 @@ public static class XPathParser
                         x => new Ast(AstNodeName.Predicate, x)),
                     Map(Preceded(Whitespace, ArgumentList),
                         x => new Ast(AstNodeName.ArgumentList, x))
-                    // TODO: Preceded(Whitespace, Lookup()),
+                // TODO: Preceded(Whitespace, Lookup()),
                 )
             ),
             (expression, postfixExpr) =>
@@ -122,36 +122,33 @@ public static class XPathParser
 
                 var allowSinglePredicates = false;
 
-                var flushPredicates = (bool allowSinglePred) =>
+                void FlushPredicates(bool allowSinglePred)
                 {
                     if (allowSinglePred && predicates.Count == 1)
-                        filters.Add(new Ast(AstNodeName.Predicate) {Children = new List<Ast> {predicates[0]}});
-                    else if (predicates.Count != 0)
-                        filters.Add(new Ast(AstNodeName.Predicates) {Children = predicates});
+                        filters.Add(new Ast(AstNodeName.Predicate) { Children = new List<Ast> { predicates[0] } });
+                    else if (predicates.Count != 0) filters.Add(new Ast(AstNodeName.Predicates) { Children = predicates });
                     predicates.Clear();
-                };
+                }
 
-                var flushFilters = (bool ensureFilter, bool allowSinglePred) =>
+                void FlushFilters(bool ensureFilter, bool allowSinglePred)
                 {
-                    flushPredicates(allowSinglePred);
+                    FlushPredicates(allowSinglePred);
                     if (filters.Count != 0)
                     {
-                        if (toWrap.IsLeft() && toWrap.AsLeft().IsA(AstNodeName.SequenceExpr) &&
-                            toWrap.AsLeft().Children.Count > 1)
-                            toWrap = new Ast(AstNodeName.SequenceExpr, toWrap.AsLeft());
+                        if (toWrap.IsLeft() && toWrap.AsLeft().IsA(AstNodeName.SequenceExpr) && toWrap.AsLeft().Children.Count > 1) toWrap = new Ast(AstNodeName.SequenceExpr, toWrap.AsLeft());
 
-                        toWrap = new[] {new Ast(AstNodeName.FilterExpr, toWrap.AsLeft())}.Concat(filters).ToArray();
+                        toWrap = new[] { new Ast(AstNodeName.FilterExpr, toWrap.AsLeft()) }.Concat(filters).ToArray();
                         filters.Clear();
                     }
                     else if (ensureFilter)
                     {
-                        toWrap = new[] {new Ast(AstNodeName.FilterExpr, toWrap.AsLeft())};
+                        toWrap = new[] { new Ast(AstNodeName.FilterExpr, toWrap.AsLeft()) };
                     }
                     else
                     {
-                        toWrap = new[] {toWrap.AsLeft()};
+                        toWrap = new[] { toWrap.AsLeft() };
                     }
-                };
+                }
 
                 foreach (var postfix in postfixExpr)
                     switch (postfix.Name)
@@ -161,11 +158,11 @@ public static class XPathParser
                             break;
                         case AstNodeName.Lookup:
                             allowSinglePredicates = true;
-                            flushPredicates(allowSinglePredicates);
+                            FlushPredicates(allowSinglePredicates);
                             filters.Add(postfix);
                             break;
                         case AstNodeName.ArgumentList:
-                            flushFilters(false, allowSinglePredicates);
+                            FlushFilters(false, allowSinglePredicates);
                             if (toWrap.AsRight().Length > 1)
                                 toWrap = new[]
                                 {
@@ -177,14 +174,14 @@ public static class XPathParser
                             {
                                 new Ast(AstNodeName.FunctionItem, toWrap.AsRight())
                             }.Concat(postfix.Children.Count > 0
-                                ? new[] {new Ast(AstNodeName.Arguments, postfix.Children.ToArray())}
+                                ? new[] { new Ast(AstNodeName.Arguments, postfix.Children.ToArray()) }
                                 : Array.Empty<Ast>()).ToArray());
                             break;
                         default:
                             throw new Exception("Unreachable");
                     }
 
-                flushFilters(true, allowSinglePredicates);
+                FlushFilters(true, allowSinglePredicates);
 
                 // TODO: technically this should be AsLeft but something is wrong with this current implementation
                 return toWrap.AsRight()[0];
@@ -219,11 +216,11 @@ public static class XPathParser
             Then3(StepExprWithForcedStep,
                 Preceded(Whitespace, LocationPathAbbreviation),
                 Preceded(Whitespace, RelativePathExprWithForcedStepIndirect),
-                (lhs, abbrev, rhs) => new Ast(AstNodeName.PathExpr, new[] {lhs, abbrev}.Concat(rhs).ToArray())),
+                (lhs, abbrev, rhs) => new Ast(AstNodeName.PathExpr, new[] { lhs, abbrev }.Concat(rhs).ToArray())),
             Then(
                 StepExprWithForcedStep,
                 Preceded(Surrounded(Token("/"), Whitespace), RelativePathExprWithForcedStepIndirect),
-                (lhs, rhs) => new Ast(AstNodeName.PathExpr, new[] {lhs}.Concat(rhs).ToArray())),
+                (lhs, rhs) => new Ast(AstNodeName.PathExpr, new[] { lhs }.Concat(rhs).ToArray())),
             StepExprWithoutStep,
             Map(
                 StepExprWithForcedStep, x =>
@@ -237,13 +234,13 @@ public static class XPathParser
                 StepExprWithForcedStep,
                 Preceded(Whitespace, LocationPathAbbreviation),
                 Preceded(Whitespace, RelativePathExprWithForcedStepIndirect),
-                (lhs, abbrev, rhs) => new[] {lhs, abbrev}.Concat(rhs).ToArray()
+                (lhs, abbrev, rhs) => new[] { lhs, abbrev }.Concat(rhs).ToArray()
             ),
             Then(
                 StepExprWithForcedStep,
                 Preceded(Surrounded(Token("/"), Whitespace), RelativePathExprWithForcedStepIndirect),
-                (lhs, rhs) => new[] {lhs}.Concat(rhs).ToArray()), Map(StepExprWithForcedStep, x => new[] {x}),
-            Map(StepExprWithForcedStep, x => new[] {x})
+                (lhs, rhs) => new[] { lhs }.Concat(rhs).ToArray()), Map(StepExprWithForcedStep, x => new[] { x }),
+            Map(StepExprWithForcedStep, x => new[] { x })
         );
 
     private static ParseResult<Ast[]> RelativePathExprWithForcedStepIndirect(string input, int offset)
@@ -278,8 +275,8 @@ public static class XPathParser
 
     private static readonly ParseFunc<Ast> ArrowFunctionSpecifier =
         Or(Map(EqName, x => x.GetAst(AstNodeName.EqName))
-            // TODO: VarRef(),
-            // TODO: ParenthesizedExpr(),
+        // TODO: VarRef(),
+        // TODO: ParenthesizedExpr(),
         );
 
     private static readonly ParseFunc<Ast> ArrowExpr =
@@ -421,7 +418,7 @@ public static class XPathParser
             Or(
                 Alias(AstNodeName.MultiplyOp, "*"),
                 Followed(Alias(AstNodeName.DivOp, "div"), AssertAdjacentOpeningTerminal),
-                Followed(Alias(AstNodeName.IdivOp, "idiv"), AssertAdjacentOpeningTerminal),
+                Followed(Alias(AstNodeName.IDivOp, "idiv"), AssertAdjacentOpeningTerminal),
                 Followed(Alias(AstNodeName.ModOp, "mod"), AssertAdjacentOpeningTerminal)
             ),
             DefaultBinaryOperatorFn
@@ -445,7 +442,7 @@ public static class XPathParser
             // TODO: ValueCompare(),
             // TODO: NodeCompare(),
             // TODO: GeneralCompare()
-            Alias(AstNodeName.All, "AAAAAAAAAAAAAAAA")
+            Alias(AstNodeName.All, "TODO")
         ));
 
     private static readonly ParseFunc<Ast> AndExpr =

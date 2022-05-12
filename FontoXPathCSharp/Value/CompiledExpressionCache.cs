@@ -1,7 +1,7 @@
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 using NamespaceResolverFunc = System.Func<string, string?>;
-using FunctionNameResolverFunc = System.Func<LexicalQualifiedName, int, ResolvedQualifiedName?>;
+using FunctionNameResolverFunc = System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName?>;
 
 namespace FontoXPathCSharp.Value;
 

@@ -1,8 +1,7 @@
 using FontoXPathCSharp.DocumentWriter;
 using FontoXPathCSharp.NodesFactory;
-using NamespaceResolverFunc = System.Func<string, string?>;
-using FunctionNameResolverFunc = System.Func<LexicalQualifiedName, int, ResolvedQualifiedName>;
-using LoggingFunc = System.Action<string>;
+
+namespace FontoXPathCSharp.Types;
 
 public class LexicalQualifiedName
 {
@@ -42,17 +41,13 @@ public static class Language
 
     private static string GetLanguageName(LanguageId lang)
     {
-        switch (lang)
+        return lang switch
         {
-            case LanguageId.XPATH_3_1_LANGUAGE:
-                return "XPath3.1";
-            case LanguageId.XQUERY_3_1_LANGUAGE:
-                return "XQuery3.1";
-            case LanguageId.XQUERY_UPDATE_3_1_LANGUAGE:
-                return "XQueryUpdate3.1";
-            default:
-                throw new Exception("Unreachable");
-        }
+            LanguageId.XPATH_3_1_LANGUAGE => "XPath3.1",
+            LanguageId.XQUERY_3_1_LANGUAGE => "XQuery3.1",
+            LanguageId.XQUERY_UPDATE_3_1_LANGUAGE => "XQueryUpdate3.1",
+            _ => throw new Exception("Unreachable")
+        };
     }
 }
 
@@ -66,8 +61,8 @@ public class Options
         IDocumentWriter? documentWriter = null,
         Language.LanguageId? languageId = null,
         Dictionary<string, string>? moduleImports = null,
-        NamespaceResolverFunc? namespaceResolver = null,
-        FunctionNameResolverFunc? functionNameResolver = null
+        Func<string, string?>? namespaceResolver = null,
+        Func<LexicalQualifiedName, int, ResolvedQualifiedName>? functionNameResolver = null
     )
     {
         CurrentContext = currentContext;
@@ -95,12 +90,12 @@ public class Options
 
     public string? DefaultFunctionNamespaceUri { get; set; }
 
-    public NamespaceResolverFunc? NamespaceResolver { get; set; }
-    public FunctionNameResolverFunc? FunctionNameResolver { get; set; }
+    public Func<string, string?>? NamespaceResolver { get; set; }
+    public Func<LexicalQualifiedName, int, ResolvedQualifiedName>? FunctionNameResolver { get; set; }
 
     public INodesFactory? NodesFactory { get; set; }
 
-    public LoggingFunc? Logger { get; set; }
+    public Action<string>? Logger { get; set; }
 }
 
 public class CompilationOptions

@@ -6,13 +6,13 @@ public class Either<TL, TR>
     private readonly TL? _left;
     private readonly TR? _right;
 
-    public Either(TL left)
+    private Either(TL left)
     {
         _left = left;
         _isLeft = true;
     }
 
-    public Either(TR right)
+    private Either(TR right)
     {
         _right = right;
         _isLeft = false;

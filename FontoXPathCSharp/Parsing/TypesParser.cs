@@ -5,6 +5,6 @@ namespace FontoXPathCSharp.Parsing;
 
 public static class TypesParser
 {
-    public static ParseFunc<Ast> SingleType =
-        Map(Token("AAAAAAAAAAA"), _ => new Ast(AstNodeName.All));
+    public static readonly ParseFunc<Ast> SingleType =
+        Map(Token("TODO"), _ => new Ast(AstNodeName.All));
 }

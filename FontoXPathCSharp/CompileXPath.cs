@@ -4,7 +4,7 @@ using FontoXPathCSharp.Functions;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using NamespaceResolverFunc = System.Func<string, string?>;
-using FunctionNameResolverFunc = System.Func<LexicalQualifiedName, int, ResolvedQualifiedName?>;
+using FunctionNameResolverFunc = System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName?>;
 
 namespace FontoXPathCSharp;
 
@@ -82,9 +82,9 @@ public static class CompileXPath
 
     private static TSelector NormalizeEndOfLines<TSelector>(TSelector selector)
     {
-        var selectorString = (string) (object) selector!;
+        var selectorString = (string)(object)selector!;
         Debug.WriteLine("Warning, end of line normalization regex might not be correct yet.");
-        return (TSelector) (object) selectorString.Replace("(\x0D\x0A)|(\x0D(?!\x0A))g", "" + 0xa);
+        return (TSelector)(object)selectorString.Replace("(\x0D\x0A)|(\x0D(?!\x0A))g", "" + 0xa);
     }
 }
 

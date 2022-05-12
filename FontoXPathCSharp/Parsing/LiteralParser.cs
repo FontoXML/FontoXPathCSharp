@@ -13,7 +13,7 @@ public static class LiteralParser
     public static readonly ParseFunc<string> ForwardAxis =
         Map(Or(
             Token("self::")
-            // TODO: add other variants
+        // TODO: add other variants
         ), x => x[..^2]);
 
     private static readonly ParseFunc<string> Digits =
@@ -29,11 +29,11 @@ public static class LiteralParser
     public static readonly ParseFunc<Ast> NumericLiteral =
         Followed(
             Or(IntegerLiteral),
-            Peek(Not(Regex(@"[a-z][A-Z]"), new[] {"No alphabetic characters after numeric literal"}))
+            Peek(Not(Regex(@"[a-z][A-Z]"), new[] { "No alphabetic characters after numeric literal" }))
         );
 
     public static readonly ParseFunc<Ast> ContextItemExpr =
-        Map(Followed(Token("."), Peek(Not(Token("."), new[] {"context item should not be followed by another ."}))),
+        Map(Followed(Token("."), Peek(Not(Token("."), new[] { "context item should not be followed by another ." }))),
             _ => new Ast(AstNodeName.ContextItemExpr));
 
     public static readonly ParseFunc<string> ReservedFunctionNames =
@@ -64,9 +64,9 @@ public static class LiteralParser
         Map(Token("//"), _ =>
             // TODO: convert descendant-or-self to enum
             new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis)
-                {
-                    TextContent = "descendant-or-self"
-                },
+            {
+                TextContent = "descendant-or-self"
+            },
                 new Ast(AstNodeName.AnyKindTest))
         );
 }

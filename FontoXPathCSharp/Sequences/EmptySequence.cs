@@ -24,7 +24,7 @@ internal class EmptySequence : ISequence
     {
         return Array.Empty<AbstractValue>();
     }
-    
+
     public int GetLength()
     {
         return 0;
@@ -34,7 +34,7 @@ internal class EmptySequence : ISequence
     {
         return GetEnumerator();
     }
-    
+
     public IEnumerator<AbstractValue> GetEnumerator()
     {
         throw new NotImplementedException();

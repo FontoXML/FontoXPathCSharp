@@ -44,7 +44,7 @@ public class Evaluate
             executionParameters = context.ExecutionParameters;
             expression = context.Expression;
         }
-        catch (Exception _)
+        catch (Exception)
         {
             Console.WriteLine("Error with selector: " + selector);
             throw;

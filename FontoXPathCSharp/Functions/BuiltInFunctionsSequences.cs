@@ -43,6 +43,6 @@ public static class BuiltInFunctionsSequences
         new(new[] {new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)},
             FnZeroOrOne, "zero-or-one",
             "http://www.w3.org/2005/xpath-functions",
-            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne))
     };
 }

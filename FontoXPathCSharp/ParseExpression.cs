@@ -1,3 +1,5 @@
+using FontoXPathCSharp.Types;
+
 namespace FontoXPathCSharp;
 
 public class ParseExpression
