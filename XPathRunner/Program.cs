@@ -5,7 +5,7 @@ using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 
-const string query = "string-length(\"test\")";
+const string query = "count(self::p)";
 const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");
@@ -30,9 +30,6 @@ var executionContext =
         "http://www.w3.org/2005/xpath-functions", (name, i) => null);
 var staticContext = new StaticContext(executionContext);
 
-// node-name()
-// string-length()
-// count()
 // zero_or_one()
 // x("string")
 // normalize_string()
