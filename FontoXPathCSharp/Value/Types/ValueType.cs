@@ -5,8 +5,10 @@ public enum ValueType
     XsBoolean,
     XsString,
     XsNumeric,
+    XsQName,
     Node,
     Function,
     None,
-    XsInteger
+    XsInteger,
+    Item
 }

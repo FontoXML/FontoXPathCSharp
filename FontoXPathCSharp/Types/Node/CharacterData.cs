@@ -2,5 +2,5 @@ namespace FontoXPathCSharp.Types.Node;
 
 public class CharacterData : Node
 {
-    private string data;
+    private string? _data;
 }

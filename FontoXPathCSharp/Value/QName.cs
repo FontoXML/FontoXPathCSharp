@@ -4,29 +4,32 @@ public class QName
 {
     public readonly string LocalName;
     public readonly string? NamespaceUri;
-    public readonly string Prefix;
+    public readonly string? Prefix;
 
     public QName(string localName, string? namespaceUri, string? prefix)
     {
         LocalName = localName;
         NamespaceUri = namespaceUri;
-        Prefix = prefix ?? "";
+        Prefix = prefix;
     }
 
-    public Ast GetAst(string name)
+    public Ast GetAst(AstNodeName name)
     {
         var ast = new Ast(name)
         {
             TextContent = LocalName,
             StringAttributes =
             {
-                ["URI"] = Prefix
+                ["prefix"] = Prefix,
+                ["URI"] = NamespaceUri
             }
         };
 
-        if (NamespaceUri != null)
-            ast.StringAttributes["URI"] = NamespaceUri;
-
         return ast;
+    }
+
+    public override string ToString()
+    {
+        return $"Q{{{NamespaceUri ?? ""}}}{(Prefix == "" ? "" : Prefix + ":") + LocalName}";
     }
 }

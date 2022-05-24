@@ -1,31 +1,72 @@
 using PrscSharp;
 using static PrscSharp.PrscSharp;
+using static FontoXPathCSharp.Parsing.WhitespaceParser;
 
 namespace FontoXPathCSharp.Parsing;
 
-public class LiteralParser
+public static class LiteralParser
 {
-    private static ParseFunc<ParseResult<string>> Digits()
-    {
-        return Regex(@"[0-9]+");
-    }
+    public static readonly ParseFunc<string> AssertAdjacentOpeningTerminal =
+        Peek(Or(
+            Token("("), Token("\""), Token("'"), WhitespaceCharacter));
 
-    private static ParseFunc<ParseResult<Ast>> IntegerLiteral()
-    {
-        return Map(Digits(), d => new Ast("integerConstantExpr")
-        {
-            StringAttributes =
+    public static readonly ParseFunc<string> ForwardAxis =
+        Map(Or(
+            Token("self::")
+            // TODO: add other variants
+        ), x => x[..^2]);
+
+    private static readonly ParseFunc<string> Digits =
+        Regex(@"[0-9]+");
+
+    private static readonly ParseFunc<Ast> IntegerLiteral =
+        Map(Digits, d =>
+            new Ast(AstNodeName.IntegerConstantExpr, new Ast(AstNodeName.Value)
             {
-                ["value"] = d
-            }
-        });
-    }
+                TextContent = d
+            }));
 
-    public static ParseFunc<ParseResult<Ast>> NumericLiteral()
-    {
-        return Followed(
-            Or(new[] {IntegerLiteral()}),
+    public static readonly ParseFunc<Ast> NumericLiteral =
+        Followed(
+            Or(IntegerLiteral),
             Peek(Not(Regex(@"[a-z][A-Z]"), new[] {"No alphabetic characters after numeric literal"}))
         );
-    }
+
+    public static readonly ParseFunc<Ast> ContextItemExpr =
+        Map(Followed(Token("."), Peek(Not(Token("."), new[] {"context item should not be followed by another ."}))),
+            _ => new Ast(AstNodeName.ContextItemExpr));
+
+    public static readonly ParseFunc<string> ReservedFunctionNames =
+        Or(new[]
+        {
+            "array",
+            "attribute",
+            "comment",
+            "document-node",
+            "element",
+            "empty-sequence",
+            "function",
+            "if",
+            "item",
+            "map",
+            "namespace-node",
+            // TODO: This one should be added back in but this breaks function calls like `node-name(.)`
+            // "node",
+            "processing-instruction",
+            "schema-attribute",
+            "schema-element",
+            "switch",
+            "text",
+            "typeswitch"
+        }.Select(Token).ToArray());
+
+    public static readonly ParseFunc<Ast> LocationPathAbbreviation =
+        Map(Token("//"), _ =>
+            // TODO: convert descendant-or-self to enum
+            new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis)
+                {
+                    TextContent = "descendant-or-self"
+                },
+                new Ast(AstNodeName.AnyKindTest))
+        );
 }

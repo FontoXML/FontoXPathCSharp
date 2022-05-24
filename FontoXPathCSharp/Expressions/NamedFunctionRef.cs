@@ -1,4 +1,5 @@
 using FontoXPathCSharp.Sequences;
+using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
@@ -19,20 +20,36 @@ public class NamedFunctionRef : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        var functionProps = _functionProperties!.Value;
+        var functionProps = _functionProperties!;
         var functionItem = new FunctionValue<ISequence>(functionProps.ArgumentTypes, functionProps.Arity,
             functionProps.CallFunction);
-        return new SingletonSequence(functionItem);
+        return SequenceFactory.CreateFromValue(functionItem);
     }
 
     public override void PerformStaticEvaluation(StaticContext staticContext)
     {
-        if (_functionReference.NamespaceUri == null)
-            // TODO: resolve function name
-            throw new NotImplementedException();
+        var namespaceUri = _functionReference.NamespaceUri;
+        var localName = _functionReference.LocalName;
+        var prefix = _functionReference.Prefix;
+
+        if (namespaceUri == null)
+        {
+            var functionName = staticContext.ResolveFunctionName(new LexicalQualifiedName(localName, prefix), _arity);
+
+            if (functionName == null)
+                throw new XPathException("XPST0017: The function " + (prefix == null ? "" : prefix + ":") + localName +
+                                         " with arity " + _arity + " could not be resolved.");
+
+            namespaceUri = functionName.NamespaceUri;
+            localName = functionName.LocalName;
+        }
 
         _functionProperties =
-            staticContext.LookupFunction(_functionReference.NamespaceUri, _functionReference.LocalName, _arity, false);
+            staticContext.LookupFunction(namespaceUri, localName, _arity, false);
+
+        if (_functionProperties == null)
+            throw new XPathException("XPST0017: The function " + (prefix == null ? "" : prefix + ":") + localName +
+                                     " with arity " + _arity + " is not registered.");
 
         base.PerformStaticEvaluation(staticContext);
     }

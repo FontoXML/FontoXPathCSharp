@@ -3,11 +3,11 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
-public class SingletonSequence : ISequence, IEnumerable<AbstractValue>
+internal class SingletonSequence : ISequence
 {
     private readonly AbstractValue _onlyValue;
     private bool? _effectiveBooleanValue;
-    
+
     public SingletonSequence(AbstractValue onlyValue)
     {
         _onlyValue = onlyValue;
@@ -38,6 +38,11 @@ public class SingletonSequence : ISequence, IEnumerable<AbstractValue>
         return _onlyValue;
     }
 
+    public AbstractValue[] GetAllValues()
+    {
+        return new[] {_onlyValue};
+    }
+
     public int GetLength()
     {
         return 1;
@@ -46,10 +51,5 @@ public class SingletonSequence : ISequence, IEnumerable<AbstractValue>
     public bool GetEffectiveBooleanValue()
     {
         throw new NotImplementedException("No effective boolean value implemented yet.");
-    }
-
-    public override string ToString()
-    {
-        return "<SingletonSequence>[" + _onlyValue + "]";
     }
 }

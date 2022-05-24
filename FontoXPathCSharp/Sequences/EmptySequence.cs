@@ -1,8 +1,9 @@
+using System.Collections;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
-public class EmptySequence : ISequence
+internal class EmptySequence : ISequence
 {
     public bool IsEmpty()
     {
@@ -19,9 +20,24 @@ public class EmptySequence : ISequence
         return null;
     }
 
+    public AbstractValue[] GetAllValues()
+    {
+        return Array.Empty<AbstractValue>();
+    }
+
     public int GetLength()
     {
         return 0;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+    public IEnumerator<AbstractValue> GetEnumerator()
+    {
+        throw new NotImplementedException();
     }
 
     public bool GetEffectiveBooleanValue()

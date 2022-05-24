@@ -17,23 +17,16 @@ public enum ExplicitTimezone
 
 public class TypeRestrictions
 {
-    public WhitespaceHandling? Whitespace = null;
     public ExplicitTimezone? ExplicitTimezone = null;
     public int? FractionDigits = null;
-    public int? MinLength = null;
-    public string? MinInclusive = null;
     public string? MaxInclusive = null;
+    public string? MinInclusive = null;
+    public int? MinLength = null;
+    public WhitespaceHandling? Whitespace = null;
 }
 
 public class TypeModel
 {
-    private readonly TypeModel[] _memberTypes;
-    private readonly TypeModel? _parent;
-    private readonly TypeRestrictions? _restrictionsByName;
-    private readonly ValueType _type;
-    private readonly Func<string, bool> _validator;
-    private readonly Variety _variety;
-    
     public TypeModel(TypeModel[] memberTypes,
         TypeModel? parent,
         TypeRestrictions restrictionsByName,
@@ -41,23 +34,23 @@ public class TypeModel
         Func<string, bool> validator,
         Variety variety)
     {
-        _memberTypes = memberTypes;
-        _parent = parent;
-        _restrictionsByName = restrictionsByName;
-        _type = type;
-        _validator = validator;
-        _variety = variety;
+        MemberTypes = memberTypes;
+        Parent = parent;
+        RestrictionsByName = restrictionsByName;
+        Type = type;
+        Validator = validator;
+        Variety = variety;
     }
 
-    public TypeModel[] MemberTypes => _memberTypes;
+    public TypeModel[] MemberTypes { get; }
 
-    public TypeModel? Parent => _parent;
+    public TypeModel? Parent { get; }
 
-    public TypeRestrictions? RestrictionsByName => _restrictionsByName;
+    public TypeRestrictions? RestrictionsByName { get; }
 
-    public ValueType Type => _type;
+    public ValueType Type { get; }
 
-    public Func<string, bool> Validator => _validator;
+    public Func<string, bool> Validator { get; }
 
-    public Variety Variety => _variety;
+    public Variety Variety { get; }
 }

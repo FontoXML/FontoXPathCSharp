@@ -1,12 +1,15 @@
 using FontoXPathCSharp.DocumentWriter;
 using FontoXPathCSharp.NodesFactory;
 using NamespaceResolverFunc = System.Func<string, string?>;
-using FunctionNameResolverFunc = System.Func<LexicalQualifiedName, int, ResolvedQualifiedName>;
+using FunctionNameResolverFunc =
+    System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName>;
 using LoggingFunc = System.Action<string>;
+
+namespace FontoXPathCSharp.Types;
 
 public class LexicalQualifiedName
 {
-    public LexicalQualifiedName(string localName, string prefix)
+    public LexicalQualifiedName(string localName, string? prefix)
     {
         LocalName = localName;
         Prefix = prefix;
@@ -14,7 +17,7 @@ public class LexicalQualifiedName
 
     public string LocalName { get; }
 
-    public string Prefix { get; }
+    public string? Prefix { get; }
 }
 
 public class ResolvedQualifiedName
@@ -27,32 +30,27 @@ public class ResolvedQualifiedName
 
     public string LocalName { get; }
 
-    public string NamespaceUri { get; }
+    public string? NamespaceUri { get; }
 }
 
-
-public class Language
+public static class Language
 {
-    public enum LanguageID
+    public enum LanguageId
     {
         XPATH_3_1_LANGUAGE,
         XQUERY_3_1_LANGUAGE,
         XQUERY_UPDATE_3_1_LANGUAGE
     }
 
-    private string GetLanguageName(LanguageID lang)
+    private static string GetLanguageName(LanguageId lang)
     {
-        switch (lang)
+        return lang switch
         {
-            case LanguageID.XPATH_3_1_LANGUAGE:
-                return "XPath3.1";
-            case LanguageID.XQUERY_3_1_LANGUAGE:
-                return "XQuery3.1";
-            case LanguageID.XQUERY_UPDATE_3_1_LANGUAGE:
-                return "XQueryUpdate3.1";
-            default:
-                throw new Exception("Unreachable");
-        }
+            LanguageId.XPATH_3_1_LANGUAGE => "XPath3.1",
+            LanguageId.XQUERY_3_1_LANGUAGE => "XQuery3.1",
+            LanguageId.XQUERY_UPDATE_3_1_LANGUAGE => "XQueryUpdate3.1",
+            _ => throw new Exception("Unreachable")
+        };
     }
 }
 
@@ -61,10 +59,10 @@ public class Options
     public Options(
         bool debug = false,
         bool disableCache = false,
-        string defaultFunctionNamespaceUri = null,
+        string? defaultFunctionNamespaceUri = null,
         object? currentContext = null,
         IDocumentWriter? documentWriter = null,
-        Language.LanguageID? languageId = null,
+        Language.LanguageId? languageId = null,
         Dictionary<string, string>? moduleImports = null,
         NamespaceResolverFunc? namespaceResolver = null,
         FunctionNameResolverFunc? functionNameResolver = null
@@ -89,7 +87,7 @@ public class Options
 
     public IDocumentWriter? DocumentWriter { get; set; }
 
-    public Language.LanguageID? LanguageId { get; set; }
+    public Language.LanguageId? LanguageId { get; set; }
 
     public Dictionary<string, string>? ModuleImports { get; set; }
 

@@ -1,27 +1,27 @@
 using FontoXPathCSharp.Sequences;
-using FontoXPathCSharp.Types.Node;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
 public class XdmReturnValue
 {
-    public static TReturn ConvertXMDReturnValue<TNode, TSelector, TReturn>(TSelector expression, ISequence rawResults, ExecutionParameters executionParameters)
+    public static TReturn ConvertXMDReturnValue<TNode, TSelector, TReturn>(TSelector expression, ISequence rawResults,
+        ExecutionParameters executionParameters)
     {
-        var typeActions = new Dictionary<Type, Action> {
-            { typeof(bool), () =>
-            {
-                return rawResults.
-            }},
-            { typeof(string), () => ... },
-            { typeof(string[]), () => ... },
-        };
-
-        if (!typeActions.ContainsKey(typeof(TReturn)))
-        {
-            // Default case
-        }
-        typeActions[typeof(TReturn)]();
-
+        throw new NotImplementedException("Not done yet");
+        // var typeActions = new Dictionary<Type, Action> {
+        //     { typeof(bool), () =>
+        //     {
+        //         return rawResults.
+        //     }},
+        //     { typeof(string), () => ... },
+        //     { typeof(string[]), () => ... },
+        // };
+        //
+        // if (!typeActions.ContainsKey(typeof(TReturn)))
+        // {
+        //     // Default case
+        // }
+        // typeActions[typeof(TReturn)]();
     }
 //     export default function convertXDMReturnValue<
 // 	TNode extends Node,

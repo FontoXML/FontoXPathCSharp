@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
-public class ArrayBackedSequence : ISequence, IEnumerable<AbstractValue>
+internal class ArrayBackedSequence : ISequence
 {
     private readonly AbstractValue[] _values;
 
@@ -19,7 +19,7 @@ public class ArrayBackedSequence : ISequence, IEnumerable<AbstractValue>
 
     public IEnumerator<AbstractValue> GetEnumerator()
     {
-        return _values.ToList().GetEnumerator();
+        return ((IEnumerable<AbstractValue>) _values).GetEnumerator();
     }
 
     public bool IsEmpty()
@@ -37,6 +37,11 @@ public class ArrayBackedSequence : ISequence, IEnumerable<AbstractValue>
         return _values.Length == 0 ? null : _values[0];
     }
 
+    public AbstractValue[] GetAllValues()
+    {
+        return _values;
+    }
+
     public int GetLength()
     {
         return _values.Length;
@@ -44,15 +49,11 @@ public class ArrayBackedSequence : ISequence, IEnumerable<AbstractValue>
 
     public bool GetEffectiveBooleanValue()
     {
-        if (isSubtypeOf(this._values[0].type, ValueType.NODE)) {
-            return true;
-        }
+        // if (SubtypeUtils.IsSubtypeOf(this._values[0].type, ValueType.NODE)) {
+        //     return true;
+        // }
         // We always have a length > 1, or we'd be a singletonSequence
-        throw errFORG0006();
-    }
-
-    public override string ToString()
-    {
-        return "<ArrayBackedSequence>[" + string.Join(", ", _values.Select(value => value.ToString()!).ToArray()) + "]";
+        throw new NotImplementedException();
+        //throw errFORG0006();
     }
 }

@@ -5,28 +5,15 @@ namespace FontoXPathCSharp.Parsing;
 
 public static class WhitespaceParser
 {
-    private static ParseFunc<ParseResult<string>> WhitespaceCharacter()
-    {
-        return Or(new[]
-        {
-            Token(" ")
-            // TODO: add support for comments
-        });
-    }
+    public static readonly ParseFunc<string> WhitespaceCharacter =
+        Or(Token(" "));
 
-    private static ParseFunc<ParseResult<string>> ExplicitWhitespace()
-    {
-        return Map(
-            Plus(Token(" ")), x => string.Join("", x));
-    }
+    private static readonly ParseFunc<string> ExplicitWhitespace =
+        Map(Plus(Token(" ")), x => string.Join("", x));
 
-    public static ParseFunc<ParseResult<string>> Whitespace()
-    {
-        return Map(Star(WhitespaceCharacter()), x => string.Join("", x));
-    }
+    public static readonly ParseFunc<string> Whitespace =
+        Map(Star(WhitespaceCharacter), x => string.Join("", x));
 
-    public static ParseFunc<ParseResult<string>> WhitespacePlus()
-    {
-        return Map(Plus(WhitespaceCharacter()), x => string.Join("", x));
-    }
+    public static readonly ParseFunc<string> WhitespacePlus =
+        Map(Plus(WhitespaceCharacter), x => string.Join("", x));
 }

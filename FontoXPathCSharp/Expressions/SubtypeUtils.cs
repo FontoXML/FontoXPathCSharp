@@ -4,26 +4,22 @@ namespace FontoXPathCSharp.Expressions;
 
 public class SubtypeUtils
 {
-    public bool IsSubtypeOfType(TypeModel subType, TypeModel superType)
+    public static bool IsSubtypeOfType(TypeModel subType, TypeModel superType)
     {
         if (superType.Variety == Variety.Union)
-        {
             return Array.Find(
-                superType.MemberTypes, 
+                superType.MemberTypes,
                 memberType => IsSubtypeOfType(subType, memberType)) != null;
-        }
 
-        TypeModel? tempSubtype = subType;
+        var tempSubtype = subType;
 
         while (tempSubtype != null)
         {
             if (tempSubtype.Type == superType.Type) return true;
             if (tempSubtype.Variety == Variety.Union)
-            {
                 return Array.Find(
                     tempSubtype.MemberTypes,
                     memberType => IsSubtypeOf(memberType.Type, superType.Type)) != null;
-            }
 
             tempSubtype = tempSubtype.Parent;
         }
@@ -31,16 +27,15 @@ public class SubtypeUtils
         return false;
     }
 
-    public bool IsSubtypeOf(ValueType baseSubType, ValueType baseSuperType)
+    public static bool IsSubtypeOf(ValueType baseSubType, ValueType baseSuperType)
     {
-        if (baseSubType == baseSuperType)
-        {
-            return true;
-        }
+        if (baseSubType == baseSuperType) return true;
 
-        var superType = builtinDataTypesByType[baseSuperType];
-        var subType = builtinDataTypesByType[baseSubType];
+        throw new NotImplementedException();
 
-        return IsSubtypeOfType(subType, superType);
+        // var superType = builtinDataTypesByType[baseSuperType];
+        // var subType = builtinDataTypesByType[baseSubType];
+        //
+        // return IsSubtypeOfType(subType, superType);
     }
 }

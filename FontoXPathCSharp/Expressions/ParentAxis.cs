@@ -16,11 +16,11 @@ public class ParentAxis : AbstractExpression
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
         var parentNode = executionParameters?.DomFacade.ParentNode;
-        if (parentNode == null) return new EmptySequence();
+        if (parentNode == null) return SequenceFactory.CreateEmpty();
 
         // TODO: we technically need a pointer to parentNode here
         var isMatch =
             _parentExpression.EvaluateToBoolean(dynamicContext, new NodeValue(parentNode), executionParameters);
-        return isMatch ? new SingletonSequence(new NodeValue(parentNode)) : new EmptySequence();
+        return isMatch ? SequenceFactory.CreateFromValue(new NodeValue(parentNode)) : SequenceFactory.CreateEmpty();
     }
 }

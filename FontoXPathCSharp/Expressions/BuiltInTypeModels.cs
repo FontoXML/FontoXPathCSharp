@@ -1,15 +1,15 @@
-using System.Security.Principal;
-
 namespace FontoXPathCSharp.Expressions;
 
 public class BuiltInTypeModels
 {
-    private BuiltInTypeModels()
-    {
-        
-    }
-
     private static BuiltInTypeModels? _instance;
 
-    public static BuiltInTypeModels Instance() => _instance ??= new BuiltInTypeModels();
+    private BuiltInTypeModels()
+    {
+    }
+
+    public static BuiltInTypeModels Instance()
+    {
+        return _instance ??= new BuiltInTypeModels();
+    }
 }

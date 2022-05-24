@@ -1,42 +1,20 @@
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
-using FontoXPathCSharp.Value;
-using FontoXPathCSharp.Value.Types;
+using FontoXPathCSharp.Types;
 
 namespace FontoXPathCSharp;
-
-public struct FunctionProperties
-{
-    public readonly ParameterType[] ArgumentTypes;
-    public readonly int Arity;
-    public readonly FunctionSignature<ISequence> CallFunction;
-    public readonly string LocalName;
-    public readonly string NamespaceUri;
-    public readonly SequenceType ReturnType;
-
-    public FunctionProperties(ParameterType[] argumentTypes, int arity, FunctionSignature<ISequence> callFunction,
-        string localName, string namespaceUri, SequenceType returnType)
-    {
-        ArgumentTypes = argumentTypes;
-        Arity = arity;
-        CallFunction = callFunction;
-        LocalName = localName;
-        NamespaceUri = namespaceUri;
-        ReturnType = returnType;
-    }
-}
 
 public class StaticContext : AbstractContext
 {
     private readonly AbstractContext _parentContext;
-    private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
 
     private readonly Dictionary<string, string>[] _registeredNamespaceURIByPrefix;
-    private int _scopeCount;
 
     private readonly int _scopeDepth;
+    private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
+    private int _scopeCount;
 
-    public StaticContext(AbstractContext parentContext)
+    public StaticContext(AbstractContext? parentContext)
     {
         _parentContext = parentContext;
 
@@ -51,13 +29,13 @@ public class StaticContext : AbstractContext
         _registeredFunctionsByHash = new Dictionary<string, FunctionProperties>();
 
         registeredDefaultFunctionNamespaceURI = null;
-        registeredVariableDeclarationByHashKey = parentContext.RegisteredVariableDeclarationByHashKey;
-        registeredVariableBindingByHashKey = parentContext.RegisteredVariableBindingByHashKey;
-    }
 
-    public StaticContext()
-    {
-        throw new NotImplementedException();
+        // NOTE: not sure if these default values are correct   
+        registeredVariableDeclarationByHashKey = parentContext?.RegisteredVariableDeclarationByHashKey ??
+                                                 new Dictionary<string,
+                                                     Func<DynamicContext, ExecutionParameters, ISequence>>();
+        registeredVariableBindingByHashKey =
+            parentContext?.RegisteredVariableBindingByHashKey ?? new Dictionary<string, string>();
     }
 
     public StaticContext Clone()
@@ -68,15 +46,25 @@ public class StaticContext : AbstractContext
         return contextAtThisPoint;
     }
 
+    private static string GetSignatureHash(string? namespaceUri, string localName, int arity)
+    {
+        return $"Q{{{namespaceUri ?? ""}}}{localName}~{arity}";
+    }
+
     public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
         bool skipExternal)
     {
-        var hashKey = $"Q{{{namespaceUri ?? ""}}}{localName}";
+        var hashKey = GetSignatureHash(namespaceUri, localName, arity);
 
-        if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction)) return foundFunction;
+        if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction))
+            // TODO: add external support
+            // if (!skipExternal && !foundFunction.IsExternal)
+        {
+            return foundFunction;
+        }
 
-        // TODO: look in parent context
-        return null;
+
+        return _parentContext?.LookupFunction(namespaceUri, localName, arity, skipExternal);
     }
 
     public override string? LookupVariable(string? namespaceUri, string localName)
@@ -86,12 +74,31 @@ public class StaticContext : AbstractContext
 
     public override ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity)
     {
-        throw new NotImplementedException("ResolveFunctionName Not Yet Implemented for StaticContext");
+        if (lexicalQName.Prefix == "" && registeredDefaultFunctionNamespaceURI != null)
+            return new ResolvedQualifiedName(lexicalQName.LocalName, registeredDefaultFunctionNamespaceURI);
+
+        if (lexicalQName.Prefix != null)
+        {
+            var namespaceUri = ResolveNamespace(lexicalQName.Prefix, false);
+            if (namespaceUri != null) return new ResolvedQualifiedName(lexicalQName.LocalName, namespaceUri);
+        }
+
+        return _parentContext?.ResolveFunctionName(lexicalQName, arity);
     }
 
-    public override string? ResolveNamespace(string prefix, bool useExternalResolver)
+    private static string? LookupInOverrides(IReadOnlyList<Dictionary<string, string>> overrides, string key)
     {
-        throw new NotImplementedException("ResolveNamespace Not Yet Implemented for StaticContext");
+        for (var i = overrides.Count - 1; i >= 0; --i)
+            if (overrides[i].ContainsKey(key))
+                return overrides[i][key];
+
+        return null;
+    }
+
+    public override string? ResolveNamespace(string? prefix, bool useExternalResolver)
+    {
+        var uri = LookupInOverrides(_registeredNamespaceURIByPrefix, prefix ?? "");
+        return uri ?? _parentContext?.ResolveNamespace(prefix, useExternalResolver);
     }
 
     public void RegisterNamespace(string prefix, string namespaceUri)
@@ -99,14 +106,14 @@ public class StaticContext : AbstractContext
         _registeredNamespaceURIByPrefix[_scopeDepth][prefix] = namespaceUri;
     }
 
-    public void EnhanceWithModule(string uri)
+    public static void EnhanceWithModule(string uri)
     {
-        throw new NotImplementedException("enhanceStaticContextWithModule not implemented yet.");
+        throw new NotImplementedException("EnhanceStaticContextWithModule not implemented yet.");
     }
 
     public void RegisterFunctionDefinition(FunctionProperties properties)
     {
-        var hashKey = $"Q{{{properties.NamespaceUri ?? ""}}}{properties.LocalName}";
+        var hashKey = GetSignatureHash(properties.NamespaceUri, properties.LocalName, properties.Arity);
 
         if (_registeredFunctionsByHash.ContainsKey(hashKey))
             throw new XPathException($"XQT0049 {properties.NamespaceUri} {properties.LocalName}");

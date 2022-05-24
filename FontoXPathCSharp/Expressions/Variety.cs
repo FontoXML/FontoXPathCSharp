@@ -5,5 +5,5 @@ public enum Variety
     Primitive,
     Derived,
     List,
-    Union,
+    Union
 }

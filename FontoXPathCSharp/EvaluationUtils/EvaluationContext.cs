@@ -2,7 +2,8 @@ using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 using NamespaceResolverFunc = System.Func<string, string?>;
-using FunctionNameResolverFunc = System.Func<LexicalQualifiedName, int, ResolvedQualifiedName>;
+using FunctionNameResolverFunc =
+    System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName>;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
@@ -44,7 +45,7 @@ public class EvaluationContext<TSelector>
         var namespaceResolver = internalOptions.NamespaceResolver ?? createDefaultNamespaceResolver(contextItem);
 
         var defaultFunctionNamespaceURI = externalOptions.DefaultFunctionNamespaceUri ??
-                                          BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceURI();
+                                          BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri();
 
         var functionNameResolver = internalOptions.FunctionNameResolver ??
                                    createDefaultFunctionNameResolver(defaultFunctionNamespaceURI);
