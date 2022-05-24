@@ -5,13 +5,13 @@ public enum SequenceMultiplicity
     ZeroOrOne,
     OneOrMore,
     ZeroOrMore,
-    ExactlyOne,
+    ExactlyOne
 }
 
 public class SequenceType
 {
-    public readonly ValueType ValueType;
     public readonly SequenceMultiplicity Multiplicity;
+    public readonly ValueType ValueType;
 
     public SequenceType(ValueType valueType, SequenceMultiplicity multiplicity)
     {

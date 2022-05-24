@@ -6,34 +6,28 @@ using LoggingFunc = System.Action<string>;
 
 public class LexicalQualifiedName
 {
-    string localName;
-    string prefix;
-
     public LexicalQualifiedName(string localName, string prefix)
     {
-        this.localName = localName;
-        this.prefix = prefix;
+        LocalName = localName;
+        Prefix = prefix;
     }
 
-    public string LocalName => localName;
+    public string LocalName { get; }
 
-    public string Prefix => prefix;
+    public string Prefix { get; }
 }
 
 public class ResolvedQualifiedName
 {
-    string localName;
-    string namespaceURI;
-
     public ResolvedQualifiedName(string localName, string namespaceUri)
     {
-        this.localName = localName;
-        namespaceURI = namespaceUri;
+        LocalName = localName;
+        NamespaceUri = namespaceUri;
     }
 
-    public string LocalName => localName;
+    public string LocalName { get; }
 
-    public string NamespaceUri => namespaceURI;
+    public string NamespaceUri { get; }
 }
 
 
@@ -43,10 +37,10 @@ public class Language
     {
         XPATH_3_1_LANGUAGE,
         XQUERY_3_1_LANGUAGE,
-        XQUERY_UPDATE_3_1_LANGUAGE,
+        XQUERY_UPDATE_3_1_LANGUAGE
     }
 
-    string GetLanguageName(LanguageID lang)
+    private string GetLanguageName(LanguageID lang)
     {
         switch (lang)
         {
@@ -64,6 +58,29 @@ public class Language
 
 public class Options
 {
+    public Options(
+        bool debug = false,
+        bool disableCache = false,
+        string defaultFunctionNamespaceUri = null,
+        object? currentContext = null,
+        IDocumentWriter? documentWriter = null,
+        Language.LanguageID? languageId = null,
+        Dictionary<string, string>? moduleImports = null,
+        NamespaceResolverFunc? namespaceResolver = null,
+        FunctionNameResolverFunc? functionNameResolver = null
+    )
+    {
+        CurrentContext = currentContext;
+        Debug = debug;
+        DefaultFunctionNamespaceUri = defaultFunctionNamespaceUri;
+        DisableCache = disableCache;
+        DocumentWriter = documentWriter;
+        LanguageId = languageId;
+        ModuleImports = moduleImports;
+        NamespaceResolver = namespaceResolver;
+        FunctionNameResolver = functionNameResolver;
+    }
+
     public object? CurrentContext { get; set; }
 
     public bool Debug { get; set; }
@@ -78,35 +95,12 @@ public class Options
 
     public string? DefaultFunctionNamespaceUri { get; set; }
 
-    public NamespaceResolverFunc? NamespaceResolver { get; set; } = null;
-    public FunctionNameResolverFunc? FunctionNameResolver { get; set; } = null;
-    
-    public INodesFactory? NodesFactory { get; set; } = null ;
-    
-    public LoggingFunc? Logger  { get; set; } = null;
+    public NamespaceResolverFunc? NamespaceResolver { get; set; }
+    public FunctionNameResolverFunc? FunctionNameResolver { get; set; }
 
-    public Options(
-        bool debug = false,
-        bool disableCache = false,
-        string defaultFunctionNamespaceUri = null,
-        object? currentContext = null,
-        IDocumentWriter? documentWriter = null,
-        Language.LanguageID? languageId = null,
-        Dictionary<string, string>? moduleImports = null,
-        NamespaceResolverFunc? namespaceResolver = null,
-        FunctionNameResolverFunc? functionNameResolver = null
-        )
-    {
-        CurrentContext = currentContext;
-        Debug = debug;
-        DefaultFunctionNamespaceUri = defaultFunctionNamespaceUri;
-        DisableCache = disableCache;
-        DocumentWriter = documentWriter;
-        LanguageId = languageId;
-        ModuleImports = moduleImports;
-        NamespaceResolver = namespaceResolver;
-        FunctionNameResolver = functionNameResolver;
-    }
+    public INodesFactory? NodesFactory { get; set; } = null;
+
+    public LoggingFunc? Logger { get; set; } = null;
 }
 
 public class CompilationOptions
@@ -115,7 +109,7 @@ public class CompilationOptions
     public bool AllowXQuery;
     public bool Debug;
     public bool DisableCache;
-    
+
     public CompilationOptions(bool allowUpdating, bool allowXQuery, bool debug, bool disableCache)
     {
         AllowUpdating = allowUpdating;

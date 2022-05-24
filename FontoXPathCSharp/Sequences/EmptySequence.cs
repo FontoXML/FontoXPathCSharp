@@ -1,6 +1,6 @@
-namespace FontoXPathCSharp.Sequences;
+using FontoXPathCSharp.Value;
 
-using Value;
+namespace FontoXPathCSharp.Sequences;
 
 public class EmptySequence : ISequence
 {
@@ -22,6 +22,11 @@ public class EmptySequence : ISequence
     public int GetLength()
     {
         return 0;
+    }
+
+    public bool GetEffectiveBooleanValue()
+    {
+        return false;
     }
 
     public override string ToString()

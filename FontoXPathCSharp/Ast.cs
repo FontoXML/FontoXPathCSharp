@@ -5,8 +5,8 @@ namespace FontoXPathCSharp;
 public class Ast
 {
     public readonly string Name;
-    public Dictionary<string, string> StringAttributes;
     public List<Ast> Children;
+    public Dictionary<string, string> StringAttributes;
     public string TextContent;
 
     public Ast(string name)

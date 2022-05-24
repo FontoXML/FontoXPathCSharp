@@ -25,15 +25,16 @@ public struct FunctionProperties
         ReturnType = returnType;
     }
 }
+
 public class StaticContext : AbstractContext
 {
     private readonly AbstractContext _parentContext;
+    private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
 
-    private int _scopeDepth;
+    private readonly Dictionary<string, string>[] _registeredNamespaceURIByPrefix;
     private int _scopeCount;
 
-    private Dictionary<string, string>[] _registeredNamespaceURIByPrefix;
-    private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
+    private readonly int _scopeDepth;
 
     public StaticContext(AbstractContext parentContext)
     {
@@ -62,30 +63,32 @@ public class StaticContext : AbstractContext
     public StaticContext Clone()
     {
         var contextAtThisPoint = new StaticContext(_parentContext);
-        contextAtThisPoint._registeredFunctionsByHash = _registeredFunctionsByHash.ToDictionary(e => e.Key, e => e.Value);
+        contextAtThisPoint._registeredFunctionsByHash =
+            _registeredFunctionsByHash.ToDictionary(e => e.Key, e => e.Value);
         return contextAtThisPoint;
     }
 
-    public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity, bool skipExternal)
+    public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
+        bool skipExternal)
     {
         var hashKey = $"Q{{{namespaceUri ?? ""}}}{localName}";
 
-        if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction))
-        {
-            return foundFunction;
-        }
+        if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction)) return foundFunction;
 
         // TODO: look in parent context
         return null;
     }
+
     public override string? LookupVariable(string? namespaceUri, string localName)
     {
         throw new NotImplementedException("LookupVariable Not Yet Implemented for StaticContext");
     }
+
     public override ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity)
     {
         throw new NotImplementedException("ResolveFunctionName Not Yet Implemented for StaticContext");
     }
+
     public override string? ResolveNamespace(string prefix, bool useExternalResolver)
     {
         throw new NotImplementedException("ResolveNamespace Not Yet Implemented for StaticContext");
@@ -106,9 +109,7 @@ public class StaticContext : AbstractContext
         var hashKey = $"Q{{{properties.NamespaceUri ?? ""}}}{properties.LocalName}";
 
         if (_registeredFunctionsByHash.ContainsKey(hashKey))
-        {
             throw new XPathException($"XQT0049 {properties.NamespaceUri} {properties.LocalName}");
-        }
 
         _registeredFunctionsByHash[hashKey] = properties;
     }

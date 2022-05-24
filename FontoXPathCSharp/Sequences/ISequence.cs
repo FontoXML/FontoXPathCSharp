@@ -1,6 +1,6 @@
-namespace FontoXPathCSharp.Sequences;
+using FontoXPathCSharp.Value;
 
-using Value;
+namespace FontoXPathCSharp.Sequences;
 
 public interface ISequence
 {
@@ -8,4 +8,6 @@ public interface ISequence
     bool IsSingleton();
     AbstractValue? First();
     int GetLength();
+
+    bool GetEffectiveBooleanValue();
 }

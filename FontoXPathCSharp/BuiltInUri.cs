@@ -14,9 +14,10 @@ public enum BuiltInUri
     XQUERYX_UPDATING_NAMESPACE_URI,
     XQUERYX_NAMESPACE_URI
 }
-static class StaticallyKnownNamespaceUtils
+
+internal static class StaticallyKnownNamespaceUtils
 {
-    private static Dictionary<BuiltInUri, string> builtInNamespaceUris = new()
+    private static readonly Dictionary<BuiltInUri, string> builtInNamespaceUris = new()
     {
         [BuiltInUri.XMLNS_NAMESPACE_URI] = "http://www.w3.org/2000/xmlns/",
         [BuiltInUri.XML_NAMESPACE_URI] = "http://www.w3.org/XML/1998/namespace",
@@ -29,10 +30,9 @@ static class StaticallyKnownNamespaceUtils
         [BuiltInUri.FONTOXPATH_NAMESPACE_URI] = "http://fontoxml.com/fontoxpath",
         [BuiltInUri.XQUERYX_UPDATING_NAMESPACE_URI] = "http://www.w3.org/2007/xquery-update-10",
         [BuiltInUri.XQUERYX_NAMESPACE_URI] = "http://www.w3.org/2005/XQueryX"
-
     };
 
-    private static Dictionary<string, string?> prefixUriLookup = new()
+    private static readonly Dictionary<string, string?> prefixUriLookup = new()
     {
         ["xml"] = GetBuiltinNamespaceURI(BuiltInUri.XML_NAMESPACE_URI),
         ["xs"] = GetBuiltinNamespaceURI(BuiltInUri.XMLSCHEMA_NAMESPACE_URI),
@@ -46,28 +46,20 @@ static class StaticallyKnownNamespaceUtils
 
     public static string GetBuiltinNamespaceURI(this BuiltInUri builtInUri)
     {
-        if (builtInNamespaceUris.ContainsKey(builtInUri))
-        {
-            return builtInNamespaceUris[builtInUri];
-        }
+        if (builtInNamespaceUris.ContainsKey(builtInUri)) return builtInNamespaceUris[builtInUri];
         throw new Exception("Built in URI not known: " + builtInUri);
     }
 
     public static string? GetStaticallyKnownNamespaceByPrefix(string prefix)
     {
-        if (prefixUriLookup.ContainsKey(prefix))
-        {
-            return prefixUriLookup[prefix];
-        }
+        if (prefixUriLookup.ContainsKey(prefix)) return prefixUriLookup[prefix];
         return null;
     }
 
     public static void RegisterStaticallyKnownNamespace(string prefix, string? namespaceURI)
     {
         if (prefixUriLookup.ContainsKey(prefix))
-        {
             throw new Exception("Prefix already registered: Do not register the same prefix twice.");
-        }
         prefixUriLookup[prefix] = namespaceURI;
     }
 }
