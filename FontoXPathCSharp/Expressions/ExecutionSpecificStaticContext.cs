@@ -14,7 +14,6 @@ public class ExecutionSpecificStaticContext : AbstractContext
     private readonly List<ResolvedFunction> _resolvedFunctions;
 
     private readonly Dictionary<string, string> _variableBindingByName;
-    private bool _executionContextWasRequired;
 
     public ExecutionSpecificStaticContext(Func<string, string?> namespaceResolver,
         Dictionary<string, IExternalValue> variableByName, string defaultFunctionNamespaceUri,
@@ -37,8 +36,6 @@ public class ExecutionSpecificStaticContext : AbstractContext
 
         _functionNameResolver = functionNameResolver;
         _resolvedFunctions = new List<ResolvedFunction>();
-
-        _executionContextWasRequired = false;
     }
 
     private string GenerateGlobalVariableBindingName(string variableName)
@@ -64,12 +61,12 @@ public class ExecutionSpecificStaticContext : AbstractContext
     public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
         bool _skipExternal)
     {
-        return FunctionRegistry.GetFunctionByArity(namespaceUri, localName, arity);
+        // NOTE: `namespaceUri != null` was added to get rid of nullable warning
+        return namespaceUri != null ? FunctionRegistry.GetFunctionByArity(namespaceUri, localName, arity) : null;
     }
 
     public override string? LookupVariable(string? namespaceUri, string localName)
     {
-        _executionContextWasRequired = true;
         if (namespaceUri != null) return null;
 
         var bindingName = _variableBindingByName[localName];
@@ -96,6 +93,8 @@ public class ExecutionSpecificStaticContext : AbstractContext
         }
         else
         {
+            // NOTE: `lexicalQName == null` was added to get rid of nullable warning
+            if (lexicalQName.Prefix == null) return null;
             var namespaceUri = ResolveNamespace(lexicalQName.Prefix, true);
             if (namespaceUri != null) return new ResolvedQualifiedName(lexicalQName.LocalName, namespaceUri);
         }
@@ -109,8 +108,6 @@ public class ExecutionSpecificStaticContext : AbstractContext
 
         var knownNamespaceUri = StaticallyKnownNamespaceUtils.GetStaticallyKnownNamespaceByPrefix(prefix);
         if (knownNamespaceUri != null) return knownNamespaceUri;
-
-        _executionContextWasRequired = true;
 
         var uri = _namespaceResolver(prefix);
 

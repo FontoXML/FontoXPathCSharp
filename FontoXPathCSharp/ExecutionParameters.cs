@@ -1,6 +1,6 @@
-using System.Xml;
-
 namespace FontoXPathCSharp;
+
+using System.Xml;
 
 public class ExecutionParameters
 {

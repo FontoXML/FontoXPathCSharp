@@ -12,14 +12,12 @@ public class StaticContext : AbstractContext
 
     private readonly int _scopeDepth;
     private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
-    private int _scopeCount;
 
     public StaticContext(AbstractContext parentContext)
     {
         _parentContext = parentContext;
 
         _scopeDepth = 0;
-        _scopeCount = 0;
 
         _registeredNamespaceURIByPrefix = new[]
         {
