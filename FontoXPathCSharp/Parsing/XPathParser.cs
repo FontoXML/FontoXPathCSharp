@@ -8,8 +8,22 @@ using static FontoXPathCSharp.Parsing.TypesParser;
 
 namespace FontoXPathCSharp.Parsing;
 
-public static class XPathParser
+public struct ParseOptions
 {
+    public bool OutputDebugInfo { get; }
+    public bool XQuery { get; }
+
+    public ParseOptions(bool outputDebugInfo, bool xquery)
+    {
+        OutputDebugInfo = outputDebugInfo;
+        XQuery = xquery;
+    }
+}
+
+public class XPathParser
+{
+    private static ParseOptions _options;
+
     private static readonly ParseFunc<Ast> Predicate =
         Delimited(Token("["), Surrounded(Expr(), Whitespace), Token("]"));
 
@@ -467,7 +481,7 @@ public static class XPathParser
             Followed(Alias(AstNodeName.OrOp, "or"), AssertAdjacentOpeningTerminal),
             DefaultBinaryOperatorFn);
 
-    public static readonly ParseFunc<Ast> QueryBody =
+    private static readonly ParseFunc<Ast> QueryBody =
         Map(Expr(), x => new Ast(AstNodeName.QueryBody, x));
 
     private static ParseResult<Ast[]> RelativePathExprWithForcedStepIndirect(string input, int offset)
@@ -531,5 +545,11 @@ public static class XPathParser
             rhs.Length == 0
                 ? lhs
                 : new Ast(AstNodeName.SequenceExpr, rhs.Select(x => x.Item2).ToArray()));
+    }
+
+    public static ParseResult<Ast> Parse(string input, ParseOptions options)
+    {
+        _options = options;
+        return QueryBody(input, 0);
     }
 }

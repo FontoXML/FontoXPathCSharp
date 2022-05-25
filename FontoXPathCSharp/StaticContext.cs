@@ -56,9 +56,9 @@ public class StaticContext : AbstractContext
     {
         var hashKey = GetSignatureHash(namespaceUri, localName, arity);
 
+        // TODO: add external support
+        // if (!skipExternal && !foundFunction.IsExternal)
         if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction))
-            // TODO: add external support
-            // if (!skipExternal && !foundFunction.IsExternal)
         {
             return foundFunction;
         }
