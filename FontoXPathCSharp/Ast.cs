@@ -68,6 +68,7 @@ public enum AstNodeName
     Value,
     ContextItemExpr,
     StringConstantExpr,
+    RootExpr,
     All // *
 }
 

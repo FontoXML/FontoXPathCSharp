@@ -5,7 +5,7 @@ using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 
-const string query = "zero-or-one(self::p)";
+const string query = "/p";
 const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");

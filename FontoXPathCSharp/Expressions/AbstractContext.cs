@@ -6,9 +6,9 @@ namespace FontoXPathCSharp.Expressions;
 public abstract class AbstractContext
 {
     protected string? registeredDefaultFunctionNamespaceURI;
-    protected Dictionary<string, string> registeredVariableBindingByHashKey;
+    protected Dictionary<string, string>? registeredVariableBindingByHashKey;
 
-    protected Dictionary<string, Func<DynamicContext, ExecutionParameters, ISequence>>
+    protected Dictionary<string, Func<DynamicContext, ExecutionParameters, ISequence>>?
         registeredVariableDeclarationByHashKey;
 
     public string? RegisteredDefaultFunctionNamespaceUri => registeredDefaultFunctionNamespaceURI;

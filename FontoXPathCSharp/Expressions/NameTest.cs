@@ -17,6 +17,8 @@ public class NameTest : AbstractTestExpression
         AbstractValue value,
         ExecutionParameters? executionParameters)
     {
+        // TODO: there is a lot more to add here
+
         var node = value.GetAs<NodeValue>(ValueType.Node)!.Value();
 
         if (_name.Prefix == null && _name.NamespaceUri != "" && _name.LocalName == "*") return true;
@@ -34,7 +36,6 @@ public class NameTest : AbstractTestExpression
         if (_name.LocalName != node.LocalName)
             return false;
 
-        // TODO: there is a lot more to add here
         return true;
     }
 }

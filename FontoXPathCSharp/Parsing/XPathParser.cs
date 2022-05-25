@@ -246,9 +246,23 @@ public static class XPathParser
             Map(StepExprWithForcedStep, x => new[] {x})
         );
 
+    private static readonly ParseFunc<Ast> AbsoluteLocationPath =
+        Or(Map(PrecededMultiple(new[] {Token("/"), Whitespace}, RelativePathExprWithForcedStep),
+                path => new Ast(AstNodeName.PathExpr, new[] {new Ast(AstNodeName.RootExpr)}.Concat(path).ToArray())),
+            Then(LocationPathAbbreviation, Preceded(Whitespace, RelativePathExprWithForcedStep),
+                (abbrev, path) => new Ast(AstNodeName.PathExpr,
+                    new[] {new Ast(AstNodeName.RootExpr), abbrev}.Concat(path).ToArray())),
+            Map(Followed(Token("/"), Not(Preceded(Whitespace, Regex("[*a-zA-Z]")),
+                    new[]
+                    {
+                        "Single rootExpr cannot be followed by something that can be interpreted as a relative path"
+                    })),
+                _ => new Ast(AstNodeName.PathExpr, new Ast(AstNodeName.RootExpr)))
+        );
+
     // TODO: add other variants
     private static readonly ParseFunc<Ast> PathExpr =
-        Or(RelativePathExpr);
+        Or(RelativePathExpr, AbsoluteLocationPath);
 
     private static readonly ParseFunc<Ast> ValueExpr =
         Or(

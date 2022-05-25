@@ -86,13 +86,12 @@ public class StaticContext : AbstractContext
         return _parentContext?.ResolveFunctionName(lexicalQName, arity);
     }
 
-    private static string? LookupInOverrides(IReadOnlyList<Dictionary<string, string>> overrides, string key)
+    private static string? LookupInOverrides(IEnumerable<Dictionary<string, string>> overrides, string key)
     {
-        for (var i = overrides.Count - 1; i >= 0; --i)
-            if (overrides[i].ContainsKey(key))
-                return overrides[i][key];
-
-        return null;
+        return (from o in overrides.Reverse()
+                where o.ContainsKey(key)
+                select o[key])
+            .FirstOrDefault();
     }
 
     public override string? ResolveNamespace(string? prefix, bool useExternalResolver)

@@ -17,18 +17,17 @@ public static class BuiltInFunctionsNode
         // TODO: replace this with a node pointer
         var node = pointerValue.GetAs<NodeValue>(ValueType.Node)!;
         var nodeValue = node.Value();
-        switch (nodeValue.NodeType)
+
+        return nodeValue.NodeType switch
         {
-            case XmlNodeType.Element:
-            case XmlNodeType.Attribute:
-                return SequenceFactory.CreateFromValue(new QNameValue(new QName(nodeValue.LocalName,
-                    nodeValue.NamespaceURI,
-                    nodeValue.Prefix)));
-            case XmlNodeType.ProcessingInstruction:
-                throw new NotImplementedException("We need to get the target here somehow");
-            default:
-                return SequenceFactory.CreateEmpty();
-        }
+            XmlNodeType.Element => SequenceFactory.CreateFromValue(new QNameValue(new QName(nodeValue.LocalName,
+                nodeValue.NamespaceURI, nodeValue.Prefix))),
+            XmlNodeType.Attribute => SequenceFactory.CreateFromValue(new QNameValue(new QName(nodeValue.LocalName,
+                nodeValue.NamespaceURI, nodeValue.Prefix))),
+            XmlNodeType.ProcessingInstruction => throw new NotImplementedException(
+                "We need to get the target here somehow"),
+            _ => SequenceFactory.CreateEmpty()
+        };
     };
 
     public static readonly BuiltinDeclarationType[] Declarations =
