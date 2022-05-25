@@ -5,7 +5,7 @@ using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 
-const string query = "/p";
+const string query = "string-length(\"   t    e s    t \")";
 const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");
