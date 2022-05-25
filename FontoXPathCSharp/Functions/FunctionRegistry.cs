@@ -8,7 +8,7 @@ public static class FunctionRegistry
 {
     private static Dictionary<string, List<FunctionProperties>> _registeredFunctionsByName = new();
 
-    public static FunctionProperties? GetFunctionByArity(string? functionNamespaceUri, string functionLocalName,
+    public static FunctionProperties? GetFunctionByArity(string functionNamespaceUri, string functionLocalName,
         int arity)
     {
         var index = functionNamespaceUri + ":" + functionLocalName;

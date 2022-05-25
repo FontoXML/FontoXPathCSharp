@@ -27,11 +27,11 @@ public class XPathParser
     private static readonly ParseFunc<Ast> Predicate =
         Delimited(Token("["), Surrounded(Expr(), Whitespace), Token("]"));
 
-    private static readonly ParseFunc<string> StringLiteral = Map(_options.XQuery ?
-        Or(Surrounded(Star(Or(PredefinedEntityRef, CharRef, EscapeQuot, Regex("[^\"&]"))), Token("\"")),
-            Surrounded(Star(Or(PredefinedEntityRef, CharRef, EscapeApos, Regex("[^'&]"))), Token("'"))) :
-        Or(Surrounded(Star(Or(EscapeQuot, Regex("[^\"]"))), Token("\"")),
-            Surrounded(Star(Or(EscapeApos, Regex("[^']"))), Token("'"))),
+    private static readonly ParseFunc<string> StringLiteral = Map(_options.XQuery
+            ? Or(Surrounded(Star(Or(PredefinedEntityRef, CharRef, EscapeQuot, Regex("[^\"&]"))), Token("\"")),
+                Surrounded(Star(Or(PredefinedEntityRef, CharRef, EscapeApos, Regex("[^'&]"))), Token("'")))
+            : Or(Surrounded(Star(Or(EscapeQuot, Regex("[^\"]"))), Token("\"")),
+                Surrounded(Star(Or(EscapeApos, Regex("[^']"))), Token("'"))),
         x => string.Join("", x)
     );
 
@@ -54,7 +54,7 @@ public class XPathParser
         = Or(Then(ForwardAxis, NodeTest,
             (axis, test) =>
                 new Ast(AstNodeName.StepExpr,
-                    new Ast(AstNodeName.XPathAxis) { TextContent = axis },
+                    new Ast(AstNodeName.XPathAxis) {TextContent = axis},
                     test
                 )));
 
@@ -66,14 +66,16 @@ public class XPathParser
     // TODO: add string literal
     private static readonly ParseFunc<Ast> Literal =
         Or(NumericLiteral, Map(StringLiteral, x => new Ast(AstNodeName.StringConstantExpr, new Ast(AstNodeName.Value)
-        {
-            TextContent = x
-        })
+            {
+                TextContent = x
+            })
         ));
 
-    // TODO: add argumentPlaceholder
+    private static readonly ParseFunc<Ast> ArgumentPlaceholder =
+        Alias(new Ast(AstNodeName.ArgumentPlaceholder), new[] {"?"});
+
     private static readonly ParseFunc<Ast> Argument =
-        ExprSingle;
+        Or(ExprSingle, ArgumentPlaceholder);
 
     private static readonly ParseFunc<Ast[]> ArgumentList =
         Map(
@@ -94,8 +96,8 @@ public class XPathParser
 
     private static readonly ParseFunc<Ast> FunctionCall =
         Preceded(
-            Not(Followed(ReservedFunctionNames, new[] { Whitespace, Token("(") }),
-                new[] { "cannot use reserved keyword for function names" }),
+            Not(Followed(ReservedFunctionNames, new[] {Whitespace, Token("(")}),
+                new[] {"cannot use reserved keyword for function names"}),
             Then(EqName, Preceded(Whitespace, ArgumentList),
                 (name, arguments) =>
                 {
@@ -125,7 +127,7 @@ public class XPathParser
                         x => new Ast(AstNodeName.Predicate, x)),
                     Map(Preceded(Whitespace, ArgumentList),
                         x => new Ast(AstNodeName.ArgumentList, x))
-                // TODO: Preceded(Whitespace, Lookup()),
+                    // TODO: Preceded(Whitespace, Lookup()),
                 )
             ),
             (expression, postfixExpr) =>
@@ -140,9 +142,9 @@ public class XPathParser
                 void FlushPredicates(bool allowSinglePred)
                 {
                     if (allowSinglePred && predicates.Count == 1)
-                        filters.Add(new Ast(AstNodeName.Predicate) { Children = new List<Ast> { predicates[0] } });
+                        filters.Add(new Ast(AstNodeName.Predicate) {Children = new List<Ast> {predicates[0]}});
                     else if (predicates.Count != 0)
-                        filters.Add(new Ast(AstNodeName.Predicates) { Children = predicates });
+                        filters.Add(new Ast(AstNodeName.Predicates) {Children = predicates});
                     predicates.Clear();
                 }
 
@@ -155,16 +157,16 @@ public class XPathParser
                             toWrap.AsLeft().Children.Count > 1)
                             toWrap = new Ast(AstNodeName.SequenceExpr, toWrap.AsLeft());
 
-                        toWrap = new[] { new Ast(AstNodeName.FilterExpr, toWrap.AsLeft()) }.Concat(filters).ToArray();
+                        toWrap = new[] {new Ast(AstNodeName.FilterExpr, toWrap.AsLeft())}.Concat(filters).ToArray();
                         filters.Clear();
                     }
                     else if (ensureFilter)
                     {
-                        toWrap = new[] { new Ast(AstNodeName.FilterExpr, toWrap.AsLeft()) };
+                        toWrap = new[] {new Ast(AstNodeName.FilterExpr, toWrap.AsLeft())};
                     }
                     else
                     {
-                        toWrap = new[] { toWrap.AsLeft() };
+                        toWrap = new[] {toWrap.AsLeft()};
                     }
                 }
 
@@ -192,7 +194,7 @@ public class XPathParser
                             {
                                 new Ast(AstNodeName.FunctionItem, toWrap.AsRight())
                             }.Concat(postfix.Children.Count > 0
-                                ? new[] { new Ast(AstNodeName.Arguments, postfix.Children.ToArray()) }
+                                ? new[] {new Ast(AstNodeName.Arguments, postfix.Children.ToArray())}
                                 : Array.Empty<Ast>()).ToArray());
                             break;
                         default:
@@ -234,11 +236,11 @@ public class XPathParser
             Then3(StepExprWithForcedStep,
                 Preceded(Whitespace, LocationPathAbbreviation),
                 Preceded(Whitespace, RelativePathExprWithForcedStepIndirect),
-                (lhs, abbrev, rhs) => new Ast(AstNodeName.PathExpr, new[] { lhs, abbrev }.Concat(rhs).ToArray())),
+                (lhs, abbrev, rhs) => new Ast(AstNodeName.PathExpr, new[] {lhs, abbrev}.Concat(rhs).ToArray())),
             Then(
                 StepExprWithForcedStep,
                 Preceded(Surrounded(Token("/"), Whitespace), RelativePathExprWithForcedStepIndirect),
-                (lhs, rhs) => new Ast(AstNodeName.PathExpr, new[] { lhs }.Concat(rhs).ToArray())),
+                (lhs, rhs) => new Ast(AstNodeName.PathExpr, new[] {lhs}.Concat(rhs).ToArray())),
             StepExprWithoutStep,
             Map(
                 StepExprWithForcedStep, x =>
@@ -252,21 +254,21 @@ public class XPathParser
                 StepExprWithForcedStep,
                 Preceded(Whitespace, LocationPathAbbreviation),
                 Preceded(Whitespace, RelativePathExprWithForcedStepIndirect),
-                (lhs, abbrev, rhs) => new[] { lhs, abbrev }.Concat(rhs).ToArray()
+                (lhs, abbrev, rhs) => new[] {lhs, abbrev}.Concat(rhs).ToArray()
             ),
             Then(
                 StepExprWithForcedStep,
                 Preceded(Surrounded(Token("/"), Whitespace), RelativePathExprWithForcedStepIndirect),
-                (lhs, rhs) => new[] { lhs }.Concat(rhs).ToArray()), Map(StepExprWithForcedStep, x => new[] { x }),
-            Map(StepExprWithForcedStep, x => new[] { x })
+                (lhs, rhs) => new[] {lhs}.Concat(rhs).ToArray()), Map(StepExprWithForcedStep, x => new[] {x}),
+            Map(StepExprWithForcedStep, x => new[] {x})
         );
 
     private static readonly ParseFunc<Ast> AbsoluteLocationPath =
-        Or(Map(PrecededMultiple(new[] { Token("/"), Whitespace }, RelativePathExprWithForcedStep),
-                path => new Ast(AstNodeName.PathExpr, new[] { new Ast(AstNodeName.RootExpr) }.Concat(path).ToArray())),
+        Or(Map(PrecededMultiple(new[] {Token("/"), Whitespace}, RelativePathExprWithForcedStep),
+                path => new Ast(AstNodeName.PathExpr, new[] {new Ast(AstNodeName.RootExpr)}.Concat(path).ToArray())),
             Then(LocationPathAbbreviation, Preceded(Whitespace, RelativePathExprWithForcedStep),
                 (abbrev, path) => new Ast(AstNodeName.PathExpr,
-                    new[] { new Ast(AstNodeName.RootExpr), abbrev }.Concat(path).ToArray())),
+                    new[] {new Ast(AstNodeName.RootExpr), abbrev}.Concat(path).ToArray())),
             Map(Followed(Token("/"), Not(Preceded(Whitespace, Regex("[*a-zA-Z]")),
                     new[]
                     {
@@ -302,8 +304,8 @@ public class XPathParser
 
     private static readonly ParseFunc<Ast> ArrowFunctionSpecifier =
         Or(Map(EqName, x => x.GetAst(AstNodeName.EqName))
-        // TODO: VarRef(),
-        // TODO: ParenthesizedExpr(),
+            // TODO: VarRef(),
+            // TODO: ParenthesizedExpr(),
         );
 
     private static readonly ParseFunc<Ast> ArrowExpr =

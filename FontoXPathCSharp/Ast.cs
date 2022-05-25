@@ -69,7 +69,8 @@ public enum AstNodeName
     ContextItemExpr,
     StringConstantExpr,
     RootExpr,
-    All // *
+    ArgumentPlaceholder,
+    All // *, only used for ast queries such as `FollowPath` or `GetChildren`
 }
 
 public class Ast

@@ -61,7 +61,7 @@ public class ExecutionSpecificStaticContext : AbstractContext
         return _resolvedFunctions;
     }
 
-    public override FunctionProperties? LookupFunction(string namespaceUri, string localName, int arity,
+    public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
         bool _skipExternal)
     {
         return FunctionRegistry.GetFunctionByArity(namespaceUri, localName, arity);

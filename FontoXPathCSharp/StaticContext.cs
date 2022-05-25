@@ -14,7 +14,7 @@ public class StaticContext : AbstractContext
     private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
     private int _scopeCount;
 
-    public StaticContext(AbstractContext? parentContext)
+    public StaticContext(AbstractContext parentContext)
     {
         _parentContext = parentContext;
 
