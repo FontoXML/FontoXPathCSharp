@@ -15,9 +15,9 @@ public enum BuiltInUri
     XQUERYX_NAMESPACE_URI
 }
 
-internal static class StaticallyKnownNamespaceUtils
+public static class StaticallyKnownNamespaceUtils
 {
-    private static readonly Dictionary<BuiltInUri, string> builtInNamespaceUris = new()
+    private static readonly Dictionary<BuiltInUri, string> BuiltInNamespaceUris = new()
     {
         [BuiltInUri.XMLNS_NAMESPACE_URI] = "http://www.w3.org/2000/xmlns/",
         [BuiltInUri.XML_NAMESPACE_URI] = "http://www.w3.org/XML/1998/namespace",
@@ -32,7 +32,7 @@ internal static class StaticallyKnownNamespaceUtils
         [BuiltInUri.XQUERYX_NAMESPACE_URI] = "http://www.w3.org/2005/XQueryX"
     };
 
-    private static readonly Dictionary<string, string?> prefixUriLookup = new()
+    private static readonly Dictionary<string, string?> PrefixUriLookup = new()
     {
         ["xml"] = GetBuiltinNamespaceUri(BuiltInUri.XML_NAMESPACE_URI),
         ["xs"] = GetBuiltinNamespaceUri(BuiltInUri.XMLSCHEMA_NAMESPACE_URI),
@@ -46,20 +46,19 @@ internal static class StaticallyKnownNamespaceUtils
 
     public static string GetBuiltinNamespaceUri(this BuiltInUri builtInUri)
     {
-        if (builtInNamespaceUris.ContainsKey(builtInUri)) return builtInNamespaceUris[builtInUri];
+        if (BuiltInNamespaceUris.ContainsKey(builtInUri)) return BuiltInNamespaceUris[builtInUri];
         throw new Exception("Built in URI not known: " + builtInUri);
     }
 
     public static string? GetStaticallyKnownNamespaceByPrefix(string? prefix)
     {
-        if (prefixUriLookup.ContainsKey(prefix)) return prefixUriLookup[prefix];
-        return null;
+        return prefix != null && PrefixUriLookup.ContainsKey(prefix) ? PrefixUriLookup[prefix] : null;
     }
 
     public static void RegisterStaticallyKnownNamespace(string prefix, string? namespaceUri)
     {
-        if (prefixUriLookup.ContainsKey(prefix))
+        if (PrefixUriLookup.ContainsKey(prefix))
             throw new Exception("Prefix already registered: Do not register the same prefix twice.");
-        prefixUriLookup[prefix] = namespaceUri;
+        PrefixUriLookup[prefix] = namespaceUri;
     }
 }

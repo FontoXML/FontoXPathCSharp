@@ -1,5 +1,6 @@
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
+using FontoXPathCSharp.Functions;
 
 namespace FontoXPathCSharp;
 
@@ -61,9 +62,9 @@ public class ExecutionSpecificStaticContext : AbstractContext
     }
 
     public override FunctionProperties? LookupFunction(string namespaceUri, string localName, int arity,
-        bool skipExternal)
+        bool _skipExternal)
     {
-        throw new NotImplementedException("Function lookup not implemented yet.");
+        return FunctionRegistry.GetFunctionByArity(namespaceUri, localName, arity);
     }
 
     public override string? LookupVariable(string? namespaceUri, string localName)
@@ -86,16 +87,23 @@ public class ExecutionSpecificStaticContext : AbstractContext
         {
             _resolvedFunctions.Add(new ResolvedFunction(lexicalQName, arity, resolvedQName));
         }
+        else if (lexicalQName.Prefix == "")
+        {
+            if (registeredDefaultFunctionNamespaceURI != null)
+            {
+                return new ResolvedQualifiedName(lexicalQName.LocalName, registeredDefaultFunctionNamespaceURI);
+            }
+        }
         else
         {
-            var namespaceUri = ResolveNamespace(lexicalQName.Prefix);
-            if (namespaceUri != null) return new ResolvedQualifiedName(namespaceUri, lexicalQName.LocalName);
+            var namespaceUri = ResolveNamespace(lexicalQName.Prefix, true);
+            if (namespaceUri != null) return new ResolvedQualifiedName(lexicalQName.LocalName, namespaceUri);
         }
 
         return resolvedQName;
     }
 
-    public override string? ResolveNamespace(string prefix, bool useExternalResolver = true)
+    public override string? ResolveNamespace(string prefix, bool useExternalResolver)
     {
         if (!useExternalResolver) return null;
 

@@ -16,13 +16,13 @@ public class FunctionProperties
     public readonly SequenceType ReturnType;
 
     public FunctionProperties(ParameterType[] argumentTypes, int arity, FunctionDefinitionType<ISequence> callFunction,
-        string localName, string namespaceUri, SequenceType returnType)
+        bool isUpdating, string localName, string namespaceUri, SequenceType returnType)
     {
         ArgumentTypes = argumentTypes;
         Arity = arity;
         CallFunction = callFunction;
         IsExternal = false;
-        IsUpdating = false;
+        IsUpdating = isUpdating;
         LocalName = localName;
         NamespaceUri = namespaceUri;
         ReturnType = returnType;
