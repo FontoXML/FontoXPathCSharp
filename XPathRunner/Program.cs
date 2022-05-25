@@ -36,7 +36,7 @@ foreach (var function in BuiltInFunctions.Declarations)
 {
     FunctionRegistry.RegisterFunction(function.NamespaceUri, function.LocalName, function.ArgumentTypes,
         function.ReturnType, function.CallFunction);
-    
+
     var functionProperties =
         FunctionRegistry.GetFunctionByArity(function.NamespaceUri, function.LocalName, function.ArgumentTypes.Length);
     staticContext.RegisterFunctionDefinition(functionProperties!);
