@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 using NamespaceResolverFunc = System.Func<string, string?>;
@@ -13,7 +14,7 @@ public enum CacheState
     StaticAnalyzed
 }
 
-public struct StaticCompilationResult
+public class StaticCompilationResult
 {
     public StaticCompilationResult(StaticContext staticContext, AbstractExpression expression)
     {
@@ -30,6 +31,28 @@ public abstract class ExpressionResult
     protected CacheState _cacheState;
 
     public CacheState CacheState => _cacheState;
+}
+
+public class CompiledExpressionResult : ExpressionResult
+{
+    public CompiledExpressionResult(AbstractExpression expression)
+    {
+        _cacheState = CacheState.Compiled;
+        Expression = expression;
+    }
+
+    public AbstractExpression Expression { get; }
+}
+
+public class StaticAnalyizedExpressionResult : ExpressionResult
+{
+    public StaticAnalyizedExpressionResult(AbstractExpression expression)
+    {
+        _cacheState = CacheState.StaticAnalyzed;
+        Expression = expression;
+    }
+
+    public AbstractExpression Expression { get; }
 }
 
 public class ParsedExpressionResult : ExpressionResult
@@ -69,6 +92,18 @@ public class CachedExpression
 
 public class CompiledExpressionCache
 {
+    public static void StoreStaticCompilationResultInCache<TSelector>(
+        TSelector selectorExpression, 
+        string language,
+        ExecutionSpecificStaticContext executionStaticContext,
+        Dictionary<string, string> moduleImports,
+        AbstractExpression compiledExpression,
+        bool debug,
+        string defaultFunctionNamespaceUri)
+    {
+        Console.WriteLine("Storing static compilation results not implemented yet");
+    }
+
     public static CachedExpression GetStaticCompilationResultFromCache<TSelector>(
         TSelector xpathSource,
         string language,
