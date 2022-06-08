@@ -2,6 +2,7 @@ using System.Diagnostics;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.ExpressionResults;
 using NamespaceResolverFunc = System.Func<string, string?>;
 using FunctionNameResolverFunc =
     System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName?>;
@@ -34,8 +35,9 @@ public static class CompileXPath
                 functionNameResolver);
 
         if (fromCache != null)
-            return new CachedExpressionResult(fromCache.Expression,
-                fromCache.RequiresStaticCompilation ? CacheState.Compiled : CacheState.StaticAnalyzed);
+            return fromCache.RequiresStaticCompilation
+                ? new CompiledExpressionResult(fromCache.Expression)
+                : new StaticallyAnalyzedExpressionResult(fromCache.Expression);
 
         var ast =
             typeof(TSelector) == typeof(string)
@@ -83,7 +85,7 @@ public static class CompileXPath
         {
             case CacheState.StaticAnalyzed:
                 return new StaticCompilationResult(rootStaticContext,
-                    ((StaticAnalyizedExpressionResult) result).Expression);
+                    ((StaticallyAnalyzedExpressionResult) result).Expression);
             case CacheState.Compiled:
             {
                 var compiledResult = (CompiledExpressionResult) result;
