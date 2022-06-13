@@ -5,6 +5,8 @@ namespace FontoXPathCSharp.Sequences;
 
 internal class EmptySequence : ISequence
 {
+    private Iterator<AbstractValue> _value = hint => IteratorResult<AbstractValue>.Done();
+
     public bool IsEmpty()
     {
         return true;
@@ -30,6 +32,26 @@ internal class EmptySequence : ISequence
         return 0;
     }
 
+    public Iterator<AbstractValue> GetValue()
+    {
+        return _value;
+    }
+
+    public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues)
+    {
+        throw new NotImplementedException();
+    }
+
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
@@ -49,4 +71,5 @@ internal class EmptySequence : ISequence
     {
         return "<EmptySequence>[]";
     }
+    
 }

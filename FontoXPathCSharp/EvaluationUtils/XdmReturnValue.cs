@@ -1,27 +1,27 @@
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
 public class XdmReturnValue
 {
-    public static TReturn ConvertXMDReturnValue<TNode, TSelector, TReturn>(TSelector expression, ISequence rawResults,
+    public static TReturn ConvertXmdReturnValue<TNode, TSelector, TReturn>(TSelector expression, ISequence rawResults,
         ExecutionParameters executionParameters)
     {
-        throw new NotImplementedException("Not done yet");
-        // var typeActions = new Dictionary<Type, Action> {
-        //     { typeof(bool), () =>
-        //     {
-        //         return rawResults.
-        //     }},
-        //     { typeof(string), () => ... },
-        //     { typeof(string[]), () => ... },
-        // };
-        //
-        // if (!typeActions.ContainsKey(typeof(TReturn)))
-        // {
-        //     // Default case
-        // }
-        // typeActions[typeof(TReturn)]();
+        var typeActions = new Dictionary<Type, Func<TReturn>> {
+            { typeof(bool), () => (TReturn)(object)rawResults.GetEffectiveBooleanValue() },
+            {
+                typeof(string), () =>
+                {
+                    var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
+                    if (allValues.Length == 0) return (TReturn)(object)"";
+                    throw new NotImplementedException("Non-empty string conversion not implemented yet");
+                    // return allValues.Select((value) => TypeCasting.CastToType<>())
+                }
+            },
+        };
+        
+        return new TypeSwitchCase<TReturn>(typeActions).Run(typeof(TReturn));
     }
 //     export default function convertXDMReturnValue<
 // 	TNode extends Node,

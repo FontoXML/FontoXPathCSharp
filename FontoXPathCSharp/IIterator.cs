@@ -5,7 +5,7 @@ public class IteratorResult<T> where T : class
     public readonly bool IsDone;
     public readonly T? Value;
 
-    private IteratorResult(bool isDone, T? value)
+    public IteratorResult(bool isDone, T? value)
     {
         IsDone = isDone;
         Value = value;
@@ -28,7 +28,7 @@ public enum IterationHint
     SkipDescendants = 1 << 0
 }
 
-// public interface IIterator<T> where T : class
+// public interface Iterator<T> where T : class
 // {
 //     public IteratorResult<T> Next(IterationHint hint);
 // }

@@ -48,6 +48,26 @@ internal class SingletonSequence : ISequence
         return 1;
     }
 
+    public Iterator<AbstractValue> GetValue()
+    {
+        throw new NotImplementedException();
+    }
+
+    public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues)
+    {
+        throw new NotImplementedException();
+    }
+
     public bool GetEffectiveBooleanValue()
     {
         throw new NotImplementedException("No effective boolean value implemented yet.");

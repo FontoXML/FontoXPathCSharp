@@ -86,6 +86,26 @@ internal class IteratorBackedSequence : ISequence
         return GetLength(false);
     }
 
+    public Iterator<AbstractValue> GetValue()
+    {
+        throw new NotImplementedException();
+    }
+
+    public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues)
+    {
+        throw new NotImplementedException();
+    }
+
     public bool GetEffectiveBooleanValue()
     {
         throw new NotImplementedException();
