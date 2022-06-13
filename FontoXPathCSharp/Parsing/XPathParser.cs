@@ -8,15 +8,30 @@ using static FontoXPathCSharp.Parsing.TypesParser;
 
 namespace FontoXPathCSharp.Parsing;
 
-public static class XPathParser
+public readonly struct ParseOptions
 {
+    public bool OutputDebugInfo { get; }
+    public bool XQuery { get; }
+
+    public ParseOptions(bool outputDebugInfo, bool xquery)
+    {
+        OutputDebugInfo = outputDebugInfo;
+        XQuery = xquery;
+    }
+}
+
+public class XPathParser
+{
+    private static ParseOptions _options;
+
     private static readonly ParseFunc<Ast> Predicate =
         Delimited(Token("["), Surrounded(Expr(), Whitespace), Token("]"));
 
-    // TODO: add xquery string literal
-    private static readonly ParseFunc<string> StringLiteral = Map(
-        Or(Surrounded(Star(Or(Regex("[^\"]"))), Token("\"")),
-            Surrounded(Star(Or(Regex("[^']"))), Token("'"))),
+    private static readonly ParseFunc<string> StringLiteral = Map(_options.XQuery
+            ? Or(Surrounded(Star(Or(PredefinedEntityRef, CharRef, EscapeQuot, Regex("[^\"&]"))), Token("\"")),
+                Surrounded(Star(Or(PredefinedEntityRef, CharRef, EscapeApos, Regex("[^'&]"))), Token("'")))
+            : Or(Surrounded(Star(Or(EscapeQuot, Regex("[^\"]"))), Token("\"")),
+                Surrounded(Star(Or(EscapeApos, Regex("[^']"))), Token("'"))),
         x => string.Join("", x)
     );
 
@@ -56,9 +71,11 @@ public static class XPathParser
             })
         ));
 
-    // TODO: add argumentPlaceholder
+    private static readonly ParseFunc<Ast> ArgumentPlaceholder =
+        Alias(new Ast(AstNodeName.ArgumentPlaceholder), new[] {"?"});
+
     private static readonly ParseFunc<Ast> Argument =
-        ExprSingle;
+        Or(ExprSingle, ArgumentPlaceholder);
 
     private static readonly ParseFunc<Ast[]> ArgumentList =
         Map(
@@ -246,9 +263,23 @@ public static class XPathParser
             Map(StepExprWithForcedStep, x => new[] {x})
         );
 
+    private static readonly ParseFunc<Ast> AbsoluteLocationPath =
+        Or(Map(PrecededMultiple(new[] {Token("/"), Whitespace}, RelativePathExprWithForcedStep),
+                path => new Ast(AstNodeName.PathExpr, new[] {new Ast(AstNodeName.RootExpr)}.Concat(path).ToArray())),
+            Then(LocationPathAbbreviation, Preceded(Whitespace, RelativePathExprWithForcedStep),
+                (abbrev, path) => new Ast(AstNodeName.PathExpr,
+                    new[] {new Ast(AstNodeName.RootExpr), abbrev}.Concat(path).ToArray())),
+            Map(Followed(Token("/"), Not(Preceded(Whitespace, Regex("[*a-zA-Z]")),
+                    new[]
+                    {
+                        "Single rootExpr cannot be followed by something that can be interpreted as a relative path"
+                    })),
+                _ => new Ast(AstNodeName.PathExpr, new Ast(AstNodeName.RootExpr)))
+        );
+
     // TODO: add other variants
     private static readonly ParseFunc<Ast> PathExpr =
-        Or(RelativePathExpr);
+        Or(RelativePathExpr, AbsoluteLocationPath);
 
     private static readonly ParseFunc<Ast> ValueExpr =
         Or(
@@ -453,7 +484,7 @@ public static class XPathParser
             Followed(Alias(AstNodeName.OrOp, "or"), AssertAdjacentOpeningTerminal),
             DefaultBinaryOperatorFn);
 
-    public static readonly ParseFunc<Ast> QueryBody =
+    private static readonly ParseFunc<Ast> QueryBody =
         Map(Expr(), x => new Ast(AstNodeName.QueryBody, x));
 
     private static ParseResult<Ast[]> RelativePathExprWithForcedStepIndirect(string input, int offset)
@@ -517,5 +548,11 @@ public static class XPathParser
             rhs.Length == 0
                 ? lhs
                 : new Ast(AstNodeName.SequenceExpr, rhs.Select(x => x.Item2).ToArray()));
+    }
+
+    public static ParseResult<Ast> Parse(string input, ParseOptions options)
+    {
+        _options = options;
+        return QueryBody(input, 0);
     }
 }

@@ -1,6 +1,7 @@
 using PrscSharp;
 using static PrscSharp.PrscSharp;
 using static FontoXPathCSharp.Parsing.WhitespaceParser;
+using static FontoXPathCSharp.Parsing.ParsingFunctions;
 
 namespace FontoXPathCSharp.Parsing;
 
@@ -15,6 +16,21 @@ public static class LiteralParser
             Token("self::")
             // TODO: add other variants
         ), x => x[..^2]);
+
+    public static readonly ParseFunc<string> PredefinedEntityRef = Then3(
+        Token("&"),
+        Or(Token("<"), Token(">"), Token("&"), Token("'"), Token("\"")),
+        Token(";"),
+        (a, b, c) => a + b + c
+    );
+
+    public static readonly ParseFunc<string> CharRef = Or(
+        Then3(Token("&#x"), Regex("[0 - 9a - fA - F] + "), Token(";"), (a, b, c) => a + b + c),
+        Then3(Token("&#"), Regex("[0-9]+"), Token(";"), (a, b, c) => a + b + c)
+    );
+
+    public static readonly ParseFunc<string> EscapeQuot = Alias("\"", new[] {"\"\""});
+    public static readonly ParseFunc<string> EscapeApos = Alias("'", new[] {"''"});
 
     private static readonly ParseFunc<string> Digits =
         Regex(@"[0-9]+");

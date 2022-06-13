@@ -1,6 +1,8 @@
 using System.Diagnostics;
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.ExpressionResults;
 using NamespaceResolverFunc = System.Func<string, string?>;
 using FunctionNameResolverFunc =
     System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName?>;
@@ -9,6 +11,42 @@ namespace FontoXPathCSharp;
 
 public static class CompileXPath
 {
+    private static ExpressionResult CreateExpressionFromSource<TSelector>(
+        TSelector xpathSource,
+        CompilationOptions compilationOptions,
+        NamespaceResolverFunc namespaceResolver,
+        Dictionary<string, IExternalValue> variables,
+        Dictionary<string, string> moduleImports,
+        string defaultFunctionNamespaceUri,
+        FunctionNameResolverFunc functionNameResolver)
+    {
+        var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
+
+        var fromCache = compilationOptions.DisableCache
+            ? null
+            : CompiledExpressionCache.GetStaticCompilationResultFromCache(
+                xpathSource,
+                language,
+                namespaceResolver,
+                variables,
+                moduleImports,
+                compilationOptions.Debug,
+                defaultFunctionNamespaceUri,
+                functionNameResolver);
+
+        if (fromCache != null)
+            return fromCache.RequiresStaticCompilation
+                ? new CompiledExpressionResult(fromCache.Expression)
+                : new StaticallyAnalyzedExpressionResult(fromCache.Expression);
+
+        var ast =
+            typeof(TSelector) == typeof(string)
+                ? ParseExpression.ParseXPathOrXQueryExpression(xpathSource, compilationOptions)
+                : XmlToAst.ConvertXmlToAst(xpathSource);
+
+        return new ParsedExpressionResult(ast);
+    }
+
     public static StaticCompilationResult StaticallyCompileXPath<TSelector>(
         TSelector selector,
         CompilationOptions compilationOptions,
@@ -41,43 +79,57 @@ public static class CompileXPath
             defaultFunctionNamespaceUri,
             functionNameResolver
         );
+        
+
+        switch (result.CacheState)
+        {
+            case CacheState.StaticAnalyzed:
+                return new StaticCompilationResult(rootStaticContext,
+                    ((StaticallyAnalyzedExpressionResult) result).Expression);
+            case CacheState.Compiled:
+            {
+                var compiledResult = (CompiledExpressionResult) result;
+                compiledResult.Expression.PerformStaticEvaluation(rootStaticContext);
+                var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
+
+                CompiledExpressionCache.StoreStaticCompilationResultInCache(selector, language, specificStaticContext,
+                    moduleImports, compiledResult.Expression, compilationOptions.Debug, defaultFunctionNamespaceUri);
+                return new StaticCompilationResult(rootStaticContext, compiledResult.Expression);
+            }
+
+            case CacheState.Parsed:
+            {
+                var parsedResult = (ParsedExpressionResult) result;
+                var expressionFromAst = buildExpressionFromAst(
+                    parsedResult.Ast,
+                    compilationOptions,
+                    rootStaticContext
+                );
+                expressionFromAst.PerformStaticEvaluation(rootStaticContext);
+
+                if (!compilationOptions.DisableCache) {
+                    var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
+                    CompiledExpressionCache.StoreStaticCompilationResultInCache(
+                        selector,
+                        language,
+                        specificStaticContext,
+                        moduleImports,
+                        expressionFromAst,
+                        compilationOptions.Debug,
+                        defaultFunctionNamespaceUri
+                    );
+                }
+
+                return new StaticCompilationResult(rootStaticContext, expressionFromAst);   
+            }
+        };
 
         throw new NotImplementedException("StaticallyCompileXPath not finished yet.");
     }
 
-    private static ExpressionResult CreateExpressionFromSource<TSelector>(
-        TSelector xpathSource,
-        CompilationOptions compilationOptions,
-        NamespaceResolverFunc namespaceResolver,
-        Dictionary<string, IExternalValue> variables,
-        Dictionary<string, string> moduleImports,
-        string defaultFunctionNamespaceUri,
-        FunctionNameResolverFunc functionNameResolver)
+    private static AbstractExpression buildExpressionFromAst(Ast parsedResultAst, CompilationOptions compilationOptions, StaticContext rootStaticContext)
     {
-        var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
-
-        var fromCache = compilationOptions.DisableCache
-            ? null
-            : CompiledExpressionCache.GetStaticCompilationResultFromCache(
-                xpathSource,
-                language,
-                namespaceResolver,
-                variables,
-                moduleImports,
-                compilationOptions.Debug,
-                defaultFunctionNamespaceUri,
-                functionNameResolver);
-
-        if (fromCache != null)
-            return new CachedExpressionResult(fromCache.Expression,
-                fromCache.RequiresStaticCompilation ? CacheState.Compiled : CacheState.StaticAnalyzed);
-
-        var ast =
-            typeof(TSelector) == typeof(string)
-                ? ParseExpression.ParseXPathOrXQueryExpression(xpathSource, compilationOptions)
-                : XmlToAst.ConvertXmlToAst(xpathSource);
-
-        return new ParsedExpressionResult(ast);
+        throw new NotImplementedException();
     }
 
     private static string NormalizeEndOfLines(string selector)

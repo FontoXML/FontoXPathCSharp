@@ -12,14 +12,12 @@ public class StaticContext : AbstractContext
 
     private readonly int _scopeDepth;
     private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
-    private int _scopeCount;
 
-    public StaticContext(AbstractContext? parentContext)
+    public StaticContext(AbstractContext parentContext)
     {
         _parentContext = parentContext;
 
         _scopeDepth = 0;
-        _scopeCount = 0;
 
         _registeredNamespaceURIByPrefix = new[]
         {
@@ -56,9 +54,9 @@ public class StaticContext : AbstractContext
     {
         var hashKey = GetSignatureHash(namespaceUri, localName, arity);
 
+        // TODO: add external support
+        // if (!skipExternal && !foundFunction.IsExternal)
         if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction))
-            // TODO: add external support
-            // if (!skipExternal && !foundFunction.IsExternal)
         {
             return foundFunction;
         }
@@ -86,13 +84,12 @@ public class StaticContext : AbstractContext
         return _parentContext?.ResolveFunctionName(lexicalQName, arity);
     }
 
-    private static string? LookupInOverrides(IReadOnlyList<Dictionary<string, string>> overrides, string key)
+    private static string? LookupInOverrides(IEnumerable<Dictionary<string, string>> overrides, string key)
     {
-        for (var i = overrides.Count - 1; i >= 0; --i)
-            if (overrides[i].ContainsKey(key))
-                return overrides[i][key];
-
-        return null;
+        return (from o in overrides.Reverse()
+                where o.ContainsKey(key)
+                select o[key])
+            .FirstOrDefault();
     }
 
     public override string? ResolveNamespace(string? prefix, bool useExternalResolver)

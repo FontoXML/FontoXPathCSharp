@@ -7,31 +7,9 @@ using LoggingFunc = System.Action<string>;
 
 namespace FontoXPathCSharp.Types;
 
-public class LexicalQualifiedName
-{
-    public LexicalQualifiedName(string localName, string? prefix)
-    {
-        LocalName = localName;
-        Prefix = prefix;
-    }
+public record LexicalQualifiedName(string LocalName, string? Prefix);
 
-    public string LocalName { get; }
-
-    public string? Prefix { get; }
-}
-
-public class ResolvedQualifiedName
-{
-    public ResolvedQualifiedName(string localName, string namespaceUri)
-    {
-        LocalName = localName;
-        NamespaceUri = namespaceUri;
-    }
-
-    public string LocalName { get; }
-
-    public string? NamespaceUri { get; }
-}
+public record ResolvedQualifiedName(string LocalName, string NamespaceUri);
 
 public static class Language
 {
@@ -101,18 +79,4 @@ public class Options
     public LoggingFunc? Logger { get; set; } = null;
 }
 
-public class CompilationOptions
-{
-    public bool AllowUpdating;
-    public bool AllowXQuery;
-    public bool Debug;
-    public bool DisableCache;
-
-    public CompilationOptions(bool allowUpdating, bool allowXQuery, bool debug, bool disableCache)
-    {
-        AllowUpdating = allowUpdating;
-        AllowXQuery = allowXQuery;
-        Debug = debug;
-        DisableCache = disableCache;
-    }
-}
+public record CompilationOptions(bool AllowUpdating, bool AllowXQuery, bool Debug, bool DisableCache);

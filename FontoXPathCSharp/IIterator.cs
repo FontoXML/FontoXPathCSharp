@@ -28,9 +28,4 @@ public enum IterationHint
     SkipDescendants = 1 << 0
 }
 
-// public interface Iterator<T> where T : class
-// {
-//     public IteratorResult<T> Next(IterationHint hint);
-// }
-
 public delegate IteratorResult<T> Iterator<T>(IterationHint hint) where T : class;

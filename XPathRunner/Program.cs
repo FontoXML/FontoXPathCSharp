@@ -5,12 +5,12 @@ using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 
-const string query = "zero-or-one(self::p)";
+const string query = "normalize-space(\"   t    e s    t \")";
 const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");
 
-var result = XPathParser.QueryBody(query, 0).UnwrapOr((expected, fatal) =>
+var result = XPathParser.Parse(query, new ParseOptions(false, true)).UnwrapOr((expected, fatal) =>
 {
     Console.WriteLine("Parsing error ({0}): {1}", fatal, string.Join(", ", expected));
     Environment.Exit(1);
@@ -26,17 +26,21 @@ var document = xmlDocument.FirstChild!;
 Console.WriteLine("\nResult:");
 var expr = CompileAstToExpression.CompileAst(result);
 var executionContext =
-    new ExecutionSpecificStaticContext(s => s, new Dictionary<string, IExternalValue>(),
-        "http://www.w3.org/2005/xpath-functions", (_, _) => null);
+    new ExecutionSpecificStaticContext(s => null, new Dictionary<string, IExternalValue>(),
+        BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(), (_, _) => null);
 var staticContext = new StaticContext(executionContext);
 
-// normalize_string()
 // hours_from_duration()
 
 foreach (var function in BuiltInFunctions.Declarations)
-    staticContext.RegisterFunctionDefinition(new FunctionProperties(function.ArgumentTypes,
-        function.ArgumentTypes.Length, function.CallFunction, function.LocalName,
-        function.NamespaceUri, function.ReturnType));
+{
+    FunctionRegistry.RegisterFunction(function.NamespaceUri, function.LocalName, function.ArgumentTypes,
+        function.ReturnType, function.CallFunction);
+
+    var functionProperties =
+        FunctionRegistry.GetFunctionByArity(function.NamespaceUri, function.LocalName, function.ArgumentTypes.Length);
+    staticContext.RegisterFunctionDefinition(functionProperties!);
+}
 
 expr.PerformStaticEvaluation(staticContext);
 var resultSequence = expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document));

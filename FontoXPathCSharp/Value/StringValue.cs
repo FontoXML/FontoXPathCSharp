@@ -13,6 +13,6 @@ public class StringValue : AbstractValue
 
     public override string ToString()
     {
-        return "<Value>[type: " + Type + ", value: " + Value + "]";
+        return "<Value>[type: " + Type + ", value: '" + Value + "']";
     }
 }

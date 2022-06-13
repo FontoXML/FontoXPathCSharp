@@ -1,13 +1,5 @@
-using System.Xml;
-
 namespace FontoXPathCSharp;
 
-public class ExecutionParameters
-{
-    public readonly XmlNode DomFacade;
+using System.Xml;
 
-    public ExecutionParameters(XmlNode domFacade)
-    {
-        DomFacade = domFacade;
-    }
-}
+public record ExecutionParameters(XmlNode DomFacade);
