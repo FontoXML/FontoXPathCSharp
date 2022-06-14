@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 using NamespaceResolverFunc = System.Func<string, string?>;

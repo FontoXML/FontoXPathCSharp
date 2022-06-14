@@ -56,10 +56,7 @@ public class StaticContext : AbstractContext
 
         // TODO: add external support
         // if (!skipExternal && !foundFunction.IsExternal)
-        if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction))
-        {
-            return foundFunction;
-        }
+        if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction)) return foundFunction;
 
 
         return _parentContext?.LookupFunction(namespaceUri, localName, arity, skipExternal);

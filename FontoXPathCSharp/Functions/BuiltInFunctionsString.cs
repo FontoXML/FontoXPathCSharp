@@ -1,7 +1,7 @@
+using System.Text.RegularExpressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
-using System.Text.RegularExpressions;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
@@ -27,7 +27,7 @@ public static class BuiltInFunctionsString
 
     public static readonly BuiltinDeclarationType[] Declarations =
     {
-        new(new[] {new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)},
+        new(new[] { new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne) },
             FnStringLength, "string-length",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
@@ -36,7 +36,7 @@ public static class BuiltInFunctionsString
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
 
-        new(new[] {new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)},
+        new(new[] { new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne) },
             FnNormalizeSpace, "normalize-space",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
@@ -44,6 +44,6 @@ public static class BuiltInFunctionsString
         new(Array.Empty<ParameterType>(),
             BuiltInFunctions.ContextItemAsFirstArgument(FnNormalizeSpace), "normalize-space",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne))
     };
 }

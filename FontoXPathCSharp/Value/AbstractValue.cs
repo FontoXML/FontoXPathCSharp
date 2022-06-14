@@ -1,3 +1,5 @@
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
+
 namespace FontoXPathCSharp.Value;
 
 public abstract class AbstractValue
@@ -11,7 +13,7 @@ public abstract class AbstractValue
 
     public T? GetAs<T>(ValueType type) where T : AbstractValue
     {
-        if (Type.Equals(type)) return (T?) this;
+        if (Type.Equals(type)) return (T?)this;
         return null;
     }
 

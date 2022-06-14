@@ -1,6 +1,6 @@
 using FontoXPathCSharp.Expressions;
-using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Functions;
+using FontoXPathCSharp.Types;
 
 namespace FontoXPathCSharp;
 
@@ -87,9 +87,7 @@ public class ExecutionSpecificStaticContext : AbstractContext
         else if (lexicalQName.Prefix == "")
         {
             if (registeredDefaultFunctionNamespaceURI != null)
-            {
                 return new ResolvedQualifiedName(lexicalQName.LocalName, registeredDefaultFunctionNamespaceURI);
-            }
         }
         else
         {

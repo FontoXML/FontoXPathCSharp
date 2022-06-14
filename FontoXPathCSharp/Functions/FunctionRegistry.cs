@@ -6,7 +6,7 @@ namespace FontoXPathCSharp.Functions;
 
 public static class FunctionRegistry
 {
-    private static Dictionary<string, List<FunctionProperties>> _registeredFunctionsByName = new();
+    private static readonly Dictionary<string, List<FunctionProperties>> _registeredFunctionsByName = new();
 
     public static FunctionProperties? GetFunctionByArity(string functionNamespaceUri, string functionLocalName,
         int arity)
@@ -15,7 +15,7 @@ public static class FunctionRegistry
 
         if (!_registeredFunctionsByName.TryGetValue(index, out var matchingFunctions)) return null;
 
-        var matchingFunction = matchingFunctions.Find((functionDecl) =>
+        var matchingFunction = matchingFunctions.Find(functionDecl =>
         {
             var isElipsis = Array.Exists(functionDecl.ArgumentTypes, x => x.IsEllipsis);
 

@@ -8,7 +8,6 @@ public enum SequenceMultiplicity
     ExactlyOne
 }
 
-
 public class SequenceType
 {
     public readonly SequenceMultiplicity Multiplicity;

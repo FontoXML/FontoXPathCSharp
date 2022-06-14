@@ -1,4 +1,3 @@
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.EvaluationUtils;
@@ -8,7 +7,8 @@ public class XdmReturnValue
     public static TReturn ConvertXmdReturnValue<TNode, TSelector, TReturn>(TSelector expression, ISequence rawResults,
         ExecutionParameters executionParameters)
     {
-        var typeActions = new Dictionary<Type, Func<TReturn>> {
+        var typeActions = new Dictionary<Type, Func<TReturn>>
+        {
             { typeof(bool), () => (TReturn)(object)rawResults.GetEffectiveBooleanValue() },
             {
                 typeof(string), () =>
@@ -18,9 +18,9 @@ public class XdmReturnValue
                     throw new NotImplementedException("Non-empty string conversion not implemented yet");
                     // return allValues.Select((value) => TypeCasting.CastToType<>())
                 }
-            },
+            }
         };
-        
+
         return new TypeSwitchCase<TReturn>(typeActions).Run(typeof(TReturn));
     }
 //     export default function convertXDMReturnValue<

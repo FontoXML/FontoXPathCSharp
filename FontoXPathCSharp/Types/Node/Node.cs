@@ -2,8 +2,18 @@ namespace FontoXPathCSharp.Types.Node;
 
 public abstract class Node
 {
-    // TODO: remove this pragma call when appropriate
-#pragma warning disable 0169
-    private int _nodeType;
-#pragma warning restore 0169
+    public NodeTypes NodeType { get; }
+}
+
+public enum NodeTypes
+{
+    ElementNode,
+    AttributeNode,
+    TextNode,
+    CdataSectionNode,
+    ProcessingInstructionNode,
+    CommentNode,
+    DocumentNode,
+    DocumentTypeNode,
+    DocumentFragmentNode
 }

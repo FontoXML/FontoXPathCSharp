@@ -10,5 +10,11 @@ public enum ValueType
     Function,
     None,
     XsInteger,
-    Item
+    Item,
+    XsAnyAtomicType,
+    XsUntypedAtomic,
+    XsDecimal,
+    XsDouble,
+    XsFloat,
+    Array
 }

@@ -29,8 +29,8 @@ public static class LiteralParser
         Then3(Token("&#"), Regex("[0-9]+"), Token(";"), (a, b, c) => a + b + c)
     );
 
-    public static readonly ParseFunc<string> EscapeQuot = Alias("\"", new[] {"\"\""});
-    public static readonly ParseFunc<string> EscapeApos = Alias("'", new[] {"''"});
+    public static readonly ParseFunc<string> EscapeQuot = Alias("\"", "\"\"");
+    public static readonly ParseFunc<string> EscapeApos = Alias("'", "''");
 
     private static readonly ParseFunc<string> Digits =
         Regex(@"[0-9]+");
@@ -45,11 +45,11 @@ public static class LiteralParser
     public static readonly ParseFunc<Ast> NumericLiteral =
         Followed(
             Or(IntegerLiteral),
-            Peek(Not(Regex(@"[a-z][A-Z]"), new[] {"No alphabetic characters after numeric literal"}))
+            Peek(Not(Regex(@"[a-z][A-Z]"), new[] { "No alphabetic characters after numeric literal" }))
         );
 
     public static readonly ParseFunc<Ast> ContextItemExpr =
-        Map(Followed(Token("."), Peek(Not(Token("."), new[] {"context item should not be followed by another ."}))),
+        Map(Followed(Token("."), Peek(Not(Token("."), new[] { "context item should not be followed by another ." }))),
             _ => new Ast(AstNodeName.ContextItemExpr));
 
     public static readonly ParseFunc<string> ReservedFunctionNames =

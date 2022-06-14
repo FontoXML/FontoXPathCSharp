@@ -68,7 +68,7 @@ public static class CompileXPath
         }
 
         if (typeof(TSelector) == typeof(string))
-            selector = (TSelector) (object) NormalizeEndOfLines((string) (object) selector);
+            selector = (TSelector)(object)NormalizeEndOfLines((string)(object)selector);
 
         var result = CreateExpressionFromSource(
             selector,
@@ -79,16 +79,16 @@ public static class CompileXPath
             defaultFunctionNamespaceUri,
             functionNameResolver
         );
-        
+
 
         switch (result.CacheState)
         {
             case CacheState.StaticAnalyzed:
                 return new StaticCompilationResult(rootStaticContext,
-                    ((StaticallyAnalyzedExpressionResult) result).Expression);
+                    ((StaticallyAnalyzedExpressionResult)result).Expression);
             case CacheState.Compiled:
             {
-                var compiledResult = (CompiledExpressionResult) result;
+                var compiledResult = (CompiledExpressionResult)result;
                 compiledResult.Expression.PerformStaticEvaluation(rootStaticContext);
                 var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
 
@@ -99,7 +99,7 @@ public static class CompileXPath
 
             case CacheState.Parsed:
             {
-                var parsedResult = (ParsedExpressionResult) result;
+                var parsedResult = (ParsedExpressionResult)result;
                 var expressionFromAst = buildExpressionFromAst(
                     parsedResult.Ast,
                     compilationOptions,
@@ -107,7 +107,8 @@ public static class CompileXPath
                 );
                 expressionFromAst.PerformStaticEvaluation(rootStaticContext);
 
-                if (!compilationOptions.DisableCache) {
+                if (!compilationOptions.DisableCache)
+                {
                     var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
                     CompiledExpressionCache.StoreStaticCompilationResultInCache(
                         selector,
@@ -120,14 +121,17 @@ public static class CompileXPath
                     );
                 }
 
-                return new StaticCompilationResult(rootStaticContext, expressionFromAst);   
+                return new StaticCompilationResult(rootStaticContext, expressionFromAst);
             }
-        };
+        }
+
+        ;
 
         throw new NotImplementedException("StaticallyCompileXPath not finished yet.");
     }
 
-    private static AbstractExpression buildExpressionFromAst(Ast parsedResultAst, CompilationOptions compilationOptions, StaticContext rootStaticContext)
+    private static AbstractExpression buildExpressionFromAst(Ast parsedResultAst, CompilationOptions compilationOptions,
+        StaticContext rootStaticContext)
     {
         throw new NotImplementedException();
     }

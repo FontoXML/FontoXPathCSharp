@@ -1,12 +1,11 @@
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
-using FontoXPathCSharp.Value.Types;
 using FontoXPathCSharp.Types;
+using FontoXPathCSharp.Value.Types;
 using NamespaceResolverFunc = System.Func<string, string?>;
 using FunctionNameResolverFunc =
     System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName>;
-using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
@@ -57,7 +56,9 @@ public class EvaluationContext<TSelector>
         var expressionAndStaticContext = CompileXPath.StaticallyCompileXPath(expression, compilationOptions,
             namespaceResolver, variables, moduleImports, defaultFunctionNamespaceURI, functionNameResolver);
 
-        var contextSequence = contextItem != null ? adaptValueToSequence(wrappedDomFacade, contextItem) : SequenceFactory.CreateEmpty();
+        var contextSequence = contextItem != null
+            ? adaptValueToSequence(wrappedDomFacade, contextItem)
+            : SequenceFactory.CreateEmpty();
 
         //    var nodesFactory = internalOptions.NodesFactory != null && compilationOptions.AllowXQuery
         //        ? wrapExternalDocumentWriter(internalOptions.DocumentWriter)
@@ -78,7 +79,8 @@ public class EvaluationContext<TSelector>
         throw new Exception("External Dom Facade not implemented yet");
     }
 
-    private static ISequence adaptValueToSequence(DomFacade.DomFacade domFacade, IExternalValue value, SequenceType? expectedType = null)
+    private static ISequence adaptValueToSequence(DomFacade.DomFacade domFacade, IExternalValue value,
+        SequenceType? expectedType = null)
     {
         throw new NotImplementedException("adaptValueToSequence");
     }
