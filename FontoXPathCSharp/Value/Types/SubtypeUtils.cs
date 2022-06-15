@@ -1,10 +1,21 @@
+using FontoXPathCSharp.Expressions.DataTypes.Builtins;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
 public class SubtypeUtils
 {
-    public static bool IsSubtypeOfType(TypeModel subType, TypeModel superType)
+    public static bool IsSubtypeOf(ValueType baseSubType, ValueType baseSuperType)
+    {
+        if (baseSubType == baseSuperType) return true;
+
+        var superType = BuiltinDataTypes.GetInstance().BuiltinDataTypesByType[baseSuperType];
+        var subType = BuiltinDataTypes.GetInstance().BuiltinDataTypesByType[baseSubType];
+        
+        return IsSubtypeOfType(subType, superType);
+    }
+    
+    private static bool IsSubtypeOfType(TypeModel subType, TypeModel superType)
     {
         if (superType.Variety == Variety.Union)
             return Array.Find(
@@ -25,18 +36,6 @@ public class SubtypeUtils
         }
 
         return false;
-    }
-
-    public static bool IsSubtypeOf(ValueType baseSubType, ValueType baseSuperType)
-    {
-        if (baseSubType == baseSuperType) return true;
-
-        
-
-        // var superType = builtinDataTypesByType[baseSuperType];
-        // var subType = builtinDataTypesByType[baseSubType];
-        //
-        // return IsSubtypeOfType(subType, superType);
     }
 
     /**

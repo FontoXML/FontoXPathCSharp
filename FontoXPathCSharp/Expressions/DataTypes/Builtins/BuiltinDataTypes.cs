@@ -6,7 +6,7 @@ public class BuiltinDataTypes
 {
     private static BuiltinDataTypes? _instance;
 
-    private readonly Dictionary<ValueType, TypeModel> _builtinDataTypesByType = new();
+    public Dictionary<ValueType, TypeModel> BuiltinDataTypesByType { get; } = new();
 
     private BuiltinDataTypes()
     {
@@ -19,27 +19,27 @@ public class BuiltinDataTypes
             {
                 case {Variety: Variety.Primitive}:
                 {
-                    var parent = model.ParentType != null ? _builtinDataTypesByType[model.ParentType] : null;
+                    var parent = model.ParentType != null ? BuiltinDataTypesByType[model.ParentType] : null;
                     var validator = DataTypeValidators.GetValidatorForType(name);
                     var facetHandlers = TypeFacets.GetFacetsByDataType(name);
-                    _builtinDataTypesByType[name] = new TypeModel(Variety.Primitive, name, restrictionsByName, parent,
+                    BuiltinDataTypesByType[name] = new TypeModel(Variety.Primitive, name, restrictionsByName, parent,
                         validator, facetHandlers, Array.Empty<TypeModel>());
                     return;
                 }
 
                 case {Variety: Variety.Derived}:
                 {
-                    var baseModel = _builtinDataTypesByType[model.BaseType!];
+                    var baseModel = BuiltinDataTypesByType[model.BaseType!];
                     var validator = DataTypeValidators.GetValidatorForType(name);
-                    _builtinDataTypesByType[name] = new TypeModel(Variety.Derived, name, restrictionsByName, baseModel,
+                    BuiltinDataTypesByType[name] = new TypeModel(Variety.Derived, name, restrictionsByName, baseModel,
                         validator, baseModel.TypeFacetHandlers, Array.Empty<TypeModel>());
                     return;
                 }
 
                 case {Variety: Variety.List}:
                 {
-                    var type = _builtinDataTypesByType[model.Type!];
-                    _builtinDataTypesByType[name] = new TypeModel(Variety.List, name, restrictionsByName, type, null,
+                    var type = BuiltinDataTypesByType[model.Type!];
+                    BuiltinDataTypesByType[name] = new TypeModel(Variety.List, name, restrictionsByName, type, null,
                         null, Array.Empty<TypeModel>());
                     return;
                 }
@@ -47,10 +47,10 @@ public class BuiltinDataTypes
                 case {Variety: Variety.Union}:
                 {
                     var memberTypes = model.MemberTypes!.Select(
-                        memberTypeRef => _builtinDataTypesByType[memberTypeRef]
+                        memberTypeRef => BuiltinDataTypesByType[memberTypeRef]
                     ).ToArray();
 
-                    _builtinDataTypesByType[name] = new TypeModel(Variety.Union, name, restrictionsByName, null, null,
+                    BuiltinDataTypesByType[name] = new TypeModel(Variety.Union, name, restrictionsByName, null, null,
                         null, memberTypes);
                     return;
                 }
@@ -58,7 +58,7 @@ public class BuiltinDataTypes
         });
     }
 
-    public static BuiltinDataTypes? GetInstance()
+    public static BuiltinDataTypes GetInstance()
     {
         return _instance ??= new BuiltinDataTypes();
     }
