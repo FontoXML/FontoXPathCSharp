@@ -1,12 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontoXPathCSharp", "FontoXPathCSharp\FontoXPathCSharp.csproj", "{3DBB1CF8-87CC-4DB9-B4CA-A5768780E510}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FontoXPathCSharp", "FontoXPathCSharp\FontoXPathCSharp.csproj", "{3DBB1CF8-87CC-4DB9-B4CA-A5768780E510}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrscSharp", "PrscSharp\PrscSharp.csproj", "{2B7A5D7B-FEFA-4FC3-875E-F0A038C590EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrscSharp", "PrscSharp\PrscSharp.csproj", "{2B7A5D7B-FEFA-4FC3-875E-F0A038C590EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPathRunner", "XPathRunner\XPathRunner.csproj", "{6CD7BCF5-9A49-40E2-A7FF-FF6E9820BAE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPathRunner", "XPathRunner\XPathRunner.csproj", "{6CD7BCF5-9A49-40E2-A7FF-FF6E9820BAE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPathTest", "XPathTest\XPathTest.csproj", "{62AFBB66-60DB-48C8-B625-0201A11E67C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPathTest", "XPathTest\XPathTest.csproj", "{62AFBB66-60DB-48C8-B625-0201A11E67C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPathBenchmarks", "XPathBenchmarks\XPathBenchmarks.csproj", "{DBBAF0BF-3B81-4398-B201-6D060AFD0EDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +35,15 @@ Global
 		{62AFBB66-60DB-48C8-B625-0201A11E67C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62AFBB66-60DB-48C8-B625-0201A11E67C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62AFBB66-60DB-48C8-B625-0201A11E67C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBBAF0BF-3B81-4398-B201-6D060AFD0EDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBBAF0BF-3B81-4398-B201-6D060AFD0EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBBAF0BF-3B81-4398-B201-6D060AFD0EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBBAF0BF-3B81-4398-B201-6D060AFD0EDA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F6E6BF5D-7F12-491E-8B7A-963A1F835919}
 	EndGlobalSection
 EndGlobal
