@@ -1,3 +1,4 @@
+using System.Xml;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions;
@@ -7,7 +8,7 @@ namespace FontoXPathCSharp;
 
 public class Evaluate
 {
-    public static bool EvaluateXPathToBoolean<TSelectorType>(TSelectorType selector, IExternalValue? contextItem,
+    public static bool EvaluateXPathToBoolean<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
         IDomFacade? domFacade, Dictionary<string, IExternalValue> variables, Options? options)
     {
         return EvaluateXPath<bool, bool, TSelectorType>(selector, contextItem, domFacade, variables, options);
@@ -15,7 +16,7 @@ public class Evaluate
 
     public static TReturn EvaluateXPath<TNode, TReturn, TSelector>(
         TSelector selector,
-        IExternalValue? contextItem,
+        XmlNode? contextItem,
         IDomFacade? domFacade,
         Dictionary<string, IExternalValue>? variables,
         Options? options)

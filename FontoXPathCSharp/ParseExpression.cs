@@ -1,12 +1,24 @@
+using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
+using PrscSharp;
 
 namespace FontoXPathCSharp;
 
 public class ParseExpression
 {
-    public static Ast ParseXPathOrXQueryExpression<TSelector>(TSelector xpathSource,
-        CompilationOptions compilationOptions)
+    public static Ast ParseXPathOrXQueryExpression(string xPathString, CompilationOptions compilationOptions)
     {
-        throw new NotImplementedException("XPath/XQuery parsing not yet implemented");
+        var options = new ParseOptions(
+            compilationOptions.Debug,
+            compilationOptions.AllowXQuery
+        );
+
+        Console.WriteLine(xPathString + " BLABLA");
+        return XPathParser.Parse(xPathString, options) switch
+        {
+            Err<Ast> err =>  throw new Exception("PRSC Error:\n"+ string.Join('\n', err.Expected)) ,
+            Ok<Ast> ok => ok.Unwrap(),
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }

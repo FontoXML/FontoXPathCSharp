@@ -71,6 +71,9 @@ public enum AstNodeName
     RootExpr,
     ArgumentPlaceholder,
     All // *, only used for ast queries such as `FollowPath` or `GetChildren`
+    ,
+    MainModule,
+    Prolog
 }
 
 public class Ast
@@ -114,13 +117,13 @@ public class Ast
     public Ast? FollowPath(IEnumerable<AstNodeName> path)
     {
         var ast = this;
-
+        
         foreach (var p in path)
         {
             ast = GetFirstChild(p);
             if (ast == null) break;
         }
-
+        
         return ast;
     }
 

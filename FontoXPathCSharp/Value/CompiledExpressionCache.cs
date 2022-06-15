@@ -36,7 +36,8 @@ public class CompiledExpressionCache
         FunctionNameResolverFunc functionNameResolver)
     {
         //TODO: Fetching compilation results from cache
-        Console.WriteLine("Fetching compilation results from cache not supported yet.");
+        Console.WriteLine("" +
+                          "Fetching compilation results from cache not supported yet.");
         return null;
     }
 }

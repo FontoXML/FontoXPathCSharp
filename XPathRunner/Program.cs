@@ -24,7 +24,7 @@ xmlDocument.LoadXml(xml);
 var document = xmlDocument.FirstChild!;
 
 Console.WriteLine("\nResult:");
-var expr = CompileAstToExpression.CompileAst(result);
+var expr = CompileAstToExpression.CompileAst(result, new CompilationOptions(true, false, true, true));
 var executionContext =
     new ExecutionSpecificStaticContext(s => null, new Dictionary<string, IExternalValue>(),
         BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(), (_, _) => null);
@@ -45,3 +45,10 @@ foreach (var function in BuiltInFunctions.Declarations)
 expr.PerformStaticEvaluation(staticContext);
 var resultSequence = expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document));
 resultSequence.GetAllValues().ToList().ForEach(Console.WriteLine);
+
+
+var qt3tests = new XmlDocument();
+qt3tests.Load("../../../../XPathTest/assets/QT3TS/catalog.xml");
+
+var nodes = qt3tests;
+Evaluate.EvaluateXPathToBoolean("self::p", qt3tests, null, new Dictionary<string, IExternalValue>(), new Options());

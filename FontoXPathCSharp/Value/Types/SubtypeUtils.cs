@@ -1,7 +1,7 @@
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.DataTypes.Builtins;
-using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Expressions;
+namespace FontoXPathCSharp.Value.Types;
 
 public class SubtypeUtils
 {

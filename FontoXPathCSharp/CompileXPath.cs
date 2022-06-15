@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.ExpressionResults;
@@ -41,7 +42,7 @@ public static class CompileXPath
 
         var ast =
             typeof(TSelector) == typeof(string)
-                ? ParseExpression.ParseXPathOrXQueryExpression(xpathSource, compilationOptions)
+                ? ParseExpression.ParseXPathOrXQueryExpression((string)(object)xpathSource!, compilationOptions)
                 : XmlToAst.ConvertXmlToAst(xpathSource);
 
         return new ParsedExpressionResult(ast);
@@ -100,7 +101,7 @@ public static class CompileXPath
             case CacheState.Parsed:
             {
                 var parsedResult = (ParsedExpressionResult)result;
-                var expressionFromAst = buildExpressionFromAst(
+                var expressionFromAst = BuildExpressionFromAst(
                     parsedResult.Ast,
                     compilationOptions,
                     rootStaticContext
@@ -130,10 +131,38 @@ public static class CompileXPath
         throw new NotImplementedException("StaticallyCompileXPath not finished yet.");
     }
 
-    private static AbstractExpression buildExpressionFromAst(Ast parsedResultAst, CompilationOptions compilationOptions,
+    private static AbstractExpression BuildExpressionFromAst(
+        Ast ast, 
+        CompilationOptions compilationOptions,
         StaticContext rootStaticContext)
     {
-        throw new NotImplementedException();
+        //TODO: AST Annotation
+        // AnnotateAst(ast, new AnnotationContext(rootStaticContext));
+
+        // TODO: Uncomment when mainbody is added to parser.
+        // var mainModule = ast.GetFirstChild(AstNodeName.MainModule);
+        // if (mainModule == null) {
+        //     throw new Exception("Can not execute a library module.");
+        // }
+        Console.WriteLine("ageageageage");
+        Console.WriteLine(ast);
+        var queryBodyContents = ast.FollowPath(new []{AstNodeName.QueryBody, AstNodeName.All});
+        
+        // TODO: Implement prolog processing
+        // var prolog = mainModule.GetFirstChild(AstNodeName.Prolog);
+        // if (prolog != null) {
+        //     if (!compilationOptions.AllowXQuery) {
+        //         throw new Exception(
+        //             "XPST0003: Use of XQuery functionality is not allowed in XPath context"
+        //         );
+        //     }
+        //     processProlog(prolog, rootStaticContext);
+        // }
+        
+        Console.WriteLine("Yooooo bruhhhh " + queryBodyContents);
+
+        return CompileAstToExpression.CompileAst(queryBodyContents!, compilationOptions);
+        // return compileAstToExpression(queryBodyContents, compilationOptions);
     }
 
     private static string NormalizeEndOfLines(string selector)

@@ -1,4 +1,5 @@
 using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -65,7 +66,7 @@ public static class CompileAstToExpression
         return new PathExpression(steps.ToArray());
     }
 
-    private static AbstractExpression CompileFunctionCallExpression(Ast ast)
+    private static AbstractExpression CompileFunctionCallExpression(Ast ast, CompilationOptions options)
     {
         var functionName = ast.GetFirstChild(AstNodeName.FunctionName);
         if (functionName == null)
@@ -76,7 +77,7 @@ public static class CompileAstToExpression
             throw new InvalidDataException($"Missing args for {ast}");
 
         args = args.ToList();
-        var argExpressions = args.Select(CompileAst).ToArray();
+        var argExpressions = args.Select(arg => CompileAst(arg, options)).ToArray();
 
         return new FunctionCall(new NamedFunctionRef(functionName.GetQName(), args.Count()), argExpressions);
     }
@@ -93,13 +94,13 @@ public static class CompileAstToExpression
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
     }
 
-    public static AbstractExpression CompileAst(Ast ast)
+    public static AbstractExpression CompileAst(Ast ast, CompilationOptions options)
     {
         return ast.Name switch
         {
-            AstNodeName.QueryBody => CompileAst(ast.GetFirstChild()!),
+            AstNodeName.QueryBody => CompileAst(ast.GetFirstChild()!, options),
             AstNodeName.PathExpr => CompilePathExpression(ast),
-            AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast),
+            AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast, options),
             AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
             AstNodeName.ContextItemExpr => new ContextItemExpression(),
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
