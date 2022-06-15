@@ -31,7 +31,7 @@ public class SubtypeUtils
     {
         if (baseSubType == baseSuperType) return true;
 
-        throw new NotImplementedException();
+        
 
         // var superType = builtinDataTypesByType[baseSuperType];
         // var subType = builtinDataTypesByType[baseSubType];
