@@ -18,7 +18,11 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <ProjectReference Include="..\FontoXPathCSharp\FontoXPathCSharp.csproj"/>
+        <ProjectReference Include="..\FontoXPathCSharp\FontoXPathCSharp.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="assets\XPathTest\assets" />
     </ItemGroup>
 
 </Project>

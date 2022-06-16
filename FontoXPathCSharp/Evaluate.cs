@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Xml;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
@@ -23,9 +24,9 @@ public class Evaluate
     {
         options ??= new Options();
 
-        DynamicContext? dynamicContext = null;
-        ExecutionParameters? executionParameters = null;
-        AbstractExpression? expression = null;
+        DynamicContext? dynamicContext;
+        ExecutionParameters? executionParameters;
+        AbstractExpression? expression;
 
         try
         {
@@ -51,6 +52,7 @@ public class Evaluate
             throw;
         }
 
+
         if (expression.IsUpdating)
             throw new Exception(
                 "XUST0001: Updating expressions should be evaluated as updating expressions"
@@ -62,8 +64,10 @@ public class Evaluate
         }
 
         var rawResults = expression.EvaluateMaybeStatically(dynamicContext, executionParameters);
-        // var toResults = convertXDMReturnValue<TNode, TSelector, TReturn>(selector, rawResults, executionParameters);
+        
+        var toReturn =
+            XdmReturnValue.ConvertXmdReturnValue<TNode, TSelector, TReturn>(selector, rawResults, executionParameters);
 
-        throw new NotImplementedException();
+        return toReturn;
     }
 }

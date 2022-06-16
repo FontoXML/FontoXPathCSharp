@@ -126,8 +126,6 @@ public static class CompileXPath
             }
         }
 
-        ;
-
         throw new NotImplementedException("StaticallyCompileXPath not finished yet.");
     }
 
@@ -144,9 +142,9 @@ public static class CompileXPath
         // if (mainModule == null) {
         //     throw new Exception("Can not execute a library module.");
         // }
-        Console.WriteLine("ageageageage");
-        Console.WriteLine(ast);
-        var queryBodyContents = ast.FollowPath(new []{AstNodeName.QueryBody, AstNodeName.All});
+        
+        // TODO: fid this when mainbody is added.
+        var queryBodyContents = ast.FollowPath(new []{AstNodeName.All});
         
         // TODO: Implement prolog processing
         // var prolog = mainModule.GetFirstChild(AstNodeName.Prolog);
@@ -159,8 +157,6 @@ public static class CompileXPath
         //     processProlog(prolog, rootStaticContext);
         // }
         
-        Console.WriteLine("Yooooo bruhhhh " + queryBodyContents);
-
         return CompileAstToExpression.CompileAst(queryBodyContents!, compilationOptions);
         // return compileAstToExpression(queryBodyContents, compilationOptions);
     }

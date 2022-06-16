@@ -59,7 +59,8 @@ internal class EmptySequence : ISequence
 
     public IEnumerator<AbstractValue> GetEnumerator()
     {
-        throw new NotImplementedException();
+        // TODO: I think this is correct, but not entirely sure?
+        yield break;
     }
 
     public bool GetEffectiveBooleanValue()

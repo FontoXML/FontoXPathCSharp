@@ -12,8 +12,7 @@ public class ParseExpression
             compilationOptions.Debug,
             compilationOptions.AllowXQuery
         );
-
-        Console.WriteLine(xPathString + " BLABLA");
+        
         return XPathParser.Parse(xPathString, options) switch
         {
             Err<Ast> err =>  throw new Exception("PRSC Error:\n"+ string.Join('\n', err.Expected)) ,

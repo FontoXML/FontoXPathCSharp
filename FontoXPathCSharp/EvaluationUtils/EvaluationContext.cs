@@ -55,18 +55,27 @@ public class EvaluationContext<TSelector>
         var functionNameResolver = internalOptions.FunctionNameResolver ??
                                    CreateDefaultFunctionNameResolver(defaultFunctionNamespaceUri);
 
-        var expressionAndStaticContext = CompileXPath.StaticallyCompileXPath(expression, compilationOptions,
-            namespaceResolver, variables, moduleImports, defaultFunctionNamespaceUri, functionNameResolver);
-
+        var expressionAndStaticContext = CompileXPath.StaticallyCompileXPath(
+            expression, 
+            compilationOptions,
+            namespaceResolver, 
+            variables, 
+            moduleImports, 
+            defaultFunctionNamespaceUri, 
+            functionNameResolver
+            );
+        
         var contextSequence = contextItem != null
             ? AdaptValueToSequence(wrappedDomFacade, contextItem)
             : SequenceFactory.CreateEmpty();
 
-        //    var nodesFactory = internalOptions.NodesFactory != null && compilationOptions.AllowXQuery
-        //        ? wrapExternalDocumentWriter(internalOptions.DocumentWriter)
-        //        : domBackedDocumentWriter;
-
+        // var nodesFactory = internalOptions.NodesFactory != null && compilationOptions.AllowXQuery
+        //     ? wrapExternalDocumentWriter(internalOptions.DocumentWriter)
+        //     : domBackedDocumentWriter;
+        
         DynamicContext = new DynamicContext(contextSequence.First(), 0);
+        ExecutionParameters = new ExecutionParameters(contextItem);
+        Expression = expressionAndStaticContext.Expression;
     }
 
     public DynamicContext DynamicContext { get; }
