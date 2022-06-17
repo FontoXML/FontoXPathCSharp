@@ -51,4 +51,4 @@ var qt3tests = new XmlDocument();
 qt3tests.Load("../../../../XPathTest/assets/QT3TS/catalog.xml");
 
 var nodes = qt3tests;
-Evaluate.EvaluateXPathToBoolean("self::p", qt3tests, null, new Dictionary<string, IExternalValue>(), new Options());
+Console.WriteLine("Selector resulted in: " + Evaluate.EvaluateXPathToBoolean("self::catalog", qt3tests, null, new Dictionary<string, IExternalValue>(), new Options()));

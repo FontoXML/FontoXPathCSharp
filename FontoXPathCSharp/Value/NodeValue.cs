@@ -12,10 +12,7 @@ public class NodeValue : AbstractValue
         _value = value;
     }
 
-    public XmlNode Value()
-    {
-        return _value;
-    }
+    public XmlNode Value() => _value;
 
     public override string ToString()
     {

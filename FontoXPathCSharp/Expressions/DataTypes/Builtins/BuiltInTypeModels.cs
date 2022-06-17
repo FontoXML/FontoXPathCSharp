@@ -4,17 +4,13 @@ namespace FontoXPathCSharp.Expressions.DataTypes.Builtins;
 
 public class BuiltInTypeModels
 {
-    private static BuiltInTypeModels? _instance;
+    public static BuiltInTypeModels Instance { get; } = new();
 
     private readonly BuiltInModelTypeDeclaration[] _builtinModels;
 
     public IEnumerable<BuiltInModelTypeDeclaration> BuiltinModels => _builtinModels;
 
-    public static BuiltInTypeModels GetInstance()
-    {
-        return _instance ??= new BuiltInTypeModels();
-    }
-    
+
     private BuiltInTypeModels()
     {
         _builtinModels = new BuiltInModelTypeDeclaration[]
@@ -28,7 +24,7 @@ public class BuiltInTypeModels
                 restrictions: new TypeRestrictions(whitespace: WhitespaceHandling.Preserve)
             ),
             // untypedAtomic
-            new(variety: Variety.Primitive, 
+            new(variety: Variety.Primitive,
                 name: ValueType.XsUntypedAtomic,
                 parentType: ValueType.XsAnyAtomicType),
 

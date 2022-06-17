@@ -3,15 +3,15 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class BooleanValue : AtomicValue
+public class FloatValue : AtomicValue
 {
-    public readonly bool Value;
-
-    public BooleanValue(bool value) : base(ValueType.XsBoolean)
+    public readonly float Value;
+    
+    public FloatValue(float value) : base(ValueType.XsFloat)
     {
         Value = value;
     }
-
+    
     public override string ToString()
     {
         return "<Value>[type: " + Type + ", value: " + Value + "]";

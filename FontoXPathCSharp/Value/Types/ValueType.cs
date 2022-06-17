@@ -64,5 +64,6 @@ public enum ValueType
     XsGMonth,
     XsGDay,
     XsGMonthDay,
-    XsGYear
+    XsGYear,
+    XsAnySimpleType
 }

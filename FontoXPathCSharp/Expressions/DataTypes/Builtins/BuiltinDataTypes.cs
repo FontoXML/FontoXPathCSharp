@@ -4,20 +4,20 @@ namespace FontoXPathCSharp.Expressions.DataTypes.Builtins;
 
 public class BuiltinDataTypes
 {
-    private static BuiltinDataTypes? _instance;
+    public static BuiltinDataTypes Instance { get; } = new();
 
     public Dictionary<ValueType, TypeModel> BuiltinDataTypesByType { get; } = new();
 
     private BuiltinDataTypes()
     {
-        BuiltInTypeModels.GetInstance().BuiltinModels.ToList().ForEach(model =>
+        BuiltInTypeModels.Instance.BuiltinModels.ToList().ForEach(model =>
         {
             var name = model.Name;
             var restrictionsByName = model.Restrictions;
 
             switch (model)
             {
-                case {Variety: Variety.Primitive}:
+                case { Variety: Variety.Primitive }:
                 {
                     var parent = model.ParentType != null ? BuiltinDataTypesByType[model.ParentType] : null;
                     var validator = DataTypeValidators.GetValidatorForType(name);
@@ -27,7 +27,7 @@ public class BuiltinDataTypes
                     return;
                 }
 
-                case {Variety: Variety.Derived}:
+                case { Variety: Variety.Derived }:
                 {
                     var baseModel = BuiltinDataTypesByType[model.BaseType!];
                     var validator = DataTypeValidators.GetValidatorForType(name);
@@ -36,7 +36,7 @@ public class BuiltinDataTypes
                     return;
                 }
 
-                case {Variety: Variety.List}:
+                case { Variety: Variety.List }:
                 {
                     var type = BuiltinDataTypesByType[model.Type!];
                     BuiltinDataTypesByType[name] = new TypeModel(Variety.List, name, restrictionsByName, type, null,
@@ -44,7 +44,7 @@ public class BuiltinDataTypes
                     return;
                 }
 
-                case {Variety: Variety.Union}:
+                case { Variety: Variety.Union }:
                 {
                     var memberTypes = model.MemberTypes!.Select(
                         memberTypeRef => BuiltinDataTypesByType[memberTypeRef]
@@ -56,10 +56,5 @@ public class BuiltinDataTypes
                 }
             }
         });
-    }
-
-    public static BuiltinDataTypes GetInstance()
-    {
-        return _instance ??= new BuiltinDataTypes();
     }
 }

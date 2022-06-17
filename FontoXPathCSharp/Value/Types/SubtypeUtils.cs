@@ -9,8 +9,8 @@ public class SubtypeUtils
     {
         if (baseSubType == baseSuperType) return true;
 
-        var superType = BuiltinDataTypes.GetInstance().BuiltinDataTypesByType[baseSuperType];
-        var subType = BuiltinDataTypes.GetInstance().BuiltinDataTypesByType[baseSubType];
+        var superType = BuiltinDataTypes.Instance.BuiltinDataTypesByType[baseSuperType];
+        var subType = BuiltinDataTypes.Instance.BuiltinDataTypesByType[baseSubType];
         
         return IsSubtypeOfType(subType, superType);
     }

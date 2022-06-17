@@ -1,8 +1,9 @@
+using FontoXPathCSharp.Expressions;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class StringValue : AbstractValue
+public class StringValue : AtomicValue
 {
     public readonly string Value;
 

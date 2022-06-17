@@ -1,8 +1,9 @@
+using FontoXPathCSharp.Expressions;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class QNameValue : AbstractValue
+public class QNameValue : AtomicValue
 {
     private readonly QName _value;
 
@@ -10,6 +11,8 @@ public class QNameValue : AbstractValue
     {
         _value = value;
     }
+
+    public QName Value => _value;
 
     public override string ToString()
     {

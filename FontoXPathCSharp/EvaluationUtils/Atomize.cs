@@ -1,4 +1,5 @@
 using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Expressions.DataTypes.Builtins;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
@@ -79,18 +80,33 @@ public class Atomize
         throw new Exception($"Atomizing type {value.GetType()} is not implemented.");
     }
 
-    public static AtomicValue<T> CreateAtomicValue<T>(T value, ValueType type)
+    public static AtomicValue CreateAtomicValue<T>(T value, ValueType type)
     {
-        return new AtomicValue<T>(value, type);
+        if (!BuiltinDataTypes.Instance.BuiltinDataTypesByType.ContainsKey(type))
+        {
+            throw new Exception($"Cannot create atomic value from type: {type}");
+        }
+
+        return type switch
+        {
+            ValueType.XsBoolean => new BooleanValue((bool)(object)value!),
+            ValueType.XsInt => new IntValue((int)(object)value!),
+            ValueType.XsFloat => new FloatValue((float)(object)value!),
+            ValueType.XsDouble => new DoubleValue((double)(object)value!),
+            ValueType.XsString => new StringValue((string)(object)value!),
+            ValueType.XsQName => new QNameValue((QName)(object)value!),
+            _ => throw new ArgumentOutOfRangeException($"Atomic Value for {type} is not implemented yet.")
+        };
     }
 
-    public static AtomicValue<bool> TrueBoolean()
+
+    public static AtomicValue TrueBoolean()
     {
-        return new AtomicValue<bool>(true, ValueType.XsBoolean);
+        return CreateAtomicValue(true, ValueType.XsBoolean);
     }
 
-    public static AtomicValue<bool> FalseBoolean()
+    public static AtomicValue FalseBoolean()
     {
-        return new AtomicValue<bool>(false, ValueType.XsBoolean);
+        return CreateAtomicValue(false, ValueType.XsBoolean);
     }
 }

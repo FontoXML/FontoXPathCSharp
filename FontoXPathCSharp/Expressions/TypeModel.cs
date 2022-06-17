@@ -20,15 +20,15 @@ public class TypeRestrictions
 {
     private ExplicitTimezone? ExplicitTimezone { get; init; }
 
-    private int? FractionDigits { get; init; }
+    public int? FractionDigits { get; init; }
 
-    private string? MaxInclusive { get; init; }
+    public string? MaxInclusive { get; init; }
 
-    private string? MinInclusive { get; init; }
+    public string? MinInclusive { get; init; }
 
-    private int? MinLength { get; init; }
+    public int? MinLength { get; init; }
 
-    private WhitespaceHandling? Whitespace { get; init; }
+    public WhitespaceHandling? Whitespace { get; init; }
 
     public TypeRestrictions(ExplicitTimezone? explicitTimezone = null, int? fractionDigits = null, string? maxInclusive = null, string? minInclusive = null, int? minLength = null, WhitespaceHandling? whitespace = null)
     {
