@@ -73,7 +73,8 @@ public enum AstNodeName
     All // *, only used for ast queries such as `FollowPath` or `GetChildren`
     ,
     MainModule,
-    Prolog
+    Prolog,
+    NotImplemented // Used for yet unimplemented Ast nodes.
 }
 
 public class Ast

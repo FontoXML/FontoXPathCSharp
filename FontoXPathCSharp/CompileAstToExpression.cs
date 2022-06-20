@@ -98,6 +98,7 @@ public static class CompileAstToExpression
     {
         return ast.Name switch
         {
+            AstNodeName.MainModule => CompileMainModule(ast, options),
             AstNodeName.QueryBody => CompileAst(ast.GetFirstChild()!, options),
             AstNodeName.PathExpr => CompilePathExpression(ast),
             AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast, options),
@@ -106,5 +107,20 @@ public static class CompileAstToExpression
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
+    }
+
+    private static AbstractExpression CompileMainModule(Ast mainModule, CompilationOptions options)
+    {
+        var prolog = mainModule.Children.FirstOrDefault(x => x!.IsA(AstNodeName.Prolog), null);
+        if (prolog != null)
+        {
+            ProcessProlog(prolog);
+        }
+        return CompileAst(mainModule.Children.First(x => x.IsA(AstNodeName.QueryBody)), options);
+    }
+
+    private static void ProcessProlog(Ast prolog)
+    {
+        throw new NotImplementedException();
     }
 }

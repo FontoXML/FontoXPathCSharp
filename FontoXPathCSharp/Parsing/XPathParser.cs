@@ -35,6 +35,11 @@ public class XPathParser
         x => string.Join("", x)
     );
 
+    private static ParseFunc<Ast> NotImplementedAst()
+    {
+        return (_, offset) => new Ok<Ast>(offset, new Ast(AstNodeName.NotImplemented));
+    }
+
     // TODO: add wildcard
     private static readonly ParseFunc<Ast> NameTest =
         Map(EqName, x => new Ast(AstNodeName.NameTest)
@@ -487,6 +492,14 @@ public class XPathParser
     private static readonly ParseFunc<Ast> QueryBody =
         Map(Expr(), x => new Ast(AstNodeName.QueryBody, x));
 
+
+    private static ParseFunc<Ast> Prolog = NotImplementedAst();
+
+    private static ParseFunc<Ast> MainModule = Then(Prolog,
+        Preceded(Whitespace, QueryBody),
+        (prologPart, body) => new Ast(AstNodeName.MainModule, body)
+    );
+
     private static ParseResult<Ast[]> RelativePathExprWithForcedStepIndirect(string input, int offset)
     {
         return RelativePathExprWithForcedStep(input, offset);
@@ -553,6 +566,6 @@ public class XPathParser
     public static ParseResult<Ast> Parse(string input, ParseOptions options)
     {
         _options = options;
-        return QueryBody(input, 0);
+        return MainModule(input, 0);
     }
 }

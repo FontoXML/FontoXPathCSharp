@@ -40,11 +40,14 @@ public static class CompileXPath
                 ? new CompiledExpressionResult(fromCache.Expression)
                 : new StaticallyAnalyzedExpressionResult(fromCache.Expression);
 
+        Console.WriteLine("Ya Ya");
         var ast =
             typeof(TSelector) == typeof(string)
                 ? ParseExpression.ParseXPathOrXQueryExpression((string)(object)xpathSource!, compilationOptions)
                 : XmlToAst.ConvertXmlToAst(xpathSource);
+        Console.WriteLine("Blabla" + ast);
 
+        
         return new ParsedExpressionResult(ast);
     }
 
@@ -82,6 +85,7 @@ public static class CompileXPath
         );
 
 
+        
         switch (result.CacheState)
         {
             case CacheState.StaticAnalyzed:
@@ -137,25 +141,28 @@ public static class CompileXPath
         //TODO: AST Annotation
         // AnnotateAst(ast, new AnnotationContext(rootStaticContext));
 
-        // TODO: Uncomment when mainbody is added to parser.
-        // var mainModule = ast.GetFirstChild(AstNodeName.MainModule);
-        // if (mainModule == null) {
-        //     throw new Exception("Can not execute a library module.");
-        // }
+        Console.WriteLine(ast);
+        
+        var mainModule = ast.GetFirstChild(AstNodeName.MainModule);
+        Console.WriteLine(mainModule);
+
+        if (mainModule == null) {
+            throw new Exception("Can not execute a library module.");
+        }
         
         // TODO: fid this when mainbody is added.
-        var queryBodyContents = ast.FollowPath(new []{AstNodeName.All});
+        var queryBodyContents = ast.FollowPath(new []{AstNodeName.QueryBody, AstNodeName.All});
         
-        // TODO: Implement prolog processing
-        // var prolog = mainModule.GetFirstChild(AstNodeName.Prolog);
-        // if (prolog != null) {
-        //     if (!compilationOptions.AllowXQuery) {
-        //         throw new Exception(
-        //             "XPST0003: Use of XQuery functionality is not allowed in XPath context"
-        //         );
-        //     }
-        //     processProlog(prolog, rootStaticContext);
-        // }
+        var prolog = mainModule.GetFirstChild(AstNodeName.Prolog);
+        if (prolog != null) {
+            if (!compilationOptions.AllowXQuery) {
+                throw new Exception(
+                    "XPST0003: Use of XQuery functionality is not allowed in XPath context"
+                );
+            }
+            // TODO: Implement prolog processing
+            // processProlog(prolog, rootStaticContext);
+        }
         
         return CompileAstToExpression.CompileAst(queryBodyContents!, compilationOptions);
         // return compileAstToExpression(queryBodyContents, compilationOptions);
