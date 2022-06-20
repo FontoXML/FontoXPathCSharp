@@ -1,5 +1,7 @@
 using System.Collections;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Sequences;
 
@@ -69,6 +71,28 @@ internal class SingletonSequence : ISequence
 
     public bool GetEffectiveBooleanValue()
     {
-        throw new NotImplementedException("No effective boolean value implemented yet.");
+        if (SubtypeUtils.IsSubtypeOf(_onlyValue.GetValueType(), ValueType.Node))
+        {
+            return true;
+        }
+
+        if (SubtypeUtils.IsSubtypeOf(_onlyValue.GetValueType(), ValueType.XsString))
+        {
+            return _onlyValue.GetAs<StringValue>(ValueType.XsString).Value.Length > 0;
+        }
+        if (SubtypeUtils.IsSubtypeOf(_onlyValue.GetValueType(), ValueType.XsAnyUri))
+        {
+            return _onlyValue.GetAs<StringValue>(ValueType.XsAnyUri).Value.Length > 0;
+        }
+        if (SubtypeUtils.IsSubtypeOf(_onlyValue.GetValueType(), ValueType.XsUntypedAtomic))
+        {
+            return _onlyValue.GetAs<StringValue>(ValueType.XsUntypedAtomic).Value.Length > 0;
+        }
+
+        if (SubtypeUtils.IsSubtypeOf(_onlyValue.GetValueType(), ValueType.XsNumeric)) {
+            return _onlyValue.GetAs<IntValue>(ValueType.XsNumeric).Value > 0;
+        }
+
+        throw new Exception("FORG0006");
     }
 }

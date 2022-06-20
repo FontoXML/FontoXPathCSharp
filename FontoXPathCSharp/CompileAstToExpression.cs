@@ -59,6 +59,7 @@ public static class CompileAstToExpression
             {
                 "self" => new SelfAxis(testExpression),
                 "parent" => new ParentAxis(testExpression),
+                "child" => new ChildAxis(testExpression),
                 _ => throw new NotImplementedException()
             };
         });
