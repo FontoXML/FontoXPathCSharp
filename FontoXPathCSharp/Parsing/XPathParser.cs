@@ -495,7 +495,19 @@ public class XPathParser
 
     private static ParseFunc<Ast> Prolog = NotImplementedAst();
 
-    private static ParseFunc<Ast> MainModule = Then(Prolog,
+    private static ParseFunc<Ast> VersionDeclaration = NotImplementedAst();
+
+    private static ParseFunc<Ast> LibraryModule = NotImplementedAst();
+
+    private static ParseFunc<Ast> Module = Then(
+        Optional(Surrounded(VersionDeclaration, Whitespace)),
+        Or(LibraryModule, MainModule),
+        (versionDecl, modulePart) => new Ast(AstNodeName.Module,
+            versionDecl != null ? new[] { versionDecl, modulePart } : new[] { modulePart })
+    );
+
+
+    private static ParseFunc<Ast> MainModule = Then(Optional(Prolog),
         Preceded(Whitespace, QueryBody),
         (prologPart, body) => new Ast(AstNodeName.MainModule, body)
     );
@@ -566,6 +578,7 @@ public class XPathParser
     public static ParseResult<Ast> Parse(string input, ParseOptions options)
     {
         _options = options;
-        return MainModule(input, 0);
+        return Complete(Surrounded(Module, Whitespace))(input, 0);
+        // return MainModule(input, 0);
     }
 }
