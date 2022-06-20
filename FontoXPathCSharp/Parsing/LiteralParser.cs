@@ -13,7 +13,8 @@ public static class LiteralParser
 
     public static readonly ParseFunc<string> ForwardAxis =
         Map(Or(
-            Token("self::")
+            Token("self::"),
+            Token("child::")
             // TODO: add other variants
         ), x => x[..^2]);
 
