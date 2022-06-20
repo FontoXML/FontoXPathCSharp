@@ -42,16 +42,16 @@ public class TypeCasting
 
     private Result<AtomicValue> TryCastToType(AtomicValue value, ValueType type)
     {
-        throw new NotImplementedException();
         var index = (int)value.GetValueType() + (int)type * 10000;
-        var prefabConverter = _precomputedCastFunctions[index];
 
-        if (prefabConverter == null)
+        if (!_precomputedCastFunctions.ContainsKey(index))
         {
             _precomputedCastFunctions[index] = CreateCastingFunction(value.GetValueType(), type);
         }
 
-        // return prefabConverter(value.Value, type);
+        var prefabConverter = _precomputedCastFunctions[index];
+
+        return prefabConverter(value);
     }
 
     private CastingFunction CreateCastingFunction(ValueType from, ValueType to)
@@ -108,7 +108,7 @@ public class TypeCasting
 
         var converters = new List<CastingFunction>();
 
-        if (primitiveFrom is ValueType.XsString or ValueType.XsUntypedAtomic)
+        if (SubtypeUtils.IsSubTypeOfAny(primitiveFrom, new[] { ValueType.XsString, ValueType.XsUntypedAtomic }))
         {
             converters.Add(value =>
             {
@@ -131,7 +131,7 @@ public class TypeCasting
             converters.Add(val => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(val, val.GetValueType())));
         }
 
-        if (primitiveTo == ValueType.XsUntypedAtomic || primitiveTo == ValueType.XsString)
+        if (SubtypeUtils.IsSubTypeOfAny(primitiveTo, new[] { ValueType.XsString, ValueType.XsUntypedAtomic }))
         {
             converters.Add(value =>
             {
