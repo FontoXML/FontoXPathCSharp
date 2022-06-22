@@ -144,7 +144,7 @@ public class XPathParser
         Map(Token("TODO"), _ => new Ast(AstNodeName.All));
 
     // TODO: add others
-    private static readonly ParseFunc<Ast> PrimaryExpr = Or(Literal, ContextItemExpr, FunctionCall);
+    private static readonly ParseFunc<Ast> PrimaryExpr = Or(Literal, VarRef, ContextItemExpr, FunctionCall);
 
     private static readonly ParseFunc<Ast> PostfixExprWithStep =
         Then(
