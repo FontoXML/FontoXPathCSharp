@@ -26,29 +26,13 @@ public static class CompileAstToExpression
             if (axis == null)
                 throw new NotImplementedException();
 
-            var test = step.GetFirstChild(new[]
-            {
-                AstNodeName.AttributeTest,
-                AstNodeName.AnyElementTest,
-                AstNodeName.PiTest,
-                AstNodeName.DocumentTest,
-                AstNodeName.ElementTest,
-                AstNodeName.CommentTest,
-                AstNodeName.NamespaceTest,
-                AstNodeName.AnyKindTest,
-                AstNodeName.TextTest,
-                AstNodeName.AnyFunctionTest,
-                AstNodeName.TypedFunctionTest,
-                AstNodeName.SchemaAttributeTest,
-                AstNodeName.AtomicType,
-                AstNodeName.AnyItemType,
-                AstNodeName.ParenthesizedItemType,
-                AstNodeName.TypedMapTest,
-                AstNodeName.TypedArrayTest,
-                AstNodeName.NameTest,
-                AstNodeName.Wildcard
-            });
-
+            var test = axis.GetFirstChild(
+                AstNodeName.AttributeTest, AstNodeName.AnyElementTest, AstNodeName.PiTest,
+                AstNodeName.DocumentTest, AstNodeName.ElementTest, AstNodeName.CommentTest, AstNodeName.NamespaceTest,
+                AstNodeName.AnyKindTest, AstNodeName.TextTest, AstNodeName.AnyFunctionTest,
+                AstNodeName.TypedFunctionTest, AstNodeName.SchemaAttributeTest, AstNodeName.AtomicType,
+                AstNodeName.AnyItemType, AstNodeName.ParenthesizedItemType, AstNodeName.TypedMapTest,
+                AstNodeName.TypedArrayTest, AstNodeName.NameTest, AstNodeName.Wildcard);
 
             if (test == null)
                 throw new XPathException("No test found in path expression axis");
@@ -60,7 +44,7 @@ public static class CompileAstToExpression
                 "self" => new SelfAxis(testExpression),
                 "parent" => new ParentAxis(testExpression),
                 "child" => new ChildAxis(testExpression),
-                _ => throw new NotImplementedException()
+                _ => throw new NotImplementedException(axis.TextContent)
             };
         });
 
@@ -99,6 +83,7 @@ public static class CompileAstToExpression
     {
         return ast.Name switch
         {
+            AstNodeName.Module => CompileModule(ast, options),
             AstNodeName.MainModule => CompileMainModule(ast, options),
             AstNodeName.QueryBody => CompileAst(ast.GetFirstChild()!, options),
             AstNodeName.PathExpr => CompilePathExpression(ast),
@@ -108,6 +93,11 @@ public static class CompileAstToExpression
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
+    }
+
+    private static AbstractExpression CompileModule(Ast module, CompilationOptions options)
+    {
+        return CompileAst(module.Children.First(x => x.IsA(AstNodeName.MainModule)), options);
     }
 
     private static AbstractExpression CompileMainModule(Ast mainModule, CompilationOptions options)

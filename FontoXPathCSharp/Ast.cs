@@ -105,7 +105,7 @@ public class Ast
         return Children.Find(x => name == AstNodeName.All || name == x.Name);
     }
 
-    public Ast? GetFirstChild(AstNodeName[] names)
+    public Ast? GetFirstChild(params AstNodeName[] names)
     {
         return Children.Find(x => names.Contains(AstNodeName.All) || names.Contains(x.Name));
     }

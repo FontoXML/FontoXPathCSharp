@@ -56,12 +56,12 @@ public class XPathParser
     private static readonly ParseFunc<Ast> NodeTest = Or(NameTest);
 
     private static readonly ParseFunc<Ast> AbbrevForwardStep = Then(Optional(Token("@")), NodeTest,
-        (a, b) => new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis, b))
+        (a, b) => new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis, b)
         {
             TextContent = a != null || b.IsA(AstNodeName.AttributeTest, AstNodeName.SchemaAttributeTest)
                 ? "attribute"
                 : "child"
-        });
+        }));
 
     private static readonly ParseFunc<Ast> ForwardStep
         = Or(Then(ForwardAxis, NodeTest,
