@@ -90,7 +90,7 @@ public class TypeCasting
 
         var converters = new List<CastingFunction>();
 
-        if (SubtypeUtils.IsSubTypeOfAny(primitiveFrom, new[] {ValueType.XsString, ValueType.XsUntypedAtomic}))
+        if (SubtypeUtils.IsSubTypeOfAny(primitiveFrom, ValueType.XsString, ValueType.XsUntypedAtomic))
             converters.Add(value =>
             {
                 // Not sure if this is correct, it seems more correct than the original code though.
@@ -109,7 +109,7 @@ public class TypeCasting
             converters.Add(val => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(val, val.GetValueType())));
         }
 
-        if (SubtypeUtils.IsSubTypeOfAny(primitiveTo, new[] {ValueType.XsString, ValueType.XsUntypedAtomic}))
+        if (SubtypeUtils.IsSubTypeOfAny(primitiveTo, ValueType.XsString, ValueType.XsUntypedAtomic))
             converters.Add(value =>
             {
                 if (!TypeHelpers.ValidatePattern(value.GetAs<StringValue>(ValueType.XsString)!.Value, to))
@@ -135,9 +135,9 @@ public class TypeCasting
         };
     }
 
-    public static CastingFunction CastToPrimitiveType(ValueType from, ValueType to)
+    private static CastingFunction CastToPrimitiveType(ValueType from, ValueType to)
     {
-        var instanceOf = new Func<ValueType, bool>(type => SubtypeUtils.IsSubtypeOf(from, type));
+        // var instanceOf = new Func<ValueType, bool>(type => SubtypeUtils.IsSubtypeOf(from, type));
 
         if (to == ValueType.XsError)
             return _ => new ErrorResult<AtomicValue>("FORG0001: Casting to xs:error is always invalid.");

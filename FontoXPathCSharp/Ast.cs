@@ -134,9 +134,9 @@ public class Ast
             StringAttributes["prefix"]);
     }
 
-    public bool IsA(AstNodeName name)
+    public bool IsA(params AstNodeName[] names)
     {
-        return Name == name;
+        return names.Any(x => Name == x || x == AstNodeName.All);
     }
 
     public override string ToString()

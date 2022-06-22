@@ -14,10 +14,10 @@ public static class PrscSharp
         {
             var endOffset = offset + token.Length;
             if (endOffset > input.Length)
-                return new Err<string>(offset, new[] { token });
+                return new Err<string>(offset, new[] {token});
             if (input.Substring(offset, token.Length) == token)
                 return new Ok<string>(endOffset, token);
-            return new Err<string>(offset, new[] { token });
+            return new Err<string>(offset, new[] {token});
         };
     }
 
@@ -30,7 +30,7 @@ public static class PrscSharp
 
             if (match.Success && match.Index == 0)
                 return new Ok<string>(offset + match.Length, match.Value);
-            return new Err<string>(offset, new[] { regex });
+            return new Err<string>(offset, new[] {regex});
         };
     }
 
@@ -153,14 +153,14 @@ public static class PrscSharp
             var r1 = parser1(input, offset);
             if (!r1.IsOk())
             {
-                var r1Err = (Err<T1>)r1;
+                var r1Err = (Err<T1>) r1;
                 return new Err<TR>(r1Err.Offset, r1Err.Expected);
             }
 
             var r2 = parser2(input, r1.Offset);
             if (r2.IsOk()) return new Ok<TR>(r2.Offset, join(r1.Unwrap(), r2.Unwrap()));
 
-            var r2Err = (Err<T2>)r2;
+            var r2Err = (Err<T2>) r2;
             return new Err<TR>(r2Err.Offset, r2Err.Expected);
         };
     }
@@ -214,10 +214,10 @@ public static class PrscSharp
         return x;
     }
 
-    public static ParseFunc<object> End = (input, offset) => input.Length == offset
+    public static readonly ParseFunc<object> End = (input, offset) => input.Length == offset
         ? new Ok<object>(offset, 0) // Ignore value here, return type cannot be void.
-        : new Ok<object>(offset, 1); // TODO: Uncomment when the offsets are working correctly.
-        // : new Err<object>(offset, new[] { $"End of input. Offset:{offset}, input length: {input.Length}" });
+        // : new Ok<object>(offset, 1); // TODO: Uncomment when the offsets are working correctly.
+        : new Err<object>(offset, new[] {$"End of input. Offset: {offset}, input length: {input.Length}"});
 
     public static ParseFunc<T> Complete<T>(ParseFunc<T> parser)
     {

@@ -35,6 +35,11 @@ public class XPathParser
         x => string.Join("", x)
     );
 
+    private static ParseFunc<Ast> NotImplementedAst()
+    {
+        return Map(Token("NOT IMPLEMENTED WILL NEVER GET MATCHED"), s => new Ast(AstNodeName.NotImplemented));
+    }
+
     // TODO: add wildcard
     private static readonly ParseFunc<Ast> NameTest =
         Map(EqName, x => new Ast(AstNodeName.NameTest)
@@ -50,13 +55,22 @@ public class XPathParser
     // TODO: add kindTest
     private static readonly ParseFunc<Ast> NodeTest = Or(NameTest);
 
+    private static readonly ParseFunc<Ast> AbbrevForwardStep = Then(Optional(Token("@")), NodeTest,
+        (a, b) => new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis, b))
+        {
+            TextContent = a != null || b.IsA(AstNodeName.AttributeTest, AstNodeName.SchemaAttributeTest)
+                ? "attribute"
+                : "child"
+        });
+
     private static readonly ParseFunc<Ast> ForwardStep
         = Or(Then(ForwardAxis, NodeTest,
-            (axis, test) =>
-                new Ast(AstNodeName.StepExpr,
-                    new Ast(AstNodeName.XPathAxis) {TextContent = axis},
-                    test
-                )));
+                (axis, test) =>
+                    new Ast(AstNodeName.StepExpr,
+                        new Ast(AstNodeName.XPathAxis) {TextContent = axis},
+                        test
+                    )),
+            AbbrevForwardStep);
 
     // TODO: add predicateList
     // TODO: add reverse step
@@ -471,7 +485,7 @@ public class XPathParser
             // TODO: ValueCompare(),
             // TODO: NodeCompare(),
             // TODO: GeneralCompare()
-            Alias(AstNodeName.All, "TODO")
+            Map(NotImplementedAst(), x => AstNodeName.NotImplemented)
         ));
 
     private static readonly ParseFunc<Ast> AndExpr =
@@ -487,12 +501,16 @@ public class XPathParser
     private static readonly ParseFunc<Ast> QueryBody =
         Map(Expr(), x => new Ast(AstNodeName.QueryBody, x));
 
-
     private static readonly ParseFunc<Ast> Prolog = NotImplementedAst();
 
     private static readonly ParseFunc<Ast> VersionDeclaration = NotImplementedAst();
 
     private static readonly ParseFunc<Ast> LibraryModule = NotImplementedAst();
+
+    private static readonly ParseFunc<Ast> MainModule = Then(Optional(Prolog),
+        Preceded(Whitespace, QueryBody),
+        (prologPart, body) => new Ast(AstNodeName.MainModule, body)
+    );
 
     private static readonly ParseFunc<Ast> Module = Then(
         Optional(Surrounded(VersionDeclaration, Whitespace)),
@@ -500,17 +518,6 @@ public class XPathParser
         (versionDecl, modulePart) => new Ast(AstNodeName.Module,
             versionDecl != null ? new[] {versionDecl, modulePart} : new[] {modulePart})
     );
-
-
-    private static readonly ParseFunc<Ast> MainModule = Then(Optional(Prolog),
-        Preceded(Whitespace, QueryBody),
-        (prologPart, body) => new Ast(AstNodeName.MainModule, body)
-    );
-
-    private static ParseFunc<Ast> NotImplementedAst()
-    {
-        return (_, offset) => new Ok<Ast>(offset, new Ast(AstNodeName.NotImplemented));
-    }
 
     private static ParseResult<Ast[]> RelativePathExprWithForcedStepIndirect(string input, int offset)
     {
@@ -579,6 +586,5 @@ public class XPathParser
     {
         _options = options;
         return Complete(Surrounded(Module, Whitespace))(input, 0);
-        // return MainModule(input, 0);
     }
 }

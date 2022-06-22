@@ -5,14 +5,14 @@ using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 
-const string query = "normalize-space(\"   t    e s    t \")";
+const string query = "/p";
 const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");
 
-var result = XPathParser.Parse(query, new ParseOptions(false, true)).UnwrapOr((expected, fatal) =>
+var result = XPathParser.Parse(query, new ParseOptions(false, false)).UnwrapOr((expected, fatal) =>
 {
-    Console.WriteLine("Parsing error ({0}): {1}", fatal, string.Join(", ", expected));
+    Console.WriteLine("Parsing error ({0}): expected {1}", fatal, string.Join(", ", expected.Distinct()));
     Environment.Exit(1);
     return new Ast(AstNodeName.All);
 });
