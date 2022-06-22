@@ -103,12 +103,12 @@ public class TypeCasting
         }
 
         // Compiler was being difficult, this was the only way to make it stop.
-        var primitiveFrom = (ValueType)primitiveFromNullable;
-        var primitiveTo = (ValueType)primitiveToNullable;
+        var primitiveFrom = (ValueType) primitiveFromNullable;
+        var primitiveTo = (ValueType) primitiveToNullable;
 
         var converters = new List<CastingFunction>();
 
-        if (SubtypeUtils.IsSubTypeOfAny(primitiveFrom, new[] { ValueType.XsString, ValueType.XsUntypedAtomic }))
+        if (SubtypeUtils.IsSubTypeOfAny(primitiveFrom, ValueType.XsString, ValueType.XsUntypedAtomic))
         {
             converters.Add(value =>
             {
@@ -131,7 +131,7 @@ public class TypeCasting
             converters.Add(val => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(val, val.GetValueType())));
         }
 
-        if (SubtypeUtils.IsSubTypeOfAny(primitiveTo, new[] { ValueType.XsString, ValueType.XsUntypedAtomic }))
+        if (SubtypeUtils.IsSubTypeOfAny(primitiveTo, ValueType.XsString, ValueType.XsUntypedAtomic))
         {
             converters.Add(value =>
             {

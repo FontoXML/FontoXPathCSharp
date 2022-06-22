@@ -49,12 +49,11 @@ public class Atomize
 
     private static ISequence AtomizeSingleValue(AbstractValue value, ExecutionParameters executionParameters)
     {
-        if (SubtypeUtils.IsSubTypeOfAny(value.GetValueType(), new[]
-            {
+        if (SubtypeUtils.IsSubTypeOfAny(value.GetValueType(),
                 ValueType.XsAnyAtomicType, ValueType.XsUntypedAtomic, ValueType.XsBoolean, ValueType.XsDecimal,
                 ValueType.XsDouble, ValueType.XsFloat, ValueType.XsInteger, ValueType.XsNumeric, ValueType.XsQName,
                 ValueType.XsQName, ValueType.XsString
-            }))
+            ))
             return SequenceFactory.CreateFromValue(value);
 
         var domfacade = executionParameters.DomFacade;
