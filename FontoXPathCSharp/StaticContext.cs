@@ -36,6 +36,20 @@ public class StaticContext : AbstractContext
             parentContext?.RegisteredVariableBindingByHashKey ?? new Dictionary<string, string>();
     }
 
+    public override string ToString()
+    {
+        var nsUriString = "[ " + string.Join(", ", _registeredNamespaceURIByPrefix.Select(nsUri =>
+            $"[{string.Join(", ", nsUri.Select(kvp => $"[{kvp.Key.ToString()}]: {kvp.Value.ToString()}"))}]")) + " ]";
+        var funcString = $"[\n{string.Join(",\n", _registeredFunctionsByHash.Select(f => $"[{f.Key.ToString()}]"))} ]";
+
+
+        return "Static Context: {\n" +
+               $"Parent Context: {_parentContext}\n" +
+               $"Registered Namespace URI By Prefix: {nsUriString}\n" +
+               $"Scope Depth: {_scopeDepth}\n" +
+               $"Registered Functions By Hash: {funcString}\n}}";
+    }
+
     public StaticContext Clone()
     {
         var contextAtThisPoint = new StaticContext(_parentContext);

@@ -11,6 +11,11 @@ public class PathExpression : AbstractExpression
         _stepExpressions = stepExpressions;
     }
 
+    public override string ToString()
+    {
+        return $"PathEx«pr[ {string.Join(", ", _stepExpressions.Select(x => x.ToString()))} ]";
+    }
+
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
         return _stepExpressions.Aggregate(SequenceFactory.CreateFromArray(new[] {dynamicContext!.ContextItem!}),

@@ -15,6 +15,12 @@ public class ChildAxis : AbstractExpression
     {
         _selector = selector;
     }
+    
+    public override string ToString()
+    {
+        return $"ChildAxis[ {_selector} ]";
+    }
+
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {

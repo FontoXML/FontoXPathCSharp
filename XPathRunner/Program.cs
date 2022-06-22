@@ -1,11 +1,12 @@
-﻿using System.Xml;
+﻿using System.Diagnostics;
+using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.Functions;
 using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 
-const string query = "/p";
+const string query = "catalog";
 const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");
@@ -20,7 +21,7 @@ Console.WriteLine("Parsed query: ");
 Console.WriteLine(result);
 
 var xmlDocument = new XmlDocument();
-xmlDocument.LoadXml(xml);
+xmlDocument.Load("../../../../XPathTest/assets/QT3TS/catalog.xml");
 var document = xmlDocument.FirstChild!;
 
 Console.WriteLine("\nResult:");
@@ -42,13 +43,16 @@ foreach (var function in BuiltInFunctions.Declarations)
     staticContext.RegisterFunctionDefinition(functionProperties!);
 }
 
+Console.WriteLine(executionContext);
+Console.WriteLine(staticContext);
+
 expr.PerformStaticEvaluation(staticContext);
 var resultSequence = expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document));
 resultSequence.GetAllValues().ToList().ForEach(Console.WriteLine);
 
 
-var qt3tests = new XmlDocument();
-qt3tests.Load("../XPathTest/assets/QT3TS/catalog.xml");
-
-var nodes = qt3tests;
-Console.WriteLine("Selector resulted in: " + Evaluate.EvaluateXPathToBoolean("child::catalog", qt3tests, null, new Dictionary<string, IExternalValue>(), new Options()));
+// var qt3tests = new XmlDocument();
+// qt3tests.Load("../../../../XPathTest/assets/QT3TS/catalog.xml");
+//
+// var nodes = qt3tests;
+// Console.WriteLine("Selector resulted in: " + Evaluate.EvaluateXPathToBoolean("catalog", qt3tests, null, new Dictionary<string, IExternalValue>(), new Options()));

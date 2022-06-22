@@ -33,12 +33,12 @@ public static class CompileAstToExpression
                 AstNodeName.TypedFunctionTest, AstNodeName.SchemaAttributeTest, AstNodeName.AtomicType,
                 AstNodeName.AnyItemType, AstNodeName.ParenthesizedItemType, AstNodeName.TypedMapTest,
                 AstNodeName.TypedArrayTest, AstNodeName.NameTest, AstNodeName.Wildcard);
-
+            
             if (test == null)
                 throw new XPathException("No test found in path expression axis");
-
+            
             var testExpression = CompileTestExpression(test);
-
+            
             return axis.TextContent switch
             {
                 "self" => new SelfAxis(testExpression),
@@ -48,9 +48,10 @@ public static class CompileAstToExpression
             };
         });
 
+        Console.WriteLine(new PathExpression(steps.ToArray()));
         return new PathExpression(steps.ToArray());
     }
-
+    
     private static AbstractExpression CompileFunctionCallExpression(Ast ast, CompilationOptions options)
     {
         var functionName = ast.GetFirstChild(AstNodeName.FunctionName);
@@ -97,14 +98,14 @@ public static class CompileAstToExpression
 
     private static AbstractExpression CompileModule(Ast module, CompilationOptions options)
     {
-        return CompileAst(module.Children.First(x => x.IsA(AstNodeName.MainModule)), options);
+        return CompileAst(module.GetFirstChild(AstNodeName.MainModule)!, options);
     }
 
     private static AbstractExpression CompileMainModule(Ast mainModule, CompilationOptions options)
     {
-        var prolog = mainModule.Children.FirstOrDefault(x => x!.IsA(AstNodeName.Prolog), null);
+        var prolog = mainModule.GetFirstChild(AstNodeName.Prolog);
         if (prolog != null) ProcessProlog(prolog);
-        return CompileAst(mainModule.Children.First(x => x.IsA(AstNodeName.QueryBody)), options);
+        return CompileAst(mainModule.GetFirstChild(AstNodeName.QueryBody)!, options);
     }
 
     private static void ProcessProlog(Ast prolog)

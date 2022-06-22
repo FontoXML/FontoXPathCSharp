@@ -38,6 +38,22 @@ public class ExecutionSpecificStaticContext : AbstractContext
         _resolvedFunctions = new List<ResolvedFunction>();
     }
 
+    public override string ToString()
+    {
+        var refNsString = $"[ {string.Join(", ", _referredNamespaceByName.Select(ns => $"{{[{ns.Key}]:{ns.Value}}}"))} ]";
+        var refVarString = $"[ {string.Join(", ", _referredVariableByName.Select(v => $"{{[{v.Key}]:{v.Value}}}"))} ]";
+        var resFuncString = $"[ {string.Join(", ", _resolvedFunctions.Select(f => f.ToString()))} ]";
+        var varBindString = $"[ {string.Join(", ", _variableBindingByName.Select(v => $"{{[{v.Key}]:{v.Value}}}"))} ]";
+        
+        return "Execution Specific Static Context: {\n" +
+               $"Function Name Resolver: {_functionNameResolver.Method}\n" +
+               $"Namespace Resolver: {_namespaceResolver.Method}\n" +
+               $"Referred Namespaces By Name: {refNsString}\n" +
+               $"Referred Variable By Name: {refVarString}\n" +
+               $"Resolved Functions: {resFuncString}\n" +
+               $"Variable Bindings By Name: {varBindString}\n}}";
+    }
+
     private string GenerateGlobalVariableBindingName(string variableName)
     {
         return $"Q{{}}{variableName}[0]";

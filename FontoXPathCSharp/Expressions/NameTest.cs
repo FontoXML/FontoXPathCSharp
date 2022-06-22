@@ -12,6 +12,11 @@ public class NameTest : AbstractTestExpression
         _name = name;
     }
 
+    public override string ToString()
+    {
+        return $"NameTest[ \"{_name}\" ]";
+    }
+
     protected internal override bool EvaluateToBoolean(
         DynamicContext? _,
         AbstractValue value,
