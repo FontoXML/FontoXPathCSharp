@@ -50,7 +50,6 @@ public static class CompileAstToExpression
             };
         });
 
-        Console.WriteLine(new PathExpression(steps.ToArray()));
         return new PathExpression(steps.ToArray());
     }
     

@@ -42,8 +42,10 @@ public abstract class AbstractExpression
 
     public virtual void PerformStaticEvaluation(StaticContext staticContext)
     {
-        foreach (var expression in _childExpressions) expression.PerformStaticEvaluation(staticContext);
-
+        foreach (var expression in _childExpressions)
+        {
+            expression.PerformStaticEvaluation(staticContext);
+        }
         // TODO: make sure child expressions are not updating if we cannot be updating
     }
 }

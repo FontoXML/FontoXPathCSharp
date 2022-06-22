@@ -5,8 +5,9 @@ using FontoXPathCSharp.Functions;
 using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-const string query = "catalog";
+const string query = "/catalog/test-set";
 const string xml = "<p>Test</p>";
 
 Console.WriteLine($"Running: `{query}`\n");
@@ -17,14 +18,12 @@ var result = XPathParser.Parse(query, new ParseOptions(false, false)).UnwrapOr((
     Environment.Exit(1);
     return new Ast(AstNodeName.All);
 });
-Console.WriteLine("Parsed query: ");
-Console.WriteLine(result);
+Console.WriteLine("Parsed query:\n" + result);
 
 var xmlDocument = new XmlDocument();
 xmlDocument.Load("../../../../XPathTest/assets/QT3TS/catalog.xml");
-var document = xmlDocument.FirstChild!;
+var document = xmlDocument;
 
-Console.WriteLine("\nResult:");
 var expr = CompileAstToExpression.CompileAst(result, new CompilationOptions(true, false, true, true));
 var executionContext =
     new ExecutionSpecificStaticContext(s => null, new Dictionary<string, IExternalValue>(),
@@ -43,12 +42,14 @@ foreach (var function in BuiltInFunctions.Declarations)
     staticContext.RegisterFunctionDefinition(functionProperties!);
 }
 
-Console.WriteLine(executionContext);
-Console.WriteLine(staticContext);
+// Console.WriteLine(executionContext);
+// Console.WriteLine(staticContext);
 
 expr.PerformStaticEvaluation(staticContext);
 var resultSequence = expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document));
-resultSequence.GetAllValues().ToList().ForEach(Console.WriteLine);
+
+Console.WriteLine("\nResult:");
+resultSequence.GetAllValues().ToList().ForEach(r => Console.WriteLine(r.GetAs<NodeValue>(ValueType.Node).Value().Attributes["file"].Value));
 
 
 // var qt3tests = new XmlDocument();

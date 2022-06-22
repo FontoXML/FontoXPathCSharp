@@ -13,21 +13,21 @@ public class PathExpression : AbstractExpression
 
     public override string ToString()
     {
-        return $"PathEx«pr[ {string.Join(", ", _stepExpressions.Select(x => x.ToString()))} ]";
+        return $"PathExpr[ {string.Join(", ", _stepExpressions.Select(x => x.ToString()))} ]";
     }
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        return _stepExpressions.Aggregate(SequenceFactory.CreateFromArray(new[] { dynamicContext!.ContextItem! }),
-            (contextItems, step) =>
+        var result = _stepExpressions.Aggregate(SequenceFactory.CreateFromArray(new[] { dynamicContext!.ContextItem! }),
+            (intermediateResultNodesSequence, selector) =>
             {
-                return SequenceFactory.CreateFromArray(contextItems
+                return SequenceFactory.CreateFromArray(intermediateResultNodesSequence
                     .SelectMany(c =>
                     {
-                        // NOTE: if dynamicContext is passed as a reference, this will overwrite ut
                         dynamicContext.ContextItem = c;
-                        return step.Evaluate(dynamicContext, executionParameters);
+                        return selector.Evaluate(dynamicContext, executionParameters);
                     }).ToArray());
             });
+        return result;
     }
 }
