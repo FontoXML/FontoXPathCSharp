@@ -73,6 +73,10 @@ public enum AstNodeName
     All, // *, only used for ast queries such as `FollowPath` or `GetChildren`
     MainModule,
     Prolog,
+    VarRef,
+    Name,
+    DecimalConstantExpr,
+    DoubleConstantExpr,
     NotImplemented, // Used for yet unimplemented Ast nodes.
     Module
 }

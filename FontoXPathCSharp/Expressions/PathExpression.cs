@@ -18,7 +18,7 @@ public class PathExpression : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        return _stepExpressions.Aggregate(SequenceFactory.CreateFromArray(new[] {dynamicContext!.ContextItem!}),
+        return _stepExpressions.Aggregate(SequenceFactory.CreateFromArray(new[] { dynamicContext!.ContextItem! }),
             (contextItems, step) =>
             {
                 return SequenceFactory.CreateFromArray(contextItems

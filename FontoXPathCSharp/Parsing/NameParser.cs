@@ -27,9 +27,15 @@ public static class NameParser
     private static readonly ParseFunc<QName> QName =
         Or(
             UnprefixedName
-            // TODO: add prefixed name
+        // TODO: add prefixed name
         );
 
     // TODO: add uriQualifiedName
     public static readonly ParseFunc<QName> EqName = Or(QName);
+
+    private static readonly ParseFunc<QName> VarName = EqName;
+
+    public static readonly ParseFunc<Ast> VarRef = Map(Preceded(Token("$"), VarName),
+        x => new Ast(AstNodeName.VarRef, x.GetAst(AstNodeName.Name))
+    );
 }

@@ -43,7 +43,7 @@ public class TypeCasting
 
     private Result<AtomicValue> TryCastToType(AtomicValue value, ValueType type)
     {
-        var index = (int) value.GetValueType() + (int) type * 10000;
+        var index = (int)value.GetValueType() + (int)type * 10000;
 
         if (!_precomputedCastFunctions.ContainsKey(index))
             _precomputedCastFunctions[index] = CreateCastingFunction(value.GetValueType(), type);
@@ -85,8 +85,8 @@ public class TypeCasting
                 $"XPST0081: Can not cast: type {(primitiveToNullable != null ? @from : to)} is unknown.");
 
         // Compiler was being difficult, this was the only way to make it stop.
-        var primitiveFrom = (ValueType) primitiveFromNullable;
-        var primitiveTo = (ValueType) primitiveToNullable;
+        var primitiveFrom = (ValueType)primitiveFromNullable;
+        var primitiveTo = (ValueType)primitiveToNullable;
 
         var converters = new List<CastingFunction>();
 

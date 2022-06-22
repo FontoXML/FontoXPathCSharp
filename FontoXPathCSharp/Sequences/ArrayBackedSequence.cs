@@ -19,7 +19,7 @@ internal class ArrayBackedSequence : ISequence
 
     public IEnumerator<AbstractValue> GetEnumerator()
     {
-        return ((IEnumerable<AbstractValue>) _values).GetEnumerator();
+        return ((IEnumerable<AbstractValue>)_values).GetEnumerator();
     }
 
     public bool IsEmpty()
