@@ -75,6 +75,8 @@ public enum AstNodeName
     Prolog,
     VarRef,
     Name,
+    DecimalConstantExpr,
+    DoubleConstantExpr,
     NotImplemented, // Used for yet unimplemented Ast nodes.
     Module
 }
