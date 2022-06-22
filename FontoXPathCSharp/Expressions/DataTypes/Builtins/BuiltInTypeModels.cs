@@ -4,13 +4,10 @@ namespace FontoXPathCSharp.Expressions.DataTypes.Builtins;
 
 public class BuiltInTypeModels
 {
-    public static BuiltInTypeModels Instance { get; } = new();
-
     private readonly BuiltInModelTypeDeclaration[] _builtinModels;
 
-    public IEnumerable<BuiltInModelTypeDeclaration> BuiltinModels => _builtinModels;
-
-
+    // Resharper disable all
+    // The above is to make sure the parameter names are not removed on cleanup.
     private BuiltInTypeModels()
     {
         _builtinModels = new BuiltInModelTypeDeclaration[]
@@ -614,7 +611,7 @@ public class BuiltInTypeModels
                     ValueType.XsDecimal,
                     ValueType.XsInteger,
                     ValueType.XsFloat,
-                    ValueType.XsDouble,
+                    ValueType.XsDouble
                 }
             ),
 
@@ -622,7 +619,12 @@ public class BuiltInTypeModels
                 variety: Variety.Union,
                 name: ValueType.None,
                 memberTypes: Array.Empty<ValueType>()
-            ),
+            )
         };
     }
+    // Resharper restore all
+
+    public static BuiltInTypeModels Instance { get; } = new();
+
+    public IEnumerable<BuiltInModelTypeDeclaration> BuiltinModels => _builtinModels;
 }
