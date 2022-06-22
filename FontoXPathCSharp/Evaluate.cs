@@ -11,10 +11,16 @@ public class Evaluate
     public static bool EvaluateXPathToBoolean<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
         IDomFacade? domFacade, Dictionary<string, IExternalValue> variables, Options? options)
     {
-        return EvaluateXPath<bool, bool, TSelectorType>(selector, contextItem, domFacade, variables, options);
+        return EvaluateXPath<bool, TSelectorType>(selector, contextItem, domFacade, variables, options);
+    }
+    
+    public static XmlNode EvaluateXPathToFirstNode<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
+        IDomFacade? domFacade, Dictionary<string, IExternalValue> variables, Options? options)
+    {
+        return EvaluateXPath<XmlNode, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
 
-    public static TReturn EvaluateXPath<TNode, TReturn, TSelector>(
+    public static TReturn EvaluateXPath<TReturn, TSelector>(
         TSelector selector,
         XmlNode? contextItem,
         IDomFacade? domFacade,
@@ -65,7 +71,7 @@ public class Evaluate
         var rawResults = expression.EvaluateMaybeStatically(dynamicContext, executionParameters);
 
         var toReturn =
-            XdmReturnValue.ConvertXmdReturnValue<TNode, TSelector, TReturn>(selector, rawResults, executionParameters);
+            XdmReturnValue.ConvertXmdReturnValue<TSelector, TReturn>(selector, rawResults, executionParameters);
 
         return toReturn;
     }

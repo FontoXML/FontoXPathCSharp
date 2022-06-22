@@ -1,10 +1,12 @@
+using System.Xml;
 using FontoXPathCSharp.Sequences;
+using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
 public class XdmReturnValue
 {
-    public static TReturn ConvertXmdReturnValue<TNode, TSelector, TReturn>(TSelector expression, ISequence rawResults,
+    public static TReturn ConvertXmdReturnValue<TSelector, TReturn>(TSelector expression, ISequence rawResults,
         ExecutionParameters executionParameters)
     {
         var typeActions = new Dictionary<Type, Func<TReturn>>
@@ -18,7 +20,8 @@ public class XdmReturnValue
                     throw new NotImplementedException();
                     // return (TReturn)(object)string.Join(' ',allValues.Select(value => TypeCasting.CastToType<string ,string>(value, ValueType.XsString).GetAs<string>(ValueType.XsString)));
                 }
-            }
+            },
+            {typeof(XmlNode), () => (TReturn) (object) ((NodeValue)rawResults.First()!).Value()}
         };
 
         return new TypeSwitchCase<TReturn>(typeActions).Run(typeof(TReturn));
