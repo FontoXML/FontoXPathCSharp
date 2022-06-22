@@ -42,7 +42,7 @@ public static class CompileXPath
         Console.WriteLine("Ya Ya");
         var ast =
             typeof(TSelector) == typeof(string)
-                ? ParseExpression.ParseXPathOrXQueryExpression((string) (object) xpathSource!, compilationOptions)
+                ? ParseExpression.ParseXPathOrXQueryExpression((string)(object)xpathSource!, compilationOptions)
                 : XmlToAst.ConvertXmlToAst(xpathSource);
         Console.WriteLine("Blabla" + ast);
 
@@ -71,7 +71,7 @@ public static class CompileXPath
         }
 
         if (typeof(TSelector) == typeof(string))
-            selector = (TSelector) (object) NormalizeEndOfLines((string) (object) selector);
+            selector = (TSelector)(object)NormalizeEndOfLines((string)(object)selector);
 
         var result = CreateExpressionFromSource(
             selector,
@@ -88,44 +88,44 @@ public static class CompileXPath
         {
             case CacheState.StaticAnalyzed:
                 return new StaticCompilationResult(rootStaticContext,
-                    ((StaticallyAnalyzedExpressionResult) result).Expression);
+                    ((StaticallyAnalyzedExpressionResult)result).Expression);
             case CacheState.Compiled:
-            {
-                var compiledResult = (CompiledExpressionResult) result;
-                compiledResult.Expression.PerformStaticEvaluation(rootStaticContext);
-                var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
-
-                CompiledExpressionCache.StoreStaticCompilationResultInCache(selector, language, specificStaticContext,
-                    moduleImports, compiledResult.Expression, compilationOptions.Debug, defaultFunctionNamespaceUri);
-                return new StaticCompilationResult(rootStaticContext, compiledResult.Expression);
-            }
-
-            case CacheState.Parsed:
-            {
-                var parsedResult = (ParsedExpressionResult) result;
-                var expressionFromAst = BuildExpressionFromAst(
-                    parsedResult.Ast,
-                    compilationOptions,
-                    rootStaticContext
-                );
-                expressionFromAst.PerformStaticEvaluation(rootStaticContext);
-
-                if (!compilationOptions.DisableCache)
                 {
+                    var compiledResult = (CompiledExpressionResult)result;
+                    compiledResult.Expression.PerformStaticEvaluation(rootStaticContext);
                     var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
-                    CompiledExpressionCache.StoreStaticCompilationResultInCache(
-                        selector,
-                        language,
-                        specificStaticContext,
-                        moduleImports,
-                        expressionFromAst,
-                        compilationOptions.Debug,
-                        defaultFunctionNamespaceUri
-                    );
+
+                    CompiledExpressionCache.StoreStaticCompilationResultInCache(selector, language, specificStaticContext,
+                        moduleImports, compiledResult.Expression, compilationOptions.Debug, defaultFunctionNamespaceUri);
+                    return new StaticCompilationResult(rootStaticContext, compiledResult.Expression);
                 }
 
-                return new StaticCompilationResult(rootStaticContext, expressionFromAst);
-            }
+            case CacheState.Parsed:
+                {
+                    var parsedResult = (ParsedExpressionResult)result;
+                    var expressionFromAst = BuildExpressionFromAst(
+                        parsedResult.Ast,
+                        compilationOptions,
+                        rootStaticContext
+                    );
+                    expressionFromAst.PerformStaticEvaluation(rootStaticContext);
+
+                    if (!compilationOptions.DisableCache)
+                    {
+                        var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
+                        CompiledExpressionCache.StoreStaticCompilationResultInCache(
+                            selector,
+                            language,
+                            specificStaticContext,
+                            moduleImports,
+                            expressionFromAst,
+                            compilationOptions.Debug,
+                            defaultFunctionNamespaceUri
+                        );
+                    }
+
+                    return new StaticCompilationResult(rootStaticContext, expressionFromAst);
+                }
         }
 
         throw new NotImplementedException("StaticallyCompileXPath not finished yet.");
@@ -147,7 +147,7 @@ public static class CompileXPath
         if (mainModule == null) throw new Exception("Can not execute a library module.");
 
         // TODO: fid this when mainbody is added.
-        var queryBodyContents = ast.FollowPath(new[] {AstNodeName.QueryBody, AstNodeName.All});
+        var queryBodyContents = ast.FollowPath(new[] { AstNodeName.QueryBody, AstNodeName.All });
 
         var prolog = mainModule.GetFirstChild(AstNodeName.Prolog);
         if (prolog != null)

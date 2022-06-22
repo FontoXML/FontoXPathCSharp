@@ -27,7 +27,7 @@ public static class NameParser
     private static readonly ParseFunc<QName> QName =
         Or(
             UnprefixedName
-            // TODO: add prefixed name
+        // TODO: add prefixed name
         );
 
     // TODO: add uriQualifiedName

@@ -123,9 +123,9 @@ public static class LiteralParser
         Map(Token("//"), _ =>
             // TODO: convert descendant-or-self to enum
             new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis)
-                {
-                    TextContent = "descendant-or-self"
-                },
+            {
+                TextContent = "descendant-or-self"
+            },
                 new Ast(AstNodeName.AnyKindTest))
         );
 }

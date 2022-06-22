@@ -10,7 +10,7 @@ public class ChildAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _selector;
 
-    public ChildAxis(AbstractTestExpression selector) : base(new AbstractExpression[] {selector},
+    public ChildAxis(AbstractTestExpression selector) : base(new AbstractExpression[] { selector },
         new OptimizationOptions(false))
     {
         _selector = selector;
@@ -23,7 +23,7 @@ public class ChildAxis : AbstractExpression
 
         if (contextNode?.NodeType is XmlNodeType.Element)
         {
-            var element = (XmlElement) contextNode;
+            var element = (XmlElement)contextNode;
             var children = element.ChildNodes;
             var filteredChildren = new List<NodeValue>();
             for (var i = 0; i < children.Count; ++i)
@@ -40,7 +40,7 @@ public class ChildAxis : AbstractExpression
 
         if (contextNode?.NodeType is XmlNodeType.Document)
         {
-            var element = (XmlDocument) contextNode;
+            var element = (XmlDocument)contextNode;
             var children = element.ChildNodes;
             var filteredChildren = new List<NodeValue>();
             for (var i = 0; i < children.Count; ++i)
