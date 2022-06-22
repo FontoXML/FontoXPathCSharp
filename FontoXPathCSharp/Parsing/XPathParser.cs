@@ -72,10 +72,24 @@ public class XPathParser
                     )),
             AbbrevForwardStep);
 
+    private static readonly ParseFunc<Ast> AbbrevReverseStep = Map(Token(".."), _ =>
+        new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis) {TextContent = "parent"},
+            new Ast(AstNodeName.AnyKindTest))
+    );
+
+    private static readonly ParseFunc<Ast> ReverseStep
+        = Or(
+            Then(ReverseAxis, NodeTest,
+                (axis, test) =>
+                    new Ast(AstNodeName.StepExpr,
+                        new Ast(AstNodeName.XPathAxis) {TextContent = axis,},
+                        test
+                    )),
+            AbbrevReverseStep);
+
     // TODO: add predicateList
-    // TODO: add reverse step
     private static readonly ParseFunc<Ast> AxisStep =
-        Or(ForwardStep);
+        Or(ReverseStep, ForwardStep);
 
     // TODO: add string literal
     private static readonly ParseFunc<Ast> Literal =

@@ -13,9 +13,22 @@ public static class LiteralParser
 
     public static readonly ParseFunc<string> ForwardAxis =
         Map(Or(
+            Token("child::"),
+            Token("descendant::"),
+            Token("attribute::"),
             Token("self::"),
-            Token("child::")
-            // TODO: add other variants
+            Token("descendant-or-self::"),
+            Token("following-sibling::"),
+            Token("following::")
+        ), x => x[..^2]);
+
+    public static readonly ParseFunc<string> ReverseAxis =
+        Map(Or(
+            Token("parent::"),
+            Token("ancestor::"),
+            Token("preceding-sibling::"),
+            Token("preceding::"),
+            Token("ancestor-or-self::")
         ), x => x[..^2]);
 
     public static readonly ParseFunc<string> PredefinedEntityRef = Then3(
