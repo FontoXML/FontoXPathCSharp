@@ -119,7 +119,7 @@ public class Ast
         return Children.FindAll(x => name == AstNodeName.All || name == x.Name);
     }
 
-    public Ast? FollowPath(IEnumerable<AstNodeName> path)
+    public Ast? FollowPath(params AstNodeName[] path)
     {
         var ast = this;
 

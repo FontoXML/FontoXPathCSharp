@@ -52,8 +52,6 @@ Console.WriteLine("\nResult:");
 resultSequence.GetAllValues().ToList().ForEach(r => Console.WriteLine(r.GetAs<NodeValue>(ValueType.Node).Value().Attributes["file"].Value));
 
 
-// var qt3tests = new XmlDocument();
-// qt3tests.Load("../../../../XPathTest/assets/QT3TS/catalog.xml");
-//
-// var nodes = qt3tests;
-// Console.WriteLine("Selector resulted in: " + Evaluate.EvaluateXPathToBoolean("catalog", qt3tests, null, new Dictionary<string, IExternalValue>(), new Options()));
+var qt3tests = new XmlDocument();
+qt3tests.Load("../../../../XPathTest/assets/QT3TS/catalog.xml");
+Console.WriteLine("Selector resulted in: " + Evaluate.EvaluateXPathToBoolean("catalog", qt3tests, null, new Dictionary<string, IExternalValue>(), new Options()));

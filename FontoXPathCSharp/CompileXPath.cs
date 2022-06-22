@@ -138,16 +138,12 @@ public static class CompileXPath
     {
         //TODO: AST Annotation
         // AnnotateAst(ast, new AnnotationContext(rootStaticContext));
-
-        Console.WriteLine(ast);
-
+        
         var mainModule = ast.GetFirstChild(AstNodeName.MainModule);
-        Console.WriteLine(mainModule);
 
         if (mainModule == null) throw new Exception("Can not execute a library module.");
-
-        // TODO: fid this when mainbody is added.
-        var queryBodyContents = ast.FollowPath(new[] { AstNodeName.QueryBody, AstNodeName.All });
+        
+        var queryBodyContents = mainModule.FollowPath(AstNodeName.QueryBody, AstNodeName.All);
 
         var prolog = mainModule.GetFirstChild(AstNodeName.Prolog);
         if (prolog != null)
@@ -164,7 +160,7 @@ public static class CompileXPath
 
     private static string NormalizeEndOfLines(string selector)
     {
-        Debug.WriteLine("Warning, end of line normalization regex might not be correct yet.");
+        Console.WriteLine("Warning, end of line normalization regex might not be correct yet.");
         return selector.Replace("(\x0D\x0A)|(\x0D(?!\x0A))g", "" + 0xa);
     }
 }
