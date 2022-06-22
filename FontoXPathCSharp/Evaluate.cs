@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Xml;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
@@ -64,7 +63,7 @@ public class Evaluate
         }
 
         var rawResults = expression.EvaluateMaybeStatically(dynamicContext, executionParameters);
-        
+
         var toReturn =
             XdmReturnValue.ConvertXmdReturnValue<TNode, TSelector, TReturn>(selector, rawResults, executionParameters);
 

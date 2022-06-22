@@ -5,17 +5,15 @@ namespace FontoXPathCSharp.Value;
 
 public class QNameValue : AtomicValue
 {
-    private readonly QName _value;
-
     public QNameValue(QName value) : base(ValueType.XsQName)
     {
-        _value = value;
+        Value = value;
     }
 
-    public QName Value => _value;
+    public QName Value { get; }
 
     public override string ToString()
     {
-        return "<Value>[type: " + Type + ", value: " + _value + "]";
+        return "<Value>[type: " + Type + ", value: " + Value + "]";
     }
 }

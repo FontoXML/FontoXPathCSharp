@@ -56,15 +56,15 @@ public class EvaluationContext<TSelector>
                                    CreateDefaultFunctionNameResolver(defaultFunctionNamespaceUri);
 
         var expressionAndStaticContext = CompileXPath.StaticallyCompileXPath(
-            expression, 
+            expression,
             compilationOptions,
-            namespaceResolver, 
-            variables, 
-            moduleImports, 
-            defaultFunctionNamespaceUri, 
+            namespaceResolver,
+            variables,
+            moduleImports,
+            defaultFunctionNamespaceUri,
             functionNameResolver
-            );
-        
+        );
+
         var contextSequence = contextItem != null
             ? AdaptValueToSequence(wrappedDomFacade, contextItem)
             : SequenceFactory.CreateEmpty();
@@ -72,7 +72,7 @@ public class EvaluationContext<TSelector>
         // var nodesFactory = internalOptions.NodesFactory != null && compilationOptions.AllowXQuery
         //     ? wrapExternalDocumentWriter(internalOptions.DocumentWriter)
         //     : domBackedDocumentWriter;
-        
+
         DynamicContext = new DynamicContext(contextSequence.First(), 0);
         ExecutionParameters = new ExecutionParameters(contextItem);
         Expression = expressionAndStaticContext.Expression;
@@ -99,10 +99,7 @@ public class EvaluationContext<TSelector>
 
     private static NamespaceResolverFunc CreateDefaultNamespaceResolver(XmlNode? contextItem)
     {
-        if (contextItem == null)
-        {
-            return _ => null;
-        }
+        if (contextItem == null) return _ => null;
 
         return prefix => prefix + contextItem.NamespaceURI;
     }

@@ -12,10 +12,11 @@ public class ParseExpression
             compilationOptions.Debug,
             compilationOptions.AllowXQuery
         );
-        
+
         return XPathParser.Parse(xPathString, options) switch
         {
-            Err<Ast> err =>  throw new Exception("PRSC Error:\n"+ string.Join('\n', err.Expected) + " Actual: " + xPathString[err.Offset]) ,
+            Err<Ast> err => throw new Exception("PRSC Error:\n" + string.Join('\n', err.Expected) + " Actual: " +
+                                                xPathString[err.Offset]),
             Ok<Ast> ok => ok.Unwrap(),
             _ => throw new ArgumentOutOfRangeException()
         };

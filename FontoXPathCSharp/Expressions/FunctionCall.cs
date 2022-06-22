@@ -13,7 +13,7 @@ public class FunctionCall : PossiblyUpdatingExpression
     private StaticContext? _staticContext;
 
     public FunctionCall(AbstractExpression functionReferenceExpression, AbstractExpression[] args) : base(
-        new[] { functionReferenceExpression }.Concat(args).ToArray(),
+        new[] {functionReferenceExpression}.Concat(args).ToArray(),
         new OptimizationOptions(false))
     {
         _argumentExpressions = args;

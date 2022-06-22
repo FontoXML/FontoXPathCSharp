@@ -5,5 +5,7 @@ namespace FontoXPathCSharp.Expressions;
 
 public class AtomicValue : AbstractValue
 {
-    public AtomicValue(ValueType type) : base(type) { }
+    public AtomicValue(ValueType type) : base(type)
+    {
+    }
 }

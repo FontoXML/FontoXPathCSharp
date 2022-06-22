@@ -27,7 +27,7 @@ public static class BuiltInFunctionsString
 
     public static readonly BuiltinDeclarationType[] Declarations =
     {
-        new(new[] { new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne) },
+        new(new[] {new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)},
             FnStringLength, "string-length",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
@@ -36,7 +36,7 @@ public static class BuiltInFunctionsString
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
 
-        new(new[] { new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne) },
+        new(new[] {new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)},
             FnNormalizeSpace, "normalize-space",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),

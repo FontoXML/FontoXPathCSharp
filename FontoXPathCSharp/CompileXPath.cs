@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using FontoXPathCSharp.Expressions;
-using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.ExpressionResults;
@@ -43,11 +42,11 @@ public static class CompileXPath
         Console.WriteLine("Ya Ya");
         var ast =
             typeof(TSelector) == typeof(string)
-                ? ParseExpression.ParseXPathOrXQueryExpression((string)(object)xpathSource!, compilationOptions)
+                ? ParseExpression.ParseXPathOrXQueryExpression((string) (object) xpathSource!, compilationOptions)
                 : XmlToAst.ConvertXmlToAst(xpathSource);
         Console.WriteLine("Blabla" + ast);
 
-        
+
         return new ParsedExpressionResult(ast);
     }
 
@@ -72,7 +71,7 @@ public static class CompileXPath
         }
 
         if (typeof(TSelector) == typeof(string))
-            selector = (TSelector)(object)NormalizeEndOfLines((string)(object)selector);
+            selector = (TSelector) (object) NormalizeEndOfLines((string) (object) selector);
 
         var result = CreateExpressionFromSource(
             selector,
@@ -85,15 +84,14 @@ public static class CompileXPath
         );
 
 
-        
         switch (result.CacheState)
         {
             case CacheState.StaticAnalyzed:
                 return new StaticCompilationResult(rootStaticContext,
-                    ((StaticallyAnalyzedExpressionResult)result).Expression);
+                    ((StaticallyAnalyzedExpressionResult) result).Expression);
             case CacheState.Compiled:
             {
-                var compiledResult = (CompiledExpressionResult)result;
+                var compiledResult = (CompiledExpressionResult) result;
                 compiledResult.Expression.PerformStaticEvaluation(rootStaticContext);
                 var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
 
@@ -104,7 +102,7 @@ public static class CompileXPath
 
             case CacheState.Parsed:
             {
-                var parsedResult = (ParsedExpressionResult)result;
+                var parsedResult = (ParsedExpressionResult) result;
                 var expressionFromAst = BuildExpressionFromAst(
                     parsedResult.Ast,
                     compilationOptions,
@@ -134,7 +132,7 @@ public static class CompileXPath
     }
 
     private static AbstractExpression BuildExpressionFromAst(
-        Ast ast, 
+        Ast ast,
         CompilationOptions compilationOptions,
         StaticContext rootStaticContext)
     {
@@ -142,28 +140,24 @@ public static class CompileXPath
         // AnnotateAst(ast, new AnnotationContext(rootStaticContext));
 
         Console.WriteLine(ast);
-        
+
         var mainModule = ast.GetFirstChild(AstNodeName.MainModule);
         Console.WriteLine(mainModule);
 
-        if (mainModule == null) {
-            throw new Exception("Can not execute a library module.");
-        }
-        
+        if (mainModule == null) throw new Exception("Can not execute a library module.");
+
         // TODO: fid this when mainbody is added.
-        var queryBodyContents = ast.FollowPath(new []{AstNodeName.QueryBody, AstNodeName.All});
-        
+        var queryBodyContents = ast.FollowPath(new[] {AstNodeName.QueryBody, AstNodeName.All});
+
         var prolog = mainModule.GetFirstChild(AstNodeName.Prolog);
-        if (prolog != null) {
-            if (!compilationOptions.AllowXQuery) {
+        if (prolog != null)
+            if (!compilationOptions.AllowXQuery)
                 throw new Exception(
                     "XPST0003: Use of XQuery functionality is not allowed in XPath context"
                 );
-            }
-            // TODO: Implement prolog processing
-            // processProlog(prolog, rootStaticContext);
-        }
-        
+        // TODO: Implement prolog processing
+        // processProlog(prolog, rootStaticContext);
+
         return CompileAstToExpression.CompileAst(queryBodyContents!, compilationOptions);
         // return compileAstToExpression(queryBodyContents, compilationOptions);
     }

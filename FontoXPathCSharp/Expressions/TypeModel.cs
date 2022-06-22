@@ -18,7 +18,19 @@ public enum ExplicitTimezone
 
 public class TypeRestrictions
 {
-    private ExplicitTimezone? ExplicitTimezone { get; init; }
+    public TypeRestrictions(ExplicitTimezone? explicitTimezone = null, int? fractionDigits = null,
+        string? maxInclusive = null, string? minInclusive = null, int? minLength = null,
+        WhitespaceHandling? whitespace = null)
+    {
+        ExplicitTimezone = explicitTimezone;
+        FractionDigits = fractionDigits;
+        MaxInclusive = maxInclusive;
+        MinInclusive = minInclusive;
+        MinLength = minLength;
+        Whitespace = whitespace;
+    }
+
+    private ExplicitTimezone? ExplicitTimezone { get; }
 
     public int? FractionDigits { get; init; }
 
@@ -29,16 +41,6 @@ public class TypeRestrictions
     public int? MinLength { get; init; }
 
     public WhitespaceHandling? Whitespace { get; init; }
-
-    public TypeRestrictions(ExplicitTimezone? explicitTimezone = null, int? fractionDigits = null, string? maxInclusive = null, string? minInclusive = null, int? minLength = null, WhitespaceHandling? whitespace = null)
-    {
-        ExplicitTimezone = explicitTimezone;
-        FractionDigits = fractionDigits;
-        MaxInclusive  = maxInclusive;
-        MinInclusive = minInclusive;
-        MinLength = minLength;
-        Whitespace = whitespace;
-    }
 }
 
 public class TypeModel
@@ -66,7 +68,7 @@ public class TypeModel
     public TypeRestrictions? RestrictionsByName { get; }
 
     public TypeFacetHandlers? TypeFacetHandlers { get; }
-    
+
     public ValueType Type { get; }
 
     public Func<string, bool>? Validator { get; }

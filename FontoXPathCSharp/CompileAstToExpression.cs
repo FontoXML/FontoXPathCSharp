@@ -113,10 +113,7 @@ public static class CompileAstToExpression
     private static AbstractExpression CompileMainModule(Ast mainModule, CompilationOptions options)
     {
         var prolog = mainModule.Children.FirstOrDefault(x => x!.IsA(AstNodeName.Prolog), null);
-        if (prolog != null)
-        {
-            ProcessProlog(prolog);
-        }
+        if (prolog != null) ProcessProlog(prolog);
         return CompileAst(mainModule.Children.First(x => x.IsA(AstNodeName.QueryBody)), options);
     }
 

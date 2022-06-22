@@ -11,10 +11,10 @@ public class SubtypeUtils
 
         var superType = BuiltinDataTypes.Instance.BuiltinDataTypesByType[baseSuperType];
         var subType = BuiltinDataTypes.Instance.BuiltinDataTypesByType[baseSubType];
-        
+
         return IsSubtypeOfType(subType, superType);
     }
-    
+
     private static bool IsSubtypeOfType(TypeModel subType, TypeModel superType)
     {
         if (superType.Variety == Variety.Union)

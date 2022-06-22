@@ -1,7 +1,4 @@
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
-using FontoXPathCSharp.Value;
-using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
@@ -12,12 +9,12 @@ public class XdmReturnValue
     {
         var typeActions = new Dictionary<Type, Func<TReturn>>
         {
-            { typeof(bool), () => (TReturn)(object)rawResults.GetEffectiveBooleanValue() },
+            {typeof(bool), () => (TReturn) (object) rawResults.GetEffectiveBooleanValue()},
             {
                 typeof(string), () =>
                 {
                     var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
-                    if (allValues.Length == 0) return (TReturn)(object)"";
+                    if (allValues.Length == 0) return (TReturn) (object) "";
                     throw new NotImplementedException();
                     // return (TReturn)(object)string.Join(' ',allValues.Select(value => TypeCasting.CastToType<string ,string>(value, ValueType.XsString).GetAs<string>(ValueType.XsString)));
                 }

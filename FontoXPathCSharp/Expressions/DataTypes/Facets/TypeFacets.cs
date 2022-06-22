@@ -1,5 +1,6 @@
-namespace FontoXPathCSharp.Expressions.DataTypes.Facets;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
+
+namespace FontoXPathCSharp.Expressions.DataTypes.Facets;
 
 public class TypeFacetHandlers
 {
@@ -12,7 +13,7 @@ public class TypeFacets
         return new TypeFacetHandlers();
         // TODO: Implement facet handlers,
         // Similar to validators, these are too little of the spec to matter for now.
-        
+
         // switch (valueType)
         // {
         //     case ValueType.XsString:

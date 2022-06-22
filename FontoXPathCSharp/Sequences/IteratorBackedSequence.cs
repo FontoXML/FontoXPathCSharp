@@ -135,7 +135,7 @@ internal class IteratorBackedSequence : ISequence
     {
         if (_length != null)
             // TODO: fix this, why does `_length!` not work? 
-            return (int)_length;
+            return (int) _length;
 
         if (onlyIfCheap) return -1;
 
