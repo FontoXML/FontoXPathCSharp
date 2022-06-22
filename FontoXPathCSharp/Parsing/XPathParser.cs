@@ -143,8 +143,13 @@ public class XPathParser
     private static readonly ParseFunc<Ast> SequenceType =
         Map(Token("TODO"), _ => new Ast(AstNodeName.All));
 
+    private static readonly ParseFunc<Ast> ParenthesizedExpr = Or(
+        Delimited(Token("("), Surrounded(Expr(), Whitespace), Token(")")),
+        Map(Delimited(Token("("), Whitespace, Token(")")), _ => new Ast(AstNodeName.SequenceExpr))
+    );
+
     // TODO: add others
-    private static readonly ParseFunc<Ast> PrimaryExpr = Or(Literal, VarRef, ContextItemExpr, FunctionCall);
+    private static readonly ParseFunc<Ast> PrimaryExpr = Or(Literal, VarRef, ParenthesizedExpr, ContextItemExpr, FunctionCall);
 
     private static readonly ParseFunc<Ast> PostfixExprWithStep =
         Then(
