@@ -1,4 +1,5 @@
 using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Expressions.Axes;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -44,6 +45,7 @@ public static class CompileAstToExpression
                 "self" => new SelfAxis(testExpression),
                 "parent" => new ParentAxis(testExpression),
                 "child" => new ChildAxis(testExpression),
+                "attribute" => new AttributeAxis(testExpression),
                 _ => throw new NotImplementedException(axis.TextContent)
             };
         });
