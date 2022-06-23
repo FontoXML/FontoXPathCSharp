@@ -14,12 +14,17 @@ public class FunctionValue<T> : AbstractValue
     private readonly int _arity;
     public readonly FunctionDefinitionType<T> Value;
 
-    public FunctionValue(ParameterType[] argumentTypes, int arity, FunctionDefinitionType<T> value) : base(
-        ValueType.Function)
+    protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionDefinitionType<T> value,
+        ValueType type) : base(type)
     {
         _argumentTypes = argumentTypes;
         _arity = arity;
         Value = value;
+    }
+
+    public FunctionValue(ParameterType[] argumentTypes, int arity, FunctionDefinitionType<T> value) : this(
+        argumentTypes, arity, value, ValueType.Function)
+    {
     }
 
     public int GetArity()
