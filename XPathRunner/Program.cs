@@ -54,4 +54,8 @@ resultSequence.GetAllValues().ToList().ForEach(r => Console.WriteLine(r.GetAs<No
 
 var qt3tests = new XmlDocument();
 qt3tests.Load("../../../../XPathTest/assets/QT3TS/catalog.xml");
-Console.WriteLine("Selector resulted in: " + Evaluate.EvaluateXPathToFirstNode("catalog/test-set", qt3tests, null, new Dictionary<string, IExternalValue>(), new Options()).Name);
+var results = Evaluate.EvaluateXPathToNodes("catalog/test-set", qt3tests, null,
+    new Dictionary<string, IExternalValue>(), new Options());
+var joinedResult = $"[ {string.Join("\n", results.Select(r => r.Attributes?["name"]?.Value))} ]";
+
+Console.WriteLine("Selector resulted in: " + joinedResult);

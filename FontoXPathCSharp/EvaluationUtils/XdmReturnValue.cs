@@ -21,7 +21,8 @@ public class XdmReturnValue
                     // return (TReturn)(object)string.Join(' ',allValues.Select(value => TypeCasting.CastToType<string ,string>(value, ValueType.XsString).GetAs<string>(ValueType.XsString)));
                 }
             },
-            {typeof(XmlNode), () => (TReturn) (object) ((NodeValue)rawResults.First()!).Value()}
+            {typeof(XmlNode), () => (TReturn) (object) ((NodeValue)rawResults.First()!).Value()},
+            {typeof(IEnumerable<XmlNode>), () => (TReturn)rawResults.GetAllValues().Select(v => ((NodeValue)v).Value()) }
         };
 
         return new TypeSwitchCase<TReturn>(typeActions).Run(typeof(TReturn));
