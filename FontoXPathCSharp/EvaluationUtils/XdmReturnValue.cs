@@ -3,16 +3,17 @@ using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
-using Microsoft.VisualBasic.CompilerServices;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
-public class XdmReturnValue
+public static class XdmReturnValue
 {
-    public static TReturn ConvertXmdReturnValue<TSelector, TReturn>(TSelector expression, ISequence rawResults,
+    public static TReturn? ConvertXmdReturnValue<TSelector, TReturn>(TSelector expression, ISequence rawResults,
         ExecutionParameters executionParameters)
     {
+        // Turn this into a static variable and make the lambdas take in expression and rawResult when called.
+        // Otherwise all code down here is executed when only one function needs to, at most, maybe?
         var typeActions = new TypeSwitchCase<TReturn>
         {
             // Boolean
@@ -25,8 +26,8 @@ public class XdmReturnValue
                     if (allValues.Length == 0) return (TReturn)(object)"";
                     return (TReturn)(object)string.Join(' ',
                         allValues.Select((v) =>
-                            TypeCasting.CastToType((AtomicValue)v, Value.Types.ValueType.XsString)
-                                .GetAs<StringValue>(Value.Types.ValueType.XsString)?.Value));
+                            TypeCasting.CastToType((AtomicValue)v, ValueType.XsString)
+                                .GetAs<StringValue>(ValueType.XsString)?.Value));
                 }
             },
             // Strings
@@ -63,6 +64,7 @@ public class XdmReturnValue
                                 $"Expected XPath {expression} to resolve to numbers"
                             );
                         }
+
                         return v.GetAs<IntValue>(ValueType.XsInteger);
                     });
                 }
@@ -73,10 +75,39 @@ public class XdmReturnValue
             {
                 typeof(IEnumerable<XmlNode>),
                 () => (TReturn)rawResults.GetAllValues().Select(v => ((NodeValue)v).Value())
+            },
+            // Array TODO: Find a better type to use here.
+            {
+                typeof(Array), () =>
+                {
+                    if (rawResults.GetLength() != 1)
+                    {
+                        throw new Exception(
+                            $"Expected XPath {expression} to resolve to a single array."
+                        );
+                    }
+
+                    var first = rawResults.First()!;
+
+                    if (!SubtypeUtils.IsSubtypeOf(first.GetValueType(), ValueType.Array))
+                    {
+                        throw new Exception($"Expected XPath {expression} to resolve to an array.");
+                    }
+
+                    throw new NotImplementedException();
+                    // var transformedArray = TransformArrayToArray((TReturn)(object)first, executionParameters).Next(IterationHint.None);
+                    // return transformedArray.Value as TReturn;
+                }
             }
         };
 
         return typeActions.Run(typeof(TReturn));
+    }
+
+    private static Iterator<AbstractValue[]> TransformArrayToArray(ArrayValue<AbstractValue>? first,
+        ExecutionParameters executionParameters)
+    {
+        throw new NotImplementedException();
     }
     //     export default function convertXDMReturnValue<
     // 	TNode extends Node,
