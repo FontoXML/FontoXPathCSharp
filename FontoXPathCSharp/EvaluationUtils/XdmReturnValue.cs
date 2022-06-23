@@ -1,6 +1,10 @@
 using System.Xml;
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
+using Microsoft.VisualBasic.CompilerServices;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
@@ -9,23 +13,70 @@ public class XdmReturnValue
     public static TReturn ConvertXmdReturnValue<TSelector, TReturn>(TSelector expression, ISequence rawResults,
         ExecutionParameters executionParameters)
     {
-        var typeActions = new Dictionary<Type, Func<TReturn>>
+        var typeActions = new TypeSwitchCase<TReturn>
         {
-            {typeof(bool), () => (TReturn) (object) rawResults.GetEffectiveBooleanValue()},
+            // Boolean
+            { typeof(bool), () => (TReturn)(object)rawResults.GetEffectiveBooleanValue() },
+            // String
             {
                 typeof(string), () =>
                 {
                     var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
-                    if (allValues.Length == 0) return (TReturn) (object) "";
-                    throw new NotImplementedException();
-                    // return (TReturn)(object)string.Join(' ',allValues.Select(value => TypeCasting.CastToType<string ,string>(value, ValueType.XsString).GetAs<string>(ValueType.XsString)));
+                    if (allValues.Length == 0) return (TReturn)(object)"";
+                    return (TReturn)(object)string.Join(' ',
+                        allValues.Select((v) =>
+                            TypeCasting.CastToType((AtomicValue)v, Value.Types.ValueType.XsString)
+                                .GetAs<StringValue>(Value.Types.ValueType.XsString)?.Value));
                 }
             },
-            {typeof(XmlNode), () => (TReturn) (object) ((NodeValue)rawResults.First()!).Value()},
-            {typeof(IEnumerable<XmlNode>), () => (TReturn)rawResults.GetAllValues().Select(v => ((NodeValue)v).Value()) }
+            // Strings
+            {
+                typeof(IEnumerable<string>), () =>
+                {
+                    var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
+                    return (TReturn)allValues.Select(v => v.GetAs<StringValue>(ValueType.XsString)?.Value);
+                }
+            },
+            // First Integer
+            {
+                typeof(int), () =>
+                {
+                    var first = rawResults.First();
+                    if (first == null || !SubtypeUtils.IsSubtypeOf(first.GetValueType(), ValueType.XsInteger))
+                    {
+                        return (TReturn)(object)0;
+                    }
+
+                    return (TReturn)(object)first.GetAs<IntValue>(ValueType.XsInteger)!.Value;
+                }
+            },
+            // Integers
+            {
+                typeof(IEnumerable<int>), () =>
+                {
+                    var allValues = rawResults.GetAllValues();
+                    return (TReturn)allValues.Select(v =>
+                    {
+                        if (!SubtypeUtils.IsSubtypeOf(v.GetValueType(), ValueType.XsInteger))
+                        {
+                            throw new Exception(
+                                $"Expected XPath {expression} to resolve to numbers"
+                            );
+                        }
+                        return v.GetAs<IntValue>(ValueType.XsInteger);
+                    });
+                }
+            },
+            // First Node
+            { typeof(XmlNode), () => (TReturn)(object)((NodeValue)rawResults.First()!).Value() },
+            // Nodes
+            {
+                typeof(IEnumerable<XmlNode>),
+                () => (TReturn)rawResults.GetAllValues().Select(v => ((NodeValue)v).Value())
+            }
         };
 
-        return new TypeSwitchCase<TReturn>(typeActions).Run(typeof(TReturn));
+        return typeActions.Run(typeof(TReturn));
     }
     //     export default function convertXDMReturnValue<
     // 	TNode extends Node,

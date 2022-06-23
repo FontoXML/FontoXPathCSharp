@@ -25,6 +25,18 @@ public class Evaluate
     {
         return EvaluateXPath<IEnumerable<XmlNode>, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
+    
+    public static int EvaluateXPathToInt<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
+        IDomFacade? domFacade, Dictionary<string, IExternalValue> variables, Options? options)
+    {
+        return EvaluateXPath<int, TSelectorType>(selector, contextItem, domFacade, variables, options);
+    }
+    
+    public static IEnumerable<int> EvaluateXPathToInts<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
+        IDomFacade? domFacade, Dictionary<string, IExternalValue> variables, Options? options)
+    {
+        return EvaluateXPath<IEnumerable<int>, TSelectorType>(selector, contextItem, domFacade, variables, options);
+    }
 
     public static TReturn EvaluateXPath<TReturn, TSelector>(
         TSelector selector,
