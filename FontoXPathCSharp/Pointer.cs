@@ -4,26 +4,39 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp;
 
-public abstract class Pointer<TNode> : AbstractValue where TNode : Node
+public abstract class Pointer : AbstractValue
 {
-    protected Pointer(TNode node, ValueType type) : base(ValueType.Node)
+    protected Pointer(Node node, ValueType type) : base(type)
     {
         Value = node;
     }
 
-    public TNode Value { get; }
+    public Node Value { get; }
 }
 
-public class NodePointer : Pointer<Node>
+public class NodePointer : Pointer
 {
     public NodePointer(Node node) : base(node, ValueType.Node)
     {
     }
+
+    public Node Value { get; }
 }
 
-public class AttributeNodePointer : Pointer<Attr>
+public class AttributeNodePointer : Pointer
 {
     public AttributeNodePointer(Attr node) : base(node, ValueType.Attribute)
     {
     }
+    
+    public Attr Value { get; }
+}
+
+public class ElementNodePointer : Pointer
+{
+    public ElementNodePointer(Element node) : base(node, ValueType.Element)
+    {
+    }
+    
+    public Element Value { get; }
 }

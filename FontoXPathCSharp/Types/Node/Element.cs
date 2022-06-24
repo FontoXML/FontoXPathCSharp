@@ -2,11 +2,19 @@ namespace FontoXPathCSharp.Types.Node;
 
 public abstract class Element : Node
 {
-    // TODO: remove this pragma call when appropriate
-#pragma warning disable 0169
-    private string? _localName;
-    private string? _namespaceUri;
-    private string? _nodeName;
-    private string? _prefix;
-#pragma warning restore 0169
+    protected Element(string? localName, string? namespaceUri, string? nodeName, string? prefix)
+    {
+        LocalName = localName;
+        NamespaceUri = namespaceUri;
+        NodeName = nodeName;
+        Prefix = prefix;
+    }
+
+    public string? LocalName { get; }
+
+    public string? NamespaceUri { get; }
+
+    public string? NodeName { get; }
+
+    public string? Prefix { get; }
 }

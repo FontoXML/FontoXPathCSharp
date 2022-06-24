@@ -10,7 +10,7 @@ public enum NodeTypes
     ElementNode,
     AttributeNode,
     TextNode,
-    CdataSectionNode,
+    CDataSectionNode,
     ProcessingInstructionNode,
     CommentNode,
     DocumentNode,

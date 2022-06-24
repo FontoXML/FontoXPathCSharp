@@ -39,13 +39,10 @@ public static class CompileXPath
                 ? new CompiledExpressionResult(fromCache.Expression)
                 : new StaticallyAnalyzedExpressionResult(fromCache.Expression);
 
-        Console.WriteLine("Ya Ya");
         var ast =
             typeof(TSelector) == typeof(string)
                 ? ParseExpression.ParseXPathOrXQueryExpression((string)(object)xpathSource!, compilationOptions)
                 : XmlToAst.ConvertXmlToAst(xpathSource);
-        Console.WriteLine("Blabla" + ast);
-
 
         return new ParsedExpressionResult(ast);
     }

@@ -25,9 +25,9 @@ public class ChildAxis : AbstractExpression
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
         ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
-        var contextNode = dynamicContext.ContextItem.GetAs<NodeValue>(ValueType.Node)!.Value();
+        var contextNode = dynamicContext.ContextItem?.GetAs<NodeValue>(ValueType.Node)!.Value();
 
-        if (contextNode?.NodeType is XmlNodeType.Element)
+        if (contextNode != null && contextNode.NodeType is XmlNodeType.Element)
         {
             var element = (XmlElement)contextNode;
             var children = element.ChildNodes;

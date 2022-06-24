@@ -23,15 +23,18 @@ public class NameTest : AbstractTestExpression
         AbstractValue value,
         ExecutionParameters? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
-        var nodeIsElement = SubtypeUtils.IsSubtypeOf(value.GetValueType(), ValueType.Element);
-        var nodeIsAttribute = SubtypeUtils.IsSubtypeOf(value.GetValueType(), ValueType.Attribute);
-        
-        if (!nodeIsElement && !nodeIsAttribute) {
-            return false;
-        }
+        // TODO: This stuff does not work yet for some reason.
+        // var domFacade = executionParameters.DomFacade;
+        // var nodeIsElement = SubtypeUtils.IsSubtypeOf(value.GetValueType(), ValueType.Element);
+        // var nodeIsAttribute = SubtypeUtils.IsSubtypeOf(value.GetValueType(), ValueType.Attribute);
+        //
+        // Console.WriteLine($"Node is: {value.GetValueType()}, Node is element: {nodeIsElement}, Node is attribute: {nodeIsAttribute}");
+        //
+        // if (!nodeIsElement && !nodeIsAttribute) {
+        //     return false;
+        // }
 
-        var node = value.GetAs<NodeValue>(ValueType.Node)!.Value();
+        var node = value.GetAs<NodeValue>(ValueType.Node)?.Value();
 
         if (_name.Prefix == null && _name.NamespaceUri != "" && _name.LocalName == "*") return true;
 
@@ -39,13 +42,13 @@ public class NameTest : AbstractTestExpression
         {
             if (_name.LocalName == "*") return true;
 
-            return _name.LocalName == node.LocalName;
+            return _name.LocalName == node?.LocalName;
         }
 
         if (_name.LocalName == "*")
             return true;
 
-        if (_name.LocalName != node.LocalName)
+        if (_name.LocalName != node?.LocalName)
             return false;
 
         return true;
