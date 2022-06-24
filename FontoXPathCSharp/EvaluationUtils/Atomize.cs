@@ -62,7 +62,7 @@ public class Atomize
         {
             var pointer = value.GetAs<NodePointer>(ValueType.Node);
 
-            if (pointer?.Node.NodeType is NodeTypes.AttributeNode or NodeTypes.TextNode)
+            if (pointer?.Value.NodeType is NodeTypes.AttributeNode or NodeTypes.TextNode)
                 throw new NotImplementedException("Not sure how to do this with the XmlNode replacing domfacade yet");
             // return SequenceFactory.CreateFromIterator(CreateAtomicValue(domfacade[]));
             //TODO: Finish off this if block for the other node things.

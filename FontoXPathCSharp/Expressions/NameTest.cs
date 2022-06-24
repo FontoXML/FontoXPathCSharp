@@ -1,4 +1,5 @@
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
@@ -22,7 +23,13 @@ public class NameTest : AbstractTestExpression
         AbstractValue value,
         ExecutionParameters? executionParameters)
     {
-        // TODO: there is a lot more to add here
+        var domFacade = executionParameters.DomFacade;
+        var nodeIsElement = SubtypeUtils.IsSubtypeOf(value.GetValueType(), ValueType.Element);
+        var nodeIsAttribute = SubtypeUtils.IsSubtypeOf(value.GetValueType(), ValueType.Attribute);
+        
+        if (!nodeIsElement && !nodeIsAttribute) {
+            return false;
+        }
 
         var node = value.GetAs<NodeValue>(ValueType.Node)!.Value();
 

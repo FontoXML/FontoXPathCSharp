@@ -24,7 +24,9 @@ public class QT3Tests
     {
         var qt3tests = new XmlDocument();
         qt3tests.Load("../../../assets/QT3TS/catalog.xml");
-        GetAllTestSets(qt3tests).ForEach(testSetFileName => { _testOutputHelper.WriteLine(testSetFileName); });
+        var loadedTests = GetAllTestSets(qt3tests);
+        _testOutputHelper.WriteLine($"Tests loaded: {loadedTests.Count}");
+        loadedTests.ForEach(testSetFileName => { _testOutputHelper.WriteLine(testSetFileName); });
     }
 
     private List<string> GetAllTestSets(XmlNode catalog)
@@ -32,23 +34,14 @@ public class QT3Tests
         return Evaluate.EvaluateXPathToNodes("/catalog/test-set", catalog, null,
                 new Dictionary<string, IExternalValue>(), new Options())
             .Where(testSetNode =>
-                {
-                    // TODO: Remove this try-catch when we properly support things.
-                    try
-                    {
-                        return ShouldRunTestByName[
-                            Evaluate.EvaluateXPathToString("@name",
-                                testSetNode,
-                                null,
-                                new Dictionary<string, IExternalValue>(),
-                                new Options())];
-                    }
-                    catch (Exception ex)
-                    {
-                        return false;
-                    }
-                }
-            )
+            {
+                return ShouldRunTestByName[
+                    Evaluate.EvaluateXPathToString("@name",
+                        testSetNode,
+                        null,
+                        new Dictionary<string, IExternalValue>(),
+                        new Options())];
+            })
             .Select(testSetNode => Evaluate.EvaluateXPathToString("@file",
                 testSetNode,
                 null,
