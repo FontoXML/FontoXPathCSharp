@@ -5,20 +5,17 @@ namespace FontoXPathCSharp.Value;
 
 public class NodeValue : AbstractValue
 {
-    private readonly XmlNode _value;
-
-    public NodeValue(XmlNode value) : base(ValueType.Node)
+    protected NodeValue(XmlNode value, ValueType valueType) : base(valueType)
     {
-        _value = value;
+        Value = value;
+    }
+    public NodeValue(XmlNode value) : this(value, ValueType.Node) {
     }
 
-    public XmlNode Value()
-    {
-        return _value;
-    }
+    public XmlNode Value { get; }
 
     public override string ToString()
     {
-        return $"<Value>[type: {Type}, value: {_value}]";
+        return $"<Value>[type: {Type}, value: {Value}]";
     }
 }

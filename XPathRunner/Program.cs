@@ -49,7 +49,7 @@ expr.PerformStaticEvaluation(staticContext);
 var resultSequence = expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document));
 
 Console.WriteLine("\nResult:");
-resultSequence.GetAllValues().ToList().ForEach(r => Console.WriteLine(r.GetAs<NodeValue>(ValueType.Node).Value().Attributes["file"].Value));
+resultSequence.GetAllValues().ToList().ForEach(r => Console.WriteLine(r.GetAs<NodeValue>(ValueType.Node)?.Value.Attributes?["file"]?.Value));
 
 
 var qt3tests = new XmlDocument();

@@ -17,7 +17,7 @@ public class ParentAxis : AbstractExpression
     {
         var parentNode = executionParameters?.DomFacade.ParentNode;
         if (parentNode == null) return SequenceFactory.CreateEmpty();
-
+        
         // TODO: we technically need a pointer to parentNode here
         var isMatch =
             _parentExpression.EvaluateToBoolean(dynamicContext, new NodeValue(parentNode), executionParameters);

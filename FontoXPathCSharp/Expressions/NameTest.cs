@@ -1,3 +1,4 @@
+using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -34,8 +35,13 @@ public class NameTest : AbstractTestExpression
         //     return false;
         // }
 
-        var node = value.GetAs<NodeValue>(ValueType.Node)?.Value();
-
+        var node = value.GetAs<NodeValue>(ValueType.Node)?.Value;
+        
+        // var node = value.GetAs<ElementValue>(ValueType.Element)?.Value ?? value.GetAs<AttributeValue>(ValueType.Attribute)?.Value;
+        //
+        // Console.WriteLine("Value: " + value.GetValueType());
+        // Console.WriteLine("Node: " + node);
+        //
         if (_name.Prefix == null && _name.NamespaceUri != "" && _name.LocalName == "*") return true;
 
         if (_name.Prefix == "*")

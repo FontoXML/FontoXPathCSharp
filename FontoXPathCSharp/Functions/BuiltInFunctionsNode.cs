@@ -16,7 +16,7 @@ public static class BuiltInFunctionsNode
 
         // TODO: replace this with a node pointer
         var node = pointerValue.GetAs<NodeValue>(ValueType.Node)!;
-        var nodeValue = node.Value();
+        var nodeValue = node.Value;
 
         return nodeValue.NodeType switch
         {

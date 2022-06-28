@@ -25,43 +25,45 @@ public class ChildAxis : AbstractExpression
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
         ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
-        var contextNode = dynamicContext.ContextItem?.GetAs<NodeValue>(ValueType.Node)!.Value();
+        var contextNode = dynamicContext.ContextItem?.GetAs<NodeValue>(ValueType.Node)!.Value;
 
-        if (contextNode != null && contextNode.NodeType is XmlNodeType.Element)
+        switch (contextNode?.NodeType)
         {
-            var element = (XmlElement)contextNode;
-            var children = element.ChildNodes;
-            var filteredChildren = new List<NodeValue>();
-            for (var i = 0; i < children.Count; ++i)
+            case XmlNodeType.Element:
             {
-                var child = children[i]!;
-                var childNodeValue = new NodeValue(child);
-                var childDynamicContext = new DynamicContext(childNodeValue, i);
-                if (_selector.EvaluateToBoolean(childDynamicContext, childNodeValue, executionParameters))
-                    filteredChildren.Add(childNodeValue);
+                var element = (XmlElement)contextNode;
+                var children = element.ChildNodes;
+                var filteredChildren = new List<NodeValue>();
+                for (var i = 0; i < children.Count; ++i)
+                {
+                    var child = children[i]!;
+                    var childNodeValue = new NodeValue(child);
+                    var childDynamicContext = new DynamicContext(childNodeValue, i);
+                    if (_selector.EvaluateToBoolean(childDynamicContext, childNodeValue, executionParameters))
+                        filteredChildren.Add(childNodeValue);
+                }   
+
+                return SequenceFactory.CreateFromArray(filteredChildren.ToArray());
             }
-
-            return SequenceFactory.CreateFromArray(filteredChildren.ToArray());
-        }
-
-        if (contextNode?.NodeType is XmlNodeType.Document)
-        {
-            var element = (XmlDocument)contextNode;
-            var children = element.ChildNodes;
-            var filteredChildren = new List<NodeValue>();
-            for (var i = 0; i < children.Count; ++i)
+            case XmlNodeType.Document:
             {
-                var child = children[i]!;
-                var childNodeValue = new NodeValue(child);
-                var childDynamicContext = new DynamicContext(childNodeValue, i);
-                if (_selector.EvaluateToBoolean(childDynamicContext, childNodeValue, executionParameters))
-                    filteredChildren.Add(childNodeValue);
+                var element = (XmlDocument)contextNode;
+                var children = element.ChildNodes;
+                var filteredChildren = new List<NodeValue>();
+                for (var i = 0; i < children.Count; ++i)
+                {
+                    var child = children[i]!;
+                    //TODO: Document Value Type
+                    var childNodeValue = new NodeValue(child);
+                    var childDynamicContext = new DynamicContext(childNodeValue, i);
+                    if (_selector.EvaluateToBoolean(childDynamicContext, childNodeValue, executionParameters))
+                        filteredChildren.Add(childNodeValue);
+                }
+
+                return SequenceFactory.CreateFromArray(filteredChildren.ToArray());
             }
-
-            return SequenceFactory.CreateFromArray(filteredChildren.ToArray());
+            default:
+                return SequenceFactory.CreateEmpty();
         }
-
-
-        return SequenceFactory.CreateEmpty();
     }
 }

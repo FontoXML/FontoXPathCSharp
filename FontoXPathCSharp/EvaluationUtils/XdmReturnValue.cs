@@ -70,11 +70,11 @@ public static class XdmReturnValue
                 }
             },
             // First Node
-            { typeof(XmlNode), () => (TReturn)(object)((NodeValue)rawResults.First()!).Value() },
+            { typeof(XmlNode), () => (TReturn)(object)((NodeValue)rawResults.First()!).Value },
             // Nodes
             {
                 typeof(IEnumerable<XmlNode>),
-                () => (TReturn)rawResults.GetAllValues().Select(v => ((NodeValue)v).Value())
+                () => (TReturn)rawResults.GetAllValues().Select(v => ((NodeValue)v).Value)
             },
             // Array TODO: Find a better type to use here.
             {
