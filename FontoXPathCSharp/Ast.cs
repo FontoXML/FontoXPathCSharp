@@ -78,7 +78,22 @@ public enum AstNodeName
     DecimalConstantExpr,
     DoubleConstantExpr,
     NotImplemented, // Used for yet unimplemented Ast nodes.
-    Module
+    Module,
+    EqualOp,
+    NotEqualOp,
+    LessThanOrEqualOp,
+    LessThanOp,
+    GreaterThanOrEqualOp,
+    GreaterThanOp,
+    IsOp,
+    NodeBeforeOp,
+    NodeAfterOp,
+    EqOp,
+    NeOp,
+    LtOp,
+    LeOp,
+    GtOp,
+    GeOp
 }
 
 public class Ast

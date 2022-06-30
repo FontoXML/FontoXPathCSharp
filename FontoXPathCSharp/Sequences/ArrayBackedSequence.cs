@@ -1,5 +1,8 @@
 using System.Collections;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
+
 
 namespace FontoXPathCSharp.Sequences;
 
@@ -69,6 +72,10 @@ internal class ArrayBackedSequence : ISequence
 
     public bool GetEffectiveBooleanValue()
     {
-        throw new NotImplementedException();
+        if (SubtypeUtils.IsSubtypeOf(this._values[0].GetValueType(), ValueType.Node)) {
+            return true;
+        }
+        // We always have a length > 1, or we'd be a singletonSequence
+		throw new Exception("FORG0006");
     }
 }
