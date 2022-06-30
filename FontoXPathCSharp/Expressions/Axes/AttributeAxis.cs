@@ -32,7 +32,7 @@ public class AttributeAxis : AbstractExpression
         //     .Where(attribPointer => _selector.EvaluateToBoolean(dynamicContext, attribPointer, executionParameters));
 
         var matchingAttributes = new List<NodeValue>();
-        foreach (XmlAttribute attr in contextItem?.Value.Attributes)
+        foreach (XmlAttribute attr in contextItem.Value.Attributes)
         {
             if (attr.NamespaceURI == BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri()) continue;
             var nodeValue = new NodeValue(attr);
