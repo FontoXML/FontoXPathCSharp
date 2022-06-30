@@ -31,13 +31,13 @@ public class Evaluate
     {
         return EvaluateXPath<int, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
-    
+
     public static IEnumerable<int> EvaluateXPathToInts<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
         IDomFacade? domFacade, Dictionary<string, IExternalValue> variables, Options? options)
     {
         return EvaluateXPath<IEnumerable<int>, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
-    
+
     public static string EvaluateXPathToString<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
         IDomFacade? domFacade, Dictionary<string, IExternalValue> variables, Options? options)
     {
