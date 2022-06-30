@@ -35,12 +35,13 @@ public class QT3Tests
                 new Dictionary<string, IExternalValue>(), new Options())
             .Where(testSetNode =>
             {
-                return ShouldRunTestByName[
-                    Evaluate.EvaluateXPathToString("@name",
+                var res = Evaluate.EvaluateXPathToString("@name",
                         testSetNode,
                         null,
                         new Dictionary<string, IExternalValue>(),
-                        new Options())];
+                        new Options());
+                _testOutputHelper.WriteLine("Evaluated to: {0}", res);
+                return ShouldRunTestByName.ContainsKey(res);
             })
             .Select(testSetNode => Evaluate.EvaluateXPathToString("@file",
                 testSetNode,

@@ -5,11 +5,24 @@ namespace FontoXPathCSharp.Value;
 
 public class NodeValue : AbstractValue
 {
-    protected NodeValue(XmlNode value, ValueType valueType) : base(valueType)
+    public NodeValue(XmlNode value) : base(GetNodeType(value))
     {
         Value = value;
     }
-    public NodeValue(XmlNode value) : this(value, ValueType.Node) {
+
+    private static ValueType GetNodeType(XmlNode node)
+    {
+        return node.NodeType switch
+        {
+            XmlNodeType.Element => ValueType.Element,
+            XmlNodeType.Attribute => ValueType.Attribute,
+            XmlNodeType.Text => ValueType.Text,
+            XmlNodeType.CDATA => ValueType.Text,
+            XmlNodeType.ProcessingInstruction => ValueType.ProcessingInstruction,
+            XmlNodeType.Comment => ValueType.Comment,
+            XmlNodeType.Document => ValueType.DocumentNode,
+            _ => ValueType.Node
+        };
     }
 
     public XmlNode Value { get; }

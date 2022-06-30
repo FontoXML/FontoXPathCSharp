@@ -5,7 +5,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-using CastingFunction = Func<AbstractValue, Result<AtomicValue>>;
+using CastingFunction = Func<object, Result<AtomicValue>>;
 
 public class TypeCasting
 {
@@ -50,7 +50,7 @@ public class TypeCasting
 
         var prefabConverter = _precomputedCastFunctions[index];
 
-        return prefabConverter(value);
+        return prefabConverter(value.GetValue());
     }
 
     private CastingFunction CreateCastingFunction(ValueType from, ValueType to)
@@ -94,7 +94,7 @@ public class TypeCasting
             converters.Add(value =>
             {
                 // Not sure if this is correct, it seems more correct than the original code though.
-                var strValue = TypeHelpers.NormalizeWhitespace(value.GetAs<StringValue>(ValueType.XsString)!.Value, to);
+                var strValue = TypeHelpers.NormalizeWhitespace((string)value, to);
                 if (!TypeHelpers.ValidatePattern(strValue, to))
                     return new ErrorResult<AtomicValue>(
                         $"FORG0001: Cannot cast ${value} to ${to}, pattern validation failed.");
@@ -106,17 +106,17 @@ public class TypeCasting
         {
             // Same for this one.
             converters.Add(CastToPrimitiveType(primitiveFrom, primitiveTo));
-            converters.Add(val => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(val, val.GetValueType())));
+            converters.Add(val => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(val, primitiveFrom)));
         }
 
         if (SubtypeUtils.IsSubTypeOfAny(primitiveTo, ValueType.XsString, ValueType.XsUntypedAtomic))
             converters.Add(value =>
             {
-                if (!TypeHelpers.ValidatePattern(value.GetAs<StringValue>(ValueType.XsString)!.Value, to))
+                if (!TypeHelpers.ValidatePattern((string)value, to))
                     return new ErrorResult<AtomicValue>(
                         $"FORG0001: Cannot cast ${value} to ${to}, pattern validation failed.");
 
-                return new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value, value.GetValueType()));
+                return new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value, primitiveTo));
             });
 
         converters.Add(value => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value, to)));
@@ -124,7 +124,7 @@ public class TypeCasting
         return value =>
         {
             Result<AtomicValue> result =
-                new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value, value.GetValueType()));
+                new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value, primitiveTo));
             foreach (var converter in converters)
             {
                 result = converter(result.Data);

@@ -51,7 +51,13 @@ internal class SingletonSequence : ISequence
 
     public Iterator<AbstractValue> GetValue()
     {
-        throw new NotImplementedException();
+        var isDone = false;
+        return _ =>
+        {
+            if(isDone) return IteratorResult<AbstractValue>.Done();
+            isDone = true;
+            return IteratorResult<AbstractValue>.Ready(_onlyValue);
+        };
     }
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)

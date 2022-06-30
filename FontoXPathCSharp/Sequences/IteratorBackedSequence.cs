@@ -113,7 +113,7 @@ internal class IteratorBackedSequence : ISequence
 
     private IteratorResult<AbstractValue> Next(IterationHint hint)
     {
-        if (_currentPosition >= _length) return IteratorResult<AbstractValue>.Done();
+        // if (_currentPosition >= _length) return IteratorResult<AbstractValue>.Done();
 
         if (_currentPosition < _cachedValues.Count)
             return IteratorResult<AbstractValue>.Ready(_cachedValues[_currentPosition++]);

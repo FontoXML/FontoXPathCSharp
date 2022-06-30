@@ -21,17 +21,24 @@ public class AttributeAxis : AbstractExpression
         var domfacade = executionParameters?.DomFacade;
         var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
 
-        if (contextItem != null && contextItem.GetValueType() != ValueType.Element)
+        if (contextItem.GetValueType() != ValueType.Element)
         {
             return SequenceFactory.CreateEmpty();
         }
 
-        var matchingAttributes = domfacade?.Attributes?.Cast<XmlAttribute>()
-            .Where(attr => attr.NamespaceURI != BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri())
-            .Select(attr => new AttributeNodePointer(new Attr(attr.LocalName, attr.Name, attr.NamespaceURI,
-                attr.Name, attr.Prefix, attr.Value)) as AbstractValue)
-            .Where(attribPointer => _selector.EvaluateToBoolean(dynamicContext, attribPointer, executionParameters));
+        // var matchingAttributes = domfacade?.Attributes?.Cast<XmlAttribute>()
+        //     .Where(attr => attr.NamespaceURI != BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri())
+        //     .Select(attr => new NodeValue(attr))
+        //     .Where(attribPointer => _selector.EvaluateToBoolean(dynamicContext, attribPointer, executionParameters));
 
-        return SequenceFactory.CreateFromArray((matchingAttributes ?? Array.Empty<AbstractValue>()).ToArray());
+        var matchingAttributes = new List<NodeValue>();
+        foreach (XmlAttribute attr in contextItem?.Value.Attributes)
+        {
+            if (attr.NamespaceURI == BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri()) continue;
+            var nodeValue = new NodeValue(attr);
+            if (_selector.EvaluateToBoolean(dynamicContext, nodeValue, executionParameters)) matchingAttributes.Add(nodeValue);
+        }
+
+        return SequenceFactory.CreateFromArray(matchingAttributes.ToArray());
     }
 }

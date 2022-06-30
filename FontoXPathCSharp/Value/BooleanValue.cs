@@ -16,4 +16,9 @@ public class BooleanValue : AtomicValue
     {
         return "<Value>[type: " + Type + ", value: " + Value + "]";
     }
+
+    public override object GetValue()
+    {
+        return Value;
+    }
 }

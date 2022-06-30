@@ -60,10 +60,11 @@ public class Atomize
 
         if (SubtypeUtils.IsSubtypeOf(value.GetValueType(), ValueType.Node))
         {
-            var pointer = value.GetAs<NodePointer>(ValueType.Node);
+            var pointer = value.GetAs<NodeValue>(ValueType.Node);
 
-            if (pointer?.Value.NodeType is NodeTypes.AttributeNode or NodeTypes.TextNode)
-                throw new NotImplementedException("Not sure how to do this with the XmlNode replacing domfacade yet");
+            if (SubtypeUtils.IsSubTypeOfAny(pointer.GetValueType(), ValueType.Attribute, ValueType.Text))
+                return SequenceFactory.CreateFromValue(new StringValue(pointer.Value.InnerText));
+                // throw new NotImplementedException("Not sure how to do this with the XmlNode replacing domfacade yet");
             // return SequenceFactory.CreateFromIterator(CreateAtomicValue(domfacade[]));
             //TODO: Finish off this if block for the other node things.
         }

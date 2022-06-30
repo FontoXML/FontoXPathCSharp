@@ -3,8 +3,10 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class AtomicValue : AbstractValue
+public abstract class AtomicValue : AbstractValue
 {
+    public abstract object GetValue();
+    
     public AtomicValue(ValueType type) : base(type)
     {
     }
