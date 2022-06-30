@@ -152,7 +152,7 @@ public class XPathParser
     private static readonly ParseFunc<Ast> PrimaryExpr = Or(Literal, VarRef, ParenthesizedExpr, ContextItemExpr,
         FunctionCall);
 
-    private static readonly ParseFunc<Ast> PostfixExprWithStep =
+    public static readonly ParseFunc<Ast[]> PostfixExprWithStep =
         Then(
             Map(PrimaryExpr, x => /* TODO: Wrap in sequence expr if needed */ x),
             Star(
@@ -166,7 +166,7 @@ public class XPathParser
             ),
             (expression, postfixExpr) =>
             {
-                Either<Ast, Ast[]> toWrap = expression;
+                Ast[] toWrap = new[] {expression};
 
                 var predicates = new List<Ast>();
                 var filters = new List<Ast>();
@@ -187,20 +187,16 @@ public class XPathParser
                     FlushPredicates(allowSinglePred);
                     if (filters.Count != 0)
                     {
-                        if (toWrap.IsLeft() && toWrap.AsLeft().IsA(AstNodeName.SequenceExpr) &&
-                            toWrap.AsLeft().Children.Count > 1)
-                            toWrap = new Ast(AstNodeName.SequenceExpr, toWrap.AsLeft());
+                        if (toWrap[0].IsA(AstNodeName.SequenceExpr) &&
+                            toWrap[0].Children.Count > 1)
+                            toWrap = new[] {new Ast(AstNodeName.SequenceExpr, toWrap)};
 
-                        toWrap = new[] {new Ast(AstNodeName.FilterExpr, toWrap.AsLeft())}.Concat(filters).ToArray();
+                        toWrap = new[] {new Ast(AstNodeName.FilterExpr, toWrap)}.Concat(filters).ToArray();
                         filters.Clear();
                     }
                     else if (ensureFilter)
                     {
-                        toWrap = new[] {new Ast(AstNodeName.FilterExpr, toWrap.AsLeft())};
-                    }
-                    else
-                    {
-                        toWrap = new[] {toWrap.AsLeft()};
+                        toWrap = new[] {new Ast(AstNodeName.FilterExpr, toWrap)};
                     }
                 }
 
@@ -217,28 +213,30 @@ public class XPathParser
                             break;
                         case AstNodeName.ArgumentList:
                             FlushFilters(false, allowSinglePredicates);
-                            if (toWrap.AsRight().Length > 1)
+                            if (toWrap.Length > 1)
                                 toWrap = new[]
                                 {
                                     new Ast(AstNodeName.SequenceExpr,
-                                        new Ast(AstNodeName.PathExpr, new Ast(AstNodeName.StepExpr, toWrap.AsRight())))
+                                        new Ast(AstNodeName.PathExpr, new Ast(AstNodeName.StepExpr, toWrap)))
                                 };
 
-                            toWrap = new Ast(AstNodeName.DynamicFunctionInvocationExpr, new[]
+                            toWrap = new[]
                             {
-                                new Ast(AstNodeName.FunctionItem, toWrap.AsRight())
-                            }.Concat(postfix.Children.Count > 0
-                                ? new[] {new Ast(AstNodeName.Arguments, postfix.Children.ToArray())}
-                                : Array.Empty<Ast>()).ToArray());
+                                new Ast(AstNodeName.DynamicFunctionInvocationExpr, new[]
+                                {
+                                    new Ast(AstNodeName.FunctionItem, toWrap)
+                                }.Concat(postfix.Children.Count > 0
+                                    ? new[] {new Ast(AstNodeName.Arguments, postfix.Children.ToArray())}
+                                    : Array.Empty<Ast>()).ToArray())
+                            };
                             break;
                         default:
                             throw new Exception("Unreachable");
                     }
 
                 FlushFilters(true, allowSinglePredicates);
-
-                // TODO: technically this should be AsLeft but something is wrong with this current implementation
-                return toWrap.AsRight()[0];
+                
+                return toWrap;
             }
         );
 

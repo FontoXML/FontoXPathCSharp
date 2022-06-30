@@ -87,4 +87,9 @@ public class Err<T> : ParseResult<T>
     {
         return this;
     }
+
+    public override String ToString()
+    {
+        return "Error (" + Fatal + "), expected: " + string.Join(", ", Expected.Distinct());
+    }
 }
