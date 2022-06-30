@@ -15,6 +15,19 @@ public class NameTest : AbstractTestExpression
         _kind = kind;
     }
 
+    public override void PerformStaticEvaluation(StaticContext staticContext)
+    {
+        if (_name.NamespaceUri == null && _name.Prefix != "*")
+        {
+            _name.NamespaceUri = staticContext.ResolveNamespace(_name.Prefix ?? "", true);
+
+            if (_name.NamespaceUri == null && _name.Prefix != null)
+            {
+                throw new Exception($"XPST0081: The prefix {_name.Prefix} could not be resolved");
+            }
+        }
+    }
+
     public override string ToString()
     {
         return $"NameTest[ \"{_name}\" ]";

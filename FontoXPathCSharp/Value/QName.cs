@@ -3,7 +3,7 @@ namespace FontoXPathCSharp.Value;
 public class QName
 {
     public readonly string LocalName;
-    public readonly string? NamespaceUri;
+    public string? NamespaceUri;
     public readonly string? Prefix;
 
     public QName(string localName, string? namespaceUri, string? prefix)
