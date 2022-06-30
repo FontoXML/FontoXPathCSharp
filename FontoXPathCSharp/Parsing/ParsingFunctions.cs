@@ -12,6 +12,12 @@ public static class ParsingFunctions
         return before.Aggregate(parser, (current, b) => Preceded(b, current));
     }
 
+    public static ParseFunc<T> FollowedMultiple<T, TAfter>(
+        ParseFunc<T> parser,
+        IEnumerable<ParseFunc<TAfter>> after)
+    {
+        return after.Aggregate(parser, Followed);
+    }
 
     public static ParseFunc<TR> Then3<T1, T2, T3, TR>(ParseFunc<T1> parser1,
         ParseFunc<T2> parser2, ParseFunc<T3> parser3,

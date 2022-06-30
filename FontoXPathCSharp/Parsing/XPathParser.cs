@@ -260,9 +260,9 @@ public static class XPathParser
             x => x ?? Array.Empty<Ast>()
         );
 
-    private static readonly ParseFunc<Ast> FunctionCall =
+    public static readonly ParseFunc<Ast> FunctionCall =
         Preceded(
-            Not(Followed(ReservedFunctionNames, new[] {Whitespace, Token("(")}),
+            Not(FollowedMultiple(ReservedFunctionNames, new[] {Whitespace, Token("(")}),
                 new[] {"cannot use reserved keyword for function names"}),
             Then(EqName, Preceded(Whitespace, ArgumentList),
                 (name, arguments) =>

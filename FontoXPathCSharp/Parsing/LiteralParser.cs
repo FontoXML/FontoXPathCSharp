@@ -129,8 +129,7 @@ public static class LiteralParser
             "item",
             "map",
             "namespace-node",
-            // TODO: This one should be added back in but this breaks function calls like `node-name(.)`
-            // "node",
+            "node",
             "processing-instruction",
             "schema-attribute",
             "schema-element",
