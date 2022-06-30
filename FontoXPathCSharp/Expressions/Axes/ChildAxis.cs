@@ -24,16 +24,16 @@ public class ChildAxis : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
-        var contextNode = dynamicContext.ContextItem?.GetAs<NodeValue>(ValueType.Node)!.Value;
+        var contextNode = ContextNodeUtils.ValidateContextNode(dynamicContext?.ContextItem);
+        var nodeType = contextNode.GetValueType();
 
-        switch (contextNode?.NodeType)
+        switch (nodeType)
         {
-            case XmlNodeType.Element:
+            case ValueType.Element:
             {
-                var element = (XmlElement)contextNode;
+                var element = (XmlElement)contextNode.Value;
                 var children = element.ChildNodes;
-                var filteredChildren = new List<NodeValue>();
+                var filteredChildren = new List<AbstractValue>();
                 for (var i = 0; i < children.Count; ++i)
                 {
                     var child = children[i]!;
@@ -41,15 +41,15 @@ public class ChildAxis : AbstractExpression
                     var childDynamicContext = new DynamicContext(childNodeValue, i);
                     if (_selector.EvaluateToBoolean(childDynamicContext, childNodeValue, executionParameters))
                         filteredChildren.Add(childNodeValue);
-                }   
+                }
 
                 return SequenceFactory.CreateFromArray(filteredChildren.ToArray());
             }
-            case XmlNodeType.Document:
+            case ValueType.DocumentNode:
             {
-                var element = (XmlDocument)contextNode;
+                var element = (XmlDocument)contextNode.Value;
                 var children = element.ChildNodes;
-                var filteredChildren = new List<NodeValue>();
+                var filteredChildren = new List<AbstractValue>();
                 for (var i = 0; i < children.Count; ++i)
                 {
                     var child = children[i]!;

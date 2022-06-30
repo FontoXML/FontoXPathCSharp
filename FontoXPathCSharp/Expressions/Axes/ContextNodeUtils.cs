@@ -6,7 +6,7 @@ namespace FontoXPathCSharp.Expressions.Axes;
 
 internal static class ContextNodeUtils
 {
-    public static NodeValue ValidateContextNode(AbstractValue value)
+    public static NodeValue ValidateContextNode(AbstractValue? value)
     {
         if (value == null) 
             throw new Exception("XPDY0002: context is absent, it needs to be present to use axes.") ;

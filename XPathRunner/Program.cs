@@ -19,19 +19,19 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 //     return new Ast(AstNodeName.All);
 // });
 // Console.WriteLine("Parsed query:\n" + result);
-//
+
 // var xmlDocument = new XmlDocument();
 // xmlDocument.Load("../../../../XPathTest/assets/QT3TS/catalog.xml");
 // var document = xmlDocument;
-//
+
 // var expr = CompileAstToExpression.CompileAst(result, new CompilationOptions(true, false, true, true));
 // var executionContext =
 //     new ExecutionSpecificStaticContext(s => null, new Dictionary<string, IExternalValue>(),
 //         BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(), (_, _) => null);
 // var staticContext = new StaticContext(executionContext);
-//
-// // hours_from_duration()
-//
+
+// hours_from_duration()
+
 // foreach (var function in BuiltInFunctions.Declarations)
 // {
 //     FunctionRegistry.RegisterFunction(function.NamespaceUri, function.LocalName, function.ArgumentTypes,
@@ -41,30 +41,30 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 //         FunctionRegistry.GetFunctionByArity(function.NamespaceUri, function.LocalName, function.ArgumentTypes.Length);
 //     staticContext.RegisterFunctionDefinition(functionProperties!);
 // }
-//
-// // Console.WriteLine(executionContext);
-// // Console.WriteLine(staticContext);
-//
+
+// Console.WriteLine(executionContext);
+// Console.WriteLine(staticContext);
+
 // expr.PerformStaticEvaluation(staticContext);
 // var resultSequence = expr.Evaluate(new DynamicContext(new NodeValue(document), 0), new ExecutionParameters(document));
 //
 // Console.WriteLine("\nResult:");
 // resultSequence.GetAllValues().ToList().ForEach(r => Console.WriteLine(r.GetAs<NodeValue>(ValueType.Node)?.Value.Attributes?["file"]?.Value));
-//
+
 
 var qt3tests = new XmlDocument();
 qt3tests.Load("../../../../XPathTest/assets/QT3TS/catalog.xml");
-// var results = Evaluate.EvaluateXPathToNodes("catalog/test-set", qt3tests, null,
-//     new Dictionary<string, IExternalValue>(), new Options());
-// var joinedResult = $"[ {string.Join("\n", results.Select(r => r.Attributes?["name"]?.Value))} ]";
-//
-// Console.WriteLine("Selector resulted in: " + joinedResult);
-
-
-var tests = Evaluate.EvaluateXPathToString("@version", qt3tests.DocumentElement, null,
+var results = Evaluate.EvaluateXPathToNodes("/catalog/test-set", qt3tests, null,
     new Dictionary<string, IExternalValue>(), new Options());
+var joinedResult = $"[ {string.Join("\n", results.Select(r => r.Attributes?["name"]?.Value))} ]";
 
-Console.WriteLine($"Last query returned: {tests}");
+Console.WriteLine("Selector resulted in: " + joinedResult);
+
+
+// var tests = Evaluate.EvaluateXPathToString("@version", qt3tests.DocumentElement, null,
+//     new Dictionary<string, IExternalValue>(), new Options());
+//
+// Console.WriteLine($"Last query returned: {tests}");
 
 
     // .Where(testSetNode =>

@@ -74,7 +74,11 @@ public static class XdmReturnValue
             // Nodes
             {
                 typeof(IEnumerable<XmlNode>),
-                () => (TReturn)rawResults.GetAllValues().Select(v => ((NodeValue)v).Value)
+                () =>
+                {
+                    Console.WriteLine("Iterator contents: " + rawResults);
+                    return (TReturn)rawResults.GetAllValues().Select(v => ((NodeValue)v).Value);
+                }
             },
             // Array TODO: Find a better type to use here.
             {
