@@ -11,6 +11,9 @@ namespace XPathTest;
 
 public class QT3Tests
 {
+    private readonly string _allTestNameQuery =
+        @"/test-set/@name || /test-set/description!(if (string()) then ""~"" || . else """")";
+
     private readonly string _allTestsQuery = @"
 /test-set/test-case[
   let $dependencies := (./dependency | ../dependency)
@@ -39,6 +42,8 @@ public class QT3Tests
        ""advanced-uca-fallback""))]
 ";
 
+    private readonly List<string> _loadedTestSets;
+
     private readonly HashSet<string> _shouldRunTestByName;
     private readonly ITestOutputHelper _testOutputHelper;
 
@@ -51,6 +56,11 @@ public class QT3Tests
             .Where(l => ParseBooleanNoFail(l[1]))
             .Select(l => l[0])
             .ToHashSet();
+
+        var qt3tests = new XmlDocument();
+        qt3tests.Load("../../../assets/QT3TS/catalog.xml");
+        _loadedTestSets = GetAllTestSets(qt3tests);
+        _testOutputHelper.WriteLine($"Qt3 Testsets loaded: {_loadedTestSets.Count}");
     }
 
     private static bool ParseBooleanNoFail(string input)
@@ -60,26 +70,33 @@ public class QT3Tests
     }
 
     [Fact]
-    public void Qt3TestSet()
+    public void RunQt3TestSets()
     {
-        var qt3tests = new XmlDocument();
-        qt3tests.Load("../../../assets/QT3TS/catalog.xml");
-        var loadedTests = GetAllTestSets(qt3tests);
-        _testOutputHelper.WriteLine($"Tests loaded: {loadedTests.Count}");
-        loadedTests.ForEach(testSetFileName =>
+        _loadedTestSets.ForEach(testSetFileName =>
         {
             var testSet = LoadXmlFile(testSetFileName);
 
-            var testSetName = Evaluate.EvaluateXPathToString("/test-set/@name", testSet, null,
+            var testSetName = Evaluate.EvaluateXPathToString("/test-set/@name",
+                testSet,
+                null,
                 new Dictionary<string, IExternalValue>(),
                 new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
 
-            var testCases = Evaluate.EvaluateXPathToNodes(_allTestsQuery, testSet, null,
+            var testCases = Evaluate.EvaluateXPathToNodes(_allTestsQuery,
+                testSet,
+                null,
                 new Dictionary<string, IExternalValue>(),
                 new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
 
             _testOutputHelper.WriteLine("LOADED STUFF: {0}: {1}: {2}", testSetFileName, testSetName, testCases.Count());
-            
+
+            var testName = Evaluate.EvaluateXPathToString(
+                _allTestNameQuery,
+                testSet,
+                null,
+                new Dictionary<string, IExternalValue>(),
+                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+
             if (!testCases.Any()) return;
         });
     }

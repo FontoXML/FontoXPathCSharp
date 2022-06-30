@@ -1,6 +1,5 @@
 using System.Xml;
 using FontoXPathCSharp.Sequences;
-using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
@@ -21,10 +20,7 @@ public class AttributeAxis : AbstractExpression
         var domfacade = executionParameters?.DomFacade;
         var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
 
-        if (contextItem.GetValueType() != ValueType.Element)
-        {
-            return SequenceFactory.CreateEmpty();
-        }
+        if (contextItem.GetValueType() != ValueType.Element) return SequenceFactory.CreateEmpty();
 
         // var matchingAttributes = domfacade?.Attributes?.Cast<XmlAttribute>()
         //     .Where(attr => attr.NamespaceURI != BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri())
@@ -36,7 +32,8 @@ public class AttributeAxis : AbstractExpression
         {
             if (attr.NamespaceURI == BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri()) continue;
             var nodeValue = new NodeValue(attr);
-            if (_selector.EvaluateToBoolean(dynamicContext, nodeValue, executionParameters)) matchingAttributes.Add(nodeValue);
+            if (_selector.EvaluateToBoolean(dynamicContext, nodeValue, executionParameters))
+                matchingAttributes.Add(nodeValue);
         }
 
         return SequenceFactory.CreateFromArray(matchingAttributes.ToArray());

@@ -25,7 +25,7 @@ public static class XdmReturnValue
                     var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
                     if (allValues.Length == 0) return (TReturn)(object)"";
                     return (TReturn)(object)string.Join(' ',
-                        allValues.Select((v) =>
+                        allValues.Select(v =>
                             TypeCasting.CastToType((AtomicValue)v, ValueType.XsString)
                                 .GetAs<StringValue>(ValueType.XsString)?.Value));
                 }
@@ -44,9 +44,7 @@ public static class XdmReturnValue
                 {
                     var first = rawResults.First();
                     if (first == null || !SubtypeUtils.IsSubtypeOf(first.GetValueType(), ValueType.XsInteger))
-                    {
                         return (TReturn)(object)0;
-                    }
 
                     return (TReturn)(object)first.GetAs<IntValue>(ValueType.XsInteger)!.Value;
                 }
@@ -59,11 +57,9 @@ public static class XdmReturnValue
                     return (TReturn)allValues.Select(v =>
                     {
                         if (!SubtypeUtils.IsSubtypeOf(v.GetValueType(), ValueType.XsInteger))
-                        {
                             throw new Exception(
                                 $"Expected XPath {expression} to resolve to numbers"
                             );
-                        }
 
                         return v.GetAs<IntValue>(ValueType.XsInteger);
                     });
@@ -85,18 +81,14 @@ public static class XdmReturnValue
                 typeof(Array), () =>
                 {
                     if (rawResults.GetLength() != 1)
-                    {
                         throw new Exception(
                             $"Expected XPath {expression} to resolve to a single array."
                         );
-                    }
 
                     var first = rawResults.First()!;
 
                     if (!SubtypeUtils.IsSubtypeOf(first.GetValueType(), ValueType.Array))
-                    {
                         throw new Exception($"Expected XPath {expression} to resolve to an array.");
-                    }
 
                     throw new NotImplementedException();
                     // var transformedArray = TransformArrayToArray((TReturn)(object)first, executionParameters).Next(IterationHint.None);

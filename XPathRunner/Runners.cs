@@ -9,8 +9,8 @@ namespace XPathRunner;
 
 public class Runners
 {
-    private readonly ITestOutputHelper _testOutputHelper;
     private readonly XmlDocument _qt3Tests;
+    private readonly ITestOutputHelper _testOutputHelper;
 
     public Runners(ITestOutputHelper testOutputHelper)
     {
@@ -42,7 +42,8 @@ public class Runners
         var results = Evaluate.EvaluateXPathToNodes("/catalog/test-set", _qt3Tests, null,
             new Dictionary<string, IExternalValue>(),
             new Options(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"));
-        var joinedResult = $"[ {string.Join("\n", results.Select(r => $"{r.Attributes?["name"]?.Value} - {r.Attributes?["file"]?.Value}"))} ]";
+        var joinedResult =
+            $"[ {string.Join("\n", results.Select(r => $"{r.Attributes?["name"]?.Value} - {r.Attributes?["file"]?.Value}"))} ]";
 
         _testOutputHelper.WriteLine("Selector resulted in: " + joinedResult);
     }
@@ -53,7 +54,7 @@ public class Runners
     {
         var tests = Evaluate.EvaluateXPathToString("@version", _qt3Tests.DocumentElement, null,
             new Dictionary<string, IExternalValue>(), new Options());
-        
+
         _testOutputHelper.WriteLine($"Last query returned: {tests}");
 
         var testFileNames = Evaluate.EvaluateXPathToNodes("/catalog/test-set", _qt3Tests, null,
@@ -76,7 +77,7 @@ public class Runners
             .ToList();
 
         var joinedResult = $"[ {string.Join("\n", testFileNames.Select(r => r))} ]";
-        
+
         _testOutputHelper.WriteLine(joinedResult);
     }
 }

@@ -22,9 +22,7 @@ public class NameTest : AbstractTestExpression
             _name.NamespaceUri = staticContext.ResolveNamespace(_name.Prefix ?? "", true);
 
             if (_name.NamespaceUri == null && _name.Prefix != null)
-            {
                 throw new Exception($"XPST0081: The prefix {_name.Prefix} could not be resolved");
-            }
         }
     }
 

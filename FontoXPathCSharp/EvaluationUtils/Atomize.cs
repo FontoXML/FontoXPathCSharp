@@ -1,7 +1,6 @@
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.DataTypes.Builtins;
 using FontoXPathCSharp.Sequences;
-using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -64,7 +63,7 @@ public class Atomize
 
             if (SubtypeUtils.IsSubTypeOfAny(pointer.GetValueType(), ValueType.Attribute, ValueType.Text))
                 return SequenceFactory.CreateFromValue(new StringValue(pointer.Value.InnerText));
-                // throw new NotImplementedException("Not sure how to do this with the XmlNode replacing domfacade yet");
+            // throw new NotImplementedException("Not sure how to do this with the XmlNode replacing domfacade yet");
             // return SequenceFactory.CreateFromIterator(CreateAtomicValue(domfacade[]));
             //TODO: Finish off this if block for the other node things.
         }
