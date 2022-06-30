@@ -93,7 +93,15 @@ public enum AstNodeName
     LtOp,
     LeOp,
     GtOp,
-    GeOp
+    GeOp,
+    PiTarget,
+    ElementName,
+    TypeName,
+    QName,
+    Star,
+    AttributeName,
+    NcName,
+    Uri,
 }
 
 public class Ast
