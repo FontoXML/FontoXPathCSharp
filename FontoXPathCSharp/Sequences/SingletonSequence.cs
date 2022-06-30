@@ -1,7 +1,5 @@
 using System.Collections;
 using FontoXPathCSharp.Value;
-using FontoXPathCSharp.Value.Types;
-using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Sequences;
 
@@ -54,7 +52,7 @@ internal class SingletonSequence : ISequence
         var isDone = false;
         return _ =>
         {
-            if(isDone) return IteratorResult<AbstractValue>.Done();
+            if (isDone) return IteratorResult<AbstractValue>.Done();
             isDone = true;
             return IteratorResult<AbstractValue>.Ready(_onlyValue);
         };

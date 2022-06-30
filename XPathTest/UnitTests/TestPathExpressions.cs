@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.Types;
@@ -30,29 +29,43 @@ public class TestPathExpressions
         return results;
     }
 
-    private static IEnumerable<XmlNode> EvalQueryNodes(string query) =>
-        EvalQuery<IEnumerable<XmlNode>>(query);
+    private static IEnumerable<XmlNode> EvalQueryNodes(string query)
+    {
+        return EvalQuery<IEnumerable<XmlNode>>(query);
+    }
 
-    private static string EvalQueryString(string query) =>
-        EvalQuery<string>(query);
+    private static string EvalQueryString(string query)
+    {
+        return EvalQuery<string>(query);
+    }
 
     [Fact]
-    public void SimpleAbsolutePath() =>
+    public void SimpleAbsolutePath()
+    {
         Assert.Single(EvalQueryNodes("/xml/herp"));
+    }
 
     [Fact]
-    public void SimpleRelativePath() =>
+    public void SimpleRelativePath()
+    {
         Assert.Single(EvalQueryNodes("xml/herp"));
+    }
 
     [Fact]
-    public void RelativePathEmpty() =>
+    public void RelativePathEmpty()
+    {
         Assert.Empty(EvalQueryNodes("xml/horp"));
-    
+    }
+
     [Fact]
-    public void AbsolutePathEmpty() =>
+    public void AbsolutePathEmpty()
+    {
         Assert.Empty(EvalQueryNodes("/xml/horp"));
-    
+    }
+
     [Fact]
-    public void SimpleAttribute() =>
+    public void SimpleAttribute()
+    {
         Assert.Equal("durp", EvalQueryString("/xml/derp/@id"));
+    }
 }

@@ -8,6 +8,11 @@ public delegate ParseResult<TR> ParseFunc<TR>(string input, int offset);
 
 public static class PrscSharp
 {
+    public static readonly ParseFunc<object> End = (input, offset) => input.Length == offset
+        ? new Ok<object>(offset, 0) // Ignore value here, return type cannot be void.
+        // : new Ok<object>(offset, 1); // TODO: Uncomment when the offsets are working correctly.
+        : new Err<object>(offset, new[] { $"End of input. Offset: {offset}, input length: {input.Length}" });
+
     public static ParseFunc<string> Token(string token)
     {
         return (input, offset) =>
@@ -205,11 +210,6 @@ public static class PrscSharp
     {
         return x;
     }
-
-    public static readonly ParseFunc<object> End = (input, offset) => input.Length == offset
-        ? new Ok<object>(offset, 0) // Ignore value here, return type cannot be void.
-                                    // : new Ok<object>(offset, 1); // TODO: Uncomment when the offsets are working correctly.
-        : new Err<object>(offset, new[] { $"End of input. Offset: {offset}, input length: {input.Length}" });
 
     public static ParseFunc<T> Complete<T>(ParseFunc<T> parser)
     {

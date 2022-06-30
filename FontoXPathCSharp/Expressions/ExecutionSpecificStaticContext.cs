@@ -40,11 +40,12 @@ public class ExecutionSpecificStaticContext : AbstractContext
 
     public override string ToString()
     {
-        var refNsString = $"[ {string.Join(", ", _referredNamespaceByName.Select(ns => $"{{[{ns.Key}]:{ns.Value}}}"))} ]";
+        var refNsString =
+            $"[ {string.Join(", ", _referredNamespaceByName.Select(ns => $"{{[{ns.Key}]:{ns.Value}}}"))} ]";
         var refVarString = $"[ {string.Join(", ", _referredVariableByName.Select(v => $"{{[{v.Key}]:{v.Value}}}"))} ]";
         var resFuncString = $"[ {string.Join(", ", _resolvedFunctions.Select(f => f.ToString()))} ]";
         var varBindString = $"[ {string.Join(", ", _variableBindingByName.Select(v => $"{{[{v.Key}]:{v.Value}}}"))} ]";
-        
+
         return "Execution Specific Static Context: {\n" +
                $"Function Name Resolver: {_functionNameResolver.Method}\n" +
                $"Namespace Resolver: {_namespaceResolver.Method}\n" +

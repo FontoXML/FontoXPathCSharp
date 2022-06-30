@@ -73,17 +73,17 @@ public static class LiteralParser
             (e, expSign, expDigits) => e + (expSign ?? "") + expDigits
         ),
         (b, exponent) =>
-            new Ast(AstNodeName.DoubleConstantExpr, new Ast(AstNodeName.Value) {TextContent = b + exponent})
+            new Ast(AstNodeName.DoubleConstantExpr, new Ast(AstNodeName.Value) { TextContent = b + exponent })
     );
 
     private static readonly ParseFunc<Ast> DecimalLiteral = Or(
         Map(Preceded(Token("."), Digits),
             x => new Ast(AstNodeName.DecimalConstantExpr,
-                new Ast(AstNodeName.Value) {TextContent = "." + x}
+                new Ast(AstNodeName.Value) { TextContent = "." + x }
             )),
         Then(Followed(Digits, Token(".")), Optional(Digits),
             (first, second) => new Ast(AstNodeName.DecimalConstantExpr,
-                new Ast(AstNodeName.Value) {TextContent = first + "." + (second ?? "")}))
+                new Ast(AstNodeName.Value) { TextContent = first + "." + (second ?? "") }))
     );
 
     private static readonly ParseFunc<Ast> IntegerLiteral =
@@ -96,11 +96,11 @@ public static class LiteralParser
     public static readonly ParseFunc<Ast> NumericLiteral =
         Followed(
             Or(DoubleLiteral, DecimalLiteral, IntegerLiteral),
-            Peek(Not(Regex(@"[a-z][A-Z]"), new[] {"No alphabetic characters after numeric literal"}))
+            Peek(Not(Regex(@"[a-z][A-Z]"), new[] { "No alphabetic characters after numeric literal" }))
         );
 
     public static readonly ParseFunc<Ast> ContextItemExpr =
-        Map(Followed(Token("."), Peek(Not(Token("."), new[] {"context item should not be followed by another ."}))),
+        Map(Followed(Token("."), Peek(Not(Token("."), new[] { "context item should not be followed by another ." }))),
             _ => new Ast(AstNodeName.ContextItemExpr));
 
     public static readonly ParseFunc<AstNodeName> ValueCompare =

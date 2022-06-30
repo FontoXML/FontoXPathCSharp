@@ -5,6 +5,11 @@ namespace FontoXPathCSharp.Value;
 
 public class PointerValue : AbstractValue
 {
+    public PointerValue(NodePointer pointer, XmlNode domFacade) : base(GetNodeSubtype(pointer, domFacade))
+    {
+        Value = pointer;
+    }
+
     public NodePointer Value { get; }
 
     private static ValueType GetNodeSubtype(NodePointer pointer, XmlNode domFacade)
@@ -21,11 +26,4 @@ public class PointerValue : AbstractValue
             _ => ValueType.Node
         };
     }
-    
-    public PointerValue(NodePointer pointer,XmlNode domFacade) : base(GetNodeSubtype(pointer, domFacade))
-    {
-        Value = pointer;
-    }
-
-
 }

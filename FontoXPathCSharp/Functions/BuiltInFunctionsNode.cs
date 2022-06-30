@@ -32,7 +32,7 @@ public static class BuiltInFunctionsNode
 
     public static readonly BuiltinDeclarationType[] Declarations =
     {
-        new(new[] {new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)},
+        new(new[] { new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne) },
             FnNodeName, "node-name", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne)),
         new(Array.Empty<ParameterType>(),
