@@ -24,7 +24,7 @@ public class XPathParser
 {
     private static ParseOptions _options;
 
-    private static readonly ParseFunc<Ast> Predicate =
+    public static readonly ParseFunc<Ast> Predicate =
         Delimited(Token("["), Surrounded(Expr(), Whitespace), Token("]"));
 
     private static readonly ParseFunc<string> StringLiteral = Map(_options.XQuery
@@ -87,9 +87,19 @@ public class XPathParser
                     )),
             AbbrevReverseStep);
 
-    // TODO: add predicateList
+    private static readonly ParseFunc<Ast?> PredicateList = Map(Star(Preceded(Whitespace, Predicate)),
+        x => x.Length > 0 ? new Ast(AstNodeName.Predicates, x) : null);
+
     private static readonly ParseFunc<Ast> AxisStep =
-        Or(ReverseStep, ForwardStep);
+        Then(
+            Or(ReverseStep, ForwardStep),
+            PredicateList,
+            (a, b) =>
+            {
+                if (b == null) return a;
+                a.Children.Add(b);
+                return a;
+            });
 
     // TODO: add string literal
     private static readonly ParseFunc<Ast> Literal =
@@ -166,7 +176,7 @@ public class XPathParser
             ),
             (expression, postfixExpr) =>
             {
-                Ast[] toWrap = new[] {expression};
+                var toWrap = new[] {expression};
 
                 var predicates = new List<Ast>();
                 var filters = new List<Ast>();
@@ -235,7 +245,7 @@ public class XPathParser
                     }
 
                 FlushFilters(true, allowSinglePredicates);
-                
+
                 return toWrap;
             }
         );
