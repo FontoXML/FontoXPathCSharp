@@ -1,13 +1,24 @@
 using FontoXPathCSharp.Parsing;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace XPathTest.UnitTests;
 
 public class TestParser
 {
+    private readonly ITestOutputHelper _output;
+
+    public TestParser(ITestOutputHelper output)
+    {
+        _output = output;
+    }
+
     private void ParseQuery(string query)
     {
         var result = XPathParser.Parse(query, new ParseOptions(false, false));
+        _output.WriteLine(query);
+        if (result.IsOk())
+            _output.WriteLine(result.Unwrap().ToString());
         Assert.True(result.IsOk(), "Query: " + query + "\n" + result);
     }
 
@@ -227,33 +238,43 @@ public class TestParser
         ParseQuery("x => test(x)");
     }
 
-    // [Fact]
-    // public void ParseCastExpr() =>
-    // ParseQuery("x cast as test?");
+    [Fact]
+    public void ParseCastExpr() =>
+        ParseQuery("x cast as test?");
 
     // [Fact]
     // public void ParseCastableExpr() =>
-    // ParseQuery("x castable as test?");
+    //     ParseQuery("x castable as test?");
 
     // [Fact]
     // public void ParseTreatExpr() =>
-    // ParseQuery("x treat as test?");
+    //     ParseQuery("x treat as test?");
 
     [Fact]
-    public void ParseIntersectExpr()
-    {
+    public void ParseIntersectExpr() =>
         ParseQuery("x intersect y");
-    }
 
     [Fact]
-    public void ParseExceptExpr()
-    {
+    public void ParseExceptExpr() =>
         ParseQuery("x except y");
-    }
 
     [Fact]
-    public void ParseUnionExpr()
-    {
+    public void ParseUnionExpr() =>
         ParseQuery("x union y union z");
-    }
+
+    [Fact]
+    public void ParseMultiplicativeExpr() =>
+        ParseQuery("x * y div z idiv w mod u");
+
+    [Fact]
+    public void ParseAdditiveExpr() =>
+        ParseQuery("12 + 13 - 14");
+
+    [Fact]
+    public void ParseRangeExpr() =>
+        ParseQuery("12 to 14");
+
+    [Fact]
+    public void ParseStringConcatExpr() =>
+        ParseQuery("\"foo\" || \"bar\"");
 }

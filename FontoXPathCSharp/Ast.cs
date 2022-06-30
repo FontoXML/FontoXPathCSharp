@@ -102,7 +102,9 @@ public enum AstNodeName
     AttributeName,
     NcName,
     Uri,
-    SchemaElementTest
+    SchemaElementTest,
+    SingleType,
+    Optional,
 }
 
 public class Ast
