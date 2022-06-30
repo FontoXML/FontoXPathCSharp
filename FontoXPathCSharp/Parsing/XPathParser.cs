@@ -24,7 +24,7 @@ public class XPathParser
 {
     private static ParseOptions _options;
 
-    public static readonly ParseFunc<Ast> Predicate =
+    private static readonly ParseFunc<Ast> Predicate =
         Delimited(Token("["), Surrounded(Expr(), Whitespace), Token("]"));
 
     private static readonly ParseFunc<string> StringLiteral = Map(_options.XQuery
@@ -101,7 +101,6 @@ public class XPathParser
                 return a;
             });
 
-    // TODO: add string literal
     private static readonly ParseFunc<Ast> Literal =
         Or(NumericLiteral, Map(StringLiteral, x => new Ast(AstNodeName.StringConstantExpr, new Ast(AstNodeName.Value)
             {
@@ -159,12 +158,17 @@ public class XPathParser
     );
 
     // TODO: add others
-    private static readonly ParseFunc<Ast> PrimaryExpr = Or(Literal, VarRef, ParenthesizedExpr, ContextItemExpr,
-        FunctionCall);
+    private static readonly ParseFunc<Ast> PrimaryExpr = Or(
+        Literal,
+        VarRef,
+        ParenthesizedExpr,
+        ContextItemExpr,
+        FunctionCall
+    );
 
-    public static readonly ParseFunc<Ast[]> PostfixExprWithStep =
+    private static readonly ParseFunc<Ast[]> PostfixExprWithStep =
         Then(
-            Map(PrimaryExpr, x => /* TODO: Wrap in sequence expr if needed */ x),
+            Map(PrimaryExpr, ParsingUtils.WrapInSequenceExprIfNeeded),
             Star(
                 Or(
                     Map(Preceded(Whitespace, Predicate),
@@ -319,7 +323,6 @@ public class XPathParser
                 _ => new Ast(AstNodeName.PathExpr, new Ast(AstNodeName.RootExpr)))
         );
 
-    // TODO: add other variants
     private static readonly ParseFunc<Ast> PathExpr =
         Or(RelativePathExpr, AbsoluteLocationPath);
 
