@@ -20,7 +20,7 @@ public class AttributeNodePointer : AbstractValue
     {
         Value = node;
     }
-    
+
     public Attr Value { get; }
 }
 
@@ -30,6 +30,6 @@ public class ElementNodePointer : AbstractValue
     {
         Value = node;
     }
-    
+
     public Element Value { get; }
 }

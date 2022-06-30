@@ -12,11 +12,23 @@ public enum BuiltInNamespaceUris
     MathNamespaceUri,
     FontoxpathNamespaceUri,
     XqueryxUpdatingNamespaceUri,
-    XqueryxNamespaceUri,
+    XqueryxNamespaceUri
 }
 
 public static class StaticallyKnownNamespacesExtensions
 {
+    private static readonly Dictionary<string, string> _staticallyKnownNamespaceByPrefix = new()
+    {
+        { "xml", BuiltInNamespaceUris.XmlNamespaceUri.GetUri() },
+        { "xs", BuiltInNamespaceUris.XmlSchemaNamespaceUri.GetUri() },
+        { "fn", BuiltInNamespaceUris.FunctionsNamespaceUri.GetUri() },
+        { "map", BuiltInNamespaceUris.MapNamespaceUri.GetUri() },
+        { "array", BuiltInNamespaceUris.ArrayNamespaceUri.GetUri() },
+        { "math", BuiltInNamespaceUris.MathNamespaceUri.GetUri() },
+        { "fontoxpath", BuiltInNamespaceUris.FontoxpathNamespaceUri.GetUri() },
+        { "local", BuiltInNamespaceUris.LocalNamespaceUri.GetUri() }
+    };
+
     public static string GetUri(this BuiltInNamespaceUris knownNamespace)
     {
         return knownNamespace switch
@@ -35,18 +47,6 @@ public static class StaticallyKnownNamespacesExtensions
             _ => throw new ArgumentOutOfRangeException(nameof(knownNamespace), knownNamespace, null)
         };
     }
-
-    private static Dictionary<string, string> _staticallyKnownNamespaceByPrefix = new()
-    {
-        { "xml", BuiltInNamespaceUris.XmlNamespaceUri.GetUri() },
-        { "xs", BuiltInNamespaceUris.XmlSchemaNamespaceUri.GetUri() },
-        { "fn", BuiltInNamespaceUris.FunctionsNamespaceUri.GetUri() },
-        { "map", BuiltInNamespaceUris.MapNamespaceUri.GetUri() },
-        { "array", BuiltInNamespaceUris.ArrayNamespaceUri.GetUri() },
-        { "math", BuiltInNamespaceUris.MathNamespaceUri.GetUri() },
-        { "fontoxpath", BuiltInNamespaceUris.FontoxpathNamespaceUri.GetUri() },
-        { "local", BuiltInNamespaceUris.LocalNamespaceUri.GetUri() },
-    };
 
     public static string? GetStaticallyKnownNamespaceByPrefix(string prefix)
     {

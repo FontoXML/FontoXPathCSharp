@@ -67,9 +67,9 @@ public class BooleanExpressionBenchmark
 [MemoryDiagnoser]
 public class SimpleExpressionBenchmark
 {
-    private readonly XmlNode _source;
     private static readonly AbstractExpression Expr = Helper.CompileExpression("self::p");
     private static readonly XPathExpression CompiledExpression = XPathExpression.Compile("self::p");
+    private readonly XmlNode _source;
 
     public SimpleExpressionBenchmark()
     {

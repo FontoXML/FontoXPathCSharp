@@ -10,6 +10,8 @@ public class NodeValue : AbstractValue
         Value = value;
     }
 
+    public XmlNode Value { get; }
+
     private static ValueType GetNodeType(XmlNode node)
     {
         return node.NodeType switch
@@ -24,8 +26,6 @@ public class NodeValue : AbstractValue
             _ => ValueType.Node
         };
     }
-
-    public XmlNode Value { get; }
 
     public override string ToString()
     {

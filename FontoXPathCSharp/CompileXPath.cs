@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
@@ -87,42 +86,42 @@ public static class CompileXPath
                 return new StaticCompilationResult(rootStaticContext,
                     ((StaticallyAnalyzedExpressionResult)result).Expression);
             case CacheState.Compiled:
-                {
-                    var compiledResult = (CompiledExpressionResult)result;
-                    compiledResult.Expression.PerformStaticEvaluation(rootStaticContext);
-                    var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
+            {
+                var compiledResult = (CompiledExpressionResult)result;
+                compiledResult.Expression.PerformStaticEvaluation(rootStaticContext);
+                var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
 
-                    CompiledExpressionCache.StoreStaticCompilationResultInCache(selector, language, specificStaticContext,
-                        moduleImports, compiledResult.Expression, compilationOptions.Debug, defaultFunctionNamespaceUri);
-                    return new StaticCompilationResult(rootStaticContext, compiledResult.Expression);
-                }
+                CompiledExpressionCache.StoreStaticCompilationResultInCache(selector, language, specificStaticContext,
+                    moduleImports, compiledResult.Expression, compilationOptions.Debug, defaultFunctionNamespaceUri);
+                return new StaticCompilationResult(rootStaticContext, compiledResult.Expression);
+            }
 
             case CacheState.Parsed:
+            {
+                var parsedResult = (ParsedExpressionResult)result;
+                var expressionFromAst = BuildExpressionFromAst(
+                    parsedResult.Ast,
+                    compilationOptions,
+                    rootStaticContext
+                );
+                expressionFromAst.PerformStaticEvaluation(rootStaticContext);
+
+                if (!compilationOptions.DisableCache)
                 {
-                    var parsedResult = (ParsedExpressionResult)result;
-                    var expressionFromAst = BuildExpressionFromAst(
-                        parsedResult.Ast,
-                        compilationOptions,
-                        rootStaticContext
+                    var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
+                    CompiledExpressionCache.StoreStaticCompilationResultInCache(
+                        selector,
+                        language,
+                        specificStaticContext,
+                        moduleImports,
+                        expressionFromAst,
+                        compilationOptions.Debug,
+                        defaultFunctionNamespaceUri
                     );
-                    expressionFromAst.PerformStaticEvaluation(rootStaticContext);
-
-                    if (!compilationOptions.DisableCache)
-                    {
-                        var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
-                        CompiledExpressionCache.StoreStaticCompilationResultInCache(
-                            selector,
-                            language,
-                            specificStaticContext,
-                            moduleImports,
-                            expressionFromAst,
-                            compilationOptions.Debug,
-                            defaultFunctionNamespaceUri
-                        );
-                    }
-
-                    return new StaticCompilationResult(rootStaticContext, expressionFromAst);
                 }
+
+                return new StaticCompilationResult(rootStaticContext, expressionFromAst);
+            }
         }
 
         throw new NotImplementedException("StaticallyCompileXPath not finished yet.");
@@ -135,11 +134,11 @@ public static class CompileXPath
     {
         //TODO: AST Annotation
         // AnnotateAst(ast, new AnnotationContext(rootStaticContext));
-        
+
         var mainModule = ast.GetFirstChild(AstNodeName.MainModule);
 
         if (mainModule == null) throw new Exception("Can not execute a library module.");
-        
+
         var queryBodyContents = mainModule.FollowPath(AstNodeName.QueryBody, AstNodeName.All);
 
         var prolog = mainModule.GetFirstChild(AstNodeName.Prolog);

@@ -1,7 +1,5 @@
-using System;
 using FontoXPathCSharp.Parsing;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace XPathTest.UnitTests;
 
@@ -14,148 +12,220 @@ public class TestParser
     }
 
     [Fact]
-    public void ParseStringLiteralDoubleQuote() =>
+    public void ParseStringLiteralDoubleQuote()
+    {
         ParseQuery("\"test'\"");
+    }
 
     [Fact]
-    public void ParseStringLiteralSingleQuote() =>
+    public void ParseStringLiteralSingleQuote()
+    {
         ParseQuery("'test\"'");
+    }
 
     [Fact]
-    public void ParseEmptyElementTest() =>
+    public void ParseEmptyElementTest()
+    {
         ParseQuery("element()");
+    }
 
     [Fact]
-    public void ParseWildcardElementTest() =>
+    public void ParseWildcardElementTest()
+    {
         ParseQuery("element(*)");
+    }
 
     [Fact]
-    public void ParseWildcardTypenameElementTest() =>
+    public void ParseWildcardTypenameElementTest()
+    {
         ParseQuery("element(*, test-type-name)");
+    }
 
     [Fact]
-    public void ParseEmptyAttributeTest() =>
+    public void ParseEmptyAttributeTest()
+    {
         ParseQuery("attribute()");
+    }
 
     [Fact]
-    public void ParseWildcardAttributeTest() =>
+    public void ParseWildcardAttributeTest()
+    {
         ParseQuery("attribute(*)");
+    }
 
     [Fact]
-    public void ParseWildcardTypenameAttributeTest() =>
+    public void ParseWildcardTypenameAttributeTest()
+    {
         ParseQuery("attribute(*, test-type-name)");
+    }
 
     [Fact]
-    public void ParseSchemaElementTest() =>
+    public void ParseSchemaElementTest()
+    {
         ParseQuery("schema-element(test-element-declaration)");
+    }
 
     [Fact]
-    public void ParseSchemaAttributeTest() =>
+    public void ParseSchemaAttributeTest()
+    {
         ParseQuery("schema-attribute(test-attribute-declaration)");
+    }
 
     [Fact]
-    public void ParseEmptyPiTest() =>
+    public void ParseEmptyPiTest()
+    {
         ParseQuery("processing-instruction()");
+    }
 
     [Fact]
-    public void ParsePiTest() =>
+    public void ParsePiTest()
+    {
         ParseQuery("processing-instruction(test-name)");
+    }
 
     [Fact]
-    public void ParseEmptyDocumentTest() =>
+    public void ParseEmptyDocumentTest()
+    {
         ParseQuery("document-node()");
+    }
 
     [Fact]
-    public void ParseDocumentTest() =>
+    public void ParseDocumentTest()
+    {
         ParseQuery("document-node(element())");
+    }
 
     [Fact]
-    public void ParseWildcardPreceded() =>
+    public void ParseWildcardPreceded()
+    {
         ParseQuery("*:test");
+    }
 
     [Fact]
-    public void ParseWildcard() =>
+    public void ParseWildcard()
+    {
         ParseQuery("*");
+    }
 
     [Fact]
-    public void ParseWildcardBracedUriLiteral() =>
+    public void ParseWildcardBracedUriLiteral()
+    {
         ParseQuery("Q{}*");
+    }
 
     [Fact]
-    public void ParseWildcardFollowed() =>
+    public void ParseWildcardFollowed()
+    {
         ParseQuery("xml:*");
+    }
 
     [Fact]
-    public void ParseForwardStep() =>
+    public void ParseForwardStep()
+    {
         ParseQuery("self::x");
+    }
 
     [Fact]
-    public void ParseAbbrevReverseStep() =>
+    public void ParseAbbrevReverseStep()
+    {
         ParseQuery("..");
+    }
 
     [Fact]
-    public void ParseReverseStep() =>
+    public void ParseReverseStep()
+    {
         ParseQuery("parent::x");
+    }
 
     [Fact]
-    public void ParsePredicate() =>
+    public void ParsePredicate()
+    {
         ParseQuery("self::x[test]");
+    }
 
     [Fact]
-    public void ParseNumericLiteral() =>
+    public void ParseNumericLiteral()
+    {
         ParseQuery("12e-4");
+    }
 
     [Fact]
-    public void ParseFunctionCall() =>
+    public void ParseFunctionCall()
+    {
         ParseQuery("node-name(/xml)");
+    }
 
     [Fact]
-    public void ParseParenthesizedExpr() =>
+    public void ParseParenthesizedExpr()
+    {
         ParseQuery("(12)");
-    
+    }
+
     [Fact]
-    public void ParseEmptyParenthesizedExpr() =>
+    public void ParseEmptyParenthesizedExpr()
+    {
         ParseQuery("( )");
+    }
 
     [Fact]
-    public void ParseContextItem() =>
+    public void ParseContextItem()
+    {
         ParseQuery(".");
+    }
 
     [Fact]
-    public void ParseRelativePathExpr() =>
+    public void ParseRelativePathExpr()
+    {
         ParseQuery("xml/test");
+    }
 
     [Fact]
-    public void ParseRelativePathAbbrevExpr() =>
+    public void ParseRelativePathAbbrevExpr()
+    {
         ParseQuery("xml//test");
+    }
 
     [Fact]
-    public void ParseAbsolutePathExpr() =>
+    public void ParseAbsolutePathExpr()
+    {
         ParseQuery("/xml/test");
+    }
 
     [Fact]
-    public void ParseAbsolutePathAbbrevExpr() =>
+    public void ParseAbsolutePathAbbrevExpr()
+    {
         ParseQuery("//test");
+    }
 
     [Fact]
-    public void ParseAbsoluteRootExpr() =>
+    public void ParseAbsoluteRootExpr()
+    {
         ParseQuery("/");
+    }
 
     [Fact]
-    public void ParseUnaryMinusExpr() =>
+    public void ParseUnaryMinusExpr()
+    {
         ParseQuery("-12");
+    }
 
     [Fact]
-    public void ParseUnaryPlusExpr() =>
+    public void ParseUnaryPlusExpr()
+    {
         ParseQuery("+12");
+    }
 
     [Fact]
-    public void ParseVarRef() =>
+    public void ParseVarRef()
+    {
         ParseQuery("$test");
+    }
 
     [Fact]
-    public void ParseArrowExpr() =>
+    public void ParseArrowExpr()
+    {
         ParseQuery("x => test(x)");
+    }
 
     // [Fact]
     // public void ParseCastExpr() =>
@@ -170,14 +240,20 @@ public class TestParser
     // ParseQuery("x treat as test?");
 
     [Fact]
-    public void ParseIntersectExpr() =>
+    public void ParseIntersectExpr()
+    {
         ParseQuery("x intersect y");
+    }
 
     [Fact]
-    public void ParseExceptExpr() =>
+    public void ParseExceptExpr()
+    {
         ParseQuery("x except y");
-    
+    }
+
     [Fact]
-    public void ParseUnionExpr() =>
+    public void ParseUnionExpr()
+    {
         ParseQuery("x union y union z");
+    }
 }

@@ -82,7 +82,7 @@ public class TypeCasting
 
         if (primitiveFromNullable == null || primitiveToNullable == null)
             return _ => new ErrorResult<AtomicValue>(
-                $"XPST0081: Can not cast: type {(primitiveToNullable != null ? @from : to)} is unknown.");
+                $"XPST0081: Can not cast: type {(primitiveToNullable != null ? from : to)} is unknown.");
 
         // Compiler was being difficult, this was the only way to make it stop.
         var primitiveFrom = (ValueType)primitiveFromNullable;

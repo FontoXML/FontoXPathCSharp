@@ -6,7 +6,9 @@ namespace FontoXPathCSharp.Value;
 
 public class ArrayValue<T> : FunctionValue<T>
 {
-    public ArrayValue(Func<ISequence>[] members, FunctionDefinitionType<T> definitionType) : base(new []{new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)}, 1, definitionType, ValueType.Array)
+    public ArrayValue(Func<ISequence>[] members, FunctionDefinitionType<T> definitionType) : base(
+        new[] { new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne) }, 1, definitionType,
+        ValueType.Array)
     {
         Members = Members;
     }

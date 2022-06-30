@@ -14,7 +14,7 @@ public abstract class AbstractValue
 
     public T? GetAs<T>(ValueType type) where T : AbstractValue
     {
-        if (SubtypeUtils.IsSubtypeOf(Type,type)) return (T?)this;
+        if (SubtypeUtils.IsSubtypeOf(Type, type)) return (T?)this;
         return null;
     }
 

@@ -34,12 +34,12 @@ public static class CompileAstToExpression
                 AstNodeName.TypedFunctionTest, AstNodeName.SchemaAttributeTest, AstNodeName.AtomicType,
                 AstNodeName.AnyItemType, AstNodeName.ParenthesizedItemType, AstNodeName.TypedMapTest,
                 AstNodeName.TypedArrayTest, AstNodeName.NameTest, AstNodeName.Wildcard);
-            
+
             if (test == null)
                 throw new XPathException("No test found in path expression axis");
-            
+
             var testExpression = CompileTestExpression(test);
-            
+
             return axis.TextContent switch
             {
                 "self" => new SelfAxis(testExpression),
@@ -52,7 +52,7 @@ public static class CompileAstToExpression
 
         return new PathExpression(steps.ToArray());
     }
-    
+
     private static AbstractExpression CompileFunctionCallExpression(Ast ast, CompilationOptions options)
     {
         var functionName = ast.GetFirstChild(AstNodeName.FunctionName);
