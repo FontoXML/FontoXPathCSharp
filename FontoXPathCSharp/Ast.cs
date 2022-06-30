@@ -99,7 +99,9 @@ public enum AstNodeName
     TypeName,
     QName,
     Star,
-    AttributeName
+    AttributeName,
+    NcName,
+    Uri,
 }
 
 public class Ast

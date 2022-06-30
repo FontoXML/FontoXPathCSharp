@@ -41,19 +41,6 @@ public static class XPathParser
         return Map(Token("NOT IMPLEMENTED WILL NEVER GET MATCHED"), s => new Ast(AstNodeName.NotImplemented));
     }
 
-    // TODO: add wildcard
-    private static readonly ParseFunc<Ast> NameTest =
-        Map(EqName, x => new Ast(AstNodeName.NameTest)
-        {
-            StringAttributes =
-            {
-                ["URI"] = x.NamespaceUri!,
-                ["prefix"] = x.Prefix
-            },
-            TextContent = x.LocalName
-        });
-
-
     private static readonly ParseFunc<Ast> ElementTest = Or(
         Map(
             PrecededMultiple(new[] {Token("element"), Whitespace},
@@ -180,6 +167,32 @@ public static class XPathParser
         TextTest,
         NamespaceNodeTest,
         AnyKindTest
+    );
+
+    private static readonly ParseFunc<Ast> Wildcard = Or(
+        Map(Preceded(Token("*:"), NcName),
+            x => new Ast(AstNodeName.Wildcard, new Ast(AstNodeName.Star), new Ast(AstNodeName.NcName) {TextContent = x})
+        ),
+        Alias(new Ast(AstNodeName.Wildcard), "*"),
+        Map(Followed(BracedUriLiteral, Token("*")),
+            x => new Ast(AstNodeName.Wildcard, new Ast(AstNodeName.Uri) {TextContent = x}, new Ast(AstNodeName.Star))),
+        Map(Followed(NcName, Token(":*")), x =>
+            new Ast(AstNodeName.Wildcard, new Ast(AstNodeName.NcName) {TextContent = x}, new Ast(AstNodeName.Star))
+        )
+    );
+
+    private static readonly ParseFunc<Ast> NameTest = Or(
+        Wildcard,
+        Map(EqName, x => new Ast(AstNodeName.NameTest)
+            {
+                StringAttributes =
+                {
+                    ["URI"] = x.NamespaceUri!,
+                    ["prefix"] = x.Prefix
+                },
+                TextContent = x.LocalName
+            }
+        )
     );
 
     private static readonly ParseFunc<Ast> NodeTest = Or(KindTest, NameTest);
