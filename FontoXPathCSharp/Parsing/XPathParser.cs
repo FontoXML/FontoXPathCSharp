@@ -1,3 +1,4 @@
+using FontoXPathCSharp.Value;
 using PrscSharp;
 using static PrscSharp.PrscSharp;
 using static FontoXPathCSharp.Parsing.NameParser;
@@ -20,7 +21,7 @@ public readonly struct ParseOptions
     }
 }
 
-public class XPathParser
+public static class XPathParser
 {
     private static ParseOptions _options;
 
@@ -52,8 +53,136 @@ public class XPathParser
             TextContent = x.LocalName
         });
 
-    // TODO: add kindTest
-    private static readonly ParseFunc<Ast> NodeTest = Or(NameTest);
+
+    private static readonly ParseFunc<Ast> ElementTest = Or(
+        Map(
+            PrecededMultiple(new[] {Token("element"), Whitespace},
+                Delimited(
+                    Followed(Token("("), Whitespace),
+                    Then(
+                        ElementNameOrWildcard,
+                        PrecededMultiple(new[] {Whitespace, Token(","), Whitespace}, TypeName),
+                        (elemName, typeName) => (
+                            nameOrWildcard: new Ast(AstNodeName.ElementName, elemName),
+                            type: typeName.GetAst(AstNodeName.TypeName)
+                        )
+                    ),
+                    Preceded(Whitespace, Token(")"))
+                )
+            ),
+            x => new Ast(AstNodeName.ElementTest, x.nameOrWildcard, x.type)
+        ),
+        Map(
+            PrecededMultiple(new[] {Token("element"), Whitespace},
+                Delimited(
+                    Token("("), ElementNameOrWildcard, Token(")")
+                )
+            ),
+            nameOrWildcard => new Ast(AstNodeName.ElementTest, new Ast(AstNodeName.ElementName, nameOrWildcard))
+        ),
+        Map(
+            PrecededMultiple(new[] {Token("element"), Whitespace},
+                Delimited(
+                    Token("("), Whitespace, Token(")")
+                )
+            ),
+            nameOrWildcard => new Ast(AstNodeName.ElementTest)
+        )
+    );
+
+    private static readonly ParseFunc<Ast> AttributeTest = Or(
+        Map(
+            PrecededMultiple(new[] {Token("attribute"), Whitespace},
+                Delimited(
+                    Followed(Token("("), Whitespace),
+                    Then(
+                        AttributeNameOrWildcard,
+                        PrecededMultiple(new[] {Whitespace, Token(","), Whitespace}, TypeName),
+                        (attrName, typeName) => (
+                            nameOrWildcard: new Ast(AstNodeName.AttributeName, attrName),
+                            type: typeName.GetAst(AstNodeName.TypeName)
+                        )
+                    ),
+                    Preceded(Whitespace, Token(")"))
+                )
+            ),
+            x => new Ast(AstNodeName.AttributeTest, x.nameOrWildcard, x.type)
+        ),
+        Map(
+            PrecededMultiple(new[] {Token("attribute"), Whitespace},
+                Delimited(
+                    Token("("), AttributeNameOrWildcard, Token(")")
+                )
+            ),
+            nameOrWildcard => new Ast(AstNodeName.AttributeTest, new Ast(AstNodeName.AttributeName, nameOrWildcard))
+        ),
+        Map(
+            PrecededMultiple(new[] {Token("attribute"), Whitespace},
+                Delimited(
+                    Token("("), Whitespace, Token(")")
+                )
+            ),
+            nameOrWildcard => new Ast(AstNodeName.AttributeTest)
+        )
+    );
+
+    private static readonly ParseFunc<QName> ElementDeclaration = ElementName;
+
+    private static readonly ParseFunc<Ast> SchemaElementTest = Map(
+        PrecededMultiple(new[] {Token("schema-element"), Whitespace, Token("(")},
+            Followed(ElementDeclaration, Token(")"))),
+        x => x.GetAst(AstNodeName.SchemaAttributeTest)
+    );
+
+    private static readonly ParseFunc<QName> AttributeName = EqName;
+
+    private static readonly ParseFunc<QName> AttributeDeclaration = AttributeName;
+
+    private static readonly ParseFunc<Ast> SchemaAttributeTest = Map(
+        Delimited(
+            Token("schema-attribute("),
+            Surrounded(AttributeDeclaration, Whitespace),
+            Token(")")
+        ),
+        (decl) => decl.GetAst(AstNodeName.SchemaAttributeTest)
+    );
+
+    private static readonly ParseFunc<Ast> PiTest = Or(
+        Map(
+            Delimited(
+                Token("processing-instruction("),
+                Surrounded(Or(NcName, StringLiteral), Whitespace),
+                Token(")")
+            ),
+            target => new Ast(AstNodeName.PiTest, new Ast(AstNodeName.PiTarget)
+            {
+                TextContent = target
+            })
+        )
+    );
+
+    private static readonly ParseFunc<Ast> DocumentTest = Map(
+        Delimited(Token("document-node"),
+            Surrounded(Optional(Or(ElementTest, SchemaElementTest)), Whitespace),
+            Token(")")
+        ),
+        x => x == null ? new Ast(AstNodeName.DocumentTest) : new Ast(AstNodeName.DocumentTest, x)
+    );
+
+    private static readonly ParseFunc<Ast> KindTest = Or(
+        DocumentTest,
+        ElementTest,
+        AttributeTest,
+        SchemaElementTest,
+        SchemaAttributeTest,
+        PiTest,
+        CommentTest,
+        TextTest,
+        NamespaceNodeTest,
+        AnyKindTest
+    );
+
+    private static readonly ParseFunc<Ast> NodeTest = Or(KindTest, NameTest);
 
     private static readonly ParseFunc<Ast> AbbrevForwardStep = Then(Optional(Token("@")), NodeTest,
         (a, b) => new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis, b)
@@ -149,8 +278,7 @@ public class XPathParser
             )
         );
 
-    private static readonly ParseFunc<Ast> SequenceType =
-        Map(Token("TODO"), _ => new Ast(AstNodeName.All));
+    private static readonly ParseFunc<Ast> SequenceType = NotImplementedAst();
 
     private static readonly ParseFunc<Ast> ParenthesizedExpr = Or(
         Delimited(Token("("), Surrounded(Expr(), Whitespace), Token(")")),

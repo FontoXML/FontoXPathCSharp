@@ -46,6 +46,14 @@ public static class LiteralParser
     public static readonly ParseFunc<string> EscapeQuot = Alias("\"", "\"\"");
     public static readonly ParseFunc<string> EscapeApos = Alias("'", "''");
 
+    public static readonly ParseFunc<Ast> CommentTest = Alias(new Ast(AstNodeName.CommentTest), "comment()");
+    public static readonly ParseFunc<Ast> TextTest = Alias(new Ast(AstNodeName.TextTest), "text()");
+
+    public static readonly ParseFunc<Ast> NamespaceNodeTest =
+        Alias(new Ast(AstNodeName.NamespaceTest), "namespace-node()");
+
+    public static readonly ParseFunc<Ast> AnyKindTest = Alias(new Ast(AstNodeName.AnyKindTest), "node()");
+
     private static readonly ParseFunc<string> Digits =
         Regex(@"[0-9]+");
 
