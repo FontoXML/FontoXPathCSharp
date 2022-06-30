@@ -57,7 +57,7 @@ public class NameTest : AbstractTestExpression
 
         if (_name.LocalName != "*" && _name.LocalName != node.LocalName) return false;
 
-        var resolvedNamespaceUri = _name.Prefix == ""
+        var resolvedNamespaceUri = _name.Prefix == null
             ? nodeIsElement
                 ? _name.NamespaceUri
                 : null

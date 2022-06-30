@@ -25,15 +25,15 @@ public class Runners
         const string query = "/catalog/test-set";
         const string xml = "<p>Test</p>";
 
-        Console.WriteLine($"Running: `{query}`\n");
+        _testOutputHelper.WriteLine($"Running: `{query}`\n");
 
         var result = XPathParser.Parse(query, new ParseOptions(false, false)).UnwrapOr((expected, fatal) =>
         {
-            Console.WriteLine("Parsing error ({0}): expected {1}", fatal, string.Join(", ", expected.Distinct()));
+            _testOutputHelper.WriteLine($"Parsing error ({fatal}): expected {string.Join(", ", expected.Distinct())}");
             Environment.Exit(1);
             return new Ast(AstNodeName.All);
         });
-        Console.WriteLine("Parsed query:\n" + result);
+        _testOutputHelper.WriteLine($"Parsed query:\n{result}");
     }
 
     [Fact]
@@ -42,7 +42,7 @@ public class Runners
         var results = Evaluate.EvaluateXPathToNodes("/catalog/test-set", _qt3Tests, null,
             new Dictionary<string, IExternalValue>(),
             new Options(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"));
-        var joinedResult = $"[ {string.Join("\n", results.Select(r => $"{r.Attributes?["name"]?.Value} - {r.Attributes["file"]?.Value}"))} ]";
+        var joinedResult = $"[ {string.Join("\n", results.Select(r => $"{r.Attributes?["name"]?.Value} - {r.Attributes?["file"]?.Value}"))} ]";
 
         _testOutputHelper.WriteLine("Selector resulted in: " + joinedResult);
     }
@@ -77,8 +77,6 @@ public class Runners
 
         var joinedResult = $"[ {string.Join("\n", testFileNames.Select(r => r))} ]";
         
-        
-        _qt3Tests.
         _testOutputHelper.WriteLine(joinedResult);
     }
 }

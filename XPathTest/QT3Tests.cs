@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml;
 using FontoXPathCSharp;
@@ -11,12 +11,52 @@ namespace XPathTest;
 
 public class QT3Tests
 {
+    private readonly string _allTestsQuery = @"
+/test-set/test-case[
+  let $dependencies := (./dependency | ../dependency)
+  return not(exists($dependencies[@type=""xml-version"" and @value=""1.1""])) and not(
+     $dependencies/@value/tokenize(.) = (
+       ""XQ10"",
+       ""XQ20"",
+       ""XQ30"",
+       ""schemaValidation"",
+       ""schemaImport"",
+       (:""staticTyping"",:)
+       (:""serialization"",:)
+       ""infoset-dtd"",
+       (:""xpath-1.0-compatibility"",:)
+       ""namespace-axis"",
+       (:""moduleImport"",:)
+       ""schema-location-hint"",
+       (:""collection-stability"",:)
+       ""directory-as-collation-uri"",
+       (:""fn-transform-XSLT"",:)
+       (:""fn-transform-XSLT30"",:)
+       (:""fn-format-integer-CLDR"",:)
+       (:""non-empty-sequence-collection"",:)
+       ""non-unicode-codepoint-collation"",
+       ""simple-uca-fallback"",
+       ""advanced-uca-fallback""))]
+";
+
+    private readonly HashSet<string> _shouldRunTestByName;
     private readonly ITestOutputHelper _testOutputHelper;
-    private Dictionary<string, bool> ShouldRunTestByName = new();
 
     public QT3Tests(ITestOutputHelper testOutputHelper)
     {
         _testOutputHelper = testOutputHelper;
+        _shouldRunTestByName = File.ReadLines("../../../assets/runnableTestSets.csv")
+            .Select(line => line.Split(','))
+            .DistinctBy(l => l[0])
+            .Where(l => ParseBooleanNoFail(l[1]))
+            .Select(l => l[0])
+            .ToHashSet();
+    }
+
+    private static bool ParseBooleanNoFail(string input)
+    {
+        bool.TryParse(input, out var res);
+        return res;
     }
 
     [Fact]
@@ -26,28 +66,48 @@ public class QT3Tests
         qt3tests.Load("../../../assets/QT3TS/catalog.xml");
         var loadedTests = GetAllTestSets(qt3tests);
         _testOutputHelper.WriteLine($"Tests loaded: {loadedTests.Count}");
-        loadedTests.ForEach(testSetFileName => { _testOutputHelper.WriteLine(testSetFileName); });
+        loadedTests.ForEach(testSetFileName =>
+        {
+            var testSet = LoadXmlFile(testSetFileName);
+
+            var testSetName = Evaluate.EvaluateXPathToString("/test-set/@name", testSet, null,
+                new Dictionary<string, IExternalValue>(),
+                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+
+            var testCases = Evaluate.EvaluateXPathToNodes(_allTestsQuery, testSet, null,
+                new Dictionary<string, IExternalValue>(),
+                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+
+            _testOutputHelper.WriteLine("LOADED STUFF: {0}: {1}: {2}", testSetFileName, testSetName, testCases.Count());
+            
+            if (!testCases.Any()) return;
+        });
+    }
+
+    private XmlDocument LoadXmlFile(string fileName)
+    {
+        var xmlFile = new XmlDocument();
+
+        xmlFile.Load($"../../../assets/QT3TS/{fileName}");
+
+        return xmlFile;
     }
 
     private List<string> GetAllTestSets(XmlNode catalog)
     {
         return Evaluate.EvaluateXPathToNodes("/catalog/test-set", catalog, null,
-                new Dictionary<string, IExternalValue>(), new Options())
-            .Where(testSetNode =>
-            {
-                var res = Evaluate.EvaluateXPathToString("@name",
-                        testSetNode,
-                        null,
-                        new Dictionary<string, IExternalValue>(),
-                        new Options());
-                _testOutputHelper.WriteLine("Evaluated to: {0}", res);
-                return ShouldRunTestByName.ContainsKey(res);
-            })
+                new Dictionary<string, IExternalValue>(),
+                new Options(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"))
+            .Where(testSetNode => _shouldRunTestByName.Contains(Evaluate.EvaluateXPathToString("@name",
+                testSetNode,
+                null,
+                new Dictionary<string, IExternalValue>(),
+                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"))))
             .Select(testSetNode => Evaluate.EvaluateXPathToString("@file",
                 testSetNode,
                 null,
                 new Dictionary<string, IExternalValue>(),
-                new Options()))
+                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")))
             .ToList();
     }
 }
