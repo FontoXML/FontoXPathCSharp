@@ -116,9 +116,12 @@ public static class XPathParser
     private static readonly ParseFunc<QName> ElementDeclaration = ElementName;
 
     private static readonly ParseFunc<Ast> SchemaElementTest = Map(
-        PrecededMultiple(new[] {Token("schema-element"), Whitespace, Token("(")},
-            Followed(ElementDeclaration, Token(")"))),
-        x => x.GetAst(AstNodeName.SchemaAttributeTest)
+        Delimited(
+            Token("schema-element("),
+            Surrounded(ElementDeclaration, Whitespace),
+            Token(")")
+        ),
+        x => x.GetAst(AstNodeName.SchemaElementTest)
     );
 
     private static readonly ParseFunc<QName> AttributeName = EqName;
@@ -145,11 +148,12 @@ public static class XPathParser
             {
                 TextContent = target
             })
-        )
+        ),
+        Alias(new Ast(AstNodeName.PiTest), "processing-instruction()")
     );
 
     private static readonly ParseFunc<Ast> DocumentTest = Map(
-        Delimited(Token("document-node"),
+        Delimited(Token("document-node("),
             Surrounded(Optional(Or(ElementTest, SchemaElementTest)), Whitespace),
             Token(")")
         ),
@@ -610,8 +614,8 @@ public static class XPathParser
             InstanceOfExpr,
             Followed(
                 Or(
-                    Alias(AstNodeName.IntersectOp, "intersectOp"),
-                    Alias(AstNodeName.ExceptOp, "exceptOp")
+                    Alias(AstNodeName.IntersectOp, "intersect"),
+                    Alias(AstNodeName.ExceptOp, "except")
                 ),
                 AssertAdjacentOpeningTerminal
             ),
