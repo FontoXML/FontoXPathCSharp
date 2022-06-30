@@ -102,6 +102,7 @@ public enum AstNodeName
     AttributeName,
     NcName,
     Uri,
+    SchemaElementTest
 }
 
 public class Ast

@@ -9,7 +9,7 @@ public static class ParsingFunctions
         IEnumerable<ParseFunc<TBefore>> before,
         ParseFunc<T> parser)
     {
-        return before.Aggregate(parser, (current, b) => Preceded(b, current));
+        return before.Reverse().Aggregate(parser, (current, b) => Preceded(b, current));
     }
 
     public static ParseFunc<T> FollowedMultiple<T, TAfter>(

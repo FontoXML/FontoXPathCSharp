@@ -30,12 +30,12 @@ public static class NameParser
     private static readonly ParseFunc<QName> QName =
         Or(
             UnprefixedName
-        // TODO: add prefixed name
+            // TODO: add prefixed name
         );
 
     public static readonly ParseFunc<string> BracedUriLiteral = Followed(
         PrecededMultiple(
-            new[] { Token("Q"), Whitespace, Token("{") },
+            new[] {Token("Q"), Whitespace, Token("{")},
             Map(Star(Regex("/[^{}]/")), x => Regex.Replace(string.Join("", x), @"\s+", " ").Trim())
         ),
         Token("}")
