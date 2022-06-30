@@ -95,6 +95,18 @@ public static class LiteralParser
         Map(Followed(Token("."), Peek(Not(Token("."), new[] {"context item should not be followed by another ."}))),
             _ => new Ast(AstNodeName.ContextItemExpr));
 
+    public static readonly ParseFunc<AstNodeName> ValueCompare =
+        Followed(
+            Or(Alias(AstNodeName.EqOp, "eq"),
+                Alias(AstNodeName.NeOp, "ne"),
+                Alias(AstNodeName.LtOp, "lt"),
+                Alias(AstNodeName.LeOp, "le"),
+                Alias(AstNodeName.GtOp, "gt"),
+                Alias(AstNodeName.GeOp, "ge")
+            ),
+            AssertAdjacentOpeningTerminal
+        );
+
     public static readonly ParseFunc<string> ReservedFunctionNames =
         Or(new[]
         {
@@ -128,4 +140,19 @@ public static class LiteralParser
                 },
                 new Ast(AstNodeName.AnyKindTest))
         );
+
+    public static readonly ParseFunc<AstNodeName> NodeCompare = Or(
+        Followed(Alias(AstNodeName.IsOp, "is"), AssertAdjacentOpeningTerminal),
+        Alias(AstNodeName.NodeBeforeOp, "<<"),
+        Alias(AstNodeName.NodeAfterOp, ">>")
+    );
+
+    public static readonly ParseFunc<AstNodeName> GeneralCompare = Or(
+        Alias(AstNodeName.EqualOp, "="),
+        Alias(AstNodeName.NotEqualOp, "!="),
+        Alias(AstNodeName.LessThanOrEqualOp, "<="),
+        Alias(AstNodeName.LessThanOp, "<"),
+        Alias(AstNodeName.GreaterThanOrEqualOp, ">="),
+        Alias(AstNodeName.GreaterThanOp, ">")
+    );
 }

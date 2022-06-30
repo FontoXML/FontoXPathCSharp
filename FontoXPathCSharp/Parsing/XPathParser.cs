@@ -510,10 +510,9 @@ public class XPathParser
 
     private static readonly ParseFunc<Ast> ComparisonExpr =
         NonRepeatableBinaryOperator(StringConcatExpr, Or(
-            // TODO: ValueCompare(),
-            // TODO: NodeCompare(),
-            // TODO: GeneralCompare()
-            Map(NotImplementedAst(), x => AstNodeName.NotImplemented)
+            ValueCompare,
+            NodeCompare,
+            GeneralCompare
         ));
 
     private static readonly ParseFunc<Ast> AndExpr =
