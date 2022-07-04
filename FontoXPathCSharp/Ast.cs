@@ -132,7 +132,7 @@ public class Ast
 
     public Ast? GetFirstChild(AstNodeName name = AstNodeName.All)
     {
-        return Children.Find(x => name == AstNodeName.All || name == x.Name);
+        return Children.Find(x => name == AstNodeName.All || x.Name == name);
     }
 
     public Ast? GetFirstChild(params AstNodeName[] names)
@@ -151,7 +151,7 @@ public class Ast
 
         foreach (var p in path)
         {
-            ast = GetFirstChild(p);
+            ast = ast.GetFirstChild(p);
             if (ast == null) break;
         }
 

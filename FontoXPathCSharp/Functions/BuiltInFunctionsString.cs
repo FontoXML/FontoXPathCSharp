@@ -1,4 +1,7 @@
+using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
+using FontoXPathCSharp.EvaluationUtils;
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -8,6 +11,24 @@ namespace FontoXPathCSharp.Functions;
 
 public static class BuiltInFunctionsString
 {
+    private static readonly FunctionDefinitionType<ISequence> FnConcat = (_, executionParameters, _, args) =>
+    {
+        var stringSequences = args.Select(sequence =>
+            Atomize.AtomizeSequence(sequence, executionParameters!).MapAll(allValues =>
+                    SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(
+                        string.Join("", allValues.Select(x => x.GetAs<StringValue>(ValueType.XsString)?.Value)),
+                        ValueType.XsString)),
+                IterationHint.None));
+
+        Console.WriteLine(stringSequences);
+
+        return ISequence.ZipSingleton(stringSequences,
+            (stringValues) =>
+                SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(string.Join("", stringValues.Select(x =>
+                        x.GetAs<StringValue>(ValueType.XsString).Value)),
+                    ValueType.XsString)));
+    };
+
     private static readonly FunctionDefinitionType<ISequence> FnStringLength = (_, _, _, args) =>
     {
         if (args.Length == 0) return SequenceFactory.CreateFromValue(new IntValue(0));
@@ -27,7 +48,17 @@ public static class BuiltInFunctionsString
 
     public static readonly BuiltinDeclarationType[] Declarations =
     {
-        new(new[] { new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne) },
+        new(
+            new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne),
+                ParameterType.Ellipsis()
+            },
+            FnConcat, "concat",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
+        new(new[] {new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)},
             FnStringLength, "string-length",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
@@ -36,7 +67,7 @@ public static class BuiltInFunctionsString
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
 
-        new(new[] { new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne) },
+        new(new[] {new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)},
             FnNormalizeSpace, "normalize-space",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),

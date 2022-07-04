@@ -14,7 +14,7 @@ internal class SingletonSequence : ISequence
 
     public IEnumerator<AbstractValue> GetEnumerator()
     {
-        return new[] { _onlyValue }.ToList().GetEnumerator();
+        return new[] {_onlyValue}.ToList().GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -39,7 +39,7 @@ internal class SingletonSequence : ISequence
 
     public AbstractValue[] GetAllValues()
     {
-        return new[] { _onlyValue };
+        return new[] {_onlyValue};
     }
 
     public int GetLength()
@@ -49,13 +49,7 @@ internal class SingletonSequence : ISequence
 
     public Iterator<AbstractValue> GetValue()
     {
-        var isDone = false;
-        return _ =>
-        {
-            if (isDone) return IteratorResult<AbstractValue>.Done();
-            isDone = true;
-            return IteratorResult<AbstractValue>.Ready(_onlyValue);
-        };
+        return IteratorUtils.SingleValueIterator(_onlyValue);
     }
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
@@ -68,7 +62,7 @@ internal class SingletonSequence : ISequence
         throw new NotImplementedException();
     }
 
-    public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues)
+    public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues, IterationHint hint)
     {
         throw new NotImplementedException();
     }

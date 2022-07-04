@@ -9,8 +9,13 @@ public class ParameterType : SequenceType
         IsEllipsis = false;
     }
 
-    public ParameterType() : base(ValueType.None, SequenceMultiplicity.ZeroOrMore)
+    private ParameterType() : base(ValueType.None, SequenceMultiplicity.ZeroOrMore)
     {
         IsEllipsis = true;
+    }
+
+    public static ParameterType Ellipsis()
+    {
+        return new ParameterType();
     }
 }

@@ -277,4 +277,51 @@ public class TestParser
     [Fact]
     public void ParseStringConcatExpr() =>
         ParseQuery("\"foo\" || \"bar\"");
+
+    [Fact]
+    public void ParseWhitespaceNewLine() =>
+        ParseQuery("1 +\n2");
+
+    [Fact]
+    public void ParseComment()
+    {
+        ParseQuery("1 + (: test :) 2");
+    }
+
+    [Fact]
+    public void ParseCombinedPathExpr() =>
+        ParseQuery(@"$dependencies/@value/tokenize(.)");
+
+    [Fact]
+    public void ParseNestedFunctionCall() =>
+        ParseQuery(@"not(exists($dependencies[@type=""xml-version"" and @value=""1.1""]))");
+
+    [Fact]
+    public void ParseComplex() =>
+        ParseQuery(@"
+/test-set/test-case[
+    not(exists((./dependency | ../dependency)[@type=""xml-version"" and @value=""1.1""])) and not(
+     (./dependency | ../dependency)/@value/tokenize(.) = (
+       ""XQ10"",
+       ""XQ20"",
+       ""XQ30"",
+       ""schemaValidation"",
+       ""schemaImport"",
+       (:""staticTyping"",:)
+       (:""serialization"",:)
+       ""infoset-dtd"",
+       (:""xpath-1.0-compatibility"",:)
+       ""namespace-axis"",
+       (:""moduleImport"",:)
+       ""schema-location-hint"",
+       (:""collection-stability"",:)
+       ""directory-as-collation-uri"",
+       (:""fn-transform-XSLT"",:)
+       (:""fn-transform-XSLT30"",:)
+       (:""fn-format-integer-CLDR"",:)
+       (:""non-empty-sequence-collection"",:)
+       ""non-unicode-codepoint-collation"",
+       ""simple-uca-fallback"",
+       ""advanced-uca-fallback""))]
+");
 }

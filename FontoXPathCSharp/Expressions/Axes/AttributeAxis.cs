@@ -17,7 +17,6 @@ public class AttributeAxis : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        var domfacade = executionParameters?.DomFacade;
         var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
 
         if (contextItem.GetValueType() != ValueType.Element) return SequenceFactory.CreateEmpty();
@@ -32,7 +31,8 @@ public class AttributeAxis : AbstractExpression
         {
             if (attr.NamespaceURI == BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri()) continue;
             var nodeValue = new NodeValue(attr);
-            if (_selector.EvaluateToBoolean(dynamicContext, nodeValue, executionParameters))
+            var matches = _selector.EvaluateToBoolean(dynamicContext, nodeValue, executionParameters);
+            if (matches)
                 matchingAttributes.Add(nodeValue);
         }
 

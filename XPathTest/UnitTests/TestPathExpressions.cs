@@ -23,21 +23,16 @@ public class TestPathExpressions
         Document.LoadXml(TestXml);
     }
 
-    private static T EvalQuery<T>(string query)
-    {
-        var results = Evaluate.EvaluateXPath<T, string>(query, Document, null,
-            new Dictionary<string, AbstractValue>(), new Options());
-        return results;
-    }
-
     private static IEnumerable<XmlNode> EvalQueryNodes(string query)
     {
-        return EvalQuery<IEnumerable<XmlNode>>(query);
+        return Evaluate.EvaluateXPathToNodes(query, Document, null, new Dictionary<string, IExternalValue>(),
+            new Options());
     }
 
     private static string EvalQueryString(string query)
     {
-        return EvalQuery<string>(query);
+        return Evaluate.EvaluateXPathToString(query, Document, null, new Dictionary<string, IExternalValue>(),
+            new Options());
     }
 
     [Fact]
@@ -67,6 +62,6 @@ public class TestPathExpressions
     [Fact]
     public void SimpleAttribute()
     {
-        Assert.Equal("durp", EvalQueryString("/xml/derp/@id"));
+        Assert.Single(EvalQueryNodes("/xml/derp/@id"));
     }
 }

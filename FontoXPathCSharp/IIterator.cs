@@ -5,7 +5,7 @@ public class IteratorResult<T> where T : class
     public readonly bool IsDone;
     public readonly T? Value;
 
-    public IteratorResult(bool isDone, T? value)
+    private IteratorResult(bool isDone, T? value)
     {
         IsDone = isDone;
         Value = value;
@@ -22,10 +22,30 @@ public class IteratorResult<T> where T : class
     }
 }
 
+[Flags]
 public enum IterationHint
 {
-    None = 0,
-    SkipDescendants = 1 << 0
+    None,
+    SkipDescendants
 }
 
 public delegate IteratorResult<T> Iterator<T>(IterationHint hint) where T : class;
+
+public static class IteratorUtils
+{
+    public static Iterator<T> SingleValueIterator<T>(T value) where T : class
+    {
+        var hasPassed = false;
+        return _ =>
+        {
+            if (hasPassed) return IteratorResult<T>.Done();
+            hasPassed = true;
+            return IteratorResult<T>.Ready(value);
+        };
+    }
+
+    public static Iterator<T> EmptyIterator<T>() where T : class
+    {
+        return _ => IteratorResult<T>.Done();
+    }
+}

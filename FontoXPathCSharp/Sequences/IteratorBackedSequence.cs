@@ -28,7 +28,12 @@ internal class IteratorBackedSequence : ISequence
 
     public IEnumerator<AbstractValue> GetEnumerator()
     {
-        throw new NotImplementedException("GetEnumerator for IteratorBackedSequence");
+        while (true)
+        {
+            var value = _value(IterationHint.None);
+            if (value.IsDone) break;
+            yield return value.Value!;
+        }
     }
 
     public bool IsEmpty()
@@ -88,12 +93,31 @@ internal class IteratorBackedSequence : ISequence
 
     public Iterator<AbstractValue> GetValue()
     {
-        throw new NotImplementedException();
+        return _value;
     }
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
     {
-        throw new NotImplementedException();
+        var i = -1;
+        var iterator = _value;
+
+        return SequenceFactory.CreateFromIterator(hint =>
+        {
+            i++;
+            var value = iterator(hint);
+            while (!value.IsDone)
+            {
+                if (callback(value.Value, i, this))
+                {
+                    return value;
+                }
+
+                i++;
+                value = iterator(IterationHint.None);
+            }
+
+            return value;
+        });
     }
 
     public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
@@ -101,9 +125,22 @@ internal class IteratorBackedSequence : ISequence
         throw new NotImplementedException();
     }
 
-    public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues)
+    public ISequence MapAll(Func<AbstractValue[], ISequence> callback, IterationHint hint)
     {
-        throw new NotImplementedException();
+        var iterator = this._value;
+        var allResults = new List<AbstractValue>();
+        var isFirst = true;
+
+        for (var value = iterator(isFirst ? IterationHint.None : hint);
+             !value.IsDone;
+             value = iterator(IterationHint.None))
+        {
+            isFirst = false;
+            allResults.Add(value.Value!);
+        }
+
+        var mappedResultIterator = callback(allResults.ToArray()).GetValue();
+        return SequenceFactory.CreateFromIterator(_ => mappedResultIterator(IterationHint.None));
     }
 
     public bool GetEffectiveBooleanValue()
@@ -135,7 +172,7 @@ internal class IteratorBackedSequence : ISequence
     {
         if (_length != null)
             // TODO: fix this, why does `_length!` not work? 
-            return (int)_length;
+            return (int) _length;
 
         if (onlyIfCheap) return -1;
 

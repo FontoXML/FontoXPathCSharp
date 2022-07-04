@@ -67,3 +67,15 @@ public enum ValueType
     XsGYear,
     XsAnySimpleType
 }
+
+static class ValueTypeUtils
+{
+    public static ValueType StringToValueType(this string x)
+    {
+        return x switch
+        {
+            "array" => ValueType.Array,
+            _ => throw new NotImplementedException("StringToValueType for '" + x + "'")
+        };
+    }
+}

@@ -2,7 +2,7 @@ using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Expressions;
+namespace FontoXPathCSharp.Expressions.Tests;
 
 public class NameTest : AbstractTestExpression
 {
@@ -17,13 +17,11 @@ public class NameTest : AbstractTestExpression
 
     public override void PerformStaticEvaluation(StaticContext staticContext)
     {
-        if (_name.NamespaceUri == null && _name.Prefix != "*")
-        {
-            _name.NamespaceUri = staticContext.ResolveNamespace(_name.Prefix ?? "", true);
+        if (_name.NamespaceUri != null || _name.Prefix == "*") return;
+        _name.NamespaceUri = staticContext.ResolveNamespace(_name.Prefix ?? "", true);
 
-            if (_name.NamespaceUri == null && _name.Prefix != null)
-                throw new Exception($"XPST0081: The prefix {_name.Prefix} could not be resolved");
-        }
+        if (_name.NamespaceUri == null && _name.Prefix != null)
+            throw new Exception($"XPST0081: The prefix {_name.Prefix} could not be resolved");
     }
 
     public override string ToString()
@@ -37,8 +35,8 @@ public class NameTest : AbstractTestExpression
         ExecutionParameters? executionParameters)
     {
         var node = value.GetAs<NodeValue>(ValueType.Node)?.Value;
-        var nodeIsElement = SubtypeUtils.IsSubtypeOf(value.GetValueType(), ValueType.Element);
-        var nodeIsAttribute = SubtypeUtils.IsSubtypeOf(value.GetValueType(), ValueType.Attribute);
+        var nodeIsElement = value.GetValueType().IsSubtypeOf(ValueType.Element);
+        var nodeIsAttribute = value.GetValueType().IsSubtypeOf(ValueType.Attribute);
 
         if (node == null || (!nodeIsElement && !nodeIsAttribute)) return false;
 
@@ -61,6 +59,8 @@ public class NameTest : AbstractTestExpression
                 : null
             : _name.NamespaceUri;
 
-        return (node.NamespaceURI == "" ? null : node.NamespaceURI) == resolvedNamespaceUri;
+        // return (node.NamespaceURI == "" ? null : node.NamespaceURI) == resolvedNamespaceUri;
+        // TODO: investigate this
+        return node.NamespaceURI == resolvedNamespaceUri;
     }
 }

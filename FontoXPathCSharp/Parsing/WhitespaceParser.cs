@@ -5,11 +5,30 @@ namespace FontoXPathCSharp.Parsing;
 
 public static class WhitespaceParser
 {
-    public static readonly ParseFunc<string> WhitespaceCharacter =
-        Or(Token(" "));
+    private static readonly ParseFunc<string> Char = Or(
+        Regex("[\t\n\r -\uD7FF\uE000\uFFFD]"),
+        Regex("[\uD800-\uDBFF][\uDC00-\uDFFF]")
+    );
 
-    private static readonly ParseFunc<string> ExplicitWhitespace =
-        Map(Plus(Token(" ")), x => string.Join("", x));
+    private static readonly ParseFunc<string> CommentContents = Preceded(Peek(
+        Not(Or(Token("(:"), Token(":)")),
+            new[] {"Comment contents cannot contain \"(:\" or \":)\""})
+    ), Char);
+
+    private static ParseResult<string> CommentIndirect(string input, int offset)
+    {
+        return Comment(input, offset);
+    }
+
+    private static readonly ParseFunc<string> Comment = Map(
+        Delimited(Token("(:"),
+            Star(Or(CommentContents, CommentIndirect)),
+            Token(":)")),
+        x => string.Join("", x)
+    );
+
+    public static readonly ParseFunc<string> WhitespaceCharacter =
+        Or(Token("\u0020"), Token("\u0009"), Token("\u000D"), Token("\u000A"), Comment);
 
     public static readonly ParseFunc<string> Whitespace =
         Map(Star(WhitespaceCharacter), x => string.Join("", x));

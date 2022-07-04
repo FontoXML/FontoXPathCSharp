@@ -1,16 +1,15 @@
 using System.Xml;
-using FontoXPathCSharp.Expressions.Axes;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Expressions;
+namespace FontoXPathCSharp.Expressions.Axes;
 
 public class ChildAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _selector;
 
-    public ChildAxis(AbstractTestExpression selector) : base(new AbstractExpression[] { selector },
+    public ChildAxis(AbstractTestExpression selector) : base(new AbstractExpression[] {selector},
         new OptimizationOptions(false))
     {
         _selector = selector;
@@ -31,7 +30,7 @@ public class ChildAxis : AbstractExpression
         {
             case ValueType.Element:
             {
-                var element = (XmlElement)contextNode.Value;
+                var element = (XmlElement) contextNode.Value;
                 var children = element.ChildNodes;
                 var filteredChildren = new List<AbstractValue>();
                 for (var i = 0; i < children.Count; ++i)
@@ -47,7 +46,7 @@ public class ChildAxis : AbstractExpression
             }
             case ValueType.DocumentNode:
             {
-                var element = (XmlDocument)contextNode.Value;
+                var element = (XmlDocument) contextNode.Value;
                 var children = element.ChildNodes;
                 var filteredChildren = new List<AbstractValue>();
                 for (var i = 0; i < children.Count; ++i)
