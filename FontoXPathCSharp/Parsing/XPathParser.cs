@@ -204,7 +204,7 @@ public static class XPathParser
             TextContent = a != null || b.IsA(AstNodeName.AttributeTest, AstNodeName.SchemaAttributeTest)
                 ? "attribute"
                 : "child"
-        }));
+        }, b));
 
     private static readonly ParseFunc<Ast> ForwardStep
         = Or(Then(ForwardAxis, NodeTest,

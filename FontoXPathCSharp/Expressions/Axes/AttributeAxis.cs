@@ -17,7 +17,6 @@ public class AttributeAxis : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        var domfacade = executionParameters?.DomFacade;
         var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
 
         if (contextItem.GetValueType() != ValueType.Element) return SequenceFactory.CreateEmpty();

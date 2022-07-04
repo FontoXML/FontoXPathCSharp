@@ -28,7 +28,12 @@ internal class IteratorBackedSequence : ISequence
 
     public IEnumerator<AbstractValue> GetEnumerator()
     {
-        throw new NotImplementedException("GetEnumerator for IteratorBackedSequence");
+        while (true)
+        {
+            var value = _value(IterationHint.None);
+            if (value.IsDone) break;
+            yield return value.Value!;
+        }
     }
 
     public bool IsEmpty()
@@ -93,7 +98,26 @@ internal class IteratorBackedSequence : ISequence
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
     {
-        throw new NotImplementedException();
+        var i = -1;
+        var iterator = _value;
+
+        return SequenceFactory.CreateFromIterator(hint =>
+        {
+            i++;
+            var value = iterator(hint);
+            while (!value.IsDone)
+            {
+                if (callback(value.Value, i, this))
+                {
+                    return value;
+                }
+
+                i++;
+                value = iterator(IterationHint.None);
+            }
+
+            return value;
+        });
     }
 
     public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)

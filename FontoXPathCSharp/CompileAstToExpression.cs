@@ -1,5 +1,6 @@
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Axes;
+using FontoXPathCSharp.Expressions.Tests;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -20,20 +21,23 @@ public static class CompileAstToExpression
         return ast.Name switch
         {
             AstNodeName.NameTest => new NameTest(new QName(ast.TextContent, null, null)),
+            AstNodeName.AnyKindTest => new TypeTest(new QName("node()", null, "")),
             _ => throw new XPathException("Invalid test expression: " + ast.Name)
         };
     }
 
     private static AbstractExpression CompilePathExpression(Ast ast)
     {
-        var steps = ast.GetChildren(AstNodeName.StepExpr).Select<Ast, AbstractExpression>(step =>
+        var rawSteps = ast.GetChildren(AstNodeName.StepExpr);
+
+        var steps = rawSteps.Select<Ast, AbstractExpression>(step =>
         {
             var axis = step.GetFirstChild(AstNodeName.XPathAxis);
 
             if (axis == null)
                 throw new NotImplementedException();
 
-            var test = axis.GetFirstChild(
+            var test = step.GetFirstChild(
                 AstNodeName.AttributeTest, AstNodeName.AnyElementTest, AstNodeName.PiTest,
                 AstNodeName.DocumentTest, AstNodeName.ElementTest, AstNodeName.CommentTest, AstNodeName.NamespaceTest,
                 AstNodeName.AnyKindTest, AstNodeName.TextTest, AstNodeName.AnyFunctionTest,
@@ -52,6 +56,7 @@ public static class CompileAstToExpression
                 "parent" => new ParentAxis(testExpression),
                 "child" => new ChildAxis(testExpression),
                 "attribute" => new AttributeAxis(testExpression),
+                "ancestor" => new AncestorAxis(testExpression),
                 _ => throw new NotImplementedException(axis.TextContent)
             };
         });

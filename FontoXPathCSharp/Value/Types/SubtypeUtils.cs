@@ -3,9 +3,9 @@ using FontoXPathCSharp.Expressions.DataTypes.Builtins;
 
 namespace FontoXPathCSharp.Value.Types;
 
-public class SubtypeUtils
+public static class SubtypeUtils
 {
-    public static bool IsSubtypeOf(ValueType baseSubType, ValueType baseSuperType)
+    public static bool IsSubtypeOf(this ValueType baseSubType, ValueType baseSuperType)
     {
         if (baseSubType == baseSuperType) return true;
 
@@ -41,7 +41,7 @@ public class SubtypeUtils
     /**
      * Utility function, since the pattern where a subtype is checked against a whole list of supertypes is very common.
      */
-    public static bool IsSubTypeOfAny(ValueType baseSubType, params ValueType[] baseSuperType)
+    public static bool IsSubTypeOfAny(this ValueType baseSubType, params ValueType[] baseSuperType)
     {
         return baseSuperType.Any(superType => IsSubtypeOf(baseSubType, superType));
     }
