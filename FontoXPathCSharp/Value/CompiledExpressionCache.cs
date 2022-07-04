@@ -10,9 +10,13 @@ public record StaticCompilationResult(StaticContext StaticContext, AbstractExpre
 
 public record CachedExpression(AbstractExpression Expression, bool RequiresStaticCompilation);
 
-public class CompiledExpressionCache
+public class CompiledExpressionCache<TSelector> where TSelector : notnull
 {
-    public static void StoreStaticCompilationResultInCache<TSelector>(
+    public static readonly CompiledExpressionCache<TSelector> Instance = new();
+
+    private readonly Dictionary<TSelector, AbstractExpression> _cache = new();
+
+    public void StoreStaticCompilationResultInCache(
         TSelector selectorExpression,
         string language,
         ExecutionSpecificStaticContext executionStaticContext,
@@ -21,11 +25,11 @@ public class CompiledExpressionCache
         bool debug,
         string defaultFunctionNamespaceUri)
     {
-        //TODO: Storing static compilation results in cache
-        Console.WriteLine("Storing static compilation results in cache not implemented yet");
+        //TODO: Correctly use the other parameters of this function
+        _cache[selectorExpression] = compiledExpression;
     }
 
-    public static CachedExpression? GetStaticCompilationResultFromCache<TSelector>(
+    public CachedExpression? GetStaticCompilationResultFromCache(
         TSelector xpathSource,
         string language,
         NamespaceResolverFunc namespaceResolver,
@@ -35,9 +39,7 @@ public class CompiledExpressionCache
         string defaultFunctionNamespaceUri,
         FunctionNameResolverFunc functionNameResolver)
     {
-        //TODO: Fetching compilation results from cache
-        Console.WriteLine("" +
-                          "Fetching compilation results from cache not supported yet.");
-        return null;
+        //TODO: Correctly use the other parameters of this function
+        return _cache.ContainsKey(xpathSource) ? new CachedExpression(_cache[xpathSource], false) : null;
     }
 }
