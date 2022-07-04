@@ -11,14 +11,13 @@ namespace XPathTest;
 
 public class QT3Tests
 {
-    private readonly string _allTestNameQuery =
+    private const string AllTestNameQuery =
         @"/test-set/@name || /test-set/description!(if (string()) then ""~"" || . else """")";
 
-    private readonly string _allTestsQuery = @"
+    private const string AllTestsQuery = @"
 /test-set/test-case[
-  let $dependencies := (./dependency | ../dependency)
-  return not(exists($dependencies[@type=""xml-version"" and @value=""1.1""])) and not(
-     $dependencies/@value/tokenize(.) = (
+    not(exists((./dependency | ../dependency)[@type=""xml-version"" and @value=""1.1""])) and not(
+     (./dependency | ../dependency)/@value/tokenize(.) = (
        ""XQ10"",
        ""XQ20"",
        ""XQ30"",
@@ -82,7 +81,7 @@ public class QT3Tests
                 new Dictionary<string, IExternalValue>(),
                 new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
 
-            var testCases = Evaluate.EvaluateXPathToNodes(_allTestsQuery,
+            var testCases = Evaluate.EvaluateXPathToNodes(AllTestsQuery,
                 testSet,
                 null,
                 new Dictionary<string, IExternalValue>(),
@@ -90,12 +89,12 @@ public class QT3Tests
 
             _testOutputHelper.WriteLine("LOADED STUFF: {0}: {1}: {2}", testSetFileName, testSetName, testCases.Count());
 
-            var testName = Evaluate.EvaluateXPathToString(
-                _allTestNameQuery,
-                testSet,
-                null,
-                new Dictionary<string, IExternalValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+            // var testName = Evaluate.EvaluateXPathToString(
+            //     AllTestNameQuery,
+            //     testSet,
+            //     null,
+            //     new Dictionary<string, IExternalValue>(),
+            //     new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
 
             if (!testCases.Any()) return;
         });
