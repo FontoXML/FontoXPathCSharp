@@ -57,6 +57,7 @@ public static class CompileAstToExpression
                 "child" => new ChildAxis(testExpression),
                 "attribute" => new AttributeAxis(testExpression),
                 "ancestor" => new AncestorAxis(testExpression),
+                "descendant" => new DescendantAxis(testExpression),
                 _ => throw new NotImplementedException(axis.TextContent)
             };
         });

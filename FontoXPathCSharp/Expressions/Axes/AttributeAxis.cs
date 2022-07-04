@@ -31,7 +31,8 @@ public class AttributeAxis : AbstractExpression
         {
             if (attr.NamespaceURI == BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri()) continue;
             var nodeValue = new NodeValue(attr);
-            if (_selector.EvaluateToBoolean(dynamicContext, nodeValue, executionParameters))
+            var matches = _selector.EvaluateToBoolean(dynamicContext, nodeValue, executionParameters);
+            if (matches)
                 matchingAttributes.Add(nodeValue);
         }
 

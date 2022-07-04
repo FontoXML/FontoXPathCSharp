@@ -50,4 +50,10 @@ public class TestAxis
     {
         Assert.Empty(EvalQueryNodes("/xml/tips/tip/ancestor::tip"));
     }
+
+    [Fact]
+    public void TestDescendantAxis()
+    {
+        Assert.Equal(3, EvalQueryNodes("descendant::tip").Count());
+    }
 }

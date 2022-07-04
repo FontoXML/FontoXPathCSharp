@@ -1,5 +1,6 @@
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
@@ -21,7 +22,16 @@ public class PathExpression : AbstractExpression
     {
         // TODO: actually implement sorting
         return nodeValues.Select((x, i) => (x, i))
-            .Where(tuple => tuple.i == 0 || tuple.x.Equals(nodeValues[tuple.i - 1]))
+            .Where(tuple =>
+            {
+                if (tuple.i == 0) return true;
+
+                var firstNode = tuple.x.GetAs<NodeValue>(ValueType.Node)!.Value;
+                var secondNode =
+                    nodeValues[tuple.i - 1].GetAs<NodeValue>(ValueType.Node)!.Value;
+
+                return firstNode != secondNode;
+            })
             .Select(tuple => tuple.x)
             .ToArray();
     }

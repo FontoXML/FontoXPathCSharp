@@ -61,6 +61,6 @@ public class TestPathExpressions
     [Fact]
     public void SimpleAttribute()
     {
-        Assert.Equal("durp", EvalQueryString("/xml/derp/@id"));
+        Assert.Single(EvalQueryNodes("/xml/derp/@id"));
     }
 }
