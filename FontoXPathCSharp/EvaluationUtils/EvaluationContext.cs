@@ -17,11 +17,11 @@ public class EvaluationContext<TSelector>
         TSelector expression,
         XmlNode? contextItem,
         IDomFacade? domFacade,
-        Dictionary<string, IExternalValue>? variables,
+        Dictionary<string, AbstractValue>? variables,
         Options? externalOptions,
         CompilationOptions compilationOptions)
     {
-        variables ??= new Dictionary<string, IExternalValue>();
+        variables ??= new Dictionary<string, AbstractValue>();
 
         var internalOptions = externalOptions != null
             ? new Options

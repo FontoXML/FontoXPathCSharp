@@ -1,6 +1,7 @@
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Functions;
 using FontoXPathCSharp.Types;
+using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp;
 
@@ -16,7 +17,7 @@ public class ExecutionSpecificStaticContext : AbstractContext
     private readonly Dictionary<string, string> _variableBindingByName;
 
     public ExecutionSpecificStaticContext(Func<string, string?> namespaceResolver,
-        Dictionary<string, IExternalValue> variableByName, string defaultFunctionNamespaceUri,
+        Dictionary<string, AbstractValue> variableByName, string defaultFunctionNamespaceUri,
         Func<LexicalQualifiedName, int, ResolvedQualifiedName?> functionNameResolver)
     {
         _namespaceResolver = namespaceResolver;

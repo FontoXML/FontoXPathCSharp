@@ -2,6 +2,7 @@
 using FontoXPathCSharp;
 using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
+using FontoXPathCSharp.Value;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -40,7 +41,7 @@ public class Runners
     public void Qt3TestNodes()
     {
         var results = Evaluate.EvaluateXPathToNodes("/catalog/test-set", _qt3Tests, null,
-            new Dictionary<string, IExternalValue>(),
+            new Dictionary<string, AbstractValue>(),
             new Options(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"));
         var joinedResult =
             $"[ {string.Join("\n", results.Select(r => $"{r.Attributes?["name"]?.Value} - {r.Attributes?["file"]?.Value}"))} ]";
@@ -53,26 +54,26 @@ public class Runners
     public void Qt3TestsLoad()
     {
         var tests = Evaluate.EvaluateXPathToString("@version", _qt3Tests.DocumentElement, null,
-            new Dictionary<string, IExternalValue>(), new Options());
+            new Dictionary<string, AbstractValue>(), new Options());
 
         _testOutputHelper.WriteLine($"Last query returned: {tests}");
 
         var testFileNames = Evaluate.EvaluateXPathToNodes("/catalog/test-set", _qt3Tests, null,
-                new Dictionary<string, IExternalValue>(),
+                new Dictionary<string, AbstractValue>(),
                 new Options(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"))
             .Where(testSetNode =>
             {
                 var res = Evaluate.EvaluateXPathToString("@name",
                     testSetNode,
                     null,
-                    new Dictionary<string, IExternalValue>(),
+                    new Dictionary<string, AbstractValue>(),
                     new Options());
                 return true;
             })
             .Select(testSetNode => Evaluate.EvaluateXPathToString("@file",
                 testSetNode,
                 null,
-                new Dictionary<string, IExternalValue>(),
+                new Dictionary<string, AbstractValue>(),
                 new Options()))
             .ToList();
 

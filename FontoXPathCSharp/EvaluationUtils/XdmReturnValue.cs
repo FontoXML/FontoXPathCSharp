@@ -78,7 +78,7 @@ public static class XdmReturnValue
             },
             // Array TODO: Find a better type to use here.
             {
-                typeof(Array), () =>
+                typeof(IEnumerable<object>), () =>
                 {
                     if (rawResults.GetLength() != 1)
                         throw new Exception(

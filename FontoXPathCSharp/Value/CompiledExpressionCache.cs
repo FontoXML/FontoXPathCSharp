@@ -29,7 +29,7 @@ public class CompiledExpressionCache
         TSelector xpathSource,
         string language,
         NamespaceResolverFunc namespaceResolver,
-        Dictionary<string, IExternalValue> variables,
+        Dictionary<string, AbstractValue> variables,
         Dictionary<string, string> moduleImports,
         bool compilationOptionsDebug,
         string defaultFunctionNamespaceUri,

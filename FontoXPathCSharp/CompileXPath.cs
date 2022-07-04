@@ -14,7 +14,7 @@ public static class CompileXPath
         TSelector xpathSource,
         CompilationOptions compilationOptions,
         NamespaceResolverFunc namespaceResolver,
-        Dictionary<string, IExternalValue> variables,
+        Dictionary<string, AbstractValue> variables,
         Dictionary<string, string> moduleImports,
         string defaultFunctionNamespaceUri,
         FunctionNameResolverFunc functionNameResolver)
@@ -50,7 +50,7 @@ public static class CompileXPath
         TSelector selector,
         CompilationOptions compilationOptions,
         NamespaceResolverFunc namespaceResolver,
-        Dictionary<string, IExternalValue> variables,
+        Dictionary<string, AbstractValue> variables,
         Dictionary<string, string> moduleImports,
         string defaultFunctionNamespaceUri,
         FunctionNameResolverFunc functionNameResolver) where TSelector : notnull

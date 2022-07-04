@@ -1,130 +1,120 @@
+using System;
 using System.Collections.Generic;
-using System.IO;
+using System.ComponentModel;
 using System.Linq;
 using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.Types;
+using FontoXPathCSharp.Value;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace XPathTest;
 
 public class QT3Tests
 {
-    private readonly string _allTestNameQuery =
-        @"/test-set/@name || /test-set/description!(if (string()) then ""~"" || . else """")";
-
-    private readonly string _allTestsQuery = @"
-/test-set/test-case[
-  let $dependencies := (./dependency | ../dependency)
-  return not(exists($dependencies[@type=""xml-version"" and @value=""1.1""])) and not(
-     $dependencies/@value/tokenize(.) = (
-       ""XQ10"",
-       ""XQ20"",
-       ""XQ30"",
-       ""schemaValidation"",
-       ""schemaImport"",
-       (:""staticTyping"",:)
-       (:""serialization"",:)
-       ""infoset-dtd"",
-       (:""xpath-1.0-compatibility"",:)
-       ""namespace-axis"",
-       (:""moduleImport"",:)
-       ""schema-location-hint"",
-       (:""collection-stability"",:)
-       ""directory-as-collation-uri"",
-       (:""fn-transform-XSLT"",:)
-       (:""fn-transform-XSLT30"",:)
-       (:""fn-format-integer-CLDR"",:)
-       (:""non-empty-sequence-collection"",:)
-       ""non-unicode-codepoint-collation"",
-       ""simple-uca-fallback"",
-       ""advanced-uca-fallback""))]
-";
-
-    private readonly List<string> _loadedTestSets;
-
-    private readonly HashSet<string> _shouldRunTestByName;
-    private readonly ITestOutputHelper _testOutputHelper;
-
-    public QT3Tests(ITestOutputHelper testOutputHelper)
+    [Theory]
+    [ClassData(typeof(Qt3TestDataProvider))]
+    [Description]
+    public void Qt3Tests(TestCase testCase)
     {
-        _testOutputHelper = testOutputHelper;
-        _shouldRunTestByName = File.ReadLines("../../../assets/runnableTestSets.csv")
-            .Select(line => line.Split(','))
-            .DistinctBy(l => l[0])
-            .Where(l => ParseBooleanNoFail(l[1]))
-            .Select(l => l[0])
-            .ToHashSet();
+        var arguments = GetArguments(testCase.TestSetFileName, testCase);
 
-        var qt3tests = new XmlDocument();
-        qt3tests.Load("../../../assets/QT3TS/catalog.xml");
-        _loadedTestSets = GetAllTestSets(qt3tests);
-        _testOutputHelper.WriteLine($"Qt3 Testsets loaded: {_loadedTestSets.Count}");
-    }
-
-    private static bool ParseBooleanNoFail(string input)
-    {
-        bool.TryParse(input, out var res);
-        return res;
-    }
-
-    [Fact]
-    public void RunQt3TestSets()
-    {
-        _loadedTestSets.ForEach(testSetFileName =>
+        try
         {
-            var testSet = LoadXmlFile(testSetFileName);
+            loadModule(testCase, baseUrl);
 
-            var testSetName = Evaluate.EvaluateXPathToString("/test-set/@name",
-                testSet,
-                null,
-                new Dictionary<string, IExternalValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+            const asserter  = getExpressionBackendAsserterForTest(
+                baseUrl,
+                testCase,
+                language,
+                annotateAst
+            );
 
-            var testCases = Evaluate.EvaluateXPathToNodes(_allTestsQuery,
-                testSet,
-                null,
-                new Dictionary<string, IExternalValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+            asserter(
+                testQuery,
+                contextNode,
+                variablesInScope,
+                namespaceResolver
+            );
+        }
+        catch (e)
+        {
+            if (e instanceof TypeError) {
+                throw e;
+            }
 
-            _testOutputHelper.WriteLine("LOADED STUFF: {0}: {1}: {2}", testSetFileName, testSetName, testCases.Count());
+            expressionBackendLog.push(
+                `${
+                name
+            }, ${
+                e.toString().replace( /\n / g, ' ').trim()
+            }`
+            );
 
-            var testName = Evaluate.EvaluateXPathToString(
-                _allTestNameQuery,
-                testSet,
-                null,
-                new Dictionary<string, IExternalValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
-
-            if (!testCases.Any()) return;
-        });
+            // And rethrow the error
+            throw e;
+        }
     }
 
-    private XmlDocument LoadXmlFile(string fileName)
+
+    private static TestArguments GetArguments(string testSetFileName, XmlNode testCase)
     {
-        var xmlFile = new XmlDocument();
+        var baseUrl = testSetFileName.Substring(0, testSetFileName.LastIndexOf('/'));
+        
+        string? testQuery;
+        if (Evaluate.EvaluateXPathToBoolean("./test/@file", testCase, null, new Dictionary<string, AbstractValue>(), new Options())) {
+            testQuery = Qt3TestUtils.LoadFileToString(
+                Evaluate.EvaluateXPathToString(
+                    @"$baseUrl || ""/"" || test/@file", 
+                    testCase, 
+                    null,
+                    new() {{"baseUrl", new StringValue(baseUrl)}}, 
+                    new Options())
+                );
+        } else {
+            testQuery = Evaluate.EvaluateXPathToString("./test", testCase, null, new Dictionary<string, AbstractValue>(), new Options());
+        }
+        
+        //TODO: Retrieve the language from the test case.
+        var language = Language.LanguageId.XPATH_3_1_LANGUAGE;
 
-        xmlFile.Load($"../../../assets/QT3TS/{fileName}");
+        //TODO: Retrieve namespaces from the test case.
+        var namespaces = new Dictionary<string, string>();
 
-        return xmlFile;
-    }
+        var localNamespaceResolver = namespaces.Count != 0
+            ? new Func<string, string>(prefix => namespaces[prefix])
+            : null;
+        
+        var namespaceResolver = localNamespaceResolver;
 
-    private List<string> GetAllTestSets(XmlNode catalog)
-    {
-        return Evaluate.EvaluateXPathToNodes("/catalog/test-set", catalog, null,
-                new Dictionary<string, IExternalValue>(),
-                new Options(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"))
-            .Where(testSetNode => _shouldRunTestByName.Contains(Evaluate.EvaluateXPathToString("@name",
-                testSetNode,
-                null,
-                new Dictionary<string, IExternalValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"))))
-            .Select(testSetNode => Evaluate.EvaluateXPathToString("@file",
-                testSetNode,
-                null,
-                new Dictionary<string, IExternalValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")))
-            .ToList();
+        XmlDocument environmentNode = null;
+
+        var env = environmentNode != null
+            ? CreateEnvironment(baseUrl, environmentNode)
+            : EnvironmentsByName[evaluateXPathToString('(./environment/@ref, "empty")[1]', testCase)];
+        
+        var contextNode = env.contextNode;
+        namespaceResolver = localNamespaceResolver
+            ? (prefix) => localNamespaceResolver(prefix) || env.namespaceResolver(prefix)
+            : (prefix) =>
+                env.namespaceResolver
+                    ? env.namespaceResolver(prefix)
+                    : prefix === ''
+                        ? null
+                        : undefined;
+        variablesInScope = env.variables;
+        
+        return new TestArguments(baseUrl, )
     }
 }
+
+public record TestCase(string Name, string Description, bool Skip, string TestSetFileName, TestArguments Arguments);
+
+public record TestArguments(
+    string BaseUrl,
+    XmlNode ContextNode,
+    string TestQuery,
+    Language.LanguageId Language,
+    Func<string, string> NamespaceResolver,
+    Dictionary<string, string> VariablesInScope
+    );
