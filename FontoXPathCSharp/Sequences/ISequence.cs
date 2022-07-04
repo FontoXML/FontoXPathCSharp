@@ -16,4 +16,12 @@ public interface ISequence : IEnumerable<AbstractValue>
     ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback);
     ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback);
     ISequence MapAll(Func<AbstractValue[], ISequence> allvalues, IterationHint hint);
+
+    delegate ISequence CallbackType(IEnumerable<AbstractValue> values);
+
+    public static ISequence ZipSingleton(IEnumerable<ISequence> sequences, CallbackType callback)
+    {
+        var firstValues = sequences.Select(x => x.First());
+        return callback(firstValues!);
+    }
 }
