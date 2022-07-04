@@ -9,6 +9,12 @@ namespace FontoXPathCSharp;
 
 public static class CompileAstToExpression
 {
+    private static CompilationOptions DisallowUpdating(CompilationOptions options)
+    {
+        // TODO: implement
+        return options;
+    }
+
     private static AbstractTestExpression CompileTestExpression(Ast ast)
     {
         return ast.Name switch
@@ -81,6 +87,21 @@ public static class CompileAstToExpression
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
     }
 
+    private static AbstractExpression CompileStringConcatenateExpr(Ast ast, CompilationOptions options)
+    {
+        Console.WriteLine(ast);
+        var args = new[]
+        {
+            ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All)!,
+            ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!,
+        };
+        Console.WriteLine(args[0]);
+        return new FunctionCall(new NamedFunctionRef(
+            new QName("concat", "http://www.w3.org/2005/xpath-functions", ""),
+            args.Length
+        ), args.Select(arg => CompileAst(arg, DisallowUpdating(options))).ToArray());
+    }
+
     public static AbstractExpression CompileAst(Ast ast, CompilationOptions options)
     {
         return ast.Name switch
@@ -93,6 +114,7 @@ public static class CompileAstToExpression
             AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
             AstNodeName.ContextItemExpr => new ContextItemExpression(),
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
+            AstNodeName.StringConcatenateOp => CompileStringConcatenateExpr(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
     }

@@ -88,7 +88,7 @@ internal class IteratorBackedSequence : ISequence
 
     public Iterator<AbstractValue> GetValue()
     {
-        throw new NotImplementedException();
+        return _value;
     }
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
@@ -101,9 +101,22 @@ internal class IteratorBackedSequence : ISequence
         throw new NotImplementedException();
     }
 
-    public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues)
+    public ISequence MapAll(Func<AbstractValue[], ISequence> callback, IterationHint hint)
     {
-        throw new NotImplementedException();
+        var iterator = this._value;
+        var allResults = new List<AbstractValue>();
+        var isFirst = true;
+
+        for (var value = iterator(isFirst ? IterationHint.None : hint);
+             !value.IsDone;
+             value = iterator(IterationHint.None))
+        {
+            isFirst = false;
+            allResults.Add(value.Value!);
+        }
+
+        var mappedResultIterator = callback(allResults.ToArray()).GetValue();
+        return SequenceFactory.CreateFromIterator(_ => mappedResultIterator(IterationHint.None));
     }
 
     public bool GetEffectiveBooleanValue()
@@ -135,7 +148,7 @@ internal class IteratorBackedSequence : ISequence
     {
         if (_length != null)
             // TODO: fix this, why does `_length!` not work? 
-            return (int)_length;
+            return (int) _length;
 
         if (onlyIfCheap) return -1;
 

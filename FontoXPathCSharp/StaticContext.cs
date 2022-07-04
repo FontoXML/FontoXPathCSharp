@@ -1,4 +1,5 @@
 using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Functions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 
@@ -34,6 +35,18 @@ public class StaticContext : AbstractContext
                                                      Func<DynamicContext, ExecutionParameters, ISequence>>();
         registeredVariableBindingByHashKey =
             parentContext?.RegisteredVariableBindingByHashKey ?? new Dictionary<string, string>();
+
+        // TODO: this should not be done here but lets populate the static context with the default functions right here for now
+        foreach (var function in BuiltInFunctions.Declarations)
+        {
+            FunctionRegistry.RegisterFunction(function.NamespaceUri, function.LocalName, function.ArgumentTypes,
+                function.ReturnType, function.CallFunction);
+
+            var functionProperties =
+                FunctionRegistry.GetFunctionByArity(function.NamespaceUri, function.LocalName,
+                    function.ArgumentTypes.Length);
+            RegisterFunctionDefinition(functionProperties!);
+        }
     }
 
     public override string ToString()

@@ -68,7 +68,7 @@ internal class SingletonSequence : ISequence
         throw new NotImplementedException();
     }
 
-    public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues)
+    public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues, IterationHint hint)
     {
         throw new NotImplementedException();
     }

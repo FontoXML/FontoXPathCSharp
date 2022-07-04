@@ -12,7 +12,7 @@ namespace XPathTest;
 public class QT3Tests
 {
     private const string AllTestNameQuery =
-        @"/test-set/@name || /test-set/description!(if (string()) then ""~"" || . else """")";
+        @"/test-set/@name || ""~"" || /test-set/description";
 
     private const string AllTestsQuery = @"
 /test-set/test-case[
@@ -89,13 +89,13 @@ public class QT3Tests
 
             _testOutputHelper.WriteLine("LOADED STUFF: {0}: {1}: {2}", testSetFileName, testSetName, testCases.Count());
 
-            // var testName = Evaluate.EvaluateXPathToString(
-            //     AllTestNameQuery,
-            //     testSet,
-            //     null,
-            //     new Dictionary<string, IExternalValue>(),
-            //     new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
-
+            var testName = Evaluate.EvaluateXPathToString(
+                AllTestNameQuery,
+                testSet,
+                null,
+                new Dictionary<string, IExternalValue>(),
+                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+            
             if (!testCases.Any()) return;
         });
     }

@@ -15,5 +15,5 @@ public interface ISequence : IEnumerable<AbstractValue>
 
     ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback);
     ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback);
-    ISequence MapAll(Func<AbstractValue[], ISequence> allvalues);
+    ISequence MapAll(Func<AbstractValue[], ISequence> allvalues, IterationHint hint);
 }
