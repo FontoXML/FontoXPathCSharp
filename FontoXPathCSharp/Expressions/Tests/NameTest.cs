@@ -59,6 +59,8 @@ public class NameTest : AbstractTestExpression
                 : null
             : _name.NamespaceUri;
 
-        return (node.NamespaceURI == "" ? null : node.NamespaceURI) == resolvedNamespaceUri;
+        // return (node.NamespaceURI == "" ? null : node.NamespaceURI) == resolvedNamespaceUri;
+        // TODO: investigate this
+        return node.NamespaceURI == resolvedNamespaceUri;
     }
 }
