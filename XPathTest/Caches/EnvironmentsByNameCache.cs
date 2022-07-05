@@ -1,20 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml;
-using FontoXPathCSharp;
-using FontoXPathCSharp.Types;
-using FontoXPathCSharp.Value;
-using Environment = XPathTest.Qt3TestUtils.Environment;
-
 
 namespace XPathTest.Caches;
 
-public class EnvironmentsByNameCache : ResourceCache<string, Environment>
+public class EnvironmentsByNameCache : ResourceCache<string, Qt3TestUtils.Environment>
 {
     public static EnvironmentsByNameCache Instance { get; } = new();
-    
-    protected override Environment? Load(string key)
+
+    protected override Qt3TestUtils.Environment? Load(string key)
     {
         throw new NotImplementedException("Loading Environments from a Cache is not implemented yet.");
     }

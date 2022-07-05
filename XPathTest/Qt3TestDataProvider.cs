@@ -15,9 +15,9 @@ public class Qt3TestDataProvider : IEnumerable<object>
     private readonly List<string> _loadedTestSets;
 
     private readonly HashSet<string> _shouldRunTestByName;
-    private IEnumerable<object> _testCases;
 
     private readonly Dictionary<string, string> _unrunnableTestCasesByName = new();
+    private IEnumerable<object> _testCases;
 
     public Qt3TestDataProvider()
     {

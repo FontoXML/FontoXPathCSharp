@@ -8,7 +8,7 @@ namespace XPathTest;
 
 public class QT3Tests
 {
-    [Theory]
+    [Theory(Skip = "Not implemented completely")]
     [ClassData(typeof(Qt3TestDataProvider))]
     [Description]
     public void Qt3Tests(string Name, string Description, string testSetFileName, XmlNode testCase,

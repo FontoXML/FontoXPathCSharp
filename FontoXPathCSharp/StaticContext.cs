@@ -43,8 +43,8 @@ public class StaticContext : AbstractContext
                 function.ReturnType, function.CallFunction);
 
             var functionProperties =
-                FunctionRegistry.GetFunctionByArity(function.NamespaceUri, function.LocalName,
-                    function.ArgumentTypes.Length);
+                new FunctionProperties(function.ArgumentTypes, function.ArgumentTypes.Length, function.CallFunction,
+                    false, function.LocalName, function.NamespaceUri, function.ReturnType);
             RegisterFunctionDefinition(functionProperties!);
         }
     }

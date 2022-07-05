@@ -12,6 +12,7 @@ public class TestPathExpressions
     private const string TestXml = @"<xml>
         <herp>Herp</herp>
         <derp id=""durp"">derp</derp>
+        <derp id=""dorp"">derp</derp>
         <hurr durr=""durrdurrdurr"">durrrrrr</hurr>
     </xml>";
 
@@ -62,6 +63,12 @@ public class TestPathExpressions
     [Fact]
     public void SimpleAttribute()
     {
-        Assert.Single(EvalQueryNodes("/xml/derp/@id"));
+        Assert.Equal("durrdurrdurr", EvalQueryString("/xml/hurr/@durr"));
+    }
+
+    [Fact(Skip = "Not implemented")]
+    public void AttributeSelect()
+    {
+        Assert.Single(EvalQueryNodes(@"/xml/derp[@id=""dorp""]"));
     }
 }

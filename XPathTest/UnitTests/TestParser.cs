@@ -239,8 +239,10 @@ public class TestParser
     }
 
     [Fact]
-    public void ParseCastExpr() =>
+    public void ParseCastExpr()
+    {
         ParseQuery("x cast as test?");
+    }
 
     // [Fact]
     // public void ParseCastableExpr() =>
@@ -251,36 +253,52 @@ public class TestParser
     //     ParseQuery("x treat as test?");
 
     [Fact]
-    public void ParseIntersectExpr() =>
+    public void ParseIntersectExpr()
+    {
         ParseQuery("x intersect y");
+    }
 
     [Fact]
-    public void ParseExceptExpr() =>
+    public void ParseExceptExpr()
+    {
         ParseQuery("x except y");
+    }
 
     [Fact]
-    public void ParseUnionExpr() =>
+    public void ParseUnionExpr()
+    {
         ParseQuery("x union y union z");
+    }
 
     [Fact]
-    public void ParseMultiplicativeExpr() =>
+    public void ParseMultiplicativeExpr()
+    {
         ParseQuery("x * y div z idiv w mod u");
+    }
 
     [Fact]
-    public void ParseAdditiveExpr() =>
+    public void ParseAdditiveExpr()
+    {
         ParseQuery("12 + 13 - 14");
+    }
 
     [Fact]
-    public void ParseRangeExpr() =>
+    public void ParseRangeExpr()
+    {
         ParseQuery("12 to 14");
+    }
 
     [Fact]
-    public void ParseStringConcatExpr() =>
+    public void ParseStringConcatExpr()
+    {
         ParseQuery("\"foo\" || \"bar\"");
+    }
 
     [Fact]
-    public void ParseWhitespaceNewLine() =>
+    public void ParseWhitespaceNewLine()
+    {
         ParseQuery("1 +\n2");
+    }
 
     [Fact]
     public void ParseComment()
@@ -289,15 +307,20 @@ public class TestParser
     }
 
     [Fact]
-    public void ParseCombinedPathExpr() =>
+    public void ParseCombinedPathExpr()
+    {
         ParseQuery(@"$dependencies/@value/tokenize(.)");
+    }
 
     [Fact]
-    public void ParseNestedFunctionCall() =>
+    public void ParseNestedFunctionCall()
+    {
         ParseQuery(@"not(exists($dependencies[@type=""xml-version"" and @value=""1.1""]))");
+    }
 
     [Fact]
-    public void ParseComplex() =>
+    public void ParseComplex()
+    {
         ParseQuery(@"
 /test-set/test-case[
     not(exists((./dependency | ../dependency)[@type=""xml-version"" and @value=""1.1""])) and not(
@@ -324,4 +347,5 @@ public class TestParser
        ""simple-uca-fallback"",
        ""advanced-uca-fallback""))]
 ");
+    }
 }

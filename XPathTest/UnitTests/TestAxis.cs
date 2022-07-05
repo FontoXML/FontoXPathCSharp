@@ -14,8 +14,10 @@ public class TestAxis
   <title>xpath.playground.fontoxml.com</title>
   <summary>This is a learning tool for XML, XPath and XQuery.</summary>
   <tips>
+    <tap></tap>
     <tip id='edit'>You can edit everything on the left</tip>
     <tip id='examples'>You can access more examples from a menu in the top right</tip>
+    <tup></tup>
     <tip id='permalink'>Another button there lets you share your test using an URL</tip>
   </tips>
 </xml>";
@@ -28,16 +30,10 @@ public class TestAxis
         Document.LoadXml(TestXml);
     }
 
-    private static T EvalQuery<T>(string query)
-    {
-        var results = Evaluate.EvaluateXPath<T, string>(query, Document, null,
-            new Dictionary<string, AbstractValue>(), new Options());
-        return results;
-    }
-
     private static IEnumerable<XmlNode> EvalQueryNodes(string query)
     {
-        return EvalQuery<IEnumerable<XmlNode>>(query);
+        return Evaluate.EvaluateXPathToNodes(query, Document, null, new Dictionary<string, AbstractValue>(),
+            new Options());
     }
 
     [Fact]
@@ -56,5 +52,29 @@ public class TestAxis
     public void TestDescendantAxis()
     {
         Assert.Equal(3, EvalQueryNodes("descendant::tip").Count());
+    }
+
+    [Fact]
+    public void TestFollowingAxis()
+    {
+        Assert.Equal(3, EvalQueryNodes(@"/xml/tips/tap/following::tip").Count());
+    }
+
+    [Fact]
+    public void TestPrecedingAxis()
+    {
+        Assert.Equal(2, EvalQueryNodes(@"/xml/tips/tup/preceding::tip").Count());
+    }
+
+    [Fact]
+    public void TestFollowingSiblingAxis()
+    {
+        Assert.Single(EvalQueryNodes(@"/xml/tips/tup/following-sibling::tip"));
+    }
+
+    [Fact]
+    public void TestPrecedingSiblingAxis()
+    {
+        Assert.Equal(2, EvalQueryNodes(@"/xml/tips/tup/preceding-sibling::tip").Count());
     }
 }

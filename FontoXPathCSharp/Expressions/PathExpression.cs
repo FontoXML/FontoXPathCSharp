@@ -18,21 +18,11 @@ public class PathExpression : AbstractExpression
         return $"PathExpr[ {string.Join(", ", _stepExpressions.Select(x => x.ToString()))} ]";
     }
 
-    private static AbstractValue[] SortNodeValues(IReadOnlyList<AbstractValue> nodeValues)
+    private static AbstractValue[] SortNodeValues(AbstractValue[] nodeValues)
     {
-        // TODO: actually implement sorting
-        return nodeValues.Select((x, i) => (x, i))
-            .Where(tuple =>
-            {
-                if (tuple.i == 0) return true;
-
-                var firstNode = tuple.x.GetAs<NodeValue>(ValueType.Node)!.Value;
-                var secondNode =
-                    nodeValues[tuple.i - 1].GetAs<NodeValue>(ValueType.Node)!.Value;
-
-                return firstNode != secondNode;
-            })
-            .Select(tuple => tuple.x)
+        // TODO: Add sorting
+        return nodeValues
+            .DistinctBy(value => value.GetAs<NodeValue>(ValueType.Node)!.Value)
             .ToArray();
     }
 

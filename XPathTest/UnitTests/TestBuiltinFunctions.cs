@@ -23,7 +23,8 @@ public class TestBuiltinFunctions
 
     private static string EvalQueryString(string query)
     {
-        return EvalQuery<string>(query);
+        return Evaluate.EvaluateXPathToString(query, new XmlDocument(), null, new Dictionary<string, AbstractValue>(),
+            new Options());
     }
 
     [Fact]

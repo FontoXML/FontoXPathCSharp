@@ -9,7 +9,7 @@ public class AttributeAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _selector;
 
-    public AttributeAxis(AbstractTestExpression selector) : base(new AbstractExpression[] { selector },
+    public AttributeAxis(AbstractTestExpression selector) : base(new AbstractExpression[] {selector},
         new OptimizationOptions(false))
     {
         _selector = selector;
@@ -29,7 +29,8 @@ public class AttributeAxis : AbstractExpression
         var matchingAttributes = new List<NodeValue>();
         foreach (XmlAttribute attr in contextItem.Value.Attributes)
         {
-            if (attr.NamespaceURI == BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri()) continue;
+            if (attr.NamespaceURI == BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri())
+                continue;
             var nodeValue = new NodeValue(attr);
             var matches = _selector.EvaluateToBoolean(dynamicContext, nodeValue, executionParameters);
             if (matches)
