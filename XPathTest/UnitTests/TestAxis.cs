@@ -14,8 +14,10 @@ public class TestAxis
   <title>xpath.playground.fontoxml.com</title>
   <summary>This is a learning tool for XML, XPath and XQuery.</summary>
   <tips>
+    <tap></tap>
     <tip id='edit'>You can edit everything on the left</tip>
     <tip id='examples'>You can access more examples from a menu in the top right</tip>
+    <tup></tup>
     <tip id='permalink'>Another button there lets you share your test using an URL</tip>
   </tips>
 </xml>";
@@ -61,19 +63,18 @@ public class TestAxis
     [Fact]
     public void TestFollowingAxis()
     {
-        Assert.Equal(2, EvalQueryNodes(@"/xml/tips/tip[@id=""edit""]/following::tip").Count());
+        Assert.Equal(3, EvalQueryNodes(@"/xml/tips/tap/following::tip").Count());
     }
 
     [Fact]
     public void TestPrecedingAxis()
     {
-        Assert.Equal(2, EvalQueryNodes(@"/xml/tips/tip[@id=""permalink""]/preceding::tip").Count());
+        Assert.Equal(2, EvalQueryNodes(@"/xml/tips/tup/preceding::tip").Count());
     }
 
     [Fact]
     public void TestFollowingSiblingAxis()
     {
-        var result = EvalQueryNodes(@"/xml/tips/tip[@id=""examples""]/following-sibling::tip");
-        Assert.Single(result);
+        Assert.Single(EvalQueryNodes(@"/xml/tips/tup/following-sibling::tip"));
     }
 }
