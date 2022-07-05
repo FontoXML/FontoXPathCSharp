@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.Types;
@@ -12,6 +13,7 @@ public class TestPathExpressions
     private const string TestXml = @"<xml>
         <herp>Herp</herp>
         <derp id=""durp"">derp</derp>
+        <derp id=""dorp"">derp</derp>
         <hurr durr=""durrdurrdurr"">durrrrrr</hurr>
     </xml>";
 
@@ -62,6 +64,12 @@ public class TestPathExpressions
     [Fact]
     public void SimpleAttribute()
     {
-        Assert.Single(EvalQueryNodes("/xml/derp/@id"));
+        Assert.Equal(2, EvalQueryNodes("/xml/derp/@id").Count());
+    }
+
+    [Fact]
+    public void AttributeSelect()
+    {
+        Assert.Single(EvalQueryNodes(@"/xml/derp[@id=""dorp""]"));
     }
 }

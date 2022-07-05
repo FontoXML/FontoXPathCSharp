@@ -67,7 +67,13 @@ public class TestAxis
     [Fact]
     public void TestPrecedingAxis()
     {
-        var result = EvalQueryNodes(@"/xml/tips/tip[@id=""permalink""]/preceding::tip");
-        Assert.Equal(2, result.Count());
+        Assert.Equal(2, EvalQueryNodes(@"/xml/tips/tip[@id=""permalink""]/preceding::tip").Count());
+    }
+
+    [Fact]
+    public void TestFollowingSiblingAxis()
+    {
+        var result = EvalQueryNodes(@"/xml/tips/tip[@id=""examples""]/following-sibling::tip");
+        Assert.Single(result);
     }
 }

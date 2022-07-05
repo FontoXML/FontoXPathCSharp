@@ -20,27 +20,9 @@ public class PathExpression : AbstractExpression
 
     private static AbstractValue[] SortNodeValues(AbstractValue[] nodeValues)
     {
-        // TODO: implement better sorting. This is just used to make sure filtering out duplicates works as expected
-        Array.Sort<AbstractValue>(nodeValues, (left, right) =>
-        {
-            var leftXml = left.GetAs<NodeValue>(ValueType.Node)!.Value.OuterXml;
-            var rightXml = right.GetAs<NodeValue>(ValueType.Node)!.Value.OuterXml;
-            return string.CompareOrdinal(leftXml, rightXml);
-        });
-
-        return nodeValues.Select((x, i) => (x, i))
-            .Where(tuple =>
-            {
-                if (tuple.i == 0) 
-                    return true;
-
-                var firstNode = tuple.x.GetAs<NodeValue>(ValueType.Node)!.Value;
-                var secondNode =
-                    nodeValues[tuple.i - 1].GetAs<NodeValue>(ValueType.Node)!.Value;
-
-                return firstNode != secondNode;
-            })
-            .Select(tuple => tuple.x)
+        // TODO: Add sorting
+        return nodeValues
+            .DistinctBy(value => value.GetAs<NodeValue>(ValueType.Node)!.Value)
             .ToArray();
     }
 

@@ -60,6 +60,7 @@ public static class CompileAstToExpression
                 "descendant" => new DescendantAxis(testExpression),
                 "following" => new FollowingAxis(testExpression),
                 "preceding" => new PrecedingAxis(testExpression),
+                "following-sibling" => new FollowingSiblingAxis(testExpression),
                 _ => throw new NotImplementedException(axis.TextContent)
             };
         });
