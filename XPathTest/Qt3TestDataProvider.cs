@@ -7,21 +7,19 @@ using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
-using Xunit.Abstractions;
 
 namespace XPathTest;
 
-public class Qt3TestDataProvider : IEnumerable<TestCase>
+public class Qt3TestDataProvider : IEnumerable<object>
 {
-    private IEnumerable<TestCase> _testCases;
-
     private readonly List<string> _loadedTestSets;
 
     private readonly HashSet<string> _shouldRunTestByName;
-    
-    private Dictionary<string, string> _unrunnableTestCasesByName = new();
+    private IEnumerable<object> _testCases;
 
-    public Qt3TestDataProvider(IEnumerable<TestCase> testCases)
+    private readonly Dictionary<string, string> _unrunnableTestCasesByName = new();
+
+    public Qt3TestDataProvider()
     {
         _shouldRunTestByName = File.ReadLines("../../../assets/runnableTestSets.csv")
             .Select(line => line.Split(','))
@@ -51,7 +49,8 @@ public class Qt3TestDataProvider : IEnumerable<TestCase>
                 new Dictionary<string, AbstractValue>(),
                 new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")));
 
-            Console.WriteLine($"Loaded Testset Data: Set FileName: {testSetFileName}, Set Name: {testSetName}, Test Case Nodes: {testCaseNodes.Count}");
+            Console.WriteLine(
+                $"Loaded Testset Data: Set FileName: {testSetFileName}, Set Name: {testSetName}, Test Case Nodes: {testCaseNodes.Count}");
 
             var testName = Evaluate.EvaluateXPathToString(
                 Qt3TestQueries.AllTestNameQuery,
@@ -68,10 +67,18 @@ public class Qt3TestDataProvider : IEnumerable<TestCase>
                 var name = GetTestName(testCase);
                 var description = GetTestDescription(testSetName, name, testCase);
                 var skip = _unrunnableTestCasesByName.ContainsKey(name);
-                
-                
             }
         });
+    }
+
+    public IEnumerator<object> GetEnumerator()
+    {
+        return _testCases.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 
     private string GetTestDescription(string testSetName, string testName, XmlNode testCase)
@@ -79,7 +86,7 @@ public class Qt3TestDataProvider : IEnumerable<TestCase>
         return testSetName +
                '~' +
                testName +
-               '~' + 
+               '~' +
                Evaluate.EvaluateXPathToString(
                    "if (description/text()) then description else test",
                    testCase,
@@ -105,7 +112,6 @@ public class Qt3TestDataProvider : IEnumerable<TestCase>
     }
 
 
-
     private List<string> GetAllTestSets(XmlNode catalog)
     {
         return Evaluate.EvaluateXPathToNodes("/catalog/test-set", catalog, null,
@@ -122,15 +128,5 @@ public class Qt3TestDataProvider : IEnumerable<TestCase>
                 new Dictionary<string, AbstractValue>(),
                 new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")))
             .ToList();
-    }
-
-    public IEnumerator<TestCase> GetEnumerator()
-    {
-        return _testCases.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
     }
 }
