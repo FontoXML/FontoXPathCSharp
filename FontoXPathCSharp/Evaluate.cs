@@ -10,37 +10,39 @@ namespace FontoXPathCSharp;
 public class Evaluate
 {
     public static bool EvaluateXPathToBoolean<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade, Dictionary<string, AbstractValue> variables, Options? options)
+        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
     {
         return EvaluateXPath<bool, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
 
+    
     public static XmlNode EvaluateXPathToFirstNode<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade, Dictionary<string, AbstractValue> variables, Options? options)
+        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
     {
         return EvaluateXPath<XmlNode, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
-
+    
+    
     public static IEnumerable<XmlNode> EvaluateXPathToNodes<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade, Dictionary<string, AbstractValue> variables, Options? options)
+        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
     {
         return EvaluateXPath<IEnumerable<XmlNode>, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
 
     public static int EvaluateXPathToInt<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade, Dictionary<string, AbstractValue> variables, Options? options)
+        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
     {
         return EvaluateXPath<int, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
 
     public static IEnumerable<int> EvaluateXPathToInts<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade, Dictionary<string, AbstractValue> variables, Options? options)
+        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
     {
         return EvaluateXPath<IEnumerable<int>, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
 
     public static string EvaluateXPathToString<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade, Dictionary<string, AbstractValue> variables, Options? options)
+        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
     {
         return EvaluateXPath<string, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
@@ -52,6 +54,7 @@ public class Evaluate
         Dictionary<string, AbstractValue>? variables,
         Options? options)
     {
+        variables ??= new Dictionary<string, AbstractValue>();
         options ??= new Options();
 
         DynamicContext? dynamicContext;
