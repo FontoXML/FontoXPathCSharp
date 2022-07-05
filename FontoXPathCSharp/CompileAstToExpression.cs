@@ -81,7 +81,8 @@ public static class CompileAstToExpression
                 "following" => new FollowingAxis(testExpression),
                 "preceding" => new PrecedingAxis(testExpression),
                 "following-sibling" => new FollowingSiblingAxis(testExpression),
-                _ => throw new NotImplementedException(axis.TextContent)
+                "preceding-sibling" => new PrecedingSiblingAxis(testExpression),
+                _ => throw new InvalidDataException("Unknown axis type '" + axis.TextContent + "'")
             };
 
             foreach (var postfix in postFixExpressions)

@@ -77,4 +77,10 @@ public class TestAxis
     {
         Assert.Single(EvalQueryNodes(@"/xml/tips/tup/following-sibling::tip"));
     }
+    
+    [Fact]
+    public void TestPrecedingSiblingAxis()
+    {
+        Assert.Equal(2, EvalQueryNodes(@"/xml/tips/tup/preceding-sibling::tip").Count());
+    }
 }
