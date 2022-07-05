@@ -18,13 +18,21 @@ public class PathExpression : AbstractExpression
         return $"PathExpr[ {string.Join(", ", _stepExpressions.Select(x => x.ToString()))} ]";
     }
 
-    private static AbstractValue[] SortNodeValues(IReadOnlyList<AbstractValue> nodeValues)
+    private static AbstractValue[] SortNodeValues(AbstractValue[] nodeValues)
     {
-        // TODO: actually implement sorting
+        // TODO: implement better sorting. This is just used to make sure filtering out duplicates works as expected
+        Array.Sort<AbstractValue>(nodeValues, (left, right) =>
+        {
+            var leftXml = left.GetAs<NodeValue>(ValueType.Node)!.Value.OuterXml;
+            var rightXml = right.GetAs<NodeValue>(ValueType.Node)!.Value.OuterXml;
+            return string.CompareOrdinal(leftXml, rightXml);
+        });
+
         return nodeValues.Select((x, i) => (x, i))
             .Where(tuple =>
             {
-                if (tuple.i == 0) return true;
+                if (tuple.i == 0) 
+                    return true;
 
                 var firstNode = tuple.x.GetAs<NodeValue>(ValueType.Node)!.Value;
                 var secondNode =

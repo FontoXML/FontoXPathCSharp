@@ -63,4 +63,11 @@ public class TestAxis
     {
         Assert.Equal(2, EvalQueryNodes(@"/xml/tips/tip[@id=""edit""]/following::tip").Count());
     }
+
+    [Fact]
+    public void TestPrecedingAxis()
+    {
+        var result = EvalQueryNodes(@"/xml/tips/tip[@id=""permalink""]/preceding::tip");
+        Assert.Equal(2, result.Count());
+    }
 }
