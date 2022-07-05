@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -6,14 +7,14 @@ namespace FontoXPathCSharp.Functions;
 
 public static class FunctionRegistry
 {
-    private static readonly Dictionary<string, List<FunctionProperties>> _registeredFunctionsByName = new();
+    private static readonly ConcurrentDictionary<string, List<FunctionProperties>> RegisteredFunctionsByName = new();
 
     public static FunctionProperties? GetFunctionByArity(string functionNamespaceUri, string functionLocalName,
         int arity)
     {
         var index = functionNamespaceUri + ":" + functionLocalName;
 
-        if (!_registeredFunctionsByName.TryGetValue(index, out var matchingFunctions)) return null;
+        if (!RegisteredFunctionsByName.TryGetValue(index, out var matchingFunctions)) return null;
 
         var matchingFunction = matchingFunctions.Find(functionDecl =>
         {
@@ -42,10 +43,10 @@ public static class FunctionRegistry
     {
         var index = namespaceUri + ":" + localName;
 
-        if (!_registeredFunctionsByName.ContainsKey(index))
-            _registeredFunctionsByName[index] = new List<FunctionProperties>();
+        if (!RegisteredFunctionsByName.ContainsKey(index))
+            RegisteredFunctionsByName[index] = new List<FunctionProperties>();
 
-        _registeredFunctionsByName[index].Add(new FunctionProperties(argumentTypes, argumentTypes.Length,
+        RegisteredFunctionsByName[index].Add(new FunctionProperties(argumentTypes, argumentTypes.Length,
             callFunction, false, localName, namespaceUri, returnType));
     }
 }
