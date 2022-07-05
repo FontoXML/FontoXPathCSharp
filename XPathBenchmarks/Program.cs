@@ -26,7 +26,7 @@ internal static class Helper
 {
     internal static AbstractExpression CompileExpression(string expression)
     {
-        var result = XPathParser.Parse("self::p", new ParseOptions(false, true)).UnwrapOr((expected, fatal) =>
+        var result = XPathParser.Parse(expression, new ParseOptions(false, true)).UnwrapOr((expected, fatal) =>
         {
             Console.WriteLine("Parsing error ({0}): {1}", fatal, string.Join(", ", expected));
             Environment.Exit(1);
@@ -47,14 +47,14 @@ public class BooleanExpressionBenchmark
     [Benchmark(Baseline = true)]
     public bool BuiltIn_Evaluate()
     {
-        return (bool)Source.XPathEvaluate("false()");
+        return (bool) Source.XPathEvaluate("false()");
     }
 
     [Benchmark]
     public bool BuiltIn_Compiled()
     {
         var navigator = Source.CreateNavigator();
-        return (bool)navigator.Evaluate(CompiledExpression);
+        return (bool) navigator.Evaluate(CompiledExpression);
     }
 
     [Benchmark]
