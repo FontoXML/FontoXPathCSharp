@@ -30,16 +30,10 @@ public class TestAxis
         Document.LoadXml(TestXml);
     }
 
-    private static T EvalQuery<T>(string query)
-    {
-        var results = Evaluate.EvaluateXPath<T, string>(query, Document, null,
-            new Dictionary<string, AbstractValue>(), new Options());
-        return results;
-    }
-
     private static IEnumerable<XmlNode> EvalQueryNodes(string query)
     {
-        return EvalQuery<IEnumerable<XmlNode>>(query);
+        return Evaluate.EvaluateXPathToNodes(query, Document, null, new Dictionary<string, AbstractValue>(),
+            new Options());
     }
 
     [Fact]
@@ -77,7 +71,7 @@ public class TestAxis
     {
         Assert.Single(EvalQueryNodes(@"/xml/tips/tup/following-sibling::tip"));
     }
-    
+
     [Fact]
     public void TestPrecedingSiblingAxis()
     {
