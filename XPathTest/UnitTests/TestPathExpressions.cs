@@ -25,13 +25,13 @@ public class TestPathExpressions
 
     private static IEnumerable<XmlNode> EvalQueryNodes(string query)
     {
-        return Evaluate.EvaluateXPathToNodes(query, Document, null, new Dictionary<string, IExternalValue>(),
+        return Evaluate.EvaluateXPathToNodes(query, Document, null, new Dictionary<string, AbstractValue>(),
             new Options());
     }
 
     private static string EvalQueryString(string query)
     {
-        return Evaluate.EvaluateXPathToString(query, Document, null, new Dictionary<string, IExternalValue>(),
+        return Evaluate.EvaluateXPathToString(query, Document, null, new Dictionary<string, AbstractValue>(),
             new Options());
     }
 

@@ -11,6 +11,7 @@ public class EnvironmentsByNameCache : ResourceCache<string, XmlNode>
 {
     protected override XmlNode? Load(string key)
     {
+        return null;
     }
 
     public void LoadDefaultEnvironments(XmlNode catalog)
@@ -28,7 +29,7 @@ public class EnvironmentsByNameCache : ResourceCache<string, XmlNode>
                         new Dictionary<string, AbstractValue>(),
                         new Options());
 
-                    envByName[name] = CreateEnvironment("", environmentNode);
+                    // envByName[name] = CreateEnvironment("", environmentNode);
                     return envByName;
                 });
     }
