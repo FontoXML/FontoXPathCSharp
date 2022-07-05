@@ -152,7 +152,6 @@ public static class CompileXPath
         // processProlog(prolog, rootStaticContext);
 
         return CompileAstToExpression.CompileAst(queryBodyContents!, compilationOptions);
-        // return compileAstToExpression(queryBodyContents, compilationOptions);
     }
 
     private static string NormalizeEndOfLines(string selector)

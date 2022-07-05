@@ -26,13 +26,33 @@ public static class CompileAstToExpression
         };
     }
 
-    private static AbstractExpression CompilePathExpression(Ast ast)
+    private static AbstractExpression CompilePathExpression(Ast ast, CompilationOptions options)
     {
         var rawSteps = ast.GetChildren(AstNodeName.StepExpr);
 
         var steps = rawSteps.Select<Ast, AbstractExpression>(step =>
         {
             var axis = step.GetFirstChild(AstNodeName.XPathAxis);
+
+            var children = step.GetChildren(AstNodeName.All);
+            var postFixExpressions = new List<(string Type, AbstractExpression Postfix)>();
+
+            foreach (var child in children)
+            {
+                switch (child.Name)
+                {
+                    case AstNodeName.Lookup:
+                        throw new NotImplementedException("CompileAstToExpression Lookup");
+                    case AstNodeName.Predicate:
+                    case AstNodeName.Predicates:
+                        postFixExpressions
+                            .AddRange(child.GetChildren(AstNodeName.All)
+                                .Select(childPredicate => CompileAst(childPredicate, DisallowUpdating(options)))
+                                .Select(predicateExpression => ("predicate", predicateExpression)));
+                        break;
+                }
+            }
+
 
             if (axis == null)
                 throw new NotImplementedException();
@@ -50,7 +70,7 @@ public static class CompileAstToExpression
 
             var testExpression = CompileTestExpression(test);
 
-            return axis.TextContent switch
+            AbstractExpression stepExpression = axis.TextContent switch
             {
                 "self" => new SelfAxis(testExpression),
                 "parent" => new ParentAxis(testExpression),
@@ -63,6 +83,22 @@ public static class CompileAstToExpression
                 "following-sibling" => new FollowingSiblingAxis(testExpression),
                 _ => throw new NotImplementedException(axis.TextContent)
             };
+
+            foreach (var postfix in postFixExpressions)
+            {
+                switch (postfix.Type)
+                {
+                    case "lookup":
+                        throw new NotImplementedException();
+                    case "predicate":
+                        stepExpression = new FilterExpression(stepExpression, postfix.Postfix);
+                        break;
+                    default:
+                        throw new Exception("Unreachable");
+                }
+            }
+
+            return stepExpression;
         });
 
         return new PathExpression(steps.ToArray());
@@ -118,7 +154,7 @@ public static class CompileAstToExpression
             AstNodeName.Module => CompileModule(ast, options),
             AstNodeName.MainModule => CompileMainModule(ast, options),
             AstNodeName.QueryBody => CompileAst(ast.GetFirstChild()!, options),
-            AstNodeName.PathExpr => CompilePathExpression(ast),
+            AstNodeName.PathExpr => CompilePathExpression(ast, options),
             AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast, options),
             AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
             AstNodeName.ContextItemExpr => new ContextItemExpression(),
