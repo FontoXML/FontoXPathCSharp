@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Xml;
 
 namespace XPathTest.Caches;
@@ -6,10 +7,34 @@ public class XmlDocumentsByPathCache : ResourceCache<string, XmlNode>
 {
     public static XmlDocumentsByPathCache Instance { get; } = new();
 
-    protected override XmlNode Load(string key)
+    private static readonly XmlDocument GlobalDocument = LoadXmlFromString("<xml/>");
+
+    
+    protected override XmlNode Load(string filename)
     {
-        var xmlFile = new XmlDocument();
-        xmlFile.Load(key);
-        return xmlFile;
+        var content = TestFileSystem.ReadFile($"QT3TS/{filename}").Replace("\r\n", "\n");
+
+        if (!filename.EndsWith(".out")) return null;
+        if (content.EndsWith('\n')) content = content[..^2];
+
+        content = $"<xml>{content}</xml>";
+
+        var parsedContents = LoadXmlFromString(content)
+            .FirstChild?
+            .ChildNodes
+            .Cast<XmlNode>()
+            .ToList();
+        var documentFragment = GlobalDocument.CreateDocumentFragment();
+        parsedContents?.ForEach(node => documentFragment.AppendChild(node));
+
+        return documentFragment;
     }
+    
+    private static XmlDocument LoadXmlFromString(string contents)
+    {
+        var document = new XmlDocument();
+        document.LoadXml(contents);
+        return document;
+    }
+
 }

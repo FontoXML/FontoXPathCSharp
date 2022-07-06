@@ -8,11 +8,10 @@ namespace XPathTest;
 
 public class QT3Tests
 {
-    [Theory(Skip = "Not implemented completely")]
+    [Theory(Timeout = 60000, DisplayName = "Qt3 Tests")]
     [ClassData(typeof(Qt3TestDataProvider))]
     [Description]
-    public void Qt3Tests(string Name, string Description, string testSetFileName, XmlNode testCase,
-        Qt3TestUtils.TestArguments arguments)
+    public void Qt3Tests(XmlNode testCase, Qt3TestUtils.TestArguments arguments, string name, string testSetName, string description)
     {
         try
         {

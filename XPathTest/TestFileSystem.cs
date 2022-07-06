@@ -7,7 +7,7 @@ public static class TestFileSystem
 {
     private static string CreateAssetPath(string assetPath)
     {
-        return Path.Join("..", "..", "..", Path.Join("XPathTest", "assets", assetPath));
+        return Path.Join("..", "..", "..", Path.Join("assets", assetPath));
     }
 
     public static string[] ReadDirSync(string dirPath)

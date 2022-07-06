@@ -7,17 +7,18 @@ using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
+using XPathTest.Caches;
 
 namespace XPathTest;
 
-public class Qt3TestDataProvider : IEnumerable<object>
+public class Qt3TestDataProvider : IEnumerable<object[]>
 {
     private readonly List<string> _loadedTestSets;
 
     private readonly HashSet<string> _shouldRunTestByName;
 
     private readonly Dictionary<string, string> _unrunnableTestCasesByName = new();
-    private IEnumerable<object> _testCases;
+    private List<object[]> _testCases;
 
     public Qt3TestDataProvider()
     {
@@ -28,8 +29,11 @@ public class Qt3TestDataProvider : IEnumerable<object>
             .Select(l => l[0])
             .ToHashSet();
 
-        var qt3tests = new XmlDocument();
-        qt3tests.Load("../../../assets/QT3TS/catalog.xml");
+        var qt3tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
+        Console.WriteLine("QT3TESTS IMPORTANT: " + qt3tests);
+        
+            // var qt3tests = new XmlDocument();
+        // qt3tests.Load("../../../assets/QT3TS/catalog.xml");
         _loadedTestSets = GetAllTestSets(qt3tests);
         Console.WriteLine($"Qt3 Testsets loaded: {_loadedTestSets.Count}");
 
@@ -52,26 +56,29 @@ public class Qt3TestDataProvider : IEnumerable<object>
             Console.WriteLine(
                 $"Loaded Testset Data: Set FileName: {testSetFileName}, Set Name: {testSetName}, Test Case Nodes: {testCaseNodes.Count}");
 
-            var testName = Evaluate.EvaluateXPathToString(
-                Qt3TestQueries.AllTestNameQuery,
-                testSet,
-                null,
-                new Dictionary<string, AbstractValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+            // var testName = Evaluate.EvaluateXPathToString(
+            //     Qt3TestQueries.AllTestNameQuery,
+            //     testSet,
+            //     null,
+            //     new Dictionary<string, AbstractValue>(),
+            //     new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
 
             if (!testCaseNodes.Any()) return;
-
-
-            foreach (var testCase in testCaseNodes)
-            {
-                var name = GetTestName(testCase);
-                var description = GetTestDescription(testSetName, name, testCase);
-                var skip = _unrunnableTestCasesByName.ContainsKey(name);
-            }
+            
+            _testCases = testCaseNodes
+                .Where(testCase => !_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
+                .Select(t =>
+                {
+                    var name = GetTestName(t);
+                    var description = GetTestDescription(testSetName, name, t);
+                    var arguments = Qt3TestUtils.GetArguments(testSetFileName, t);
+                    return new object[] { t, arguments, name, testSetName, description };
+                })
+                .ToList();
         });
     }
 
-    public IEnumerator<object> GetEnumerator()
+    public IEnumerator<object[]> GetEnumerator()
     {
         return _testCases.GetEnumerator();
     }
