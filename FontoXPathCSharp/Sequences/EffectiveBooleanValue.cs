@@ -6,7 +6,7 @@ namespace FontoXPathCSharp.Sequences;
 
 internal static class EffectiveBooleanValue
 {
-    public static bool Compute(AbstractValue value)
+    public static bool GetEffectiveBooleanValue(this AbstractValue value)
     {
         if (value.GetValueType().IsSubtypeOf(ValueType.Node)) return true;
 

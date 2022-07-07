@@ -1,13 +1,13 @@
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
-namespace FontoXPathCSharp.Expressions;
+namespace FontoXPathCSharp.Expressions.Axes;
 
 public class ParentAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _parentExpression;
 
-    public ParentAxis(AbstractTestExpression parentExpression) : base(new AbstractExpression[] { parentExpression },
+    public ParentAxis(AbstractTestExpression parentExpression) : base(new AbstractExpression[] {parentExpression},
         new OptimizationOptions(false))
     {
         _parentExpression = parentExpression;

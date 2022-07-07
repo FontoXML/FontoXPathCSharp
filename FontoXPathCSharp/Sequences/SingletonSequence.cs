@@ -69,6 +69,6 @@ internal class SingletonSequence : ISequence
 
     public bool GetEffectiveBooleanValue()
     {
-        return EffectiveBooleanValue.Compute(_onlyValue);
+        return EffectiveBooleanValue.GetEffectiveBooleanValue(_onlyValue);
     }
 }

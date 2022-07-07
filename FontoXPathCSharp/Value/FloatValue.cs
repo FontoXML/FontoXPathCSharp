@@ -5,9 +5,9 @@ namespace FontoXPathCSharp.Value;
 
 public class FloatValue : AtomicValue
 {
-    public readonly float Value;
+    public readonly decimal Value;
 
-    public FloatValue(float value) : base(ValueType.XsFloat)
+    public FloatValue(decimal value) : base(ValueType.XsFloat)
     {
         Value = value;
     }

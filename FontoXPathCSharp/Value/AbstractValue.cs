@@ -18,7 +18,7 @@ public abstract class AbstractValue
         return null;
     }
 
-    public virtual ValueType GetValueType()
+    public ValueType GetValueType()
     {
         return Type;
     }
