@@ -23,7 +23,7 @@ public struct OptimizationOptions
 
 public abstract class AbstractExpression
 {
-    private readonly AbstractExpression[] _childExpressions;
+    protected readonly AbstractExpression[] _childExpressions;
     public readonly bool CanBeStaticallyEvaluated;
 
     public readonly bool IsUpdating;

@@ -12,16 +12,17 @@ public abstract class PossiblyUpdatingExpression : UpdatingExpression
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
         return PerformFunctionalEvaluation(
-            dynamicContext, 
+            dynamicContext,
             executionParameters,
-            this._childExpressions.Select(
-                (expr) => (innerDynamicContext) =>
-        expr.evaluate(innerDynamicContext, executionParameters)
-            ));
+            _childExpressions.Select<AbstractExpression, SequenceCallback>(
+                expr => innerDynamicContext =>
+                    expr.Evaluate(innerDynamicContext, executionParameters)).ToArray());
     }
 
+    public delegate ISequence SequenceCallback(DynamicContext context);
+
     public abstract ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
-        ExecutionParameters? executionParameters, Func<DynamicContext, ISequence>[] sequenceCallbacks);
+        ExecutionParameters? executionParameters, SequenceCallback[] sequenceCallbacks);
 
     public override void PerformStaticEvaluation(StaticContext staticContext)
     {

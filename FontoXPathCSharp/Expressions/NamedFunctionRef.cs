@@ -22,7 +22,7 @@ public class NamedFunctionRef : AbstractExpression
     {
         var functionProps = _functionProperties!;
         var functionItem = new FunctionValue<ISequence>(functionProps.ArgumentTypes, functionProps.Arity,
-            functionProps.CallFunction);
+            functionProps.CallFunction, functionProps.IsUpdating);
         return SequenceFactory.CreateFromValue(functionItem);
     }
 

@@ -13,7 +13,7 @@ public class FunctionCall : PossiblyUpdatingExpression
     private StaticContext? _staticContext;
 
     public FunctionCall(AbstractExpression functionReferenceExpression, AbstractExpression[] args) : base(
-        new[] { functionReferenceExpression }.Concat(args).ToArray(),
+        new[] {functionReferenceExpression}.Concat(args).ToArray(),
         new OptimizationOptions(false))
     {
         _argumentExpressions = args;
@@ -23,7 +23,7 @@ public class FunctionCall : PossiblyUpdatingExpression
     }
 
     public override ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
-        ExecutionParameters? executionParameters, Func<DynamicContext, ISequence>[] createArgumentSequences)
+        ExecutionParameters? executionParameters, SequenceCallback[] createArgumentSequences)
     {
         if (_functionReference != null)
             return _functionReference.Value(dynamicContext, executionParameters, null,
@@ -34,26 +34,27 @@ public class FunctionCall : PossiblyUpdatingExpression
         createArgumentSequences = createArgumentSequences.Skip(1).ToArray();
 
         var sequence = createFunctionReferenceSequence(dynamicContext);
-        if (sequence.IsSingleton())
-        {
-            return sequence.MapAll(item =>
-            {
-                var functionItem = ValidateFunctionItem<AbstractValue>(item[0], _callArity);
-                if (functionItem.IsUpdating)
-                    throw new XPathException(
-                        "XUDY0038: The function returned by the PrimaryExpr of a dynamic function invocation can not be an updating function");
+        if (!sequence.IsSingleton())
+            throw new XPathException(
+                "Expected base expression of a function call to evaluate to a sequence of single function item");
 
-                return CallFunction(
-                    functionItem,
-                    functionItem.Value,
-                    dynamicContext,
-                    executionParameters,
-                    createArgumentSequences,
-                    _staticContext
-                );
-            });
-            ;
-        }
+        return sequence.MapAll(item =>
+        {
+            var functionItem = ValidateFunctionItem<AbstractValue>(item[0], _callArity);
+            if (functionItem.IsUpdating)
+                throw new XPathException(
+                    "XUDY0038: The function returned by the PrimaryExpr of a dynamic function invocation can not be an updating function");
+
+            return CallFunction(
+                functionItem,
+                functionItem.Value,
+                dynamicContext,
+                executionParameters,
+                createArgumentSequences,
+                _staticContext
+            );
+        });
+        ;
 
         throw new XPathException(
             "Expected base expression of a function call to evaluate to a sequence of single function item");
@@ -64,7 +65,7 @@ public class FunctionCall : PossiblyUpdatingExpression
         MulticastDelegate functionItemValue,
         DynamicContext dynamicContext,
         ExecutionParameters executionParameters,
-        Func<DynamicContext, ISequence>[] createArgumentSequences,
+        SequenceCallback[] createArgumentSequences,
         StaticContext staticContext)
     {
         throw new NotImplementedException("Function calls not implemented yet.");
