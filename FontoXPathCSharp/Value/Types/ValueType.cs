@@ -68,7 +68,7 @@ public enum ValueType
     XsAnySimpleType
 }
 
-static class ValueTypeUtils
+internal static class ValueTypeUtils
 {
     public static ValueType StringToValueType(this string x)
     {

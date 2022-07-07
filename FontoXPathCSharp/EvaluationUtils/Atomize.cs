@@ -7,7 +7,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
-public class Atomize
+public static class Atomize
 {
     public static ISequence AtomizeSequence(ISequence sequence, ExecutionParameters parameters)
     {
@@ -87,12 +87,12 @@ public class Atomize
 
         return type switch
         {
-            ValueType.XsBoolean => new BooleanValue((bool)(object)value!),
-            ValueType.XsInt => new IntValue((int)(object)value!),
-            ValueType.XsFloat => new FloatValue((float)(object)value!),
-            ValueType.XsDouble => new DoubleValue((double)(object)value!),
-            ValueType.XsString => new StringValue((string)(object)value!),
-            ValueType.XsQName => new QNameValue((QName)(object)value!),
+            ValueType.XsBoolean => new BooleanValue((bool) (object) value!),
+            ValueType.XsInt => new IntValue((int) (object) value!),
+            ValueType.XsFloat => new FloatValue((float) (object) value!),
+            ValueType.XsDouble => new DoubleValue((double) (object) value!),
+            ValueType.XsString => new StringValue((string) (object) value!),
+            ValueType.XsQName => new QNameValue((QName) (object) value!),
             _ => throw new ArgumentOutOfRangeException($"Atomic Value for {type} is not implemented yet.")
         };
     }

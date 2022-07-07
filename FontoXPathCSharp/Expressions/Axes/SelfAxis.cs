@@ -1,12 +1,12 @@
 using FontoXPathCSharp.Sequences;
 
-namespace FontoXPathCSharp.Expressions;
+namespace FontoXPathCSharp.Expressions.Axes;
 
 public class SelfAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _selector;
 
-    public SelfAxis(AbstractTestExpression selector) : base(new AbstractExpression[] { selector },
+    public SelfAxis(AbstractTestExpression selector) : base(new AbstractExpression[] {selector},
         new OptimizationOptions(false))
     {
         _selector = selector;

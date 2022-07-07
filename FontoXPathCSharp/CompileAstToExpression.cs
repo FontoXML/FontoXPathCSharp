@@ -60,7 +60,8 @@ public static class CompileAstToExpression
             {
                 var test = step.GetFirstChild(
                     AstNodeName.AttributeTest, AstNodeName.AnyElementTest, AstNodeName.PiTest,
-                    AstNodeName.DocumentTest, AstNodeName.ElementTest, AstNodeName.CommentTest, AstNodeName.NamespaceTest,
+                    AstNodeName.DocumentTest, AstNodeName.ElementTest, AstNodeName.CommentTest,
+                    AstNodeName.NamespaceTest,
                     AstNodeName.AnyKindTest, AstNodeName.TextTest, AstNodeName.AnyFunctionTest,
                     AstNodeName.TypedFunctionTest, AstNodeName.SchemaAttributeTest, AstNodeName.AtomicType,
                     AstNodeName.AnyItemType, AstNodeName.ParenthesizedItemType, AstNodeName.TypedMapTest,
@@ -72,7 +73,7 @@ public static class CompileAstToExpression
                 }
 
                 var testExpression = CompileTestExpression(test);
-                
+
                 stepExpression = axis.TextContent switch
                 {
                     "self" => new SelfAxis(testExpression),
@@ -87,12 +88,13 @@ public static class CompileAstToExpression
                     "preceding-sibling" => new PrecedingSiblingAxis(testExpression),
                     _ => throw new InvalidDataException("Unknown axis type '" + axis.TextContent + "'")
                 };
-            } else
+            }
+            else
             {
                 var filterExpr = step.FollowPath(AstNodeName.FilterExpr, AstNodeName.All);
                 if (filterExpr != null) stepExpression = CompileAst(filterExpr, DisallowUpdating(options));
             }
-            
+
             foreach (var postfix in postFixExpressions)
             {
                 stepExpression = postfix.Type switch
@@ -152,6 +154,38 @@ public static class CompileAstToExpression
         ), args.Select(arg => CompileAst(arg, DisallowUpdating(options))).ToArray());
     }
 
+    private static AbstractExpression CompileCompareExpr(Ast ast, CompilationOptions options)
+    {
+        var firstOperand = ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All);
+        var secondOperand = ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All);
+
+        var firstExpression = CompileAst(firstOperand, options);
+        var secondExpression = CompileAst(secondOperand, options);
+
+        return ast.Name switch
+        {
+            AstNodeName.EqualOp =>
+                new GeneralCompare(CompareType.Equal, firstExpression, secondExpression),
+            AstNodeName.NotEqualOp =>
+                new GeneralCompare(CompareType.NotEqual, firstExpression, secondExpression),
+            AstNodeName.LessThanOrEqualOp
+                or AstNodeName.LessThanOp
+                or AstNodeName.GreaterThanOrEqualOp
+                or AstNodeName.GreaterThanOp => throw new NotImplementedException(
+                    "CompileAstToExpression: Other general compare operators"),
+            AstNodeName.EqOp =>
+                new ValueCompare(CompareType.Equal, firstExpression, secondExpression),
+            AstNodeName.NeOp =>
+                new ValueCompare(CompareType.NotEqual, firstExpression, secondExpression),
+            AstNodeName.LtOp
+                or AstNodeName.LeOp
+                or AstNodeName.GtOp
+                or AstNodeName.GeOp => throw new NotImplementedException(
+                    "CompileAstToExpression: Other value compare operators"),
+            _ => throw new Exception("Unreachable")
+        };
+    }
+
     public static AbstractExpression CompileAst(Ast ast, CompilationOptions options)
     {
         return ast.Name switch
@@ -165,6 +199,18 @@ public static class CompileAstToExpression
             AstNodeName.ContextItemExpr => new ContextItemExpression(),
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
             AstNodeName.StringConcatenateOp => CompileStringConcatenateExpr(ast, options),
+            AstNodeName.EqualOp
+                or AstNodeName.NotEqualOp
+                or AstNodeName.LessThanOrEqualOp
+                or AstNodeName.LessThanOp
+                or AstNodeName.GreaterThanOrEqualOp
+                or AstNodeName.GreaterThanOp => CompileCompareExpr(ast, options),
+            AstNodeName.EqOp
+                or AstNodeName.NeOp
+                or AstNodeName.LtOp
+                or AstNodeName.LeOp
+                or AstNodeName.GtOp
+                or AstNodeName.GeOp => CompileCompareExpr(ast, options),
             AstNodeName.AndOp => CompileAndOp(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };

@@ -18,9 +18,9 @@ public static class FunctionRegistry
 
         var matchingFunction = matchingFunctions.Find(functionDecl =>
         {
-            var isElipsis = Array.Exists(functionDecl.ArgumentTypes, x => x.IsEllipsis);
+            var isEllipsis = Array.Exists(functionDecl.ArgumentTypes, x => x.IsEllipsis);
 
-            if (isElipsis) return functionDecl.ArgumentTypes.Length - 1 <= arity;
+            if (isEllipsis) return functionDecl.ArgumentTypes.Length - 1 <= arity;
 
             return functionDecl.ArgumentTypes.Length == arity;
         });

@@ -27,4 +27,16 @@ public class TestIteratorBackedSequence
     {
         Assert.Equal(1, CreateTestSequence(1).GetLength());
     }
+    
+    [Fact]
+    public void TestIsEmptyEmptySequence()
+    {
+        Assert.True(CreateTestSequence(0).IsEmpty());
+    }
+
+    [Fact]
+    public void TestIsEmptySingleItemSequence()
+    {
+        Assert.False(CreateTestSequence(1).IsEmpty());
+    }
 }

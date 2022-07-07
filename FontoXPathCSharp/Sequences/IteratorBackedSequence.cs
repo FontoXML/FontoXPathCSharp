@@ -1,9 +1,11 @@
 using System.Collections;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Sequences;
 
-internal class IteratorBackedSequence : ISequence
+public class IteratorBackedSequence : ISequence
 {
     private readonly List<AbstractValue> _cachedValues;
     private readonly Iterator<AbstractValue> _value;
@@ -127,7 +129,7 @@ internal class IteratorBackedSequence : ISequence
 
     public ISequence MapAll(Func<AbstractValue[], ISequence> callback, IterationHint hint)
     {
-        var iterator = this._value;
+        var iterator = _value;
         var allResults = new List<AbstractValue>();
         var isFirst = true;
 
@@ -145,7 +147,33 @@ internal class IteratorBackedSequence : ISequence
 
     public bool GetEffectiveBooleanValue()
     {
-        throw new NotImplementedException();
+        var iterator = _value;
+        var oldPosition = _currentPosition;
+
+        Reset();
+        var it = iterator(IterationHint.None);
+        if (it.IsDone)
+        {
+            Reset(oldPosition);
+            return false;
+        }
+
+        var firstValue = it.Value;
+        if (firstValue.GetValueType().IsSubtypeOf(ValueType.Node))
+        {
+            Reset(oldPosition);
+            return true;
+        }
+
+        var secondValue = iterator(IterationHint.None);
+        if (!secondValue.IsDone)
+        {
+            throw new XPathException(
+                "FORG0006: A wrong argument type was specified in a function call.");
+        }
+
+        Reset(oldPosition);
+        return firstValue.GetEffectiveBooleanValue();
     }
 
     private IteratorResult<AbstractValue> Next(IterationHint hint)
@@ -170,8 +198,7 @@ internal class IteratorBackedSequence : ISequence
 
     public int GetLength(bool onlyIfCheap)
     {
-        if (_length != null)
-            // TODO: fix this, why does `_length!` not work? 
+        if (_length.HasValue)
             return (int) _length;
 
         if (onlyIfCheap) return -1;
