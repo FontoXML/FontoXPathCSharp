@@ -1,5 +1,6 @@
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Axes;
+using FontoXPathCSharp.Expressions.Operators;
 using FontoXPathCSharp.Expressions.Tests;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
@@ -161,8 +162,37 @@ public static class CompileAstToExpression
             AstNodeName.ContextItemExpr => new ContextItemExpression(),
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
             AstNodeName.StringConcatenateOp => CompileStringConcatenateExpr(ast, options),
+            AstNodeName.AndOp => CompileAndOp(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
+    }
+
+    private static AbstractExpression CompileAndOp(Ast ast, CompilationOptions options)
+    {
+        return new AndOperator(UnwrapBinaryOperator(AstNodeName.AndOp, ast, DisallowUpdating(options)));
+    }
+
+    private static AbstractExpression[] UnwrapBinaryOperator(AstNodeName operatorName, Ast ast,
+        CompilationOptions options)
+    {
+        var compiledAstNodes = new List<AbstractExpression>();
+
+        Action<Ast>? unwrapInner = null;
+        unwrapInner = innerAst =>
+        {
+            var firstOperand = innerAst.GetFirstChild(AstNodeName.FirstOperand)?.GetFirstChild();
+            var secondOperand = innerAst.GetFirstChild(AstNodeName.SecondOperand)?.GetFirstChild();
+
+            if (firstOperand != null && firstOperand.Name == operatorName) unwrapInner?.Invoke(firstOperand);
+            else if (firstOperand != null) compiledAstNodes.Add(CompileAst(firstOperand, options));
+
+            if (secondOperand != null && secondOperand.Name == operatorName) unwrapInner?.Invoke(secondOperand);
+            else if (secondOperand != null) compiledAstNodes.Add(CompileAst(secondOperand, options));
+        };
+
+        unwrapInner(ast);
+
+        return compiledAstNodes.ToArray();
     }
 
     private static AbstractExpression CompileModule(Ast module, CompilationOptions options)
