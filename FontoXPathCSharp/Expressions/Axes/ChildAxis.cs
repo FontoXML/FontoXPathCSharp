@@ -9,7 +9,7 @@ public class ChildAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _selector;
 
-    public ChildAxis(AbstractTestExpression selector) : base(new AbstractExpression[] { selector },
+    public ChildAxis(AbstractTestExpression selector) : base(new AbstractExpression[] {selector},
         new OptimizationOptions(false))
     {
         _selector = selector;
@@ -30,13 +30,14 @@ public class ChildAxis : AbstractExpression
         {
             case ValueType.Element:
             {
-                var element = (XmlElement)contextNode.Value;
+                var element = (XmlElement) contextNode.Value;
                 var children = element.ChildNodes;
                 var filteredChildren = new List<AbstractValue>();
                 for (var i = 0; i < children.Count; ++i)
                 {
                     var child = children[i]!;
                     var childNodeValue = new NodeValue(child);
+
                     var childDynamicContext = new DynamicContext(childNodeValue, i, SequenceFactory.CreateEmpty());
                     if (_selector.EvaluateToBoolean(childDynamicContext, childNodeValue, executionParameters))
                         filteredChildren.Add(childNodeValue);
@@ -46,7 +47,7 @@ public class ChildAxis : AbstractExpression
             }
             case ValueType.DocumentNode:
             {
-                var element = (XmlDocument)contextNode.Value;
+                var element = (XmlDocument) contextNode.Value;
                 var children = element.ChildNodes;
                 var filteredChildren = new List<AbstractValue>();
                 for (var i = 0; i < children.Count; ++i)

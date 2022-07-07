@@ -48,4 +48,12 @@ public static class IteratorUtils
     {
         return _ => IteratorResult<T>.Done();
     }
+
+    public static Iterator<T> ArrayIterator<T>(T[] values) where T : class
+    {
+        var i = 0;
+        return _ => i >= values.Length
+            ? IteratorResult<T>.Done()
+            : IteratorResult<T>.Ready(values[i++]);
+    }
 }

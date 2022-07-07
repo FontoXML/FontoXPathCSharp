@@ -10,7 +10,7 @@ public class FilterExpression : AbstractExpression
     private readonly AbstractExpression _filterExpression;
     private readonly AbstractExpression _selector;
 
-    public FilterExpression(AbstractExpression selector, AbstractExpression filterExpression) : base(new[] { selector },
+    public FilterExpression(AbstractExpression selector, AbstractExpression filterExpression) : base(new[] {selector},
         new OptimizationOptions(selector.CanBeStaticallyEvaluated && filterExpression.CanBeStaticallyEvaluated))
     {
         _selector = selector;
@@ -19,43 +19,47 @@ public class FilterExpression : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        var valuesToFilter = _selector.EvaluateMaybeStatically(
-            dynamicContext,
-            executionParameters
-        );
+        var valuesToFilter = _selector.EvaluateMaybeStatically(dynamicContext, executionParameters);
 
         if (_filterExpression.CanBeStaticallyEvaluated)
         {
             var result = _filterExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
-            if (result.IsEmpty()) return result;
+
+            if (result.IsEmpty())
+                return result;
 
             var resultValue = result.First();
-            if (resultValue != null && resultValue.GetValueType().IsSubtypeOf(ValueType.XsInt))
+            if (!resultValue.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
+                return result.GetEffectiveBooleanValue() ? valuesToFilter : SequenceFactory.CreateEmpty();
+
+            if (resultValue.GetValueType() != ValueType.XsInteger)
+                return SequenceFactory.CreateEmpty();
+
+            var requestedIndex = resultValue.GetAs<IntValue>(ValueType.XsInteger).Value;
+
+            var iterator = valuesToFilter.GetValue();
+            var done = false;
+
+            return SequenceFactory.CreateFromIterator(_ =>
             {
-                var requestedIndex = resultValue.GetAs<IntValue>(ValueType.XsInt)!.Value;
-                var iterator = valuesToFilter.GetValue();
-
-                var done = false;
-
-                return SequenceFactory.CreateFromIterator(_ =>
-                {
-                    if (!done)
-                        for (var value = iterator(IterationHint.None);
-                             !value.IsDone;
-                             value = iterator(IterationHint.None))
-                            if (requestedIndex-- == 1)
-                            {
-                                done = true;
-                                return value;
-                            }
-
+                if (done)
                     return IteratorResult<AbstractValue>.Done();
-                });
-            }
 
-            if (result.GetEffectiveBooleanValue()) return valuesToFilter;
+                for (var value = iterator(IterationHint.None);
+                     !value.IsDone;
+                     value = iterator(IterationHint.None))
+                {
+                    if (requestedIndex-- == 1)
+                    {
+                        done = true;
+                        return value;
+                    }
+                }
 
-            return SequenceFactory.CreateEmpty();
+                done = true;
+
+                return IteratorResult<AbstractValue>.Done();
+            });
         }
 
         var iteratorToFilter = valuesToFilter.GetValue();
@@ -66,7 +70,8 @@ public class FilterExpression : AbstractExpression
         return SequenceFactory.CreateFromIterator(hint =>
         {
             var isHintApplied = false;
-            while (iteratorItem == null || !iteratorItem.IsDone)
+
+            while (iteratorItem is not {IsDone: true})
             {
                 if (iteratorItem == null)
                 {
@@ -74,28 +79,38 @@ public class FilterExpression : AbstractExpression
                     isHintApplied = true;
                 }
 
-                if (iteratorItem.IsDone) return iteratorItem;
+                if (iteratorItem.IsDone)
+                {
+                    return iteratorItem;
+                }
 
-                if (filterResultSequence == null)
-                    filterResultSequence = _filterExpression.EvaluateMaybeStatically(
-                        dynamicContext?.ScopeWithFocus(i, iteratorItem.Value, valuesToFilter), executionParameters);
+                var newContext = dynamicContext.ScopeWithFocus(i, iteratorItem.Value, new EmptySequence());
+                filterResultSequence ??= _filterExpression.EvaluateMaybeStatically(
+                    newContext, executionParameters);
 
                 var first = filterResultSequence.First();
-
                 bool shouldReturnCurrentValue;
                 if (first == null)
+                {
                     shouldReturnCurrentValue = false;
-                else if (first.GetValueType().IsSubtypeOf(ValueType.XsInt))
-                    shouldReturnCurrentValue = first.GetAs<IntValue>(ValueType.XsInt).Value == i + 1;
+                }
+                else if (first.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
+                {
+                    shouldReturnCurrentValue = first.GetAs<IntValue>(ValueType.XsInteger).Value == i + 1;
+                }
                 else
-                    shouldReturnCurrentValue = filterResultSequence.GetEffectiveBooleanValue();
+                {
+                    var ebv = filterResultSequence.GetEffectiveBooleanValue();
+                    shouldReturnCurrentValue = ebv;
+                }
 
                 filterResultSequence = null;
                 var returnableValue = iteratorItem.Value;
                 iteratorItem = null;
 
                 i++;
-                if (shouldReturnCurrentValue) return IteratorResult<AbstractValue>.Ready(returnableValue!);
+                if (shouldReturnCurrentValue)
+                    return IteratorResult<AbstractValue>.Ready(returnableValue);
             }
 
             return iteratorItem;

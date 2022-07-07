@@ -29,7 +29,7 @@ public class PathExpression : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        var result = _stepExpressions.Aggregate(SequenceFactory.CreateFromArray(new[] { dynamicContext!.ContextItem! }),
+        var result = _stepExpressions.Aggregate(SequenceFactory.CreateFromValue(dynamicContext!.ContextItem!),
             (intermediateResultNodesSequence, selector) =>
             {
                 var resultInOrderOfEvaluation = intermediateResultNodesSequence
