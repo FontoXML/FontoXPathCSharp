@@ -51,7 +51,14 @@ internal class ArrayBackedSequence : ISequence
 
     public Iterator<AbstractValue> GetValue()
     {
-        throw new NotImplementedException();
+        var i = -1;
+        return _ =>
+        {
+            i++;
+            return i >= _values.Length
+                ? IteratorResult<AbstractValue>.Done()
+                : IteratorResult<AbstractValue>.Ready(_values[i]);
+        };
     }
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
@@ -71,7 +78,7 @@ internal class ArrayBackedSequence : ISequence
 
     public bool GetEffectiveBooleanValue()
     {
-        if (SubtypeUtils.IsSubtypeOf(_values[0].GetValueType(), ValueType.Node)) return true;
+        if (_values[0].GetValueType().IsSubtypeOf(ValueType.Node)) return true;
         // We always have a length > 1, or we'd be a singletonSequence
         throw new Exception("FORG0006");
     }

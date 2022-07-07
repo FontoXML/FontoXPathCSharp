@@ -73,7 +73,7 @@ public class EvaluationContext<TSelector>
         //     ? wrapExternalDocumentWriter(internalOptions.DocumentWriter)
         //     : domBackedDocumentWriter;
 
-        DynamicContext = new DynamicContext(contextSequence.First(), 0);
+        DynamicContext = new DynamicContext(contextSequence.First(), 0, contextSequence);
         ExecutionParameters = new ExecutionParameters(contextItem);
         Expression = expressionAndStaticContext.Expression;
     }

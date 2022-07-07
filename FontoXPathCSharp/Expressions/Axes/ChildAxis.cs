@@ -37,7 +37,7 @@ public class ChildAxis : AbstractExpression
                 {
                     var child = children[i]!;
                     var childNodeValue = new NodeValue(child);
-                    var childDynamicContext = new DynamicContext(childNodeValue, i);
+                    var childDynamicContext = new DynamicContext(childNodeValue, i, SequenceFactory.CreateEmpty());
                     if (_selector.EvaluateToBoolean(childDynamicContext, childNodeValue, executionParameters))
                         filteredChildren.Add(childNodeValue);
                 }
@@ -54,7 +54,7 @@ public class ChildAxis : AbstractExpression
                     var child = children[i]!;
                     //TODO: Document Value Type
                     var childNodeValue = new NodeValue(child);
-                    var childDynamicContext = new DynamicContext(childNodeValue, i);
+                    var childDynamicContext = new DynamicContext(childNodeValue, i, SequenceFactory.CreateEmpty());
                     if (_selector.EvaluateToBoolean(childDynamicContext, childNodeValue, executionParameters))
                         filteredChildren.Add(childNodeValue);
                 }

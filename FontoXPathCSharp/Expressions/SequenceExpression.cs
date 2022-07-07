@@ -4,7 +4,8 @@ namespace FontoXPathCSharp.Expressions;
 
 public class SequenceExpression : AbstractExpression
 {
-    public SequenceExpression(AbstractExpression[] childExpressions) : base(childExpressions, new OptimizationOptions(childExpressions.All(e => e.CanBeStaticallyEvaluated)))
+    public SequenceExpression(AbstractExpression[] childExpressions) : base(childExpressions,
+        new OptimizationOptions(childExpressions.All(e => e.CanBeStaticallyEvaluated)))
     {
     }
 

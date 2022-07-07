@@ -13,6 +13,7 @@ using BenchmarkDotNet.Running;
 using FontoXPathCSharp;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Parsing;
+using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 
@@ -60,7 +61,7 @@ public class BooleanExpressionBenchmark
     [Benchmark]
     public object FontoXPath()
     {
-        return Expr.Evaluate(new DynamicContext(null, 0), null);
+        return Expr.Evaluate(new DynamicContext(null, 0, SequenceFactory.CreateEmpty()), null);
     }
 }
 
@@ -95,6 +96,6 @@ public class SimpleExpressionBenchmark
     [Benchmark]
     public object FontoXPath()
     {
-        return Expr.Evaluate(new DynamicContext(new NodeValue(_source), 0), new ExecutionParameters(_source));
+        return Expr.Evaluate(new DynamicContext(new NodeValue(_source), 0, SequenceFactory.CreateEmpty()), new ExecutionParameters(_source));
     }
 }
