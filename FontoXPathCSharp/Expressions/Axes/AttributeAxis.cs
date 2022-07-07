@@ -9,7 +9,7 @@ public class AttributeAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _selector;
 
-    public AttributeAxis(AbstractTestExpression selector) : base(new AbstractExpression[] {selector},
+    public AttributeAxis(AbstractTestExpression selector) : base(new AbstractExpression[] { selector },
         new OptimizationOptions(false))
     {
         _selector = selector;

@@ -9,7 +9,7 @@ public class AncestorAxis : AbstractExpression
     private readonly AbstractTestExpression _ancestorExpression;
 
     public AncestorAxis(AbstractTestExpression ancestorExpression) : base(
-        new AbstractExpression[] {ancestorExpression}, new OptimizationOptions(false)
+        new AbstractExpression[] { ancestorExpression }, new OptimizationOptions(false)
     )
     {
         _ancestorExpression = ancestorExpression;

@@ -8,7 +8,8 @@ public class FollowingSiblingAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _testExpression;
 
-    public FollowingSiblingAxis(AbstractTestExpression testExpression) : base(new AbstractExpression[] {testExpression},
+    public FollowingSiblingAxis(AbstractTestExpression testExpression) : base(
+        new AbstractExpression[] { testExpression },
         new OptimizationOptions(false))
     {
         _testExpression = testExpression;

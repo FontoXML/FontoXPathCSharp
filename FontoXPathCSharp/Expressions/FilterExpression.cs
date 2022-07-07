@@ -4,10 +4,10 @@ namespace FontoXPathCSharp.Expressions;
 
 public class FilterExpression : AbstractExpression
 {
-    private readonly AbstractExpression _selector;
     private readonly AbstractExpression _filterExpression;
+    private readonly AbstractExpression _selector;
 
-    public FilterExpression(AbstractExpression selector, AbstractExpression filterExpression) : base(new[] {selector},
+    public FilterExpression(AbstractExpression selector, AbstractExpression filterExpression) : base(new[] { selector },
         new OptimizationOptions(selector.CanBeStaticallyEvaluated && filterExpression.CanBeStaticallyEvaluated))
     {
         _selector = selector;

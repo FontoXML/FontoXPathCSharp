@@ -9,7 +9,7 @@ public class DescendantAxis : AbstractExpression
     private readonly AbstractTestExpression _descendantExpression;
 
     public DescendantAxis(AbstractTestExpression descendantExpression) : base(
-        new AbstractExpression[] {descendantExpression},
+        new AbstractExpression[] { descendantExpression },
         new OptimizationOptions(false))
     {
         _descendantExpression = descendantExpression;

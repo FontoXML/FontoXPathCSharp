@@ -71,7 +71,7 @@ public class TypeCasting
             return _ => new ErrorResult<AtomicValue>(
                 "XPST0080: Casting from or to xs: anyAtomicType is not permitted.");
 
-        if (SubtypeUtils.IsSubtypeOf(from, ValueType.Function) && to == ValueType.XsString)
+        if (from.IsSubtypeOf(ValueType.Function) && to == ValueType.XsString)
             return _ =>
                 new ErrorResult<AtomicValue>("FOTY0014: Casting from function item to xs:string is not permitted.");
 
@@ -90,7 +90,7 @@ public class TypeCasting
 
         var converters = new List<CastingFunction>();
 
-        if (SubtypeUtils.IsSubTypeOfAny(primitiveFrom, ValueType.XsString, ValueType.XsUntypedAtomic))
+        if (primitiveFrom.IsSubTypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic))
             converters.Add(value =>
             {
                 // Not sure if this is correct, it seems more correct than the original code though.
@@ -109,7 +109,7 @@ public class TypeCasting
             converters.Add(val => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(val, primitiveFrom)));
         }
 
-        if (SubtypeUtils.IsSubTypeOfAny(primitiveTo, ValueType.XsString, ValueType.XsUntypedAtomic))
+        if (primitiveTo.IsSubTypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic))
             converters.Add(value =>
             {
                 if (!TypeHelpers.ValidatePattern((string)value, to))
