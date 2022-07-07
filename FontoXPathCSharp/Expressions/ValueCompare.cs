@@ -33,6 +33,12 @@ public class ValueCompare : AbstractExpression
     {
         if (first.GetValueType() == ValueType.XsInteger && second.GetValueType() == ValueType.XsInteger)
             return first.GetAs<IntValue>(ValueType.XsInteger).Value == second.GetAs<IntValue>(ValueType.XsInteger).Value;
+        if (first.GetValueType() == ValueType.XsFloat && second.GetValueType() == ValueType.XsFloat)
+            return first.GetAs<FloatValue>(ValueType.XsFloat).Value == second.GetAs<FloatValue>(ValueType.XsFloat).Value;
+        if (first.GetValueType() == ValueType.XsDouble && second.GetValueType() == ValueType.XsDouble)
+            return first.GetAs<DoubleValue>(ValueType.XsDouble).Value == second.GetAs<DoubleValue>(ValueType.XsDouble).Value;
+        if (first.GetValueType() == ValueType.XsString && second.GetValueType() == ValueType.XsString)
+            return first.GetAs<StringValue>(ValueType.XsString).Value == second.GetAs<StringValue>(ValueType.XsString).Value;
         throw new NotImplementedException("HandleNumericEqualOp: comparison for "  + first.GetValueType() + " not supported");
     }
 
@@ -40,6 +46,12 @@ public class ValueCompare : AbstractExpression
     {
         if (first.GetValueType() == ValueType.XsInteger && second.GetValueType() == ValueType.XsInteger)
             return first.GetAs<IntValue>(ValueType.XsInteger).Value != second.GetAs<IntValue>(ValueType.XsInteger).Value;
+        if (first.GetValueType() == ValueType.XsFloat && second.GetValueType() == ValueType.XsFloat)
+            return first.GetAs<FloatValue>(ValueType.XsFloat).Value != second.GetAs<FloatValue>(ValueType.XsFloat).Value;
+        if (first.GetValueType() == ValueType.XsDouble && second.GetValueType() == ValueType.XsDouble)
+            return first.GetAs<DoubleValue>(ValueType.XsDouble).Value != second.GetAs<DoubleValue>(ValueType.XsDouble).Value;
+        if (first.GetValueType() == ValueType.XsString && second.GetValueType() == ValueType.XsString)
+            return first.GetAs<StringValue>(ValueType.XsString).Value != second.GetAs<StringValue>(ValueType.XsString).Value;
         throw new NotImplementedException("HandleNumericNotEqualOp: comparison for "  + first.GetValueType() + " not supported");
     }
 

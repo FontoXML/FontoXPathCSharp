@@ -158,7 +158,7 @@ public static class CompileAstToExpression
     {
         var firstOperand = ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All);
         var secondOperand = ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All);
-
+        
         var firstExpression = CompileAst(firstOperand, options);
         var secondExpression = CompileAst(secondOperand, options);
 

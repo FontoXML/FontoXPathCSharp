@@ -5,9 +5,9 @@ namespace FontoXPathCSharp.Value;
 
 public class DoubleValue : AtomicValue
 {
-    public readonly double Value;
+    public readonly decimal Value;
 
-    public DoubleValue(double value) : base(ValueType.XsDouble)
+    public DoubleValue(decimal value) : base(ValueType.XsDouble)
     {
         Value = value;
     }

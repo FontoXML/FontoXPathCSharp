@@ -89,8 +89,8 @@ public static class Atomize
         {
             ValueType.XsBoolean => new BooleanValue((bool) (object) value!),
             ValueType.XsInt => new IntValue((int) (object) value!),
-            ValueType.XsFloat => new FloatValue((float) (object) value!),
-            ValueType.XsDouble => new DoubleValue((double) (object) value!),
+            ValueType.XsFloat => new FloatValue((decimal) (object) value!),
+            ValueType.XsDouble => new DoubleValue((decimal) (object) value!),
             ValueType.XsString => new StringValue((string) (object) value!),
             ValueType.XsQName => new QNameValue((QName) (object) value!),
             _ => throw new ArgumentOutOfRangeException($"Atomic Value for {type} is not implemented yet.")
