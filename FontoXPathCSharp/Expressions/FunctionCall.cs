@@ -23,14 +23,51 @@ public class FunctionCall : PossiblyUpdatingExpression
     }
 
     public override ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
-        ExecutionParameters? executionParameters)
+        ExecutionParameters? executionParameters, Func<DynamicContext, ISequence>[] createArgumentSequences)
     {
         if (_functionReference != null)
             return _functionReference.Value(dynamicContext, executionParameters, null,
                 _argumentExpressions.Select(x => x.Evaluate(dynamicContext, executionParameters)).ToArray());
 
-        // TODO: perform other evaluation
-        throw new NotImplementedException();
+
+        var createFunctionReferenceSequence = createArgumentSequences[0];
+        createArgumentSequences = createArgumentSequences.Skip(1).ToArray();
+
+        var sequence = createFunctionReferenceSequence(dynamicContext);
+        if (sequence.IsSingleton())
+        {
+            return sequence.MapAll(item =>
+            {
+                var functionItem = ValidateFunctionItem<AbstractValue>(item[0], _callArity);
+                if (functionItem.IsUpdating)
+                    throw new XPathException(
+                        "XUDY0038: The function returned by the PrimaryExpr of a dynamic function invocation can not be an updating function");
+
+                return CallFunction(
+                    functionItem,
+                    functionItem.Value,
+                    dynamicContext,
+                    executionParameters,
+                    createArgumentSequences,
+                    _staticContext
+                );
+            });
+            ;
+        }
+
+        throw new XPathException(
+            "Expected base expression of a function call to evaluate to a sequence of single function item");
+    }
+
+    private ISequence CallFunction(
+        AbstractValue functionItem,
+        MulticastDelegate functionItemValue,
+        DynamicContext dynamicContext,
+        ExecutionParameters executionParameters,
+        Func<DynamicContext, ISequence>[] createArgumentSequences,
+        StaticContext staticContext)
+    {
+        throw new NotImplementedException("Function calls not implemented yet.");
     }
 
     public override void PerformStaticEvaluation(StaticContext staticContext)
