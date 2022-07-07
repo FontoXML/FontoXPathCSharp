@@ -29,7 +29,8 @@ public class AndOperator : AbstractExpression
                 if (resultSequence == null)
                 {
                     var subExpression = _subExpressions[i];
-                    // Context Item Buckets
+                    
+                    // TODO: Context Item Buckets
                     
                     resultSequence = subExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
                 }

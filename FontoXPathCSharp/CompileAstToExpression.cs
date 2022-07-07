@@ -54,23 +54,25 @@ public static class CompileAstToExpression
                 }
             }
 
-            var test = step.GetFirstChild(
-                AstNodeName.AttributeTest, AstNodeName.AnyElementTest, AstNodeName.PiTest,
-                AstNodeName.DocumentTest, AstNodeName.ElementTest, AstNodeName.CommentTest, AstNodeName.NamespaceTest,
-                AstNodeName.AnyKindTest, AstNodeName.TextTest, AstNodeName.AnyFunctionTest,
-                AstNodeName.TypedFunctionTest, AstNodeName.SchemaAttributeTest, AstNodeName.AtomicType,
-                AstNodeName.AnyItemType, AstNodeName.ParenthesizedItemType, AstNodeName.TypedMapTest,
-                AstNodeName.TypedArrayTest, AstNodeName.NameTest, AstNodeName.Wildcard);
-
-            if (test == null)
-                throw new XPathException("No test found in path expression axis");
-
-            var testExpression = CompileTestExpression(test);
-
             AbstractExpression? stepExpression = null;
 
             if (axis != null)
             {
+                var test = step.GetFirstChild(
+                    AstNodeName.AttributeTest, AstNodeName.AnyElementTest, AstNodeName.PiTest,
+                    AstNodeName.DocumentTest, AstNodeName.ElementTest, AstNodeName.CommentTest, AstNodeName.NamespaceTest,
+                    AstNodeName.AnyKindTest, AstNodeName.TextTest, AstNodeName.AnyFunctionTest,
+                    AstNodeName.TypedFunctionTest, AstNodeName.SchemaAttributeTest, AstNodeName.AtomicType,
+                    AstNodeName.AnyItemType, AstNodeName.ParenthesizedItemType, AstNodeName.TypedMapTest,
+                    AstNodeName.TypedArrayTest, AstNodeName.NameTest, AstNodeName.Wildcard);
+
+                if (test == null)
+                {
+                    throw new XPathException("No test found in path expression axis");
+                }
+
+                var testExpression = CompileTestExpression(test);
+                
                 stepExpression = axis.TextContent switch
                 {
                     "self" => new SelfAxis(testExpression),
@@ -93,16 +95,12 @@ public static class CompileAstToExpression
             
             foreach (var postfix in postFixExpressions)
             {
-                switch (postfix.Type)
+                stepExpression = postfix.Type switch
                 {
-                    case "lookup":
-                        throw new NotImplementedException();
-                    case "predicate":
-                        stepExpression = new FilterExpression(stepExpression, postfix.Postfix);
-                        break;
-                    default:
-                        throw new Exception("Unreachable");
-                }
+                    "lookup" => throw new NotImplementedException(),
+                    "predicate" => new FilterExpression(stepExpression, postfix.Postfix),
+                    _ => throw new Exception("Unreachable")
+                };
             }
 
             return stepExpression;
