@@ -47,6 +47,8 @@ public static class Qt3TestUtils
 
     public static TestArguments GetArguments(string testSetFileName, XmlNode testCase)
     {
+        // return new TestArguments("", testCase, "", Language.LanguageId.XPATH_3_1_LANGUAGE, null,
+        //     new Dictionary<string, AbstractValue>());
         var baseUrl = testSetFileName.Substring(0, testSetFileName.LastIndexOf('/'));
 
         string? testQuery;
@@ -76,12 +78,20 @@ public static class Qt3TestUtils
 
         var namespaceResolver = localNamespaceResolver;
 
-        XmlDocument environmentNode = null;
+        var environmentNode = Evaluate.EvaluateXPathToBoolean("./environment/", testCase)
+            ? Evaluate.EvaluateXPathToFirstNode("/test-set/environment[@name = ./environment/]",testCase)
+            : Evaluate.EvaluateXPathToFirstNode("./environment", testCase);
 
-        var env = environmentNode != null
-            ? CreateEnvironment(baseUrl, environmentNode)
-            : EnvironmentsByNameCache.Instance.GetResource(
-                Evaluate.EvaluateXPathToString("(./environment/@ref, \"empty\")[1]", testCase));
+        // var environmentNode = Evaluate.EvaluateXPathToFirstNode(
+        //     "let $ref := ./environment/@ref return if ($ref) then /test-set/environment[@name = $ref] else ./environment",
+        //     testCase
+        // );
+        var env = CreateEnvironment(baseUrl, environmentNode);
+        
+        // var env = environmentNode != null
+        //     ? CreateEnvironment(baseUrl, environmentNode)
+        //     : EnvironmentsByNameCache.Instance.GetResource(
+        //         Evaluate.EvaluateXPathToString("(./environment/@ref, \"empty\")[1]", testCase));
 
         var contextNode = env.ContextNode;
         namespaceResolver = localNamespaceResolver != null
@@ -148,5 +158,16 @@ public static class Qt3TestUtils
         Language.LanguageId Language,
         Func<string, string?>? NamespaceResolver,
         Dictionary<string, AbstractValue>? VariablesInScope
-    );
+    )
+    {
+        public override string ToString()
+        {
+            return $"BaseUrl: {BaseUrl}\n" +
+                   $"ContextNode: {ContextNode}\n" +
+                   $"TestQuery: {TestQuery}\n" +
+                   $"Language: {Language}\n" +
+                   $"NamespaceResolver: {NamespaceResolver}\n" +
+                   $"VariablesInScope: {VariablesInScope}";
+        }
+    }
 }

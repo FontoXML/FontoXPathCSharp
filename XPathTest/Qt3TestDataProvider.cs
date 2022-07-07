@@ -7,7 +7,6 @@ using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
-using XPathTest.Caches;
 
 namespace XPathTest;
 
@@ -31,8 +30,8 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
         var qt3tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
         Console.WriteLine("QT3TESTS IMPORTANT: " + qt3tests);
-        
-            // var qt3tests = new XmlDocument();
+
+        // var qt3tests = new XmlDocument();
         // qt3tests.Load("../../../assets/QT3TS/catalog.xml");
         _loadedTestSets = GetAllTestSets(qt3tests);
         Console.WriteLine($"Qt3 Testsets loaded: {_loadedTestSets.Count}");
@@ -64,7 +63,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             //     new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
 
             if (!testCaseNodes.Any()) return;
-            
+
             _testCases = testCaseNodes
                 .Where(testCase => !_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
                 .Select(t =>
@@ -90,16 +89,18 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
     private string GetTestDescription(string testSetName, string testName, XmlNode testCase)
     {
-        return testSetName +
-               '~' +
-               testName +
-               '~' +
-               Evaluate.EvaluateXPathToString(
-                   "if (description/text()) then description else test",
-                   testCase,
-                   null,
-                   new Dictionary<string, AbstractValue>(),
-                   new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+        return $"{testSetName}~{testName}";
+        //TODO: More descriptive test description.
+        // return testSetName +
+        //        '~' +
+        //        testName +
+        //        '~' +
+        //        Evaluate.EvaluateXPathToString(
+        //            "if (description/text()) then description else test",
+        //            testCase,
+        //            null,
+        //            new Dictionary<string, AbstractValue>(),
+        //            new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
     }
 
     private string GetTestName(XmlNode testCase)

@@ -10,7 +10,7 @@ public class QT3Tests
 {
     [Theory(Timeout = 60000, DisplayName = "Qt3 Tests")]
     [ClassData(typeof(Qt3TestDataProvider))]
-    [Description]
+    [Description("bla")]
     public void Qt3Tests(XmlNode testCase, Qt3TestUtils.TestArguments arguments, string name, string testSetName, string description)
     {
         try
