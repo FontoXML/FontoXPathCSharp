@@ -54,10 +54,6 @@ public static class CompileAstToExpression
                 }
             }
 
-
-            if (axis == null)
-                throw new NotImplementedException();
-
             var test = step.GetFirstChild(
                 AstNodeName.AttributeTest, AstNodeName.AnyElementTest, AstNodeName.PiTest,
                 AstNodeName.DocumentTest, AstNodeName.ElementTest, AstNodeName.CommentTest, AstNodeName.NamespaceTest,
@@ -71,21 +67,30 @@ public static class CompileAstToExpression
 
             var testExpression = CompileTestExpression(test);
 
-            AbstractExpression stepExpression = axis.TextContent switch
-            {
-                "self" => new SelfAxis(testExpression),
-                "parent" => new ParentAxis(testExpression),
-                "child" => new ChildAxis(testExpression),
-                "attribute" => new AttributeAxis(testExpression),
-                "ancestor" => new AncestorAxis(testExpression),
-                "descendant" => new DescendantAxis(testExpression),
-                "following" => new FollowingAxis(testExpression),
-                "preceding" => new PrecedingAxis(testExpression),
-                "following-sibling" => new FollowingSiblingAxis(testExpression),
-                "preceding-sibling" => new PrecedingSiblingAxis(testExpression),
-                _ => throw new InvalidDataException("Unknown axis type '" + axis.TextContent + "'")
-            };
+            AbstractExpression? stepExpression = null;
 
+            if (axis != null)
+            {
+                stepExpression = axis.TextContent switch
+                {
+                    "self" => new SelfAxis(testExpression),
+                    "parent" => new ParentAxis(testExpression),
+                    "child" => new ChildAxis(testExpression),
+                    "attribute" => new AttributeAxis(testExpression),
+                    "ancestor" => new AncestorAxis(testExpression),
+                    "descendant" => new DescendantAxis(testExpression),
+                    "following" => new FollowingAxis(testExpression),
+                    "preceding" => new PrecedingAxis(testExpression),
+                    "following-sibling" => new FollowingSiblingAxis(testExpression),
+                    "preceding-sibling" => new PrecedingSiblingAxis(testExpression),
+                    _ => throw new InvalidDataException("Unknown axis type '" + axis.TextContent + "'")
+                };
+            } else
+            {
+                var filterExpr = step.FollowPath(AstNodeName.FilterExpr, AstNodeName.All);
+                if (filterExpr != null) stepExpression = CompileAst(filterExpr, DisallowUpdating(options));
+            }
+            
             foreach (var postfix in postFixExpressions)
             {
                 switch (postfix.Type)
