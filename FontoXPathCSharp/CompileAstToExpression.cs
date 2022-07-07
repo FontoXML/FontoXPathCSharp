@@ -166,8 +166,27 @@ public static class CompileAstToExpression
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
             AstNodeName.StringConcatenateOp => CompileStringConcatenateExpr(ast, options),
             AstNodeName.AndOp => CompileAndOp(ast, options),
+            AstNodeName.SequenceExpr => CompileSequenceExpression(ast, options),
+            AstNodeName.UnionOp => CompileUnionOp(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
+    }
+
+    private static AbstractExpression CompileUnionOp(Ast ast, CompilationOptions options)
+    {
+        return new UnionOperator(new[]
+        {
+            CompileAst(ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All)!, options),
+            CompileAst(ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!, options)
+        });
+    }
+
+    private static AbstractExpression CompileSequenceExpression(Ast ast, CompilationOptions options)
+    {
+        var childExpressions = ast.GetChildren(AstNodeName.All).Select(arg => CompileAst(arg, options)).ToArray();
+        if (childExpressions.Length == 1) return childExpressions.First();
+
+        return new SequenceExpression(childExpressions);
     }
 
     private static AbstractExpression CompileAndOp(Ast ast, CompilationOptions options)

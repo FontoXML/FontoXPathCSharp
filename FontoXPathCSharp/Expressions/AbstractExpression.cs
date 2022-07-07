@@ -2,13 +2,22 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
 
+public enum ResultOrdering
+{
+    Sorted,
+    ReverseSorted,
+    Unsorted
+}
+
 public struct OptimizationOptions
 {
     public readonly bool CanBeStaticallyEvaluated;
+    public readonly ResultOrdering ResultOrder;
 
-    public OptimizationOptions(bool canBeStaticallyEvaluated)
+    public OptimizationOptions(bool canBeStaticallyEvaluated, ResultOrdering resultOrder = ResultOrdering.Unsorted)
     {
         CanBeStaticallyEvaluated = canBeStaticallyEvaluated;
+        ResultOrder = resultOrder;
     }
 }
 
@@ -18,11 +27,14 @@ public abstract class AbstractExpression
     public readonly bool CanBeStaticallyEvaluated;
 
     public readonly bool IsUpdating;
+    
+    public readonly ResultOrdering ResultOrder;
 
     protected AbstractExpression(AbstractExpression[] childExpressions, OptimizationOptions optimizationOptions)
     {
         _childExpressions = childExpressions;
         CanBeStaticallyEvaluated = optimizationOptions.CanBeStaticallyEvaluated;
+        ResultOrder = optimizationOptions.ResultOrder;
         IsUpdating = false;
     }
 

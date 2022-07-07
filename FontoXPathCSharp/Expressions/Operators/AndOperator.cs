@@ -6,7 +6,7 @@ namespace FontoXPathCSharp.Expressions.Operators;
 
 public class AndOperator : AbstractExpression
 {
-    private AbstractExpression[] _subExpressions;
+    private readonly AbstractExpression[] _subExpressions;
 
 
     public AndOperator(AbstractExpression[] childExpressions) : base(childExpressions,
@@ -29,9 +29,9 @@ public class AndOperator : AbstractExpression
                 if (resultSequence == null)
                 {
                     var subExpression = _subExpressions[i];
-                    
+
                     // TODO: Context Item Buckets
-                    
+
                     resultSequence = subExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
                 }
 
