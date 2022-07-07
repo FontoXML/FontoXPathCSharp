@@ -16,11 +16,30 @@ public class IteratorBackedSequence : ISequence
 
     public IteratorBackedSequence(Iterator<AbstractValue> valueIterator, int? predictedLength)
     {
-        _value = valueIterator;
         _cacheAllValues = false;
         _cachedValues = new List<AbstractValue>();
         _currentPosition = 0;
         _length = predictedLength;
+        _value = hint =>
+        {
+            if (_currentPosition >= _length)
+                return IteratorResult<AbstractValue>.Done();
+
+            if (_currentPosition < _cachedValues.Count)
+                return IteratorResult<AbstractValue>.Ready(_cachedValues[_currentPosition++]);
+
+            var value = valueIterator(hint);
+            if (value.IsDone)
+            {
+                _length = _currentPosition;
+                return value;
+            }
+
+            if (_cacheAllValues || _currentPosition < 2) _cachedValues.Add(value.Value!);
+
+            _currentPosition++;
+            return value;
+        };
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -52,14 +71,14 @@ public class IteratorBackedSequence : ISequence
         var oldPosition = _currentPosition;
 
         Reset();
-        var value = Next(IterationHint.None);
+        var value = _value(IterationHint.None);
         if (value.IsDone)
         {
             Reset(oldPosition);
             return false;
         }
 
-        var secondValue = Next(IterationHint.None);
+        var secondValue = _value(IterationHint.None);
         Reset(oldPosition);
         return secondValue.IsDone;
     }
@@ -68,7 +87,7 @@ public class IteratorBackedSequence : ISequence
     {
         if (_cachedValues.Count != 0) return _cachedValues[0];
 
-        var firstValue = Next(IterationHint.None);
+        var firstValue = _value(IterationHint.None);
 
         Reset();
 
@@ -82,8 +101,8 @@ public class IteratorBackedSequence : ISequence
 
         _cacheAllValues = true;
 
-        var val = Next(IterationHint.None);
-        while (!val.IsDone) val = Next(IterationHint.None);
+        var val = _value(IterationHint.None);
+        while (!val.IsDone) val = _value(IterationHint.None);
 
         return _cachedValues.ToArray();
     }
@@ -131,13 +150,11 @@ public class IteratorBackedSequence : ISequence
     {
         var iterator = _value;
         var allResults = new List<AbstractValue>();
-        var isFirst = true;
 
-        for (var value = iterator(isFirst ? IterationHint.None : hint);
+        for (var value = iterator(IterationHint.None);
              !value.IsDone;
              value = iterator(IterationHint.None))
         {
-            isFirst = false;
             allResults.Add(value.Value!);
         }
 
@@ -151,7 +168,7 @@ public class IteratorBackedSequence : ISequence
         var oldPosition = _currentPosition;
 
         Reset();
-        var it = iterator(IterationHint.None);
+        var it = _value(IterationHint.None);
         if (it.IsDone)
         {
             Reset(oldPosition);
@@ -165,7 +182,7 @@ public class IteratorBackedSequence : ISequence
             return true;
         }
 
-        var secondValue = iterator(IterationHint.None);
+        var secondValue = _value(IterationHint.None);
         if (!secondValue.IsDone)
         {
             throw new XPathException(
@@ -174,26 +191,6 @@ public class IteratorBackedSequence : ISequence
 
         Reset(oldPosition);
         return firstValue.GetEffectiveBooleanValue();
-    }
-
-    private IteratorResult<AbstractValue> Next(IterationHint hint)
-    {
-        // if (_currentPosition >= _length) return IteratorResult<AbstractValue>.Done();
-
-        if (_currentPosition < _cachedValues.Count)
-            return IteratorResult<AbstractValue>.Ready(_cachedValues[_currentPosition++]);
-
-        var value = _value(hint);
-        if (value.IsDone)
-        {
-            _length = _currentPosition;
-            return value;
-        }
-
-        if (_cacheAllValues || _currentPosition < 2) _cachedValues.Add(value.Value!);
-
-        _currentPosition++;
-        return value;
     }
 
     public int GetLength(bool onlyIfCheap)

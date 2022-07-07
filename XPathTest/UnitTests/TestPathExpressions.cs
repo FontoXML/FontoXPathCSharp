@@ -66,9 +66,9 @@ public class TestPathExpressions
         Assert.Equal("durrdurrdurr", EvalQueryString("/xml/hurr/@durr"));
     }
 
-    [Fact(Skip = "Not implemented")]
+    [Fact]
     public void AttributeSelect()
     {
-        Assert.Single(EvalQueryNodes(@"/xml/derp[@id=""dorp""]"));
+        Assert.Single(EvalQueryNodes(@"/xml/derp[@id = ""dorp""]"));
     }
 }

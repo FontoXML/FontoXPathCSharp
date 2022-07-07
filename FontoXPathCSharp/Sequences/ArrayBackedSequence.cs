@@ -21,7 +21,7 @@ internal class ArrayBackedSequence : ISequence
 
     public IEnumerator<AbstractValue> GetEnumerator()
     {
-        return ((IEnumerable<AbstractValue>)_values).GetEnumerator();
+        return ((IEnumerable<AbstractValue>) _values).GetEnumerator();
     }
 
     public bool IsEmpty()
@@ -51,14 +51,7 @@ internal class ArrayBackedSequence : ISequence
 
     public Iterator<AbstractValue> GetValue()
     {
-        var i = -1;
-        return _ =>
-        {
-            i++;
-            return i >= _values.Length
-                ? IteratorResult<AbstractValue>.Done()
-                : IteratorResult<AbstractValue>.Ready(_values[i]);
-        };
+        return IteratorUtils.ArrayIterator(_values);
     }
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
