@@ -7,9 +7,8 @@ public class Qt3TestQueries
 
     public const string AllTestsQuery = @"
 /test-set/test-case[
-  let $dependencies := (./dependency | ../dependency)
-  return not(exists($dependencies[@type=""xml-version"" and @value=""1.1""])) and not(
-     $dependencies/@value/tokenize(.) = (
+    not(exists((./dependency | ../dependency)[@type=""xml-version"" and @value=""1.1""])) and not(
+     (./dependency | ../dependency)/@value/tokenize(.) = (
        ""XQ10"",
        ""XQ20"",
        ""XQ30"",

@@ -10,7 +10,7 @@ public static class TestFileSystem
         return Path.Join("..", "..", "..", Path.Join("assets", assetPath));
     }
 
-    public static string[] ReadDirSync(string dirPath)
+    public static string[] ReadDir(string dirPath)
     {
         return Directory.GetFiles(CreateAssetPath(dirPath));
     }

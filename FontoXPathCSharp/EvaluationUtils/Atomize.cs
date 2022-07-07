@@ -79,6 +79,7 @@ public class Atomize
         throw new Exception($"Atomizing type {value.GetType()} is not implemented.");
     }
 
+    // TODO: Move all this stuff to the AtomicValue file.
     public static AtomicValue CreateAtomicValue<T>(T value, ValueType type)
     {
         if (!BuiltinDataTypes.Instance.BuiltinDataTypesByType.ContainsKey(type))
