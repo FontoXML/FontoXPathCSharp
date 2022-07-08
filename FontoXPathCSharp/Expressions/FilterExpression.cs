@@ -35,7 +35,7 @@ public class FilterExpression : AbstractExpression
             if (resultValue.GetValueType() != ValueType.XsInteger)
                 return SequenceFactory.CreateEmpty();
 
-            var requestedIndex = resultValue.GetAs<IntValue>(ValueType.XsInteger).Value;
+            var requestedIndex = resultValue.GetAs<IntValue>().Value;
 
             var iterator = valuesToFilter.GetValue();
             var done = false;
@@ -96,7 +96,7 @@ public class FilterExpression : AbstractExpression
                 }
                 else if (first.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
                 {
-                    shouldReturnCurrentValue = first.GetAs<IntValue>(ValueType.XsInteger).Value == i + 1;
+                    shouldReturnCurrentValue = first.GetAs<IntValue>().Value == i + 1;
                 }
                 else
                 {

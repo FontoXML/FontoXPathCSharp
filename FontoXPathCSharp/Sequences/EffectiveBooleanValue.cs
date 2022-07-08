@@ -11,19 +11,19 @@ internal static class EffectiveBooleanValue
         if (value.GetValueType().IsSubtypeOf(ValueType.Node)) return true;
 
         if (value.GetValueType().IsSubtypeOf(ValueType.XsBoolean))
-            return value.GetAs<BooleanValue>(ValueType.XsBoolean).Value;
+            return value.GetAs<BooleanValue>().Value;
 
         if (value.GetValueType().IsSubtypeOf(ValueType.XsString))
-            return value.GetAs<StringValue>(ValueType.XsString).Value.Length > 0;
+            return value.GetAs<StringValue>().Value.Length > 0;
 
         if (value.GetValueType().IsSubtypeOf(ValueType.XsAnyUri))
-            return value.GetAs<StringValue>(ValueType.XsAnyUri).Value.Length > 0;
+            return value.GetAs<StringValue>().Value.Length > 0;
 
         if (value.GetValueType().IsSubtypeOf(ValueType.XsUntypedAtomic))
-            return value.GetAs<StringValue>(ValueType.XsUntypedAtomic).Value.Length > 0;
+            return value.GetAs<StringValue>().Value.Length > 0;
 
         if (value.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
-            return value.GetAs<IntValue>(ValueType.XsNumeric).Value > 0;
+            return value.GetAs<IntValue>().Value > 0;
 
         throw new Exception("FORG0006");
     }

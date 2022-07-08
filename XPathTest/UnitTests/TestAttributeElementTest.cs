@@ -39,24 +39,30 @@ public class TestAttributeElementTest
     [Fact]
     public void TestEmptyAttribute()
     {
-      Assert.Equal(4, EvalQueryNodes("/xml/tips/tip/attribute()").Count());
+        Assert.Equal(4, EvalQueryNodes("/xml/tips/tip/attribute()").Count());
     }
-    
+
     [Fact]
     public void TestNamedAttribute()
     {
-      Assert.Equal(3, EvalQueryNodes("/xml/tips/tip/attribute(id)").Count());
+        Assert.Equal(3, EvalQueryNodes("/xml/tips/tip/attribute(id)").Count());
     }
-    
+
     [Fact]
     public void TestEmptyElement()
     {
-      Assert.Equal(5, EvalQueryNodes("/xml/tips/element()").Count());
+        Assert.Equal(5, EvalQueryNodes("/xml/tips/element()").Count());
     }
-    
+
     [Fact]
     public void TestNamedElement()
     {
-      Assert.Equal(3, EvalQueryNodes("/xml/tips/element(tip)").Count());
+        Assert.Equal(3, EvalQueryNodes("/xml/tips/element(tip)").Count());
+    }
+
+    [Fact]
+    public void TestWildcard()
+    {
+        Assert.Equal(5, EvalQueryNodes("/xml/tips/*").Count());
     }
 }

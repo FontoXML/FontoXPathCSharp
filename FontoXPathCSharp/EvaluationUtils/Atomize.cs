@@ -61,7 +61,7 @@ public static class Atomize
 
         if (value.GetValueType().IsSubtypeOf(ValueType.Node))
         {
-            var pointer = value.GetAs<NodeValue>(ValueType.Node);
+            var pointer = value.GetAs<NodeValue>();
 
             if (pointer.GetValueType().IsSubTypeOfAny(ValueType.Attribute, ValueType.Text))
             {

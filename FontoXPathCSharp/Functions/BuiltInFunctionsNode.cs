@@ -15,7 +15,7 @@ public static class BuiltInFunctionsNode
         if (pointerValue == null) return SequenceFactory.CreateEmpty();
 
         // TODO: replace this with a node pointer
-        var node = pointerValue.GetAs<NodeValue>(ValueType.Node)!;
+        var node = pointerValue.GetAs<NodeValue>()!;
         var nodeValue = node.Value;
 
         return nodeValue.NodeType switch

@@ -12,10 +12,11 @@ public abstract class AbstractValue
         Type = type;
     }
 
-    public T? GetAs<T>(ValueType type) where T : AbstractValue
+    public T GetAs<T>() where T : AbstractValue
     {
-        if (Type.IsSubtypeOf(type)) return (T?) this;
-        return null;
+        if (this is not T result)
+            throw new InvalidCastException("Casting AbstractValue(" + Type + ") to " + typeof(T).Name);
+        return result;
     }
 
     public ValueType GetValueType()
