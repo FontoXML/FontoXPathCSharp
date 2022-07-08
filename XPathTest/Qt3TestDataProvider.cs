@@ -28,12 +28,14 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             .Select(l => l[0])
             .ToHashSet();
 
-        var qt3tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
-        Console.WriteLine("QT3TESTS IMPORTANT: " + qt3tests);
+        _testCases = new List<object[]>();
+
+        var qt3Tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
+        Console.WriteLine("QT3TESTS IMPORTANT: " + qt3Tests);
 
         // var qt3tests = new XmlDocument();
         // qt3tests.Load("../../../assets/QT3TS/catalog.xml");
-        _loadedTestSets = GetAllTestSets(qt3tests);
+        _loadedTestSets = GetAllTestSets(qt3Tests);
         Console.WriteLine($"Qt3 Testsets loaded: {_loadedTestSets.Count}");
 
         _loadedTestSets.ForEach(testSetFileName =>
@@ -64,7 +66,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
             if (!testCaseNodes.Any()) return;
 
-            _testCases = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
+            var testCases = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
             {
                 if (!_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
                 {
@@ -73,13 +75,18 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
                         var name = GetTestName(testCase);
                         var description = GetTestDescription(testSetName, name, testCase);
                         var arguments = Qt3TestUtils.GetArguments(testSetFileName, testCase);
-                        testCases.Add(new object[]{name, testSetName, description, testCase, arguments});
+                        testCases.Add(new object[] {name, testSetName, description, testCase, arguments});
                     }
-                    catch (FileNotFoundException ex) { /* Test file was probably not found. */}
+                    catch (FileNotFoundException ex)
+                    {
+                        /* Test file was probably not found. */
+                    }
                 }
-                
+
                 return testCases;
             });
+
+            _testCases.AddRange(testCases);
 
             // _testCases = testCaseNodes
             //     .Where(testCase => !_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
@@ -135,7 +142,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             testCase,
             null,
             new Dictionary<string, AbstractValue>(),
-            new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+            new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"))!;
     }
 
     private static bool ParseBooleanNoFail(string input)

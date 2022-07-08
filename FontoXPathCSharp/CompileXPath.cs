@@ -156,7 +156,7 @@ public static class CompileXPath
 
     private static string NormalizeEndOfLines(string selector)
     {
-        Console.WriteLine("Warning, end of line normalization regex might not be correct yet.");
+        // Console.WriteLine("Warning, end of line normalization regex might not be correct yet.");
         return selector.Replace("(\x0D\x0A)|(\x0D(?!\x0A))g", "" + 0xa);
     }
 }

@@ -7,12 +7,14 @@ namespace FontoXPathCSharp.Expressions.Axes;
 public class AncestorAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _ancestorExpression;
+    private readonly bool _inclusive;
 
-    public AncestorAxis(AbstractTestExpression ancestorExpression) : base(
-        new AbstractExpression[] { ancestorExpression }, new OptimizationOptions(false)
+    public AncestorAxis(AbstractTestExpression ancestorExpression, bool inclusive) : base(
+        new AbstractExpression[] {ancestorExpression}, new OptimizationOptions(false)
     )
     {
         _ancestorExpression = ancestorExpression;
+        _inclusive = inclusive;
     }
 
     private static Iterator<AbstractValue> GenerateAncestors(XmlNode? contextPointer)
@@ -33,8 +35,8 @@ public class AncestorAxis : AbstractExpression
     {
         var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
 
-        // TODO: add inclusive property
-        return SequenceFactory.CreateFromIterator(GenerateAncestors(contextItem.Value.ParentNode)).Filter(
-            (item, _, _) => _ancestorExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
+        return SequenceFactory
+            .CreateFromIterator(GenerateAncestors(_inclusive ? contextItem.Value : contextItem.Value.ParentNode)).Filter(
+                (item, _, _) => _ancestorExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
     }
 }
