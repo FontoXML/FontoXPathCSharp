@@ -22,12 +22,14 @@ public class QT3Tests
                 arguments.Language
             );
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            Assert.True(false, ex.Message);
-            throw;
+            Assert.True(false, $"Query: {arguments.TestQuery}\nError: {ex.Message}");
+            return;
         }
+
         
+
         asserter(
             arguments.TestQuery,
             arguments.ContextNode,

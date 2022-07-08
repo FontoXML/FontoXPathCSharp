@@ -77,7 +77,7 @@ public class Qt3Assertions
             {
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
-                    var result = Evaluate.EvaluateXPathToString('.', assertNode);
+                    var result = Evaluate.EvaluateXPathToString(".", assertNode);
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
                             $"let $result := ({xpath}) return {result}",
@@ -126,7 +126,7 @@ public class Qt3Assertions
             }
             case "assert-deep-eq":
             {
-                var equalWith = Evaluate.EvaluateXPathToString('.', assertNode);
+                var equalWith = Evaluate.EvaluateXPathToString(".", assertNode);
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     Assert.True(
