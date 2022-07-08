@@ -25,7 +25,10 @@ public static class XdmReturnValue
                 typeof(string), () =>
                 {
                     var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
-                    if (allValues.Length == 0) return (TReturn) (object) "";
+
+                    if (allValues.Length == 0)
+                        return (TReturn?) (object?) null;
+
                     return (TReturn) (object) string.Join(' ',
                         allValues.Select(v =>
                             TypeCasting.CastToType((AtomicValue) v, ValueType.XsString)
@@ -46,7 +49,7 @@ public static class XdmReturnValue
                 {
                     var first = rawResults.First();
                     if (first == null || !first.GetValueType().IsSubtypeOf(ValueType.XsInteger))
-                        return (TReturn) (object) 0;
+                        return (TReturn?) (object?) null;
 
                     return (TReturn) (object) first.GetAs<IntValue>(ValueType.XsInteger)!.Value;
                 }
@@ -67,11 +70,12 @@ public static class XdmReturnValue
                     });
                 }
             },
+
             // First Node
             {
                 typeof(XmlNode), () => rawResults.First() != null
                     ? (TReturn) (object) ((NodeValue) rawResults.First()!).Value
-                    : (TReturn) (object) null
+                    : (TReturn?) (object?) null
             },
             // Nodes
             {
