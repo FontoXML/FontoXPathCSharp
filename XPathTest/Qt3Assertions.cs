@@ -97,7 +97,6 @@ public class Qt3Assertions
                         ),
                         $"Expected XPath {xpath} to resolve to true");
                 };
-
             case "error":
             case "assert-eq":
             case "assert-deep-eq":

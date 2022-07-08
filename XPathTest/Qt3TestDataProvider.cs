@@ -66,12 +66,12 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
             _testCases = testCaseNodes
                 .Where(testCase => !_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
-                .Select(t =>
+                .Select(testCase =>
                 {
-                    var name = GetTestName(t);
-                    var description = GetTestDescription(testSetName, name, t);
-                    var arguments = Qt3TestUtils.GetArguments(testSetFileName, t);
-                    return new object[] { t, arguments, name, testSetName, description };
+                    var name = GetTestName(testCase);
+                    var description = GetTestDescription(testSetName, name, testCase);
+                    var arguments = Qt3TestUtils.GetArguments(testSetFileName, testCase);
+                    return new object[] { name, testSetName, description, testCase, arguments };
                 })
                 .ToList();
         });

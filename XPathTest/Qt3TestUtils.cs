@@ -11,16 +11,6 @@ namespace XPathTest;
 
 public static class Qt3TestUtils
 {
-
-
-    // private static XmlDocument LoadXmlFile(string fileName)
-    // {
-    //     var document = new XmlDocument();
-    //     document.Load(fileName);
-    //     return document;
-    // }
-
-
     private static string PreprocessFilename(string filename)
     {
         while (filename.Contains(".."))
@@ -78,14 +68,12 @@ public static class Qt3TestUtils
 
         var namespaceResolver = localNamespaceResolver;
 
-        var environmentNode = Evaluate.EvaluateXPathToBoolean("./environment/", testCase)
-            ? Evaluate.EvaluateXPathToFirstNode("/test-set/environment[@name = ./environment/]",testCase)
+        var refString = Evaluate.EvaluateXPathToString("./environment/@ref", testCase);
+        var environmentNodes = Evaluate.EvaluateXPathToNodes("./environment", testCase);
+        var environmentNode = environmentNodes.Any()
+            ? Evaluate.EvaluateXPathToFirstNode($"/test-set/environment[@name = \"{refString}\"]",testCase)
             : Evaluate.EvaluateXPathToFirstNode("./environment", testCase);
-
-        // var environmentNode = Evaluate.EvaluateXPathToFirstNode(
-        //     "let $ref := ./environment/@ref return if ($ref) then /test-set/environment[@name = $ref] else ./environment",
-        //     testCase
-        // );
+        
         var env = CreateEnvironment(baseUrl, environmentNode);
         
         // var env = environmentNode != null

@@ -9,24 +9,26 @@ namespace FontoXPathCSharp.EvaluationUtils;
 
 public static class XdmReturnValue
 {
-    public static TReturn? ConvertXmdReturnValue<TSelector, TReturn>(TSelector expression, ISequence rawResults,
+    public static TReturn? ConvertXmdReturnValue<TSelector, TReturn>(
+        TSelector expression,
+        ISequence rawResults,
         ExecutionParameters executionParameters)
     {
         // Turn this into a static variable and make the lambdas take in expression and rawResult when called.
         // Otherwise all code down here is executed when only one function needs to, at most, maybe?
-        var typeActions = new TypeSwitchCase<TReturn>
+        var typeActions = new TypeSwitchCase<TReturn?>
         {
             // Boolean
-            { typeof(bool), () => (TReturn)(object)rawResults.GetEffectiveBooleanValue() },
+            {typeof(bool), () => (TReturn) (object) rawResults.GetEffectiveBooleanValue()},
             // String
             {
                 typeof(string), () =>
                 {
                     var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
-                    if (allValues.Length == 0) return (TReturn)(object)"";
-                    return (TReturn)(object)string.Join(' ',
+                    if (allValues.Length == 0) return (TReturn) (object) "";
+                    return (TReturn) (object) string.Join(' ',
                         allValues.Select(v =>
-                            TypeCasting.CastToType((AtomicValue)v, ValueType.XsString)
+                            TypeCasting.CastToType((AtomicValue) v, ValueType.XsString)
                                 .GetAs<StringValue>(ValueType.XsString)?.Value));
                 }
             },
@@ -35,7 +37,7 @@ public static class XdmReturnValue
                 typeof(IEnumerable<string>), () =>
                 {
                     var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
-                    return (TReturn)allValues.Select(v => v.GetAs<StringValue>(ValueType.XsString)?.Value);
+                    return (TReturn) allValues.Select(v => v.GetAs<StringValue>(ValueType.XsString)?.Value);
                 }
             },
             // First Integer
@@ -43,10 +45,10 @@ public static class XdmReturnValue
                 typeof(int), () =>
                 {
                     var first = rawResults.First();
-                    if (first == null || !SubtypeUtils.IsSubtypeOf(first.GetValueType(), ValueType.XsInteger))
-                        return (TReturn)(object)0;
+                    if (first == null || !first.GetValueType().IsSubtypeOf(ValueType.XsInteger))
+                        return (TReturn) (object) 0;
 
-                    return (TReturn)(object)first.GetAs<IntValue>(ValueType.XsInteger)!.Value;
+                    return (TReturn) (object) first.GetAs<IntValue>(ValueType.XsInteger)!.Value;
                 }
             },
             // Integers
@@ -54,9 +56,9 @@ public static class XdmReturnValue
                 typeof(IEnumerable<int>), () =>
                 {
                     var allValues = rawResults.GetAllValues();
-                    return (TReturn)allValues.Select(v =>
+                    return (TReturn) allValues.Select(v =>
                     {
-                        if (!SubtypeUtils.IsSubtypeOf(v.GetValueType(), ValueType.XsInteger))
+                        if (!v.GetValueType().IsSubtypeOf(ValueType.XsInteger))
                             throw new Exception(
                                 $"Expected XPath {expression} to resolve to numbers"
                             );
@@ -66,14 +68,18 @@ public static class XdmReturnValue
                 }
             },
             // First Node
-            { typeof(XmlNode), () => (TReturn)(object)((NodeValue)rawResults.First()!).Value },
+            {
+                typeof(XmlNode), () => rawResults.First() != null
+                    ? (TReturn) (object) ((NodeValue) rawResults.First()!).Value
+                    : (TReturn) (object) null
+            },
             // Nodes
             {
                 typeof(IEnumerable<XmlNode>),
                 () =>
                 {
-                    Console.WriteLine("Iterator contents: " + rawResults);
-                    return (TReturn)rawResults.GetAllValues().Select(v => ((NodeValue)v).Value);
+                    return (TReturn) rawResults.GetAllValues()
+                        .Select(v => ((NodeValue) v).Value);
                 }
             },
             // Array TODO: Find a better type to use here.
@@ -87,7 +93,7 @@ public static class XdmReturnValue
 
                     var first = rawResults.First()!;
 
-                    if (!SubtypeUtils.IsSubtypeOf(first.GetValueType(), ValueType.Array))
+                    if (!first.GetValueType().IsSubtypeOf(ValueType.Array))
                         throw new Exception($"Expected XPath {expression} to resolve to an array.");
 
                     throw new NotImplementedException();

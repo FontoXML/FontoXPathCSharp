@@ -11,25 +11,19 @@ public class QT3Tests
     [Theory(Timeout = 60000, DisplayName = "Qt3 Tests")]
     [ClassData(typeof(Qt3TestDataProvider))]
     [Description("bla")]
-    public void Qt3Tests(XmlNode testCase, Qt3TestUtils.TestArguments arguments, string name, string testSetName, string description)
+    public void Qt3Tests(string name, string testSetName, string description, XmlNode testCase, Qt3TestUtils.TestArguments arguments)
     {
-        try
-        {
-            var asserter = Qt3Assertions.GetExpressionBackendAsserterForTest(
+        var asserter = Qt3Assertions.GetExpressionBackendAsserterForTest(
                 arguments.BaseUrl,
                 testCase,
                 arguments.Language
-            );
+        );
 
-            asserter(
-                arguments.TestQuery,
-                arguments.ContextNode,
-                arguments.VariablesInScope,
-                arguments.NamespaceResolver
-            );
-        }
-        catch (Exception ex)
-        {
-        }
+        asserter(
+            arguments.TestQuery,
+            arguments.ContextNode,
+            arguments.VariablesInScope,
+            arguments.NamespaceResolver
+        );
     }
 }
