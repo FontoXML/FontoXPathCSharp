@@ -199,7 +199,7 @@ public static class XPathParser
     private static readonly ParseFunc<Ast> NodeTest = Or(KindTest, NameTest);
 
     private static readonly ParseFunc<Ast> AbbrevForwardStep = Then(Optional(Token("@")), NodeTest,
-        (a, b) => new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis, b)
+        (a, b) => new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis)
         {
             TextContent = a != null || b.IsA(AstNodeName.AttributeTest, AstNodeName.SchemaAttributeTest)
                 ? "attribute"

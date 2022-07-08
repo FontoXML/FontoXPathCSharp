@@ -1,3 +1,5 @@
+using System.Xml;
+using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -6,10 +8,10 @@ namespace FontoXPathCSharp.Expressions.Tests;
 
 public class NameTest : AbstractTestExpression
 {
-    private readonly int? _kind;
+    private readonly XmlNodeType? _kind;
     private readonly QName _name;
 
-    public NameTest(QName name, int? kind = null)
+    public NameTest(QName name, XmlNodeType? kind = null)
     {
         _name = name;
         _kind = kind;
@@ -40,7 +42,9 @@ public class NameTest : AbstractTestExpression
 
         if (node == null || (!nodeIsElement && !nodeIsAttribute)) return false;
 
-        if (_kind != null && ((_kind == 1 && !nodeIsElement) || (_kind == 2 && !nodeIsAttribute))) return false;
+        if (_kind != null &&
+            ((_kind == XmlNodeType.Text && !nodeIsElement) ||
+             (_kind == XmlNodeType.Attribute && !nodeIsAttribute))) return false;
 
         if (_name.Prefix == null && _name.NamespaceUri != "" && _name.LocalName == "*") return true;
 

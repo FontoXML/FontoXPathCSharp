@@ -1,8 +1,10 @@
+using System.Xml;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Axes;
 using FontoXPathCSharp.Expressions.Operators;
 using FontoXPathCSharp.Expressions.Tests;
 using FontoXPathCSharp.Types;
+using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -17,12 +19,32 @@ public static class CompileAstToExpression
         return options;
     }
 
+    private static AbstractTestExpression CompileElementTest(Ast ast)
+    {
+        var elementName = ast.GetFirstChild(AstNodeName.ElementName);
+        var star = elementName?.GetFirstChild(AstNodeName.Star);
+        if (elementName == null || star != null)
+            return new KindTest(XmlNodeType.Element);
+        return new NameTest(elementName.GetFirstChild(AstNodeName.QName).GetQName(), XmlNodeType.Element);
+    }
+
+    private static AbstractTestExpression CompileAttributeTest(Ast ast)
+    {
+        var attributeName = ast.GetFirstChild(AstNodeName.AttributeName);
+        var star = attributeName?.GetFirstChild(AstNodeName.Star);
+        if (attributeName == null || star != null)
+            return new KindTest(XmlNodeType.Attribute);
+        return new NameTest(attributeName.GetFirstChild(AstNodeName.QName).GetQName(), XmlNodeType.Attribute);
+    }
+
     private static AbstractTestExpression CompileTestExpression(Ast ast)
     {
         return ast.Name switch
         {
             AstNodeName.NameTest => new NameTest(new QName(ast.TextContent, null, null)),
             AstNodeName.AnyKindTest => new TypeTest(new QName("node()", null, "")),
+            AstNodeName.AttributeTest => CompileAttributeTest(ast),
+            AstNodeName.ElementTest => CompileElementTest(ast),
             _ => throw new XPathException("Invalid test expression: " + ast.Name)
         };
     }
@@ -54,7 +76,7 @@ public static class CompileAstToExpression
                 }
             }
 
-            AbstractExpression? stepExpression = null;
+            AbstractExpression stepExpression;
 
             if (axis != null)
             {
@@ -92,7 +114,7 @@ public static class CompileAstToExpression
             else
             {
                 var filterExpr = step.FollowPath(AstNodeName.FilterExpr, AstNodeName.All);
-                if (filterExpr != null) stepExpression = CompileAst(filterExpr, DisallowUpdating(options));
+                stepExpression = CompileAst(filterExpr, DisallowUpdating(options));
             }
 
             foreach (var postfix in postFixExpressions)
@@ -158,7 +180,7 @@ public static class CompileAstToExpression
     {
         var firstOperand = ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All);
         var secondOperand = ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All);
-        
+
         var firstExpression = CompileAst(firstOperand, options);
         var secondExpression = CompileAst(secondOperand, options);
 
