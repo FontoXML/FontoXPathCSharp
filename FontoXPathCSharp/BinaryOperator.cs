@@ -72,7 +72,7 @@ internal class BinaryOperator : AbstractExpression
                     _operator
                 );
 
-                if (!prefabOperator)
+                if (prefabOperator == null)
                     throw new XPathException(
                         $"XPTY0004: {_operator} not available for types {firstValue.GetValueType()} and {secondValue.GetValueType()}"
                     );
