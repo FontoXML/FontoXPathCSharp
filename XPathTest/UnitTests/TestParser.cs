@@ -348,4 +348,10 @@ public class TestParser
        ""advanced-uca-fallback""))]
 ");
     }
+
+    [Fact]
+    public void ParsePrefixedFunction()
+    {
+        ParseQuery("fn:not()");
+    }
 }

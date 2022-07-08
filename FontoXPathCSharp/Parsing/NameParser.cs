@@ -27,15 +27,23 @@ public static class NameParser
     private static readonly ParseFunc<QName> UnprefixedName =
         Map(NcName, x => new QName(x, null, ""));
 
+    private static readonly ParseFunc<string> XmlPrefix = NcName;
+
+    private static readonly ParseFunc<string> LocalPart = NcName;
+
+    private static readonly ParseFunc<QName> PrefixedName =
+        Then(XmlPrefix, Preceded(Token(":"), LocalPart),
+            (prefix, local) => new QName(local, null, prefix));
+
     private static readonly ParseFunc<QName> QName =
         Or(
+            PrefixedName,
             UnprefixedName
-            // TODO: add prefixed name
         );
 
     public static readonly ParseFunc<string> BracedUriLiteral = Followed(
         PrecededMultiple(
-            new[] { Token("Q"), Whitespace, Token("{") },
+            new[] {Token("Q"), Whitespace, Token("{")},
             Map(Star(Regex("/[^{}]/")), x => Regex.Replace(string.Join("", x), @"\s+", " ").Trim())
         ),
         Token("}")

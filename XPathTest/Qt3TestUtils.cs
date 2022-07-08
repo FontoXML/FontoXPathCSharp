@@ -42,7 +42,7 @@ public static class Qt3TestUtils
         //     new Dictionary<string, AbstractValue>());
         var baseUrl = testSetFileName.Substring(0, testSetFileName.LastIndexOf('/'));
 
-        string? testQuery;
+        string testQuery;
         if (Evaluate.EvaluateXPathToBoolean("./test/@file", testCase, null, new Dictionary<string, AbstractValue>(),
                 new Options()))
         {
@@ -58,8 +58,9 @@ public static class Qt3TestUtils
         }
         else
         {
-            testQuery = Evaluate.EvaluateXPathToString("./test", testCase, null,
-                new Dictionary<string, AbstractValue>(), new Options());
+            // TODO: replace with EvaluateXPathToString
+            testQuery = Evaluate.EvaluateXPathToNodes("./test", testCase, null,
+                new Dictionary<string, AbstractValue>(), new Options()).First().InnerText;
         }
 
 
@@ -109,8 +110,7 @@ public static class Qt3TestUtils
                 ) ?? string.Empty)))
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => x.Value);
-
-        var contextNode = fileName.Length > 0 ? LoadFileToXmlNode(fileName) : null;
+        var contextNode = (fileName != null && fileName.Length > 0) ? LoadFileToXmlNode(fileName) : null;
 
         // TODO: ehh... no idea what is going on with that nested EvaluateXPath that's in the original.
         // Evaluate.EvaluateXPathToNodes("param", environmentNode).ToList().ForEach(paramNode => {
