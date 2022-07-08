@@ -26,7 +26,7 @@ public class Evaluate
     public static IEnumerable<XmlNode> EvaluateXPathToNodes<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
         IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
     {
-        return EvaluateXPath<IEnumerable<XmlNode>, TSelectorType>(selector, contextItem, domFacade, variables, options);
+        return EvaluateXPath<IEnumerable<XmlNode>, TSelectorType>(selector, contextItem, domFacade, variables, options)!;
     }
 
     public static int EvaluateXPathToInt<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
@@ -38,16 +38,16 @@ public class Evaluate
     public static IEnumerable<int> EvaluateXPathToInts<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
         IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
     {
-        return EvaluateXPath<IEnumerable<int>, TSelectorType>(selector, contextItem, domFacade, variables, options);
+        return EvaluateXPath<IEnumerable<int>, TSelectorType>(selector, contextItem, domFacade, variables, options)!;
     }
 
-    public static string EvaluateXPathToString<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
+    public static string? EvaluateXPathToString<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
         IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
     {
         return EvaluateXPath<string, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
 
-    public static TReturn EvaluateXPath<TReturn, TSelector>(
+    public static TReturn? EvaluateXPath<TReturn, TSelector>(
         TSelector selector,
         XmlNode? contextItem,
         IDomFacade? domFacade,

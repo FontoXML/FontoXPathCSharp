@@ -12,6 +12,13 @@ namespace XPathTest;
 
 public static class Qt3TestUtils
 {
+    public static XmlNode StringToXmlNode(string xml)
+    {
+        var doc = new XmlDocument();
+        doc.LoadXml(xml);
+        return doc;
+    }
+    
     private static string PreprocessFilename(string filename)
     {
         while (filename.Contains(".."))
@@ -110,7 +117,7 @@ public static class Qt3TestUtils
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => x.Value);
 
-        var contextNode = fileName.Length > 0 ? LoadFileToXmlNode(fileName) : null;
+        var contextNode = (fileName != null && fileName.Length > 0) ? LoadFileToXmlNode(fileName) : null;
 
         // TODO: ehh... no idea what is going on with that nested EvaluateXPath that's in the original.
         // Evaluate.EvaluateXPathToNodes("param", environmentNode).ToList().ForEach(paramNode => {

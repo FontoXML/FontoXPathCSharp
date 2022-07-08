@@ -25,7 +25,7 @@ public class QT3Tests
         catch(Exception ex)
         {
             Assert.True(false, ex.Message);
-            return;
+            throw;
         }
         
         asserter(
