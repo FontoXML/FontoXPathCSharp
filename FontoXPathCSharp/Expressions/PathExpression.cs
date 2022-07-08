@@ -22,7 +22,7 @@ public class PathExpression : AbstractExpression
     {
         // TODO: Add sorting
         return nodeValues
-            .DistinctBy(value => value)
+            .DistinctBy(value => value.GetAs<NodeValue>(ValueType.Node).Value)
             .ToArray();
     }
 
