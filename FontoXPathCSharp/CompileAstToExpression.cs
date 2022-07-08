@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Xml;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Axes;
@@ -37,6 +38,26 @@ public static class CompileAstToExpression
         return new NameTest(attributeName.GetFirstChild(AstNodeName.QName).GetQName(), XmlNodeType.Attribute);
     }
 
+    private static AbstractTestExpression CompileWildcard(Ast ast)
+    {
+        if (ast.GetFirstChild(AstNodeName.Star) == null)
+            return new NameTest(new QName("*", null, "*"));
+
+        var uri = ast.GetFirstChild(AstNodeName.Uri);
+        if (uri != null)
+            return new NameTest(new QName("*", uri.TextContent, ""));
+
+        var ncName = ast.GetFirstChild(AstNodeName.NcName);
+        Debug.Assert(ncName != null, nameof(ncName) + " != null");
+
+        var firstChild = ast.GetFirstChild();
+        Debug.Assert(firstChild != null, nameof(firstChild) + " != null");
+
+        return firstChild.IsA(AstNodeName.Star)
+            ? new NameTest(new QName(ncName.TextContent, null, "*"))
+            : new NameTest(new QName("*", null, ncName.TextContent));
+    }
+
     private static AbstractTestExpression CompileTestExpression(Ast ast)
     {
         return ast.Name switch
@@ -45,6 +66,7 @@ public static class CompileAstToExpression
             AstNodeName.AnyKindTest => new TypeTest(new QName("node()", null, "")),
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
             AstNodeName.ElementTest => CompileElementTest(ast),
+            AstNodeName.Wildcard => CompileWildcard(ast),
             _ => throw new XPathException("Invalid test expression: " + ast.Name)
         };
     }
@@ -181,7 +203,10 @@ public static class CompileAstToExpression
         var firstOperand = ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All);
         var secondOperand = ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All);
 
+        Debug.Assert(firstOperand != null, nameof(firstOperand) + " != null");
         var firstExpression = CompileAst(firstOperand, options);
+
+        Debug.Assert(secondOperand != null, nameof(secondOperand) + " != null");
         var secondExpression = CompileAst(secondOperand, options);
 
         return ast.Name switch
