@@ -5,7 +5,6 @@ using FontoXPathCSharp.Expressions.Axes;
 using FontoXPathCSharp.Expressions.Operators;
 using FontoXPathCSharp.Expressions.Tests;
 using FontoXPathCSharp.Types;
-using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -75,7 +74,7 @@ public static class CompileAstToExpression
     {
         var rawSteps = ast.GetChildren(AstNodeName.StepExpr);
 
-        var steps = rawSteps.Select<Ast, AbstractExpression>(step =>
+        var steps = rawSteps.Select(step =>
         {
             var axis = step.GetFirstChild(AstNodeName.XPathAxis);
 
@@ -83,7 +82,6 @@ public static class CompileAstToExpression
             var postFixExpressions = new List<(string Type, AbstractExpression Postfix)>();
 
             foreach (var child in children)
-            {
                 switch (child.Name)
                 {
                     case AstNodeName.Lookup:
@@ -96,7 +94,6 @@ public static class CompileAstToExpression
                                 .Select(predicateExpression => ("predicate", predicateExpression)));
                         break;
                 }
-            }
 
             AbstractExpression stepExpression;
 
@@ -111,10 +108,7 @@ public static class CompileAstToExpression
                     AstNodeName.AnyItemType, AstNodeName.ParenthesizedItemType, AstNodeName.TypedMapTest,
                     AstNodeName.TypedArrayTest, AstNodeName.NameTest, AstNodeName.Wildcard);
 
-                if (test == null)
-                {
-                    throw new XPathException("No test found in path expression axis");
-                }
+                if (test == null) throw new XPathException("No test found in path expression axis");
 
                 var testExpression = CompileTestExpression(test);
 
@@ -140,14 +134,12 @@ public static class CompileAstToExpression
             }
 
             foreach (var postfix in postFixExpressions)
-            {
                 stepExpression = postfix.Type switch
                 {
                     "lookup" => throw new NotImplementedException(),
                     "predicate" => new FilterExpression(stepExpression, postfix.Postfix),
                     _ => throw new Exception("Unreachable")
                 };
-            }
 
             return stepExpression;
         });
@@ -189,7 +181,7 @@ public static class CompileAstToExpression
         var args = new[]
         {
             ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All)!,
-            ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!,
+            ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!
         };
         Console.WriteLine(args[0]);
         return new FunctionCall(new NamedFunctionRef(
@@ -261,8 +253,21 @@ public static class CompileAstToExpression
             AstNodeName.AndOp => CompileAndOp(ast, options),
             AstNodeName.SequenceExpr => CompileSequenceExpression(ast, options),
             AstNodeName.UnionOp => CompileUnionOp(ast, options),
+            AstNodeName.SubtractOp
+                or AstNodeName.AddOp
+                or AstNodeName.MultiplyOp or AstNodeName.DivOp or AstNodeName.IDivOp
+                or AstNodeName.ModOp => CompileBinaryOperator(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
+    }
+
+    private static AbstractExpression CompileBinaryOperator(Ast ast, CompilationOptions options)
+    {
+        var kind = ast.Name;
+        var a = CompileAst(ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All)!, DisallowUpdating(options));
+        var b = CompileAst(ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!, DisallowUpdating(options));
+
+        return new BinaryOperator(kind, a, b);
     }
 
     private static AbstractExpression CompileUnionOp(Ast ast, CompilationOptions options)
