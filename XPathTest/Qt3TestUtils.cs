@@ -58,9 +58,8 @@ public static class Qt3TestUtils
         }
         else
         {
-            // TODO: replace with EvaluateXPathToString
-            testQuery = Evaluate.EvaluateXPathToNodes("./test", testCase, null,
-                new Dictionary<string, AbstractValue>(), new Options()).First().InnerText;
+            testQuery = Evaluate.EvaluateXPathToString("./test", testCase, null,
+                new Dictionary<string, AbstractValue>(), new Options());
         }
 
 

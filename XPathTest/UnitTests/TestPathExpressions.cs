@@ -71,4 +71,10 @@ public class TestPathExpressions
     {
         Assert.Single(EvalQueryNodes(@"/xml/derp[@id = ""dorp""]"));
     }
+
+    [Fact]
+    public void EvalToStringTextContents()
+    {
+        Assert.Equal("durrrrrr", EvalQueryString("/xml/hurr"));
+    }
 }
