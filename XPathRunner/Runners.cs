@@ -17,7 +17,7 @@ public class Runners
     {
         _testOutputHelper = testOutputHelper;
         _qt3Tests = new XmlDocument();
-        _qt3Tests.Load("../../../../XPathTest/assets/QT3TS/catalog.xml");
+        _qt3Tests.Load("../../../../XPathTest/assets/qt3tests/catalog.xml");
     }
 
     [Fact]

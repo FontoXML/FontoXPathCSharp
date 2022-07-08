@@ -40,13 +40,11 @@ public static class Qt3TestUtils
 
     public static string? LoadFileToString(string filename)
     {
-        return DocumentsByPathCache.Instance.GetResource($"QT3TS/{PreprocessFilename(filename)}");
+        return DocumentsByPathCache.Instance.GetResource($"qt3tests/{PreprocessFilename(filename)}");
     }
 
     public static TestArguments GetArguments(string testSetFileName, XmlNode testCase)
     {
-        // return new TestArguments("", testCase, "", Language.LanguageId.XPATH_3_1_LANGUAGE, null,
-        //     new Dictionary<string, AbstractValue>());
         var baseUrl = testSetFileName.Substring(0, testSetFileName.LastIndexOf('/'));
 
         string testQuery;
@@ -55,18 +53,14 @@ public static class Qt3TestUtils
         {
             var filepath = $"{baseUrl}/{Evaluate.EvaluateXPathToString("test/@file", testCase)}";
             if (TestFileSystem.FileExists(filepath))
-            {
                 testQuery = LoadFileToString(filepath);
-            }
             else
-            {
                 throw new FileNotFoundException($"Could not load file {filepath}");
-            }
         }
         else
         {
             testQuery = Evaluate.EvaluateXPathToString("./test", testCase, null,
-                new Dictionary<string, AbstractValue>(), new Options());
+                new Dictionary<string, AbstractValue>(), new Options())!;
         }
 
 
