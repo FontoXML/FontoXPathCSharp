@@ -61,18 +61,18 @@ public static class Atomize
 
         if (value.GetValueType().IsSubtypeOf(ValueType.Node))
         {
-            var pointer = value.GetAs<NodeValue>();
+            var pointer = value.GetAs<NodeValue>().Value;
 
-            if (pointer.GetValueType().IsSubTypeOfAny(ValueType.Attribute, ValueType.Text))
+            if (pointer.NodeType is XmlNodeType.Attribute or XmlNodeType.Text)
             {
-                return SequenceFactory.CreateFromValue(new StringValue(pointer.Value.InnerText));
+                return SequenceFactory.CreateFromValue(new StringValue(pointer.InnerText));
             }
             // throw new NotImplementedException("Not sure how to do this with the XmlNode replacing domfacade yet");
             // return SequenceFactory.CreateFromIterator(CreateAtomicValue(domfacade[]));
 
-            if (pointer.GetValueType().IsSubTypeOfAny(ValueType.Comment, ValueType.ProcessingInstruction))
+            if (pointer.NodeType is XmlNodeType.Comment or XmlNodeType.ProcessingInstruction)
             {
-                return SequenceFactory.CreateFromValue(new StringValue(pointer.Value.InnerText));
+                return SequenceFactory.CreateFromValue(new StringValue(pointer.InnerText));
             }
 
             var allTexts = new List<string>();
@@ -80,51 +80,27 @@ public static class Atomize
             Action<XmlNode>? getTextNodes = null;
             getTextNodes = node =>
             {
-                var aNode = new NodeValue(node);
-                if (pointer.GetValueType().IsSubTypeOfAny(ValueType.Comment, ValueType.ProcessingInstruction)) return;
+                if (pointer.NodeType is XmlNodeType.Comment or XmlNodeType.ProcessingInstruction)
+                    return;
 
-                if (aNode.GetValueType().IsSubTypeOfAny(ValueType.Text))
+                if (node.NodeType == XmlNodeType.Text)
                 {
                     allTexts.Add(node.InnerText);
                 }
 
-                if (aNode.GetValueType().IsSubTypeOfAny(ValueType.Element, ValueType.DocumentNode))
+                if (node.NodeType is XmlNodeType.Element or XmlNodeType.Document)
                 {
-                    var children = aNode.Value.ChildNodes;
+                    var children = node.ChildNodes;
                     foreach (XmlNode child in children)
                     {
                         getTextNodes?.Invoke(child);
                     }
                 }
             };
+            getTextNodes(pointer);
 
-            return SequenceFactory.CreateFromValue(CreateAtomicValue(string.Join("", allTexts), ValueType.XsUntypedAtomic));
-
-            // (function getTextNodes(aNode: ConcreteNode | TinyNode) {
-            //     if (
-            //         pointer.node.nodeType === NODE_TYPES.COMMENT_NODE ||
-            //                                   pointer.node.nodeType === NODE_TYPES.PROCESSING_INSTRUCTION_NODE
-            //     ) {
-            //         return;
-            //     }
-            //     const aNodeType = aNode['nodeType'];
-            //
-            //     if (aNodeType === NODE_TYPES.TEXT_NODE || aNodeType === NODE_TYPES.CDATA_SECTION_NODE) {
-            //         allTexts.push(
-            //             domFacade.getData(aNode as ConcreteCharacterDataNode | TinyCharacterDataNode)
-            //         );
-            //         return;
-            //     }
-            //     if (aNodeType === NODE_TYPES.ELEMENT_NODE || aNodeType === NODE_TYPES.DOCUMENT_NODE) {
-            //         const children = domFacade.getChildNodes(
-            //             aNode as ConcreteParentNode | TinyParentNode
-            //         );
-            //         children.forEach((child) => {
-            //             getTextNodes(child as ConcreteParentNode | TinyParentNode);
-            //         });
-            //     }
-            // })(pointer.node);
-
+            return SequenceFactory.CreateFromValue(CreateAtomicValue(string.Join("", allTexts),
+                ValueType.XsUntypedAtomic));
         }
 
         if (value.GetValueType().IsSubtypeOf(ValueType.Function) &&

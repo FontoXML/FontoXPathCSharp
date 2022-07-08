@@ -31,15 +31,21 @@ public static class BuiltInFunctionsSequences
         return arg;
     };
 
+    private static readonly FunctionDefinitionType<ISequence> FnEmpty = (_, _, _, args) =>
+        SequenceFactory.CreateFromValue(new BooleanValue(args[0].IsEmpty()));
+
     public static readonly BuiltinDeclarationType[] Declarations =
     {
-        new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne) },
+        new(new[] {new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)},
             FnCount, "count",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
-        new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore) },
+        new(new[] {new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)},
             FnZeroOrOne, "zero-or-one",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne))
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)),
+        new(new[] {new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)},
+            FnEmpty, "empty", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne))
     };
 }
