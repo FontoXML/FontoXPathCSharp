@@ -4,7 +4,7 @@ using PrscSharp;
 
 namespace FontoXPathCSharp;
 
-public class ParseExpression
+public static class ParseExpression
 {
     public static Ast ParseXPathOrXQueryExpression(string xPathString, CompilationOptions compilationOptions)
     {
@@ -15,8 +15,8 @@ public class ParseExpression
 
         return XPathParser.Parse(xPathString, options) switch
         {
-            Err<Ast> err => throw new Exception("PRSC Error:\n" + string.Join('\n', err.Expected) + " Actual: " +
-                                                xPathString[err.Offset]),
+            Err<Ast> err => throw new Exception("PRSC Error:\nFailed to parse query '" + xPathString +
+                                                "'\n\nExpected: " + string.Join('\n', err.Expected.Distinct())),
             Ok<Ast> ok => ok.Unwrap(),
             _ => throw new ArgumentOutOfRangeException()
         };
