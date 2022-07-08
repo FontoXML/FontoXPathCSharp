@@ -64,16 +64,41 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
             if (!testCaseNodes.Any()) return;
 
-            _testCases = testCaseNodes
-                .Where(testCase => !_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
-                .Select(testCase =>
+            _testCases = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
+            {
+                if (!_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
                 {
-                    var name = GetTestName(testCase);
-                    var description = GetTestDescription(testSetName, name, testCase);
-                    var arguments = Qt3TestUtils.GetArguments(testSetFileName, testCase);
-                    return new object[] { name, testSetName, description, testCase, arguments };
-                })
-                .ToList();
+                    try
+                    {
+                        var name = GetTestName(testCase);
+                        var description = GetTestDescription(testSetName, name, testCase);
+                        var arguments = Qt3TestUtils.GetArguments(testSetFileName, testCase);
+                        testCases.Add(new object[]{name, testSetName, description, testCase, arguments});
+                    }
+                    catch (FileNotFoundException ex) { /* Test file was probably not found. */}
+                }
+                
+                return testCases;
+            });
+
+            // _testCases = testCaseNodes
+            //     .Where(testCase => !_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
+            //     .Select(testCase =>
+            //     {
+            //         try
+            //         {
+            //             var name = GetTestName(testCase);
+            //             var description = GetTestDescription(testSetName, name, testCase);
+            //             var arguments = Qt3TestUtils.GetArguments(testSetFileName, testCase);
+            //             return new object[] {name, testSetName, description, testCase, arguments};
+            //         }
+            //         catch (FileNotFoundException ex)
+            //         {
+            //             
+            //         }
+            //
+            //     })
+            //     .ToList();
         });
     }
 

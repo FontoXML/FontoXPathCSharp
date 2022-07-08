@@ -13,12 +13,21 @@ public class QT3Tests
     [Description("bla")]
     public void Qt3Tests(string name, string testSetName, string description, XmlNode testCase, Qt3TestUtils.TestArguments arguments)
     {
-        var asserter = Qt3Assertions.GetExpressionBackendAsserterForTest(
+        AsserterCall asserter;
+        try
+        {
+            asserter = Qt3Assertions.GetExpressionBackendAsserterForTest(
                 arguments.BaseUrl,
                 testCase,
                 arguments.Language
-        );
-
+            );
+        }
+        catch(Exception ex)
+        {
+            Assert.True(false, ex.Message);
+            return;
+        }
+        
         asserter(
             arguments.TestQuery,
             arguments.ContextNode,

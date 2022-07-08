@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml;
 using FontoXPathCSharp;
@@ -44,17 +45,23 @@ public static class Qt3TestUtils
         string? testQuery;
         if (Evaluate.EvaluateXPathToBoolean("./test/@file", testCase, null, new Dictionary<string, AbstractValue>(),
                 new Options()))
-            testQuery = LoadFileToString(
-                Evaluate.EvaluateXPathToString(
-                    @"$baseUrl || ""/"" || test/@file",
-                    testCase,
-                    null,
-                    new Dictionary<string, AbstractValue> { { "baseUrl", new StringValue(baseUrl) } },
-                    new Options())
-            );
+        {
+            var filepath = $"{baseUrl}/{Evaluate.EvaluateXPathToString("test/@file", testCase)}";
+            if (TestFileSystem.FileExists(filepath))
+            {
+                testQuery = LoadFileToString(filepath);
+            }
+            else
+            {
+                throw new FileNotFoundException($"Could not load file {filepath}");
+            }
+        }
         else
+        {
             testQuery = Evaluate.EvaluateXPathToString("./test", testCase, null,
                 new Dictionary<string, AbstractValue>(), new Options());
+        }
+
 
         //TODO: Retrieve the language from the test case.
         var language = Language.LanguageId.XPATH_3_1_LANGUAGE;
@@ -71,11 +78,11 @@ public static class Qt3TestUtils
         var refString = Evaluate.EvaluateXPathToString("./environment/@ref", testCase);
         var environmentNodes = Evaluate.EvaluateXPathToNodes("./environment", testCase);
         var environmentNode = environmentNodes.Any()
-            ? Evaluate.EvaluateXPathToFirstNode($"/test-set/environment[@name = \"{refString}\"]",testCase)
+            ? Evaluate.EvaluateXPathToFirstNode($"/test-set/environment[@name = \"{refString}\"]", testCase)
             : Evaluate.EvaluateXPathToFirstNode("./environment", testCase);
-        
+
         var env = CreateEnvironment(baseUrl, environmentNode);
-        
+
         // var env = environmentNode != null
         //     ? CreateEnvironment(baseUrl, environmentNode)
         //     : EnvironmentsByNameCache.Instance.GetResource(
@@ -88,7 +95,7 @@ public static class Qt3TestUtils
 
         var variablesInScope = env.Variables;
 
-        return new TestArguments(baseUrl, contextNode, testQuery, language, namespaceResolver, variablesInScope);
+        return new TestArguments(baseUrl, contextNode, testQuery, language, namespaceResolver, variablesInScope!);
     }
 
     public static Environment CreateEnvironment(string? baseUrl, XmlNode environmentNode)
@@ -103,7 +110,7 @@ public static class Qt3TestUtils
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => x.Value);
 
-        var contextNode = LoadFileToXmlNode(fileName);
+        var contextNode = fileName.Length > 0 ? LoadFileToXmlNode(fileName) : null;
 
         // TODO: ehh... no idea what is going on with that nested EvaluateXPath that's in the original.
         // Evaluate.EvaluateXPathToNodes("param", environmentNode).ToList().ForEach(paramNode => {

@@ -10,18 +10,23 @@ public static class TestFileSystem
         return Path.Join("..", "..", "..", "assets", assetPath);
     }
 
-    public static string[] ReadDir(string dirPath)
+    public static string[] ReadDir(string filepath)
     {
-        return Directory.GetFiles(CreateAssetPath(dirPath));
+        return Directory.GetFiles(CreateAssetPath(filepath));
     }
 
-    public static string ReadFile(string filePath)
+    public static string ReadFile(string filepath)
     {
-        return File.ReadAllText(CreateAssetPath(filePath), Encoding.UTF8);
+        return File.ReadAllText(CreateAssetPath(filepath), Encoding.UTF8);
     }
 
-    public static void WriteFileSync(string filePath, string content)
+    public static void WriteFileSync(string filepath, string content)
     {
-        File.WriteAllText(CreateAssetPath(filePath), content, Encoding.UTF8);
+        File.WriteAllText(CreateAssetPath(filepath), content, Encoding.UTF8);
+    }
+
+    public static bool FileExists(string filepath)
+    {
+        return File.Exists(CreateAssetPath(filepath));
     }
 }

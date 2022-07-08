@@ -10,16 +10,23 @@ using Xunit;
 
 namespace XPathTest.UnitTests;
 
+public delegate void AsserterCall(
+    string testQuery,
+    XmlNode? contextNode,
+    Dictionary<string, AbstractValue> variablesInScope,
+    Func<string, string?>? namespaceResolver
+);
+
 public class Qt3Assertions
 {
-    public static Action<string, XmlNode?, Dictionary<string, AbstractValue>, Func<string, string?>?>
-        GetExpressionBackendAsserterForTest(string baseUrl, XmlNode testCase, Language.LanguageId language)
+    public static AsserterCall GetExpressionBackendAsserterForTest(string baseUrl, XmlNode testCase,
+        Language.LanguageId language)
     {
         var assertNode = Evaluate.EvaluateXPathToFirstNode("./result/*", testCase);
         return CreateAsserterForExpression(baseUrl, assertNode, language);
     }
 
-    public static Action<string, XmlNode?, Dictionary<string, AbstractValue>, Func<string, string?>?>
+    public static AsserterCall
         CreateAsserterForExpression(
             string baseUrl, XmlNode assertNode, Language.LanguageId language)
     {
