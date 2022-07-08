@@ -32,7 +32,7 @@ public static class XdmReturnValue
                     return (TReturn) (object) string.Join(' ',
                         allValues.Select(v =>
                             TypeCasting.CastToType((AtomicValue) v, ValueType.XsString)
-                                .GetAs<StringValue>(ValueType.XsString)?.Value));
+                                .GetAs<StringValue>()?.Value));
                 }
             },
             // Strings
@@ -40,7 +40,7 @@ public static class XdmReturnValue
                 typeof(IEnumerable<string>), () =>
                 {
                     var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
-                    return (TReturn) allValues.Select(v => v.GetAs<StringValue>(ValueType.XsString)?.Value);
+                    return (TReturn) allValues.Select(v => v.GetAs<StringValue>()?.Value);
                 }
             },
             // First Integer
@@ -51,7 +51,7 @@ public static class XdmReturnValue
                     if (first == null || !first.GetValueType().IsSubtypeOf(ValueType.XsInteger))
                         return (TReturn?) (object?) null;
 
-                    return (TReturn) (object) first.GetAs<IntValue>(ValueType.XsInteger)!.Value;
+                    return (TReturn) (object) first.GetAs<IntValue>()!.Value;
                 }
             },
             // Integers
@@ -66,7 +66,7 @@ public static class XdmReturnValue
                                 $"Expected XPath {expression} to resolve to numbers"
                             );
 
-                        return v.GetAs<IntValue>(ValueType.XsInteger);
+                        return v.GetAs<IntValue>();
                     });
                 }
             },

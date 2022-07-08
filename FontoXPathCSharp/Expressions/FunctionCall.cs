@@ -1,6 +1,5 @@
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
-using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
@@ -90,7 +89,7 @@ public class FunctionCall : PossiblyUpdatingExpression
 
     private static FunctionValue<T> ValidateFunctionItem<T>(AbstractValue item, int callArity)
     {
-        var functionItem = item.GetAs<FunctionValue<T>>(ValueType.Function);
+        var functionItem = item.GetAs<FunctionValue<T>>();
 
         if (functionItem == null) throw new XPathException("Expected base expression to evaluate to a function item");
 

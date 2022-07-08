@@ -16,7 +16,7 @@ public static class BuiltInFunctionsString
         var stringSequences = args.Select(sequence =>
             Atomize.AtomizeSequence(sequence, executionParameters!).MapAll(allValues =>
                     SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(
-                        string.Join("", allValues.Select(x => x.GetAs<StringValue>(ValueType.XsString)?.Value)),
+                        string.Join("", allValues.Select(x => x.GetAs<StringValue>()?.Value)),
                         ValueType.XsString)),
                 IterationHint.None));
 
@@ -25,7 +25,7 @@ public static class BuiltInFunctionsString
         return ISequence.ZipSingleton(stringSequences,
             (stringValues) =>
                 SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(string.Join("", stringValues.Select(x =>
-                        x.GetAs<StringValue>(ValueType.XsString).Value)),
+                        x.GetAs<StringValue>().Value)),
                     ValueType.XsString)));
     };
 
@@ -33,7 +33,7 @@ public static class BuiltInFunctionsString
     {
         if (args.Length == 0) return SequenceFactory.CreateFromValue(new IntValue(0));
 
-        var stringValue = args[0].First()!.GetAs<StringValue>(ValueType.XsString)!.Value;
+        var stringValue = args[0].First()!.GetAs<StringValue>()!.Value;
 
         return SequenceFactory.CreateFromValue(new IntValue(stringValue.Length));
     };
@@ -42,7 +42,7 @@ public static class BuiltInFunctionsString
     {
         if (args.Length == 0) return SequenceFactory.CreateFromValue(new StringValue(""));
 
-        var stringValue = args[0].First()!.GetAs<StringValue>(ValueType.XsString)!.Value.Trim();
+        var stringValue = args[0].First()!.GetAs<StringValue>()!.Value.Trim();
         return SequenceFactory.CreateFromValue(new StringValue(Regex.Replace(stringValue, @"\s+", " ")));
     };
 

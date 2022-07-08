@@ -36,7 +36,7 @@ public class NameTest : AbstractTestExpression
         AbstractValue value,
         ExecutionParameters? executionParameters)
     {
-        var node = value.GetAs<NodeValue>(ValueType.Node)?.Value;
+        var node = value.GetAs<NodeValue>()?.Value;
         var nodeIsElement = value.GetValueType().IsSubtypeOf(ValueType.Element);
         var nodeIsAttribute = value.GetValueType().IsSubtypeOf(ValueType.Attribute);
 

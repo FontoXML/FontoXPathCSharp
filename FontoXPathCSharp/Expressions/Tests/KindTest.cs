@@ -21,7 +21,7 @@ public class KindTest : AbstractTestExpression
         if (!value.GetValueType().IsSubtypeOf(ValueType.Node))
             return false;
 
-        var nodeType = value.GetAs<NodeValue>(ValueType.Node).Value.NodeType;
+        var nodeType = value.GetAs<NodeValue>().Value.NodeType;
         if (_nodeType == XmlNodeType.Text && nodeType == XmlNodeType.CDATA)
             // CDATA_SECTION_NODES should be regarded as text nodes, and CDATA does not exist in the XPath Data Model
             return true;
