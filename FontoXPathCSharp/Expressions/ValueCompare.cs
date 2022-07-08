@@ -39,6 +39,8 @@ public class ValueCompare : AbstractExpression
             return first.GetAs<DoubleValue>().Value == second.GetAs<DoubleValue>().Value;
         if (first.GetValueType() == ValueType.XsString && second.GetValueType() == ValueType.XsString)
             return first.GetAs<StringValue>().Value == second.GetAs<StringValue>().Value;
+        if (first.GetValueType() == ValueType.XsBoolean && second.GetValueType() == ValueType.XsBoolean)
+            return first.GetAs<BooleanValue>().Value == second.GetAs<BooleanValue>().Value;
         throw new NotImplementedException("HandleNumericEqualOp: comparison for "  + first.GetValueType() + " not supported");
     }
 
@@ -52,6 +54,8 @@ public class ValueCompare : AbstractExpression
             return first.GetAs<DoubleValue>().Value != second.GetAs<DoubleValue>().Value;
         if (first.GetValueType() == ValueType.XsString && second.GetValueType() == ValueType.XsString)
             return first.GetAs<StringValue>().Value != second.GetAs<StringValue>().Value;
+        if (first.GetValueType() == ValueType.XsBoolean && second.GetValueType() == ValueType.XsBoolean)
+            return first.GetAs<BooleanValue>().Value != second.GetAs<BooleanValue>().Value;
         throw new NotImplementedException("HandleNumericNotEqualOp: comparison for "  + first.GetValueType() + " not supported");
     }
 
