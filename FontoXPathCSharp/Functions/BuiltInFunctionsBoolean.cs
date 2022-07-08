@@ -8,6 +8,9 @@ namespace FontoXPathCSharp.Functions;
 
 public static class BuiltInFunctionsBoolean
 {
+    private static readonly FunctionDefinitionType<ISequence> FnNot = (_, _, _, args) =>
+        SequenceFactory.CreateFromValue(new BooleanValue(!args[0].GetEffectiveBooleanValue()));
+    
     private static readonly FunctionDefinitionType<ISequence> FnBoolean = (_, _, _, args) =>
         SequenceFactory.CreateFromValue(new BooleanValue(args[0].GetEffectiveBooleanValue()));
 
@@ -20,6 +23,9 @@ public static class BuiltInFunctionsBoolean
     public static readonly BuiltinDeclarationType[] Declarations =
     {
         new(new[] {new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)}, FnBoolean, "boolean",
+            BuiltInNamespaceUris.FunctionsNamespaceUri.GetUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
+        new(new[] {new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)}, FnNot, "not",
             BuiltInNamespaceUris.FunctionsNamespaceUri.GetUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
         new(Array.Empty<ParameterType>(), FnTrue, "true", BuiltInNamespaceUris.FunctionsNamespaceUri.GetUri(),
