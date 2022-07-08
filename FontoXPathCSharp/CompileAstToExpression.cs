@@ -76,7 +76,7 @@ public static class CompileAstToExpression
                 }
             }
 
-            AbstractExpression? stepExpression = null;
+            AbstractExpression stepExpression;
 
             if (axis != null)
             {
@@ -114,7 +114,7 @@ public static class CompileAstToExpression
             else
             {
                 var filterExpr = step.FollowPath(AstNodeName.FilterExpr, AstNodeName.All);
-                if (filterExpr != null) stepExpression = CompileAst(filterExpr, DisallowUpdating(options));
+                stepExpression = CompileAst(filterExpr, DisallowUpdating(options));
             }
 
             foreach (var postfix in postFixExpressions)
