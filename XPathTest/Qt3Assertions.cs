@@ -84,21 +84,6 @@ public class Qt3Assertions
                         ),
                         xpath
                     );
-
-                    // Assert.True(
-                    //     Evaluate.EvaluateXPathToBoolean(
-                    //         parseScript(
-                    //             `let $result := (${xpath}) return ${result}`,
-                    // { namespaceResolver, nodesFactory, language, annotateAst: false },
-                    // nodesFactory
-                    //     ),
-                    // contextNode,
-                    // null,
-                    // variablesInScope,
-                    // { namespaceResolver, nodesFactory, language, annotateAst: false }
-                    // ),
-                    // xpath
-                    //     );
                 };
             }
             case "assert-true":
@@ -111,26 +96,6 @@ public class Qt3Assertions
                             languageId: language)
                         ),
                         $"Expected XPath {xpath} to resolve to true");
-
-                    // Assert.True(
-                    //     evaluateXPathToBoolean(
-                    //         parseScript(
-                    //             xpath,
-                    // { namespaceResolver, language, annotateAst, nodesFactory },
-                    // nodesFactory
-                    //     ),
-                    // contextNode,
-                    // null,
-                    // variablesInScope,
-                    // {
-                    //     namespaceResolver,
-                    //     nodesFactory,
-                    //     language,
-                    //     annotateAst,
-                    // }
-                    // ),
-                    // `Expected preparsed XPath ${xpath} to resolve to true`
-                    //     );
                 };
 
             case "error":
