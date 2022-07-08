@@ -7,12 +7,14 @@ namespace FontoXPathCSharp.Expressions.Axes;
 public class DescendantAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _descendantExpression;
+    private readonly bool _inclusive;
 
-    public DescendantAxis(AbstractTestExpression descendantExpression) : base(
-        new AbstractExpression[] { descendantExpression },
+    public DescendantAxis(AbstractTestExpression descendantExpression, bool inclusive) : base(
+        new AbstractExpression[] {descendantExpression},
         new OptimizationOptions(false))
     {
         _descendantExpression = descendantExpression;
+        _inclusive = inclusive;
     }
 
     private static Iterator<XmlNode> CreateChildGenerator(XmlNode node)
@@ -67,9 +69,10 @@ public class DescendantAxis : AbstractExpression
     {
         var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
 
-        // TODO: add inclusive property
         var iterator = CreateInclusiveDescendantGenerator(contextItem.Value);
-        iterator(IterationHint.None);
+        if (!_inclusive)
+            iterator(IterationHint.None);
+
         var descendantSequence = SequenceFactory.CreateFromIterator(iterator);
         return descendantSequence.Filter((item, _, _) =>
             _descendantExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));

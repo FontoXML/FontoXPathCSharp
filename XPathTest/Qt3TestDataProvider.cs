@@ -28,12 +28,14 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             .Select(l => l[0])
             .ToHashSet();
 
-        var qt3tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
-        Console.WriteLine("QT3TESTS IMPORTANT: " + qt3tests);
+        _testCases = new List<object[]>();
+        
+        var qt3Tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
+        Console.WriteLine("QT3TESTS IMPORTANT: " + qt3Tests);
 
         // var qt3tests = new XmlDocument();
         // qt3tests.Load("../../../assets/QT3TS/catalog.xml");
-        _loadedTestSets = GetAllTestSets(qt3tests);
+        _loadedTestSets = GetAllTestSets(qt3Tests);
         Console.WriteLine($"Qt3 Testsets loaded: {_loadedTestSets.Count}");
 
         _loadedTestSets.ForEach(testSetFileName =>
@@ -64,7 +66,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
             if (!testCaseNodes.Any()) return;
 
-            _testCases = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
+            var testCases = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
             {
                 if (!_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
                 {
@@ -80,6 +82,8 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
                 
                 return testCases;
             });
+            
+            _testCases.AddRange(testCases);
 
             // _testCases = testCaseNodes
             //     .Where(testCase => !_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
