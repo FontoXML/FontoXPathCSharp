@@ -6,8 +6,10 @@ namespace FontoXPathCSharp.Functions;
 public static class BuiltInFunctions
 {
     public static readonly BuiltinDeclarationType[] Declarations =
-        BuiltInFunctionsNode.Declarations.Concat(BuiltInFunctionsString.Declarations)
-            .Concat(BuiltInFunctionsSequences.Declarations).ToArray();
+        BuiltInFunctionsNode.Declarations
+            .Concat(BuiltInFunctionsString.Declarations)
+            .Concat(BuiltInFunctionsSequences.Declarations)
+            .Concat(BuiltInFunctionsBoolean.Declarations).ToArray();
 
 
     public static FunctionDefinitionType<ISequence> ContextItemAsFirstArgument(FunctionDefinitionType<ISequence> fn)

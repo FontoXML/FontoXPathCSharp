@@ -164,7 +164,6 @@ public class IteratorBackedSequence : ISequence
 
     public bool GetEffectiveBooleanValue()
     {
-        var iterator = _value;
         var oldPosition = _currentPosition;
 
         Reset();

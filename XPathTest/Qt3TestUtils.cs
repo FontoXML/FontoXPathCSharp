@@ -155,7 +155,7 @@ public static class Qt3TestUtils
     public record TestArguments(
         string BaseUrl,
         XmlNode? ContextNode,
-        string? TestQuery,
+        string TestQuery,
         Language.LanguageId Language,
         Func<string, string?>? NamespaceResolver,
         Dictionary<string, AbstractValue>? VariablesInScope

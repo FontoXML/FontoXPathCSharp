@@ -29,7 +29,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             .ToHashSet();
 
         _testCases = new List<object[]>();
-        
+
         var qt3Tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
         Console.WriteLine("QT3TESTS IMPORTANT: " + qt3Tests);
 
@@ -75,14 +75,17 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
                         var name = GetTestName(testCase);
                         var description = GetTestDescription(testSetName, name, testCase);
                         var arguments = Qt3TestUtils.GetArguments(testSetFileName, testCase);
-                        testCases.Add(new object[]{name, testSetName, description, testCase, arguments});
+                        testCases.Add(new object[] {name, testSetName, description, testCase, arguments});
                     }
-                    catch (FileNotFoundException ex) { /* Test file was probably not found. */}
+                    catch (FileNotFoundException ex)
+                    {
+                        /* Test file was probably not found. */
+                    }
                 }
-                
+
                 return testCases;
             });
-            
+
             _testCases.AddRange(testCases);
 
             // _testCases = testCaseNodes
@@ -139,7 +142,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             testCase,
             null,
             new Dictionary<string, AbstractValue>(),
-            new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+            new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"))!;
     }
 
     private static bool ParseBooleanNoFail(string input)
