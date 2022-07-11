@@ -1,5 +1,3 @@
-using System.Reflection.Metadata;
-using System.Xml.Xsl;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
@@ -16,13 +14,13 @@ public enum CompareType
 
 public class ValueCompare : AbstractExpression
 {
-    private readonly CompareType _type;
     private readonly AbstractExpression _firstExpression;
     private readonly AbstractExpression _secondExpression;
+    private readonly CompareType _type;
 
     public ValueCompare(CompareType type, AbstractExpression firstExpression,
         AbstractExpression secondExpression) : base(
-        new[] {firstExpression, secondExpression}, new OptimizationOptions(false))
+        new[] { firstExpression, secondExpression }, new OptimizationOptions(false))
     {
         _type = type;
         _firstExpression = firstExpression;
@@ -41,7 +39,8 @@ public class ValueCompare : AbstractExpression
             return first.GetAs<StringValue>().Value == second.GetAs<StringValue>().Value;
         if (first.GetValueType() == ValueType.XsBoolean && second.GetValueType() == ValueType.XsBoolean)
             return first.GetAs<BooleanValue>().Value == second.GetAs<BooleanValue>().Value;
-        throw new NotImplementedException("HandleNumericEqualOp: comparison for "  + first.GetValueType() + " not supported");
+        throw new NotImplementedException("HandleNumericEqualOp: comparison for " + first.GetValueType() +
+                                          " not supported");
     }
 
     private static bool HandleNumericNotEqualOp(AbstractValue first, AbstractValue second)
@@ -56,7 +55,8 @@ public class ValueCompare : AbstractExpression
             return first.GetAs<StringValue>().Value != second.GetAs<StringValue>().Value;
         if (first.GetValueType() == ValueType.XsBoolean && second.GetValueType() == ValueType.XsBoolean)
             return first.GetAs<BooleanValue>().Value != second.GetAs<BooleanValue>().Value;
-        throw new NotImplementedException("HandleNumericNotEqualOp: comparison for "  + first.GetValueType() + " not supported");
+        throw new NotImplementedException("HandleNumericNotEqualOp: comparison for " + first.GetValueType() +
+                                          " not supported");
     }
 
     private static bool HandleNumericOperator(CompareType type, AbstractValue first, AbstractValue second)
@@ -98,10 +98,8 @@ public class ValueCompare : AbstractExpression
         }
 
         if (firstType.IsSubtypeOf(ValueType.XsQName) && secondType.IsSubtypeOf(ValueType.XsQName))
-        {
             throw new NotImplementedException("PerformValueCompare: Handle QName");
-            // return HandleQName(type, first, second);
-        }
+        // return HandleQName(type, first, second);
 
         bool AreBothSubtypeOf(params ValueType[] types)
         {
@@ -118,40 +116,27 @@ public class ValueCompare : AbstractExpression
             AreBothSubtypeOf(ValueType.XsBase64Binary) ||
             AreBothSubtypeOf(ValueType.XsString, ValueType.XsAnyUri)
         )
-        {
             return HandleNumericOperator(type, first, second);
-        }
 
         if (AreBothSubtypeOf(ValueType.XsYearMonthDuration))
-        {
             throw new NotImplementedException("YearMonthDuration comparison");
-        }
 
         if (AreBothSubtypeOf(ValueType.XsDayTimeDuration))
-        {
             throw new NotImplementedException("DayTimeDuration comparison");
-        }
 
-        if (AreBothSubtypeOf(ValueType.XsDuration))
-        {
-            throw new NotImplementedException("Duration comparison");
-        }
+        if (AreBothSubtypeOf(ValueType.XsDuration)) throw new NotImplementedException("Duration comparison");
 
         if (AreBothSubtypeOf(ValueType.XsDateTime) ||
             AreBothSubtypeOf(ValueType.XsDate) ||
             AreBothSubtypeOf(ValueType.XsTime))
-        {
             throw new NotImplementedException("DateTime, Date, and Time comparison");
-        }
 
         if (AreBothSubtypeOf(ValueType.XsGYearMonth) ||
             AreBothSubtypeOf(ValueType.XsGYear) ||
             AreBothSubtypeOf(ValueType.XsGMonthDay) ||
             AreBothSubtypeOf(ValueType.XsGMonth) ||
             AreBothSubtypeOf(ValueType.XsGDay))
-        {
             throw new NotImplementedException("GYearMonth, GYear, GMonthDay, GMonth, and GDay comparison");
-        }
 
         throw new XPathException("XPTY0004: " + type + " not available for " + firstType + " and " + secondType);
     }

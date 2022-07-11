@@ -19,7 +19,7 @@ public static class XdmReturnValue
         var typeActions = new TypeSwitchCase<TReturn?>
         {
             // Boolean
-            {typeof(bool), () => (TReturn) (object) rawResults.GetEffectiveBooleanValue()},
+            { typeof(bool), () => (TReturn)(object)rawResults.GetEffectiveBooleanValue() },
             // String
             {
                 typeof(string), () =>
@@ -27,11 +27,11 @@ public static class XdmReturnValue
                     var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
 
                     if (allValues.Length == 0)
-                        return (TReturn?) (object?) null;
+                        return (TReturn?)(object?)null;
 
-                    return (TReturn) (object) string.Join(' ',
+                    return (TReturn)(object)string.Join(' ',
                         allValues.Select(v =>
-                            TypeCasting.CastToType((AtomicValue) v, ValueType.XsString)
+                            TypeCasting.CastToType((AtomicValue)v, ValueType.XsString)
                                 .GetAs<StringValue>()?.Value));
                 }
             },
@@ -40,7 +40,7 @@ public static class XdmReturnValue
                 typeof(IEnumerable<string>), () =>
                 {
                     var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
-                    return (TReturn) allValues.Select(v => v.GetAs<StringValue>()?.Value);
+                    return (TReturn)allValues.Select(v => v.GetAs<StringValue>()?.Value);
                 }
             },
             // First Integer
@@ -49,9 +49,9 @@ public static class XdmReturnValue
                 {
                     var first = rawResults.First();
                     if (first == null || !first.GetValueType().IsSubtypeOf(ValueType.XsInteger))
-                        return (TReturn?) (object?) null;
+                        return (TReturn?)(object?)null;
 
-                    return (TReturn) (object) first.GetAs<IntValue>()!.Value;
+                    return (TReturn)(object)first.GetAs<IntValue>()!.Value;
                 }
             },
             // Integers
@@ -59,7 +59,7 @@ public static class XdmReturnValue
                 typeof(IEnumerable<int>), () =>
                 {
                     var allValues = rawResults.GetAllValues();
-                    return (TReturn) allValues.Select(v =>
+                    return (TReturn)allValues.Select(v =>
                     {
                         if (!v.GetValueType().IsSubtypeOf(ValueType.XsInteger))
                             throw new Exception(
@@ -74,16 +74,16 @@ public static class XdmReturnValue
             // First Node
             {
                 typeof(XmlNode), () => rawResults.First() != null
-                    ? (TReturn) (object) ((NodeValue) rawResults.First()!).Value
-                    : (TReturn?) (object?) null
+                    ? (TReturn)(object)((NodeValue)rawResults.First()!).Value
+                    : (TReturn?)(object?)null
             },
             // Nodes
             {
                 typeof(IEnumerable<XmlNode>),
                 () =>
                 {
-                    return (TReturn) rawResults.GetAllValues()
-                        .Select(v => ((NodeValue) v).Value);
+                    return (TReturn)rawResults.GetAllValues()
+                        .Select(v => ((NodeValue)v).Value);
                 }
             },
             // Array TODO: Find a better type to use here.

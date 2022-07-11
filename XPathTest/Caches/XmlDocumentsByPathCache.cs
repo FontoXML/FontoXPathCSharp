@@ -5,11 +5,10 @@ namespace XPathTest.Caches;
 
 public class XmlDocumentsByPathCache : ResourceCache<string, XmlNode>
 {
+    private static readonly XmlDocument GlobalDocument = LoadXmlFromString("<xml/>");
     public static XmlDocumentsByPathCache Instance { get; } = new();
 
-    private static readonly XmlDocument GlobalDocument = LoadXmlFromString("<xml/>");
 
-    
     protected override XmlNode? Load(string filename)
     {
         var content = TestFileSystem.ReadFile($"qt3tests/{filename}").Replace("\r\n", "\n");
@@ -28,16 +27,17 @@ public class XmlDocumentsByPathCache : ResourceCache<string, XmlNode>
             var documentFragment = GlobalDocument.CreateDocumentFragment();
             parsedContents?.ForEach(node => documentFragment.AppendChild(node));
             return documentFragment;
-        };
-        
+        }
+
+        ;
+
         return LoadXmlFromString(content);
     }
-    
+
     private static XmlDocument LoadXmlFromString(string contents)
     {
         var document = new XmlDocument();
         document.LoadXml(contents);
         return document;
     }
-
 }

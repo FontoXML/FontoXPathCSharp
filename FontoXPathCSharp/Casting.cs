@@ -9,7 +9,7 @@ public static class Casting
     {
         if (value.GetValueType() == type)
             return value;
-        
+
         throw new NotImplementedException("CastToType");
     }
 }

@@ -26,7 +26,7 @@ public class TestCompare
     {
         Assert.False(EvalQueryBoolean("12 eq 13"));
     }
-    
+
     [Fact]
     public void TestValueCompareIntNotEqual()
     {
@@ -44,21 +44,21 @@ public class TestCompare
     {
         Assert.True(EvalQueryBoolean(@"""test"" eq ""test"""));
     }
-    
+
 
     [Fact]
     public void TestValueCompareStringEqualFalse()
     {
         Assert.False(EvalQueryBoolean(@"""test"" eq ""test!"""));
     }
-    
+
 
     [Fact]
     public void TestValueCompareStringNotEqualTrue()
     {
         Assert.True(EvalQueryBoolean(@"""test"" ne ""test!"""));
     }
-    
+
 
     [Fact]
     public void TestValueCompareStringNotEqualFalse()
@@ -77,7 +77,7 @@ public class TestCompare
     {
         Assert.False(EvalQueryBoolean("12 = 13"));
     }
-    
+
     [Fact]
     public void TestGeneralCompareIntNotEqual()
     {
@@ -95,26 +95,25 @@ public class TestCompare
     {
         Assert.True(EvalQueryBoolean(@"""test"" = ""test"""));
     }
-    
+
 
     [Fact]
     public void TestGeneralCompareStringEqualFalse()
     {
         Assert.False(EvalQueryBoolean(@"""test"" = ""test!"""));
     }
-    
+
 
     [Fact]
     public void TestGeneralCompareStringNotEqualTrue()
     {
         Assert.True(EvalQueryBoolean(@"""test"" != ""test!"""));
     }
-    
+
 
     [Fact]
     public void TestGeneralCompareStringNotEqualFalse()
     {
         Assert.False(EvalQueryBoolean(@"""test"" != ""test"""));
     }
-
 }

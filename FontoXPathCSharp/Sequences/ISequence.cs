@@ -4,6 +4,8 @@ namespace FontoXPathCSharp.Sequences;
 
 public interface ISequence : IEnumerable<AbstractValue>
 {
+    delegate ISequence CallbackType(IEnumerable<AbstractValue> values);
+
     bool IsEmpty();
     bool IsSingleton();
     AbstractValue? First();
@@ -16,8 +18,6 @@ public interface ISequence : IEnumerable<AbstractValue>
     ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback);
     ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback);
     ISequence MapAll(Func<AbstractValue[], ISequence> allvalues, IterationHint hint = IterationHint.None);
-
-    delegate ISequence CallbackType(IEnumerable<AbstractValue> values);
 
     public static ISequence ZipSingleton(IEnumerable<ISequence> sequences, CallbackType callback)
     {

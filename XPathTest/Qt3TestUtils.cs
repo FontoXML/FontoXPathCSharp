@@ -18,7 +18,7 @@ public static class Qt3TestUtils
         doc.LoadXml(xml);
         return doc;
     }
-    
+
     private static string PreprocessFilename(string filename)
     {
         while (filename.Contains(".."))
@@ -104,13 +104,13 @@ public static class Qt3TestUtils
         var fileName = Evaluate.EvaluateXPathToString("source[@role=\".\"]/@file", environmentNode);
         var variables = Evaluate.EvaluateXPathToNodes("source[@role!=\".\"]", environmentNode)
             .Select(variable => new KeyValuePair<string, AbstractValue?>(
-                Evaluate.EvaluateXPathToString("@role", variable)[1..],
+                Evaluate.EvaluateXPathToString("@role", variable)?[1..],
                 new StringValue(LoadFileToString(
                     (baseUrl != null ? baseUrl + "/" : "") + Evaluate.EvaluateXPathToString("@file", variable)
                 ) ?? string.Empty)))
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => x.Value);
-        var contextNode = (fileName != null && fileName.Length > 0) ? LoadFileToXmlNode(fileName) : null;
+        var contextNode = fileName != null && fileName.Length > 0 ? LoadFileToXmlNode(fileName) : null;
 
         // TODO: ehh... no idea what is going on with that nested EvaluateXPath that's in the original.
         // Evaluate.EvaluateXPathToNodes("param", environmentNode).ToList().ForEach(paramNode => {

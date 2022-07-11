@@ -1,7 +1,5 @@
-using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using FontoXPathCSharp.EvaluationUtils;
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -15,15 +13,14 @@ public static class BuiltInFunctionsString
     {
         var stringSequences = args.Select(sequence =>
             Atomize.AtomizeSequence(sequence, executionParameters!).MapAll(allValues =>
-                    SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(
-                        string.Join("", allValues.Select(x => x.GetAs<StringValue>()?.Value)),
-                        ValueType.XsString)),
-                IterationHint.None));
+                SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(
+                    string.Join("", allValues.Select(x => x.GetAs<StringValue>()?.Value)),
+                    ValueType.XsString))));
 
         Console.WriteLine(stringSequences);
 
         return ISequence.ZipSingleton(stringSequences,
-            (stringValues) =>
+            stringValues =>
                 SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(string.Join("", stringValues.Select(x =>
                         x.GetAs<StringValue>().Value)),
                     ValueType.XsString)));
@@ -58,7 +55,7 @@ public static class BuiltInFunctionsString
             FnConcat, "concat",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
-        new(new[] {new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)},
+        new(new[] { new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne) },
             FnStringLength, "string-length",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
@@ -67,7 +64,7 @@ public static class BuiltInFunctionsString
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
 
-        new(new[] {new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)},
+        new(new[] { new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne) },
             FnNormalizeSpace, "normalize-space",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),

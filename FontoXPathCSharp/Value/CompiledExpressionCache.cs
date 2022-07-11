@@ -1,5 +1,4 @@
 using FontoXPathCSharp.Expressions;
-using FontoXPathCSharp.Types;
 using NamespaceResolverFunc = System.Func<string, string?>;
 using FunctionNameResolverFunc =
     System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName?>;

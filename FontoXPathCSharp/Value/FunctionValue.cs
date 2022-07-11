@@ -12,8 +12,8 @@ public class FunctionValue<T> : AbstractValue
 {
     private readonly ParameterType[] _argumentTypes;
     private readonly int _arity;
-    public readonly FunctionDefinitionType<T> Value;
     public readonly bool IsUpdating;
+    public readonly FunctionDefinitionType<T> Value;
 
     protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionDefinitionType<T> value,
         ValueType type, bool isUpdating = false) : base(type)
@@ -24,7 +24,8 @@ public class FunctionValue<T> : AbstractValue
         IsUpdating = isUpdating;
     }
 
-    public FunctionValue(ParameterType[] argumentTypes, int arity, FunctionDefinitionType<T> value, bool isUpdating) : this(
+    public FunctionValue(ParameterType[] argumentTypes, int arity, FunctionDefinitionType<T> value,
+        bool isUpdating) : this(
         argumentTypes, arity, value, ValueType.Function, isUpdating)
     {
     }

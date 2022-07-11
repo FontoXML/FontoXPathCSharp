@@ -128,10 +128,7 @@ public class IteratorBackedSequence : ISequence
             var value = iterator(hint);
             while (!value.IsDone)
             {
-                if (callback(value.Value, i, this))
-                {
-                    return value;
-                }
+                if (callback(value.Value, i, this)) return value;
 
                 i++;
                 value = iterator(IterationHint.None);
@@ -154,9 +151,7 @@ public class IteratorBackedSequence : ISequence
         for (var value = iterator(IterationHint.None);
              !value.IsDone;
              value = iterator(IterationHint.None))
-        {
             allResults.Add(value.Value!);
-        }
 
         var mappedResultIterator = callback(allResults.ToArray()).GetValue();
         return SequenceFactory.CreateFromIterator(_ => mappedResultIterator(IterationHint.None));
@@ -183,10 +178,8 @@ public class IteratorBackedSequence : ISequence
 
         var secondValue = _value(IterationHint.None);
         if (!secondValue.IsDone)
-        {
             throw new XPathException(
                 "FORG0006: A wrong argument type was specified in a function call.");
-        }
 
         Reset(oldPosition);
         return firstValue.GetEffectiveBooleanValue();
@@ -195,7 +188,7 @@ public class IteratorBackedSequence : ISequence
     public int GetLength(bool onlyIfCheap)
     {
         if (_length.HasValue)
-            return (int) _length;
+            return (int)_length;
 
         if (onlyIfCheap) return -1;
 

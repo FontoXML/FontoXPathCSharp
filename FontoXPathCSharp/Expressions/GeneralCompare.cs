@@ -8,12 +8,12 @@ namespace FontoXPathCSharp.Expressions;
 
 public class GeneralCompare : AbstractExpression
 {
-    private readonly CompareType _type;
     private readonly AbstractExpression _firstExpression;
     private readonly AbstractExpression _secondExpression;
+    private readonly CompareType _type;
 
     public GeneralCompare(CompareType type, AbstractExpression firstExpression,
-        AbstractExpression secondExpression) : base(new[] {firstExpression, secondExpression},
+        AbstractExpression secondExpression) : base(new[] { firstExpression, secondExpression },
         new OptimizationOptions(false))
     {
         _type = type;
@@ -69,14 +69,14 @@ public class GeneralCompare : AbstractExpression
                         secondValue = secondValue.CastToType(secondTargetType.Value);
 
                     if (ValueCompare.PerformValueCompare(type, firstValue, secondValue, dynamicContext))
-                       return true;
+                        return true;
                 }
 
                 return false;
             });
 
             return SequenceFactory.CreateFromValue(new BooleanValue(!result.IsEmpty()));
-        }, IterationHint.None);
+        });
     }
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)

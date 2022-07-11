@@ -10,7 +10,7 @@ public class FilterExpression : AbstractExpression
     private readonly AbstractExpression _filterExpression;
     private readonly AbstractExpression _selector;
 
-    public FilterExpression(AbstractExpression selector, AbstractExpression filterExpression) : base(new[] {selector},
+    public FilterExpression(AbstractExpression selector, AbstractExpression filterExpression) : base(new[] { selector },
         new OptimizationOptions(selector.CanBeStaticallyEvaluated && filterExpression.CanBeStaticallyEvaluated))
     {
         _selector = selector;
@@ -48,13 +48,11 @@ public class FilterExpression : AbstractExpression
                 for (var value = iterator(IterationHint.None);
                      !value.IsDone;
                      value = iterator(IterationHint.None))
-                {
                     if (requestedIndex-- == 1)
                     {
                         done = true;
                         return value;
                     }
-                }
 
                 done = true;
 
@@ -71,7 +69,7 @@ public class FilterExpression : AbstractExpression
         {
             var isHintApplied = false;
 
-            while (iteratorItem is not {IsDone: true})
+            while (iteratorItem is not { IsDone: true })
             {
                 if (iteratorItem == null)
                 {
@@ -79,10 +77,7 @@ public class FilterExpression : AbstractExpression
                     isHintApplied = true;
                 }
 
-                if (iteratorItem.IsDone)
-                {
-                    return iteratorItem;
-                }
+                if (iteratorItem.IsDone) return iteratorItem;
 
                 var newContext = dynamicContext.ScopeWithFocus(i, iteratorItem.Value, new EmptySequence());
                 filterResultSequence ??= _filterExpression.EvaluateMaybeStatically(

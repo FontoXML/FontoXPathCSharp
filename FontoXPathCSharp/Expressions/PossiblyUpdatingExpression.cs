@@ -4,6 +4,8 @@ namespace FontoXPathCSharp.Expressions;
 
 public abstract class PossiblyUpdatingExpression : UpdatingExpression
 {
+    public delegate ISequence SequenceCallback(DynamicContext context);
+
     protected PossiblyUpdatingExpression(AbstractExpression[] childExpressions, OptimizationOptions optimizationOptions)
         : base(childExpressions, optimizationOptions)
     {
@@ -18,8 +20,6 @@ public abstract class PossiblyUpdatingExpression : UpdatingExpression
                 expr => innerDynamicContext =>
                     expr.Evaluate(innerDynamicContext, executionParameters)).ToArray());
     }
-
-    public delegate ISequence SequenceCallback(DynamicContext context);
 
     public abstract ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
         ExecutionParameters? executionParameters, SequenceCallback[] sequenceCallbacks);

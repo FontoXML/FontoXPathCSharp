@@ -10,7 +10,7 @@ public class DescendantAxis : AbstractExpression
     private readonly bool _inclusive;
 
     public DescendantAxis(AbstractTestExpression descendantExpression, bool inclusive) : base(
-        new AbstractExpression[] {descendantExpression},
+        new AbstractExpression[] { descendantExpression },
         new OptimizationOptions(false))
     {
         _descendantExpression = descendantExpression;

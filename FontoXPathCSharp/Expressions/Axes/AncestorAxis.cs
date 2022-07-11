@@ -10,7 +10,7 @@ public class AncestorAxis : AbstractExpression
     private readonly bool _inclusive;
 
     public AncestorAxis(AbstractTestExpression ancestorExpression, bool inclusive) : base(
-        new AbstractExpression[] {ancestorExpression}, new OptimizationOptions(false)
+        new AbstractExpression[] { ancestorExpression }, new OptimizationOptions(false)
     )
     {
         _ancestorExpression = ancestorExpression;
@@ -36,7 +36,8 @@ public class AncestorAxis : AbstractExpression
         var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
 
         return SequenceFactory
-            .CreateFromIterator(GenerateAncestors(_inclusive ? contextItem.Value : contextItem.Value.ParentNode)).Filter(
+            .CreateFromIterator(GenerateAncestors(_inclusive ? contextItem.Value : contextItem.Value.ParentNode))
+            .Filter(
                 (item, _, _) => _ancestorExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
     }
 }

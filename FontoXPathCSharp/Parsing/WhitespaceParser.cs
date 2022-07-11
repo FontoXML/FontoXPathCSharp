@@ -12,13 +12,8 @@ public static class WhitespaceParser
 
     private static readonly ParseFunc<string> CommentContents = Preceded(Peek(
         Not(Or(Token("(:"), Token(":)")),
-            new[] {"Comment contents cannot contain \"(:\" or \":)\""})
+            new[] { "Comment contents cannot contain \"(:\" or \":)\"" })
     ), Char);
-
-    private static ParseResult<string> CommentIndirect(string input, int offset)
-    {
-        return Comment(input, offset);
-    }
 
     private static readonly ParseFunc<string> Comment = Map(
         Delimited(Token("(:"),
@@ -35,4 +30,9 @@ public static class WhitespaceParser
 
     public static readonly ParseFunc<string> WhitespacePlus =
         Map(Plus(WhitespaceCharacter), x => string.Join("", x));
+
+    private static ParseResult<string> CommentIndirect(string input, int offset)
+    {
+        return Comment(input, offset);
+    }
 }

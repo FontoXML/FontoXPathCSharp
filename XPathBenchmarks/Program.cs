@@ -48,14 +48,14 @@ public class BooleanExpressionBenchmark
     [Benchmark(Baseline = true)]
     public bool BuiltIn_Evaluate()
     {
-        return (bool) Source.XPathEvaluate("false()");
+        return (bool)Source.XPathEvaluate("false()");
     }
 
     [Benchmark]
     public bool BuiltIn_Compiled()
     {
         var navigator = Source.CreateNavigator();
-        return (bool) navigator.Evaluate(CompiledExpression);
+        return (bool)navigator.Evaluate(CompiledExpression);
     }
 
     [Benchmark]
@@ -96,6 +96,7 @@ public class SimpleExpressionBenchmark
     [Benchmark]
     public object FontoXPath()
     {
-        return Expr.Evaluate(new DynamicContext(new NodeValue(_source), 0, SequenceFactory.CreateEmpty()), new ExecutionParameters(_source));
+        return Expr.Evaluate(new DynamicContext(new NodeValue(_source), 0, SequenceFactory.CreateEmpty()),
+            new ExecutionParameters(_source));
     }
 }

@@ -43,7 +43,7 @@ public static class NameParser
 
     public static readonly ParseFunc<string> BracedUriLiteral = Followed(
         PrecededMultiple(
-            new[] {Token("Q"), Whitespace, Token("{")},
+            new[] { Token("Q"), Whitespace, Token("{") },
             Map(Star(Regex("/[^{}]/")), x => Regex.Replace(string.Join("", x), @"\s+", " ").Trim())
         ),
         Token("}")

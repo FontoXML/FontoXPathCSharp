@@ -2,7 +2,6 @@ using System.Xml;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.DataTypes.Builtins;
 using FontoXPathCSharp.Sequences;
-using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -64,16 +63,12 @@ public static class Atomize
             var pointer = value.GetAs<NodeValue>().Value;
 
             if (pointer.NodeType is XmlNodeType.Attribute or XmlNodeType.Text)
-            {
                 return SequenceFactory.CreateFromValue(new StringValue(pointer.InnerText));
-            }
             // throw new NotImplementedException("Not sure how to do this with the XmlNode replacing domfacade yet");
             // return SequenceFactory.CreateFromIterator(CreateAtomicValue(domfacade[]));
 
             if (pointer.NodeType is XmlNodeType.Comment or XmlNodeType.ProcessingInstruction)
-            {
                 return SequenceFactory.CreateFromValue(new StringValue(pointer.InnerText));
-            }
 
             var allTexts = new List<string>();
 
@@ -83,18 +78,12 @@ public static class Atomize
                 if (pointer.NodeType is XmlNodeType.Comment or XmlNodeType.ProcessingInstruction)
                     return;
 
-                if (node.NodeType == XmlNodeType.Text)
-                {
-                    allTexts.Add(node.InnerText);
-                }
+                if (node.NodeType == XmlNodeType.Text) allTexts.Add(node.InnerText);
 
                 if (node.NodeType is XmlNodeType.Element or XmlNodeType.Document)
                 {
                     var children = node.ChildNodes;
-                    foreach (XmlNode child in children)
-                    {
-                        getTextNodes?.Invoke(child);
-                    }
+                    foreach (XmlNode child in children) getTextNodes?.Invoke(child);
                 }
             };
             getTextNodes(pointer);
@@ -128,7 +117,7 @@ public static class Atomize
             ValueType.XsDouble => new DoubleValue((decimal)(object)value!),
             ValueType.XsString => new StringValue((string)(object)value!),
             ValueType.XsQName => new QNameValue((QName)(object)value!),
-            ValueType.XsUntypedAtomic => new UntypedAtomicValue((object)value!),
+            ValueType.XsUntypedAtomic => new UntypedAtomicValue(value!),
             _ => throw new ArgumentOutOfRangeException($"Atomic Value for {type} is not implemented yet.")
         };
     }

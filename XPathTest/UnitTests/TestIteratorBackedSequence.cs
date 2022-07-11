@@ -10,7 +10,7 @@ public class TestIteratorBackedSequence
     private static IteratorBackedSequence CreateTestSequence(int length, int? predictedLength = null)
     {
         var count = 0;
-        return (IteratorBackedSequence) SequenceFactory.CreateFromIterator(_ =>
+        return (IteratorBackedSequence)SequenceFactory.CreateFromIterator(_ =>
             count == length
                 ? IteratorResult<AbstractValue>.Done()
                 : IteratorResult<AbstractValue>.Ready(new IntValue(count++)), predictedLength);
@@ -27,7 +27,7 @@ public class TestIteratorBackedSequence
     {
         Assert.Equal(1, CreateTestSequence(1).GetLength());
     }
-    
+
     [Fact]
     public void TestIsEmptyEmptySequence()
     {

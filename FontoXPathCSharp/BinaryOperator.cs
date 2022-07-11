@@ -29,7 +29,7 @@ internal class BinaryOperator : AbstractExpression
         new();
 
     public BinaryOperator(AstNodeName op, AbstractExpression firstValueExpr, AbstractExpression secondValueExpr) : base(
-        new[] {firstValueExpr, secondValueExpr}, new OptimizationOptions(true))
+        new[] { firstValueExpr, secondValueExpr }, new OptimizationOptions(true))
     {
         _operator = op;
         _firstValueExpr = firstValueExpr;

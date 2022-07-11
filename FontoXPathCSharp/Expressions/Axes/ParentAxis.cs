@@ -7,7 +7,7 @@ public class ParentAxis : AbstractExpression
 {
     private readonly AbstractTestExpression _parentExpression;
 
-    public ParentAxis(AbstractTestExpression parentExpression) : base(new AbstractExpression[] {parentExpression},
+    public ParentAxis(AbstractTestExpression parentExpression) : base(new AbstractExpression[] { parentExpression },
         new OptimizationOptions(false))
     {
         _parentExpression = parentExpression;

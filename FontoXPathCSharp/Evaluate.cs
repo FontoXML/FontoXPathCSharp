@@ -15,18 +15,19 @@ public class Evaluate
         return EvaluateXPath<bool, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
 
-    
+
     public static XmlNode EvaluateXPathToFirstNode<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
         IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
     {
         return EvaluateXPath<XmlNode, TSelectorType>(selector, contextItem, domFacade, variables, options);
     }
-    
-    
+
+
     public static IEnumerable<XmlNode> EvaluateXPathToNodes<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
         IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
     {
-        return EvaluateXPath<IEnumerable<XmlNode>, TSelectorType>(selector, contextItem, domFacade, variables, options)!;
+        return EvaluateXPath<IEnumerable<XmlNode>, TSelectorType>(selector, contextItem, domFacade, variables,
+            options)!;
     }
 
     public static int EvaluateXPathToInt<TSelectorType>(TSelectorType selector, XmlNode? contextItem,

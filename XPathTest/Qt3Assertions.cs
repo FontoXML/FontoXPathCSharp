@@ -246,9 +246,9 @@ public class Qt3Assertions
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     Assert.True(
-                        Evaluate.EvaluateXPathToString($"{xpath}", 
-                            contextNode, 
-                            null, 
+                        Evaluate.EvaluateXPathToString($"{xpath}",
+                            contextNode,
+                            null,
                             variablesInScope,
                             new Options(
                                 namespaceResolver: namespaceResolver,
