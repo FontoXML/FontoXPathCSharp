@@ -20,7 +20,7 @@ public static class TestFileSystem
         return File.ReadAllText(CreateAssetPath(filepath), Encoding.UTF8);
     }
 
-    public static void WriteFileSync(string filepath, string content)
+    public static void WriteFile(string filepath, string content)
     {
         File.WriteAllText(CreateAssetPath(filepath), content, Encoding.UTF8);
     }

@@ -1,13 +1,21 @@
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Xml;
 using XPathTest.UnitTests;
 using Xunit;
 
 namespace XPathTest;
 
-public class QT3Tests
+public class QT3Tests : IClassFixture<TestLoggingFixture>
 {
+    private TestLoggingFixture _loggingFixture;
+
+    public QT3Tests(TestLoggingFixture loggingFixture)
+    {
+        _loggingFixture = loggingFixture;
+    }
+
     [Theory(Timeout = 60000, DisplayName = "Qt3 Tests")]
     [ClassData(typeof(Qt3TestDataProvider))]
     [Description("bla")]
@@ -25,6 +33,9 @@ public class QT3Tests
         }
         catch (Exception ex)
         {
+            // Let logging fixture 
+            _loggingFixture.ProcessError(ex, name, testSetName, description);
+
             Assert.True(false, $"Query: {arguments.TestQuery}\nError: {ex.Message}");
             return;
         }

@@ -1,0 +1,25 @@
+﻿System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/UseCaseSTRING/string-queries-results-q4.out'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q18.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q9.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q11.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q16.xml'.,1
+System.Xml.XmlException: The 'ſ' character  hexadecimal value 0x17F  cannot be included in a name. Line 1  position 10.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q17.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q19.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q10.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/ForClause/ForExpr-013.out'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/UseCaseSTRING/string-queries-results-q1.out'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q15.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q2.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/Demos/sudoku-result.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/UseCaseSTRING/string-queries-results-q2.out'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q20.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q13.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/UseCaseSTRING/string-queries-results-q5.out'.,1
+System.Xml.XmlException: Name cannot begin with the 'Ϳ' character  hexadecimal value 0x37F. Line 1  position 7.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q12.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q8.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q3.xml'.,1
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/QT3TS/XMark/XMark-Q14.xml'.,1
+FontoXPathCSharp.XPathException: XPST0017: The function :number with arity 1 is not registered.,182
+System.NotImplementedException: Asserter type: error is not implemented yet.,5488
