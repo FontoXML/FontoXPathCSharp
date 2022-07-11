@@ -22,7 +22,7 @@ public class TestLoggingFixture : IDisposable
 
     public void ProcessError(Exception ex, string testName, string testSetName, string description)
     {
-        var exceptionString = ex.ToString()
+        var exceptionString = ex.Message
             .Replace(',', ' ')
             .ReplaceLineEndings()
             .Split(Environment.NewLine)

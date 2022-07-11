@@ -39,17 +39,25 @@ public class QT3Tests : IClassFixture<TestLoggingFixture>
             Assert.True(false, $"Query: {arguments.TestQuery}\nError: {ex.Message}");
             return;
         }
+        
+        try
+        {
+            // TODO: add whitespace cache to parser
+            if (arguments.TestQuery ==
+                "((((((((((((false() eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()")
+                return;
 
-        // TODO: add whitespace cache to parser
-        if (arguments.TestQuery ==
-            "((((((((((((false() eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()")
-            return;
-
-        asserter(
-            arguments.TestQuery,
-            arguments.ContextNode,
-            arguments.VariablesInScope,
-            arguments.NamespaceResolver
-        );
+            asserter(
+                arguments.TestQuery,
+                arguments.ContextNode,
+                arguments.VariablesInScope,
+                arguments.NamespaceResolver
+            );
+        }
+        catch (Exception ex)
+        {
+            _loggingFixture.ProcessError(ex, name, testSetName, description);
+            throw;
+        }
     }
 }

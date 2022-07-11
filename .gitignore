@@ -39,3 +39,11 @@ msbuild.wrn
 /XPathTest/assets/QT3TS
 /XPathTest/assets/XQUTS
 XPathTest/ts/
+
+XPathTest/assets/mostCommonErrors.csv
+
+XPathTest/assets/mostCommonNonParseErrors.csv
+
+XPathTest/assets/nonParseUnrunnableTestCases.csv
+
+XPathTest/assets/unrunnableTestCases.csv
