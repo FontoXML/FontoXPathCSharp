@@ -1,6 +1,4 @@
 using System;
-using System.ComponentModel;
-using System.Linq;
 using System.Xml;
 using XPathTest.UnitTests;
 using Xunit;
@@ -9,7 +7,7 @@ namespace XPathTest;
 
 public class QT3Tests : IClassFixture<TestLoggingFixture>
 {
-    private TestLoggingFixture _loggingFixture;
+    private readonly TestLoggingFixture _loggingFixture;
 
     public QT3Tests(TestLoggingFixture loggingFixture)
     {
@@ -18,8 +16,11 @@ public class QT3Tests : IClassFixture<TestLoggingFixture>
 
     [Theory(Timeout = 60000, DisplayName = "Qt3 Tests")]
     [ClassData(typeof(Qt3TestDataProvider))]
-    [Description("bla")]
-    public void Qt3Tests(string name, string testSetName, string description, XmlNode testCase,
+    public void Qt3Tests(
+        string name,
+        string testSetName,
+        string description,
+        XmlNode testCase,
         Qt3TestUtils.TestArguments arguments)
     {
         AsserterCall asserter;
@@ -39,14 +40,9 @@ public class QT3Tests : IClassFixture<TestLoggingFixture>
             Assert.True(false, $"Query: {arguments.TestQuery}\nError: {ex.Message}");
             return;
         }
-        
+
         try
         {
-            // TODO: add whitespace cache to parser
-            if (arguments.TestQuery ==
-                "((((((((((((false() eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()")
-                return;
-
             asserter(
                 arguments.TestQuery,
                 arguments.ContextNode,

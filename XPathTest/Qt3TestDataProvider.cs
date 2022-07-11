@@ -28,17 +28,42 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             .Select(l => l[0])
             .ToHashSet();
 
+        // _shouldRunTestByName = TestFileSystem.ReadFile("runnableTestSets.csv")
+        //     .Split(Environment.NewLine)
+        //     .Select(line => line.Split(','))
+        //     .DistinctBy(l => l[0])
+        //     .Where(l => ParseBooleanNoFail(l[1]))
+        //     .Select(l => l[0])
+        //     .ToHashSet();
+
+        // Addinf failed test cases that come from parse errors to the ignore set.
+        if (TestFileSystem.FileExists("parseUnrunnableTestCases.csv"))
+        {
+            var parseErrorCases = TestFileSystem.ReadFile("parseUnrunnableTestCases.csv")
+                .Split(Environment.NewLine)
+                .Select(e => e.Split(','))
+                .Where(e => e.Length > 1)
+                .ToDictionary(
+                    e => e[0],
+                    e => e[1]
+                );
+
+            parseErrorCases.Aggregate(
+                _unrunnableTestCasesByName,
+                (acc, val) =>
+                {
+                    acc.TryAdd(val.Key, val.Value);
+                    return acc;
+                }
+            );
+        }
+
+
         _testCases = new List<object[]>();
 
         var qt3Tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
-        Console.WriteLine("QT3TESTS IMPORTANT: " + qt3Tests);
 
-        // var qt3tests = new XmlDocument();
-        // qt3tests.Load("../../../assets/QT3TS/catalog.xml");
-        _loadedTestSets = GetAllTestSets(qt3Tests);
-        Console.WriteLine($"Qt3 Testsets loaded: {_loadedTestSets.Count}");
-
-        _loadedTestSets.ForEach(testSetFileName =>
+        GetAllTestSets(qt3Tests).ForEach(testSetFileName =>
         {
             var testSet = Qt3TestUtils.LoadFileToXmlNode(testSetFileName);
 
@@ -53,16 +78,6 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
                 null,
                 new Dictionary<string, AbstractValue>(),
                 new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")));
-
-            Console.WriteLine(
-                $"Loaded Testset Data: Set FileName: {testSetFileName}, Set Name: {testSetName}, Test Case Nodes: {testCaseNodes.Count}");
-
-            // var testName = Evaluate.EvaluateXPathToString(
-            //     Qt3TestQueries.AllTestNameQuery,
-            //     testSet,
-            //     null,
-            //     new Dictionary<string, AbstractValue>(),
-            //     new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
 
             if (!testCaseNodes.Any()) return;
 
@@ -85,25 +100,6 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             });
 
             _testCases.AddRange(testCases);
-
-            // _testCases = testCaseNodes
-            //     .Where(testCase => !_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
-            //     .Select(testCase =>
-            //     {
-            //         try
-            //         {
-            //             var name = GetTestName(testCase);
-            //             var description = GetTestDescription(testSetName, name, testCase);
-            //             var arguments = Qt3TestUtils.GetArguments(testSetFileName, testCase);
-            //             return new object[] {name, testSetName, description, testCase, arguments};
-            //         }
-            //         catch (FileNotFoundException ex)
-            //         {
-            //             
-            //         }
-            //
-            //     })
-            //     .ToList();
         });
     }
 

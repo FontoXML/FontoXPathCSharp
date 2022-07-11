@@ -47,3 +47,5 @@ XPathTest/assets/mostCommonNonParseErrors.csv
 XPathTest/assets/nonParseUnrunnableTestCases.csv
 
 XPathTest/assets/unrunnableTestCases.csv
+
+XPathTest/assets/parseUnrunnableTestCases.csv

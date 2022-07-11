@@ -22,15 +22,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="assets\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <EmbeddedResource Remove="assets\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Remove="assets\**" />
+      <Content Include="assets\mostCommonErrors.csv" />
+      <Content Include="assets\mostCommonNonParseErrors.csv" />
+      <Content Include="assets\nonParseUnrunnableTestCases.csv" />
+      <Content Include="assets\parseUnrunnableTestCases.csv" />
+      <Content Include="assets\runnableTestSets.csv" />
+      <Content Include="assets\unrunnableTestCases.csv" />
     </ItemGroup>
 
 </Project>
