@@ -8,7 +8,7 @@ namespace FontoXPathCSharp.Functions;
 
 public static class BuiltInFunctionsNode
 {
-    private static readonly FunctionSignature<ISequence> FnNodeName = (_, _, _, args) =>
+    public static readonly FunctionSignature<ISequence> FnNodeName = (_, _, _, args) =>
     {
         var firstArg = args[0];
         var pointerValue = firstArg.First();

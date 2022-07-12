@@ -1,4 +1,5 @@
 using System.Xml;
+using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
@@ -303,11 +304,11 @@ public class BuiltInFunctionsSequencesDeepEqual
     private static Iterator<BooleanValue> ArrayTypeDeepEqual(DynamicContext dynamicContext,
         ExecutionParameters executionParameters, StaticContext staticContext, ArrayValue item1, ArrayValue item2)
     {
-        if (item1.Members.Count != item2.Members.Count) {
+        if (item1.Members.Count != item2.Members.Count)
             return IteratorUtils.SingleValueIterator(new BooleanValue(false));
-        }
 
-        return AsyncGenerateEvery(item1.Members, (arrayEntry1, index, _) => {
+        return AsyncGenerateEvery(item1.Members, (arrayEntry1, index, _) =>
+        {
             var arrayEntry2 = item2.Members[index];
             return SequenceDeepEqual(
                 dynamicContext,
@@ -318,11 +319,52 @@ public class BuiltInFunctionsSequencesDeepEqual
             );
         });
     }
-    
+
     private static Iterator<BooleanValue> AtomicTypeNodeDeepEqual(DynamicContext dynamicContext,
         ExecutionParameters executionParameters, StaticContext staticContext, AbstractValue item1, AbstractValue item2)
     {
-        throw new NotImplementedException("");
+        var namesAreEqualResultGenerator = SequenceDeepEqual(
+            dynamicContext,
+            executionParameters,
+            staticContext,
+            BuiltInFunctionsNode.FnNodeName(
+                dynamicContext,
+                executionParameters,
+                staticContext,
+                SequenceFactory.CreateFromValue(item1)
+            ),
+            BuiltInFunctionsNode.FnNodeName(
+                dynamicContext,
+                executionParameters,
+                staticContext,
+                SequenceFactory.CreateFromValue(item2)
+            )
+        );
+        var done = false;
+        return _ =>
+        {
+            if (done) return IteratorResult<BooleanValue>.Done();
+
+            var namesAreEqualResult = namesAreEqualResultGenerator(IterationHint.None);
+            if (!namesAreEqualResult.IsDone)
+                if (namesAreEqualResult.Value != null && namesAreEqualResult.Value.Value == false)
+                {
+                    done = true;
+                    return namesAreEqualResult;
+                }
+
+            // Assume here that a node always atomizes to a singlevalue. This will not work
+            // anymore when schema support will be imlemented.
+            return IteratorResult<BooleanValue>.Ready(
+                AnyAtomicTypeDeepEqual(
+                    dynamicContext,
+                    executionParameters,
+                    staticContext,
+                    Atomize.AtomizeSingleValue(item1, executionParameters).First()!.GetAs<AtomicValue>(),
+                    Atomize.AtomizeSingleValue(item2, executionParameters).First()!.GetAs<AtomicValue>()
+                )
+            );
+        };
     }
 
     private static Iterator<BooleanValue> ElementNodeDeepEqual(DynamicContext dynamicContext,

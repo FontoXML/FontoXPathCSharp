@@ -13,7 +13,7 @@ public delegate ISequence FunctionDefinitionType(
     ExecutionParameters? executionParameters,
     StaticContext? staticContext, params ISequence[] sequences);
 
-public class FunctionValue<T> : AbstractValue where T: ISequence
+public class FunctionValue<T> : AbstractValue
 {
     protected readonly ParameterType[] _argumentTypes;
     protected readonly int _arity;
@@ -35,7 +35,7 @@ public class FunctionValue<T> : AbstractValue where T: ISequence
     {
     }
 
-    protected FunctionSignature<T> Value => _value;
+    public FunctionSignature<T> Value => _value;
 
     public int GetArity()
     {

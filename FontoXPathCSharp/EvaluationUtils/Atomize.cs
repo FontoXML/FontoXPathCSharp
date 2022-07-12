@@ -47,7 +47,7 @@ public static class Atomize
         });
     }
 
-    private static ISequence AtomizeSingleValue(AbstractValue value, ExecutionParameters executionParameters)
+    public static ISequence AtomizeSingleValue(AbstractValue value, ExecutionParameters executionParameters)
     {
         if (value.GetValueType().IsSubTypeOfAny(ValueType.XsAnyAtomicType, ValueType.XsUntypedAtomic,
                 ValueType.XsBoolean, ValueType.XsDecimal,
