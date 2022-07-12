@@ -110,7 +110,7 @@ public static class XdmReturnValue
         return typeActions.Run(typeof(TReturn));
     }
 
-    private static Iterator<AbstractValue[]> TransformArrayToArray(ArrayValue<AbstractValue>? first,
+    private static Iterator<AbstractValue[]> TransformArrayToArray(ArrayValue? first,
         ExecutionParameters executionParameters)
     {
         throw new NotImplementedException();

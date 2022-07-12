@@ -370,25 +370,37 @@ public class BuiltInFunctionsSequencesDeepEqual
     private static Iterator<BooleanValue> ElementNodeDeepEqual(DynamicContext dynamicContext,
         ExecutionParameters executionParameters, StaticContext staticContext, AbstractValue item1, AbstractValue item2)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("ElementNodeDeepEqual not implemented yet");
     }
 
     private static Iterator<BooleanValue> NodeDeepEqual(DynamicContext dynamicContext,
         ExecutionParameters executionParameters, StaticContext staticContext, AbstractValue item1, AbstractValue item2)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("NodeDeepEqual not implemented yet");
     }
 
     private static IteratorResult<BooleanValue> CompareNormalizedTextNodes(DynamicContext dynamicContext,
         ExecutionParameters executionParameters, StaticContext staticContext, List<AbstractValue> textValues1,
         List<AbstractValue> textValues2)
     {
-        throw new NotImplementedException();
+        var atomicValues = new[] { textValues1, textValues2 }.Select(textValues =>
+        {
+            var value = textValues.Aggregate("", (wholeValue, textValue) =>
+                wholeValue + Atomize.AtomizeSingleValue(textValue, executionParameters).First().GetAs<StringValue>()
+                    .Value);
+
+            return Atomize.CreateAtomicValue(value, ValueType.XsString);
+        }).ToArray();
+
+        return IteratorResult<BooleanValue>.Ready(
+            AnyAtomicTypeDeepEqual(dynamicContext, executionParameters,
+                staticContext, atomicValues[0], atomicValues[1])
+        );
     }
 
-    private static IteratorResult<AbstractValue> TakeConsecutiveTextValues(IteratorResult<AbstractValue> item1,
-        List<AbstractValue> textValues1, Iterator<AbstractValue> it1, XmlNode domFacade)
+    private static IteratorResult<AbstractValue> TakeConsecutiveTextValues(IteratorResult<AbstractValue> item,
+        List<AbstractValue> textValues, Iterator<AbstractValue> iterator, XmlNode domFacade)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("TakeConsecutiveTextValues not implemented yet");
     }
 }
