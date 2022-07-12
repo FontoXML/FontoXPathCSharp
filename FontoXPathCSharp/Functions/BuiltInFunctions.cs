@@ -12,7 +12,7 @@ public static class BuiltInFunctions
             .Concat(BuiltInFunctionsBoolean.Declarations).ToArray();
 
 
-    public static FunctionDefinitionType<ISequence> ContextItemAsFirstArgument(FunctionDefinitionType<ISequence> fn)
+    public static FunctionSignature<ISequence> ContextItemAsFirstArgument(FunctionSignature<ISequence> fn)
     {
         return (context, parameters, staticContext, args) =>
         {

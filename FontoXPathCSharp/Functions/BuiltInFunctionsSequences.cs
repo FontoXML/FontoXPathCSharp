@@ -10,7 +10,7 @@ namespace FontoXPathCSharp.Functions;
 
 public static class BuiltInFunctionsSequences
 {
-    private static readonly FunctionDefinitionType<ISequence> FnCount = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence> FnCount = (_, _, _, args) =>
     {
         var hasPassed = false;
         return SequenceFactory.CreateFromIterator(_ =>
@@ -22,7 +22,7 @@ public static class BuiltInFunctionsSequences
         }, 1);
     };
 
-    private static readonly FunctionDefinitionType<ISequence> FnZeroOrOne = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence> FnZeroOrOne = (_, _, _, args) =>
     {
         var arg = args[0];
         if (!arg.IsEmpty() && !arg.IsSingleton())
@@ -34,13 +34,13 @@ public static class BuiltInFunctionsSequences
         return arg;
     };
 
-    private static readonly FunctionDefinitionType<ISequence> FnExists = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence> FnExists = (_, _, _, args) =>
         SequenceFactory.CreateFromValue(new BooleanValue(!args[0].IsEmpty()));
 
-    private static readonly FunctionDefinitionType<ISequence> FnEmpty = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence> FnEmpty = (_, _, _, args) =>
         SequenceFactory.CreateFromValue(new BooleanValue(args[0].IsEmpty()));
 
-    private static readonly FunctionDefinitionType<ISequence> FnDeepEqual =
+    private static readonly FunctionSignature<ISequence> FnDeepEqual =
         (dynamicContext, executionParameters, staticContext, args) =>
         {
             var hasPassed = false;
