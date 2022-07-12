@@ -39,7 +39,7 @@ public static class FunctionRegistry
     }
 
     public static void RegisterFunction(string namespaceUri, string localName, ParameterType[] argumentTypes,
-        SequenceType returnType, FunctionDefinitionType<ISequence> callFunction)
+        SequenceType returnType, FunctionSignature<ISequence> callFunction)
     {
         var index = namespaceUri + ":" + localName;
 

@@ -9,7 +9,7 @@ namespace FontoXPathCSharp.Functions;
 
 public static class BuiltInFunctionsString
 {
-    private static readonly FunctionDefinitionType<ISequence> FnConcat = (_, executionParameters, _, args) =>
+    private static readonly FunctionSignature<ISequence> FnConcat = (_, executionParameters, _, args) =>
     {
         var stringSequences = args.Select(sequence =>
             Atomize.AtomizeSequence(sequence, executionParameters!).MapAll(allValues =>
@@ -26,7 +26,7 @@ public static class BuiltInFunctionsString
                     ValueType.XsString)));
     };
 
-    private static readonly FunctionDefinitionType<ISequence> FnStringLength = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence> FnStringLength = (_, _, _, args) =>
     {
         if (args.Length == 0) return SequenceFactory.CreateFromValue(new IntValue(0));
 
@@ -35,7 +35,7 @@ public static class BuiltInFunctionsString
         return SequenceFactory.CreateFromValue(new IntValue(stringValue.Length));
     };
 
-    private static readonly FunctionDefinitionType<ISequence> FnNormalizeSpace = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence> FnNormalizeSpace = (_, _, _, args) =>
     {
         if (args.Length == 0) return SequenceFactory.CreateFromValue(new StringValue(""));
 

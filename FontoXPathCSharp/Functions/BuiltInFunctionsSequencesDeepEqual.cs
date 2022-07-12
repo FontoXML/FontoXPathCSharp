@@ -122,8 +122,8 @@ public class BuiltInFunctionsSequencesDeepEqual
                 dynamicContext,
                 executionParameters,
                 staticContext,
-                item1,
-                item2
+                item1.GetAs<ArrayValue>(),
+                item2.GetAs<ArrayValue>()
             );
 
         // Nodes
@@ -300,16 +300,29 @@ public class BuiltInFunctionsSequencesDeepEqual
         return new BooleanValue(item1.Equals(item2));
     }
 
+    private static Iterator<BooleanValue> ArrayTypeDeepEqual(DynamicContext dynamicContext,
+        ExecutionParameters executionParameters, StaticContext staticContext, ArrayValue item1, ArrayValue item2)
+    {
+        if (item1.Members.Count != item2.Members.Count) {
+            return IteratorUtils.SingleValueIterator(new BooleanValue(false));
+        }
+
+        return AsyncGenerateEvery(item1.Members, (arrayEntry1, index, _) => {
+            var arrayEntry2 = item2.Members[index];
+            return SequenceDeepEqual(
+                dynamicContext,
+                executionParameters,
+                staticContext,
+                arrayEntry1(),
+                arrayEntry2()
+            );
+        });
+    }
+    
     private static Iterator<BooleanValue> AtomicTypeNodeDeepEqual(DynamicContext dynamicContext,
         ExecutionParameters executionParameters, StaticContext staticContext, AbstractValue item1, AbstractValue item2)
     {
         throw new NotImplementedException("");
-    }
-
-    private static Iterator<BooleanValue> ArrayTypeDeepEqual(DynamicContext dynamicContext,
-        ExecutionParameters executionParameters, StaticContext staticContext, AbstractValue item1, AbstractValue item2)
-    {
-        throw new NotImplementedException();
     }
 
     private static Iterator<BooleanValue> ElementNodeDeepEqual(DynamicContext dynamicContext,

@@ -1,17 +1,26 @@
+using FontoXPathCSharp.Functions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class ArrayValue<T> : FunctionValue<T>
+public class ArrayValue : FunctionValue<ISequence>
 {
-    public ArrayValue(Func<ISequence>[] members, FunctionDefinitionType<T> definitionType) : base(
-        new[] { new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne) }, 1, definitionType,
+    public ArrayValue(List<Func<ISequence>> members) : base(
+        new[] { new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne) }, 1,
+        null,
         ValueType.Array)
     {
-        Members = Members;
+        Members = members;
+        _value = (dynamicContext, executionParameters, staticContext, key) =>
+            BuiltInFunctionsArraysGet.ArrayGet(
+                dynamicContext,
+                executionParameters,
+                staticContext,
+                SequenceFactory.CreateFromValue(this),
+                key[0]);
     }
 
-    private Func<ISequence>? Members { get; }
+    public List<Func<ISequence>> Members { get; }
 }
