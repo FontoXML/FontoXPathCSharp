@@ -16,7 +16,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
     private readonly HashSet<string> _shouldRunTestByName;
 
-    private readonly Dictionary<string, string> _unrunnableTestCasesByName = new();
+    private readonly HashSet<string> _unrunnableTestCasesByName = new();
     private readonly List<object[]> _testCases;
 
     public Qt3TestDataProvider()
@@ -52,7 +52,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
                 _unrunnableTestCasesByName,
                 (acc, val) =>
                 {
-                    acc.TryAdd(val.Key, val.Value);
+                    acc.Add(val.Key);
                     return acc;
                 }
             );
@@ -83,7 +83,9 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
             var testCases = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
             {
-                if (!_unrunnableTestCasesByName.ContainsKey(GetTestName(testCase)))
+                var testName = GetTestName(testCase);
+                if (!_unrunnableTestCasesByName.Contains(testName))
+                {
                     try
                     {
                         var name = GetTestName(testCase);
@@ -95,7 +97,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
                     {
                         /* Test file was probably not found. */
                     }
-
+                }
                 return testCases;
             });
 
