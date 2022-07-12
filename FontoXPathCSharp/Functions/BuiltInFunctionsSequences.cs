@@ -1,3 +1,6 @@
+using System.Xml;
+using FontoXPathCSharp.EvaluationUtils;
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -37,6 +40,33 @@ public static class BuiltInFunctionsSequences
     private static readonly FunctionDefinitionType<ISequence> FnEmpty = (_, _, _, args) =>
         SequenceFactory.CreateFromValue(new BooleanValue(args[0].IsEmpty()));
 
+    private static readonly FunctionDefinitionType<ISequence> FnDeepEqual =
+        (dynamicContext, executionParameters, staticContext, args) =>
+        {
+            var hasPassed = false;
+            var deepEqualityIterator = BuiltInFunctionsSequencesDeepEqual.SequenceDeepEqual(
+                dynamicContext,
+                executionParameters,
+                staticContext,
+                args[0],
+                args[1]
+            );
+
+            return SequenceFactory.CreateFromIterator(
+                _ =>
+                {
+                    if (hasPassed) return IteratorResult<BooleanValue>.Done();
+
+                    var result = deepEqualityIterator(IterationHint.None);
+                    if (result.IsDone) return result;
+
+                    hasPassed = true;
+                    return IteratorResult<BooleanValue>.Ready(result.Value!);
+                }
+            );
+        };
+
+
     public static readonly BuiltinDeclarationType[] Declarations =
     {
         new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne) },
@@ -52,6 +82,15 @@ public static class BuiltInFunctionsSequences
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
         new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore) },
             FnExists, "exists", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnDeepEqual, "deep-equal", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne))
     };
+
+
 }
