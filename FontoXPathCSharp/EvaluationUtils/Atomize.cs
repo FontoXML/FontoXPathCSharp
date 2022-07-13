@@ -123,13 +123,7 @@ public static class Atomize
     }
 
 
-    public static AtomicValue TrueBoolean()
-    {
-        return CreateAtomicValue(true, ValueType.XsBoolean);
-    }
+    public static AtomicValue TrueBoolean => CreateAtomicValue(true, ValueType.XsBoolean);
 
-    public static AtomicValue FalseBoolean()
-    {
-        return CreateAtomicValue(false, ValueType.XsBoolean);
-    }
+    public static AtomicValue FalseBoolean => CreateAtomicValue(false, ValueType.XsBoolean);
 }

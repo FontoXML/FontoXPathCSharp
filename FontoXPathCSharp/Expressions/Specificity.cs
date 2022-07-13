@@ -15,8 +15,9 @@ public class Specificity : IComparable<Specificity>
 
     private Dictionary<SpecificityKind, int> _counts;
 
-    public Specificity(Dictionary<SpecificityKind, int> countsByKind)
+    public Specificity(Dictionary<SpecificityKind, int>? countsByKind = null)
     {
+        countsByKind ??= new Dictionary<SpecificityKind, int>();
         _counts = _specificityDimensions
             .Select(specificityKind =>
                 (specificityKind, countsByKind.ContainsKey(specificityKind) ? countsByKind[specificityKind] : 0))
