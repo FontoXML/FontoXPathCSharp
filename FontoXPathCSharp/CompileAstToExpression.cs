@@ -263,10 +263,13 @@ public static class CompileAstToExpression
                 or AstNodeName.DivOp
                 or AstNodeName.IDivOp
                 or AstNodeName.ModOp => CompileBinaryOperator(ast, options),
+            AstNodeName.UnaryPlusOp or AstNodeName.UnaryMinusOp => CompileUnaryOperator(ast, options),
             AstNodeName.CastExpr => CastAs(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
     }
+
+
 
     private static AbstractExpression CastAs(Ast ast, CompilationOptions options)
     {
@@ -288,6 +291,12 @@ public static class CompileAstToExpression
         var b = CompileAst(ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!, DisallowUpdating(options));
 
         return new BinaryOperator(kind, a, b);
+    }
+    
+    private static AbstractExpression CompileUnaryOperator(Ast ast, CompilationOptions options)
+    {
+        var operand = ast.FollowPath(AstNodeName.Operand, AstNodeName.All);
+        return new UnaryOperator(ast.Name, CompileAst(operand, options));
     }
 
     private static AbstractExpression CompileUnionOp(Ast ast, CompilationOptions options)
