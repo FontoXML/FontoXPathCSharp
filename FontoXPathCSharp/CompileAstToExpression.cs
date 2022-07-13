@@ -15,8 +15,9 @@ public static class CompileAstToExpression
 {
     private static CompilationOptions DisallowUpdating(CompilationOptions options)
     {
-        // TODO: implement
-        return options;
+        if (!options.AllowXQuery) return CompilationOptions.XPathMode;
+        if (!options.AllowUpdating) return CompilationOptions.XQueryMode;
+        return CompilationOptions.XQueryUpdatingMode;
     }
 
     private static AbstractTestExpression CompileElementTest(Ast ast)
@@ -253,15 +254,32 @@ public static class CompileAstToExpression
                 or AstNodeName.GtOp
                 or AstNodeName.GeOp => CompileCompareExpr(ast, options),
             AstNodeName.AndOp => CompileAndOp(ast, options),
+            AstNodeName.OrOp => CompileOrOp(ast, options),
             AstNodeName.SequenceExpr => CompileSequenceExpression(ast, options),
             AstNodeName.UnionOp => CompileUnionOp(ast, options),
             AstNodeName.SubtractOp
                 or AstNodeName.AddOp
-                or AstNodeName.MultiplyOp or AstNodeName.DivOp or AstNodeName.IDivOp
+                or AstNodeName.MultiplyOp
+                or AstNodeName.DivOp
+                or AstNodeName.IDivOp
                 or AstNodeName.ModOp => CompileBinaryOperator(ast, options),
+            AstNodeName.CastExpr => CastAs(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
     }
+
+    private static AbstractExpression CastAs(Ast ast, CompilationOptions options)
+    {
+        var expression = CompileAst(ast.GetFirstChild(AstNodeName.ArgExpr)?.GetFirstChild()!,
+            DisallowUpdating(options));
+
+        var singleType = ast.GetFirstChild(AstNodeName.SingleType);
+        var targetType = singleType.GetFirstChild(AstNodeName.AtomicType).GetQName();
+        var optional = singleType.GetFirstChild(AstNodeName.Optional) != null;
+
+        return new CastAsOperator(expression, targetType, optional);
+    }
+
 
     private static AbstractExpression CompileBinaryOperator(Ast ast, CompilationOptions options)
     {
@@ -292,6 +310,11 @@ public static class CompileAstToExpression
     private static AbstractExpression CompileAndOp(Ast ast, CompilationOptions options)
     {
         return new AndOperator(UnwrapBinaryOperator(AstNodeName.AndOp, ast, DisallowUpdating(options)));
+    }
+
+    private static AbstractExpression CompileOrOp(Ast ast, CompilationOptions options)
+    {
+        return new OrOperator(UnwrapBinaryOperator(AstNodeName.OrOp, ast, DisallowUpdating(options)));
     }
 
     private static AbstractExpression[] UnwrapBinaryOperator(AstNodeName operatorName, Ast ast,

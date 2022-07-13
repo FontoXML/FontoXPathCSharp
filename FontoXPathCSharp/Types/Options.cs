@@ -79,4 +79,3 @@ public class Options
     public LoggingFunc? Logger { get; set; } = null;
 }
 
-public record CompilationOptions(bool AllowUpdating, bool AllowXQuery, bool Debug, bool DisableCache);
