@@ -50,7 +50,7 @@ public static class BuiltInFunctionsString
             {
                 new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne),
                 new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne),
-                ParameterType.Ellipsis()
+                ParameterType.Ellipsis
             },
             FnConcat, "concat",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),

@@ -77,7 +77,7 @@ public class StaticContext : AbstractContext
     }
 
     public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
-        bool skipExternal)
+        bool skipExternal = false)
     {
         var hashKey = GetSignatureHash(namespaceUri, localName, arity);
 

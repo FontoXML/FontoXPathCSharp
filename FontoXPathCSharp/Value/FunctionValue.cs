@@ -17,8 +17,12 @@ public class FunctionValue<T> : AbstractValue
 {
     protected readonly ParameterType[] _argumentTypes;
     protected readonly int _arity;
-    public readonly bool IsUpdating;
+    protected readonly bool _isUpdating;
     protected FunctionSignature<T> _value;
+    private string _localName;
+    private string _namespaceUri;
+    private SequenceType _returnType;
+    
 
     protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T> value,
         ValueType type, bool isUpdating = false) : base(type)
@@ -26,7 +30,43 @@ public class FunctionValue<T> : AbstractValue
         _argumentTypes = argumentTypes;
         _arity = arity;
         _value = value;
-        IsUpdating = isUpdating;
+        _isUpdating = isUpdating;
+    }
+
+    public FunctionValue(
+        ParameterType[] argumentTypes, 
+        int arity, 
+        string localName,
+        string namespaceUri,
+        SequenceType returnType,
+        FunctionSignature<T> value,
+        bool isAnonymous = false,
+        bool isUpdating = false) : base(ValueType.Function)
+    {
+        _value = value;
+        _arity = arity;
+        _argumentTypes = ExpandParameterTypeToArity(argumentTypes, arity);
+        _isUpdating = isUpdating;
+        _localName = localName;
+        _namespaceUri = namespaceUri;
+        _returnType = returnType;
+    }
+
+    private ParameterType[]? ExpandParameterTypeToArity(ParameterType[] argumentTypes, int arity)
+    {
+        var indexOfRest = -1;
+        for (var i = 0; i < argumentTypes.Length; i++) {
+            if (argumentTypes[i] == ParameterType.Ellipsis) {
+                indexOfRest = i;
+            }
+        }
+
+        if (indexOfRest > -1)
+        {
+            var replacePart = Enumerable.Repeat(argumentTypes[indexOfRest - 1], arity - (argumentTypes.Length - 1));
+            return argumentTypes.Skip(indexOfRest).Concat(replacePart).ToArray();
+        }
+        return argumentTypes;
     }
 
     public FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T> value,
@@ -36,6 +76,8 @@ public class FunctionValue<T> : AbstractValue
     }
 
     public FunctionSignature<T> Value => _value;
+
+    public bool IsUpdating => _isUpdating;
 
     public int GetArity()
     {

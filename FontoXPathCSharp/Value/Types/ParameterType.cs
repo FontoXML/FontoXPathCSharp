@@ -14,8 +14,5 @@ public class ParameterType : SequenceType
         IsEllipsis = true;
     }
 
-    public static ParameterType Ellipsis()
-    {
-        return new ParameterType();
-    }
+    public static ParameterType Ellipsis => new ParameterType();
 }
