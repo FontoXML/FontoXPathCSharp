@@ -11,5 +11,6 @@ public record FunctionProperties(
     bool IsUpdating,
     string LocalName,
     string NamespaceUri,
-    SequenceType ReturnType
+    SequenceType ReturnType,
+    bool IsExternal = false
 );

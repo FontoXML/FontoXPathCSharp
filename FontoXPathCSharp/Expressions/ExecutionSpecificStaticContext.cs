@@ -77,9 +77,8 @@ public class ExecutionSpecificStaticContext : AbstractContext
     }
 
     public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
-        bool _skipExternal)
+        bool skipExternal = false)
     {
-        // NOTE: `namespaceUri != null` was added to get rid of nullable warning
         return namespaceUri != null ? FunctionRegistry.GetFunctionByArity(namespaceUri, localName, arity) : null;
     }
 

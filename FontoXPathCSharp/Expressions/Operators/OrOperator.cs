@@ -9,7 +9,7 @@ public class OrOperator : AbstractExpression
     private readonly AbstractExpression[] _subExpressions;
 
     public OrOperator(AbstractExpression[] expressions) : base(expressions,
-        new OptimizationOptions(canBeStaticallyEvaluated: expressions.All(e => e.CanBeStaticallyEvaluated)))
+        new OptimizationOptions(expressions.All(e => e.CanBeStaticallyEvaluated)))
     {
         // TODO: Adding specificity to expressions
         // var maxSpecificity = expressions.Aggregate(new Specificity(),
@@ -39,11 +39,11 @@ public class OrOperator : AbstractExpression
         //     }
         // }
 
-        return SequenceFactory.CreateFromIterator((_) =>
+        return SequenceFactory.CreateFromIterator(_ =>
         {
             if (!done)
             {
-                while (i < this._subExpressions.Length)
+                while (i < _subExpressions.Length)
                 {
                     if (resultSequence == null)
                     {

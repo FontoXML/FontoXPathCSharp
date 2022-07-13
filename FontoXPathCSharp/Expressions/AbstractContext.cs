@@ -18,7 +18,7 @@ public abstract class AbstractContext
         RegisteredVariableDeclarationByHashKey => registeredVariableDeclarationByHashKey;
 
     public abstract FunctionProperties? LookupFunction(string? namespaceURI, string localName, int arity,
-        bool skipExternal);
+        bool skipExternal = false);
 
     public abstract string? LookupVariable(string? namespaceUri, string localName);
     public abstract ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity);

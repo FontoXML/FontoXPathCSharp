@@ -14,8 +14,9 @@ public class Literal : AbstractExpression
     {
         _createValueSequence = type.ValueType switch
         {
-            ValueType.XsInteger => () => SequenceFactory.CreateFromValue(new IntValue(int.Parse(value))),
+            ValueType.XsInteger or ValueType.XsDecimal => () => SequenceFactory.CreateFromValue(new IntValue(int.Parse(value))),
             ValueType.XsString => () => SequenceFactory.CreateFromValue(new StringValue(value)),
+            ValueType.XsDouble => () => SequenceFactory.CreateFromValue(new DoubleValue(Decimal.Parse(value))),
             _ => throw new XPathException("Type '" + type + "' not expected in literal")
         };
     }

@@ -7,9 +7,9 @@ public class BuiltInFunctionsArraysGet
 {
     public static ISequence ArrayGet(
         DynamicContext dynamicContext,
-        ExecutionParameters executionParameters, 
-        StaticContext staticContext, 
-        ISequence arraySequence, 
+        ExecutionParameters executionParameters,
+        StaticContext staticContext,
+        ISequence arraySequence,
         ISequence positionSequence)
     {
         return positionSequence.MapAll(positions =>
@@ -21,9 +21,7 @@ public class BuiltInFunctionsArraysGet
                 var array = arrays.First();
                 var arrayValue = array.GetAs<ArrayValue>();
                 if (positionValue <= 0 || positionValue > arrayValue.Members.Count)
-                {
                     throw new XPathException("FOAY0001: array position out of bounds.");
-                }
                 return arrayValue.Members[positionValue - 1]();
             });
         });

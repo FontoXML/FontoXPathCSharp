@@ -9,9 +9,9 @@ namespace FontoXPathCSharp;
 
 public class CastAsOperator : AbstractExpression
 {
-    private readonly ValueType _targetType;
     private readonly bool _allowsEmptySequence;
     private readonly AbstractExpression _expression;
+    private readonly ValueType _targetType;
 
     public CastAsOperator(AbstractExpression expression, QName targetType, bool allowsEmptySequence) : base(
         new[] { expression }, new OptimizationOptions(false))

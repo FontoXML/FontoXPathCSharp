@@ -81,12 +81,13 @@ public class StaticContext : AbstractContext
     {
         var hashKey = GetSignatureHash(namespaceUri, localName, arity);
 
-        // TODO: add external support
-        // if (!skipExternal && !foundFunction.IsExternal)
-        if (_registeredFunctionsByHash.TryGetValue(hashKey, out var foundFunction)) return foundFunction;
+        if (_registeredFunctionsByHash.ContainsKey(hashKey))
+        {
+            var foundFunction = _registeredFunctionsByHash[hashKey];
+            if (!skipExternal || !foundFunction.IsExternal) return foundFunction;
+        }
 
-
-        return _parentContext?.LookupFunction(namespaceUri, localName, arity, skipExternal);
+        return _parentContext.LookupFunction(namespaceUri, localName, arity, skipExternal);
     }
 
     public override string? LookupVariable(string? namespaceUri, string localName)

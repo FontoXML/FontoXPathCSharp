@@ -10,6 +10,7 @@ public abstract class AtomicValue : AbstractValue
     }
 
     public abstract object GetValue();
+
     protected bool Equals(AtomicValue other)
     {
         return GetValue().Equals(other.GetValue());
@@ -19,7 +20,7 @@ public abstract class AtomicValue : AbstractValue
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
+        if (obj.GetType() != GetType()) return false;
         return Equals((AtomicValue)obj);
     }
 

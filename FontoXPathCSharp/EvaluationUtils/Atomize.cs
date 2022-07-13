@@ -10,6 +10,10 @@ namespace FontoXPathCSharp.EvaluationUtils;
 
 public static class Atomize
 {
+    public static AtomicValue TrueBoolean => CreateAtomicValue(true, ValueType.XsBoolean);
+
+    public static AtomicValue FalseBoolean => CreateAtomicValue(false, ValueType.XsBoolean);
+
     public static ISequence AtomizeSequence(ISequence sequence, ExecutionParameters parameters)
     {
         var done = false;
@@ -121,9 +125,4 @@ public static class Atomize
             _ => throw new ArgumentOutOfRangeException($"Atomic Value for {type} is not implemented yet.")
         };
     }
-
-
-    public static AtomicValue TrueBoolean => CreateAtomicValue(true, ValueType.XsBoolean);
-
-    public static AtomicValue FalseBoolean => CreateAtomicValue(false, ValueType.XsBoolean);
 }

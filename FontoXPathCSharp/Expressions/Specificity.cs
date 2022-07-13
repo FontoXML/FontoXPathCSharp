@@ -11,9 +11,9 @@ public enum SpecificityKind
 
 public class Specificity : IComparable<Specificity>
 {
-    private static SpecificityKind[] _specificityDimensions = Enum.GetValues<SpecificityKind>();
+    private static readonly SpecificityKind[] _specificityDimensions = Enum.GetValues<SpecificityKind>();
 
-    private Dictionary<SpecificityKind, int> _counts;
+    private readonly Dictionary<SpecificityKind, int> _counts;
 
     public Specificity(Dictionary<SpecificityKind, int>? countsByKind = null)
     {
@@ -26,6 +26,20 @@ public class Specificity : IComparable<Specificity>
         //You can't pass in invalid specificity kinds with this implementation, so the check after this was not needed.
     }
 
+
+    public int CompareTo(Specificity? other)
+    {
+        if (other == null) return 1;
+        foreach (var specificityDim in _specificityDimensions)
+        {
+            if (other._counts[specificityDim] < _counts[specificityDim]) return 1;
+
+            if (other._counts[specificityDim] > _counts[specificityDim]) return -1;
+        }
+
+        return 0;
+    }
+
     public Specificity Add(Specificity other)
     {
         var sum = _specificityDimensions.Aggregate(new Dictionary<SpecificityKind, int>(),
@@ -36,25 +50,5 @@ public class Specificity : IComparable<Specificity>
             });
 
         return new Specificity(sum);
-    }
-
-
-    public int CompareTo(Specificity? other)
-    {
-        if (other == null) return 1;
-        foreach (var specificityDim in _specificityDimensions)
-        {
-            if (other._counts[specificityDim] < _counts[specificityDim])
-            {
-                return 1;
-            }
-
-            if (other._counts[specificityDim] > _counts[specificityDim])
-            {
-                return -1;
-            }
-        }
-
-        return 0;
     }
 }

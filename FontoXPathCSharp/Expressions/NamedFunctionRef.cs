@@ -37,19 +37,21 @@ public class NamedFunctionRef : AbstractExpression
             var functionName = staticContext.ResolveFunctionName(new LexicalQualifiedName(localName, prefix), _arity);
 
             if (functionName == null)
-                throw new XPathException("XPST0017: The function " + (prefix == null ? "" : prefix + ":") + localName +
-                                         " with arity " + _arity + " could not be resolved.");
+                throw new XPathException(
+                    $"XPST0017: The function {(prefix == null ? "" : prefix + ":")}{localName} 1with arity {_arity} could not be resolved.");
 
             namespaceUri = functionName.NamespaceUri;
             localName = functionName.LocalName;
         }
 
         _functionProperties =
-            staticContext.LookupFunction(namespaceUri, localName, _arity, false);
+            staticContext.LookupFunction(namespaceUri, localName, _arity);
+
 
         if (_functionProperties == null)
-            throw new XPathException("XPST0017: The function " + (prefix == null ? "" : prefix + ":") + localName +
-                                     " with arity " + _arity + " is not registered.");
+            throw new XPathException(
+                $"XPST0017: The function {(prefix == null ? "" : prefix + ":")}{localName} with arity {_arity} is not registered.");
+
 
         base.PerformStaticEvaluation(staticContext);
     }

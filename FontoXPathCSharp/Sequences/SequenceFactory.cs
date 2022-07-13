@@ -4,7 +4,8 @@ namespace FontoXPathCSharp.Sequences;
 
 public static class SequenceFactory
 {
-    public static ISequence CreateFromIterator<T>(Iterator<T> iterator, int? predictedLength = null) where T: AbstractValue
+    public static ISequence CreateFromIterator<T>(Iterator<T> iterator, int? predictedLength = null)
+        where T : AbstractValue
     {
         Iterator<AbstractValue> abstractValueIterator = hint =>
         {
@@ -14,7 +15,7 @@ public static class SequenceFactory
         };
         return CreateFromIterator(abstractValueIterator, predictedLength);
     }
-    
+
     public static ISequence CreateFromIterator(Iterator<AbstractValue> iterator, int? predictedLength = null)
     {
         return new IteratorBackedSequence(iterator, predictedLength);

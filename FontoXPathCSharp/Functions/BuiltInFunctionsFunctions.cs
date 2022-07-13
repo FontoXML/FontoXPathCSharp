@@ -21,18 +21,15 @@ public class BuiltInFunctionsFunctions
                 arity.Value
             );
 
-            if (functionProperties == null)
-            {
-                return SequenceFactory.CreateEmpty();
-            }
+            if (functionProperties == null) return SequenceFactory.CreateEmpty();
 
             var functionItem = new FunctionValue<ISequence>(
-                argumentTypes: functionProperties.ArgumentTypes,
-                arity: arity.Value,
-                localName: name.Value.LocalName,
-                namespaceUri: name.Value.NamespaceUri,
-                returnType: functionProperties.ReturnType,
-                value: functionProperties.CallFunction
+                functionProperties.ArgumentTypes,
+                arity.Value,
+                name.Value.LocalName,
+                name.Value.NamespaceUri,
+                functionProperties.ReturnType,
+                functionProperties.CallFunction
             );
 
             return new SingletonSequence(functionItem);

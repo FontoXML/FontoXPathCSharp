@@ -2,7 +2,6 @@ using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
-using Microsoft.VisualBasic.CompilerServices;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Operators;
@@ -87,25 +86,20 @@ public class UnaryOperator : AbstractExpression
 
                 // Not very pretty, but it is what it is, maybe this can be fixed later.
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsDouble))
-                {
                     return SequenceFactory.CreateFromValue(
-                        Atomize.CreateAtomicValue(value.GetAs<DoubleValue>().Value * -1, UnaryLookup[value.GetValueType()])
+                        Atomize.CreateAtomicValue(value.GetAs<DoubleValue>().Value * -1,
+                            UnaryLookup[value.GetValueType()])
                     );
-                }
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsFloat))
-                {
                     return SequenceFactory.CreateFromValue(
-                        Atomize.CreateAtomicValue(value.GetAs<FloatValue>().Value * -1, UnaryLookup[value.GetValueType()])
+                        Atomize.CreateAtomicValue(value.GetAs<FloatValue>().Value * -1,
+                            UnaryLookup[value.GetValueType()])
                     );
-                }
 
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsInteger))
-                {
                     return SequenceFactory.CreateFromValue(
                         Atomize.CreateAtomicValue(value.GetAs<IntValue>().Value * -1, UnaryLookup[value.GetValueType()])
                     );
-                }
-
             }
 
             return SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(double.NaN, ValueType.XsDouble));

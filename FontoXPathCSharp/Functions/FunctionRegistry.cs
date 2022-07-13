@@ -9,8 +9,8 @@ public static class FunctionRegistry
 {
     private static readonly ConcurrentDictionary<string, List<FunctionProperties>> RegisteredFunctionsByName = new();
 
-    public static FunctionProperties? GetFunctionByArity(string functionNamespaceUri, string functionLocalName,
-        int arity)
+    public static FunctionProperties? GetFunctionByArity(
+        string functionNamespaceUri, string functionLocalName, int arity)
     {
         var index = functionNamespaceUri + ":" + functionLocalName;
 

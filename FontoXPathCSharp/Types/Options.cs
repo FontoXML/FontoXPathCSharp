@@ -78,4 +78,3 @@ public class Options
 
     public LoggingFunc? Logger { get; set; } = null;
 }
-

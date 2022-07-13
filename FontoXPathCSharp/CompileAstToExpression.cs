@@ -178,6 +178,18 @@ public static class CompileAstToExpression
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
     }
 
+    private static AbstractExpression CompileDoubleConstantExpr(Ast ast)
+    {
+        return new Literal(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
+            new SequenceType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne));
+    }
+
+    private static AbstractExpression CompileDecimalConstantExpr(Ast ast)
+    {
+        return new Literal(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
+            new SequenceType(ValueType.XsDecimal, SequenceMultiplicity.ExactlyOne));
+    }
+
     private static AbstractExpression CompileStringConcatenateExpr(Ast ast, CompilationOptions options)
     {
         Console.WriteLine(ast);
@@ -237,9 +249,11 @@ public static class CompileAstToExpression
             AstNodeName.QueryBody => CompileAst(ast.GetFirstChild()!, options),
             AstNodeName.PathExpr => CompilePathExpression(ast, options),
             AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast, options),
-            AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
             AstNodeName.ContextItemExpr => new ContextItemExpression(),
+            AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
+            AstNodeName.DecimalConstantExpr => CompileDecimalConstantExpr(ast),
+            AstNodeName.DoubleConstantExpr => CompileDoubleConstantExpr(ast),
             AstNodeName.StringConcatenateOp => CompileStringConcatenateExpr(ast, options),
             AstNodeName.EqualOp
                 or AstNodeName.NotEqualOp
@@ -270,7 +284,6 @@ public static class CompileAstToExpression
     }
 
 
-
     private static AbstractExpression CastAs(Ast ast, CompilationOptions options)
     {
         var expression = CompileAst(ast.GetFirstChild(AstNodeName.ArgExpr)?.GetFirstChild()!,
@@ -292,7 +305,7 @@ public static class CompileAstToExpression
 
         return new BinaryOperator(kind, a, b);
     }
-    
+
     private static AbstractExpression CompileUnaryOperator(Ast ast, CompilationOptions options)
     {
         var operand = ast.FollowPath(AstNodeName.Operand, AstNodeName.All);

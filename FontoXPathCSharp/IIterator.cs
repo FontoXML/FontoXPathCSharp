@@ -11,9 +11,15 @@ public class IteratorResult<T> where T : class
         Value = value;
     }
 
-    public static IteratorResult<T> Done() => new(true, null);
+    public static IteratorResult<T> Done()
+    {
+        return new(true, null);
+    }
 
-    public static IteratorResult<T> Ready(T value) => new(false, value);
+    public static IteratorResult<T> Ready(T value)
+    {
+        return new(false, value);
+    }
 }
 
 [Flags]
