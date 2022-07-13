@@ -21,12 +21,16 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
     public Qt3TestDataProvider()
     {
-        _shouldRunTestByName = File.ReadLines("../../../assets/runnableTestSets.csv")
-            .Select(line => line.Split(','))
-            .DistinctBy(l => l[0])
-            .Where(l => ParseBooleanNoFail(l[1]))
-            .Select(l => l[0])
-            .ToHashSet();
+        if (TestFileSystem.FileExists("runnableTestSets.csv"))
+        {
+            _shouldRunTestByName = File.ReadLines("../../../assets/runnableTestSets.csv")
+                .Select(line => line.Split(','))
+                .DistinctBy(l => l[0])
+                .Where(l => ParseBooleanNoFail(l[1]))
+                .Select(l => l[0])
+                .ToHashSet();
+        }
+
 
         // _shouldRunTestByName = TestFileSystem.ReadFile("runnableTestSets.csv")
         //     .Split(Environment.NewLine)

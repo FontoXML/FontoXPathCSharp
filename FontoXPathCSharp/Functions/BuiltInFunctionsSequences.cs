@@ -89,8 +89,15 @@ public static class BuiltInFunctionsSequences
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
             },
             FnDeepEqual, "deep-equal", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            (_, _, _, _) => { throw new Exception("FOCH0002: No collations are supported"); },
+            "deep-equal", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne))
     };
-
-
 }

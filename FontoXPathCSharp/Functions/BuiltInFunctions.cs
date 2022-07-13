@@ -10,7 +10,8 @@ public static class BuiltInFunctions
             .Concat(BuiltInFunctionsString.Declarations)
             .Concat(BuiltInFunctionsSequences.Declarations)
             .Concat(BuiltInFunctionsBoolean.Declarations)
-            .Concat(BuiltInFunctionsFunctions.Declarations).ToArray();
+            .Concat(BuiltInFunctionsFunctions.Declarations)
+            .Concat(BuiltInFunctionsQName.Declarations).ToArray();
 
 
     public static FunctionSignature<ISequence> ContextItemAsFirstArgument(FunctionSignature<ISequence> fn)
