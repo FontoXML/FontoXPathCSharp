@@ -5,7 +5,9 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-using CastingFunction = Func<object, Result<AtomicValue>>;
+public delegate Result<AtomicValue> CastingFunction(object input);
+
+public delegate bool InstanceOfFunction(params ValueType[] types);
 
 public class TypeCasting
 {
@@ -25,10 +27,6 @@ public class TypeCasting
 
     public static TypeCasting Instance { get; } = new();
 
-    public Result<AbstractValue> TryCastToType()
-    {
-        throw new NotImplementedException();
-    }
 
     public static AtomicValue CastToType(AtomicValue value, ValueType type)
     {
@@ -135,9 +133,15 @@ public class TypeCasting
         };
     }
 
+    private static bool InstanceOf(ValueType from ,params ValueType[] types)
+    {
+        
+    }
+
     private static CastingFunction CastToPrimitiveType(ValueType from, ValueType to)
     {
-        // var instanceOf = new Func<ValueType, bool>(type => SubtypeUtils.IsSubtypeOf(from, type));
+        // Maybe the check makes it faster, maybe it does not, hard to verify.
+        var instanceOf = new InstanceOfFunction(types => types.Length == 1 ? from.IsSubtypeOf(types[0]) : from.IsSubTypeOfAny(types));
 
         if (to == ValueType.XsError)
             return _ => new ErrorResult<AtomicValue>("FORG0001: Casting to xs:error is always invalid.");
@@ -145,6 +149,7 @@ public class TypeCasting
         switch (to)
         {
             case ValueType.XsUntypedAtomic:
+                
             case ValueType.XsString:
             case ValueType.XsFloat:
             case ValueType.XsDouble:
