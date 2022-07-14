@@ -3,9 +3,9 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 
-public class CastToString
+public class CastToUntypedAtomic
 {
-    public static CastingFunction ToString(InstanceOfFunction instanceOf)
+    public static CastingFunction ToUntypedAtomic(InstanceOfFunction instanceOf)
     {
         var caster = CastToStringLikeType.ToStringLikeType(instanceOf);
         return value =>
@@ -15,7 +15,7 @@ public class CastToString
             {
                 ErrorResult<string> e => new ErrorResult<AtomicValue>(e.Message),
                 SuccessResult<string> r => new SuccessResult<AtomicValue>(
-                    Atomize.CreateAtomicValue(r.Data, ValueType.XsString))
+                    Atomize.CreateAtomicValue(r.Data, ValueType.XsUntypedAtomic))
             };
         };
     }

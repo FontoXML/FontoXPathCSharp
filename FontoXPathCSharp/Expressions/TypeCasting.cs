@@ -1,11 +1,12 @@
 using FontoXPathCSharp.EvaluationUtils;
+using FontoXPathCSharp.Expressions.DataTypes.Casting;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public delegate Result<AtomicValue> CastingFunction(object input);
+public delegate Result<AtomicValue> CastingFunction(AbstractValue input);
 
 public delegate bool InstanceOfFunction(params ValueType[] types);
 
@@ -48,7 +49,7 @@ public class TypeCasting
 
         var prefabConverter = _precomputedCastFunctions[index];
 
-        return prefabConverter(value.GetValue());
+        return prefabConverter(value);
     }
 
     private CastingFunction CreateCastingFunction(ValueType from, ValueType to)
@@ -92,7 +93,7 @@ public class TypeCasting
             converters.Add(value =>
             {
                 // Not sure if this is correct, it seems more correct than the original code though.
-                var strValue = TypeHelpers.NormalizeWhitespace((string)value, to);
+                var strValue = TypeHelpers.NormalizeWhitespace(value.GetAs<StringValue>().Value, to);
                 if (!TypeHelpers.ValidatePattern(strValue, to))
                     return new ErrorResult<AtomicValue>(
                         $"FORG0001: Cannot cast ${value} to ${to}, pattern validation failed.");
@@ -110,7 +111,7 @@ public class TypeCasting
         if (primitiveTo.IsSubTypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic))
             converters.Add(value =>
             {
-                if (!TypeHelpers.ValidatePattern((string)value, to))
+                if (!TypeHelpers.ValidatePattern(value.GetAs<StringValue>().Value, to))
                     return new ErrorResult<AtomicValue>(
                         $"FORG0001: Cannot cast ${value} to ${to}, pattern validation failed.");
 
@@ -133,48 +134,23 @@ public class TypeCasting
         };
     }
 
-    private static bool InstanceOf(ValueType from ,params ValueType[] types)
-    {
-        
-    }
-
     private static CastingFunction CastToPrimitiveType(ValueType from, ValueType to)
     {
         // Maybe the check makes it faster, maybe it does not, hard to verify.
-        var instanceOf = new InstanceOfFunction(types => types.Length == 1 ? from.IsSubtypeOf(types[0]) : from.IsSubTypeOfAny(types));
+        var instanceOf = new InstanceOfFunction(types =>
+            types.Length == 1 ? from.IsSubtypeOf(types[0]) : from.IsSubTypeOfAny(types));
 
         if (to == ValueType.XsError)
             return _ => new ErrorResult<AtomicValue>("FORG0001: Casting to xs:error is always invalid.");
 
-        switch (to)
+        return to switch
         {
-            case ValueType.XsUntypedAtomic:
-                
-            case ValueType.XsString:
-            case ValueType.XsFloat:
-            case ValueType.XsDouble:
-            case ValueType.XsDecimal:
-            case ValueType.XsInteger:
-            case ValueType.XsNumeric:
-            case ValueType.XsDuration:
-            case ValueType.XsYearMonthDuration:
-            case ValueType.XsDayTimeDuration:
-            case ValueType.XsDateTime:
-            case ValueType.XsTime:
-            case ValueType.XsDate:
-            case ValueType.XsGYearMonth:
-            case ValueType.XsGYear:
-            case ValueType.XsGMonthDay:
-            case ValueType.XsGDay:
-            case ValueType.XsGMonth:
-            case ValueType.XsBoolean:
-            case ValueType.XsBase64Binary:
-            case ValueType.XsHexBinary:
-            case ValueType.XsAnyUri:
-            case ValueType.XsQName:
-                throw new NotImplementedException("Type casting between primitives not implemented yet.");
-        }
-
-        return _ => new ErrorResult<AtomicValue>($"XPTY0004: Casting not supported from ${from} to ${to}.");
+            ValueType.XsUntypedAtomic => CastToUntypedAtomic.ToUntypedAtomic(instanceOf),
+            ValueType.XsString => CastToString.ToString(instanceOf),
+            ValueType.XsFloat => CastToFloat.ToFloat(instanceOf),
+            ValueType.XsDouble => CastToDouble.ToDouble(instanceOf),
+            ValueType.XsDecimal => CastToDecimal.ToDecimal(instanceOf),
+            _ => _ => throw new NotImplementedException($"Type casting to {to} has not been implemented yet."),
+        };
     }
 }
