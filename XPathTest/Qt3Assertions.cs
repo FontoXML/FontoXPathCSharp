@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DocumentWriter;
@@ -131,7 +132,7 @@ public class Qt3Assertions
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
-                            $"deep - equal(({xpath}), ({equalWith}))",
+                            $"deep-equal(({xpath}), ({equalWith}))",
                             contextNode,
                             null,
                             variablesInScope,
@@ -258,9 +259,29 @@ public class Qt3Assertions
                     );
                 };
             }
-            case "error":
-            {
-                throw new NotImplementedException($"Asserter type: {assertNode.LocalName} is not implemented yet.");
+            case "error": {
+                var errorCode = Evaluate.EvaluateXPathToString("@code", assertNode);
+                return (xpath, contextNode, variablesInScope, namespaceResolver) =>
+                {
+                    var errorContents = "";
+                    Assert.Throws<Exception>(
+                        () => {
+                            try
+                            {
+                                Evaluate.EvaluateXPathToString(xpath, contextNode, null, variablesInScope, new Options(
+                                    namespaceResolver: namespaceResolver,
+                                    documentWriter: nodesFactory,
+                                    languageId: language));
+                            }
+                            catch (Exception ex)
+                            {
+                                errorContents = ex.ToString();
+                                throw;
+                            }
+                        }
+                    );
+                    Assert.Matches(errorCode == "*" ? ".*" : errorCode, errorContents);
+                };
             }
             default:
                 return (_, _, _, _) => Assert.True(false, $"Skipped test, it was a {assertNode.LocalName}");

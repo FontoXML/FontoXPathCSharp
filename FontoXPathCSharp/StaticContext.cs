@@ -117,7 +117,7 @@ public class StaticContext : AbstractContext
             .FirstOrDefault();
     }
 
-    public override string? ResolveNamespace(string? prefix, bool useExternalResolver)
+    public override string? ResolveNamespace(string? prefix, bool useExternalResolver = true)
     {
         var uri = LookupInOverrides(_registeredNamespaceURIByPrefix, prefix ?? "");
         return uri ?? _parentContext?.ResolveNamespace(prefix, useExternalResolver);

@@ -47,7 +47,6 @@ public class NamedFunctionRef : AbstractExpression
         _functionProperties =
             staticContext.LookupFunction(namespaceUri, localName, _arity);
 
-
         if (_functionProperties == null)
             throw new XPathException(
                 $"XPST0017: The function {(prefix == null ? "" : prefix + ":")}{localName} with arity {_arity} is not registered.");
