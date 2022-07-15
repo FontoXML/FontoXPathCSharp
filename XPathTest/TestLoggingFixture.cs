@@ -32,6 +32,7 @@ public class TestLoggingFixture : IDisposable
 
         _failedTestsWithErrors[testName] = exceptionString;
         if (!exceptionString.Contains("PRSC Error")) _nonParseErrors[testName] = exceptionString;
-        else { _parseErrors[testName] = exceptionString; }
+        else
+            _parseErrors[testName] = exceptionString;
     }
 }

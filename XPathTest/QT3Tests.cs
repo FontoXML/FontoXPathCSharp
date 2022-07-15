@@ -47,7 +47,7 @@ public class QT3Tests : IClassFixture<TestLoggingFixture>
             if (arguments.TestQuery ==
                 "((((((((((((false() eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()) eq false()")
                 return;
-            
+
             asserter(
                 arguments.TestQuery,
                 arguments.ContextNode,

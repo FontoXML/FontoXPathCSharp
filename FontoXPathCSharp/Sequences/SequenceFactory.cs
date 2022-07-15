@@ -1,9 +1,13 @@
+using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
 public static class SequenceFactory
 {
+    public static readonly ISequence SingletonTrueSequence = CreateFromValue(Atomize.TrueBoolean);
+    public static readonly ISequence SingletonFalseSequence = CreateFromValue(Atomize.FalseBoolean);
+
     public static ISequence CreateFromIterator<T>(Iterator<T> iterator, int? predictedLength = null)
         where T : AbstractValue
     {

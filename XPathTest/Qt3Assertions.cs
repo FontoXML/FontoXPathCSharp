@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DocumentWriter;
@@ -259,13 +258,15 @@ public class Qt3Assertions
                     );
                 };
             }
-            case "error": {
+            case "error":
+            {
                 var errorCode = Evaluate.EvaluateXPathToString("@code", assertNode);
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     var errorContents = "";
                     Assert.Throws<Exception>(
-                        () => {
+                        () =>
+                        {
                             try
                             {
                                 Evaluate.EvaluateXPathToString(xpath, contextNode, null, variablesInScope, new Options(

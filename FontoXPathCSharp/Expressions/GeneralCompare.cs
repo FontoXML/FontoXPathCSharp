@@ -68,8 +68,15 @@ public class GeneralCompare : AbstractExpression
                     else if (secondTargetType.HasValue)
                         secondValue = secondValue.CastToType(secondTargetType.Value);
 
-                    if (ValueCompare.PerformValueCompare(type, firstValue, secondValue, dynamicContext))
-                        return true;
+                    if (firstValue.GetValueType().IsSubtypeOf(ValueType.XsAnyAtomicType) &&
+                        secondValue.GetValueType().IsSubtypeOf(ValueType.XsAnyAtomicType))
+                    {
+                        var compareFunction = ValueCompare.PerformValueCompare(type, firstValue.GetValueType(), secondValue.GetValueType());
+                        if (compareFunction(firstValue.GetAs<AtomicValue>(), secondValue.GetAs<AtomicValue>(), dynamicContext))
+                        {
+                            return true;
+                        }
+                    }
                 }
 
                 return false;

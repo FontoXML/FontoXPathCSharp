@@ -1,5 +1,4 @@
 using System.Xml;
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.DataTypes.Builtins;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
@@ -116,7 +115,7 @@ public static class Atomize
         return type switch
         {
             ValueType.XsBoolean => new BooleanValue((bool)(object)value!),
-            ValueType.XsInt => new IntValue((int)(object)value!),
+            ValueType.XsInt or ValueType.XsInteger => new IntValue((int)(object)value!),
             ValueType.XsFloat => new FloatValue((decimal)(object)value!),
             ValueType.XsDouble => new DoubleValue((decimal)(object)value!),
             ValueType.XsString => new StringValue((string)(object)value!),
