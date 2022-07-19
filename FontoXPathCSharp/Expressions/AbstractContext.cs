@@ -22,5 +22,5 @@ public abstract class AbstractContext
 
     public abstract string? LookupVariable(string? namespaceUri, string localName);
     public abstract ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity);
-    public abstract string? ResolveNamespace(string prefix, bool useExternalResolver = true);
+    public abstract string? ResolveNamespace(string? prefix, bool useExternalResolver = true);
 }

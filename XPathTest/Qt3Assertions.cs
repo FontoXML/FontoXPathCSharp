@@ -259,13 +259,15 @@ public class Qt3Assertions
                     );
                 };
             }
-            case "error": {
+            case "error":
+            {
                 var errorCode = Evaluate.EvaluateXPathToString("@code", assertNode);
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     var errorContents = "";
                     Assert.Throws<Exception>(
-                        () => {
+                        () =>
+                        {
                             try
                             {
                                 Evaluate.EvaluateXPathToString(xpath, contextNode, null, variablesInScope, new Options(
@@ -281,6 +283,23 @@ public class Qt3Assertions
                         }
                     );
                     Assert.Matches(errorCode == "*" ? ".*" : errorCode, errorContents);
+                };
+            }
+            case "assert-empty":
+            {
+                return (xpath, contextNode, variablesInScope, namespaceResolver) =>
+                {
+                    Assert.True(
+                        Evaluate.EvaluateXPathToBoolean($"({xpath}) => empty()",
+                            contextNode,
+                            null,
+                            variablesInScope,
+                            new Options(
+                                namespaceResolver: namespaceResolver,
+                                documentWriter: nodesFactory,
+                                languageId: language)
+                        ),
+                        $"Expected XPath {xpath} to resolve to the empty sequence");
                 };
             }
             default:

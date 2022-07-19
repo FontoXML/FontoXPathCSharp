@@ -25,7 +25,10 @@ public class FunctionCall : PossiblyUpdatingExpression
         ExecutionParameters? executionParameters, SequenceCallback[] createArgumentSequences)
     {
         if (_functionReference != null)
-            return _functionReference.Value(dynamicContext, executionParameters, null,
+            return _functionReference.Value(
+                dynamicContext, 
+                executionParameters, 
+                null,
                 _argumentExpressions.Select(x => x.Evaluate(dynamicContext, executionParameters)).ToArray());
 
 

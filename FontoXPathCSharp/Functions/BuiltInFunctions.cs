@@ -12,7 +12,8 @@ public static class BuiltInFunctions
             .Concat(BuiltInFunctionsBoolean.Declarations)
             .Concat(BuiltInFunctionsFunctions.Declarations)
             .Concat(BuiltInFunctionsQName.Declarations)
-            .Concat(BuiltInFunctionsDataTypeConstructors.Declarations).ToArray();
+            .Concat(BuiltInFunctionsDataTypeConstructors.Declarations)
+            .Concat(BuiltInFunctionsNumeric.Declarations).ToArray();
 
 
     public static FunctionSignature<ISequence> ContextItemAsFirstArgument(FunctionSignature<ISequence> fn)

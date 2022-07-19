@@ -52,7 +52,7 @@ public class FunctionValue<T> : AbstractValue
         _returnType = returnType;
     }
 
-    public FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T> value,
+    protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T> value,
         bool isUpdating) : this(
         argumentTypes, arity, value, ValueType.Function, isUpdating)
     {

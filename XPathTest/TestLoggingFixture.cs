@@ -9,6 +9,7 @@ public class TestLoggingFixture : IDisposable
     private readonly ConcurrentDictionary<string, string> _failedTestsWithErrors = new();
     private readonly ConcurrentDictionary<string, string> _nonParseErrors = new();
     private readonly ConcurrentDictionary<string, string> _parseErrors = new();
+    private readonly ConcurrentDictionary<string, string> _nullPointerExceptions = new();
 
 
     public void Dispose()
@@ -20,6 +21,7 @@ public class TestLoggingFixture : IDisposable
             TestingUtils.GetSortedValueOccurrences(_nonParseErrors.Values), "mostCommonNonParseErrors.csv");
         TestingUtils.WriteKvpCollectionToDisk(
             TestingUtils.GetSortedValueOccurrences(_failedTestsWithErrors.Values), "mostCommonErrors.csv");
+        TestingUtils.WriteKvpCollectionToDisk(_nullPointerExceptions, "nullPointerExceptions.csv");
     }
 
     public void ProcessError(Exception ex, string testName, string testSetName, string description)
@@ -30,6 +32,14 @@ public class TestLoggingFixture : IDisposable
             .Split(Environment.NewLine)
             .First();
 
+        if (exceptionString.Contains("Object reference not set"))
+        {
+            _nullPointerExceptions[testName] = ex.Message
+                .Replace(',', ' ')
+                .ReplaceLineEndings()
+                .Replace(Environment.NewLine, "/");
+        }
+        
         _failedTestsWithErrors[testName] = exceptionString;
         if (!exceptionString.Contains("PRSC Error")) _nonParseErrors[testName] = exceptionString;
         else { _parseErrors[testName] = exceptionString; }

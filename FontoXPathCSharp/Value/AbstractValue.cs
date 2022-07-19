@@ -31,4 +31,11 @@ public abstract class AbstractValue
             ? TypeCasting.CastToType(GetAs<AtomicValue>(), type)
             : throw new XPathException("Can't cast a non-atomic value.");
     }
+
+    public Result<AtomicValue> TryCastToType(ValueType type)
+    {
+        return GetValueType().IsSubtypeOf(ValueType.XsAnyAtomicType)
+            ? TypeCasting.TryCastToType(GetAs<AtomicValue>(), type)
+            : new ErrorResult<AtomicValue>("Can't cast a non-atomic value.");
+    }
 }

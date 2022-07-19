@@ -31,7 +31,7 @@ public class TypeCasting
 
     public static AtomicValue CastToType(AtomicValue value, ValueType type)
     {
-        var result = Instance.TryCastToType(value, type);
+        var result = Instance.TryCastToTypeInternal(value, type);
         return result switch
         {
             ErrorResult<AtomicValue> errorResult => throw new Exception(errorResult.Message),
@@ -40,7 +40,10 @@ public class TypeCasting
         };
     }
 
-    private Result<AtomicValue> TryCastToType(AtomicValue value, ValueType type)
+    public static Result<AtomicValue> TryCastToType(AtomicValue value, ValueType type) =>
+        Instance.TryCastToTypeInternal(value, type);
+
+    private Result<AtomicValue> TryCastToTypeInternal(AtomicValue value, ValueType type)
     {
         var index = (int)value.GetValueType() + (int)type * 10000;
 

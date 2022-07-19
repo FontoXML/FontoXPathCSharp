@@ -9,7 +9,7 @@ namespace FontoXPathCSharp.EvaluationUtils;
 
 public static class Atomize
 {
-    public static ISequence AtomizeSequence(ISequence sequence, ExecutionParameters parameters)
+    public static ISequence AtomizeSequence(ISequence sequence, ExecutionParameters? parameters)
     {
         var done = false;
         var it = sequence.GetValue();

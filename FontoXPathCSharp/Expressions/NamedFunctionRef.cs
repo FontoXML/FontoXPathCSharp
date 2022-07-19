@@ -20,10 +20,14 @@ public class NamedFunctionRef : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        var functionProps = _functionProperties!;
-        var functionItem = new FunctionValue<ISequence>(functionProps.ArgumentTypes, functionProps.Arity,
-            functionProps.CallFunction, functionProps.IsUpdating);
-        return SequenceFactory.CreateFromValue(functionItem);
+        return SequenceFactory.CreateFromValue(new FunctionValue<ISequence>(
+            _functionProperties!.ArgumentTypes,
+            _functionProperties!.Arity,
+            _functionProperties!.LocalName,
+            _functionProperties!.NamespaceUri,
+            _functionProperties!.ReturnType,
+            _functionProperties!.CallFunction,
+            _functionProperties!.IsUpdating));
     }
 
     public override void PerformStaticEvaluation(StaticContext staticContext)

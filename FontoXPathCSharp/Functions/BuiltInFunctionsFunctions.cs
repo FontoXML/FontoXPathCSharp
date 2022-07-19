@@ -8,7 +8,7 @@ namespace FontoXPathCSharp.Functions;
 
 public class BuiltInFunctionsFunctions
 {
-    public static readonly FunctionSignature<ISequence> FnFunctionLookup = (_, _, staticContext, sequences) =>
+    private static readonly FunctionSignature<ISequence> FnFunctionLookup = (_, _, staticContext, sequences) =>
     {
         return SequenceUtils.ZipSingleton(sequences, nameArityTuple =>
         {
