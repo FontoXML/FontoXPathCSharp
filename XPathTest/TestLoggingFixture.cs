@@ -10,6 +10,7 @@ public class TestLoggingFixture : IDisposable
     private readonly ConcurrentDictionary<string, string> _nonParseErrors = new();
     private readonly ConcurrentDictionary<string, string> _parseErrors = new();
     private readonly ConcurrentDictionary<string, string> _nullPointerExceptions = new();
+    private readonly ConcurrentDictionary<string, string> _castingErrors = new();
 
 
     public void Dispose()
@@ -22,6 +23,7 @@ public class TestLoggingFixture : IDisposable
         TestingUtils.WriteKvpCollectionToDisk(
             TestingUtils.GetSortedValueOccurrences(_failedTestsWithErrors.Values), "mostCommonErrors.csv");
         TestingUtils.WriteKvpCollectionToDisk(_nullPointerExceptions, "nullPointerExceptions.csv");
+        TestingUtils.WriteKvpCollectionToDisk(_castingErrors, "castingExceptions.csv");
     }
 
     public void ProcessError(Exception ex, string testName, string testSetName, string description)
@@ -39,9 +41,20 @@ public class TestLoggingFixture : IDisposable
                 .ReplaceLineEndings()
                 .Replace(Environment.NewLine, "/");
         }
-        
+
+        if (ex is InvalidCastException)
+        {
+            _castingErrors[testName] = ex.ToString()
+                .Replace(',', ' ')
+                .ReplaceLineEndings()
+                .Replace(Environment.NewLine, "/");
+        }
+
         _failedTestsWithErrors[testName] = exceptionString;
         if (!exceptionString.Contains("PRSC Error")) _nonParseErrors[testName] = exceptionString;
-        else { _parseErrors[testName] = exceptionString; }
+        else
+        {
+            _parseErrors[testName] = exceptionString;
+        }
     }
 }
