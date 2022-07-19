@@ -49,7 +49,7 @@ internal class EmptySequence : ISequence
 
     public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues, IterationHint hint)
     {
-        return this;
+        return allvalues(Array.Empty<AbstractValue>());
     }
 
     IEnumerator IEnumerable.GetEnumerator()

@@ -145,7 +145,7 @@ public class IteratorBackedSequence : ISequence
         return SequenceFactory.CreateFromIterator(hint =>
         {
             var value = iterator(hint);
-            if(value.IsDone) return IteratorResult<AbstractValue>.Done();
+            if (value.IsDone) return IteratorResult<AbstractValue>.Done();
             return IteratorResult<AbstractValue>.Ready(callback(value.Value!, i++, this));
         });
     }
