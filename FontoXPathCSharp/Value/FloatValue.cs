@@ -14,10 +14,17 @@ public class FloatValue : AtomicValue
     public FloatValue(object? value) : base(ValueType.XsFloat)
     {
         Value = value is string s
-            ? float.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s) 
-            : (float)(value ?? throw new Exception("Tried to initialize an FloatValue with null."));
+            ? float.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
+            : ConvertToFloat(value);
     }
 
+    private float ConvertToFloat(object? value)
+    {
+        
+        return value != null ? Convert.ToSingle(value) : throw new Exception($"Tried to initialize an FloatValue with null.");
+    }
+    
+    
     private float StringEdgeCasesOrException(string s)
     {
         return s switch

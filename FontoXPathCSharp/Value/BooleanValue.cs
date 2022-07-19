@@ -15,8 +15,14 @@ public class BooleanValue : AtomicValue
     {
         Value = value is string s
             ? bool.TryParse(s, out var val) ? val : throw new Exception($"Can't parse {s} into an bool.") 
-            : (bool)(value ?? throw new Exception("Tried to initialize an BoolValue with null."));
+            : ConvertToBool(value);
     }
+    
+    private bool ConvertToBool(object? value)
+    {
+        return value != null ?  Convert.ToBoolean(value) : throw new Exception($"Tried to initialize an BoolValue with null.");
+    }
+
 
     public override object GetValue()
     {

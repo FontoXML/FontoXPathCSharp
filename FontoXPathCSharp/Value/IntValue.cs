@@ -16,7 +16,12 @@ public class IntValue : AtomicValue
     {
         Value = value is string s 
             ? int.TryParse(s, out var val) ? val : throw new Exception($"Can't parse {s} into an int.") 
-            : (int)(value ?? throw new Exception($"Tried to initialize an IntValue with {value}."));
+            : ConvertToInt(value);
+    }
+    
+    private int ConvertToInt(object? value)
+    {
+        return value != null ?  Convert.ToInt32(value) : throw new Exception($"Tried to initialize an IntValue with null.");
     }
 
     public override object GetValue()

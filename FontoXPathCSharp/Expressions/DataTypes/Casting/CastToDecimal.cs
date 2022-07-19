@@ -32,7 +32,10 @@ public class CastToDecimal
         if (instanceOf(ValueType.XsString, ValueType.XsUntypedAtomic))
             return value =>
             {
-                var stringValue = value.CastToType(ValueType.XsString).GetAs<StringValue>().Value;
+                var stringValue = value.GetValueType().IsSubtypeOf(ValueType.XsString)
+                    ? value.GetAs<StringValue>().Value
+                    : value.GetAs<UntypedAtomicValue>().Value.ToString();
+
                 var decimalValue = double.Parse(stringValue ?? string.Empty);
                 if (!double.IsNaN(decimalValue) || double.IsFinite(decimalValue))
                     return new SuccessResult<AtomicValue>(AtomicValue.Create(decimalValue, ValueType.XsDecimal));

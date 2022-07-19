@@ -35,13 +35,13 @@ public class CastToStringLikeType
             if (instanceOf(ValueType.XsFloat))
                 return value =>
                 {
-                    var floatValue = (float)value.GetAs<FloatValue>().Value;
-
-
+                    var floatValue = value.GetAs<FloatValue>().Value;
+                    
                     if (!float.IsFinite(floatValue))
                         return new SuccessResult<string>($"{(floatValue < 0 ? "-" : "")}INF");
 
                     if (float.IsNaN(floatValue)) return new SuccessResult<string>("NaN");
+                    //Yes, this should be precisely equal to -0.0, it's a special case.
                     if (floatValue == -0.0f) return new SuccessResult<string>("-0");
                     // C#'s notation for large numbers uses E+, XPath's uses E
                     return new SuccessResult<string>((floatValue + "").Replace("E+", "E"));
@@ -50,7 +50,15 @@ public class CastToStringLikeType
             if (instanceOf(ValueType.XsDouble))
                 return value =>
                 {
-                    var doubleValue = (double)value.GetAs<DoubleValue>().Value;
+                    double doubleValue;
+                    try
+                    {
+                        doubleValue = value.GetAs<DoubleValue>().Value;
+                    }
+                    catch(Exception ex)
+                    {
+                        throw new InvalidCastException($"Type: {value.GetType().Name}, Value: {value}", ex);
+                    }
 
                     if (!double.IsFinite(doubleValue))
                         return new SuccessResult<string>($"{(doubleValue < 0 ? "-" : "")}INF");

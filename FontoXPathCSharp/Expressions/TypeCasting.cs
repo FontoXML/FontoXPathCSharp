@@ -139,9 +139,7 @@ public class TypeCasting
 
     private static CastingFunction CastToPrimitiveType(ValueType from, ValueType to)
     {
-        // Maybe the check makes it faster, maybe it does not, hard to verify.
-        var instanceOf = new InstanceOfFunction(types =>
-            types.Length == 1 ? from.IsSubtypeOf(types[0]) : from.IsSubTypeOfAny(types));
+        var instanceOf = new InstanceOfFunction(types => from.IsSubTypeOfAny(types));
 
         if (to == ValueType.XsError)
             return _ => new ErrorResult<AtomicValue>("FORG0001: Casting to xs:error is always invalid.");
@@ -153,6 +151,7 @@ public class TypeCasting
             ValueType.XsFloat => CastToFloat.ToFloat(instanceOf),
             ValueType.XsDouble => CastToDouble.ToDouble(instanceOf),
             ValueType.XsDecimal => CastToDecimal.ToDecimal(instanceOf),
+            ValueType.XsInteger => CastToInteger.ToInteger(instanceOf),
             _ => _ => throw new NotImplementedException($"Type casting to {to} has not been implemented yet."),
         };
     }

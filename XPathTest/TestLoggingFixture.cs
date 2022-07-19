@@ -34,27 +34,12 @@ public class TestLoggingFixture : IDisposable
             .Split(Environment.NewLine)
             .First();
 
-        if (exceptionString.Contains("Object reference not set"))
-        {
-            _nullPointerExceptions[testName] = ex.Message
-                .Replace(',', ' ')
-                .ReplaceLineEndings()
-                .Replace(Environment.NewLine, "/");
-        }
-
-        if (ex is InvalidCastException)
-        {
-            _castingErrors[testName] = ex.ToString()
-                .Replace(',', ' ')
-                .ReplaceLineEndings()
-                .Replace(Environment.NewLine, "/");
-        }
+        if (ex is NullReferenceException) _nullPointerExceptions[testName] = ex.ToString();
+        if (ex is InvalidCastException) _castingErrors[testName] = ex.ToString();
 
         _failedTestsWithErrors[testName] = exceptionString;
         if (!exceptionString.Contains("PRSC Error")) _nonParseErrors[testName] = exceptionString;
-        else
-        {
-            _parseErrors[testName] = exceptionString;
-        }
+        else _parseErrors[testName] = exceptionString;
+        
     }
 }

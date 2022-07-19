@@ -16,7 +16,12 @@ public class DoubleValue : AtomicValue
     {
         Value = value is string s
             ? double.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
-            : (double)(value ?? throw new Exception("Tried to initialize an DoubleValue with null."));
+            : ConvertToFloat(value);
+    }
+    
+    private double ConvertToFloat(object? value)
+    {
+        return value != null ? Convert.ToDouble(value) : throw new Exception($"Tried to initialize an DoubleValue with null.");
     }
 
     private double StringEdgeCasesOrException(string s)
