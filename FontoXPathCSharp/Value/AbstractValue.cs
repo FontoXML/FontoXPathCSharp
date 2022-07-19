@@ -1,3 +1,5 @@
+using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
@@ -21,5 +23,12 @@ public abstract class AbstractValue
     public ValueType GetValueType()
     {
         return Type;
+    }
+    
+    public AtomicValue CastToType(ValueType type)
+    {
+        return GetValueType().IsSubtypeOf(ValueType.XsAnyAtomicType)
+            ? TypeCasting.CastToType(GetAs<AtomicValue>(), type)
+            : throw new XPathException("Can't cast a non-atomic value.");
     }
 }

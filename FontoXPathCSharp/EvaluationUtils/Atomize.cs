@@ -1,6 +1,5 @@
 using System.Xml;
 using FontoXPathCSharp.Expressions;
-using FontoXPathCSharp.Expressions.DataTypes.Builtins;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -10,10 +9,6 @@ namespace FontoXPathCSharp.EvaluationUtils;
 
 public static class Atomize
 {
-    public static AtomicValue TrueBoolean => CreateAtomicValue(true, ValueType.XsBoolean);
-
-    public static AtomicValue FalseBoolean => CreateAtomicValue(false, ValueType.XsBoolean);
-
     public static ISequence AtomizeSequence(ISequence sequence, ExecutionParameters parameters)
     {
         var done = false;
@@ -92,7 +87,7 @@ public static class Atomize
             };
             getTextNodes(pointer);
 
-            return SequenceFactory.CreateFromValue(CreateAtomicValue(string.Join("", allTexts),
+            return SequenceFactory.CreateFromValue(AtomicValue.Create(string.Join("", allTexts),
                 ValueType.XsUntypedAtomic));
         }
 
@@ -108,21 +103,4 @@ public static class Atomize
     }
 
     // TODO: Move all this stuff to the AtomicValue file.
-    public static AtomicValue CreateAtomicValue<T>(T value, ValueType type)
-    {
-        if (!BuiltinDataTypes.Instance.BuiltinDataTypesByType.ContainsKey(type))
-            throw new Exception($"Cannot create atomic value from type: {type}");
-
-        return type switch
-        {
-            ValueType.XsBoolean => new BooleanValue((bool)(object)value!),
-            ValueType.XsInt => new IntValue((int)(object)value!),
-            ValueType.XsFloat => new FloatValue((decimal)(object)value!),
-            ValueType.XsDouble => new DoubleValue((decimal)(object)value!),
-            ValueType.XsString => new StringValue((string)(object)value!),
-            ValueType.XsQName => new QNameValue((QName)(object)value!),
-            ValueType.XsUntypedAtomic => new UntypedAtomicValue(value!),
-            _ => throw new ArgumentOutOfRangeException($"Atomic Value for {type} is not implemented yet.")
-        };
-    }
 }

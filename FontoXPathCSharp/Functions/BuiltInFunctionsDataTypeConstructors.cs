@@ -1,4 +1,5 @@
 using FontoXPathCSharp.EvaluationUtils;
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -30,7 +31,7 @@ public class BuiltInFunctionsDataTypeConstructors
             // Only a local part
             var resolvedDefaultNamespaceUri = staticContext?.ResolveNamespace("");
             return SequenceFactory.CreateFromValue(
-                Atomize.CreateAtomicValue(
+                AtomicValue.Create(
                     new QName("", resolvedDefaultNamespaceUri, lexicalQName),
                     ValueType.XsName
                 )
@@ -47,7 +48,7 @@ public class BuiltInFunctionsDataTypeConstructors
                 $"FONS0004: The value {lexicalQName} can not be cast to a QName. Did you mean to use fn:QName?");
 
         return SequenceFactory.CreateFromValue(
-            Atomize.CreateAtomicValue(new QName(prefix, namespaceURI, localName), ValueType.XsQName)
+            AtomicValue.Create(new QName(prefix, namespaceURI, localName), ValueType.XsQName)
         );
     };
 

@@ -1,4 +1,5 @@
 using FontoXPathCSharp.EvaluationUtils;
+using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -15,7 +16,7 @@ public class CastToDouble
             {
                 ErrorResult<double> e => new ErrorResult<AtomicValue>(e.Message),
                 SuccessResult<double> r => new SuccessResult<AtomicValue>(
-                    Atomize.CreateAtomicValue(r.Data, ValueType.XsDouble))
+                    AtomicValue.Create(r.Data, ValueType.XsDouble))
             };
         };
     }

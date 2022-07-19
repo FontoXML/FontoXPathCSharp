@@ -10,7 +10,7 @@ public class CastToDecimal
     public static CastingFunction ToDecimal(InstanceOfFunction instanceOf)
     {
         if (instanceOf(ValueType.XsInteger))
-            return value => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value, ValueType.XsDecimal));
+            return value => new SuccessResult<AtomicValue>(AtomicValue.Create(value, ValueType.XsDecimal));
         if (instanceOf(ValueType.XsFloat))
             return value =>
             {
@@ -22,12 +22,12 @@ public class CastToDecimal
                     return new ErrorResult<AtomicValue>(
                         $"FOAR0002: Can not cast {value} to xs:decimal, it is out of bounds for JavaScript numbers");
 
-                return new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(floatValue, ValueType.XsDecimal));
+                return new SuccessResult<AtomicValue>(AtomicValue.Create(floatValue, ValueType.XsDecimal));
             };
         if (instanceOf(ValueType.XsBoolean))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    Atomize.CreateAtomicValue(value.GetAs<BooleanValue>().Value ? 1 : 0, ValueType.XsDecimal));
+                    AtomicValue.Create(value.GetAs<BooleanValue>().Value ? 1 : 0, ValueType.XsDecimal));
 
         if (instanceOf(ValueType.XsString, ValueType.XsUntypedAtomic))
             return value =>
@@ -37,7 +37,7 @@ public class CastToDecimal
                     : value.GetAs<UntypedAtomicValue>().Value.ToString();
                 var decimalValue = double.Parse(stringValue ?? string.Empty);
                 if (!double.IsNaN(decimalValue) || double.IsFinite(decimalValue))
-                    return new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(decimalValue, ValueType.XsDecimal));
+                    return new SuccessResult<AtomicValue>(AtomicValue.Create(decimalValue, ValueType.XsDecimal));
 
                 return new ErrorResult<AtomicValue>($"FORG0001: Can not cast {stringValue} to xs:decimal");
             };

@@ -1,4 +1,5 @@
 using FontoXPathCSharp.EvaluationUtils;
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -38,18 +39,18 @@ public class BuiltInFunctionsQName
 
             if (paramUri.IsEmpty())
                 return SequenceFactory.CreateFromValue(
-                    Atomize.CreateAtomicValue(new QName("", null, lexicalQName), ValueType.XsQName)
+                    AtomicValue.Create(new QName("", null, lexicalQName), ValueType.XsQName)
                 );
 
             if (!lexicalQName.Contains(':'))
                 // Only a local part
                 return SequenceFactory.CreateFromValue(
-                    Atomize.CreateAtomicValue(new QName("", uri, lexicalQName), ValueType.XsQName)
+                    AtomicValue.Create(new QName("", uri, lexicalQName), ValueType.XsQName)
                 );
 
             var prefixLocalName = lexicalQName.Split(':');
             return SequenceFactory.CreateFromValue(
-                Atomize.CreateAtomicValue(new QName(prefixLocalName[0], uri, prefixLocalName[1]), ValueType.XsQName)
+                AtomicValue.Create(new QName(prefixLocalName[0], uri, prefixLocalName[1]), ValueType.XsQName)
             );
         });
     };

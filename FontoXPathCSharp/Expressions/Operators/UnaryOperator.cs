@@ -73,7 +73,7 @@ public class UnaryOperator : AbstractExpression
             {
                 var castValue = value.CastToType(ValueType.XsDouble).GetAs<DoubleValue>();
                 return SequenceFactory.CreateFromValue(
-                    Atomize.CreateAtomicValue(
+                    AtomicValue.Create(
                         _kind == UnaryOperatorKind.Minus ? -castValue.Value : castValue.Value,
                         ValueType.XsDouble
                     )
@@ -87,22 +87,22 @@ public class UnaryOperator : AbstractExpression
                 // Not very pretty, but it is what it is, maybe this can be fixed later.
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsDouble))
                     return SequenceFactory.CreateFromValue(
-                        Atomize.CreateAtomicValue(value.GetAs<DoubleValue>().Value * -1,
+                        AtomicValue.Create(value.GetAs<DoubleValue>().Value * -1,
                             UnaryLookup[value.GetValueType()])
                     );
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsFloat))
                     return SequenceFactory.CreateFromValue(
-                        Atomize.CreateAtomicValue(value.GetAs<FloatValue>().Value * -1,
+                        AtomicValue.Create(value.GetAs<FloatValue>().Value * -1,
                             UnaryLookup[value.GetValueType()])
                     );
 
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsInteger))
                     return SequenceFactory.CreateFromValue(
-                        Atomize.CreateAtomicValue(value.GetAs<IntValue>().Value * -1, UnaryLookup[value.GetValueType()])
+                        AtomicValue.Create(value.GetAs<IntValue>().Value * -1, UnaryLookup[value.GetValueType()])
                     );
             }
 
-            return SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(double.NaN, ValueType.XsDouble));
+            return SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN, ValueType.XsDouble));
         });
     }
 

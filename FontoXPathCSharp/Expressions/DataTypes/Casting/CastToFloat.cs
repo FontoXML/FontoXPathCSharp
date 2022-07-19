@@ -1,4 +1,5 @@
 using FontoXPathCSharp.EvaluationUtils;
+using FontoXPathCSharp.Value;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
@@ -15,7 +16,7 @@ public class CastToFloat
             {
                 ErrorResult<double> e => new ErrorResult<AtomicValue>(e.Message),
                 SuccessResult<double> r => new SuccessResult<AtomicValue>(
-                    Atomize.CreateAtomicValue(r.Data, ValueType.XsFloat))
+                    AtomicValue.Create(r.Data, ValueType.XsFloat))
             };
         };
     }

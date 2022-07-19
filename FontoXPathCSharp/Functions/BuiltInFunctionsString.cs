@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using FontoXPathCSharp.EvaluationUtils;
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -13,7 +14,7 @@ public static class BuiltInFunctionsString
     {
         var stringSequences = args.Select(sequence =>
             Atomize.AtomizeSequence(sequence, executionParameters!).MapAll(allValues =>
-                SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(
+                SequenceFactory.CreateFromValue(AtomicValue.Create(
                     string.Join("", allValues.Select(x => x.GetAs<StringValue>()?.Value)),
                     ValueType.XsString))));
 
@@ -21,7 +22,7 @@ public static class BuiltInFunctionsString
 
         return ISequence.ZipSingleton(stringSequences,
             stringValues =>
-                SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(string.Join("", stringValues.Select(x =>
+                SequenceFactory.CreateFromValue(AtomicValue.Create(string.Join("", stringValues.Select(x =>
                         x.GetAs<StringValue>().Value)),
                     ValueType.XsString)));
     };

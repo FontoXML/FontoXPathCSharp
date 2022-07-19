@@ -70,7 +70,7 @@ public class OrOperator : AbstractExpression
                     if (ebv)
                     {
                         done = true;
-                        return IteratorResult<AbstractValue>.Ready(Atomize.TrueBoolean);
+                        return IteratorResult<AbstractValue>.Ready(AtomicValue.TrueBoolean);
                     }
 
                     resultSequence = null;
@@ -78,7 +78,7 @@ public class OrOperator : AbstractExpression
                 }
 
                 done = true;
-                return IteratorResult<AbstractValue>.Ready(Atomize.FalseBoolean);
+                return IteratorResult<AbstractValue>.Ready(AtomicValue.FalseBoolean);
             }
 
             return IteratorResult<AbstractValue>.Done();

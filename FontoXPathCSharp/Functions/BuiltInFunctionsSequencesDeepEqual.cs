@@ -389,7 +389,7 @@ public class BuiltInFunctionsSequencesDeepEqual
                 wholeValue + Atomize.AtomizeSingleValue(textValue, executionParameters).First().GetAs<StringValue>()
                     .Value);
 
-            return Atomize.CreateAtomicValue(value, ValueType.XsString);
+            return AtomicValue.Create(value, ValueType.XsString);
         }).ToArray();
 
         return IteratorResult<BooleanValue>.Ready(

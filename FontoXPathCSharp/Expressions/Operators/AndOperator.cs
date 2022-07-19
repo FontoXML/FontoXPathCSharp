@@ -39,7 +39,7 @@ public class AndOperator : AbstractExpression
                 if (ebv == false)
                 {
                     done = true;
-                    return IteratorResult<AbstractValue>.Ready(Atomize.FalseBoolean);
+                    return IteratorResult<AbstractValue>.Ready(AtomicValue.FalseBoolean);
                 }
 
                 resultSequence = null;
@@ -47,7 +47,7 @@ public class AndOperator : AbstractExpression
             }
 
             done = true;
-            return IteratorResult<AbstractValue>.Ready(Atomize.TrueBoolean);
+            return IteratorResult<AbstractValue>.Ready(AtomicValue.TrueBoolean);
         });
     }
 }
