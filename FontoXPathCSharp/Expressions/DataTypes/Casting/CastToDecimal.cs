@@ -14,7 +14,7 @@ public class CastToDecimal
         if (instanceOf(ValueType.XsFloat))
             return value =>
             {
-                var floatValue = (float)value.GetAs<FloatValue>().Value;
+                var floatValue = value.GetAs<FloatValue>().Value;
                 if (float.IsNaN(floatValue) || !float.IsFinite(floatValue))
                     return new ErrorResult<AtomicValue>($"FOCA0002: Can not cast {value} to xs:decimal");
 
@@ -32,9 +32,7 @@ public class CastToDecimal
         if (instanceOf(ValueType.XsString, ValueType.XsUntypedAtomic))
             return value =>
             {
-                var stringValue = value.GetValueType().IsSubtypeOf(ValueType.XsString)
-                    ? value.GetAs<StringValue>().Value
-                    : value.GetAs<UntypedAtomicValue>().Value.ToString();
+                var stringValue = value.CastToType(ValueType.XsString).GetAs<StringValue>().Value;
                 var decimalValue = double.Parse(stringValue ?? string.Empty);
                 if (!double.IsNaN(decimalValue) || double.IsFinite(decimalValue))
                     return new SuccessResult<AtomicValue>(AtomicValue.Create(decimalValue, ValueType.XsDecimal));

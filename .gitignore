@@ -49,3 +49,5 @@ XPathTest/assets/nonParseUnrunnableTestCases.csv
 XPathTest/assets/unrunnableTestCases.csv
 
 XPathTest/assets/parseUnrunnableTestCases.csv
+
+XPathTest/assets/nullPointerExceptions.csv

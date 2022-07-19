@@ -38,7 +38,7 @@ public class QT3Tests : IClassFixture<TestLoggingFixture>
             _loggingFixture.ProcessError(ex, name, testSetName, description);
 
             Assert.True(false, $"Query: {arguments.TestQuery}\nError: {ex.Message}");
-            return;
+            throw;
         }
 
         try

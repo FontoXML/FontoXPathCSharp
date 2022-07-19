@@ -140,7 +140,14 @@ public class IteratorBackedSequence : ISequence
 
     public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
     {
-        throw new NotImplementedException("IteratorBackedSequence.Map not implemented");
+        var i = 0;
+        var iterator = _value;
+        return SequenceFactory.CreateFromIterator(hint =>
+        {
+            var value = iterator(hint);
+            if(value.IsDone) return IteratorResult<AbstractValue>.Done();
+            return IteratorResult<AbstractValue>.Ready(callback(value.Value!, i++, this));
+        });
     }
 
     public ISequence MapAll(Func<AbstractValue[], ISequence> callback, IterationHint hint)
