@@ -12,9 +12,8 @@ public static class FunctionRegistry
     public static FunctionProperties? GetFunctionByArity(
         string functionNamespaceUri, string functionLocalName, int arity)
     {
-        var index = functionNamespaceUri + ":" + functionLocalName;
-
-        if (!RegisteredFunctionsByName.TryGetValue(index, out var matchingFunctions)) return null;
+        List<FunctionProperties> matchingFunctions;
+        if (!RegisteredFunctionsByName.TryGetValue(functionNamespaceUri + ":" + functionLocalName, out matchingFunctions)) return null;
 
         var matchingFunction = matchingFunctions.Find(functionDecl =>
         {
@@ -38,14 +37,18 @@ public static class FunctionRegistry
         );
     }
 
-    public static void RegisterFunction(string namespaceUri, string localName, ParameterType[] argumentTypes,
-        SequenceType returnType, FunctionSignature<ISequence> callFunction)
+    public static void RegisterFunction(
+        string namespaceUri, 
+        string localName, 
+        ParameterType[] argumentTypes,
+        SequenceType returnType,
+        FunctionSignature<ISequence> callFunction)
     {
         var index = namespaceUri + ":" + localName;
 
         if (!RegisteredFunctionsByName.ContainsKey(index))
             RegisteredFunctionsByName[index] = new List<FunctionProperties>();
-
+                    
         RegisteredFunctionsByName[index].Add(new FunctionProperties(argumentTypes, argumentTypes.Length,
             callFunction, false, localName, namespaceUri, returnType));
     }

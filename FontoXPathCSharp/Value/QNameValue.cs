@@ -12,11 +12,6 @@ public class QNameValue : AtomicValue
 
     public QName Value { get; }
 
-    public override string ToString()
-    {
-        return "<Value>[type: " + Type + ", value: " + Value + "]";
-    }
-
     public override QName GetValue()
     {
         return Value;

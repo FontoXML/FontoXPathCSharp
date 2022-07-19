@@ -9,6 +9,26 @@ namespace FontoXPathCSharp.Functions;
 
 public class BuiltInFunctionsNumeric
 {
+    public static readonly FunctionSignature<ISequence> FnNumber = (_, executionParameters, _, sequences) =>
+    {
+        var sequence = sequences[0];
+        var atomized = Atomize.AtomizeSequence(sequence, executionParameters);
+        if (atomized.IsEmpty()) SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN, ValueType.XsDouble));
+        if (atomized.IsSingleton())
+        {
+            return sequence.First()?.TryCastToType(ValueType.XsDouble) switch
+            {
+                SuccessResult<AtomicValue> result => SequenceFactory.CreateFromValue(result.Data),
+                ErrorResult<AtomicValue> => SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN,
+                    ValueType.XsDouble)),
+                _ => throw new ArgumentOutOfRangeException(
+                    $"BuiltInFunctionsNumeric: Unexpected parameter in fn:number: ({atomized.IsSingleton()}).")
+            };
+        }
+
+        throw new XPathException("fn:number may only be called with zero or one values");
+    };
+    
     public static readonly BuiltinDeclarationType[] Declarations =
     {
         new(new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
@@ -34,25 +54,5 @@ public class BuiltInFunctionsNumeric
             "number",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne))
-    };
-
-    public static readonly FunctionSignature<ISequence> FnNumber = (_, executionParameters, _, sequences) =>
-    {
-        var sequence = sequences[0];
-        var atomized = Atomize.AtomizeSequence(sequence, executionParameters);
-        if (atomized.IsEmpty()) SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN, ValueType.XsDouble));
-        if (atomized.IsSingleton())
-        {
-            return sequence.First()?.TryCastToType(ValueType.XsDouble) switch
-            {
-                SuccessResult<AtomicValue> result => SequenceFactory.CreateFromValue(result.Data),
-                ErrorResult<AtomicValue> => SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN,
-                    ValueType.XsDouble)),
-                _ => throw new ArgumentOutOfRangeException(
-                    $"BuiltInFunctionsNumeric: Unexpected parameter in fn:number: ({atomized.IsSingleton()}).")
-            };
-        }
-
-        throw new XPathException("fn:number may only be called with zero or one values");
     };
 }

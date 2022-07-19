@@ -4,13 +4,33 @@ using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp;
 
-public record FunctionProperties(
-    ParameterType[] ArgumentTypes,
-    int Arity,
-    FunctionSignature<ISequence> CallFunction,
-    bool IsUpdating,
-    string LocalName,
-    string NamespaceUri,
-    SequenceType ReturnType,
-    bool IsExternal = false
-);
+public class FunctionProperties
+{
+    public FunctionProperties(ParameterType[] argumentTypes,
+        int arity,
+        FunctionSignature<ISequence> callFunction,
+        bool isUpdating,
+        string localName,
+        string namespaceUri,
+        SequenceType returnType,
+        bool isExternal = false)
+    {
+        ArgumentTypes = argumentTypes;
+        Arity = arity;
+        CallFunction = callFunction ?? throw new Exception("FUNCTIONPROPERTIES: CALL FUNCTION IS NULL");
+        IsUpdating = isUpdating;
+        LocalName = localName;
+        NamespaceUri = namespaceUri;
+        ReturnType = returnType;
+        IsExternal = isExternal;
+    }
+
+    public ParameterType[] ArgumentTypes { get; }
+    public int Arity { get; }
+    public FunctionSignature<ISequence> CallFunction { get; }
+    public bool IsUpdating { get; }
+    public string LocalName { get; }
+    public string NamespaceUri { get; }
+    public SequenceType ReturnType { get; }
+    public bool IsExternal { get; }
+}

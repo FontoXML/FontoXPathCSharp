@@ -9,18 +9,6 @@ namespace FontoXPathCSharp.Functions;
 
 public class BuiltInFunctionsQName
 {
-    public static readonly BuiltinDeclarationType[] Declarations =
-    {
-        new(new[]
-            {
-                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne),
-                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
-            },
-            FnQName, "QName",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsQName, SequenceMultiplicity.ExactlyOne))
-    };
-
     private static readonly FunctionSignature<ISequence> FnQName = (_, _, _, param) =>
     {
         var paramUri = param[0];
@@ -53,5 +41,17 @@ public class BuiltInFunctionsQName
                 AtomicValue.Create(new QName(prefixLocalName[0], uri, prefixLocalName[1]), ValueType.XsQName)
             );
         });
+    };
+    
+    public static readonly BuiltinDeclarationType[] Declarations =
+    {
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            FnQName, "QName",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsQName, SequenceMultiplicity.ExactlyOne))
     };
 }

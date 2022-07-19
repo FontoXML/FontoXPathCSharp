@@ -11,6 +11,6 @@ public class SequenceExpression : AbstractExpression
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("SequenceExpression.Evaluate not implemented");
     }
 }

@@ -96,7 +96,7 @@ public class TypeCasting
             converters.Add(value =>
             {
                 // Not sure if this is correct, it seems more correct than the original code though.
-                var strValue = TypeHelpers.NormalizeWhitespace(value.GetAs<StringValue>().Value, to);
+                var strValue = TypeHelpers.NormalizeWhitespace(value.CastToType(ValueType.XsString).GetAs<StringValue>().Value, to);
                 if (!TypeHelpers.ValidatePattern(strValue, to))
                     return new ErrorResult<AtomicValue>(
                         $"FORG0001: Cannot cast ${value} to ${to}, pattern validation failed.");

@@ -42,7 +42,7 @@ public class NamedFunctionRef : AbstractExpression
 
             if (functionName == null)
                 throw new XPathException(
-                    $"XPST0017: The function {(prefix == null ? "" : prefix + ":")}{localName} 1with arity {_arity} could not be resolved.");
+                    $"XPST0017: The function {(string.IsNullOrEmpty(prefix) ? "" : prefix + ":")}{localName} 1with arity {_arity} could not be resolved.");
 
             namespaceUri = functionName.NamespaceUri;
             localName = functionName.LocalName;
@@ -53,7 +53,7 @@ public class NamedFunctionRef : AbstractExpression
 
         if (_functionProperties == null)
             throw new XPathException(
-                $"XPST0017: The function {(prefix == null ? "" : prefix + ":")}{localName} with arity {_arity} is not registered.");
+                $"XPST0017: The function {(string.IsNullOrEmpty(prefix) ? "" : prefix + ":")}{localName} with arity {_arity} is not registered.");
 
 
         base.PerformStaticEvaluation(staticContext);

@@ -376,6 +376,6 @@ public static class CompileAstToExpression
 
     private static void ProcessProlog(Ast prolog)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("ProcessProlog not implemented");
     }
 }

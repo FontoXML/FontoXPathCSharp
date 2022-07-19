@@ -39,6 +39,9 @@ public class StaticContext : AbstractContext
         // TODO: this should not be done here but lets populate the static context with the default functions right here for now
         foreach (var function in BuiltInFunctions.Declarations)
         {
+            if (function.CallFunction == null)
+                throw new Exception("The callback needs to be declared before the declaration itself.");
+
             FunctionRegistry.RegisterFunction(function.NamespaceUri, function.LocalName, function.ArgumentTypes,
                 function.ReturnType, function.CallFunction);
 

@@ -15,7 +15,12 @@ public abstract class AtomicValue : AbstractValue
     {
         return GetValue().Equals(other.GetValue());
     }
-
+    
+    public override string ToString()
+    {
+        return "<Value>[type: " + Type + ", value: " + GetValue() + "]";
+    }
+    
     public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
@@ -31,13 +36,13 @@ public abstract class AtomicValue : AbstractValue
 
         return type switch
         {
-            ValueType.XsBoolean => new BooleanValue((bool)(object)value!),
-            ValueType.XsInt or ValueType.XsInteger => new IntValue((int)(object)value!),
-            ValueType.XsFloat => new FloatValue((decimal)(object)value!),
-            ValueType.XsDouble => new DoubleValue((decimal)(object)value!),
-            ValueType.XsString => new StringValue((string)(object)value!),
+            ValueType.XsBoolean => new BooleanValue(value),
+            ValueType.XsInt or ValueType.XsInteger => new IntValue(value),
+            ValueType.XsFloat => new FloatValue(value),
+            ValueType.XsDouble => new DoubleValue(value),
             ValueType.XsQName => new QNameValue((QName)(object)value!),
             ValueType.XsUntypedAtomic => new UntypedAtomicValue(value!),
+            ValueType.XsString => new StringValue(value),
             _ => throw new ArgumentOutOfRangeException($"Atomic Value for {type} is not implemented yet.")
         };
     }
