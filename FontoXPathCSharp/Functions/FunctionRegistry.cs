@@ -13,7 +13,8 @@ public static class FunctionRegistry
         string functionNamespaceUri, string functionLocalName, int arity)
     {
         List<FunctionProperties> matchingFunctions;
-        if (!RegisteredFunctionsByName.TryGetValue(functionNamespaceUri + ":" + functionLocalName, out matchingFunctions)) return null;
+        if (!RegisteredFunctionsByName.TryGetValue(functionNamespaceUri + ":" + functionLocalName,
+                out matchingFunctions)) return null;
 
         var matchingFunction = matchingFunctions.Find(functionDecl =>
         {
@@ -38,8 +39,8 @@ public static class FunctionRegistry
     }
 
     public static void RegisterFunction(
-        string namespaceUri, 
-        string localName, 
+        string namespaceUri,
+        string localName,
         ParameterType[] argumentTypes,
         SequenceType returnType,
         FunctionSignature<ISequence> callFunction)
@@ -48,7 +49,7 @@ public static class FunctionRegistry
 
         if (!RegisteredFunctionsByName.ContainsKey(index))
             RegisteredFunctionsByName[index] = new List<FunctionProperties>();
-                    
+
         RegisteredFunctionsByName[index].Add(new FunctionProperties(argumentTypes, argumentTypes.Length,
             callFunction, false, localName, namespaceUri, returnType));
     }

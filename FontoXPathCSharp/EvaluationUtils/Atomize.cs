@@ -1,5 +1,4 @@
 using System.Xml;
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -48,7 +47,7 @@ public static class Atomize
 
     public static ISequence AtomizeSingleValue(AbstractValue value, ExecutionParameters executionParameters)
     {
-        if (value.GetValueType().IsSubTypeOfAny(ValueType.XsAnyAtomicType, ValueType.XsUntypedAtomic,
+        if (value.GetValueType().IsSubtypeOfAny(ValueType.XsAnyAtomicType, ValueType.XsUntypedAtomic,
                 ValueType.XsBoolean, ValueType.XsDecimal,
                 ValueType.XsDouble, ValueType.XsFloat, ValueType.XsInteger, ValueType.XsNumeric, ValueType.XsQName,
                 ValueType.XsQName, ValueType.XsString

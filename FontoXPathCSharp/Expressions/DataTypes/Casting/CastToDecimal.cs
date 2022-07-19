@@ -1,4 +1,3 @@
-using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -7,11 +6,11 @@ namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 
 public class CastToDecimal
 {
-    public static CastingFunction ToDecimal(InstanceOfFunction instanceOf)
+    public static CastingFunction ToDecimal(ValueType from)
     {
-        if (instanceOf(ValueType.XsInteger))
+        if (from.IsSubtypeOf(ValueType.XsInteger))
             return value => new SuccessResult<AtomicValue>(AtomicValue.Create(value, ValueType.XsDecimal));
-        if (instanceOf(ValueType.XsFloat))
+        if (from.IsSubtypeOf(ValueType.XsFloat))
             return value =>
             {
                 var floatValue = value.GetAs<FloatValue>().Value;
@@ -24,12 +23,12 @@ public class CastToDecimal
 
                 return new SuccessResult<AtomicValue>(AtomicValue.Create(floatValue, ValueType.XsDecimal));
             };
-        if (instanceOf(ValueType.XsBoolean))
+        if (from.IsSubtypeOf(ValueType.XsBoolean))
             return value =>
                 new SuccessResult<AtomicValue>(
                     AtomicValue.Create(value.GetAs<BooleanValue>().Value ? 1 : 0, ValueType.XsDecimal));
 
-        if (instanceOf(ValueType.XsString, ValueType.XsUntypedAtomic))
+        if (from.IsSubtypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic))
             return value =>
             {
                 var stringValue = value.GetValueType().IsSubtypeOf(ValueType.XsString)

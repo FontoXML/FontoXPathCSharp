@@ -6,15 +6,14 @@ namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 
 public class CastToInteger
 {
-    public static CastingFunction ToInteger(InstanceOfFunction instanceOf)
+    public static CastingFunction ToInteger(ValueType from)
     {
-        if (instanceOf(ValueType.XsBoolean))
-        {
-            return value => new SuccessResult<AtomicValue>(AtomicValue.Create(value.GetAs<BooleanValue>().Value ? 1 : 0, ValueType.XsInteger));
-        }
+        if (from.IsSubtypeOf(ValueType.XsBoolean))
+            return value =>
+                new SuccessResult<AtomicValue>(AtomicValue.Create(value.GetAs<BooleanValue>().Value ? 1 : 0,
+                    ValueType.XsInteger));
 
-        if (instanceOf(ValueType.XsNumeric))
-        {
+        if (from.IsSubtypeOf(ValueType.XsNumeric))
             return value =>
             {
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsFloat))
@@ -23,7 +22,8 @@ public class CastToInteger
 
                     return !float.IsFinite(floatValue) || float.IsNaN(floatValue)
                         ? new ErrorResult<AtomicValue>($"FOCA0002: can not cast {value} to xs:integer")
-                        : new SuccessResult<AtomicValue>(AtomicValue.Create(Math.Truncate(floatValue), ValueType.XsInteger));
+                        : new SuccessResult<AtomicValue>(AtomicValue.Create(Math.Truncate(floatValue),
+                            ValueType.XsInteger));
                 }
 
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsDouble))
@@ -32,14 +32,15 @@ public class CastToInteger
 
                     return !double.IsFinite(doubleValue) || double.IsNaN(doubleValue)
                         ? new ErrorResult<AtomicValue>($"FOCA0002: can not cast {value} to xs:integer")
-                        : new SuccessResult<AtomicValue>(AtomicValue.Create(Math.Truncate(doubleValue), ValueType.XsInteger));
+                        : new SuccessResult<AtomicValue>(AtomicValue.Create(Math.Truncate(doubleValue),
+                            ValueType.XsInteger));
                 }
+
                 // Should be an integer type in this case.
                 return new SuccessResult<AtomicValue>(AtomicValue.Create(value.GetValue(), ValueType.XsInteger));
             };
-        }
 
-        return instanceOf(ValueType.XsString) || instanceOf(ValueType.XsUntypedAtomic)
+        return from.IsSubtypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic)
             ? value => new SuccessResult<AtomicValue>(AtomicValue.Create(value.GetValue(), ValueType.XsInteger))
             : _ => new ErrorResult<AtomicValue>(
                 "XPTY0004: Casting not supported from given type to xs:integer or any of its derived types.");

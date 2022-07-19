@@ -14,7 +14,7 @@ public static class BuiltInFunctionsString
         var stringSequences = args.Select(sequence =>
             Atomize.AtomizeSequence(sequence, executionParameters!).MapAll(allValues =>
                 SequenceFactory.CreateFromValue(AtomicValue.Create(
-                    string.Join("", allValues.Select(x => x.GetAs<StringValue>()?.Value)),
+                    string.Join("", allValues.Select(x => x.GetAs<AtomicValue>().GetValue())),
                     ValueType.XsString))));
 
         Console.WriteLine(stringSequences);

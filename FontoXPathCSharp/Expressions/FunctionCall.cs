@@ -26,8 +26,8 @@ public class FunctionCall : PossiblyUpdatingExpression
     {
         if (_functionReference != null)
             return _functionReference.Value(
-                dynamicContext, 
-                executionParameters, 
+                dynamicContext,
+                executionParameters,
                 null,
                 _argumentExpressions.Select(x => x.Evaluate(dynamicContext, executionParameters)).ToArray());
 

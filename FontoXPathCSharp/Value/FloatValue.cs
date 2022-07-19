@@ -20,11 +20,12 @@ public class FloatValue : AtomicValue
 
     private float ConvertToFloat(object? value)
     {
-        
-        return value != null ? Convert.ToSingle(value) : throw new Exception($"Tried to initialize an FloatValue with null.");
+        return value != null
+            ? Convert.ToSingle(value)
+            : throw new Exception("Tried to initialize an FloatValue with null.");
     }
-    
-    
+
+
     private float StringEdgeCasesOrException(string s)
     {
         return s switch

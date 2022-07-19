@@ -139,7 +139,8 @@ public static class CompileAstToExpression
             foreach (var postfix in postFixExpressions)
                 stepExpression = postfix.Type switch
                 {
-                    "lookup" => throw new NotImplementedException("CompileAstToExpression.CompilePathExpression lookup postfix expression not implemented yet."),
+                    "lookup" => throw new NotImplementedException(
+                        "CompileAstToExpression.CompilePathExpression lookup postfix expression not implemented yet."),
                     "predicate" => new FilterExpression(stepExpression, postfix.Postfix),
                     _ => throw new Exception("Unreachable")
                 };

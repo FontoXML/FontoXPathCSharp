@@ -24,7 +24,7 @@ public abstract class AbstractValue
     {
         return Type;
     }
-    
+
     public AtomicValue CastToType(ValueType type)
     {
         return GetValueType().IsSubtypeOf(ValueType.XsAnyAtomicType)

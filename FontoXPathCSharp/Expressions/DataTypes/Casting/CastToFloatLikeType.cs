@@ -8,15 +8,15 @@ public delegate Result<double> IntermediateFloatResultFunction(AbstractValue inp
 
 public class CastToFloatLikeType
 {
-    public static IntermediateFloatResultFunction ToFloatLikeType(InstanceOfFunction instanceOf, ValueType to)
+    public static IntermediateFloatResultFunction ToFloatLikeType(ValueType from, ValueType to)
     {
-        if (instanceOf(ValueType.XsNumeric))
-            return value => new SuccessResult<double>((double)value.GetAs<DoubleValue>().Value);
+        if (from.IsSubtypeOf(ValueType.XsNumeric))
+            return value => new SuccessResult<double>(Convert.ToDouble(value.GetAs<AtomicValue>().GetValue()));
 
-        if (instanceOf(ValueType.XsBoolean))
-            return value => new SuccessResult<double>((double)value.GetAs<DoubleValue>().Value != 0.0 ? 1 : 0);
+        if (from.IsSubtypeOf(ValueType.XsBoolean))
+            return value => new SuccessResult<double>(Convert.ToBoolean(value.GetAs<AtomicValue>().GetValue()) ? 1 : 0);
 
-        if (instanceOf(ValueType.XsString) || instanceOf(ValueType.XsUntypedAtomic))
+        if (from.IsSubtypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic))
             return value =>
             {
                 var stringValue = value.GetValueType().IsSubtypeOf(ValueType.XsString)

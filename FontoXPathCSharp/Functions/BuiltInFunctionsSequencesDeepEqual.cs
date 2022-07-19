@@ -265,16 +265,16 @@ public class BuiltInFunctionsSequencesDeepEqual
     private static BooleanValue AnyAtomicTypeDeepEqual(DynamicContext dynamicContext,
         ExecutionParameters executionParameters, StaticContext staticContext, AtomicValue item1, AtomicValue item2)
     {
-        if (item1.GetValueType().IsSubTypeOfAny(ValueType.XsDecimal, ValueType.XsFloat) &&
-            item2.GetValueType().IsSubTypeOfAny(ValueType.XsDecimal, ValueType.XsFloat))
+        if (item1.GetValueType().IsSubtypeOfAny(ValueType.XsDecimal, ValueType.XsFloat) &&
+            item2.GetValueType().IsSubtypeOfAny(ValueType.XsDecimal, ValueType.XsFloat))
         {
             var temp1 = TypeCasting.CastToType(item1, ValueType.XsFloat).GetAs<FloatValue>();
             var temp2 = TypeCasting.CastToType(item2, ValueType.XsFloat).GetAs<FloatValue>();
             return new BooleanValue(temp1.Equals(temp2));
         }
 
-        if (item1.GetValueType().IsSubTypeOfAny(ValueType.XsDecimal, ValueType.XsFloat, ValueType.XsDouble) &&
-            item2.GetValueType().IsSubTypeOfAny(ValueType.XsDecimal, ValueType.XsFloat, ValueType.XsDouble))
+        if (item1.GetValueType().IsSubtypeOfAny(ValueType.XsDecimal, ValueType.XsFloat, ValueType.XsDouble) &&
+            item2.GetValueType().IsSubtypeOfAny(ValueType.XsDecimal, ValueType.XsFloat, ValueType.XsDouble))
         {
             var temp1 = TypeCasting.CastToType(item1, ValueType.XsDouble).GetAs<DoubleValue>();
             var temp2 = TypeCasting.CastToType(item2, ValueType.XsDouble).GetAs<DoubleValue>();
@@ -290,10 +290,10 @@ public class BuiltInFunctionsSequencesDeepEqual
                                     temp1.Value.LocalName == temp2.Value.LocalName);
         }
 
-        if (item1.GetValueType().IsSubTypeOfAny(ValueType.XsDateTime, ValueType.XsDate, ValueType.XsTime,
+        if (item1.GetValueType().IsSubtypeOfAny(ValueType.XsDateTime, ValueType.XsDate, ValueType.XsTime,
                 ValueType.XsGYearMonth, ValueType.XsGYear, ValueType.XsGMonthDay, ValueType.XsGMonth,
                 ValueType.XsGDay) &&
-            item2.GetValueType().IsSubTypeOfAny(ValueType.XsDateTime, ValueType.XsDate, ValueType.XsTime,
+            item2.GetValueType().IsSubtypeOfAny(ValueType.XsDateTime, ValueType.XsDate, ValueType.XsTime,
                 ValueType.XsGYearMonth, ValueType.XsGYear, ValueType.XsGMonthDay, ValueType.XsGMonth, ValueType.XsGDay)
            )
             throw new NotImplementedException("Comparison between dates/times not implemented yet");

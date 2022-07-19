@@ -1,4 +1,3 @@
-using FontoXPathCSharp.Expressions;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
@@ -11,17 +10,19 @@ public class DoubleValue : AtomicValue
     {
         Value = value;
     }
-    
+
     public DoubleValue(object? value) : base(ValueType.XsDouble)
     {
         Value = value is string s
             ? double.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
             : ConvertToFloat(value);
     }
-    
+
     private double ConvertToFloat(object? value)
     {
-        return value != null ? Convert.ToDouble(value) : throw new Exception($"Tried to initialize an DoubleValue with null.");
+        return value != null
+            ? Convert.ToDouble(value)
+            : throw new Exception("Tried to initialize an DoubleValue with null.");
     }
 
     private double StringEdgeCasesOrException(string s)

@@ -14,13 +14,15 @@ public class BooleanValue : AtomicValue
     public BooleanValue(object? value) : base(ValueType.XsBoolean)
     {
         Value = value is string s
-            ? bool.TryParse(s, out var val) ? val : throw new Exception($"Can't parse {s} into an bool.") 
+            ? bool.TryParse(s, out var val) ? val : throw new Exception($"Can't parse {s} into an bool.")
             : ConvertToBool(value);
     }
-    
+
     private bool ConvertToBool(object? value)
     {
-        return value != null ?  Convert.ToBoolean(value) : throw new Exception($"Tried to initialize an BoolValue with null.");
+        return value != null
+            ? Convert.ToBoolean(value)
+            : throw new Exception("Tried to initialize an BoolValue with null.");
     }
 
 

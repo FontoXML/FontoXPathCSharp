@@ -1,14 +1,13 @@
-using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Value;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
-using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 public class CastToDouble
 {
-    public static CastingFunction ToDouble(InstanceOfFunction instanceOf)
+    public static CastingFunction ToDouble(ValueType from)
     {
-        var caster = CastToFloatLikeType.ToFloatLikeType(instanceOf, ValueType.XsDouble);
+        var caster = CastToFloatLikeType.ToFloatLikeType(from, ValueType.XsDouble);
         return value =>
         {
             var castResult = caster(value);

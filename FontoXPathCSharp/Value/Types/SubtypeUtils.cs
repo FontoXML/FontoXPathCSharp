@@ -41,7 +41,7 @@ public static class SubtypeUtils
     /**
      * Utility function, since the pattern where a subtype is checked against a whole list of supertypes is very common.
      */
-    public static bool IsSubTypeOfAny(this ValueType baseSubType, params ValueType[] baseSuperType)
+    public static bool IsSubtypeOfAny(this ValueType baseSubType, params ValueType[] baseSuperType)
     {
         return baseSuperType.Any(superType => IsSubtypeOf(baseSubType, superType));
     }

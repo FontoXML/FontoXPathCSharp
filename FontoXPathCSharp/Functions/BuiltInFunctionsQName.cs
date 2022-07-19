@@ -1,5 +1,4 @@
 using FontoXPathCSharp.EvaluationUtils;
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -42,7 +41,7 @@ public class BuiltInFunctionsQName
             );
         });
     };
-    
+
     public static readonly BuiltinDeclarationType[] Declarations =
     {
         new(new[]

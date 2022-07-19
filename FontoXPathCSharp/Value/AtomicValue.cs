@@ -5,6 +5,9 @@ namespace FontoXPathCSharp.Value;
 
 public abstract class AtomicValue : AbstractValue
 {
+    public static readonly AtomicValue TrueBoolean = Create(true, ValueType.XsBoolean);
+    public static readonly AtomicValue FalseBoolean = Create(false, ValueType.XsBoolean);
+
     public AtomicValue(ValueType type) : base(type)
     {
     }
@@ -15,12 +18,12 @@ public abstract class AtomicValue : AbstractValue
     {
         return GetValue().Equals(other.GetValue());
     }
-    
+
     public override string ToString()
     {
         return "<Value>[type: " + Type + ", value: " + GetValue() + "]";
     }
-    
+
     public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
@@ -46,7 +49,4 @@ public abstract class AtomicValue : AbstractValue
             _ => throw new ArgumentOutOfRangeException($"Atomic Value for {type} is not implemented yet.")
         };
     }
-
-    public static readonly AtomicValue TrueBoolean = Create(true, ValueType.XsBoolean);
-    public static readonly AtomicValue FalseBoolean = Create(false, ValueType.XsBoolean);
 }

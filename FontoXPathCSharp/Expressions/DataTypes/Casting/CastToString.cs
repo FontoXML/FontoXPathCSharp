@@ -1,4 +1,3 @@
-using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Value;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
@@ -6,9 +5,9 @@ namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 
 public class CastToString
 {
-    public static CastingFunction ToString(InstanceOfFunction instanceOf)
+    public static CastingFunction ToString(ValueType from)
     {
-        var caster = CastToStringLikeType.ToStringLikeType(instanceOf);
+        var caster = CastToStringLikeType.ToStringLikeType(from);
         return value =>
         {
             var castResult = caster(value);
