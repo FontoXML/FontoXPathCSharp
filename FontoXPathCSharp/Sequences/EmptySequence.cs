@@ -39,17 +39,17 @@ internal class EmptySequence : ISequence
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
     {
-        throw new NotImplementedException();
+        return this;
     }
 
     public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
     {
-        throw new NotImplementedException();
+        return this;
     }
 
     public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues, IterationHint hint)
     {
-        throw new NotImplementedException();
+        return this;
     }
 
     IEnumerator IEnumerable.GetEnumerator()

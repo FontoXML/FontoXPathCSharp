@@ -22,8 +22,8 @@ public class TypeHelpers
         return whiteSpaceType switch
         {
             WhitespaceHandling.Preserve => input,
-            WhitespaceHandling.Replace => throw new NotImplementedException(),
-            WhitespaceHandling.Collapse => throw new NotImplementedException(),
+            WhitespaceHandling.Replace => throw new NotImplementedException("Whitespace handling with replace parameter not implemented yet."),
+            WhitespaceHandling.Collapse => throw new NotImplementedException("Whitespace handling with collapse parameter not implemented yet."),
             _ => throw new ArgumentOutOfRangeException()
         };
 

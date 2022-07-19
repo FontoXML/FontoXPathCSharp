@@ -56,17 +56,17 @@ internal class ArrayBackedSequence : ISequence
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("ArrayBackedSequence.Filter not implemented");
     }
 
     public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("ArrayBackedSequence.Map not implemented");
     }
 
     public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues, IterationHint hint)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("ArrayBackedSequence.MapAll not implemented");
     }
 
     public bool GetEffectiveBooleanValue()

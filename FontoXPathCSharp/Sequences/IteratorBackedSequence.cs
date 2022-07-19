@@ -140,7 +140,7 @@ public class IteratorBackedSequence : ISequence
 
     public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("IteratorBackedSequence.Map not implemented");
     }
 
     public ISequence MapAll(Func<AbstractValue[], ISequence> callback, IterationHint hint)

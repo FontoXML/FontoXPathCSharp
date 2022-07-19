@@ -100,7 +100,7 @@ public static class XdmReturnValue
                     if (!first.GetValueType().IsSubtypeOf(ValueType.Array))
                         throw new Exception($"Expected XPath {expression} to resolve to an array.");
 
-                    throw new NotImplementedException();
+                    throw new NotImplementedException("Returning XDM arrays not implemented yet.");
                     // var transformedArray = TransformArrayToArray((TReturn)(object)first, executionParameters).Next(IterationHint.None);
                     // return transformedArray.Value as TReturn;
                 }
@@ -113,7 +113,7 @@ public static class XdmReturnValue
     private static Iterator<AbstractValue[]> TransformArrayToArray(ArrayValue? first,
         ExecutionParameters executionParameters)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("TransformArrayToArray not implemented yet.");
     }
     //     export default function convertXDMReturnValue<
     // 	TNode extends Node,
