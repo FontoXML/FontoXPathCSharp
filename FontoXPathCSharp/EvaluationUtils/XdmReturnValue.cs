@@ -9,6 +9,7 @@ namespace FontoXPathCSharp.EvaluationUtils;
 
 public static class XdmReturnValue
 {
+    //This function definitely should be split into multiple, avoids a lot of casting and avoids the type switching structure.
     public static TReturn? ConvertXmdReturnValue<TSelector, TReturn>(
         TSelector expression,
         ISequence rawResults,
@@ -49,8 +50,8 @@ public static class XdmReturnValue
                 {
                     var first = rawResults.First();
                     if (first == null || !first.GetValueType().IsSubtypeOf(ValueType.XsInteger))
-                        return (TReturn?)(object?)null;
-
+                        return (TReturn?)(object?)0;
+            
                     return (TReturn)(object)first.GetAs<IntValue>()!.Value;
                 }
             },
