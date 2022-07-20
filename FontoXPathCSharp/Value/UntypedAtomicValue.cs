@@ -11,11 +11,6 @@ public class UntypedAtomicValue : AtomicValue
         Value = value;
     }
 
-    public override string ToString()
-    {
-        return "<Value>[type: " + Type + ", value: '" + Value + "']";
-    }
-
     public override object GetValue()
     {
         return Value;

@@ -9,6 +9,11 @@ public class QNameValue : AtomicValue
         Value = value;
     }
 
+    public QNameValue(object? value) : base(ValueType.XsQName)
+    {
+        Value = value as QName ?? throw new NotImplementedException($"Haven't implemented Qnames from: {value}");
+    }
+
     public QName Value { get; }
 
     public override QName GetValue()
