@@ -9,7 +9,7 @@ namespace FontoXPathCSharp.Expressions.Operators;
 
 public class UnaryOperator : AbstractExpression
 {
-    private static readonly Dictionary<ValueType, ValueType> UnaryLookup = new()
+    private static readonly IReadOnlyDictionary<ValueType, ValueType> UnaryLookup = new Dictionary<ValueType, ValueType>
     {
         { ValueType.XsInteger, ValueType.XsInteger },
         { ValueType.XsNonPositiveInteger, ValueType.XsInteger },
@@ -38,7 +38,8 @@ public class UnaryOperator : AbstractExpression
         new OptimizationOptions(false))
     {
         _valueExpr = valueExpr;
-        _kind = kind switch {
+        _kind = kind switch
+        {
             AstNodeName.UnaryMinusOp => UnaryOperatorKind.Minus,
             AstNodeName.UnaryPlusOp => UnaryOperatorKind.Plus,
             _ => throw new XPathException($"It's not possible to create a unary operator with {kind}")
@@ -86,18 +87,16 @@ public class UnaryOperator : AbstractExpression
                 // Not very pretty, but it is what it is, maybe this can be fixed later.
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsDouble))
                     return SequenceFactory.CreateFromValue(
-                        AtomicValue.Create(value.GetAs<DoubleValue>().Value * -1,
-                            UnaryLookup[value.GetValueType()])
+                        AtomicValue.Create(value.GetAs<DoubleValue>().Value * -1, ValueType.XsDouble)
                     );
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsFloat))
                     return SequenceFactory.CreateFromValue(
-                        AtomicValue.Create(value.GetAs<FloatValue>().Value * -1,
-                            UnaryLookup[value.GetValueType()])
+                        AtomicValue.Create(value.GetAs<FloatValue>().Value * -1, ValueType.XsFloat)
                     );
 
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsInteger))
                     return SequenceFactory.CreateFromValue(
-                        AtomicValue.Create(value.GetAs<IntValue>().Value * -1, UnaryLookup[value.GetValueType()])
+                        AtomicValue.Create(value.GetAs<IntValue>().Value * -1, ValueType.XsInteger)
                     );
             }
 
