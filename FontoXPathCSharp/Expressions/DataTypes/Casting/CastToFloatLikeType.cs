@@ -32,7 +32,7 @@ public class CastToFloatLikeType
                     case "-0": return new SuccessResult<double>(-0.0);
                 }
 
-                var floatValue = double.Parse(stringValue ?? string.Empty);
+                var floatValue = Convert.ToDouble(stringValue);
 
                 if (!double.IsNaN(floatValue)) return new SuccessResult<double>(floatValue);
 

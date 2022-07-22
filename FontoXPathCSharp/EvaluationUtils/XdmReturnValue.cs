@@ -49,10 +49,10 @@ public static class XdmReturnValue
                 typeof(int), () =>
                 {
                     var first = rawResults.First();
-                    if (first == null || !first.GetValueType().IsSubtypeOf(ValueType.XsInteger))
+                    if (first == null || !first.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
                         return (TReturn?)(object?)0;
             
-                    return (TReturn)(object)first.GetAs<IntValue>()!.Value;
+                    return (TReturn)(object)Convert.ToInt32(first.GetAs<AtomicValue>().GetValue());
                 }
             },
             // Integers

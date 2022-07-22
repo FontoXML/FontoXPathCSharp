@@ -104,7 +104,7 @@ public class TypeCasting
                     return new ErrorResult<AtomicValue>(
                         $"FORG0001: Cannot cast {value} to {to}, pattern validation failed.");
 
-                return new SuccessResult<AtomicValue>(AtomicValue.Create(strValue, to));
+                return new SuccessResult<AtomicValue>(new StringValue(strValue));
             });
 
         if (primitiveFrom != primitiveTo)
@@ -154,6 +154,7 @@ public class TypeCasting
             ValueType.XsDouble => CastToDouble.ToDouble(from),
             ValueType.XsDecimal => CastToDecimal.ToDecimal(from),
             ValueType.XsInteger => CastToInteger.ToInteger(from),
+            ValueType.XsBoolean => CastToBoolean.ToBoolean(from),
             _ => _ => throw new NotImplementedException($"Type casting to {to} has not been implemented yet.")
         };
     }
