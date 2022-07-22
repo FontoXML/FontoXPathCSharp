@@ -1,16 +1,22 @@
+using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class SequenceExpression : AbstractExpression
+public class SequenceExpression : PossiblyUpdatingExpression
 {
     public SequenceExpression(AbstractExpression[] childExpressions) : base(childExpressions,
         new OptimizationOptions(childExpressions.All(e => e.CanBeStaticallyEvaluated)))
     {
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence PerformFunctionalEvaluation(
+        DynamicContext? dynamicContext,
+        ExecutionParameters? executionParameters,
+        SequenceCallback[] sequenceCallbacks)
     {
-        throw new NotImplementedException("SequenceExpression.Evaluate not implemented");
+        return sequenceCallbacks.Length == 0
+            ? SequenceFactory.CreateEmpty()
+            : SequenceUtils.ConcatSequences(sequenceCallbacks.Select((cb) => cb(dynamicContext!)).ToArray());
     }
 }

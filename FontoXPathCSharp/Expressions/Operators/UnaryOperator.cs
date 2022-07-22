@@ -9,7 +9,7 @@ namespace FontoXPathCSharp.Expressions.Operators;
 
 public class UnaryOperator : AbstractExpression
 {
-    private readonly IReadOnlyDictionary<ValueType, ValueType> UnaryLookup = new Dictionary<ValueType, ValueType>
+    private static readonly Dictionary<ValueType, ValueType> UnaryLookup = new()
     {
         { ValueType.XsInteger, ValueType.XsInteger },
         { ValueType.XsNonPositiveInteger, ValueType.XsInteger },

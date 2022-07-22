@@ -122,17 +122,17 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
     private string GetTestDescription(string testSetName, string testName, XmlNode testCase)
     {
-        return $"{testSetName}~{testName}";
+        // return $"{testSetName}~{testName}";
         //TODO: More descriptive test description.
-        // return
-        //     $"{testSetName}~{testName}~" +
-        //     Evaluate.EvaluateXPathToString(
-        //         "if (description/text()) then description else test",
-        //         testCase,
-        //         null,
-        //         new Dictionary<string, AbstractValue>(),
-        //         new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")
-        //     );
+        return
+            $"{testSetName}~{testName}~" +
+            Evaluate.EvaluateXPathToString(
+                "if (description/text()) then description else test",
+                testCase,
+                null,
+                new Dictionary<string, AbstractValue>(),
+                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")
+            );
     }
 
     private string GetTestName(XmlNode testCase)

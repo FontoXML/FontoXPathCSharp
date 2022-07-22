@@ -68,8 +68,14 @@ public static class CompileAstToExpression
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
             AstNodeName.ElementTest => CompileElementTest(ast),
             AstNodeName.Wildcard => CompileWildcard(ast),
-            _ => throw new XPathException("Invalid test expression: " + ast.Name)
+            AstNodeName.TextTest => CompileTextTest(ast),
+            _ => throw new XPathException($"Test expression not yet implemented: {ast.Name}")
         };
+    }
+
+    private static AbstractTestExpression CompileTextTest(Ast ast)
+    {
+        return new KindTest(XmlNodeType.Text);
     }
 
     private static AbstractExpression CompilePathExpression(Ast ast, CompilationOptions options)
