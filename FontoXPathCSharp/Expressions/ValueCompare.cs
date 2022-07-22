@@ -9,7 +9,11 @@ namespace FontoXPathCSharp.Expressions;
 public enum CompareType
 {
     Equal,
-    NotEqual
+    NotEqual,
+    LessThan,
+    LessEquals,
+    GreaterThan,
+    GreaterEquals
 }
 
 public class ValueCompare : AbstractExpression
@@ -27,50 +31,35 @@ public class ValueCompare : AbstractExpression
         _secondExpression = secondExpression;
     }
 
-    private static bool HandleNumericEqualOp(AbstractValue first, AbstractValue second)
+    private static bool Compare<T>(CompareType compareType, T a, T b) where T: IComparable
     {
-        if (first.GetValueType() == ValueType.XsInteger && second.GetValueType() == ValueType.XsInteger)
-            return first.GetAs<IntValue>().Value == second.GetAs<IntValue>().Value;
-        if (first.GetValueType() == ValueType.XsFloat && second.GetValueType() == ValueType.XsFloat)
-            return first.GetAs<FloatValue>().Value == second.GetAs<FloatValue>().Value;
-        if (first.GetValueType() == ValueType.XsDouble && second.GetValueType() == ValueType.XsDouble)
-            return first.GetAs<DoubleValue>().Value == second.GetAs<DoubleValue>().Value;
-        if (first.GetValueType() == ValueType.XsString && second.GetValueType() == ValueType.XsString)
-            return first.GetAs<StringValue>().Value == second.GetAs<StringValue>().Value;
-        if (first.GetValueType() == ValueType.XsBoolean && second.GetValueType() == ValueType.XsBoolean)
-            return first.GetAs<BooleanValue>().Value == second.GetAs<BooleanValue>().Value;
-        throw new NotImplementedException("HandleNumericEqualOp: comparison for " + first.GetValueType() +
-                                          " not supported");
+        return compareType switch
+        {
+            CompareType.Equal => a.CompareTo(b) == 0,
+            CompareType.NotEqual => a.CompareTo(b) != 0,
+            CompareType.LessThan => a.CompareTo(b) < 0,
+            CompareType.LessEquals => a.CompareTo(b) <= 0,
+            CompareType.GreaterThan => a.CompareTo(b) > 0,
+            CompareType.GreaterEquals => a.CompareTo(b) >= 0,
+            _ => throw new ArgumentOutOfRangeException(nameof(compareType), compareType, null)
+        };
     }
 
-    private static bool HandleNumericNotEqualOp(AbstractValue first, AbstractValue second)
+    private static bool HandleNumericOperator(CompareType type, AbstractValue a, AbstractValue b)
     {
-        if (first.GetValueType() == ValueType.XsInteger && second.GetValueType() == ValueType.XsInteger)
-            return first.GetAs<IntValue>().Value != second.GetAs<IntValue>().Value;
-        if (first.GetValueType() == ValueType.XsFloat && second.GetValueType() == ValueType.XsFloat)
-            return first.GetAs<FloatValue>().Value != second.GetAs<FloatValue>().Value;
-        if (first.GetValueType() == ValueType.XsDouble && second.GetValueType() == ValueType.XsDouble)
-            return first.GetAs<DoubleValue>().Value != second.GetAs<DoubleValue>().Value;
-        if (first.GetValueType() == ValueType.XsString && second.GetValueType() == ValueType.XsString)
-            return first.GetAs<StringValue>().Value != second.GetAs<StringValue>().Value;
-        if (first.GetValueType() == ValueType.XsBoolean && second.GetValueType() == ValueType.XsBoolean)
-            return first.GetAs<BooleanValue>().Value != second.GetAs<BooleanValue>().Value;
-        throw new NotImplementedException("HandleNumericNotEqualOp: comparison for " + first.GetValueType() +
-                                          " not supported");
-    }
-
-    private static bool HandleNumericOperator(CompareType type, AbstractValue first, AbstractValue second)
-    {
-        if (first.GetValueType() != second.GetValueType())
+        if (a.GetValueType() != b.GetValueType())
             throw new NotImplementedException(
                 "HandleNumericOperator: Different numeric types");
 
-
-        return type switch
+        return a.GetValueType() switch
         {
-            CompareType.Equal => HandleNumericEqualOp(first, second),
-            CompareType.NotEqual => HandleNumericNotEqualOp(first, second),
-            _ => throw new NotImplementedException("HandleNumericOperator: " + type)
+            ValueType.XsBoolean => Compare(type, a.GetAs<BooleanValue>().Value, b.GetAs<BooleanValue>().Value),
+            ValueType.XsInteger => Compare(type, a.GetAs<IntValue>().Value, b.GetAs<IntValue>().Value),
+            ValueType.XsFloat => Compare(type, a.GetAs<FloatValue>().Value, b.GetAs<FloatValue>().Value),
+            ValueType.XsDouble => Compare(type, a.GetAs<DoubleValue>().Value, b.GetAs<DoubleValue>().Value),
+            ValueType.XsString => Compare(type, a.GetAs<StringValue>().Value, b.GetAs<StringValue>().Value),
+            _ => throw new ArgumentOutOfRangeException(
+                $"Comparison between operands of type {a.GetValueType()} not implemented yet.")
         };
     }
 

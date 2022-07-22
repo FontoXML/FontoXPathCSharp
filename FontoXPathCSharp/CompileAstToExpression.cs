@@ -226,24 +226,20 @@ public static class CompileAstToExpression
 
         return ast.Name switch
         {
-            AstNodeName.EqualOp =>
-                new GeneralCompare(CompareType.Equal, firstExpression, secondExpression),
-            AstNodeName.NotEqualOp =>
-                new GeneralCompare(CompareType.NotEqual, firstExpression, secondExpression),
-            AstNodeName.LessThanOrEqualOp
-                or AstNodeName.LessThanOp
-                or AstNodeName.GreaterThanOrEqualOp
-                or AstNodeName.GreaterThanOp => throw new NotImplementedException(
-                    "CompileAstToExpression: Other general compare operators"),
-            AstNodeName.EqOp =>
-                new ValueCompare(CompareType.Equal, firstExpression, secondExpression),
-            AstNodeName.NeOp =>
-                new ValueCompare(CompareType.NotEqual, firstExpression, secondExpression),
-            AstNodeName.LtOp
-                or AstNodeName.LeOp
-                or AstNodeName.GtOp
-                or AstNodeName.GeOp => throw new NotImplementedException(
-                    "CompileAstToExpression: Other value compare operators"),
+            AstNodeName.EqualOp => new GeneralCompare(CompareType.Equal, firstExpression, secondExpression),
+            AstNodeName.NotEqualOp => new GeneralCompare(CompareType.NotEqual, firstExpression, secondExpression),
+            AstNodeName.LessThanOrEqualOp => new GeneralCompare(CompareType.LessEquals, firstExpression,
+                secondExpression),
+            AstNodeName.LessThanOp => new GeneralCompare(CompareType.LessThan, firstExpression, secondExpression),
+            AstNodeName.GreaterThanOrEqualOp => new GeneralCompare(CompareType.GreaterEquals, firstExpression,
+                secondExpression),
+            AstNodeName.GreaterThanOp => new GeneralCompare(CompareType.GreaterThan, firstExpression, secondExpression),
+            AstNodeName.EqOp => new ValueCompare(CompareType.Equal, firstExpression, secondExpression),
+            AstNodeName.NeOp => new ValueCompare(CompareType.NotEqual, firstExpression, secondExpression),
+            AstNodeName.LtOp => new ValueCompare(CompareType.LessThan, firstExpression, secondExpression),
+            AstNodeName.LeOp => new ValueCompare(CompareType.LessEquals, firstExpression, secondExpression),
+            AstNodeName.GtOp => new ValueCompare(CompareType.GreaterThan, firstExpression, secondExpression),
+            AstNodeName.GeOp => new ValueCompare(CompareType.GreaterEquals, firstExpression, secondExpression),
             _ => throw new Exception("Unreachable")
         };
     }
@@ -287,12 +283,29 @@ public static class CompileAstToExpression
                 or AstNodeName.ModOp => CompileBinaryOperator(ast, options),
             AstNodeName.UnaryPlusOp or AstNodeName.UnaryMinusOp => CompileUnaryOperator(ast, options),
             AstNodeName.CastExpr => CastAs(ast, options),
-            AstNodeName.IfThenElseExpr => IfThenElseExpr(ast, options),
+            AstNodeName.IfThenElseExpr => CompileIfThenElseExpr(ast, options),
+            AstNodeName.DynamicFunctionInvocationExpr => CompileDynamicFunctionInvocationExpr(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
     }
 
-    private static AbstractExpression IfThenElseExpr(Ast ast, CompilationOptions options)
+    private static AbstractExpression CompileDynamicFunctionInvocationExpr(Ast ast, CompilationOptions options)
+    {
+        var functionItemContent = ast.FollowPath(AstNodeName.FunctionItem, AstNodeName.All);
+        var argumentsAst = ast.GetFirstChild(AstNodeName.Arguments);
+        var args = Array.Empty<AbstractExpression>();
+        if (argumentsAst != null)
+        {
+            var functionArguments = argumentsAst.GetChildren(AstNodeName.All);
+            args = functionArguments.Select(arg =>
+                arg.Name == AstNodeName.ArgumentPlaceholder ? null : CompileAst(arg, options)
+            ).OfType<AbstractExpression>().ToArray();
+        }
+
+        return new FunctionCall(CompileAst(functionItemContent, options), args);
+    }
+
+    private static AbstractExpression CompileIfThenElseExpr(Ast ast, CompilationOptions options)
     {
         return new IfExpression(
             CompileAst(ast.FollowPath(AstNodeName.IfClause, AstNodeName.All), options),
