@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
@@ -8,7 +9,7 @@ namespace FontoXPathCSharp.Expressions.Operators;
 
 public class UnaryOperator : AbstractExpression
 {
-    private static readonly Dictionary<ValueType, ValueType> UnaryLookup = new()
+    private readonly IReadOnlyDictionary<ValueType, ValueType> UnaryLookup = new Dictionary<ValueType, ValueType>
     {
         { ValueType.XsInteger, ValueType.XsInteger },
         { ValueType.XsNonPositiveInteger, ValueType.XsInteger },
@@ -37,12 +38,10 @@ public class UnaryOperator : AbstractExpression
         new OptimizationOptions(false))
     {
         _valueExpr = valueExpr;
-        _kind = kind switch
-        {
+        _kind = kind switch {
             AstNodeName.UnaryMinusOp => UnaryOperatorKind.Minus,
             AstNodeName.UnaryPlusOp => UnaryOperatorKind.Plus,
-            _ => throw new XPathException(
-                "It's not possible to create a unary operator with any other type than + or - ")
+            _ => throw new XPathException($"It's not possible to create a unary operator with {kind}")
         };
     }
 
