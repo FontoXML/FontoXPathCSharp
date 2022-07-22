@@ -61,7 +61,7 @@ public abstract class AtomicValue : AbstractValue
     {
         if (!BuiltinDataTypes.Instance.BuiltinDataTypesByType.ContainsKey(type))
             throw new Exception($"Cannot create atomic value from type: {type}");
-    
+
         return type switch
         {
             ValueType.XsBoolean => new BooleanValue(value),

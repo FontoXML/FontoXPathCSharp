@@ -2,7 +2,6 @@ using System.Xml;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
-using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -401,15 +400,17 @@ public class BuiltInFunctionsSequencesDeepEqual
 
     private static IteratorResult<AbstractValue> TakeConsecutiveTextValues(
         IteratorResult<AbstractValue> item,
-        ICollection<AbstractValue> textValues, 
+        ICollection<AbstractValue> textValues,
         Iterator<AbstractValue> iterator)
     {
-        while (item.Value != null && item.Value.GetValueType().IsSubtypeOf(ValueType.Text)) {
+        while (item.Value != null && item.Value.GetValueType().IsSubtypeOf(ValueType.Text))
+        {
             textValues.Add(item.Value);
             var nextSibling = item.Value.GetAs<NodeValue>().Value.NextSibling;
             item = iterator(IterationHint.None);
             if (nextSibling != null && nextSibling.NodeType != XmlNodeType.Text) break;
         }
+
         return item;
     }
 }

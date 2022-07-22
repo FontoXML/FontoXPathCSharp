@@ -31,7 +31,7 @@ public class ValueCompare : AbstractExpression
         _secondExpression = secondExpression;
     }
 
-    private static bool Compare<T>(CompareType compareType, T a, T b) where T: IComparable
+    private static bool Compare<T>(CompareType compareType, T a, T b) where T : IComparable
     {
         return compareType switch
         {
@@ -54,7 +54,8 @@ public class ValueCompare : AbstractExpression
         return a.GetValueType() switch
         {
             ValueType.XsBoolean => Compare(type, a.GetAs<BooleanValue>().Value, b.GetAs<BooleanValue>().Value),
-            ValueType.XsInteger or ValueType.XsInt => Compare(type, a.GetAs<IntValue>().Value, b.GetAs<IntValue>().Value),
+            ValueType.XsInteger or ValueType.XsInt => Compare(type, a.GetAs<IntValue>().Value,
+                b.GetAs<IntValue>().Value),
             ValueType.XsFloat => Compare(type, a.GetAs<FloatValue>().Value, b.GetAs<FloatValue>().Value),
             ValueType.XsDouble => Compare(type, a.GetAs<DoubleValue>().Value, b.GetAs<DoubleValue>().Value),
             ValueType.XsString => Compare(type, a.GetAs<StringValue>().Value, b.GetAs<StringValue>().Value),
@@ -64,9 +65,9 @@ public class ValueCompare : AbstractExpression
     }
 
     public static bool PerformValueCompare(
-    CompareType type, 
-    AbstractValue first,
-    AbstractValue second,
+        CompareType type,
+        AbstractValue first,
+        AbstractValue second,
         DynamicContext dynamicContext)
     {
         var firstType = first.GetValueType();

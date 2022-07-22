@@ -51,7 +51,7 @@ public static class XdmReturnValue
                     var first = rawResults.First();
                     if (first == null || !first.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
                         return (TReturn?)(object?)0;
-            
+
                     return (TReturn)(object)Convert.ToInt32(first.GetAs<AtomicValue>().GetValue());
                 }
             },

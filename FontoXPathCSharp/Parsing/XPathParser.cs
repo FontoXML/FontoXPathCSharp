@@ -683,7 +683,8 @@ public static class XPathParser
 
     private static readonly ParseFunc<Ast> RangeExpr =
         NonRepeatableBinaryOperator(AdditiveExpr,
-            Followed(Alias(AstNodeName.RangeSequenceExpr, "to"), AssertAdjacentOpeningTerminal), AstNodeName.StartExpr, AstNodeName.EndExpr);
+            Followed(Alias(AstNodeName.RangeSequenceExpr, "to"), AssertAdjacentOpeningTerminal), AstNodeName.StartExpr,
+            AstNodeName.EndExpr);
 
     private static readonly ParseFunc<Ast> StringConcatExpr =
         BinaryOperator(RangeExpr, Alias(AstNodeName.StringConcatenateOp, "||"), DefaultBinaryOperatorFn);

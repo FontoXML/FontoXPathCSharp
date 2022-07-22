@@ -9,16 +9,13 @@ public class CastToBoolean
     public static CastingFunction ToBoolean(ValueType from)
     {
         if (from.IsSubtypeOf(ValueType.XsNumeric))
-        {
             return value =>
                 new SuccessResult<AtomicValue>(
                     Convert.ToBoolean(value.GetValue())
                         ? AtomicValue.TrueBoolean
                         : AtomicValue.FalseBoolean);
-        }
 
         if (from.IsSubtypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic))
-        {
             return value =>
             {
                 return value.GetValue().ToString() switch
@@ -29,7 +26,6 @@ public class CastToBoolean
                         "XPTY0004: Casting not supported from given type to xs:boolean or any of its derived types.")
                 };
             };
-        }
 
         return _ =>
         {

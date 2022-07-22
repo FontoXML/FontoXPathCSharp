@@ -1,4 +1,3 @@
-using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
@@ -17,6 +16,6 @@ public class SequenceExpression : PossiblyUpdatingExpression
     {
         return sequenceCallbacks.Length == 0
             ? SequenceFactory.CreateEmpty()
-            : ISequence.ConcatSequences(sequenceCallbacks.Select((cb) => cb(dynamicContext!)).ToArray());
+            : ISequence.ConcatSequences(sequenceCallbacks.Select(cb => cb(dynamicContext!)).ToArray());
     }
 }

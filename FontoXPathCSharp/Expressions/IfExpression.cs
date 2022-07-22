@@ -40,6 +40,5 @@ public class IfExpression : PossiblyUpdatingExpression
                 return resultIterator(hint);
             }
         );
-        
     }
 }

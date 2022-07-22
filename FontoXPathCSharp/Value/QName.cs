@@ -12,7 +12,7 @@ public class QName
         NamespaceUri = namespaceUri;
         Prefix = prefix;
     }
-    
+
     public Ast GetAst(AstNodeName name)
     {
         var ast = new Ast(name)

@@ -28,8 +28,8 @@ public class TypeHelpers
                 Regex.Replace(
                     Regex.Replace(
                         Regex.Replace(input, "[\u0009\u000A\u000D]", " "),
-                    " {2,}", " "),
-                "^ | $", ""),
+                        " {2,}", " "),
+                    "^ | $", ""),
             _ => throw new ArgumentOutOfRangeException()
         };
     }

@@ -67,17 +67,15 @@ public static class BuiltInFunctionsString
 
     private static readonly FunctionSignature<ISequence> FnMatches = (_, _, _, sequences) =>
     {
-        return ISequence.ZipSingleton(sequences, (sequenceValues) =>
+        return ISequence.ZipSingleton(sequences, sequenceValues =>
         {
             var input = Convert.ToString(sequenceValues[0].GetAs<AtomicValue>().GetValue()) ?? "";
             var pattern = Convert.ToString(sequenceValues[1].GetAs<AtomicValue>().GetValue()) ?? "";
 
             Func<string, bool> compiledPattern = _ => false;
             if (!CachedPatterns.ContainsKey(pattern))
-            {
                 throw new NotImplementedException(
                     "BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.");
-            }
 
             return compiledPattern(input)
                 ? SequenceFactory.SingletonTrueSequence
@@ -133,6 +131,6 @@ public static class BuiltInFunctionsString
             FnMatches,
             "matches",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne))
     };
 }

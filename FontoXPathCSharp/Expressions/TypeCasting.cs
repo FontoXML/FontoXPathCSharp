@@ -117,7 +117,8 @@ public class TypeCasting
         if (primitiveTo.IsSubtypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic))
             converters.Add(value =>
             {
-                if (!TypeHelpers.ValidatePattern(Convert.ToString(value.GetAs<AtomicValue>().GetValue()) ?? string.Empty, to))
+                if (!TypeHelpers.ValidatePattern(
+                        Convert.ToString(value.GetAs<AtomicValue>().GetValue()) ?? string.Empty, to))
                     return new ErrorResult<AtomicValue>(
                         $"FORG0001: Cannot cast {value} to {to}, pattern validation failed.");
 

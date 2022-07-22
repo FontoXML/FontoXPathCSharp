@@ -15,22 +15,20 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
     private readonly List<string> _loadedTestSets;
 
     private readonly HashSet<string> _shouldRunTestByName;
+    private readonly List<object[]> _testCases;
 
     private readonly HashSet<string> _unrunnableTestCasesByName = new();
-    private readonly List<object[]> _testCases;
 
     public Qt3TestDataProvider()
     {
         if (TestFileSystem.FileExists("runnableTestSets.csv"))
-        {
             _shouldRunTestByName = File.ReadLines("../../../assets/runnableTestSets.csv")
                 .Select(line => line.Split(','))
                 .DistinctBy(l => l[0])
                 .Where(l => ParseBooleanNoFail(l[1]))
                 .Select(l => l[0])
                 .ToHashSet();
-        }
-        
+
         // Addinf failed test cases that come from parse errors to the ignore set.
         if (TestFileSystem.FileExists("parseUnrunnableTestCases.csv"))
         {
@@ -82,7 +80,6 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             {
                 var testName = GetTestName(testCase);
                 if (!_unrunnableTestCasesByName.Contains(testName))
-                {
                     try
                     {
                         var name = GetTestName(testCase);
@@ -94,7 +91,6 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
                     {
                         /* Test file was probably not found. */
                     }
-                }
 
                 return testCases;
             });

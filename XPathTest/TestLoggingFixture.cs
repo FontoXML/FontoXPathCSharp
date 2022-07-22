@@ -6,11 +6,11 @@ namespace XPathTest;
 
 public class TestLoggingFixture : IDisposable
 {
+    private readonly ConcurrentDictionary<string, string> _castingErrors = new();
     private readonly ConcurrentDictionary<string, string> _failedTestsWithErrors = new();
     private readonly ConcurrentDictionary<string, string> _nonParseErrors = new();
-    private readonly ConcurrentDictionary<string, string> _parseErrors = new();
     private readonly ConcurrentDictionary<string, string> _nullPointerExceptions = new();
-    private readonly ConcurrentDictionary<string, string> _castingErrors = new();
+    private readonly ConcurrentDictionary<string, string> _parseErrors = new();
 
 
     public void Dispose()
@@ -40,6 +40,5 @@ public class TestLoggingFixture : IDisposable
         _failedTestsWithErrors[testName] = exceptionString;
         if (!exceptionString.Contains("PRSC Error")) _nonParseErrors[testName] = exceptionString;
         else _parseErrors[testName] = exceptionString;
-        
     }
 }

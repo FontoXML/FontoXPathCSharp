@@ -4,7 +4,6 @@ using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Axes;
 using FontoXPathCSharp.Expressions.Operators;
 using FontoXPathCSharp.Expressions.Tests;
-using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -63,7 +62,7 @@ public static class CompileAstToExpression
     {
         return ast.Name switch
         {
-            AstNodeName.NameTest => new NameTest(new QName(ast.TextContent, null, null)),
+            AstNodeName.NameTest => new NameTest(new QName(ast.TextContent)),
             AstNodeName.AnyKindTest => new TypeTest(new QName("node()", null, "")),
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
             AstNodeName.ElementTest => CompileElementTest(ast),
@@ -317,16 +316,13 @@ public static class CompileAstToExpression
 
         for (var i = 0; i < parts.Length; i++)
         {
-            if (parts[i].Name == AstNodeName.Arguments)
-            {
-                continue;
-            }
+            if (parts[i].Name == AstNodeName.Arguments) continue;
 
             if (parts[i + 1].Name == AstNodeName.Arguments)
             {
                 var functionArguments = parts[i + 1].GetChildren(AstNodeName.All);
                 args = args.Concat(
-                    functionArguments.Select((arg) =>
+                    functionArguments.Select(arg =>
                         arg.Name == AstNodeName.ArgumentPlaceholder ? null : CompileAst(arg, options))
                 );
             }
