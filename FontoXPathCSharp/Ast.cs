@@ -104,7 +104,11 @@ public enum AstNodeName
     Uri,
     SchemaElementTest,
     SingleType,
-    Optional
+    Optional,
+    IfThenElseExpr,
+    IfClause,
+    ThenClause,
+    ElseClause
 }
 
 public class Ast

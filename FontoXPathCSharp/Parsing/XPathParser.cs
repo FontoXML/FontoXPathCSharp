@@ -606,6 +606,41 @@ public static class XPathParser
                     : lhs
         );
 
+    private static readonly ParseFunc<Ast> IfExpr =
+        Then(
+            Then(
+                PrecededMultiple(new[]
+                {
+                    Token("if"),
+                    Whitespace,
+                    Token("("),
+                    Whitespace
+                }, Expr()),
+                PrecededMultiple(new[]
+                {
+                    Whitespace,
+                    Token(")"),
+                    Whitespace,
+                    Token("then"),
+                    AssertAdjacentOpeningTerminal,
+                    Whitespace
+                }, ExprSingle),
+                (ifClause, thenClause) => new[] { ifClause, thenClause }
+            ),
+            PrecededMultiple(new[]
+            {
+                Whitespace,
+                Token("else"),
+                AssertAdjacentOpeningTerminal,
+                Whitespace
+            }, ExprSingle),
+            (ifThen, elseClause) =>
+                new Ast(AstNodeName.IfThenElseExpr,
+                    new Ast(AstNodeName.IfClause, ifThen[0]),
+                    new Ast(AstNodeName.ThenClause, ifThen[1]),
+                    new Ast(AstNodeName.ElseClause, elseClause))
+        );
+
     private static readonly ParseFunc<Ast> IntersectExpr =
         BinaryOperator(
             InstanceOfExpr,
@@ -748,7 +783,7 @@ public static class XPathParser
     private static ParseResult<Ast> ExprSingle(string input, int offset)
     {
         // TODO: wrap in stacktrace
-        return Or(OrExpr)(input, offset);
+        return Or(IfExpr, OrExpr)(input, offset);
     }
 
     private static ParseFunc<Ast> Expr()

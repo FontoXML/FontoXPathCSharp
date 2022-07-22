@@ -4,6 +4,7 @@ using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Axes;
 using FontoXPathCSharp.Expressions.Operators;
 using FontoXPathCSharp.Expressions.Tests;
+using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -280,8 +281,18 @@ public static class CompileAstToExpression
                 or AstNodeName.ModOp => CompileBinaryOperator(ast, options),
             AstNodeName.UnaryPlusOp or AstNodeName.UnaryMinusOp => CompileUnaryOperator(ast, options),
             AstNodeName.CastExpr => CastAs(ast, options),
+            AstNodeName.IfThenElseExpr => IfThenElseExpr(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
+    }
+
+    private static AbstractExpression IfThenElseExpr(Ast ast, CompilationOptions options)
+    {
+        return new IfExpression(
+            CompileAst(ast.FollowPath(AstNodeName.IfClause, AstNodeName.All), options),
+            CompileAst(ast.FollowPath(AstNodeName.ThenClause, AstNodeName.All), options),
+            CompileAst(ast.FollowPath(AstNodeName.ElseClause, AstNodeName.All), options)
+        );
     }
 
 
