@@ -2,6 +2,7 @@ using System.Xml;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
+using FontoXPathCSharp.Types.Node;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -32,10 +33,10 @@ public class BuiltInFunctionsSequencesDeepEqual
             while (!done)
             {
                 if (item1 == null) item1 = it1(IterationHint.None);
-                item1 = TakeConsecutiveTextValues(item1, textValues1, it1, domFacade);
+                item1 = TakeConsecutiveTextValues(item1, textValues1, it1);
 
                 if (item2 == null) item2 = it2(IterationHint.None);
-                item2 = TakeConsecutiveTextValues(item2, textValues2, it2, domFacade);
+                item2 = TakeConsecutiveTextValues(item2, textValues2, it2);
 
                 if (textValues1.Count > 0 || textValues2.Count > 0)
                 {
@@ -398,9 +399,17 @@ public class BuiltInFunctionsSequencesDeepEqual
         );
     }
 
-    private static IteratorResult<AbstractValue> TakeConsecutiveTextValues(IteratorResult<AbstractValue> item,
-        List<AbstractValue> textValues, Iterator<AbstractValue> iterator, XmlNode domFacade)
+    private static IteratorResult<AbstractValue> TakeConsecutiveTextValues(
+        IteratorResult<AbstractValue> item,
+        ICollection<AbstractValue> textValues, 
+        Iterator<AbstractValue> iterator)
     {
-        throw new NotImplementedException("TakeConsecutiveTextValues not implemented yet");
+        while (item.Value != null && item.Value.GetValueType().IsSubtypeOf(ValueType.Text)) {
+            textValues.Add(item.Value);
+            var nextSibling = item.Value.GetAs<NodeValue>().Value.NextSibling;
+            item = iterator(IterationHint.None);
+            if (nextSibling != null && nextSibling.NodeType != XmlNodeType.Text) break;
+        }
+        return item;
     }
 }
