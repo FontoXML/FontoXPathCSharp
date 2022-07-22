@@ -286,8 +286,25 @@ public static class CompileAstToExpression
             AstNodeName.IfThenElseExpr => CompileIfThenElseExpr(ast, options),
             AstNodeName.DynamicFunctionInvocationExpr => CompileDynamicFunctionInvocationExpr(ast, options),
             AstNodeName.ArrowExpr => CompileArrowExpr(ast, options),
+            AstNodeName.RangeSequenceExpr => CompileRangeSequenceExpr(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
+    }
+
+    private static AbstractExpression CompileRangeSequenceExpr(Ast ast, CompilationOptions options)
+    {
+        var args = new[]
+        {
+            ast.FollowPath(AstNodeName.StartExpr, AstNodeName.All),
+            ast.FollowPath(AstNodeName.EndExpr, AstNodeName.All)
+        };
+
+        var functionRef = new NamedFunctionRef(
+            new QName("to", "http://fontoxpath/operators", ""),
+            args.Length
+        );
+
+        return new FunctionCall(functionRef, args.Select(arg => CompileAst(arg!, DisallowUpdating(options))).ToArray());
     }
 
     private static AbstractExpression CompileArrowExpr(Ast ast, CompilationOptions options)
