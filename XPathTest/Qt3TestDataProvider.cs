@@ -30,16 +30,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
                 .Select(l => l[0])
                 .ToHashSet();
         }
-
-
-        // _shouldRunTestByName = TestFileSystem.ReadFile("runnableTestSets.csv")
-        //     .Split(Environment.NewLine)
-        //     .Select(line => line.Split(','))
-        //     .DistinctBy(l => l[0])
-        //     .Where(l => ParseBooleanNoFail(l[1]))
-        //     .Select(l => l[0])
-        //     .ToHashSet();
-
+        
         // Addinf failed test cases that come from parse errors to the ignore set.
         if (TestFileSystem.FileExists("parseUnrunnableTestCases.csv"))
         {
@@ -64,9 +55,11 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
 
         _testCases = new List<object[]>();
+    }
 
+    public IEnumerator<object[]> GetEnumerator()
+    {
         var qt3Tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
-
         GetAllTestSets(qt3Tests).ForEach(testSetFileName =>
         {
             var testSet = Qt3TestUtils.LoadFileToXmlNode(testSetFileName);
@@ -108,10 +101,6 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
             _testCases.AddRange(testCases);
         });
-    }
-
-    public IEnumerator<object[]> GetEnumerator()
-    {
         return _testCases.GetEnumerator();
     }
 
