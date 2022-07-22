@@ -285,8 +285,42 @@ public static class CompileAstToExpression
             AstNodeName.CastExpr => CastAs(ast, options),
             AstNodeName.IfThenElseExpr => CompileIfThenElseExpr(ast, options),
             AstNodeName.DynamicFunctionInvocationExpr => CompileDynamicFunctionInvocationExpr(ast, options),
+            AstNodeName.ArrowExpr => CompileArrowExpr(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
+    }
+
+    private static AbstractExpression CompileArrowExpr(Ast ast, CompilationOptions options)
+    {
+        var argExpr = ast.FollowPath(AstNodeName.ArgExpr, AstNodeName.All);
+        // Each part an EQName, expression, or arguments passed to the previous part
+        var parts = ast.GetChildren(AstNodeName.All).Skip(1).ToArray();
+
+        IEnumerable<AbstractExpression?> args = new List<AbstractExpression?> { CompileAst(argExpr, options) };
+
+        for (var i = 0; i < parts.Length; i++)
+        {
+            if (parts[i].Name == AstNodeName.Arguments)
+            {
+                continue;
+            }
+
+            if (parts[i + 1].Name == AstNodeName.Arguments)
+            {
+                var functionArguments = parts[i + 1].GetChildren(AstNodeName.All);
+                args = args.Concat(
+                    functionArguments.Select((arg) =>
+                        arg.Name == AstNodeName.ArgumentPlaceholder ? null : CompileAst(arg, options))
+                );
+            }
+
+            var func = parts[i].Name == AstNodeName.EqName
+                ? new NamedFunctionRef(parts[i].GetQName(), args.Count())
+                : CompileAst(parts[i], DisallowUpdating(options));
+            args = new List<AbstractExpression?> { new FunctionCall(func, args.ToArray()) };
+        }
+
+        return args.First()!;
     }
 
     private static AbstractExpression CompileDynamicFunctionInvocationExpr(Ast ast, CompilationOptions options)
