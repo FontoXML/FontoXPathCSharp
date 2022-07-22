@@ -63,6 +63,28 @@ public static class BuiltInFunctionsString
         });
     };
 
+    private static readonly Dictionary<string, Func<string, bool>> CachedPatterns = new();
+
+    private static readonly FunctionSignature<ISequence> FnMatches = (_, _, _, sequences) =>
+    {
+        return ISequence.ZipSingleton(sequences, (sequenceValues) =>
+        {
+            var input = Convert.ToString(sequenceValues[0].GetAs<AtomicValue>().GetValue()) ?? "";
+            var pattern = Convert.ToString(sequenceValues[1].GetAs<AtomicValue>().GetValue()) ?? "";
+
+            Func<string, bool> compiledPattern = _ => false;
+            if (!CachedPatterns.ContainsKey(pattern))
+            {
+                throw new NotImplementedException(
+                    "BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.");
+            }
+
+            return compiledPattern(input)
+                ? SequenceFactory.SingletonTrueSequence
+                : SequenceFactory.SingletonFalseSequence;
+        });
+    };
+
     public static readonly BuiltinDeclarationType[] Declarations =
     {
         new(
@@ -102,6 +124,15 @@ public static class BuiltInFunctionsString
             BuiltInFunctions.ContextItemAsFirstArgument(FnString),
             "string",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne))
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            FnMatches,
+            "matches",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
     };
 }

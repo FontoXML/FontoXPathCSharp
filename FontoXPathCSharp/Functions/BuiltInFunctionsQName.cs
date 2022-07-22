@@ -11,7 +11,7 @@ public class BuiltInFunctionsQName
     private static readonly FunctionSignature<ISequence> FnQName = (_, _, _, param) =>
     {
         var paramUri = param[0];
-        return SequenceUtils.ZipSingleton(param, values =>
+        return ISequence.ZipSingleton(param, values =>
         {
             var uriValue = values[0].GetAs<StringValue>();
             var lexicalQNameValue = values[1].GetAs<StringValue>();

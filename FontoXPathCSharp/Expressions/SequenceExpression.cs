@@ -17,6 +17,6 @@ public class SequenceExpression : PossiblyUpdatingExpression
     {
         return sequenceCallbacks.Length == 0
             ? SequenceFactory.CreateEmpty()
-            : SequenceUtils.ConcatSequences(sequenceCallbacks.Select((cb) => cb(dynamicContext!)).ToArray());
+            : ISequence.ConcatSequences(sequenceCallbacks.Select((cb) => cb(dynamicContext!)).ToArray());
     }
 }

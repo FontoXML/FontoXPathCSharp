@@ -10,7 +10,7 @@ public class BuiltInFunctionsFunctions
 {
     private static readonly FunctionSignature<ISequence> FnFunctionLookup = (_, _, staticContext, sequences) =>
     {
-        return SequenceUtils.ZipSingleton(sequences, nameArityTuple =>
+        return ISequence.ZipSingleton(sequences, nameArityTuple =>
         {
             var name = nameArityTuple[0]?.GetAs<QNameValue>();
             var arity = nameArityTuple[1]?.GetAs<IntValue>();
