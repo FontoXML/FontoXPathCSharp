@@ -110,7 +110,16 @@ public enum AstNodeName
     ThenClause,
     ElseClause,
     StartExpr,
-    EndExpr
+    EndExpr,
+    FlworExpr,
+    LetClause,
+    LetClauseItem,
+    TypeDeclaration,
+    VoidSequenceType,
+    OccurrenceIndicator,
+    TypedVariableBinding,
+    LetExpr,
+    VarName,
 }
 
 public class Ast
@@ -129,6 +138,14 @@ public class Ast
     }
 
     public Ast(AstNodeName name, params Ast[] children)
+    {
+        Name = name;
+        StringAttributes = new Dictionary<string, string?>();
+        Children = children.ToList();
+        TextContent = "";
+    }
+
+    public Ast(AstNodeName name, IEnumerable<Ast> children)
     {
         Name = name;
         StringAttributes = new Dictionary<string, string?>();

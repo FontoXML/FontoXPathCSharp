@@ -57,4 +57,40 @@ public interface ISequence : IEnumerable<AbstractValue>
             }
         );
     }
+
+    public ISequence Every(Func<AbstractValue?, ISequence> typeTest)
+    {
+        var iterator = GetValue();
+        ISequence? typeTestResultIterator = null;
+        var done = false;
+        return SequenceFactory.CreateFromIterator(
+            _ =>
+            {
+                while (!done)
+                {
+                    if (typeTestResultIterator == null)
+                    {
+                        var value = iterator(IterationHint.None);
+                        if (value.IsDone)
+                        {
+                            done = true;
+                            return IteratorResult<AbstractValue>.Ready(AtomicValue.TrueBoolean);
+                        }
+
+                        typeTestResultIterator = typeTest(value.Value);
+                    }
+
+                    var ebv = typeTestResultIterator.GetEffectiveBooleanValue();
+                    typeTestResultIterator = null;
+                    if (!ebv)
+                    {
+                        done = true;
+                        return IteratorResult<AbstractValue>.Ready(AtomicValue.FalseBoolean);
+                    }
+                }
+
+                return IteratorResult<AbstractValue>.Done();
+            }
+        );
+    }
 }

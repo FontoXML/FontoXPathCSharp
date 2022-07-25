@@ -292,7 +292,81 @@ public static class XPathParser
             )
         );
 
-    private static readonly ParseFunc<Ast> SequenceType = NotImplementedAst();
+    private static readonly ParseFunc<Ast> AtomicOrUnionType = Map(EqName, x => x.GetAst(AstNodeName.AtomicType));
+
+    private static readonly ParseFunc<Ast> ItemType = Or(KindTest, AtomicOrUnionType);
+
+    private static ParseResult<Ast> ItemTypeIndirect(string input, int offset)
+    {
+        return ItemType(input, offset);
+    }
+
+    private static readonly ParseFunc<string> OccurenceIndicator = Or(Token("?"), Token("*"), Token("+"));
+
+    private static readonly ParseFunc<Ast[]> SequenceType = Or(
+        Map(Token("empty-sequence()"), _ => new[] { new Ast(AstNodeName.VoidSequenceType) }),
+        Then(
+            ItemTypeIndirect,
+            Optional(Preceded(Whitespace, OccurenceIndicator)),
+            (type, occurrence) =>
+                new[] { type }
+                    .Concat(occurrence != null
+                        ? new[] { new Ast(AstNodeName.OccurrenceIndicator) { TextContent = occurrence } }
+                        : Array.Empty<Ast>())
+                    .ToArray())
+    );
+
+    private static readonly ParseFunc<Ast> TypeDeclaration = Map(
+        PrecededMultiple(new[] { Token("as"), WhitespacePlus }, SequenceType),
+        x => new Ast(AstNodeName.TypeDeclaration, x)
+    );
+
+    private static readonly ParseFunc<QName> VarName = EqName;
+
+    private static readonly ParseFunc<Ast> LetBinding = Then3(
+        Preceded(Token("$"), VarName),
+        Preceded(Whitespace, Optional(TypeDeclaration)),
+        Preceded(Surrounded(Token(":="), Whitespace), ExprSingle),
+        (variableName, typeDecl, letExpr) =>
+        {
+            return new Ast(AstNodeName.LetClauseItem,
+                new Ast(AstNodeName.TypedVariableBinding,
+                    new[] { variableName.GetAst(AstNodeName.VarName) }
+                        .Concat(typeDecl != null
+                            ? new[] { typeDecl }
+                            : Array.Empty<Ast>())),
+                new Ast(AstNodeName.LetExpr, letExpr));
+        }
+    );
+
+    // private static readonly ParseFunc<Ast> ForClause = NotImplementedAst();
+    private static readonly ParseFunc<Ast> LetClause = Map(
+        PrecededMultiple(
+            new[] { Token("let"), Whitespace },
+            BinaryOperator(
+                LetBinding,
+                Alias(AstNodeName.Arguments, ","),
+                (lhs, rhs) => new[] { lhs }.Concat(rhs.Select(e => e.Item2)))),
+        x => new Ast(AstNodeName.LetClause, x)
+    );
+
+    private static readonly ParseFunc<Ast> InitialClause = Or(LetClause);
+
+
+    private static readonly ParseFunc<Ast> IntermediateClause = NotImplementedAst();
+
+    private static readonly ParseFunc<Ast> ReturnClause = NotImplementedAst();
+
+
+    private static readonly ParseFunc<Ast> FlworExpr =
+        Then3(
+            InitialClause,
+            Star(Preceded(Whitespace, IntermediateClause)),
+            Preceded(Whitespace, ReturnClause),
+            (initial, intermediate, ret) => new Ast(AstNodeName.FlworExpr,
+                new[] { initial }.Concat(intermediate).Concat(new[] { ret }))
+        );
+
 
     private static readonly ParseFunc<Ast> ParenthesizedExpr = Or(
         Delimited(Token("("), Surrounded(Expr(), Whitespace), Token(")")),
@@ -387,7 +461,7 @@ public static class XPathParser
                             };
                             break;
                         default:
-                            throw new Exception("Unreachable");
+                            throw new XPathException("Unreachable");
                     }
 
                 FlushFilters(true, allowSinglePredicates);
@@ -601,8 +675,7 @@ public static class XPathParser
             ),
             (lhs, rhs) =>
                 rhs != null
-                    ? new Ast(AstNodeName.InstanceOfExpr, new Ast(AstNodeName.ArgExpr, lhs),
-                        new Ast(AstNodeName.SequenceType, rhs))
+                    ? new Ast(AstNodeName.InstanceOfExpr, new Ast(AstNodeName.ArgExpr, lhs), new Ast(AstNodeName.SequenceType, rhs))
                     : lhs
         );
 
@@ -784,7 +857,7 @@ public static class XPathParser
     private static ParseResult<Ast> ExprSingle(string input, int offset)
     {
         // TODO: wrap in stacktrace
-        return Or(IfExpr, OrExpr)(input, offset);
+        return Or(IfExpr, OrExpr, FlworExpr)(input, offset);
     }
 
     private static ParseFunc<Ast> Expr()

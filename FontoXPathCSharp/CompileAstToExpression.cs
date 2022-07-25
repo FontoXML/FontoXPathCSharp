@@ -245,6 +245,8 @@ public static class CompileAstToExpression
 
     public static AbstractExpression CompileAst(Ast ast, CompilationOptions options)
     {
+        var stringified = ast.ToString();
+        Console.WriteLine(stringified);
         return ast.Name switch
         {
             AstNodeName.Module => CompileModule(ast, options),
@@ -286,8 +288,18 @@ public static class CompileAstToExpression
             AstNodeName.DynamicFunctionInvocationExpr => CompileDynamicFunctionInvocationExpr(ast, options),
             AstNodeName.ArrowExpr => CompileArrowExpr(ast, options),
             AstNodeName.RangeSequenceExpr => CompileRangeSequenceExpr(ast, options),
+            AstNodeName.InstanceOfExpr => CompileInstanceOfExpr(ast, options),
             _ => throw new InvalidDataException(ast.Name.ToString())
         };
+    }
+
+    private static AbstractExpression CompileInstanceOfExpr(Ast ast, CompilationOptions options)
+    {
+        var expression = CompileAst(ast.FollowPath(AstNodeName.ArgExpr, AstNodeName.All), options);
+        var sequenceType = ast.FollowPath(AstNodeName.SequenceType, AstNodeName.All);
+        var occurrence = ast.FollowPath(AstNodeName.SequenceType, AstNodeName.OccurrenceIndicator);
+
+        return new InstanceOfOperator(expression, CompileAst(sequenceType, DisallowUpdating(options)), occurrence?.TextContent ?? "");
     }
 
     private static AbstractExpression CompileRangeSequenceExpr(Ast ast, CompilationOptions options)
@@ -457,3 +469,4 @@ public static class CompileAstToExpression
         throw new NotImplementedException("ProcessProlog not implemented");
     }
 }
+
