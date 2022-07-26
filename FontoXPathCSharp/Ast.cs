@@ -120,6 +120,11 @@ public enum AstNodeName
     TypedVariableBinding,
     LetExpr,
     VarName,
+    ForClause,
+    ForClauseItem,
+    AllowingEmpty,
+    ForExpr,
+    PositionalVariableBinding
 }
 
 public class Ast

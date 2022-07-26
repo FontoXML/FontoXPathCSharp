@@ -24,77 +24,77 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
     public IEnumerator<object[]> GetEnumerator()
     {
-        // if (TestFileSystem.FileExists("runnableTestSets.csv"))
-        //     File.ReadLines("../../../assets/runnableTestSets.csv")
-        //         .Select(line => line.Split(','))
-        //         .DistinctBy(l => l[0])
-        //         .Where(l => ParseBooleanNoFail(l[1]))
-        //         .Select(l => l[0])
-        //         .ToList()
-        //         .ForEach(x => _shouldRunTestByName.Add(x));
-        //
-        // // Addinf failed test cases that come from parse errors to the ignore set.
-        // if (TestFileSystem.FileExists("parseUnrunnableTestCases.csv"))
-        // {
-        //     var parseErrorCases = TestFileSystem.ReadFile("parseUnrunnableTestCases.csv")
-        //         .Split(Environment.NewLine)
-        //         .Select(e => e.Split(','))
-        //         .Where(e => e.Length > 1)
-        //         .ToDictionary(
-        //             e => e[0],
-        //             e => e[1]
-        //         );
-        //
-        //     parseErrorCases.Aggregate(
-        //         _unrunnableTestCasesByName,
-        //         (acc, val) =>
-        //         {
-        //             acc.Add(val.Key);
-        //             return acc;
-        //         }
-        //     );
-        // }
-        //
-        // var qt3Tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
-        // GetAllTestSets(qt3Tests).ForEach(testSetFileName =>
-        // {
-        //     var testSet = Qt3TestUtils.LoadFileToXmlNode(testSetFileName);
-        //
-        //     var testSetName = Evaluate.EvaluateXPathToString("/test-set/@name",
-        //         testSet,
-        //         null,
-        //         new Dictionary<string, AbstractValue>(),
-        //         new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
-        //
-        //     var testCaseNodes = new List<XmlNode>(Evaluate.EvaluateXPathToNodes(Qt3TestQueries.AllTestsQuery,
-        //         testSet,
-        //         null,
-        //         new Dictionary<string, AbstractValue>(),
-        //         new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")));
-        //
-        //     if (!testCaseNodes.Any()) return;
-        //
-        //     var testCases = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
-        //     {
-        //         var testName = GetTestName(testCase);
-        //         if (!_unrunnableTestCasesByName.Contains(testName))
-        //             try
-        //             {
-        //                 var name = GetTestName(testCase);
-        //                 var description = GetTestDescription(testSetName, name, testCase);
-        //                 var arguments = Qt3TestUtils.GetArguments(testSetFileName, testCase);
-        //                 testCases.Add(new object[] { name, testSetName, description, testCase, arguments });
-        //             }
-        //             catch (FileNotFoundException ex)
-        //             {
-        //                 /* Test file was probably not found. */
-        //             }
-        //
-        //         return testCases;
-        //     });
-        //
-        //     _testCases.AddRange(testCases);
-        // });
+        if (TestFileSystem.FileExists("runnableTestSets.csv"))
+            File.ReadLines("../../../assets/runnableTestSets.csv")
+                .Select(line => line.Split(','))
+                .DistinctBy(l => l[0])
+                .Where(l => ParseBooleanNoFail(l[1]))
+                .Select(l => l[0])
+                .ToList()
+                .ForEach(x => _shouldRunTestByName.Add(x));
+        
+        // Addinf failed test cases that come from parse errors to the ignore set.
+        if (TestFileSystem.FileExists("parseUnrunnableTestCases.csv"))
+        {
+            var parseErrorCases = TestFileSystem.ReadFile("parseUnrunnableTestCases.csv")
+                .Split(Environment.NewLine)
+                .Select(e => e.Split(','))
+                .Where(e => e.Length > 1)
+                .ToDictionary(
+                    e => e[0],
+                    e => e[1]
+                );
+        
+            parseErrorCases.Aggregate(
+                _unrunnableTestCasesByName,
+                (acc, val) =>
+                {
+                    acc.Add(val.Key);
+                    return acc;
+                }
+            );
+        }
+        
+        var qt3Tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
+        GetAllTestSets(qt3Tests).ForEach(testSetFileName =>
+        {
+            var testSet = Qt3TestUtils.LoadFileToXmlNode(testSetFileName);
+        
+            var testSetName = Evaluate.EvaluateXPathToString("/test-set/@name",
+                testSet,
+                null,
+                new Dictionary<string, AbstractValue>(),
+                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+        
+            var testCaseNodes = new List<XmlNode>(Evaluate.EvaluateXPathToNodes(Qt3TestQueries.AllTestsQuery,
+                testSet,
+                null,
+                new Dictionary<string, AbstractValue>(),
+                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")));
+        
+            if (!testCaseNodes.Any()) return;
+        
+            var testCases = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
+            {
+                var testName = GetTestName(testCase);
+                if (!_unrunnableTestCasesByName.Contains(testName))
+                    try
+                    {
+                        var name = GetTestName(testCase);
+                        var description = GetTestDescription(testSetName, name, testCase);
+                        var arguments = Qt3TestUtils.GetArguments(testSetFileName, testCase);
+                        testCases.Add(new object[] { name, testSetName, description, testCase, arguments });
+                    }
+                    catch (FileNotFoundException ex)
+                    {
+                        /* Test file was probably not found. */
+                    }
+        
+                return testCases;
+            });
+        
+            _testCases.AddRange(testCases);
+        });
         return _testCases.GetEnumerator();
     }
 

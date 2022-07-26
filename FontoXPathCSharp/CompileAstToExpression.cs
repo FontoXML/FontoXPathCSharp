@@ -63,13 +63,19 @@ public static class CompileAstToExpression
         return ast.Name switch
         {
             AstNodeName.NameTest => new NameTest(new QName(ast.TextContent)),
-            AstNodeName.AnyKindTest => new TypeTest(new QName("node()", null, "")),
+            AstNodeName.AnyKindTest => CompileTypeTest(ast),
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
             AstNodeName.ElementTest => CompileElementTest(ast),
             AstNodeName.Wildcard => CompileWildcard(ast),
             AstNodeName.TextTest => CompileTextTest(ast),
-            _ => throw new XPathException($"Test expression not yet implemented: {ast.Name}")
+            AstNodeName.AtomicType => CompileTypeTest(ast),
+            _ => throw new XPathException($"{ast.Name} AST to Expression not yet implemented")
         };
+    }
+
+    private static AbstractTestExpression CompileTypeTest(Ast ast)
+    {
+        return new TypeTest(ast.GetQName());
     }
 
     private static AbstractTestExpression CompileTextTest(Ast ast)
@@ -289,7 +295,7 @@ public static class CompileAstToExpression
             AstNodeName.ArrowExpr => CompileArrowExpr(ast, options),
             AstNodeName.RangeSequenceExpr => CompileRangeSequenceExpr(ast, options),
             AstNodeName.InstanceOfExpr => CompileInstanceOfExpr(ast, options),
-            _ => throw new InvalidDataException(ast.Name.ToString())
+            _ => CompileTestExpression(ast)
         };
     }
 
