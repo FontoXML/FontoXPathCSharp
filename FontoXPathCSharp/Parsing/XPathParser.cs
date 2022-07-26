@@ -339,7 +339,38 @@ public static class XPathParser
         }
     );
 
-    // private static readonly ParseFunc<Ast> ForClause = NotImplementedAst();
+    private static readonly ParseFunc<string> AllowingEmpty =
+        Delimited(Token("allowing"), WhitespacePlus, Token("empty"));
+
+    private static readonly ParseFunc<Ast> PositionalVar = Map(
+        PrecededMultiple(new[] { Token("at"), WhitespacePlus, Token("$") }, VarName),
+        x => x.GetAst(AstNodeName.PositionalVariableBinding)
+    );
+
+    private static readonly ParseFunc<Ast> ForBinding = Then5(
+        Preceded(Token("$"), VarName),
+        Preceded(Whitespace, Optional(TypeDeclaration)),
+        Preceded(Whitespace, Optional(AllowingEmpty)),
+        Preceded(Whitespace, Optional(PositionalVar)),
+        Preceded(Surrounded(Token("in"), Whitespace), ExprSingle),
+        (variableName, typeDecl, empty, pos, forExpr) =>
+            new Ast(AstNodeName.ForClauseItem,
+                new[] { new Ast(AstNodeName.TypedVariableBinding) }
+                    .Concat(empty != null ? new[] { new Ast(AstNodeName.AllowingEmpty) } : Array.Empty<Ast>())
+                    .Concat(pos != null ? new[] { pos } : Array.Empty<Ast>())
+                    .Concat(new[] { new Ast(AstNodeName.ForExpr, forExpr) })
+            )
+    );
+
+    private static readonly ParseFunc<Ast> ForClause = PrecededMultiple(
+        new[] { Token("for"), WhitespacePlus },
+        BinaryOperator(
+            ForBinding,
+            Alias(AstNodeName.Arguments, ","),
+            (lhs, rhs) =>
+                new Ast(AstNodeName.ForClause, new[] { lhs }.Concat(rhs.Select(x => x.Item2)))));
+
+
     private static readonly ParseFunc<Ast> LetClause = Map(
         PrecededMultiple(
             new[] { Token("let"), Whitespace },
@@ -350,7 +381,7 @@ public static class XPathParser
         x => new Ast(AstNodeName.LetClause, x)
     );
 
-    private static readonly ParseFunc<Ast> InitialClause = Or(LetClause);
+    private static readonly ParseFunc<Ast> InitialClause = Or(ForClause, LetClause);
 
 
     private static readonly ParseFunc<Ast> IntermediateClause = NotImplementedAst();
@@ -675,7 +706,8 @@ public static class XPathParser
             ),
             (lhs, rhs) =>
                 rhs != null
-                    ? new Ast(AstNodeName.InstanceOfExpr, new Ast(AstNodeName.ArgExpr, lhs), new Ast(AstNodeName.SequenceType, rhs))
+                    ? new Ast(AstNodeName.InstanceOfExpr, new Ast(AstNodeName.ArgExpr, lhs),
+                        new Ast(AstNodeName.SequenceType, rhs))
                     : lhs
         );
 
