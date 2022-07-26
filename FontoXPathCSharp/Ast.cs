@@ -124,7 +124,20 @@ public enum AstNodeName
     ForClauseItem,
     AllowingEmpty,
     ForExpr,
-    PositionalVariableBinding
+    PositionalVariableBinding,
+    WhereClause,
+    GroupByClause,
+    Collation,
+    GroupingSpec,
+    GroupVarInitialize,
+    VarValue,
+    OrderByClause,
+    Stable,
+    OrderBySpec,
+    OrderByExpr,
+    OrderModifier,
+    OrderingKind,
+    EmptyOrderingMode
 }
 
 public class Ast

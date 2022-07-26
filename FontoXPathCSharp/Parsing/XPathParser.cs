@@ -383,8 +383,110 @@ public static class XPathParser
 
     private static readonly ParseFunc<Ast> InitialClause = Or(ForClause, LetClause);
 
+    private static readonly ParseFunc<Ast> WhereClause = Map(
+        PrecededMultiple(new[] { Token("where"), AssertAdjacentOpeningTerminal, Whitespace }, ExprSingle),
+        x => new Ast(AstNodeName.WhereClause, x)
+    );
 
-    private static readonly ParseFunc<Ast> IntermediateClause = NotImplementedAst();
+    private static readonly ParseFunc<string> UriLiteral = StringLiteral;
+
+    private static readonly ParseFunc<Ast> GroupingVariable = Map(
+        Preceded(Token("$"), VarName),
+        x => x.GetAst(AstNodeName.VarName)
+    );
+
+    private static readonly ParseFunc<Ast> GroupVarInitialize = Then(
+        Preceded(Whitespace, Optional(TypeDeclaration)),
+        Preceded(Surrounded(Token(":="), Whitespace), ExprSingle),
+        (t, val) => new Ast(
+            AstNodeName.GroupVarInitialize,
+            (t != null ? new[] { new Ast(AstNodeName.TypeDeclaration, t) } : Array.Empty<Ast>())
+            .Concat(new[] { new Ast(AstNodeName.VarValue, val) }))
+    );
+
+    private static readonly ParseFunc<Ast> GroupingSpec = Then3(
+        GroupingVariable,
+        Optional(GroupVarInitialize),
+        Optional(Map(Preceded(Surrounded(Token("collation"), Whitespace), UriLiteral),
+            x => new Ast(AstNodeName.Collation) { TextContent = x })
+        ),
+        (variableName, init, col) => new Ast(
+            AstNodeName.GroupingSpec,
+            new[] { variableName }
+                .Concat(init != null ? new[] { init } : Array.Empty<Ast>())
+                .Concat(col != null ? new[] { col } : Array.Empty<Ast>())));
+
+    private static readonly ParseFunc<Ast[]> GroupingSpecList = BinaryOperator(
+        GroupingSpec,
+        Alias(AstNodeName.Arguments, ","),
+        (lhs, rhs) => new[] { lhs }.Concat(rhs.Select(x => x.Item2)).ToArray()
+    );
+
+    private static readonly ParseFunc<Ast> GroupByClause = Map(
+        PrecededMultiple(new[] { Token("group"), WhitespacePlus, Token("by"), Whitespace }, GroupingSpecList),
+        x => new Ast(AstNodeName.GroupByClause)
+    );
+
+    private static readonly ParseFunc<Ast?> OrderModifier = Then3(
+        Optional(Or(Token("ascending"), Token("descending"))),
+        Optional(PrecededMultiple(new[] { Whitespace, Token("empty"), Whitespace },
+            Or(new[] { Token("greatest"), Token("least") }.Select(x => Map(x, y => "empty " + y)).ToArray()))),
+        Preceded(Whitespace, Optional(PrecededMultiple(new[] { Token("collation"), Whitespace }, UriLiteral))),
+        (kind, empty, collation) =>
+            kind == null && empty == null && collation == null
+                ? null
+                : new Ast(AstNodeName.OrderModifier,
+                    (kind != null
+                        ? new[] { new Ast(AstNodeName.OrderingKind) { TextContent = kind } }
+                        : Array.Empty<Ast>())
+                    .Concat(empty != null
+                        ? new[] { new Ast(AstNodeName.EmptyOrderingMode) { TextContent = empty } }
+                        : Array.Empty<Ast>())
+                    .Concat(collation != null
+                        ? new[] { new Ast(AstNodeName.Collation) { TextContent = collation } }
+                        : Array.Empty<Ast>())));
+
+    private static readonly ParseFunc<Ast> OrderSpec = Then(
+        ExprSingle,
+        Preceded(Whitespace, OrderModifier),
+        (orderByExpr, modifier) =>
+            new Ast(AstNodeName.OrderBySpec,
+                new[] { new Ast(AstNodeName.OrderByExpr, orderByExpr) }
+                    .Concat(modifier != null ? new[] { modifier } : Array.Empty<Ast>()))
+    );
+
+    private static readonly ParseFunc<Ast[]> OrderSpecList = BinaryOperator(
+        OrderSpec,
+        Alias(AstNodeName.Arguments, ","),
+        (lhs, rhs) =>
+            new[] { lhs }
+                .Concat(rhs.Select(x => x.Item2))
+                .ToArray()
+    );
+
+    private static readonly ParseFunc<Ast> OrderByClause = Then(
+        Or(
+            Map(
+                PrecededMultiple(new[] { Token("order"), WhitespacePlus }, Token("by")),
+                _ => false),
+            Map(
+                PrecededMultiple(new[] { Token("stable"), WhitespacePlus, Token("order"), WhitespacePlus },
+                    Token("by")),
+                _ => true)
+        ),
+        Preceded(Whitespace, OrderSpecList),
+        (stable, specList) =>
+            new Ast(AstNodeName.OrderByClause,
+                (stable ? new[] { new Ast(AstNodeName.Stable) } : Array.Empty<Ast>())
+                .Concat(specList))
+    );
+
+    private static readonly ParseFunc<Ast> IntermediateClause = Or(
+        InitialClause,
+        WhereClause,
+        GroupByClause,
+        OrderByClause,
+    );
 
     private static readonly ParseFunc<Ast> ReturnClause = NotImplementedAst();
 
