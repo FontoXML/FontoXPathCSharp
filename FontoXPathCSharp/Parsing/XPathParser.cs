@@ -68,7 +68,7 @@ public static class XPathParser
                     Token("("), Whitespace, Token(")")
                 )
             ),
-            nameOrWildcard => new Ast(AstNodeName.ElementTest)
+            _ => new Ast(AstNodeName.ElementTest)
         )
     );
 
@@ -104,7 +104,7 @@ public static class XPathParser
                     Token("("), Whitespace, Token(")")
                 )
             ),
-            nameOrWildcard => new Ast(AstNodeName.AttributeTest)
+            _ => new Ast(AstNodeName.AttributeTest)
         )
     );
 
@@ -355,7 +355,14 @@ public static class XPathParser
         Preceded(Surrounded(Token("in"), Whitespace), ExprSingle),
         (variableName, typeDecl, empty, pos, forExpr) =>
             new Ast(AstNodeName.ForClauseItem,
-                new[] { new Ast(AstNodeName.TypedVariableBinding) }
+                new[]
+                    {
+                        new Ast(AstNodeName.TypedVariableBinding,
+                            variableName
+                                .GetAst(AstNodeName.VarName)
+                                .AddChildren(typeDecl != null ? new[] { typeDecl } : Array.Empty<Ast>())
+                        )
+                    }
                     .Concat(empty != null ? new[] { new Ast(AstNodeName.AllowingEmpty) } : Array.Empty<Ast>())
                     .Concat(pos != null ? new[] { pos } : Array.Empty<Ast>())
                     .Concat(new[] { new Ast(AstNodeName.ForExpr, forExpr) })
@@ -424,7 +431,7 @@ public static class XPathParser
 
     private static readonly ParseFunc<Ast> GroupByClause = Map(
         PrecededMultiple(new[] { Token("group"), WhitespacePlus, Token("by"), Whitespace }, GroupingSpecList),
-        x => new Ast(AstNodeName.GroupByClause)
+        x => new Ast(AstNodeName.GroupByClause, x)
     );
 
     private static readonly ParseFunc<Ast?> OrderModifier = Then3(
@@ -485,10 +492,13 @@ public static class XPathParser
         InitialClause,
         WhereClause,
         GroupByClause,
-        OrderByClause,
+        OrderByClause
     );
 
-    private static readonly ParseFunc<Ast> ReturnClause = NotImplementedAst();
+    private static readonly ParseFunc<Ast> ReturnClause = Map(
+        PrecededMultiple(new[] { Token("return"), Whitespace }, ExprSingle),
+        x => new Ast(AstNodeName.ReturnClause, x)
+    );
 
 
     private static readonly ParseFunc<Ast> FlworExpr =
@@ -672,8 +682,7 @@ public static class XPathParser
                 _ => new Ast(AstNodeName.PathExpr, new Ast(AstNodeName.RootExpr)))
         );
 
-    private static readonly ParseFunc<Ast> PathExpr =
-        Or(RelativePathExpr, AbsoluteLocationPath);
+    private static readonly ParseFunc<Ast> PathExpr = Or(RelativePathExpr, AbsoluteLocationPath);
 
     private static readonly ParseFunc<Ast> ValueExpr =
         Or(
@@ -936,7 +945,7 @@ public static class XPathParser
 
     private static ParseFunc<Ast> NotImplementedAst()
     {
-        return Map(Token("NOT IMPLEMENTED WILL NEVER GET MATCHED"), s => new Ast(AstNodeName.NotImplemented));
+        return Map(Token("NOT IMPLEMENTED WILL NEVER GET MATCHED"), _ => new Ast(AstNodeName.NotImplemented));
     }
 
     private static ParseResult<Ast[]> RelativePathExprWithForcedStepIndirect(string input, int offset)
@@ -1000,6 +1009,50 @@ public static class XPathParser
             rhs.Length == 0
                 ? lhs
                 : new Ast(AstNodeName.SequenceExpr, rhs.Select(x => x.Item2).ToArray()));
+    }
+
+    private static ParseFunc<Ast> WrapInStackTrace(ParseFunc<Ast> parser)
+    {
+        if (!_options.OutputDebugInfo) return parser;
+
+        return (input, offset) =>
+        {
+            var result = parser(input, offset);
+
+            if (result.IsErr()) return result;
+
+            var (startCol, startLine) = GetLineData(input, offset);
+            var (endCol, endLine) = GetLineData(input, result.Offset);
+
+            return OkWithValue(result.Offset,
+                new Ast(AstNodeName.XStackTrace)
+                {
+                    _start = new Ast.StackTraceInfo(offset, startLine, startCol),
+                    _end = new Ast.StackTraceInfo(result.Offset, endLine, endCol)
+                }
+            );
+        };
+    }
+
+    private static (int, int) GetLineData(string input, int offset)
+    {
+        var col = 1;
+        var line = 1;
+        for (var i = 0; i < offset; i++)
+        {
+            var c = input[i];
+            if (c is '\r' or '\n')
+            {
+                line++;
+                col = 1;
+            }
+            else
+            {
+                col++;
+            }
+        }
+
+        return (col, line);
     }
 
     public static ParseResult<Ast> Parse(string input, ParseOptions options)

@@ -137,15 +137,33 @@ public enum AstNodeName
     OrderByExpr,
     OrderModifier,
     OrderingKind,
-    EmptyOrderingMode
+    EmptyOrderingMode,
+    ReturnClause,
+    XStackTrace
 }
 
 public class Ast
 {
+    public class StackTraceInfo
+    {
+        private int _offset;
+        private int _line;
+        private int _column;
+
+        public StackTraceInfo(int offset, int line, int column)
+        {
+            _offset = offset;
+            _line = line;
+            _column = column;
+        }
+    }
+
     public readonly AstNodeName Name;
     public readonly Dictionary<string, string?> StringAttributes;
     public List<Ast> Children;
     public string TextContent;
+    public StackTraceInfo? _start;
+    public StackTraceInfo? _end;
 
     public Ast(AstNodeName name)
     {
@@ -153,6 +171,8 @@ public class Ast
         StringAttributes = new Dictionary<string, string?>();
         Children = new List<Ast>();
         TextContent = "";
+        _start = null;
+        _end = null;
     }
 
     public Ast(AstNodeName name, params Ast[] children)
@@ -161,6 +181,8 @@ public class Ast
         StringAttributes = new Dictionary<string, string?>();
         Children = children.ToList();
         TextContent = "";
+        _start = null;
+        _end = null;
     }
 
     public Ast(AstNodeName name, IEnumerable<Ast> children)
@@ -170,6 +192,10 @@ public class Ast
         Children = children.ToList();
         TextContent = "";
     }
+
+    public StackTraceInfo? Start => _start;
+
+    public StackTraceInfo? End => _end;
 
     public Ast? GetFirstChild(AstNodeName name = AstNodeName.All)
     {
@@ -215,5 +241,11 @@ public class Ast
         return string.Format("<AST \"{0}\", {{{1}}}, \"{2}\", [{3}]>", Name,
             string.Join(", ", StringAttributes.Select(x => $"{x.Key}: \"{x.Value}\"")),
             TextContent, Children.Count == 0 ? "" : $"\n{string.Join("\n", Children)}\n");
+    }
+
+    public Ast AddChildren(IEnumerable<Ast> children)
+    {
+        Children.AddRange(children);
+        return this;
     }
 }
