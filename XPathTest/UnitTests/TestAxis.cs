@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using FontoXPathCSharp;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using Xunit;
@@ -23,17 +24,25 @@ public class TestAxis
 </xml>";
 
     private static readonly XmlDocument Document;
+    private static readonly XmlNodeDomFacade Domfacade;
+
 
     static TestAxis()
     {
         Document = new XmlDocument();
         Document.LoadXml(TestXml);
+        Domfacade = new XmlNodeDomFacade();
     }
 
     private static IEnumerable<XmlNode> EvalQueryNodes(string query)
     {
-        return Evaluate.EvaluateXPathToNodes(query, Document, null, new Dictionary<string, AbstractValue>(),
-            new Options());
+        return Evaluate.EvaluateXPathToNodes(
+            query,
+            new NodeValue<XmlNode>(Document, Domfacade),
+            Domfacade,
+            new Dictionary<string, AbstractValue>(),
+            new Options<XmlNode>()
+        );
     }
 
     [Fact]

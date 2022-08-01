@@ -16,14 +16,14 @@ public enum CompareType
     GreaterEquals
 }
 
-public class ValueCompare : AbstractExpression
+public class ValueCompare<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractExpression _firstExpression;
-    private readonly AbstractExpression _secondExpression;
+    private readonly AbstractExpression<TNode> _firstExpression;
+    private readonly AbstractExpression<TNode> _secondExpression;
     private readonly CompareType _type;
 
-    public ValueCompare(CompareType type, AbstractExpression firstExpression,
-        AbstractExpression secondExpression) : base(
+    public ValueCompare(CompareType type, AbstractExpression<TNode> firstExpression,
+        AbstractExpression<TNode> secondExpression) : base(
         new[] { firstExpression, secondExpression }, new OptimizationOptions(false))
     {
         _type = type;
@@ -134,7 +134,7 @@ public class ValueCompare : AbstractExpression
         throw new XPathException("XPTY0004: " + type + " not available for " + firstType + " and " + secondType);
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         var firstSequence = _firstExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
         var secondSequence = _secondExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);

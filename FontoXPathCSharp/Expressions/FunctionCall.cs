@@ -3,15 +3,15 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class FunctionCall : PossiblyUpdatingExpression
+public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
 {
-    private readonly AbstractExpression[] _argumentExpressions;
+    private readonly AbstractExpression<TNode>[] _argumentExpressions;
     private readonly int _callArity;
-    private readonly AbstractExpression _functionReferenceExpression;
-    private FunctionValue<ISequence>? _functionReference;
-    private StaticContext? _staticContext;
+    private readonly AbstractExpression<TNode> _functionReferenceExpression;
+    private FunctionValue<ISequence, TNode>? _functionReference;
+    private StaticContext<TNode>? _staticContext;
 
-    public FunctionCall(AbstractExpression functionReferenceExpression, AbstractExpression[] args) : base(
+    public FunctionCall(AbstractExpression<TNode> functionReferenceExpression, AbstractExpression<TNode>[] args) : base(
         new[] { functionReferenceExpression }.Concat(args).ToArray(),
         new OptimizationOptions(false))
     {
@@ -22,7 +22,7 @@ public class FunctionCall : PossiblyUpdatingExpression
     }
 
     public override ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
-        ExecutionParameters? executionParameters, SequenceCallback[] createArgumentSequences)
+        ExecutionParameters<TNode> executionParameters, SequenceCallback[] createArgumentSequences)
     {
         if (_functionReference != null)
             return _functionReference.Value(
@@ -66,14 +66,14 @@ public class FunctionCall : PossiblyUpdatingExpression
         AbstractValue functionItem,
         MulticastDelegate functionItemValue,
         DynamicContext dynamicContext,
-        ExecutionParameters executionParameters,
+        ExecutionParameters<TNode> executionParameters,
         SequenceCallback[] createArgumentSequences,
-        StaticContext staticContext)
+        StaticContext<TNode> staticContext)
     {
         throw new NotImplementedException("Function calls not implemented yet.");
     }
 
-    public override void PerformStaticEvaluation(StaticContext staticContext)
+    public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
     {
         _staticContext = staticContext.Clone();
 
@@ -90,13 +90,13 @@ public class FunctionCall : PossiblyUpdatingExpression
         }
     }
 
-    private static FunctionValue<T> ValidateFunctionItem<T>(AbstractValue item, int callArity)
+    private static FunctionValue<T, TNode> ValidateFunctionItem<T>(AbstractValue item, int callArity)
     {
-        var functionItem = item.GetAs<FunctionValue<T>>();
+        var functionItem = item.GetAs<FunctionValue<T, TNode>>();
 
         if (functionItem == null) throw new XPathException("Expected base expression to evaluate to a function item");
 
-        if (functionItem.GetArity() != callArity) throw new XPathException("XPTY0004");
+        if (functionItem.Arity != callArity) throw new XPathException("XPTY0004");
 
         return functionItem;
     }

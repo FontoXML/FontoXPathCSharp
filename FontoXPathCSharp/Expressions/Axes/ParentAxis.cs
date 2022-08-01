@@ -3,24 +3,32 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class ParentAxis : AbstractExpression
+public class ParentAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression _parentExpression;
+    private readonly AbstractTestExpression<TNode> _parentExpression;
 
-    public ParentAxis(AbstractTestExpression parentExpression) : base(new AbstractExpression[] { parentExpression },
+    public ParentAxis(AbstractTestExpression<TNode> parentExpression) : base(
+        new AbstractExpression<TNode>[] { parentExpression },
         new OptimizationOptions(false))
     {
         _parentExpression = parentExpression;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        var parentNode = executionParameters?.DomFacade.ParentNode;
+        var domFacade = executionParameters.DomFacade;
+        var contextNode = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext.ContextItem);
+        var parentNode = domFacade.GetParentNode(contextNode.Value);
+
         if (parentNode == null) return SequenceFactory.CreateEmpty();
 
-        // TODO: we technically need a pointer to parentNode here
-        var isMatch =
-            _parentExpression.EvaluateToBoolean(dynamicContext, new NodeValue(parentNode), executionParameters);
-        return isMatch ? SequenceFactory.CreateFromValue(new NodeValue(parentNode)) : SequenceFactory.CreateEmpty();
+        var parentNodeValue = new NodeValue<TNode>(parentNode, domFacade);
+        var nodeIsMatch = _parentExpression.EvaluateToBoolean(
+            dynamicContext,
+            parentNodeValue,
+            executionParameters
+        );
+
+        return !nodeIsMatch ? SequenceFactory.CreateEmpty() : SequenceFactory.CreateFromValue(parentNodeValue);
     }
 }

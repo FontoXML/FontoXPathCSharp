@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using FontoXPathCSharp;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using Xunit;
@@ -17,23 +18,35 @@ public class TestPathExpressions
     </xml>";
 
     private static readonly XmlDocument Document;
+    private static readonly XmlNodeDomFacade Domfacade;
 
     static TestPathExpressions()
     {
         Document = new XmlDocument();
         Document.LoadXml(TestXml);
+        Domfacade = new XmlNodeDomFacade();
     }
 
     private static IEnumerable<XmlNode> EvalQueryNodes(string query)
     {
-        return Evaluate.EvaluateXPathToNodes(query, Document, null, new Dictionary<string, AbstractValue>(),
-            new Options());
+        return Evaluate.EvaluateXPathToNodes(
+            query,
+            new NodeValue<XmlNode>(Document, Domfacade),
+            Domfacade,
+            new Dictionary<string, AbstractValue>(),
+            new Options<XmlNode>()
+        );
     }
 
-    private static string EvalQueryString(string query)
+    private static string? EvalQueryString(string query)
     {
-        return Evaluate.EvaluateXPathToString(query, Document, null, new Dictionary<string, AbstractValue>(),
-            new Options());
+        return Evaluate.EvaluateXPathToString(
+            query,
+            new NodeValue<XmlNode>(Document, Domfacade),
+            Domfacade,
+            new Dictionary<string, AbstractValue>(),
+            new Options<XmlNode>()
+        );
     }
 
     [Fact]

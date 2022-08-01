@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Xml;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Axes;
 using FontoXPathCSharp.Expressions.Operators;
@@ -11,7 +12,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp;
 
-public static class CompileAstToExpression
+public static class CompileAstToExpression<TNode>
 {
     private static CompilationOptions DisallowUpdating(CompilationOptions options)
     {
@@ -20,32 +21,32 @@ public static class CompileAstToExpression
         return CompilationOptions.XQueryUpdatingMode;
     }
 
-    private static AbstractTestExpression CompileElementTest(Ast ast)
+    private static AbstractTestExpression<TNode> CompileElementTest(Ast ast)
     {
         var elementName = ast.GetFirstChild(AstNodeName.ElementName);
         var star = elementName?.GetFirstChild(AstNodeName.Star);
         if (elementName == null || star != null)
-            return new KindTest(XmlNodeType.Element);
-        return new NameTest(elementName.GetFirstChild(AstNodeName.QName).GetQName(), XmlNodeType.Element);
+            return new KindTest<TNode>(NodeType.Element);
+        return new NameTest<TNode>(elementName.GetFirstChild(AstNodeName.QName).GetQName(), XmlNodeType.Element);
     }
 
-    private static AbstractTestExpression CompileAttributeTest(Ast ast)
+    private static AbstractTestExpression<TNode> CompileAttributeTest(Ast ast)
     {
         var attributeName = ast.GetFirstChild(AstNodeName.AttributeName);
         var star = attributeName?.GetFirstChild(AstNodeName.Star);
         if (attributeName == null || star != null)
-            return new KindTest(XmlNodeType.Attribute);
-        return new NameTest(attributeName.GetFirstChild(AstNodeName.QName).GetQName(), XmlNodeType.Attribute);
+            return new KindTest<TNode>(NodeType.Attribute);
+        return new NameTest<TNode>(attributeName.GetFirstChild(AstNodeName.QName).GetQName(), XmlNodeType.Attribute);
     }
 
-    private static AbstractTestExpression CompileWildcard(Ast ast)
+    private static AbstractTestExpression<TNode> CompileWildcard(Ast ast)
     {
         if (ast.GetFirstChild(AstNodeName.Star) == null)
-            return new NameTest(new QName("*", null, "*"));
+            return new NameTest<TNode>(new QName("*", null, "*"));
 
         var uri = ast.GetFirstChild(AstNodeName.Uri);
         if (uri != null)
-            return new NameTest(new QName("*", uri.TextContent, ""));
+            return new NameTest<TNode>(new QName("*", uri.TextContent, ""));
 
         var ncName = ast.GetFirstChild(AstNodeName.NcName);
         Debug.Assert(ncName != null, nameof(ncName) + " != null");
@@ -54,15 +55,15 @@ public static class CompileAstToExpression
         Debug.Assert(firstChild != null, nameof(firstChild) + " != null");
 
         return firstChild.IsA(AstNodeName.Star)
-            ? new NameTest(new QName(ncName.TextContent, null, "*"))
-            : new NameTest(new QName("*", null, ncName.TextContent));
+            ? new NameTest<TNode>(new QName(ncName.TextContent, null, "*"))
+            : new NameTest<TNode>(new QName("*", null, ncName.TextContent));
     }
 
-    private static AbstractTestExpression CompileTestExpression(Ast ast)
+    private static AbstractTestExpression<TNode> CompileTestExpression(Ast ast)
     {
         return ast.Name switch
         {
-            AstNodeName.NameTest => new NameTest(new QName(ast.TextContent)),
+            AstNodeName.NameTest => new NameTest<TNode>(new QName(ast.TextContent)),
             AstNodeName.AnyKindTest => CompileTypeTest(ast),
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
             AstNodeName.ElementTest => CompileElementTest(ast),
@@ -73,17 +74,17 @@ public static class CompileAstToExpression
         };
     }
 
-    private static AbstractTestExpression CompileTypeTest(Ast ast)
+    private static AbstractTestExpression<TNode> CompileTypeTest(Ast ast)
     {
-        return new TypeTest(ast.GetQName());
+        return new TypeTest<TNode>(ast.GetQName());
     }
 
-    private static AbstractTestExpression CompileTextTest(Ast ast)
+    private static AbstractTestExpression<TNode> CompileTextTest(Ast ast)
     {
-        return new KindTest(XmlNodeType.Text);
+        return new KindTest<TNode>(NodeType.Text);
     }
 
-    private static AbstractExpression CompilePathExpression(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompilePathExpression(Ast ast, CompilationOptions options)
     {
         var rawSteps = ast.GetChildren(AstNodeName.StepExpr);
 
@@ -92,7 +93,7 @@ public static class CompileAstToExpression
             var axis = step.GetFirstChild(AstNodeName.XPathAxis);
 
             var children = step.GetChildren(AstNodeName.All);
-            var postFixExpressions = new List<(string Type, AbstractExpression Postfix)>();
+            var postFixExpressions = new List<(string Type, AbstractExpression<TNode> Postfix)>();
 
             foreach (var child in children)
                 switch (child.Name)
@@ -108,7 +109,7 @@ public static class CompileAstToExpression
                         break;
                 }
 
-            AbstractExpression stepExpression;
+            AbstractExpression<TNode> stepExpression;
 
             if (axis != null)
             {
@@ -127,18 +128,18 @@ public static class CompileAstToExpression
 
                 stepExpression = axis.TextContent switch
                 {
-                    "self" => new SelfAxis(testExpression),
-                    "parent" => new ParentAxis(testExpression),
-                    "child" => new ChildAxis(testExpression),
-                    "attribute" => new AttributeAxis(testExpression),
-                    "ancestor" => new AncestorAxis(testExpression, false),
-                    "ancestor-or-self" => new AncestorAxis(testExpression, true),
-                    "descendant" => new DescendantAxis(testExpression, false),
-                    "descendant-or-self" => new DescendantAxis(testExpression, true),
-                    "following" => new FollowingAxis(testExpression),
-                    "preceding" => new PrecedingAxis(testExpression),
-                    "following-sibling" => new FollowingSiblingAxis(testExpression),
-                    "preceding-sibling" => new PrecedingSiblingAxis(testExpression),
+                    "self" => new SelfAxis<TNode>(testExpression),
+                    "parent" => new ParentAxis<TNode>(testExpression),
+                    "child" => new ChildAxis<TNode>(testExpression),
+                    "attribute" => new AttributeAxis<TNode>(testExpression),
+                    "ancestor" => new AncestorAxis<TNode>(testExpression, false),
+                    "ancestor-or-self" => new AncestorAxis<TNode>(testExpression, true),
+                    "descendant" => new DescendantAxis<TNode>(testExpression, false),
+                    "descendant-or-self" => new DescendantAxis<TNode>(testExpression, true),
+                    "following" => new FollowingAxis<TNode>(testExpression),
+                    "preceding" => new PrecedingAxis<TNode>(testExpression),
+                    "following-sibling" => new FollowingSiblingAxis<TNode>(testExpression),
+                    "preceding-sibling" => new PrecedingSiblingAxis<TNode>(testExpression),
                     _ => throw new InvalidDataException("Unknown axis type '" + axis.TextContent + "'")
                 };
             }
@@ -153,17 +154,17 @@ public static class CompileAstToExpression
                 {
                     "lookup" => throw new NotImplementedException(
                         "CompileAstToExpression.CompilePathExpression lookup postfix expression not implemented yet."),
-                    "predicate" => new FilterExpression(stepExpression, postfix.Postfix),
+                    "predicate" => new FilterExpression<TNode>(stepExpression, postfix.Postfix),
                     _ => throw new Exception("Unreachable")
                 };
 
             return stepExpression;
         });
 
-        return new PathExpression(steps.ToArray());
+        return new PathExpression<TNode>(steps.ToArray());
     }
 
-    private static AbstractExpression CompileFunctionCallExpression(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileFunctionCallExpression(Ast ast, CompilationOptions options)
     {
         var functionName = ast.GetFirstChild(AstNodeName.FunctionName);
         if (functionName == null)
@@ -176,34 +177,35 @@ public static class CompileAstToExpression
         args = args.ToList();
         var argExpressions = args.Select(arg => CompileAst(arg, options)).ToArray();
 
-        return new FunctionCall(new NamedFunctionRef(functionName.GetQName(), args.Count()), argExpressions);
+        return new FunctionCall<TNode>(new NamedFunctionRef<TNode>(functionName.GetQName(), args.Count()),
+            argExpressions);
     }
 
-    private static AbstractExpression CompileIntegerConstantExpression(Ast ast)
+    private static AbstractExpression<TNode> CompileIntegerConstantExpression(Ast ast)
     {
-        return new Literal(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
+        return new Literal<TNode>(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne));
     }
 
-    private static AbstractExpression CompileStringConstantExpr(Ast ast)
+    private static AbstractExpression<TNode> CompileStringConstantExpr(Ast ast)
     {
-        return new Literal(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
+        return new Literal<TNode>(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
     }
 
-    private static AbstractExpression CompileDoubleConstantExpr(Ast ast)
+    private static AbstractExpression<TNode> CompileDoubleConstantExpr(Ast ast)
     {
-        return new Literal(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
+        return new Literal<TNode>(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
             new SequenceType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne));
     }
 
-    private static AbstractExpression CompileDecimalConstantExpr(Ast ast)
+    private static AbstractExpression<TNode> CompileDecimalConstantExpr(Ast ast)
     {
-        return new Literal(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
+        return new Literal<TNode>(ast.GetFirstChild(AstNodeName.Value)!.TextContent,
             new SequenceType(ValueType.XsDecimal, SequenceMultiplicity.ExactlyOne));
     }
 
-    private static AbstractExpression CompileStringConcatenateExpr(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileStringConcatenateExpr(Ast ast, CompilationOptions options)
     {
         Console.WriteLine(ast);
         var args = new[]
@@ -212,13 +214,13 @@ public static class CompileAstToExpression
             ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!
         };
         Console.WriteLine(args[0]);
-        return new FunctionCall(new NamedFunctionRef(
+        return new FunctionCall<TNode>(new NamedFunctionRef<TNode>(
             new QName("concat", "http://www.w3.org/2005/xpath-functions", ""),
             args.Length
         ), args.Select(arg => CompileAst(arg, DisallowUpdating(options))).ToArray());
     }
 
-    private static AbstractExpression CompileCompareExpr(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileCompareExpr(Ast ast, CompilationOptions options)
     {
         var firstOperand = ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All);
         var secondOperand = ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All);
@@ -231,28 +233,29 @@ public static class CompileAstToExpression
 
         return ast.Name switch
         {
-            AstNodeName.EqualOp => new GeneralCompare(CompareType.Equal, firstExpression, secondExpression),
-            AstNodeName.NotEqualOp => new GeneralCompare(CompareType.NotEqual, firstExpression, secondExpression),
-            AstNodeName.LessThanOrEqualOp => new GeneralCompare(CompareType.LessEquals, firstExpression,
+            AstNodeName.EqualOp => new GeneralCompare<TNode>(CompareType.Equal, firstExpression, secondExpression),
+            AstNodeName.NotEqualOp =>
+                new GeneralCompare<TNode>(CompareType.NotEqual, firstExpression, secondExpression),
+            AstNodeName.LessThanOrEqualOp => new GeneralCompare<TNode>(CompareType.LessEquals, firstExpression,
                 secondExpression),
-            AstNodeName.LessThanOp => new GeneralCompare(CompareType.LessThan, firstExpression, secondExpression),
-            AstNodeName.GreaterThanOrEqualOp => new GeneralCompare(CompareType.GreaterEquals, firstExpression,
+            AstNodeName.LessThanOp =>
+                new GeneralCompare<TNode>(CompareType.LessThan, firstExpression, secondExpression),
+            AstNodeName.GreaterThanOrEqualOp => new GeneralCompare<TNode>(CompareType.GreaterEquals, firstExpression,
                 secondExpression),
-            AstNodeName.GreaterThanOp => new GeneralCompare(CompareType.GreaterThan, firstExpression, secondExpression),
-            AstNodeName.EqOp => new ValueCompare(CompareType.Equal, firstExpression, secondExpression),
-            AstNodeName.NeOp => new ValueCompare(CompareType.NotEqual, firstExpression, secondExpression),
-            AstNodeName.LtOp => new ValueCompare(CompareType.LessThan, firstExpression, secondExpression),
-            AstNodeName.LeOp => new ValueCompare(CompareType.LessEquals, firstExpression, secondExpression),
-            AstNodeName.GtOp => new ValueCompare(CompareType.GreaterThan, firstExpression, secondExpression),
-            AstNodeName.GeOp => new ValueCompare(CompareType.GreaterEquals, firstExpression, secondExpression),
+            AstNodeName.GreaterThanOp => new GeneralCompare<TNode>(CompareType.GreaterThan, firstExpression,
+                secondExpression),
+            AstNodeName.EqOp => new ValueCompare<TNode>(CompareType.Equal, firstExpression, secondExpression),
+            AstNodeName.NeOp => new ValueCompare<TNode>(CompareType.NotEqual, firstExpression, secondExpression),
+            AstNodeName.LtOp => new ValueCompare<TNode>(CompareType.LessThan, firstExpression, secondExpression),
+            AstNodeName.LeOp => new ValueCompare<TNode>(CompareType.LessEquals, firstExpression, secondExpression),
+            AstNodeName.GtOp => new ValueCompare<TNode>(CompareType.GreaterThan, firstExpression, secondExpression),
+            AstNodeName.GeOp => new ValueCompare<TNode>(CompareType.GreaterEquals, firstExpression, secondExpression),
             _ => throw new Exception("Unreachable")
         };
     }
 
-    public static AbstractExpression CompileAst(Ast ast, CompilationOptions options)
+    public static AbstractExpression<TNode> CompileAst(Ast ast, CompilationOptions options)
     {
-        var stringified = ast.ToString();
-        Console.WriteLine(stringified);
         return ast.Name switch
         {
             AstNodeName.Module => CompileModule(ast, options),
@@ -260,7 +263,7 @@ public static class CompileAstToExpression
             AstNodeName.QueryBody => CompileAst(ast.GetFirstChild()!, options),
             AstNodeName.PathExpr => CompilePathExpression(ast, options),
             AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast, options),
-            AstNodeName.ContextItemExpr => new ContextItemExpression(),
+            AstNodeName.ContextItemExpr => new ContextItemExpression<TNode>(),
             AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
             AstNodeName.DecimalConstantExpr => CompileDecimalConstantExpr(ast),
@@ -299,16 +302,17 @@ public static class CompileAstToExpression
         };
     }
 
-    private static AbstractExpression CompileInstanceOfExpr(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileInstanceOfExpr(Ast ast, CompilationOptions options)
     {
         var expression = CompileAst(ast.FollowPath(AstNodeName.ArgExpr, AstNodeName.All), options);
         var sequenceType = ast.FollowPath(AstNodeName.SequenceType, AstNodeName.All);
         var occurrence = ast.FollowPath(AstNodeName.SequenceType, AstNodeName.OccurrenceIndicator);
 
-        return new InstanceOfOperator(expression, CompileAst(sequenceType, DisallowUpdating(options)), occurrence?.TextContent ?? "");
+        return new InstanceOfOperator<TNode>(expression, CompileAst(sequenceType, DisallowUpdating(options)),
+            occurrence?.TextContent ?? "");
     }
 
-    private static AbstractExpression CompileRangeSequenceExpr(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileRangeSequenceExpr(Ast ast, CompilationOptions options)
     {
         var args = new[]
         {
@@ -316,21 +320,23 @@ public static class CompileAstToExpression
             ast.FollowPath(AstNodeName.EndExpr, AstNodeName.All)
         };
 
-        var functionRef = new NamedFunctionRef(
+        var functionRef = new NamedFunctionRef<TNode>(
             new QName("to", "http://fontoxpath/operators", ""),
             args.Length
         );
 
-        return new FunctionCall(functionRef, args.Select(arg => CompileAst(arg!, DisallowUpdating(options))).ToArray());
+        return new FunctionCall<TNode>(functionRef,
+            args.Select(arg => CompileAst(arg!, DisallowUpdating(options))).ToArray());
     }
 
-    private static AbstractExpression CompileArrowExpr(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileArrowExpr(Ast ast, CompilationOptions options)
     {
         var argExpr = ast.FollowPath(AstNodeName.ArgExpr, AstNodeName.All);
         // Each part an EQName, expression, or arguments passed to the previous part
         var parts = ast.GetChildren(AstNodeName.All).Skip(1).ToArray();
 
-        IEnumerable<AbstractExpression?> args = new List<AbstractExpression?> { CompileAst(argExpr, options) };
+        IEnumerable<AbstractExpression<TNode>?> args = new List<AbstractExpression<TNode>?>
+            { CompileAst(argExpr, options) };
 
         for (var i = 0; i < parts.Length; i++)
         {
@@ -346,33 +352,33 @@ public static class CompileAstToExpression
             }
 
             var func = parts[i].Name == AstNodeName.EqName
-                ? new NamedFunctionRef(parts[i].GetQName(), args.Count())
+                ? new NamedFunctionRef<TNode>(parts[i].GetQName(), args.Count())
                 : CompileAst(parts[i], DisallowUpdating(options));
-            args = new List<AbstractExpression?> { new FunctionCall(func, args.ToArray()) };
+            args = new List<AbstractExpression<TNode>?> { new FunctionCall<TNode>(func, args.ToArray()) };
         }
 
         return args.First()!;
     }
 
-    private static AbstractExpression CompileDynamicFunctionInvocationExpr(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileDynamicFunctionInvocationExpr(Ast ast, CompilationOptions options)
     {
         var functionItemContent = ast.FollowPath(AstNodeName.FunctionItem, AstNodeName.All);
         var argumentsAst = ast.GetFirstChild(AstNodeName.Arguments);
-        var args = Array.Empty<AbstractExpression>();
+        var args = Array.Empty<AbstractExpression<TNode>>();
         if (argumentsAst != null)
         {
             var functionArguments = argumentsAst.GetChildren(AstNodeName.All);
             args = functionArguments.Select(arg =>
                 arg.Name == AstNodeName.ArgumentPlaceholder ? null : CompileAst(arg, options)
-            ).OfType<AbstractExpression>().ToArray();
+            ).OfType<AbstractExpression<TNode>>().ToArray();
         }
 
-        return new FunctionCall(CompileAst(functionItemContent, options), args);
+        return new FunctionCall<TNode>(CompileAst(functionItemContent, options), args);
     }
 
-    private static AbstractExpression CompileIfThenElseExpr(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileIfThenElseExpr(Ast ast, CompilationOptions options)
     {
-        return new IfExpression(
+        return new IfExpression<TNode>(
             CompileAst(ast.FollowPath(AstNodeName.IfClause, AstNodeName.All), options),
             CompileAst(ast.FollowPath(AstNodeName.ThenClause, AstNodeName.All), options),
             CompileAst(ast.FollowPath(AstNodeName.ElseClause, AstNodeName.All), options)
@@ -380,7 +386,7 @@ public static class CompileAstToExpression
     }
 
 
-    private static AbstractExpression CastAs(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CastAs(Ast ast, CompilationOptions options)
     {
         var expression = CompileAst(ast.GetFirstChild(AstNodeName.ArgExpr)?.GetFirstChild()!,
             DisallowUpdating(options));
@@ -389,56 +395,56 @@ public static class CompileAstToExpression
         var targetType = singleType.GetFirstChild(AstNodeName.AtomicType).GetQName();
         var optional = singleType.GetFirstChild(AstNodeName.Optional) != null;
 
-        return new CastAsOperator(expression, targetType, optional);
+        return new CastAsOperator<TNode>(expression, targetType, optional);
     }
 
 
-    private static AbstractExpression CompileBinaryOperator(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileBinaryOperator(Ast ast, CompilationOptions options)
     {
         var kind = ast.Name;
         var a = CompileAst(ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All)!, DisallowUpdating(options));
         var b = CompileAst(ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!, DisallowUpdating(options));
 
-        return new BinaryOperator(kind, a, b);
+        return new BinaryOperator<TNode>(kind, a, b);
     }
 
-    private static AbstractExpression CompileUnaryOperator(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileUnaryOperator(Ast ast, CompilationOptions options)
     {
         var operand = ast.FollowPath(AstNodeName.Operand, AstNodeName.All);
-        return new UnaryOperator(ast.Name, CompileAst(operand, options));
+        return new UnaryOperator<TNode>(ast.Name, CompileAst(operand, options));
     }
 
-    private static AbstractExpression CompileUnionOp(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileUnionOp(Ast ast, CompilationOptions options)
     {
-        return new UnionOperator(new[]
+        return new UnionOperator<TNode>(new[]
         {
             CompileAst(ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All)!, options),
             CompileAst(ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!, options)
         });
     }
 
-    private static AbstractExpression CompileSequenceExpression(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileSequenceExpression(Ast ast, CompilationOptions options)
     {
         var childExpressions = ast.GetChildren(AstNodeName.All).Select(arg => CompileAst(arg, options)).ToArray();
         if (childExpressions.Length == 1) return childExpressions.First();
 
-        return new SequenceExpression(childExpressions);
+        return new SequenceExpression<TNode>(childExpressions);
     }
 
-    private static AbstractExpression CompileAndOp(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileAndOp(Ast ast, CompilationOptions options)
     {
-        return new AndOperator(UnwrapBinaryOperator(AstNodeName.AndOp, ast, DisallowUpdating(options)));
+        return new AndOperator<TNode>(UnwrapBinaryOperator(AstNodeName.AndOp, ast, DisallowUpdating(options)));
     }
 
-    private static AbstractExpression CompileOrOp(Ast ast, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileOrOp(Ast ast, CompilationOptions options)
     {
-        return new OrOperator(UnwrapBinaryOperator(AstNodeName.OrOp, ast, DisallowUpdating(options)));
+        return new OrOperator<TNode>(UnwrapBinaryOperator(AstNodeName.OrOp, ast, DisallowUpdating(options)));
     }
 
-    private static AbstractExpression[] UnwrapBinaryOperator(AstNodeName operatorName, Ast ast,
+    private static AbstractExpression<TNode>[] UnwrapBinaryOperator(AstNodeName operatorName, Ast ast,
         CompilationOptions options)
     {
-        var compiledAstNodes = new List<AbstractExpression>();
+        var compiledAstNodes = new List<AbstractExpression<TNode>>();
 
         Action<Ast>? unwrapInner = null;
         unwrapInner = innerAst =>
@@ -458,12 +464,12 @@ public static class CompileAstToExpression
         return compiledAstNodes.ToArray();
     }
 
-    private static AbstractExpression CompileModule(Ast module, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileModule(Ast module, CompilationOptions options)
     {
         return CompileAst(module.GetFirstChild(AstNodeName.MainModule)!, options);
     }
 
-    private static AbstractExpression CompileMainModule(Ast mainModule, CompilationOptions options)
+    private static AbstractExpression<TNode> CompileMainModule(Ast mainModule, CompilationOptions options)
     {
         var prolog = mainModule.GetFirstChild(AstNodeName.Prolog);
         if (prolog != null) ProcessProlog(prolog);
@@ -475,4 +481,3 @@ public static class CompileAstToExpression
         throw new NotImplementedException("ProcessProlog not implemented");
     }
 }
-

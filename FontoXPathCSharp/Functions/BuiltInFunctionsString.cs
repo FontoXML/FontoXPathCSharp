@@ -7,9 +7,9 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public static class BuiltInFunctionsString
+public static class BuiltInFunctionsString<TNode>
 {
-    private static readonly FunctionSignature<ISequence> FnConcat = (_, executionParameters, _, args) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnConcat = (_, executionParameters, _, args) =>
     {
         var stringSequences = args.Select(sequence =>
             Atomize.AtomizeSequence(sequence, executionParameters!).MapAll(allValues =>
@@ -26,7 +26,7 @@ public static class BuiltInFunctionsString
                     ValueType.XsString)));
     };
 
-    private static readonly FunctionSignature<ISequence> FnStringLength = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnStringLength = (_, _, _, args) =>
     {
         if (args.Length == 0) return SequenceFactory.CreateFromValue(new IntValue(0));
 
@@ -35,7 +35,7 @@ public static class BuiltInFunctionsString
         return SequenceFactory.CreateFromValue(new IntValue(stringValue.Length));
     };
 
-    private static readonly FunctionSignature<ISequence> FnNormalizeSpace = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnNormalizeSpace = (_, _, _, args) =>
     {
         if (args.Length == 0) return SequenceFactory.CreateFromValue(new StringValue(""));
 
@@ -43,7 +43,7 @@ public static class BuiltInFunctionsString
         return SequenceFactory.CreateFromValue(new StringValue(Regex.Replace(stringValue, @"\s+", " ")));
     };
 
-    private static readonly FunctionSignature<ISequence> FnString = (_, executionParameters, _, sequences) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnString = (_, executionParameters, _, sequences) =>
     {
         var sequence = sequences[0];
         if (sequence.IsEmpty()) return SequenceFactory.CreateFromValue(AtomicValue.Create("", ValueType.XsString));
@@ -65,7 +65,7 @@ public static class BuiltInFunctionsString
 
     private static readonly Dictionary<string, Func<string, bool>> CachedPatterns = new();
 
-    private static readonly FunctionSignature<ISequence> FnMatches = (_, _, _, sequences) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnMatches = (_, _, _, sequences) =>
     {
         return ISequence.ZipSingleton(sequences, sequenceValues =>
         {
@@ -83,7 +83,7 @@ public static class BuiltInFunctionsString
         });
     };
 
-    public static readonly BuiltinDeclarationType[] Declarations =
+    public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
         new(
             new[]
@@ -100,7 +100,7 @@ public static class BuiltInFunctionsString
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
         new(Array.Empty<ParameterType>(),
-            BuiltInFunctions.ContextItemAsFirstArgument(FnStringLength), "string-length",
+            BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnStringLength), "string-length",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
 
@@ -110,7 +110,7 @@ public static class BuiltInFunctionsString
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
         // TODO: this is implemented differently in the javascript version
         new(Array.Empty<ParameterType>(),
-            BuiltInFunctions.ContextItemAsFirstArgument(FnNormalizeSpace), "normalize-space",
+            BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnNormalizeSpace), "normalize-space",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
         new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne) },
@@ -119,7 +119,7 @@ public static class BuiltInFunctionsString
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
         new(Array.Empty<ParameterType>(),
-            BuiltInFunctions.ContextItemAsFirstArgument(FnString),
+            BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnString),
             "string",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),

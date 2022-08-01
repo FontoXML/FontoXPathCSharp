@@ -1,6 +1,7 @@
-using System.Xml;
+using FontoXPathCSharp.DocumentWriter;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.NodesFactory;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
@@ -8,23 +9,24 @@ using FontoXPathCSharp.Value.Types;
 using NamespaceResolverFunc = System.Func<string, string?>;
 using FunctionNameResolverFunc =
     System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName?>;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
-public class EvaluationContext<TSelector>
+public class EvaluationContext<TSelector, TNode>
 {
     public EvaluationContext(
         TSelector expression,
-        XmlNode? contextItem,
-        IDomFacade? domFacade,
+        AbstractValue? contextItem,
+        IDomFacade<TNode>? domFacade,
         Dictionary<string, AbstractValue>? variables,
-        Options? externalOptions,
+        Options<TNode>? externalOptions,
         CompilationOptions compilationOptions)
     {
         variables ??= new Dictionary<string, AbstractValue>();
 
         var internalOptions = externalOptions != null
-            ? new Options
+            ? new Options<TNode>
             {
                 Logger = externalOptions.Logger ?? Console.WriteLine,
                 DocumentWriter = externalOptions.DocumentWriter,
@@ -33,7 +35,7 @@ public class EvaluationContext<TSelector>
                 FunctionNameResolver = externalOptions.FunctionNameResolver,
                 NodesFactory = externalOptions.NodesFactory
             }
-            : new Options
+            : new Options<TNode>
             {
                 Logger = Console.WriteLine,
                 DocumentWriter = null,
@@ -47,7 +49,8 @@ public class EvaluationContext<TSelector>
 
         var moduleImports = internalOptions.ModuleImports ?? new Dictionary<string, string>();
 
-        var namespaceResolver = internalOptions.NamespaceResolver ?? CreateDefaultNamespaceResolver(contextItem);
+        var namespaceResolver = internalOptions.NamespaceResolver ??
+                                CreateDefaultNamespaceResolver(contextItem, wrappedDomFacade);
 
         var defaultFunctionNamespaceUri = externalOptions?.DefaultFunctionNamespaceUri ??
                                           BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri();
@@ -55,7 +58,7 @@ public class EvaluationContext<TSelector>
         var functionNameResolver = internalOptions.FunctionNameResolver ??
                                    CreateDefaultFunctionNameResolver(defaultFunctionNamespaceUri);
 
-        var expressionAndStaticContext = CompileXPath.StaticallyCompileXPath(
+        var expressionAndStaticContext = CompileXPath<TSelector, TNode>.StaticallyCompileXPath(
             expression,
             compilationOptions,
             namespaceResolver,
@@ -69,39 +72,62 @@ public class EvaluationContext<TSelector>
             ? AdaptValueToSequence(wrappedDomFacade, contextItem)
             : SequenceFactory.CreateEmpty();
 
+        INodesFactory<TNode> nodesFactory = null;
         // var nodesFactory = internalOptions.NodesFactory != null && compilationOptions.AllowXQuery
-        //     ? wrapExternalDocumentWriter(internalOptions.DocumentWriter)
-        //     : domBackedDocumentWriter;
+        //     ? WrapExternalDocumentWriter(internalOptions.DocumentWriter)
+        //     : DomBackedDocumentWriter;
+
+        IDocumentWriter<TNode> documentWriter = null;
+
+        var xmlSerializer = internalOptions.XmlSerializer;
 
         DynamicContext = new DynamicContext(contextSequence.First(), 0, contextSequence);
-        ExecutionParameters = new ExecutionParameters(contextItem);
+        ExecutionParameters = new ExecutionParameters<TNode>(
+            compilationOptions.Debug,
+            compilationOptions.DisableCache,
+            wrappedDomFacade,
+            externalOptions.CurrentContext,
+            nodesFactory,
+            documentWriter,
+            internalOptions.Logger,
+            xmlSerializer
+        );
         Expression = expressionAndStaticContext.Expression;
     }
 
     public DynamicContext DynamicContext { get; }
 
-    public ExecutionParameters? ExecutionParameters { get; }
+    public ExecutionParameters<TNode> ExecutionParameters { get; }
 
-    public AbstractExpression Expression { get; }
+    public AbstractExpression<TNode> Expression { get; }
 
-    private static DomFacade.DomFacade CreateWrappedDomFacade(IDomFacade? domFacade)
+    private static DomFacade<TNode> CreateWrappedDomFacade(IDomFacade<TNode>? domFacade)
     {
-        if (domFacade != null) return new DomFacade.DomFacade(domFacade);
-        return new DomFacade.DomFacade();
-        // throw new Exception("External Dom Facade not implemented yet");
+        if (domFacade != null) return new DomFacade<TNode>(domFacade);
+
+        throw new NotImplementedException(
+            "EvaluationContext.CreateWrappedDomFacade: External Dom Facade not implemented yet");
     }
 
-    private static ISequence AdaptValueToSequence(DomFacade.DomFacade domFacade, XmlNode value,
+    private static ISequence AdaptValueToSequence(
+        DomFacade<TNode> domFacade,
+        AbstractValue value,
         SequenceType? expectedType = null)
     {
-        return new SingletonSequence(new NodeValue(value));
+        return new SingletonSequence(new NodeValue<TNode>(value.GetAs<NodeValue<TNode>>().Value, domFacade));
     }
 
-    private static NamespaceResolverFunc CreateDefaultNamespaceResolver(XmlNode? contextItem)
+    private static NamespaceResolverFunc CreateDefaultNamespaceResolver(
+        AbstractValue? contextItem,
+        DomFacade<TNode>? domFacade
+    )
     {
-        if (contextItem == null) return _ => null;
+        if (contextItem == null || domFacade == null || !contextItem.GetValueType().IsSubtypeOf(ValueType.Node))
+            return _ => null;
 
-        return prefix => prefix + contextItem.NamespaceURI;
+        var node = contextItem.GetAs<NodeValue<TNode>>().Value;
+
+        return prefix => domFacade.LookupNamespaceUri(node, prefix);
     }
 
     private static FunctionNameResolverFunc CreateDefaultFunctionNameResolver(string defaultFunctionNamespaceUri)

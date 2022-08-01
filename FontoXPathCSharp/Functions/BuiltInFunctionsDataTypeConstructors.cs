@@ -5,9 +5,9 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsDataTypeConstructors
+public class BuiltInFunctionsDataTypeConstructors<TNode>
 {
-    private static readonly FunctionSignature<ISequence> FnXsQName = (_, _, staticContext, args) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnXsQName = (_, _, staticContext, args) =>
     {
         var sequence = args[0];
 
@@ -50,7 +50,7 @@ public class BuiltInFunctionsDataTypeConstructors
         );
     };
 
-    public static readonly BuiltinDeclarationType[] Declarations = GenerateDeclarations();
+    public static readonly BuiltinDeclarationType<TNode>[] Declarations = GenerateDeclarations();
 
     private static ISequence GenericDataTypeConstructor(
         ValueType dataType,
@@ -62,7 +62,7 @@ public class BuiltInFunctionsDataTypeConstructors
             : SequenceFactory.CreateFromValue(sequence.First()!.CastToType(dataType));
     }
 
-    private static BuiltinDeclarationType[] GenerateDeclarations()
+    private static BuiltinDeclarationType<TNode>[] GenerateDeclarations()
     {
         var ZeroOrOneConstructorTypes = new Dictionary<string, ValueType>
         {
@@ -113,7 +113,7 @@ public class BuiltInFunctionsDataTypeConstructors
         };
 
         var zeroOrOnedeclarations = ZeroOrOneConstructorTypes
-            .Select(nameValueType => new BuiltinDeclarationType(
+            .Select(nameValueType => new BuiltinDeclarationType<TNode>(
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 (_, _, _, args) => GenericDataTypeConstructor(nameValueType.Value, args[0]),
                 nameValueType.Key,
@@ -129,7 +129,7 @@ public class BuiltInFunctionsDataTypeConstructors
         };
 
         var zeroOrMoredeclarations = ZeroOrMoreConstructorTypes
-            .Select(nameValueType => new BuiltinDeclarationType(
+            .Select(nameValueType => new BuiltinDeclarationType<TNode>(
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 (_, _, _, args) => GenericDataTypeConstructor(nameValueType.Value, args[0]),
                 nameValueType.Key,
@@ -140,7 +140,7 @@ public class BuiltInFunctionsDataTypeConstructors
 
         var qNameDeclaration = new[]
         {
-            new BuiltinDeclarationType(
+            new BuiltinDeclarationType<TNode>(
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 FnXsQName,
                 "QName",

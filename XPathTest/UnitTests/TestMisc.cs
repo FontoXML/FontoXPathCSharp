@@ -1,3 +1,4 @@
+using System.Xml;
 using FontoXPathCSharp;
 using Xunit;
 
@@ -8,12 +9,13 @@ public class TestMisc
     [Fact]
     public void TestFloat()
     {
-        Assert.Equal(1, Evaluate.EvaluateXPathToInt("xs:float('1')", null));
+        Assert.Equal(1, Evaluate.EvaluateXPathToInt<string, XmlNode>("xs:float('1')", null));
     }
-    
+
     [Fact]
     public void TestInstanceOf()
     {
-        Assert.False(Evaluate.EvaluateXPathToBoolean("xs:boolean(\"true\") instance of xs:string", null));
+        Assert.False(
+            Evaluate.EvaluateXPathToBoolean<string, XmlNode>("xs:boolean(\"true\") instance of xs:string", null));
     }
 }

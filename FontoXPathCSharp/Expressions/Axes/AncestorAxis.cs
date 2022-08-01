@@ -1,23 +1,23 @@
-using System.Xml;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class AncestorAxis : AbstractExpression
+public class AncestorAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression _ancestorExpression;
+    private readonly AbstractTestExpression<TNode> _ancestorExpression;
     private readonly bool _inclusive;
 
-    public AncestorAxis(AbstractTestExpression ancestorExpression, bool inclusive) : base(
-        new AbstractExpression[] { ancestorExpression }, new OptimizationOptions(false)
+    public AncestorAxis(AbstractTestExpression<TNode> ancestorExpression, bool inclusive) : base(
+        new AbstractExpression<TNode>[] { ancestorExpression }, new OptimizationOptions(false)
     )
     {
         _ancestorExpression = ancestorExpression;
         _inclusive = inclusive;
     }
 
-    private static Iterator<AbstractValue> GenerateAncestors(XmlNode? contextPointer)
+    private static Iterator<AbstractValue> GenerateAncestors(IDomFacade<TNode>? domFacade, TNode? contextPointer)
     {
         var ancestor = contextPointer;
         return _ =>
@@ -25,18 +25,27 @@ public class AncestorAxis : AbstractExpression
             if (ancestor == null) return IteratorResult<AbstractValue>.Done();
 
             var previousAncestor = ancestor;
-            ancestor = ancestor.ParentNode;
+            ancestor = domFacade.GetParentNode(previousAncestor);
 
-            return IteratorResult<AbstractValue>.Ready(new NodeValue(previousAncestor));
+            return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(previousAncestor, domFacade));
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
+        var domFacade = executionParameters.DomFacade;
+
+        var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 
         return SequenceFactory
-            .CreateFromIterator(GenerateAncestors(_inclusive ? contextItem.Value : contextItem.Value.ParentNode))
+            .CreateFromIterator(
+                GenerateAncestors(
+                    domFacade,
+                    _inclusive
+                        ? contextItem.Value
+                        : domFacade.GetParentNode(contextItem.Value)
+                )
+            )
             .Filter(
                 (item, _, _) => _ancestorExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
     }

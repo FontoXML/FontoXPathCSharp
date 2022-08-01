@@ -144,26 +144,12 @@ public enum AstNodeName
 
 public class Ast
 {
-    public class StackTraceInfo
-    {
-        private int _offset;
-        private int _line;
-        private int _column;
-
-        public StackTraceInfo(int offset, int line, int column)
-        {
-            _offset = offset;
-            _line = line;
-            _column = column;
-        }
-    }
-
     public readonly AstNodeName Name;
     public readonly Dictionary<string, string?> StringAttributes;
+    public StackTraceInfo? _end;
+    public StackTraceInfo? _start;
     public List<Ast> Children;
     public string TextContent;
-    public StackTraceInfo? _start;
-    public StackTraceInfo? _end;
 
     public Ast(AstNodeName name)
     {
@@ -247,5 +233,19 @@ public class Ast
     {
         Children.AddRange(children);
         return this;
+    }
+
+    public class StackTraceInfo
+    {
+        private int _column;
+        private int _line;
+        private int _offset;
+
+        public StackTraceInfo(int offset, int line, int column)
+        {
+            _offset = offset;
+            _line = line;
+            _column = column;
+        }
     }
 }

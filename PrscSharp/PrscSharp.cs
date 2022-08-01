@@ -215,7 +215,7 @@ public static class PrscSharp
     {
         return Then(parser, End, First);
     }
-    
+
     public static ParseResult<T> OkWithValue<T>(int offset, T value)
     {
         return new Ok<T>(offset, value);

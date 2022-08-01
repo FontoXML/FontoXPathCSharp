@@ -1,11 +1,10 @@
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Functions;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 
-namespace FontoXPathCSharp;
+namespace FontoXPathCSharp.Expressions;
 
-public class ExecutionSpecificStaticContext : AbstractContext
+public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode>
 {
     private readonly Func<LexicalQualifiedName, int, ResolvedQualifiedName?> _functionNameResolver;
     private readonly Func<string, string?> _namespaceResolver;
@@ -76,10 +75,10 @@ public class ExecutionSpecificStaticContext : AbstractContext
         return _resolvedFunctions;
     }
 
-    public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
+    public override FunctionProperties<TNode>? LookupFunction(string? namespaceUri, string localName, int arity,
         bool skipExternal = false)
     {
-        return namespaceUri != null ? FunctionRegistry.GetFunctionByArity(namespaceUri, localName, arity) : null;
+        return namespaceUri != null ? FunctionRegistry<TNode>.GetFunctionByArity(namespaceUri, localName, arity) : null;
     }
 
     public override string? LookupVariable(string? namespaceUri, string localName)

@@ -5,16 +5,16 @@ using FontoXPathCSharp.Types;
 
 namespace FontoXPathCSharp;
 
-public class StaticContext : AbstractContext
+public class StaticContext<TNode> : AbstractContext<TNode>
 {
-    private readonly AbstractContext _parentContext;
+    private readonly AbstractContext<TNode> _parentContext;
 
     private readonly Dictionary<string, string>[] _registeredNamespaceUriByPrefix;
 
     private readonly int _scopeDepth;
-    private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
+    private Dictionary<string, FunctionProperties<TNode>> _registeredFunctionsByHash;
 
-    public StaticContext(AbstractContext parentContext)
+    public StaticContext(AbstractContext<TNode> parentContext)
     {
         _parentContext = parentContext;
 
@@ -25,28 +25,29 @@ public class StaticContext : AbstractContext
             new Dictionary<string, string>()
         };
 
-        _registeredFunctionsByHash = new Dictionary<string, FunctionProperties>();
+        _registeredFunctionsByHash = new Dictionary<string, FunctionProperties<TNode>>();
 
         registeredDefaultFunctionNamespaceURI = null;
 
         // NOTE: not sure if these default values are correct   
         registeredVariableDeclarationByHashKey = parentContext?.RegisteredVariableDeclarationByHashKey ??
                                                  new Dictionary<string,
-                                                     Func<DynamicContext, ExecutionParameters, ISequence>>();
+                                                     Func<DynamicContext, ExecutionParameters<TNode>, ISequence>>();
         registeredVariableBindingByHashKey =
             parentContext?.RegisteredVariableBindingByHashKey ?? new Dictionary<string, string>();
 
         // TODO: this should not be done here but lets populate the static context with the default functions right here for now
-        foreach (var function in BuiltInFunctions.Declarations)
+        foreach (var function in BuiltInFunctions<TNode>.Declarations)
         {
             if (function.CallFunction == null)
                 throw new Exception("The callback needs to be declared before the declaration itself.");
 
-            FunctionRegistry.RegisterFunction(function.NamespaceUri, function.LocalName, function.ArgumentTypes,
+            FunctionRegistry<TNode>.RegisterFunction(function.NamespaceUri, function.LocalName, function.ArgumentTypes,
                 function.ReturnType, function.CallFunction);
 
             var functionProperties =
-                new FunctionProperties(function.ArgumentTypes, function.ArgumentTypes.Length, function.CallFunction,
+                new FunctionProperties<TNode>(function.ArgumentTypes, function.ArgumentTypes.Length,
+                    function.CallFunction,
                     false, function.LocalName, function.NamespaceUri, function.ReturnType);
             RegisterFunctionDefinition(functionProperties!);
         }
@@ -66,9 +67,9 @@ public class StaticContext : AbstractContext
                $"Registered Functions By Hash: {funcString}\n}}";
     }
 
-    public StaticContext Clone()
+    public StaticContext<TNode> Clone()
     {
-        var contextAtThisPoint = new StaticContext(_parentContext);
+        var contextAtThisPoint = new StaticContext<TNode>(_parentContext);
         contextAtThisPoint._registeredFunctionsByHash =
             _registeredFunctionsByHash.ToDictionary(e => e.Key, e => e.Value);
         return contextAtThisPoint;
@@ -79,7 +80,7 @@ public class StaticContext : AbstractContext
         return $"Q{{{namespaceUri ?? string.Empty}}}{localName}~{arity}";
     }
 
-    public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
+    public override FunctionProperties<TNode>? LookupFunction(string? namespaceUri, string localName, int arity,
         bool skipExternal = false)
     {
         var hashKey = GetSignatureHash(namespaceUri, localName, arity);
@@ -137,7 +138,7 @@ public class StaticContext : AbstractContext
         throw new NotImplementedException("EnhanceStaticContextWithModule not implemented yet.");
     }
 
-    public void RegisterFunctionDefinition(FunctionProperties properties)
+    public void RegisterFunctionDefinition(FunctionProperties<TNode> properties)
     {
         var hashKey = GetSignatureHash(properties.NamespaceUri, properties.LocalName, properties.Arity);
 

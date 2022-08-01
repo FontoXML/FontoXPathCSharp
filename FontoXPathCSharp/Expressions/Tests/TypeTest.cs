@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp.Expressions.Tests;
 
-public class TypeTest : AbstractTestExpression
+public class TypeTest<TNode> : AbstractTestExpression<TNode>
 {
     private readonly QName _type;
 
@@ -13,7 +13,7 @@ public class TypeTest : AbstractTestExpression
     }
 
     protected internal override bool EvaluateToBoolean(DynamicContext? dynamicContext, AbstractValue value,
-        ExecutionParameters? executionParameters)
+        ExecutionParameters<TNode> executionParameters)
     {
         return value.GetValueType()
             .IsSubtypeOf((_type.Prefix == null ? _type.LocalName : _type.Prefix + ":" + _type.LocalName)

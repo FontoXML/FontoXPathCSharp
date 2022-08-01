@@ -5,9 +5,9 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsQName
+public class BuiltInFunctionsQName<TNode>
 {
-    private static readonly FunctionSignature<ISequence> FnQName = (_, _, _, param) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnQName = (_, _, _, param) =>
     {
         var paramUri = param[0];
         return ISequence.ZipSingleton(param, values =>
@@ -41,7 +41,7 @@ public class BuiltInFunctionsQName
         });
     };
 
-    public static readonly BuiltinDeclarationType[] Declarations =
+    public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
         new(new[]
             {

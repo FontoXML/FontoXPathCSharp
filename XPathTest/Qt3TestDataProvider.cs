@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using FontoXPathCSharp;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 
@@ -13,14 +14,10 @@ namespace XPathTest;
 public class Qt3TestDataProvider : IEnumerable<object[]>
 {
     private readonly HashSet<string> _shouldRunTestByName = new();
-    
+
     private readonly List<object[]> _testCases = new();
 
     private readonly HashSet<string> _unrunnableTestCasesByName = new();
-
-    public Qt3TestDataProvider()
-    {
-    }
 
     public IEnumerator<object[]> GetEnumerator()
     {
@@ -32,7 +29,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
                 .Select(l => l[0])
                 .ToList()
                 .ForEach(x => _shouldRunTestByName.Add(x));
-        
+
         // Addinf failed test cases that come from parse errors to the ignore set.
         if (TestFileSystem.FileExists("parseUnrunnableTestCases.csv"))
         {
@@ -44,7 +41,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
                     e => e[0],
                     e => e[1]
                 );
-        
+
             parseErrorCases.Aggregate(
                 _unrunnableTestCasesByName,
                 (acc, val) =>
@@ -54,45 +51,48 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
                 }
             );
         }
-        
+
+        var domFacade = new XmlNodeDomFacade();
+
         var qt3Tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
-        GetAllTestSets(qt3Tests).ForEach(testSetFileName =>
+        GetAllTestSets(qt3Tests, domFacade).ForEach(testSetFileName =>
         {
-            var testSet = Qt3TestUtils.LoadFileToXmlNode(testSetFileName);
-        
+            var testSetData = Qt3TestUtils.LoadFileToXmlNode(testSetFileName);
+            var testSet = new NodeValue<XmlNode>(testSetData, domFacade);
+
             var testSetName = Evaluate.EvaluateXPathToString("/test-set/@name",
                 testSet,
-                null,
+                domFacade,
                 new Dictionary<string, AbstractValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
-        
+                new Options<XmlNode>(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+
             var testCaseNodes = new List<XmlNode>(Evaluate.EvaluateXPathToNodes(Qt3TestQueries.AllTestsQuery,
                 testSet,
-                null,
+                domFacade,
                 new Dictionary<string, AbstractValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")));
-        
+                new Options<XmlNode>(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")));
+
             if (!testCaseNodes.Any()) return;
-        
+
             var testCases = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
             {
-                var testName = GetTestName(testCase);
+                var testName = GetTestName(testCase, domFacade);
                 if (!_unrunnableTestCasesByName.Contains(testName))
                     try
                     {
-                        var name = GetTestName(testCase);
-                        var description = GetTestDescription(testSetName, name, testCase);
-                        var arguments = Qt3TestUtils.GetArguments(testSetFileName, testCase);
+                        var name = GetTestName(testCase, domFacade);
+                        var description = GetTestDescription(testSetName, name, testCase, domFacade);
+                        var arguments = Qt3TestUtils.GetArguments(testSetFileName, testCase, domFacade);
                         testCases.Add(new object[] { name, testSetName, description, testCase, arguments });
                     }
                     catch (FileNotFoundException ex)
                     {
                         /* Test file was probably not found. */
                     }
-        
+
                 return testCases;
             });
-        
+
             _testCases.AddRange(testCases);
         });
         return _testCases.GetEnumerator();
@@ -103,7 +103,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
         return GetEnumerator();
     }
 
-    private string GetTestDescription(string testSetName, string testName, XmlNode testCase)
+    private string GetTestDescription(string testSetName, string testName, XmlNode testCase, XmlNodeDomFacade domFacade)
     {
         // return $"{testSetName}~{testName}";
         //TODO: More descriptive test description.
@@ -111,21 +111,21 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             $"{testSetName}~{testName}~" +
             Evaluate.EvaluateXPathToString(
                 "if (description/text()) then description else test",
-                testCase,
-                null,
+                new NodeValue<XmlNode>(testCase, domFacade),
+                domFacade,
                 new Dictionary<string, AbstractValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")
+                new Options<XmlNode>(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")
             );
     }
 
-    private string GetTestName(XmlNode testCase)
+    private string GetTestName(XmlNode testCase, XmlNodeDomFacade domFacade)
     {
         return Evaluate.EvaluateXPathToString(
             "./@name",
-            testCase,
-            null,
+            new NodeValue<XmlNode>(testCase, domFacade),
+            domFacade,
             new Dictionary<string, AbstractValue>(),
-            new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"))!;
+            new Options<XmlNode>(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"))!;
     }
 
     private static bool ParseBooleanNoFail(string input)
@@ -135,21 +135,24 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
     }
 
 
-    private List<string> GetAllTestSets(XmlNode catalog)
+    private List<string> GetAllTestSets(XmlNode catalog, XmlNodeDomFacade domFacade)
     {
-        return Evaluate.EvaluateXPathToNodes("/catalog/test-set", catalog, null,
+        return Evaluate.EvaluateXPathToNodes("/catalog/test-set", new NodeValue<XmlNode>(catalog, domFacade), domFacade,
                 new Dictionary<string, AbstractValue>(),
-                new Options(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"))
+                new Options<XmlNode>(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"))
             .Where(testSetNode => _shouldRunTestByName.Contains(Evaluate.EvaluateXPathToString("@name",
-                testSetNode,
-                null,
-                new Dictionary<string, AbstractValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"))))
+                                                                    new NodeValue<XmlNode>(testSetNode, domFacade),
+                                                                    domFacade,
+                                                                    new Dictionary<string, AbstractValue>(),
+                                                                    new Options<XmlNode>(namespaceResolver: _ =>
+                                                                        "http://www.w3.org/2010/09/qt-fots-catalog")) ??
+                                                                string.Empty))
             .Select(testSetNode => Evaluate.EvaluateXPathToString("@file",
-                testSetNode,
-                null,
+                new NodeValue<XmlNode>(testSetNode, domFacade),
+                domFacade,
                 new Dictionary<string, AbstractValue>(),
-                new Options(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")))
+                new Options<XmlNode>(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")))
+            .Cast<string>()
             .ToList();
     }
 }

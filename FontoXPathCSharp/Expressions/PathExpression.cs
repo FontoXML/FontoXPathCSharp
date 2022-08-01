@@ -3,11 +3,12 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class PathExpression : AbstractExpression
+public class PathExpression<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractExpression[] _stepExpressions;
+    private readonly AbstractExpression<TNode>[] _stepExpressions;
 
-    public PathExpression(AbstractExpression[] stepExpressions) : base(stepExpressions, new OptimizationOptions(false))
+    public PathExpression(AbstractExpression<TNode>[] stepExpressions) : base(stepExpressions,
+        new OptimizationOptions(false))
     {
         _stepExpressions = stepExpressions;
     }
@@ -21,12 +22,12 @@ public class PathExpression : AbstractExpression
     {
         // TODO: Add sorting
         return nodeValues
-            .DistinctBy(value => value.GetAs<NodeValue>().Value)
+            .DistinctBy(value => value.GetAs<NodeValue<TNode>>().Value)
             .ToArray();
     }
 
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         var result = _stepExpressions.Aggregate(SequenceFactory.CreateFromValue(dynamicContext!.ContextItem!),
             (intermediateResultNodesSequence, selector) =>

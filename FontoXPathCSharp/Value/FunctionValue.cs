@@ -4,33 +4,29 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public delegate T FunctionSignature<out T>(DynamicContext? dynamicContext,
-    ExecutionParameters? executionParameters,
-    StaticContext? staticContext, params ISequence[] sequences);
-
-public delegate ISequence FunctionDefinitionType(
+public delegate T FunctionSignature<out T, TNode>(
     DynamicContext? dynamicContext,
-    ExecutionParameters? executionParameters,
-    StaticContext? staticContext, params ISequence[] sequences);
+    ExecutionParameters<TNode> executionParameters,
+    StaticContext<TNode>? staticContext, params ISequence[] sequences);
 
-public class FunctionValue<T> : AbstractValue
+public delegate ISequence FunctionDefinitionType<TNode>(
+    DynamicContext? dynamicContext,
+    ExecutionParameters<TNode> executionParameters,
+    StaticContext<TNode>? staticContext, params ISequence[] sequences);
+
+public class FunctionValue<T, TNode> : AbstractValue
 {
-    protected readonly ParameterType[] _argumentTypes;
-    protected readonly int _arity;
-    protected readonly bool _isUpdating;
-    private string _localName;
-    private string _namespaceUri;
-    private SequenceType _returnType;
-    protected FunctionSignature<T> _value;
+    protected readonly ParameterType[] ArgumentTypes;
+    public readonly int Arity;
+    public readonly bool IsUpdating;
 
-
-    protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T> value,
+    protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T, TNode> value,
         ValueType type, bool isUpdating = false) : base(type)
     {
-        _argumentTypes = argumentTypes;
-        _arity = arity;
-        _value = value;
-        _isUpdating = isUpdating;
+        ArgumentTypes = argumentTypes;
+        Arity = arity;
+        Value = value;
+        IsUpdating = isUpdating;
     }
 
     public FunctionValue(
@@ -39,28 +35,29 @@ public class FunctionValue<T> : AbstractValue
         string localName,
         string namespaceUri,
         SequenceType returnType,
-        FunctionSignature<T> value,
+        FunctionSignature<T, TNode> value,
         bool isAnonymous = false,
         bool isUpdating = false) : base(ValueType.Function)
     {
-        _value = value;
-        _arity = arity;
-        _argumentTypes = ExpandParameterTypeToArity(argumentTypes, arity);
-        _isUpdating = isUpdating;
-        _localName = localName;
-        _namespaceUri = namespaceUri;
-        _returnType = returnType;
+        Value = value;
+        Arity = arity;
+        ArgumentTypes = ExpandParameterTypeToArity(argumentTypes, arity);
+        IsUpdating = isUpdating;
+        LocalName = localName;
+        NamespaceUri = namespaceUri;
+        ReturnType = returnType;
     }
 
-    protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T> value,
+    protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T, TNode> value,
         bool isUpdating) : this(
         argumentTypes, arity, value, ValueType.Function, isUpdating)
     {
     }
 
-    public FunctionSignature<T> Value => _value;
-
-    public bool IsUpdating => _isUpdating;
+    public FunctionSignature<T, TNode> Value { get; init; }
+    public string LocalName { get; }
+    public string NamespaceUri { get; }
+    public SequenceType ReturnType { get; }
 
     private ParameterType[]? ExpandParameterTypeToArity(ParameterType[] argumentTypes, int arity)
     {
@@ -76,10 +73,5 @@ public class FunctionValue<T> : AbstractValue
         }
 
         return argumentTypes;
-    }
-
-    public int GetArity()
-    {
-        return _arity;
     }
 }

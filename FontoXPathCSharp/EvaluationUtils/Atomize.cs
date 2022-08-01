@@ -1,4 +1,3 @@
-using System.Xml;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -8,7 +7,7 @@ namespace FontoXPathCSharp.EvaluationUtils;
 
 public static class Atomize
 {
-    public static ISequence AtomizeSequence(ISequence sequence, ExecutionParameters? parameters)
+    public static ISequence AtomizeSequence<TNode>(ISequence sequence, ExecutionParameters<TNode> parameters)
     {
         var done = false;
         var it = sequence.GetValue();
@@ -45,7 +44,8 @@ public static class Atomize
         });
     }
 
-    public static ISequence AtomizeSingleValue(AbstractValue value, ExecutionParameters executionParameters)
+    public static ISequence AtomizeSingleValue<TNode>(AbstractValue value,
+        ExecutionParameters<TNode> executionParameters)
     {
         if (value.GetValueType().IsSubtypeOfAny(ValueType.XsAnyAtomicType, ValueType.XsUntypedAtomic,
                 ValueType.XsBoolean, ValueType.XsDecimal,
@@ -58,30 +58,34 @@ public static class Atomize
 
         if (value.GetValueType().IsSubtypeOf(ValueType.Node))
         {
-            var pointer = value.GetAs<NodeValue>().Value;
+            var pointer = value.GetAs<NodeValue<TNode>>().Value;
 
-            if (pointer.NodeType is XmlNodeType.Attribute or XmlNodeType.Text)
-                return SequenceFactory.CreateFromValue(new StringValue(pointer.InnerText));
-            // throw new NotImplementedException("Not sure how to do this with the XmlNode replacing domfacade yet");
-            // return SequenceFactory.CreateFromIterator(CreateAtomicValue(domfacade[]));
+            if (domfacade.IsAttribute(pointer) || domfacade.IsText(pointer))
+                return SequenceFactory.CreateFromValue(AtomicValue.Create(domfacade.GetData(pointer),
+                    ValueType.XsString));
 
-            if (pointer.NodeType is XmlNodeType.Comment or XmlNodeType.ProcessingInstruction)
-                return SequenceFactory.CreateFromValue(new StringValue(pointer.InnerText));
+            if (domfacade.IsComment(pointer) || domfacade.IsProcessingInstruction(pointer))
+                return SequenceFactory.CreateFromValue(AtomicValue.Create(domfacade.GetData(pointer),
+                    ValueType.XsString));
 
             var allTexts = new List<string>();
 
-            Action<XmlNode>? getTextNodes = null;
+            Action<TNode>? getTextNodes = null;
             getTextNodes = node =>
             {
-                if (pointer.NodeType is XmlNodeType.Comment or XmlNodeType.ProcessingInstruction)
+                if (domfacade.IsComment(node) || domfacade.IsProcessingInstruction(node))
                     return;
 
-                if (node.NodeType == XmlNodeType.Text) allTexts.Add(node.InnerText);
-
-                if (node.NodeType is XmlNodeType.Element or XmlNodeType.Document)
+                if (domfacade.IsText(node))
                 {
-                    var children = node.ChildNodes;
-                    foreach (XmlNode child in children) getTextNodes?.Invoke(child);
+                    allTexts.Add(domfacade.GetData(node));
+                    return;
+                }
+
+                if (domfacade.IsElement(node) || domfacade.IsDocument(node))
+                {
+                    var children = domfacade.GetChildNodes(node).ToList();
+                    children.ForEach(child => getTextNodes?.Invoke(child));
                 }
             };
             getTextNodes(pointer);

@@ -2,14 +2,14 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class ContextItemExpression : AbstractExpression
+public class ContextItemExpression<TNode> : AbstractExpression<TNode>
 {
     public ContextItemExpression() : base(
-        Array.Empty<AbstractExpression>(), new OptimizationOptions(false))
+        Array.Empty<AbstractExpression<TNode>>(), new OptimizationOptions(false))
     {
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         if (dynamicContext?.ContextItem == null)
             throw new XPathException("XPDY0002: context is absent, it needs to be present to use the \".\" operator");

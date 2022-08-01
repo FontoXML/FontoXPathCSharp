@@ -1,26 +1,54 @@
-using FontoXPathCSharp.Types.Node;
-
 namespace FontoXPathCSharp.DomFacade;
 
-public interface IDomFacade
+public interface IDomFacade<TNode>
 {
-    public Attr[] GetAllAttributes(Element node, string? bucket);
+    IEnumerable<TNode> GetAllAttributes(TNode node, string? bucket = null);
 
-    string? GetAttribute(Element node, string? attributeName);
+    string? GetAttribute(TNode node, string? attributeName);
 
-    Node[] GetChildNodes(Node node, string? bucket);
+    IEnumerable<TNode> GetChildNodes(TNode node, string? bucket = null);
 
-    string GetData(Attr node);
+    string GetData(TNode node);
 
-    string GetData(CharacterData node);
+    TNode? GetFirstChild(TNode node, string? bucket = null);
 
-    Node? GetFirstChild(Node node, string? bucket);
+    TNode? GetLastChild(TNode node, string? bucket = null);
 
-    Node? GetLastChild(Node node, string? bucket);
+    TNode? GetNextSibling(TNode node, string? bucket = null);
 
-    Node? GetNextSibling(Node node, string? bucket);
+    TNode? GetParentNode(TNode node, string? bucket = null);
 
-    Node? GetParentNode(Node node, string? bucket);
+    TNode? GetPreviousSibling(TNode node, string? bucket = null);
 
-    Node? GetPreviousSibling(Node node, string? bucket);
+    string GetLocalName(TNode node);
+
+    string GetNamespaceUri(TNode node);
+
+    string? GetPrefix(TNode nodeValue);
+
+    bool IsElement(TNode node);
+
+    bool IsAttribute(TNode node);
+
+    bool IsText(TNode node);
+    bool IsProcessingInstruction(TNode node);
+    bool IsComment(TNode node);
+    bool IsDocument(TNode node);
+    bool IsDocumentFragment(TNode node);
+    bool IsCharacterData(TNode node);
+    NodeType GetNodeType(TNode node);
+    string? LookupNamespaceUri(TNode node, string? prefix);
+}
+
+public enum NodeType
+{
+    Element,
+    Attribute,
+    Text,
+    CData,
+    ProcessingInstruction,
+    Comment,
+    Document,
+    DocumentType,
+    DocumentFragment
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using FontoXPathCSharp;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using Xunit;
@@ -9,10 +10,24 @@ namespace XPathTest.UnitTests;
 
 public class TestCompare
 {
+    private static readonly XmlDocument Document;
+    private static readonly XmlNodeDomFacade Domfacade;
+
+    static TestCompare()
+    {
+        Document = new XmlDocument();
+        Domfacade = new XmlNodeDomFacade();
+    }
+
     private static bool EvalQueryBoolean(string query)
     {
-        return Evaluate.EvaluateXPathToBoolean(query, new XmlDocument(), null, new Dictionary<string, AbstractValue>(),
-            new Options());
+        return Evaluate.EvaluateXPathToBoolean(
+            query,
+            new NodeValue<XmlNode>(Document, Domfacade),
+            Domfacade,
+            new Dictionary<string, AbstractValue>(),
+            new Options<XmlNode>()
+        );
     }
 
     [Fact]

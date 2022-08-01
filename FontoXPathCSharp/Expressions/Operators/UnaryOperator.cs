@@ -6,7 +6,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Operators;
 
-public class UnaryOperator : AbstractExpression
+public class UnaryOperator<TNode> : AbstractExpression<TNode>
 {
     private static readonly IReadOnlyDictionary<ValueType, ValueType> UnaryLookup = new Dictionary<ValueType, ValueType>
     {
@@ -31,9 +31,9 @@ public class UnaryOperator : AbstractExpression
     };
 
     private readonly UnaryOperatorKind _kind;
-    private readonly AbstractExpression _valueExpr;
+    private readonly AbstractExpression<TNode> _valueExpr;
 
-    public UnaryOperator(AstNodeName kind, AbstractExpression valueExpr) : base(new[] { valueExpr },
+    public UnaryOperator(AstNodeName kind, AbstractExpression<TNode> valueExpr) : base(new[] { valueExpr },
         new OptimizationOptions(false))
     {
         _valueExpr = valueExpr;
@@ -45,7 +45,7 @@ public class UnaryOperator : AbstractExpression
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         return Atomize.AtomizeSequence(
             _valueExpr.EvaluateMaybeStatically(dynamicContext, executionParameters),

@@ -3,11 +3,11 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Operators;
 
-public class OrOperator : AbstractExpression
+public class OrOperator<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractExpression[] _subExpressions;
+    private readonly AbstractExpression<TNode>[] _subExpressions;
 
-    public OrOperator(AbstractExpression[] expressions) : base(expressions,
+    public OrOperator(AbstractExpression<TNode>[] expressions) : base(expressions,
         new OptimizationOptions(expressions.All(e => e.CanBeStaticallyEvaluated)))
     {
         // TODO: Adding specificity to expressions
@@ -21,7 +21,7 @@ public class OrOperator : AbstractExpression
         _subExpressions = expressions;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         var i = 0;
         ISequence? resultSequence = null;

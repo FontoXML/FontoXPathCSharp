@@ -7,13 +7,13 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp;
 
-public class CastAsOperator : AbstractExpression
+public class CastAsOperator<TNode> : AbstractExpression<TNode>
 {
     private readonly bool _allowsEmptySequence;
-    private readonly AbstractExpression _expression;
+    private readonly AbstractExpression<TNode> _expression;
     private readonly ValueType _targetType;
 
-    public CastAsOperator(AbstractExpression expression, QName targetType, bool allowsEmptySequence) : base(
+    public CastAsOperator(AbstractExpression<TNode> expression, QName targetType, bool allowsEmptySequence) : base(
         new[] { expression }, new OptimizationOptions(false))
     {
         _targetType = (targetType.Prefix != null
@@ -31,7 +31,7 @@ public class CastAsOperator : AbstractExpression
         _allowsEmptySequence = allowsEmptySequence;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         var evaluatedExpression = Atomize.AtomizeSequence(
             _expression.EvaluateMaybeStatically(dynamicContext, executionParameters),

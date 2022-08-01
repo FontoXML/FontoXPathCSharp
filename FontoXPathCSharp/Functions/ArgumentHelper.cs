@@ -5,10 +5,10 @@ namespace FontoXPathCSharp.Functions;
 
 public class ArgumentHelper
 {
-    public static ISequence PerformFunctionConversion(
+    public static ISequence PerformFunctionConversion<TNode>(
         SequenceType argumentType,
         ISequence argument,
-        ExecutionParameters executionParameters,
+        ExecutionParameters<TNode> executionParameters,
         string functionName,
         bool isReturn)
     {

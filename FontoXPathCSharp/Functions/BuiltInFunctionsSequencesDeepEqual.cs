@@ -1,4 +1,4 @@
-using System.Xml;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
@@ -8,12 +8,12 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsSequencesDeepEqual
+public class BuiltInFunctionsSequencesDeepEqual<TNode>
 {
     public static Iterator<BooleanValue> SequenceDeepEqual(
         DynamicContext dynamicContext,
-        ExecutionParameters executionParameters,
-        StaticContext staticContext,
+        ExecutionParameters<TNode> executionParameters,
+        StaticContext<TNode> staticContext,
         ISequence sequence1,
         ISequence sequence2)
     {
@@ -32,10 +32,10 @@ public class BuiltInFunctionsSequencesDeepEqual
             while (!done)
             {
                 if (item1 == null) item1 = it1(IterationHint.None);
-                item1 = TakeConsecutiveTextValues(item1, textValues1, it1);
+                item1 = TakeConsecutiveTextValues(item1, textValues1, it1, domFacade);
 
                 if (item2 == null) item2 = it2(IterationHint.None);
-                item2 = TakeConsecutiveTextValues(item2, textValues2, it2);
+                item2 = TakeConsecutiveTextValues(item2, textValues2, it2, domFacade);
 
                 if (textValues1.Count > 0 || textValues2.Count > 0)
                 {
@@ -93,8 +93,8 @@ public class BuiltInFunctionsSequencesDeepEqual
 
     private static Iterator<BooleanValue> ItemDeepEqual(
         DynamicContext dynamicContext,
-        ExecutionParameters executionParameters,
-        StaticContext staticContext,
+        ExecutionParameters<TNode> executionParameters,
+        StaticContext<TNode> staticContext,
         AbstractValue item1,
         AbstractValue item2)
     {
@@ -123,8 +123,8 @@ public class BuiltInFunctionsSequencesDeepEqual
                 dynamicContext,
                 executionParameters,
                 staticContext,
-                item1.GetAs<ArrayValue>(),
-                item2.GetAs<ArrayValue>()
+                item1.GetAs<ArrayValue<TNode>>(),
+                item2.GetAs<ArrayValue<TNode>>()
             );
 
         // Nodes
@@ -197,7 +197,8 @@ public class BuiltInFunctionsSequencesDeepEqual
     }
 
     private static Iterator<BooleanValue> MapTypeDeepEqual(DynamicContext dynamicContext,
-        ExecutionParameters executionParameters, StaticContext staticContext, MapValue item1, MapValue item2)
+        ExecutionParameters<TNode> executionParameters, StaticContext<TNode> staticContext, MapValue item1,
+        MapValue item2)
     {
         if (item1.KeyValuePairs.Count != item2.KeyValuePairs.Count)
             return IteratorUtils.SingleValueIterator(new BooleanValue(false));
@@ -262,8 +263,12 @@ public class BuiltInFunctionsSequencesDeepEqual
         };
     }
 
-    private static BooleanValue AnyAtomicTypeDeepEqual(DynamicContext dynamicContext,
-        ExecutionParameters executionParameters, StaticContext staticContext, AtomicValue item1, AtomicValue item2)
+    private static BooleanValue AnyAtomicTypeDeepEqual(
+        DynamicContext dynamicContext,
+        ExecutionParameters<TNode> executionParameters,
+        StaticContext<TNode> staticContext,
+        AtomicValue item1,
+        AtomicValue item2)
     {
         if (item1.GetValueType().IsSubtypeOfAny(ValueType.XsDecimal, ValueType.XsFloat) &&
             item2.GetValueType().IsSubtypeOfAny(ValueType.XsDecimal, ValueType.XsFloat))
@@ -302,7 +307,8 @@ public class BuiltInFunctionsSequencesDeepEqual
     }
 
     private static Iterator<BooleanValue> ArrayTypeDeepEqual(DynamicContext dynamicContext,
-        ExecutionParameters executionParameters, StaticContext staticContext, ArrayValue item1, ArrayValue item2)
+        ExecutionParameters<TNode> executionParameters, StaticContext<TNode> staticContext, ArrayValue<TNode> item1,
+        ArrayValue<TNode> item2)
     {
         if (item1.Members.Count != item2.Members.Count)
             return IteratorUtils.SingleValueIterator(new BooleanValue(false));
@@ -321,19 +327,20 @@ public class BuiltInFunctionsSequencesDeepEqual
     }
 
     private static Iterator<BooleanValue> AtomicTypeNodeDeepEqual(DynamicContext dynamicContext,
-        ExecutionParameters executionParameters, StaticContext staticContext, AbstractValue item1, AbstractValue item2)
+        ExecutionParameters<TNode> executionParameters, StaticContext<TNode> staticContext, AbstractValue item1,
+        AbstractValue item2)
     {
         var namesAreEqualResultGenerator = SequenceDeepEqual(
             dynamicContext,
             executionParameters,
             staticContext,
-            BuiltInFunctionsNode.FnNodeName(
+            BuiltInFunctionsNode<TNode>.FnNodeName(
                 dynamicContext,
                 executionParameters,
                 staticContext,
                 SequenceFactory.CreateFromValue(item1)
             ),
-            BuiltInFunctionsNode.FnNodeName(
+            BuiltInFunctionsNode<TNode>.FnNodeName(
                 dynamicContext,
                 executionParameters,
                 staticContext,
@@ -368,19 +375,22 @@ public class BuiltInFunctionsSequencesDeepEqual
     }
 
     private static Iterator<BooleanValue> ElementNodeDeepEqual(DynamicContext dynamicContext,
-        ExecutionParameters executionParameters, StaticContext staticContext, AbstractValue item1, AbstractValue item2)
+        ExecutionParameters<TNode> executionParameters, StaticContext<TNode> staticContext, AbstractValue item1,
+        AbstractValue item2)
     {
         throw new NotImplementedException("ElementNodeDeepEqual not implemented yet");
     }
 
     private static Iterator<BooleanValue> NodeDeepEqual(DynamicContext dynamicContext,
-        ExecutionParameters executionParameters, StaticContext staticContext, AbstractValue item1, AbstractValue item2)
+        ExecutionParameters<TNode> executionParameters, StaticContext<TNode> staticContext, AbstractValue item1,
+        AbstractValue item2)
     {
         throw new NotImplementedException("NodeDeepEqual not implemented yet");
     }
 
     private static IteratorResult<BooleanValue> CompareNormalizedTextNodes(DynamicContext dynamicContext,
-        ExecutionParameters executionParameters, StaticContext staticContext, List<AbstractValue> textValues1,
+        ExecutionParameters<TNode> executionParameters, StaticContext<TNode> staticContext,
+        List<AbstractValue> textValues1,
         List<AbstractValue> textValues2)
     {
         var atomicValues = new[] { textValues1, textValues2 }.Select(textValues =>
@@ -401,14 +411,15 @@ public class BuiltInFunctionsSequencesDeepEqual
     private static IteratorResult<AbstractValue> TakeConsecutiveTextValues(
         IteratorResult<AbstractValue> item,
         ICollection<AbstractValue> textValues,
-        Iterator<AbstractValue> iterator)
+        Iterator<AbstractValue> iterator,
+        IDomFacade<TNode> domFacade)
     {
         while (item.Value != null && item.Value.GetValueType().IsSubtypeOf(ValueType.Text))
         {
             textValues.Add(item.Value);
-            var nextSibling = item.Value.GetAs<NodeValue>().Value.NextSibling;
+            var nextSibling = domFacade.GetNextSibling(item.Value.GetAs<NodeValue<TNode>>().Value);
             item = iterator(IterationHint.None);
-            if (nextSibling != null && nextSibling.NodeType != XmlNodeType.Text) break;
+            if (nextSibling != null && domFacade.IsText(nextSibling)) break;
         }
 
         return item;

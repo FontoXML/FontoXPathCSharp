@@ -4,14 +4,14 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-internal static class ContextNodeUtils
+internal static class ContextNodeUtils<TNode>
 {
-    public static NodeValue ValidateContextNode(AbstractValue? value)
+    public static NodeValue<TNode> ValidateContextNode(AbstractValue? value)
     {
         if (value == null)
             throw new Exception("XPDY0002: context is absent, it needs to be present to use axes.");
         if (!value.GetValueType().IsSubtypeOf(ValueType.Node))
             throw new Exception("XPTY0020: Axes can only be applied to nodes.");
-        return (NodeValue)value;
+        return (NodeValue<TNode>)value;
     }
 }

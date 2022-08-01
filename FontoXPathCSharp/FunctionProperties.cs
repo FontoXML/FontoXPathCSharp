@@ -4,11 +4,11 @@ using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp;
 
-public class FunctionProperties
+public class FunctionProperties<TNode>
 {
     public FunctionProperties(ParameterType[] argumentTypes,
         int arity,
-        FunctionSignature<ISequence> callFunction,
+        FunctionSignature<ISequence, TNode> callFunction,
         bool isUpdating,
         string localName,
         string namespaceUri,
@@ -27,7 +27,7 @@ public class FunctionProperties
 
     public ParameterType[] ArgumentTypes { get; }
     public int Arity { get; }
-    public FunctionSignature<ISequence> CallFunction { get; }
+    public FunctionSignature<ISequence, TNode> CallFunction { get; }
     public bool IsUpdating { get; }
     public string LocalName { get; }
     public string NamespaceUri { get; }

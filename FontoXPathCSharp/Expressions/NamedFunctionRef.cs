@@ -4,13 +4,13 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class NamedFunctionRef : AbstractExpression
+public class NamedFunctionRef<TNode> : AbstractExpression<TNode>
 {
     private readonly int _arity;
     private readonly QName _functionReference;
-    private FunctionProperties? _functionProperties;
+    private FunctionProperties<TNode>? _functionProperties;
 
-    public NamedFunctionRef(QName functionReference, int arity) : base(Array.Empty<AbstractExpression>(),
+    public NamedFunctionRef(QName functionReference, int arity) : base(Array.Empty<AbstractExpression<TNode>>(),
         new OptimizationOptions(true))
     {
         _arity = arity;
@@ -18,9 +18,9 @@ public class NamedFunctionRef : AbstractExpression
         _functionProperties = null;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        return SequenceFactory.CreateFromValue(new FunctionValue<ISequence>(
+        return SequenceFactory.CreateFromValue(new FunctionValue<ISequence, TNode>(
             _functionProperties!.ArgumentTypes,
             _functionProperties!.Arity,
             _functionProperties!.LocalName,
@@ -30,7 +30,7 @@ public class NamedFunctionRef : AbstractExpression
             _functionProperties!.IsUpdating));
     }
 
-    public override void PerformStaticEvaluation(StaticContext staticContext)
+    public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
     {
         var namespaceUri = _functionReference.NamespaceUri;
         var localName = _functionReference.LocalName;

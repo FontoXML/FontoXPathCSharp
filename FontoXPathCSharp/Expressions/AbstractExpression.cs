@@ -21,16 +21,16 @@ public struct OptimizationOptions
     }
 }
 
-public abstract class AbstractExpression
+public abstract class AbstractExpression<TNode>
 {
-    protected readonly AbstractExpression[] _childExpressions;
+    protected readonly AbstractExpression<TNode>[] _childExpressions;
     public readonly bool CanBeStaticallyEvaluated;
 
     public readonly bool IsUpdating;
 
     public readonly ResultOrdering ResultOrder;
 
-    protected AbstractExpression(AbstractExpression[] childExpressions, OptimizationOptions optimizationOptions)
+    protected AbstractExpression(AbstractExpression<TNode>[] childExpressions, OptimizationOptions optimizationOptions)
     {
         _childExpressions = childExpressions;
         CanBeStaticallyEvaluated = optimizationOptions.CanBeStaticallyEvaluated;
@@ -38,9 +38,10 @@ public abstract class AbstractExpression
         IsUpdating = false;
     }
 
-    public abstract ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters);
+    public abstract ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters);
 
-    public ISequence EvaluateMaybeStatically(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public ISequence EvaluateMaybeStatically(DynamicContext? dynamicContext,
+        ExecutionParameters<TNode> executionParameters)
     {
         if (dynamicContext?.ContextItem == null) return Evaluate(dynamicContext, executionParameters);
 
@@ -52,7 +53,7 @@ public abstract class AbstractExpression
         return Evaluate(dynamicContext, executionParameters);
     }
 
-    public virtual void PerformStaticEvaluation(StaticContext staticContext)
+    public virtual void PerformStaticEvaluation(StaticContext<TNode> staticContext)
     {
         foreach (var expression in _childExpressions) expression.PerformStaticEvaluation(staticContext);
         // TODO: make sure child expressions are not updating if we cannot be updating

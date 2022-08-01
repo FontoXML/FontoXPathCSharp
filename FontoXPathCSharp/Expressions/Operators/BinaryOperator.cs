@@ -9,7 +9,7 @@ namespace FontoXPathCSharp;
 
 internal delegate AbstractValue BinaryOperatorFunction(AbstractValue left, AbstractValue right);
 
-internal class BinaryOperator : AbstractExpression
+internal class BinaryOperator<TNode> : AbstractExpression<TNode>
 {
     private static readonly ValueType[] _allTypes =
     {
@@ -21,14 +21,15 @@ internal class BinaryOperator : AbstractExpression
         ValueType.XsTime
     };
 
-    private readonly AbstractExpression _firstValueExpr;
+    private readonly AbstractExpression<TNode> _firstValueExpr;
     private readonly AstNodeName _operator;
-    private readonly AbstractExpression _secondValueExpr;
+    private readonly AbstractExpression<TNode> _secondValueExpr;
 
     private readonly Dictionary<(ValueType, ValueType, AstNodeName), BinaryOperatorFunction> OperatorsByTypingKey =
         new();
 
-    public BinaryOperator(AstNodeName op, AbstractExpression firstValueExpr, AbstractExpression secondValueExpr) : base(
+    public BinaryOperator(AstNodeName op, AbstractExpression<TNode> firstValueExpr,
+        AbstractExpression<TNode> secondValueExpr) : base(
         new[] { firstValueExpr, secondValueExpr }, new OptimizationOptions(true))
     {
         _operator = op;
@@ -36,7 +37,7 @@ internal class BinaryOperator : AbstractExpression
         _secondValueExpr = secondValueExpr;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         var firstValueSequence = Atomize.AtomizeSequence(
             _firstValueExpr.EvaluateMaybeStatically(dynamicContext, executionParameters),

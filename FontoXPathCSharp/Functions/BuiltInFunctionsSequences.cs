@@ -5,9 +5,9 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public static class BuiltInFunctionsSequences
+public static class BuiltInFunctionsSequences<TNode>
 {
-    private static readonly FunctionSignature<ISequence> FnCount = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnCount = (_, _, _, args) =>
     {
         var hasPassed = false;
         return SequenceFactory.CreateFromIterator(_ =>
@@ -19,7 +19,7 @@ public static class BuiltInFunctionsSequences
         }, 1);
     };
 
-    private static readonly FunctionSignature<ISequence> FnZeroOrOne = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnZeroOrOne = (_, _, _, args) =>
     {
         var arg = args[0];
         if (!arg.IsEmpty() && !arg.IsSingleton())
@@ -31,17 +31,17 @@ public static class BuiltInFunctionsSequences
         return arg;
     };
 
-    private static readonly FunctionSignature<ISequence> FnExists = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnExists = (_, _, _, args) =>
         SequenceFactory.CreateFromValue(new BooleanValue(!args[0].IsEmpty()));
 
-    private static readonly FunctionSignature<ISequence> FnEmpty = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnEmpty = (_, _, _, args) =>
         SequenceFactory.CreateFromValue(new BooleanValue(args[0].IsEmpty()));
 
-    private static readonly FunctionSignature<ISequence> FnDeepEqual =
+    private static readonly FunctionSignature<ISequence, TNode> FnDeepEqual =
         (dynamicContext, executionParameters, staticContext, args) =>
         {
             var hasPassed = false;
-            var deepEqualityIterator = BuiltInFunctionsSequencesDeepEqual.SequenceDeepEqual(
+            var deepEqualityIterator = BuiltInFunctionsSequencesDeepEqual<TNode>.SequenceDeepEqual(
                 dynamicContext,
                 executionParameters,
                 staticContext,
@@ -64,7 +64,7 @@ public static class BuiltInFunctionsSequences
         };
 
 
-    public static readonly BuiltinDeclarationType[] Declarations =
+    public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
         new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne) },
             FnCount, "count",

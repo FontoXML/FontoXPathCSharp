@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using FontoXPathCSharp;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
@@ -40,9 +41,13 @@ public class Runners
     [Fact]
     public void Qt3TestNodes()
     {
-        var results = Evaluate.EvaluateXPathToNodes("/catalog/test-set", _qt3Tests, null,
+        var domFacade = new XmlNodeDomFacade();
+        var results = Evaluate.EvaluateXPathToNodes<string, XmlNode>(
+            "/catalog/test-set",
+            new NodeValue<XmlNode>(_qt3Tests, domFacade),
+            domFacade,
             new Dictionary<string, AbstractValue>(),
-            new Options(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"));
+            new Options<XmlNode>(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"));
         var joinedResult =
             $"[ {string.Join("\n", results.Select(r => $"{r.Attributes?["name"]?.Value} - {r.Attributes?["file"]?.Value}"))} ]";
 
@@ -50,37 +55,37 @@ public class Runners
     }
 
 
-    [Fact]
-    public void Qt3TestsLoad()
-    {
-        var tests = Evaluate.EvaluateXPathToString("@version", _qt3Tests.DocumentElement, null,
-            new Dictionary<string, AbstractValue>(), new Options());
-
-        _testOutputHelper.WriteLine($"Last query returned: {tests}");
-
-        var testFileNames = Evaluate.EvaluateXPathToNodes("/catalog/test-set", _qt3Tests, null,
-                new Dictionary<string, AbstractValue>(),
-                new Options(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"))
-            .Where(testSetNode =>
-            {
-                var res = Evaluate.EvaluateXPathToString("@name",
-                    testSetNode,
-                    null,
-                    new Dictionary<string, AbstractValue>(),
-                    new Options());
-                return true;
-            })
-            .Select(testSetNode => Evaluate.EvaluateXPathToString("@file",
-                testSetNode,
-                null,
-                new Dictionary<string, AbstractValue>(),
-                new Options()))
-            .ToList();
-
-        var joinedResult = $"[ {string.Join("\n", testFileNames.Select(r => r))} ]";
-
-        _testOutputHelper.WriteLine(joinedResult);
-    }
+    // [Fact]
+    // public void Qt3TestsLoad()
+    // {
+    //     var tests = Evaluate.EvaluateXPathToString("@version", _qt3Tests.DocumentElement, null,
+    //         new Dictionary<string, AbstractValue>(), new Options());
+    //
+    //     _testOutputHelper.WriteLine($"Last query returned: {tests}");
+    //
+    //     var testFileNames = Evaluate.EvaluateXPathToNodes("/catalog/test-set", _qt3Tests, null,
+    //             new Dictionary<string, AbstractValue>(),
+    //             new Options(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"))
+    //         .Where(testSetNode =>
+    //         {
+    //             var res = Evaluate.EvaluateXPathToString("@name",
+    //                 testSetNode,
+    //                 null,
+    //                 new Dictionary<string, AbstractValue>(),
+    //                 new Options());
+    //             return true;
+    //         })
+    //         .Select(testSetNode => Evaluate.EvaluateXPathToString("@file",
+    //             testSetNode,
+    //             null,
+    //             new Dictionary<string, AbstractValue>(),
+    //             new Options()))
+    //         .ToList();
+    //
+    //     var joinedResult = $"[ {string.Join("\n", testFileNames.Select(r => r))} ]";
+    //
+    //     _testOutputHelper.WriteLine(joinedResult);
+    // }
 }
 
 // var expr = CompileAstToExpression.CompileAst(result, new CompilationOptions(true, false, true, true));

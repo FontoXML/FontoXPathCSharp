@@ -1,6 +1,6 @@
 namespace FontoXPathCSharp;
 
-public class IteratorResult<T> where T : class
+public class IteratorResult<T>
 {
     public readonly bool IsDone;
     public readonly T? Value;
@@ -13,7 +13,7 @@ public class IteratorResult<T> where T : class
 
     public static IteratorResult<T> Done()
     {
-        return new IteratorResult<T>(true, null);
+        return new IteratorResult<T>(true, default);
     }
 
     public static IteratorResult<T> Ready(T value)
@@ -29,11 +29,11 @@ public enum IterationHint
     SkipDescendants
 }
 
-public delegate IteratorResult<T> Iterator<T>(IterationHint hint) where T : class;
+public delegate IteratorResult<T> Iterator<T>(IterationHint hint);
 
 public static class IteratorUtils
 {
-    public static Iterator<T> SingleValueIterator<T>(T value) where T : class
+    public static Iterator<T> SingleValueIterator<T>(T value)
     {
         var hasPassed = false;
         return _ =>
@@ -44,12 +44,12 @@ public static class IteratorUtils
         };
     }
 
-    public static Iterator<T> EmptyIterator<T>() where T : class
+    public static Iterator<T> EmptyIterator<T>()
     {
         return _ => IteratorResult<T>.Done();
     }
 
-    public static Iterator<T> ArrayIterator<T>(T[] values) where T : class
+    public static Iterator<T> ArrayIterator<T>(T[] values)
     {
         var i = 0;
         return _ => i >= values.Length

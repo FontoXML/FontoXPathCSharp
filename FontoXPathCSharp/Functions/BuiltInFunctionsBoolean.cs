@@ -6,21 +6,21 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public static class BuiltInFunctionsBoolean
+public static class BuiltInFunctionsBoolean<TNode>
 {
-    private static readonly FunctionSignature<ISequence> FnNot = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnNot = (_, _, _, args) =>
         SequenceFactory.CreateFromValue(new BooleanValue(!args[0].GetEffectiveBooleanValue()));
 
-    private static readonly FunctionSignature<ISequence> FnBoolean = (_, _, _, args) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnBoolean = (_, _, _, args) =>
         SequenceFactory.CreateFromValue(new BooleanValue(args[0].GetEffectiveBooleanValue()));
 
-    private static readonly FunctionSignature<ISequence> FnTrue = (_, _, _, _) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnTrue = (_, _, _, _) =>
         SequenceFactory.CreateFromValue(new BooleanValue(true));
 
-    private static readonly FunctionSignature<ISequence> FnFalse = (_, _, _, _) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnFalse = (_, _, _, _) =>
         SequenceFactory.CreateFromValue(new BooleanValue(false));
 
-    public static readonly BuiltinDeclarationType[] Declarations =
+    public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
         new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore) }, FnBoolean, "boolean",
             BuiltInNamespaceUris.FunctionsNamespaceUri.GetUri(),

@@ -32,18 +32,21 @@ public static class Language
     }
 }
 
-public class Options
+public delegate string XmlSerializerFunc<TNode>(TNode root);
+
+public class Options<TNode>
 {
     public Options(
         bool debug = false,
         bool disableCache = false,
         string? defaultFunctionNamespaceUri = null,
         object? currentContext = null,
-        IDocumentWriter? documentWriter = null,
+        IDocumentWriter<TNode>? documentWriter = null,
         Language.LanguageId? languageId = null,
         Dictionary<string, string>? moduleImports = null,
         NamespaceResolverFunc? namespaceResolver = null,
-        FunctionNameResolverFunc? functionNameResolver = null
+        FunctionNameResolverFunc? functionNameResolver = null,
+        XmlSerializerFunc<TNode>? xmlSerializer = null
     )
     {
         CurrentContext = currentContext;
@@ -55,6 +58,7 @@ public class Options
         ModuleImports = moduleImports;
         NamespaceResolver = namespaceResolver;
         FunctionNameResolver = functionNameResolver;
+        XmlSerializer = xmlSerializer;
     }
 
     public object? CurrentContext { get; set; }
@@ -63,7 +67,7 @@ public class Options
 
     public bool DisableCache { get; set; }
 
-    public IDocumentWriter? DocumentWriter { get; set; }
+    public IDocumentWriter<TNode>? DocumentWriter { get; set; }
 
     public Language.LanguageId? LanguageId { get; set; }
 
@@ -74,7 +78,9 @@ public class Options
     public NamespaceResolverFunc? NamespaceResolver { get; set; }
     public FunctionNameResolverFunc? FunctionNameResolver { get; set; }
 
-    public INodesFactory? NodesFactory { get; set; } = null;
+    public INodesFactory<TNode>? NodesFactory { get; set; }
 
-    public LoggingFunc? Logger { get; set; } = null;
+    public LoggingFunc? Logger { get; set; }
+
+    public XmlSerializerFunc<TNode>? XmlSerializer { get; }
 }

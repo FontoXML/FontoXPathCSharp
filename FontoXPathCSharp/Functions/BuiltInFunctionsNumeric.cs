@@ -8,9 +8,9 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsNumeric
+public class BuiltInFunctionsNumeric<TNode>
 {
-    private static readonly FunctionSignature<ISequence> FnNumber = (_, executionParameters, _, sequences) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnNumber = (_, executionParameters, _, sequences) =>
     {
         var sequence = sequences[0];
         var atomized = Atomize.AtomizeSequence(sequence, executionParameters);
@@ -28,7 +28,7 @@ public class BuiltInFunctionsNumeric
         throw new XPathException("fn:number may only be called with zero or one values");
     };
 
-    public static readonly BuiltinDeclarationType[] Declarations =
+    public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
         new(new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
             FnNumber, "number",

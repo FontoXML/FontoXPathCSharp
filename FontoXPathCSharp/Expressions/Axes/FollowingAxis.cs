@@ -1,28 +1,29 @@
-using System.Xml;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class FollowingAxis : AbstractExpression
+public class FollowingAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression _testExpression;
+    private readonly AbstractTestExpression<TNode> _testExpression;
 
-    public FollowingAxis(AbstractTestExpression testExpression) : base(new AbstractExpression[] { testExpression },
+    public FollowingAxis(AbstractTestExpression<TNode> testExpression) : base(
+        new AbstractExpression<TNode>[] { testExpression },
         new OptimizationOptions(false))
     {
         _testExpression = testExpression;
     }
 
-    private static Iterator<AbstractValue> CreateFollowingGenerator(XmlNode node)
+    private static Iterator<AbstractValue> CreateFollowingGenerator(IDomFacade<TNode> domFacade, TNode node)
     {
-        var nodeStack = new List<XmlNode>();
+        var nodeStack = new List<TNode>();
 
         for (var ancestorNode = node;
-             ancestorNode != null && ancestorNode.NodeType != XmlNodeType.Document;
-             ancestorNode = ancestorNode.ParentNode)
+             ancestorNode != null && !domFacade.IsDocument(ancestorNode);
+             ancestorNode = domFacade.GetParentNode(ancestorNode))
         {
-            var previousSibling = ancestorNode.NextSibling;
+            var previousSibling = domFacade.GetNextSibling(ancestorNode);
             if (previousSibling != null)
                 nodeStack.Add(previousSibling);
         }
@@ -34,11 +35,12 @@ public class FollowingAxis : AbstractExpression
             {
                 if (nephewGenerator == null)
                 {
-                    nephewGenerator = AxesUtils.CreateDescendantIterator(nodeStack.First(), false);
+                    nephewGenerator = AxesUtils<TNode>.CreateDescendantIterator(domFacade, nodeStack.First(), false);
 
-                    var toReturn = IteratorResult<AbstractValue>.Ready(new NodeValue(nodeStack.First()));
+                    var toReturn =
+                        IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(nodeStack.First(), domFacade));
 
-                    var nextNode = nodeStack.First().NextSibling;
+                    var nextNode = domFacade.GetNextSibling(nodeStack.First());
                     if (nextNode == null)
                         nodeStack.RemoveAt(0);
                     else
@@ -58,11 +60,13 @@ public class FollowingAxis : AbstractExpression
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
+        var domFacade = executionParameters.DomFacade;
+        var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 
-        return SequenceFactory.CreateFromIterator(CreateFollowingGenerator(contextItem.Value)).Filter((item, _, _) =>
-            _testExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
+        return SequenceFactory.CreateFromIterator(CreateFollowingGenerator(domFacade, contextItem.Value)).Filter(
+            (item, _, _) =>
+                _testExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
     }
 }

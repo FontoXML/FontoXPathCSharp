@@ -3,11 +3,12 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class IfExpression : PossiblyUpdatingExpression
+public class IfExpression<TNode> : PossiblyUpdatingExpression<TNode>
 {
-    private AbstractExpression _ifExpr;
+    private AbstractExpression<TNode> _ifExpr;
 
-    public IfExpression(AbstractExpression ifExpr, AbstractExpression thenExpr, AbstractExpression elseExpr) : base(
+    public IfExpression(AbstractExpression<TNode> ifExpr, AbstractExpression<TNode> thenExpr,
+        AbstractExpression<TNode> elseExpr) : base(
         new[] { ifExpr, thenExpr, elseExpr },
         new OptimizationOptions(
             ifExpr.CanBeStaticallyEvaluated && thenExpr.CanBeStaticallyEvaluated && elseExpr.CanBeStaticallyEvaluated,
@@ -19,7 +20,7 @@ public class IfExpression : PossiblyUpdatingExpression
 
     public override ISequence PerformFunctionalEvaluation(
         DynamicContext? dynamicContext,
-        ExecutionParameters? executionParameters,
+        ExecutionParameters<TNode> executionParameters,
         SequenceCallback[] sequenceCallbacks)
     {
         Iterator<AbstractValue>? resultIterator = null;

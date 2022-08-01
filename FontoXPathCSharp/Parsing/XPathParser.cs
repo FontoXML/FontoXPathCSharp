@@ -296,11 +296,6 @@ public static class XPathParser
 
     private static readonly ParseFunc<Ast> ItemType = Or(KindTest, AtomicOrUnionType);
 
-    private static ParseResult<Ast> ItemTypeIndirect(string input, int offset)
-    {
-        return ItemType(input, offset);
-    }
-
     private static readonly ParseFunc<string> OccurenceIndicator = Or(Token("?"), Token("*"), Token("+"));
 
     private static readonly ParseFunc<Ast[]> SequenceType = Or(
@@ -942,6 +937,11 @@ public static class XPathParser
         (versionDecl, modulePart) => new Ast(AstNodeName.Module,
             versionDecl != null ? new[] { versionDecl, modulePart } : new[] { modulePart })
     );
+
+    private static ParseResult<Ast> ItemTypeIndirect(string input, int offset)
+    {
+        return ItemType(input, offset);
+    }
 
     private static ParseFunc<Ast> NotImplementedAst()
     {

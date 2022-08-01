@@ -1,4 +1,3 @@
-using System.Xml;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions;
@@ -9,62 +8,87 @@ namespace FontoXPathCSharp;
 
 public class Evaluate
 {
-    public static bool EvaluateXPathToBoolean<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
+    public static bool EvaluateXPathToBoolean<TSelectorType, TNode>(
+        TSelectorType selector,
+        AbstractValue? contextItem,
+        IDomFacade<TNode>? domFacade = null,
+        Dictionary<string, AbstractValue>? variables = null,
+        Options<TNode>? options = null)
     {
-        return EvaluateXPath<bool, TSelectorType>(selector, contextItem, domFacade, variables, options);
+        return EvaluateXPath<bool, TSelectorType, TNode>(selector, contextItem, domFacade, variables, options);
     }
 
 
-    public static XmlNode EvaluateXPathToFirstNode<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
+    public static TNode? EvaluateXPathToFirstNode<TSelectorType, TNode>(
+        TSelectorType selector,
+        AbstractValue? contextItem,
+        IDomFacade<TNode>? domFacade = null,
+        Dictionary<string, AbstractValue>? variables = null,
+        Options<TNode>? options = null)
     {
-        return EvaluateXPath<XmlNode, TSelectorType>(selector, contextItem, domFacade, variables, options);
+        return EvaluateXPath<TNode, TSelectorType, TNode>(selector, contextItem, domFacade, variables, options);
     }
 
 
-    public static IEnumerable<XmlNode> EvaluateXPathToNodes<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
+    public static IEnumerable<TNode> EvaluateXPathToNodes<TSelectorType, TNode>(
+        TSelectorType selector,
+        AbstractValue? contextItem,
+        IDomFacade<TNode>? domFacade = null,
+        Dictionary<string, AbstractValue>? variables = null,
+        Options<TNode>? options = null)
     {
-        return EvaluateXPath<IEnumerable<XmlNode>, TSelectorType>(selector, contextItem, domFacade, variables,
+        return EvaluateXPath<IEnumerable<TNode>, TSelectorType, TNode>(selector, contextItem, domFacade, variables,
             options)!;
     }
 
-    public static int EvaluateXPathToInt<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
+    public static int EvaluateXPathToInt<TSelectorType, TNode>(
+        TSelectorType selector,
+        AbstractValue? contextItem,
+        IDomFacade<TNode>? domFacade = null,
+        Dictionary<string, AbstractValue>? variables = null,
+        Options<TNode>? options = null)
     {
-        return EvaluateXPath<int, TSelectorType>(selector, contextItem, domFacade, variables, options);
+        return EvaluateXPath<int, TSelectorType, TNode>(selector, contextItem, domFacade, variables, options);
     }
 
-    public static IEnumerable<int> EvaluateXPathToInts<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
+    public static IEnumerable<int> EvaluateXPathToInts<TSelectorType, TNode>(
+        TSelectorType selector,
+        AbstractValue? contextItem,
+        IDomFacade<TNode>? domFacade = null,
+        Dictionary<string, AbstractValue>? variables = null,
+        Options<TNode>? options = null)
     {
-        return EvaluateXPath<IEnumerable<int>, TSelectorType>(selector, contextItem, domFacade, variables, options)!;
+        return EvaluateXPath<IEnumerable<int>, TSelectorType, TNode>(selector, contextItem, domFacade, variables,
+            options)!;
     }
 
-    public static string? EvaluateXPathToString<TSelectorType>(TSelectorType selector, XmlNode? contextItem,
-        IDomFacade? domFacade = null, Dictionary<string, AbstractValue>? variables = null, Options? options = null)
+    public static string? EvaluateXPathToString<TSelectorType, TNode>(
+        TSelectorType selector,
+        AbstractValue? contextItem,
+        IDomFacade<TNode>? domFacade = null,
+        Dictionary<string, AbstractValue>? variables = null,
+        Options<TNode>? options = null)
     {
-        return EvaluateXPath<string, TSelectorType>(selector, contextItem, domFacade, variables, options);
+        return EvaluateXPath<string, TSelectorType, TNode>(selector, contextItem, domFacade, variables, options);
     }
 
-    public static TReturn? EvaluateXPath<TReturn, TSelector>(
+    public static TReturn? EvaluateXPath<TReturn, TSelector, TNode>(
         TSelector selector,
-        XmlNode? contextItem,
-        IDomFacade? domFacade,
+        AbstractValue? contextItem,
+        IDomFacade<TNode>? domFacade,
         Dictionary<string, AbstractValue>? variables,
-        Options? options)
+        Options<TNode>? options)
     {
         variables ??= new Dictionary<string, AbstractValue>();
-        options ??= new Options();
+        options ??= new Options<TNode>();
 
         DynamicContext? dynamicContext;
-        ExecutionParameters? executionParameters;
-        AbstractExpression? expression;
+        ExecutionParameters<TNode> executionParameters;
+        AbstractExpression<TNode>? expression;
 
         try
         {
-            var context = new EvaluationContext<TSelector>(
+            var context = new EvaluationContext<TSelector, TNode>(
                 selector,
                 contextItem,
                 domFacade,
@@ -100,7 +124,7 @@ public class Evaluate
         var rawResults = expression.EvaluateMaybeStatically(dynamicContext, executionParameters);
 
         var toReturn =
-            XdmReturnValue.ConvertXmdReturnValue<TSelector, TReturn>(selector, rawResults, executionParameters);
+            XdmReturnValue<TSelector, TReturn, TNode>.ConvertXmdReturnValue(selector, rawResults, executionParameters);
 
         return toReturn;
     }
