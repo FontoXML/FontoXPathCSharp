@@ -108,8 +108,11 @@ public static class Qt3TestUtils
 
     public static Environment CreateEnvironment(string? baseUrl, XmlNode environmentNode, XmlNodeDomFacade domFacade)
     {
-        var fileName = Evaluate.EvaluateXPathToString("source[@role=\".\"]/@file",
-            new NodeValue<XmlNode>(environmentNode, domFacade), domFacade);
+        var fileName = Evaluate.EvaluateXPathToString(
+            "source[@role=\".\"]/@file",
+            new NodeValue<XmlNode>(environmentNode, domFacade), 
+            domFacade);
+        
         var variables = Evaluate.EvaluateXPathToNodes("source[@role!=\".\"]",
                 new NodeValue<XmlNode>(environmentNode, domFacade), domFacade)
             .Select(variable => new KeyValuePair<string, AbstractValue?>(

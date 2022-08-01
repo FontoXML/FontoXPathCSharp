@@ -128,9 +128,10 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
     public string? LookupNamespaceUri(XmlNode node, string? prefix)
     {
         if (string.IsNullOrEmpty(prefix)) prefix = null;
-
-        throw new NotImplementedException(
-            $"XmlNodeDomFacade.LookupNamespaceUri: Not implemented yet for {node.NodeType}");
+        
+        
+        Console.WriteLine($"XmlNodeDomFacade.LookupNamespaceUri: Not implemented yet for {node.NodeType}");
+        return null;
         return LookupNamespaceUri(GetParentNode(node, null), prefix);
     }
 }

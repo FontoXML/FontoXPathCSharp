@@ -20,6 +20,7 @@ public class NodeValue<TNode> : AbstractValue
         if (domFacade.IsDocument(node)) return ValueType.DocumentNode;
         if (domFacade.IsText(node)) return ValueType.Text;
         if (domFacade.IsProcessingInstruction(node)) return ValueType.ProcessingInstruction;
+        return ValueType.Node;
         throw new NotImplementedException(
             $"NodeValue.GetNodeType: \"{node?.ToString() ?? "null"}\" does not map to any existing ValueType");
     }
