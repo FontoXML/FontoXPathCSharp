@@ -11,7 +11,7 @@ namespace XPathTest.UnitTests;
 
 public class TestAttributeElementTest
 {
-    private const string TestXml = @"<xml>
+    private const string TestXml = @"<xml xmlns=""blabla"">
   <title>xpath.playground.fontoxml.com</title>
   <summary>This is a learning tool for XML, XPath and XQuery.</summary>
   <tips>
@@ -37,10 +37,10 @@ public class TestAttributeElementTest
     {
         return Evaluate.EvaluateXPathToNodes(
             query,
-            new NodeValue<XmlNode>(Document, Domfacade),
+            Document,
             Domfacade,
             new Dictionary<string, AbstractValue>(),
-            new Options<XmlNode>()
+            new Options<XmlNode>(namespaceResolver: _ => "blabla")
         );
     }
 
@@ -55,6 +55,13 @@ public class TestAttributeElementTest
     {
         Assert.Equal(3, EvalQueryNodes("/xml/tips/tip/attribute(id)").Count());
     }
+    
+    [Fact]
+    public void TestNamedAttribute2()
+    {
+        Assert.Single(EvalQueryNodes("/xml/tips/tip[@id = 'edit']"));
+    }
+
 
     [Fact]
     public void TestEmptyElement()
@@ -72,5 +79,11 @@ public class TestAttributeElementTest
     public void TestWildcard()
     {
         Assert.Equal(5, EvalQueryNodes("/xml/tips/*").Count());
+    }
+
+    [Fact]
+    public void TestNameTest()
+    {
+        Assert.Single(EvalQueryNodes("/xml"));
     }
 }

@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Xml;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Axes;
@@ -27,7 +26,7 @@ public static class CompileAstToExpression<TNode>
         var star = elementName?.GetFirstChild(AstNodeName.Star);
         if (elementName == null || star != null)
             return new KindTest<TNode>(NodeType.Element);
-        return new NameTest<TNode>(elementName.GetFirstChild(AstNodeName.QName).GetQName(), XmlNodeType.Element);
+        return new NameTest<TNode>(elementName.GetFirstChild(AstNodeName.QName).GetQName(), NodeType.Element);
     }
 
     private static AbstractTestExpression<TNode> CompileAttributeTest(Ast ast)
@@ -36,7 +35,7 @@ public static class CompileAstToExpression<TNode>
         var star = attributeName?.GetFirstChild(AstNodeName.Star);
         if (attributeName == null || star != null)
             return new KindTest<TNode>(NodeType.Attribute);
-        return new NameTest<TNode>(attributeName.GetFirstChild(AstNodeName.QName).GetQName(), XmlNodeType.Attribute);
+        return new NameTest<TNode>(attributeName.GetFirstChild(AstNodeName.QName).GetQName(), NodeType.Attribute);
     }
 
     private static AbstractTestExpression<TNode> CompileWildcard(Ast ast)

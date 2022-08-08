@@ -50,5 +50,8 @@ public enum NodeType
     Comment,
     Document,
     DocumentType,
-    DocumentFragment
+    DocumentFragment,
+
+    OtherNode // This is for completeness sake, to have a default to match
+    // to other node types (that are considered ValueType.Node in NodeValue)
 }

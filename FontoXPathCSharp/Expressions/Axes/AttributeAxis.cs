@@ -30,8 +30,7 @@ public class AttributeAxis<TNode> : AbstractExpression<TNode>
                 continue;
             var nodeValue = new NodeValue<TNode>(attr, domFacade);
             var matches = _selector.EvaluateToBoolean(dynamicContext, nodeValue, executionParameters);
-            if (matches)
-                matchingAttributes.Add(nodeValue);
+            if (matches) matchingAttributes.Add(nodeValue);
         }
 
         return SequenceFactory.CreateFromArray(matchingAttributes.Cast<AbstractValue>().ToArray());

@@ -81,8 +81,10 @@ public class XObjectDomFacade : IDomFacade<XObject>
         } ?? string.Empty;
     }
 
-    public string? GetPrefix(XObject node)
+    public string GetPrefix(XObject node)
     {
+        var element = node as XElement;
+        return element?.GetPrefixOfNamespace(element.Name.Namespace) ?? "";
         throw new NotImplementedException("XObjectDomFacade.GetPrefix not implemented yet");
     }
 
@@ -139,7 +141,7 @@ public class XObjectDomFacade : IDomFacade<XObject>
             XmlNodeType.Document => NodeType.Document,
             XmlNodeType.DocumentType => NodeType.DocumentType,
             XmlNodeType.DocumentFragment => NodeType.DocumentFragment,
-            _ => throw new ArgumentOutOfRangeException($"XObjectDomFacade.GetNodeType: {node.NodeType} is not handled.")
+            _ => NodeType.OtherNode
         };
     }
 

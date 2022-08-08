@@ -23,10 +23,10 @@ public class TestBuiltinFunctions
     {
         return Evaluate.EvaluateXPathToString(
             query,
-            new NodeValue<XmlNode>(Document, Domfacade),
+            Document,
             Domfacade,
             new Dictionary<string, AbstractValue>(),
-            new Options<XmlNode>()
+            new Options<XmlNode>(namespaceResolver: _ => null)
         );
     }
 

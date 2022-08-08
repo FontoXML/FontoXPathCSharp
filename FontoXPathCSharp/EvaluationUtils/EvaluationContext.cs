@@ -26,16 +26,15 @@ public class EvaluationContext<TSelector, TNode>
         variables ??= new Dictionary<string, AbstractValue>();
 
         var internalOptions = externalOptions != null
-            ? new Options<TNode>
+            ? new Options<TNode>(externalOptions.NamespaceResolver)
             {
-                Logger = externalOptions.Logger ?? Console.WriteLine,
                 DocumentWriter = externalOptions.DocumentWriter,
                 ModuleImports = externalOptions.ModuleImports,
-                NamespaceResolver = externalOptions.NamespaceResolver,
                 FunctionNameResolver = externalOptions.FunctionNameResolver,
-                NodesFactory = externalOptions.NodesFactory
+                NodesFactory = externalOptions.NodesFactory,
+                Logger = externalOptions.Logger ?? Console.WriteLine
             }
-            : new Options<TNode>
+            : new Options<TNode>(_ => null)
             {
                 Logger = Console.WriteLine,
                 DocumentWriter = null,
@@ -125,9 +124,12 @@ public class EvaluationContext<TSelector, TNode>
         if (contextItem == null || domFacade == null || !contextItem.GetValueType().IsSubtypeOf(ValueType.Node))
             return _ => null;
 
-        var node = contextItem.GetAs<NodeValue<TNode>>().Value;
-
-        return prefix => domFacade.LookupNamespaceUri(node, prefix);
+        //TODO: Fix this stuff.
+        Console.WriteLine("CreateDefaultNamespaceResolver is not finished properly.");
+        return _ => null;
+        // var node = contextItem.GetAs<NodeValue<TNode>>().Value;
+        //
+        // return prefix => domFacade.LookupNamespaceUri(node, prefix);
     }
 
     private static FunctionNameResolverFunc CreateDefaultFunctionNameResolver(string defaultFunctionNamespaceUri)

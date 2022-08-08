@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Xml;
+using FontoXPathCSharp.Value;
 
 namespace XPathTest.Caches;
 
@@ -9,6 +11,7 @@ public class EnvironmentsByNameCache : ResourceCache<string, Qt3TestUtils.Enviro
 
     protected override Qt3TestUtils.Environment? Load(string key)
     {
+        return new Qt3TestUtils.Environment(new XmlDocument(), s => null, new Dictionary<string, AbstractValue?>());
         throw new NotImplementedException("Loading Environments from a Cache is not implemented yet.");
     }
 

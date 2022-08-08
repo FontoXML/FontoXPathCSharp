@@ -37,6 +37,7 @@ public delegate string XmlSerializerFunc<TNode>(TNode root);
 public class Options<TNode>
 {
     public Options(
+        NamespaceResolverFunc namespaceResolver,
         bool debug = false,
         bool disableCache = false,
         string? defaultFunctionNamespaceUri = null,
@@ -44,7 +45,6 @@ public class Options<TNode>
         IDocumentWriter<TNode>? documentWriter = null,
         Language.LanguageId? languageId = null,
         Dictionary<string, string>? moduleImports = null,
-        NamespaceResolverFunc? namespaceResolver = null,
         FunctionNameResolverFunc? functionNameResolver = null,
         XmlSerializerFunc<TNode>? xmlSerializer = null
     )

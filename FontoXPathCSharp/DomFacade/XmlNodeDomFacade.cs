@@ -8,7 +8,7 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
     {
         if (node.NodeType != XmlNodeType.Element) return Array.Empty<XmlNode>();
 
-        return node.Attributes != null ? node.Attributes.OfType<XmlAttribute>() : Array.Empty<XmlAttribute>();
+        return node.Attributes != null ? node.Attributes.Cast<XmlAttribute>() : Array.Empty<XmlAttribute>();
     }
 
     public string? GetAttribute(XmlNode node, string? attributeName)
@@ -20,7 +20,7 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
 
     public IEnumerable<XmlNode> GetChildNodes(XmlNode node, string? bucket)
     {
-        return node.ChildNodes.OfType<XmlNode>();
+        return node.ChildNodes.Cast<XmlNode>();
     }
 
     public string GetData(XmlNode node)
@@ -121,15 +121,15 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
             XmlNodeType.Document => NodeType.Document,
             XmlNodeType.DocumentType => NodeType.DocumentType,
             XmlNodeType.DocumentFragment => NodeType.DocumentFragment,
-            _ => throw new ArgumentOutOfRangeException($"XmlNodeDomFacade.GetNodeType: {node.NodeType} is not handled.")
+            _ => NodeType.OtherNode
         };
     }
 
     public string? LookupNamespaceUri(XmlNode node, string? prefix)
     {
         if (string.IsNullOrEmpty(prefix)) prefix = null;
-        
-        
+
+
         Console.WriteLine($"XmlNodeDomFacade.LookupNamespaceUri: Not implemented yet for {node.NodeType}");
         return null;
         return LookupNamespaceUri(GetParentNode(node, null), prefix);

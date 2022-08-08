@@ -38,21 +38,21 @@ public class Runners
         _testOutputHelper.WriteLine($"Parsed query:\n{result}");
     }
 
-    [Fact]
-    public void Qt3TestNodes()
-    {
-        var domFacade = new XmlNodeDomFacade();
-        var results = Evaluate.EvaluateXPathToNodes<string, XmlNode>(
-            "/catalog/test-set",
-            new NodeValue<XmlNode>(_qt3Tests, domFacade),
-            domFacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XmlNode>(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"));
-        var joinedResult =
-            $"[ {string.Join("\n", results.Select(r => $"{r.Attributes?["name"]?.Value} - {r.Attributes?["file"]?.Value}"))} ]";
-
-        _testOutputHelper.WriteLine("Selector resulted in: " + joinedResult);
-    }
+    // [Fact]
+    // public void Qt3TestNodes()
+    // {
+    //     var domFacade = new XmlNodeDomFacade();
+    //     var results = Evaluate.EvaluateXPathToNodes<string, XmlNode>(
+    //         "/catalog/test-set",
+    //         new NodeValue<XmlNode>(_qt3Tests, domFacade),
+    //         domFacade,
+    //         new Dictionary<string, AbstractValue>(),
+    //         new Options<XmlNode>(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"));
+    //     var joinedResult =
+    //         $"[ {string.Join("\n", results.Select(r => $"{r.Attributes?["name"]?.Value} - {r.Attributes?["file"]?.Value}"))} ]";
+    //
+    //     _testOutputHelper.WriteLine("Selector resulted in: " + joinedResult);
+    // }
 
 
     // [Fact]

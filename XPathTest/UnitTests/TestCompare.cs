@@ -23,10 +23,10 @@ public class TestCompare
     {
         return Evaluate.EvaluateXPathToBoolean(
             query,
-            new NodeValue<XmlNode>(Document, Domfacade),
+            Document,
             Domfacade,
             new Dictionary<string, AbstractValue>(),
-            new Options<XmlNode>()
+            new Options<XmlNode>(namespaceResolver: _ => null)
         );
     }
 

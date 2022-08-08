@@ -24,15 +24,16 @@ public class Qt3Assertions
         Language.LanguageId language)
     {
         var domFacade = new XmlNodeDomFacade();
-        var assertNode = Evaluate.EvaluateXPathToFirstNode<string, XmlNode>(
+        var assertNode = Evaluate.EvaluateXPathToFirstNode(
             "./result/*",
-            new NodeValue<XmlNode>(testCase, domFacade),
-            domFacade);
+            testCase,
+            domFacade,
+            new Dictionary<string, AbstractValue>(),
+            new Options<XmlNode>(namespaceResolver: prefix => "http://www.w3.org/2010/09/qt-fots-catalog"));
         return CreateAsserterForExpression(baseUrl, assertNode, domFacade, language);
     }
 
-    public static AsserterCall
-        CreateAsserterForExpression(
+    private static AsserterCall CreateAsserterForExpression(
             string baseUrl, XmlNode assertNode, XmlNodeDomFacade domFacade, Language.LanguageId language)
     {
         // TODO: Implement the nodefactory, maybe?
@@ -43,7 +44,7 @@ public class Qt3Assertions
             case "all-of":
             {
                 var asserts = Evaluate
-                    .EvaluateXPathToNodes("*", new NodeValue<XmlNode>(assertNode, domFacade), domFacade)
+                    .EvaluateXPathToNodes("*", assertNode, domFacade)
                     .Select(innerAssertNode =>
                         CreateAsserterForExpression(baseUrl, innerAssertNode, domFacade, language))
                     .ToList();
@@ -55,7 +56,7 @@ public class Qt3Assertions
             case "any-of":
             {
                 var asserts = Evaluate
-                    .EvaluateXPathToNodes("*", new NodeValue<XmlNode>(assertNode, domFacade), domFacade)
+                    .EvaluateXPathToNodes("*", assertNode, domFacade)
                     .Select(innerAssertNode =>
                         CreateAsserterForExpression(baseUrl, innerAssertNode, domFacade, language))
                     .ToList();
@@ -86,12 +87,12 @@ public class Qt3Assertions
             {
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
-                    var result = Evaluate.EvaluateXPathToString(".", new NodeValue<XmlNode>(assertNode, domFacade),
+                    var result = Evaluate.EvaluateXPathToString(".", assertNode,
                         domFacade);
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
                             $"let $result := ({xpath}) return {result}",
-                            new NodeValue<XmlNode>(contextNode, domFacade),
+                            contextNode,
                             domFacade,
                             variablesInScope,
                             new Options<XmlNode>(
@@ -108,7 +109,7 @@ public class Qt3Assertions
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(xpath,
-                            new NodeValue<XmlNode>(contextNode, domFacade),
+                            contextNode,
                             domFacade,
                             variablesInScope,
                             new Options<XmlNode>(
@@ -121,13 +122,13 @@ public class Qt3Assertions
             case "assert-eq":
             {
                 var equalWith =
-                    Evaluate.EvaluateXPathToString(".", new NodeValue<XmlNode>(assertNode, domFacade), domFacade);
+                    Evaluate.EvaluateXPathToString(".", assertNode, domFacade);
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
                             "${xpath} = ${equalWith}",
-                            new NodeValue<XmlNode>(contextNode, domFacade),
+                            contextNode,
                             domFacade,
                             variablesInScope,
                             new Options<XmlNode>(
@@ -142,13 +143,13 @@ public class Qt3Assertions
             case "assert-deep-eq":
             {
                 var equalWith =
-                    Evaluate.EvaluateXPathToString(".", new NodeValue<XmlNode>(assertNode, domFacade), domFacade);
+                    Evaluate.EvaluateXPathToString(".", assertNode, domFacade);
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
                             $"deep-equal(({xpath}), ({equalWith}))",
-                            new NodeValue<XmlNode>(contextNode, domFacade),
+                            contextNode,
                             domFacade,
                             variablesInScope,
                             new Options<XmlNode>(
@@ -167,7 +168,7 @@ public class Qt3Assertions
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
                             "(${xpath }) => empty()",
-                            new NodeValue<XmlNode>(contextNode, domFacade),
+                            contextNode,
                             domFacade,
                             variablesInScope,
                             new Options<XmlNode>(
@@ -185,7 +186,7 @@ public class Qt3Assertions
                     Assert.False(
                         Evaluate.EvaluateXPathToBoolean(
                             xpath,
-                            new NodeValue<XmlNode>(contextNode, domFacade),
+                            contextNode,
                             domFacade,
                             variablesInScope,
                             new Options<XmlNode>(
@@ -199,13 +200,13 @@ public class Qt3Assertions
             case "assert-count":
             {
                 var expectedCount = Evaluate.EvaluateXPathToInt("number(.)",
-                    new NodeValue<XmlNode>(assertNode, domFacade), domFacade);
+                    assertNode, domFacade);
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToInt(
                             $"({xpath}) => count()",
-                            new NodeValue<XmlNode>(contextNode, domFacade),
+                            contextNode,
                             domFacade,
                             variablesInScope,
                             new Options<XmlNode>(
@@ -218,13 +219,13 @@ public class Qt3Assertions
             case "assert-type":
             {
                 var expectedType =
-                    Evaluate.EvaluateXPathToString(".", new NodeValue<XmlNode>(assertNode, domFacade), domFacade);
+                    Evaluate.EvaluateXPathToString(".", assertNode, domFacade);
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
                             $"({xpath}) instance of ${expectedType}",
-                            new NodeValue<XmlNode>(contextNode, domFacade),
+                            contextNode,
                             domFacade,
                             variablesInScope,
                             new Options<XmlNode>(
@@ -239,19 +240,19 @@ public class Qt3Assertions
             case "assert-xml":
             {
                 XmlNode parsedFragment;
-                if (Evaluate.EvaluateXPathToBoolean("@file", new NodeValue<XmlNode>(assertNode, domFacade), domFacade))
+                if (Evaluate.EvaluateXPathToBoolean("@file", assertNode, domFacade))
                     parsedFragment = Qt3TestUtils.LoadFileToXmlNode(
                         Evaluate.EvaluateXPathToString($"{baseUrl} || \"/\" || @file",
-                            new NodeValue<XmlNode>(assertNode, domFacade), domFacade)
+                            assertNode, domFacade)
                     );
                 else
                     parsedFragment = Qt3TestUtils.StringToXmlNode(
-                        $"<xml>{Evaluate.EvaluateXPathToString(".", new NodeValue<XmlNode>(assertNode, domFacade), domFacade)}</xml>");
+                        $"<xml>{Evaluate.EvaluateXPathToString(".", assertNode, domFacade)}</xml>");
 
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     var results = Evaluate.EvaluateXPathToNodes(xpath,
-                        new NodeValue<XmlNode>(contextNode, domFacade), domFacade, variablesInScope,
+                        contextNode, domFacade, variablesInScope,
                         new Options<XmlNode>(
                             namespaceResolver: namespaceResolver,
                             documentWriter: nodesFactory,
@@ -264,12 +265,12 @@ public class Qt3Assertions
             case "assert-string-value":
             {
                 var expectedString =
-                    Evaluate.EvaluateXPathToString(".", new NodeValue<XmlNode>(assertNode, domFacade), domFacade);
+                    Evaluate.EvaluateXPathToString(".", assertNode, domFacade);
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToString($"{xpath}",
-                            new NodeValue<XmlNode>(contextNode, domFacade),
+                            contextNode,
                             domFacade,
                             variablesInScope,
                             new Options<XmlNode>(
@@ -282,7 +283,7 @@ public class Qt3Assertions
             }
             case "error":
             {
-                var errorCode = Evaluate.EvaluateXPathToString("@code", new NodeValue<XmlNode>(assertNode, domFacade),
+                var errorCode = Evaluate.EvaluateXPathToString("@code", assertNode,
                     domFacade);
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -293,7 +294,7 @@ public class Qt3Assertions
                             try
                             {
                                 Evaluate.EvaluateXPathToString(xpath,
-                                    new NodeValue<XmlNode>(contextNode, domFacade),
+                                    contextNode,
                                     domFacade,
                                     variablesInScope, new Options<XmlNode>(
                                         namespaceResolver: namespaceResolver,
@@ -316,7 +317,7 @@ public class Qt3Assertions
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean($"({xpath}) => empty()",
-                            new NodeValue<XmlNode>(contextNode, domFacade),
+                            contextNode,
                             domFacade,
                             variablesInScope,
                             new Options<XmlNode>(
