@@ -60,6 +60,8 @@ public class Evaluate
         Dictionary<string, AbstractValue>? variables = null,
         Options<TNode>? options = null) where TNode : notnull
     {
+        if (options.NamespaceResolver == null) throw new Exception("Always pass in a namespace resolver");
+        
         AbstractValue? contextItemValue = null;
 
         if (contextItem != null && domFacade == null)

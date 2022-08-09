@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using System.Xml.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
@@ -23,67 +24,91 @@ public class TestAttributeElementTest
   </tips>
 </xml>";
 
-    private static readonly XmlDocument Document;
-    private static readonly XmlNodeDomFacade Domfacade;
+    private static readonly XmlDocument XmlNodeDocument;
+    private static readonly XmlNodeDomFacade XmlNodeDomfacade;
+
+    private static readonly XDocument XObjectDocument;
+    private static readonly XObjectDomFacade XObjectDomFacade;
 
     static TestAttributeElementTest()
     {
-        Document = new XmlDocument();
-        Document.LoadXml(TestXml);
-        Domfacade = new XmlNodeDomFacade();
+        XmlNodeDocument = new XmlDocument();
+        XmlNodeDocument.LoadXml(TestXml);
+        XmlNodeDomfacade = new XmlNodeDomFacade();
+        
+        XObjectDocument = XDocument.Parse(TestXml);
+        XObjectDomFacade = new XObjectDomFacade();
     }
 
-    private static IEnumerable<XmlNode> EvalQueryNodes(string query)
+    private static IEnumerable<XmlNode> EvalQueryNodesXmlNode(string query)
     {
         return Evaluate.EvaluateXPathToNodes(
             query,
-            Document,
-            Domfacade,
+            XmlNodeDocument,
+            XmlNodeDomfacade,
             new Dictionary<string, AbstractValue>(),
             new Options<XmlNode>(namespaceResolver: _ => "blabla")
+        );
+    }
+    
+    private static IEnumerable<XObject> EvalQueryNodesXObject(string query)
+    {
+        return Evaluate.EvaluateXPathToNodes(
+            query,
+            XObjectDocument,
+            XObjectDomFacade,
+            new Dictionary<string, AbstractValue>(),
+            new Options<XObject>(namespaceResolver: _ => "blabla")
         );
     }
 
     [Fact]
     public void TestEmptyAttribute()
     {
-        Assert.Equal(4, EvalQueryNodes("/xml/tips/tip/attribute()").Count());
+        Assert.Equal(4, EvalQueryNodesXmlNode("/xml/tips/tip/attribute()").Count());
+        Assert.Equal(4, EvalQueryNodesXObject("/xml/tips/tip/attribute()").Count());
     }
 
     [Fact]
     public void TestNamedAttribute()
     {
-        Assert.Equal(3, EvalQueryNodes("/xml/tips/tip/attribute(id)").Count());
+        Assert.Equal(3, EvalQueryNodesXmlNode("/xml/tips/tip/attribute(id)").Count());
+        Assert.Equal(3, EvalQueryNodesXObject("/xml/tips/tip/attribute(id)").Count());
     }
     
     [Fact]
     public void TestNamedAttribute2()
     {
-        Assert.Single(EvalQueryNodes("/xml/tips/tip[@id = 'edit']"));
+        Assert.Single(EvalQueryNodesXmlNode("/xml/tips/tip[@id = 'edit']"));
+        Assert.Single(EvalQueryNodesXObject("/xml/tips/tip[@id = 'edit']"));
     }
 
 
     [Fact]
     public void TestEmptyElement()
     {
-        Assert.Equal(5, EvalQueryNodes("/xml/tips/element()").Count());
+        Assert.Equal(5, EvalQueryNodesXmlNode("/xml/tips/element()").Count());
+        Assert.Equal(5, EvalQueryNodesXObject("/xml/tips/element()").Count());
     }
 
     [Fact]
     public void TestNamedElement()
     {
-        Assert.Equal(3, EvalQueryNodes("/xml/tips/element(tip)").Count());
+        Assert.Equal(3, EvalQueryNodesXmlNode("/xml/tips/element(tip)").Count());
+        Assert.Equal(3, EvalQueryNodesXObject("/xml/tips/element(tip)").Count());
     }
 
     [Fact]
     public void TestWildcard()
     {
-        Assert.Equal(5, EvalQueryNodes("/xml/tips/*").Count());
+        Assert.Equal(5, EvalQueryNodesXmlNode("/xml/tips/*").Count());
+        Assert.Equal(5, EvalQueryNodesXObject("/xml/tips/*").Count());
     }
 
     [Fact]
     public void TestNameTest()
     {
-        Assert.Single(EvalQueryNodes("/xml"));
+        Assert.Single(EvalQueryNodesXmlNode("/xml"));
+        Assert.Single(EvalQueryNodesXObject("/xml"));
     }
 }
