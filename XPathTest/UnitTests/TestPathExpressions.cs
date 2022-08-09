@@ -4,7 +4,6 @@ using System.Xml.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
-using FontoXPathCSharp.Value;
 using Xunit;
 
 namespace XPathTest.UnitTests;
@@ -20,18 +19,22 @@ public class TestPathExpressions
 
     private static readonly XmlDocument XmlNodeDocument;
     private static readonly XmlNodeDomFacade XmlNodeDomfacade;
-    
+    private static readonly Options<XmlNode> XmlNodeOptions;
+
     private static readonly XDocument XObjectDocument;
     private static readonly XObjectDomFacade XObjectDomfacade;
+    private static readonly Options<XObject> XObjectOptions;
 
     static TestPathExpressions()
     {
         XmlNodeDocument = new XmlDocument();
         XmlNodeDocument.LoadXml(TestXml);
         XmlNodeDomfacade = new XmlNodeDomFacade();
+        XmlNodeOptions = new Options<XmlNode>(_ => null);
 
         XObjectDocument = XDocument.Parse(TestXml);
         XObjectDomfacade = new XObjectDomFacade();
+        XObjectOptions = new Options<XObject>(_ => null);
     }
 
     private static IEnumerable<XmlNode> XmlNodeEvalQueryNodes(string query)
@@ -40,8 +43,7 @@ public class TestPathExpressions
             query,
             XmlNodeDocument,
             XmlNodeDomfacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XmlNode>(namespaceResolver: _ => null)
+            XmlNodeOptions
         );
     }
 
@@ -51,19 +53,17 @@ public class TestPathExpressions
             query,
             XmlNodeDocument,
             XmlNodeDomfacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XmlNode>(namespaceResolver: _ => null)
+            XmlNodeOptions
         );
     }
-    
+
     private static IEnumerable<XObject> XObjectEvalQueryNodes(string query)
     {
         return Evaluate.EvaluateXPathToNodes(
             query,
             XObjectDocument,
             XObjectDomfacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XObject>(namespaceResolver: _ => null)
+            XObjectOptions
         );
     }
 
@@ -73,8 +73,7 @@ public class TestPathExpressions
             query,
             XObjectDocument,
             XObjectDomfacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XObject>(namespaceResolver: _ => null)
+            XObjectOptions
         );
     }
 

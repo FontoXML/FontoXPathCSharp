@@ -1,4 +1,5 @@
 using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.Expressions.DataTypes;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -6,7 +7,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Operators;
 
-public class UnionOperator<TNode> : AbstractExpression<TNode>
+public class UnionOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractExpression<TNode>[] _subExpressions;
 
@@ -29,16 +30,8 @@ public class UnionOperator<TNode> : AbstractExpression<TNode>
             if (allValues.Any(nodeValue => !nodeValue.GetValueType().IsSubtypeOf(ValueType.Node)))
                 throw new XPathException("XPTY0004: The sequences to union are not of type node()*");
 
-            var sortedValues = SortNodeValues(executionParameters.DomFacade, allValues);
-            return SequenceFactory.CreateFromArray(sortedValues);
+            var sortedValues = DocumentOrderUtils<TNode>.SortNodeValues(executionParameters.DomFacade, allValues.Cast<NodeValue<TNode>>().ToList());
+            return SequenceFactory.CreateFromArray(sortedValues.Cast<AbstractValue>().ToArray());
         });
-    }
-
-    // Probably belongs in a utility function class.
-    private AbstractValue[] SortNodeValues(IDomFacade<TNode>? domFacade, IEnumerable<AbstractValue> allValues)
-    {
-        return allValues.OrderBy(e => e).Distinct().ToArray();
-        // TODO: Add proper comparator later.
-        // TODO: Do proper duplicate pruning.
     }
 }

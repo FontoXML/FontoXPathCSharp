@@ -1,10 +1,9 @@
 using System.Xml;
 using System.Xml.Linq;
 using FontoXPathCSharp.DomFacade;
+using Xunit;
 
 namespace XPathTest.UnitTests;
-
-using Xunit;
 
 public class TestDomFacade
 {

@@ -7,12 +7,14 @@ using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
-using FontoXPathCSharp.Value;
 
 namespace XPathTest;
 
 public class Qt3TestDataProvider : IEnumerable<object[]>
 {
+    private readonly Options<XmlNode> _qt3Options =
+        new(_ => "http://www.w3.org/2010/09/qt-fots-catalog");
+
     private readonly HashSet<string> _shouldRunTestByName = new();
 
     private readonly List<object[]> _testCases = new();
@@ -22,7 +24,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
     public IEnumerator<object[]> GetEnumerator()
     {
         // return (IEnumerator<object[]>)Array.Empty<object[]>().GetEnumerator();
-        
+
         if (TestFileSystem.FileExists("runnableTestSets.csv"))
             File.ReadLines("../../../assets/runnableTestSets.csv")
                 .Select(line => line.Split(','))
@@ -57,23 +59,23 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
         var domFacade = new XmlNodeDomFacade();
 
         var qt3Tests = Qt3TestUtils.LoadFileToXmlNode("catalog.xml");
-        var allTestSets =  GetAllTestSets(qt3Tests, domFacade).SelectMany<string, object[]>(testSetFileName =>
+        var allTestSets = GetAllTestSets(qt3Tests, domFacade).SelectMany<string, object[]>(testSetFileName =>
         {
             var testSetData = Qt3TestUtils.LoadFileToXmlNode(testSetFileName);
 
             var testSetName = Evaluate.EvaluateXPathToString("/test-set/@name",
                 testSetData,
                 domFacade,
-                null,
-                new Options<XmlNode>(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"));
+                _qt3Options
+            );
 
             var testCaseNodes = new List<XmlNode>(Evaluate.EvaluateXPathToNodes(Qt3TestQueries.AllTestsQuery,
                 testSetData,
                 domFacade,
-                new Dictionary<string, AbstractValue>(),
-                new Options<XmlNode>(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")));
+                _qt3Options)
+            );
 
-            if (!testCaseNodes.Any()) return Array.Empty<object[]>() ;
+            if (!testCaseNodes.Any()) return Array.Empty<object[]>();
 
             var testCasesReturn = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
             {
@@ -112,10 +114,9 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             "if (description/text()) then description else test",
             testCase,
             domFacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XmlNode>(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")
+            _qt3Options
         );
-        
+
         return $"{testSetName}~{testName}~{descriptionString}";
     }
 
@@ -125,8 +126,7 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
             "./@name",
             testCase,
             domFacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XmlNode>(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog"))!;
+            new Options<XmlNode>(_ => "http://www.w3.org/2010/09/qt-fots-catalog"))!;
     }
 
     private static bool ParseBooleanNoFail(string input)
@@ -138,21 +138,21 @@ public class Qt3TestDataProvider : IEnumerable<object[]>
 
     private IEnumerable<string> GetAllTestSets(XmlNode catalog, XmlNodeDomFacade domFacade)
     {
-        return Evaluate.EvaluateXPathToNodes("/catalog/test-set", catalog, domFacade,
-                new Dictionary<string, AbstractValue>(),
-                new Options<XmlNode>(namespaceResolver: s => "http://www.w3.org/2010/09/qt-fots-catalog"))
-            .Where(testSetNode => _shouldRunTestByName.Contains(Evaluate.EvaluateXPathToString("@name",
-                                                                    testSetNode,
-                                                                    domFacade,
-                                                                    new Dictionary<string, AbstractValue>(),
-                                                                    new Options<XmlNode>(namespaceResolver: _ =>
-                                                                        "http://www.w3.org/2010/09/qt-fots-catalog")) ??
-                                                                string.Empty))
+        return Evaluate.EvaluateXPathToNodes(
+                "/catalog/test-set",
+                catalog,
+                domFacade,
+                _qt3Options)
+            .Where(testSetNode => _shouldRunTestByName.Contains(
+                Evaluate.EvaluateXPathToString("@name",
+                    testSetNode,
+                    domFacade,
+                    _qt3Options) ??
+                string.Empty))
             .Select(testSetNode => Evaluate.EvaluateXPathToString("@file",
                 testSetNode,
                 domFacade,
-                new Dictionary<string, AbstractValue>(),
-                new Options<XmlNode>(namespaceResolver: _ => "http://www.w3.org/2010/09/qt-fots-catalog")))
+                _qt3Options))
             .Cast<string>();
     }
 }

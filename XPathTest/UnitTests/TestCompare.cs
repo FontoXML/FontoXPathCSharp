@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
-using FontoXPathCSharp.Value;
 using Xunit;
 
 namespace XPathTest.UnitTests;
@@ -13,7 +11,7 @@ public class TestCompare
 {
     private static readonly XmlDocument XmlNodeDocument;
     private static readonly XmlNodeDomFacade XmlNodeDomFacade;
-    
+
     private static readonly XDocument XObjectDocument;
     private static readonly XObjectDomFacade XObjectDomFacade;
 
@@ -32,21 +30,20 @@ public class TestCompare
             query,
             XmlNodeDocument,
             XmlNodeDomFacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XmlNode>(namespaceResolver: _ => null)
+            new Options<XmlNode>(_ => null)
         );
     }
+
     private static bool XObjectEvalQueryBoolean(string query)
     {
         return Evaluate.EvaluateXPathToBoolean(
             query,
             XObjectDocument,
             XObjectDomFacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XObject>(namespaceResolver: _ => null)
+            new Options<XObject>(_ => null)
         );
     }
-    
+
 
     [Fact]
     public void TestValueCompareIntEqual()

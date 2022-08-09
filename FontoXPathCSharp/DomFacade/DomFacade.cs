@@ -2,12 +2,17 @@ namespace FontoXPathCSharp.DomFacade;
 
 public class DomFacade<TNode> : IDomFacade<TNode>
 {
+    private readonly List<TNode> _orderOfDetachedNodes;
+    
     private readonly IDomFacade<TNode> _domFacade;
 
     public DomFacade(IDomFacade<TNode> domFacade)
     {
         _domFacade = domFacade;
+        _orderOfDetachedNodes = new List<TNode>();
     }
+
+    public List<TNode> OrderOfDetachedNodes => _orderOfDetachedNodes;
 
     public IEnumerable<TNode> GetAllAttributes(TNode node, string? bucket = null)
     {

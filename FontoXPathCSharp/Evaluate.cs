@@ -13,122 +13,142 @@ public class Evaluate
     public static bool EvaluateXPathToBoolean<TSelector, TNode>(
         TSelector selector,
         TNode contextItem,
-        IDomFacade<TNode>? domFacade = null,
-        Dictionary<string, AbstractValue>? variables = null,
-        Options<TNode>? options = null)
+        IDomFacade<TNode> domFacade,
+        Options<TNode> options,
+        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<bool, TSelector, TNode>(selector, new NodeValue<TNode>((TNode)contextItem!, domFacade!),
-            domFacade, variables, options);
+        return EvaluateXPath<bool, TSelector, TNode>(
+            selector,
+            new NodeValue<TNode>(contextItem, domFacade),
+            domFacade,
+            options,
+            variables
+        );
     }
 
 
-    public static TNode? EvaluateXPathToFirstNode<TSelector, TContextItem, TNode>(
+    public static TNode? EvaluateXPathToFirstNode<TSelector, TNode>(
         TSelector selector,
-        TContextItem? contextItem,
-        IDomFacade<TNode>? domFacade = null,
-        Dictionary<string, AbstractValue>? variables = null,
-        Options<TNode>? options = null)
+        TNode contextItem,
+        IDomFacade<TNode> domFacade,
+        Options<TNode> options,
+        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
     {
         AbstractValue? contextItemValue = null;
-
-        if (typeof(TContextItem).IsAssignableFrom(typeof(TNode)))
-        {
-            if (contextItem != null && domFacade == null)
-                throw new Exception("Cannot have a null domFacade when contextItem is an XML node.");
-            contextItemValue = new NodeValue<TNode>((TNode)(object)contextItem!, domFacade!);
-        }
-
-        if (typeof(TContextItem).IsAssignableFrom(typeof(AbstractValue)))
-            contextItemValue = (AbstractValue)(object)contextItem!;
+        if (contextItem != null && domFacade == null)
+            throw new Exception("Cannot have a null domFacade when contextItem is an XML node.");
 
         if (contextItem == null)
             throw new NotImplementedException(
                 "EvaluateXPathToFirstNode: Cannot create a context item from an object that is neither an TNode nor an AbstractValue.");
 
+        contextItemValue = new NodeValue<TNode>(contextItem, domFacade);
+
         return EvaluateXPath<TNode?, TSelector, TNode>(
             selector,
             contextItemValue,
             domFacade,
-            variables,
-            options)!;
+            options,
+            variables
+        )!;
     }
 
     public static IEnumerable<TNode> EvaluateXPathToNodes<TSelector, TNode>(
         TSelector selector,
-        TNode? contextItem,
-        IDomFacade<TNode>? domFacade = null,
-        Dictionary<string, AbstractValue>? variables = null,
-        Options<TNode>? options = null) where TNode : notnull
+        TNode contextItem,
+        IDomFacade<TNode> domFacade,
+        Options<TNode> options,
+        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
     {
-        if (options.NamespaceResolver == null) throw new Exception("Always pass in a namespace resolver");
+        if (options == null || options.NamespaceResolver == null)
+            throw new Exception("Always pass in a namespace resolver");
         
-        AbstractValue? contextItemValue = null;
-
         if (contextItem != null && domFacade == null)
             throw new Exception("Cannot have a null domFacade when contextItem is an XML node.");
-        contextItemValue = new NodeValue<TNode>((TNode)(object)contextItem!, domFacade!);
+        var contextItemValue = new NodeValue<TNode>(contextItem!, domFacade!);
 
         return EvaluateXPath<IEnumerable<TNode>, TSelector, TNode>(
             selector,
             contextItemValue,
             domFacade,
-            variables,
-            options)!;
+            options,
+            variables
+        )!;
     }
 
     public static int EvaluateXPathToInt<TSelector, TNode>(
         TSelector selector,
         TNode contextItem,
-        IDomFacade<TNode>? domFacade = null,
-        Dictionary<string, AbstractValue>? variables = null,
-        Options<TNode>? options = null)
+        IDomFacade<TNode> domFacade,
+        Options<TNode> options,
+        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<int, TSelector, TNode>(selector, new NodeValue<TNode>((TNode)contextItem!, domFacade!),
-            domFacade, variables, options);
+        return EvaluateXPath<int, TSelector, TNode>(
+            selector,
+            new NodeValue<TNode>(contextItem!, domFacade!),
+            domFacade,
+            options,
+            variables
+        );
     }
 
     public static IEnumerable<int> EvaluateXPathToInts<TSelector, TNode>(
         TSelector selector,
-        AbstractValue? contextItem,
-        IDomFacade<TNode>? domFacade = null,
-        Dictionary<string, AbstractValue>? variables = null,
-        Options<TNode>? options = null)
+        TNode contextItem,
+        IDomFacade<TNode> domFacade,
+        Options<TNode> options,
+        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<IEnumerable<int>, TSelector, TNode>(selector, contextItem, domFacade, variables,
-            options)!;
+        return EvaluateXPath<IEnumerable<int>, TSelector, TNode>(
+            selector,
+            new NodeValue<TNode>(contextItem, domFacade),
+            domFacade,
+            options,
+            variables
+        )!;
     }
 
     public static string? EvaluateXPathToString<TSelector, TNode>(
         TSelector selector,
         TNode contextItem,
         IDomFacade<TNode> domFacade,
-        Dictionary<string, AbstractValue>? variables = null,
-        Options<TNode>? options = null)
+        Options<TNode> options,
+        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
     {
         if (domFacade == null) throw new ArgumentException("DomFacade cannot be null");
-        return EvaluateXPathToString(selector,
-            contextItem != null ? new NodeValue<TNode>(contextItem, domFacade) : null, domFacade, variables, options);
+        return EvaluateXPathToString(
+            selector,
+            new NodeValue<TNode>(contextItem, domFacade),
+            domFacade,
+            options,
+            variables
+        );
     }
 
     private static string? EvaluateXPathToString<TSelector, TNode>(
         TSelector selector,
         AbstractValue? contextItem,
-        IDomFacade<TNode>? domFacade = null,
-        Dictionary<string, AbstractValue>? variables = null,
-        Options<TNode>? options = null)
+        IDomFacade<TNode> domFacade,
+        Options<TNode> options,
+        Dictionary<string, AbstractValue>? variables = null)
     {
-        return EvaluateXPath<string, TSelector, TNode>(selector, contextItem, domFacade, variables, options);
+        return EvaluateXPath<string, TSelector, TNode>(
+            selector,
+            contextItem,
+            domFacade,
+            options,
+            variables
+        );
     }
 
     public static TReturn? EvaluateXPath<TReturn, TSelector, TNode>(
         TSelector selector,
-        AbstractValue? contextItem,
-        IDomFacade<TNode>? domFacade,
-        Dictionary<string, AbstractValue>? variables,
-        Options<TNode>? options)
+        AbstractValue contextItem,
+        IDomFacade<TNode> domFacade,
+        Options<TNode> options,
+        Dictionary<string, AbstractValue>? variables)
     {
         variables ??= new Dictionary<string, AbstractValue>();
-        options ??= new Options<TNode>(_ => null);
 
         DynamicContext? dynamicContext;
         ExecutionParameters<TNode> executionParameters;

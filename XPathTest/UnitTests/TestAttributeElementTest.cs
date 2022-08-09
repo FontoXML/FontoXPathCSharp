@@ -5,7 +5,6 @@ using System.Xml.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
-using FontoXPathCSharp.Value;
 using Xunit;
 
 namespace XPathTest.UnitTests;
@@ -35,7 +34,7 @@ public class TestAttributeElementTest
         XmlNodeDocument = new XmlDocument();
         XmlNodeDocument.LoadXml(TestXml);
         XmlNodeDomfacade = new XmlNodeDomFacade();
-        
+
         XObjectDocument = XDocument.Parse(TestXml);
         XObjectDomFacade = new XObjectDomFacade();
     }
@@ -46,19 +45,17 @@ public class TestAttributeElementTest
             query,
             XmlNodeDocument,
             XmlNodeDomfacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XmlNode>(namespaceResolver: _ => "blabla")
+            new Options<XmlNode>(_ => "blabla")
         );
     }
-    
+
     private static IEnumerable<XObject> EvalQueryNodesXObject(string query)
     {
         return Evaluate.EvaluateXPathToNodes(
             query,
             XObjectDocument,
             XObjectDomFacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XObject>(namespaceResolver: _ => "blabla")
+            new Options<XObject>(_ => "blabla")
         );
     }
 
@@ -75,7 +72,7 @@ public class TestAttributeElementTest
         Assert.Equal(3, EvalQueryNodesXmlNode("/xml/tips/tip/attribute(id)").Count());
         Assert.Equal(3, EvalQueryNodesXObject("/xml/tips/tip/attribute(id)").Count());
     }
-    
+
     [Fact]
     public void TestNamedAttribute2()
     {

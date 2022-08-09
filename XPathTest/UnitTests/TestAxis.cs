@@ -5,7 +5,6 @@ using System.Xml.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
-using FontoXPathCSharp.Value;
 using Xunit;
 
 namespace XPathTest.UnitTests;
@@ -26,7 +25,7 @@ public class TestAxis
 
     private static readonly XmlDocument XmlNodeDocument;
     private static readonly XmlNodeDomFacade XmlNodeDomFacade;
-    
+
     private static readonly XDocument XObjectDocument;
     private static readonly XObjectDomFacade XObjectDomFacade;
 
@@ -36,7 +35,7 @@ public class TestAxis
         XmlNodeDocument = new XmlDocument();
         XmlNodeDocument.LoadXml(TestXml);
         XmlNodeDomFacade = new XmlNodeDomFacade();
-        
+
         XObjectDocument = XDocument.Parse(TestXml);
         XObjectDomFacade = new XObjectDomFacade();
     }
@@ -47,25 +46,23 @@ public class TestAxis
             query,
             XmlNodeDocument,
             XmlNodeDomFacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XmlNode>(namespaceResolver: _ => null)
+            new Options<XmlNode>(_ => null)
         );
     }
-    
+
     private static IEnumerable<XObject> XObjectEvalQueryNodes(string query)
     {
         return Evaluate.EvaluateXPathToNodes(
             query,
             XObjectDocument,
             XObjectDomFacade,
-            new Dictionary<string, AbstractValue>(),
-            new Options<XObject>(namespaceResolver: _ => null)
+            new Options<XObject>(_ => null)
         );
     }
 
     [Fact]
     public void TestAncestorAxis()
-    { 
+    {
         Assert.Equal(1, XmlNodeEvalQueryNodes("/xml/tips/tip/ancestor::xml").Count());
         Assert.Equal(1, XObjectEvalQueryNodes("/xml/tips/tip/ancestor::xml").Count());
     }
@@ -82,7 +79,6 @@ public class TestAxis
     {
         Assert.Equal(3, XmlNodeEvalQueryNodes("descendant::tip").Count());
         Assert.Equal(3, XObjectEvalQueryNodes("descendant::tip").Count());
-
     }
 
     [Fact]
@@ -90,7 +86,6 @@ public class TestAxis
     {
         Assert.Equal(3, XmlNodeEvalQueryNodes(@"/xml/tips/tap/following::tip").Count());
         Assert.Equal(3, XObjectEvalQueryNodes(@"/xml/tips/tap/following::tip").Count());
-
     }
 
     [Fact]
@@ -98,7 +93,6 @@ public class TestAxis
     {
         Assert.Equal(2, XmlNodeEvalQueryNodes(@"/xml/tips/tup/preceding::tip").Count());
         Assert.Equal(2, XObjectEvalQueryNodes(@"/xml/tips/tup/preceding::tip").Count());
-
     }
 
     [Fact]
@@ -106,7 +100,6 @@ public class TestAxis
     {
         Assert.Single(XmlNodeEvalQueryNodes(@"/xml/tips/tup/following-sibling::tip"));
         Assert.Single(XObjectEvalQueryNodes(@"/xml/tips/tup/following-sibling::tip"));
-
     }
 
     [Fact]

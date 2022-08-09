@@ -10,7 +10,7 @@ public class ExecutionParameters<TNode>
     public ExecutionParameters(
         bool debug,
         bool disableCache,
-        IDomFacade<TNode> domFacade,
+        DomFacade<TNode> domFacade,
         object? currentContext,
         INodesFactory<TNode>? nodesFactory = null,
         IDocumentWriter<TNode>? documentWriter = null,
@@ -31,7 +31,7 @@ public class ExecutionParameters<TNode>
 
     public bool DisableCache { get; }
 
-    public IDomFacade<TNode> DomFacade { get; }
+    public DomFacade<TNode> DomFacade { get; }
 
     public INodesFactory<TNode>? NodesFactory { get; }
 

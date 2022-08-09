@@ -71,7 +71,7 @@ public class SimpleExpressionBenchmark
 {
     private static readonly AbstractExpression<XmlNode> Expr = Helper.CompileExpression("self::p");
     private static readonly XPathExpression CompiledExpression = XPathExpression.Compile("self::p");
-    private readonly XmlNodeDomFacade _domFacade;
+    private readonly DomFacade<XmlNode> _domFacade = new(new XmlNodeDomFacade());
     private readonly XmlNode _source;
 
     public SimpleExpressionBenchmark()

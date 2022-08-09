@@ -13,6 +13,8 @@ namespace XPathTest;
 
 public static class Qt3TestUtils
 {
+    private static readonly Options<XmlNode> Options = new(_ => "http://www.w3.org/2010/09/qt-fots-catalog");
+
     public static XmlNode StringToXmlNode(string xml)
     {
         var doc = new XmlDocument();
@@ -48,12 +50,10 @@ public static class Qt3TestUtils
     {
         var baseUrl = testSetFileName.Substring(0, testSetFileName.LastIndexOf('/'));
 
-        Func<string, string> nsResolver = (prefix) => "http://www.w3.org/2010/09/qt-fots-catalog";
-        
         string testQuery;
-        if (Evaluate.EvaluateXPathToBoolean("./test/@file", testCase, domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver)))
+        if (Evaluate.EvaluateXPathToBoolean("./test/@file", testCase, domFacade, Options))
         {
-            var filename = Evaluate.EvaluateXPathToString("test/@file", testCase, domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver));
+            var filename = Evaluate.EvaluateXPathToString("test/@file", testCase, domFacade, Options);
             var filepath = $"{baseUrl}/{filename}";
             if (TestFileSystem.FileExists(filepath))
                 testQuery = LoadFileToString(filepath);
@@ -62,7 +62,7 @@ public static class Qt3TestUtils
         }
         else
         {
-            testQuery = Evaluate.EvaluateXPathToString("./test", testCase, domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver))!;
+            testQuery = Evaluate.EvaluateXPathToString("./test", testCase, domFacade, Options)!;
         }
 
 
@@ -78,49 +78,75 @@ public static class Qt3TestUtils
 
         var namespaceResolver = localNamespaceResolver;
 
-        var refString = Evaluate.EvaluateXPathToString("./environment/@ref",
-            testCase, domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver));
+        var refString = Evaluate.EvaluateXPathToString(
+            "./environment/@ref",
+            testCase,
+            domFacade,
+            Options
+        );
         var environmentNodes =
-            Evaluate.EvaluateXPathToNodes("./environment", testCase, domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver));
+            Evaluate.EvaluateXPathToNodes(
+                "./environment",
+                testCase,
+                domFacade,
+                Options
+            );
         var environmentNode = environmentNodes.Any()
-            ? Evaluate.EvaluateXPathToFirstNode($"/test-set/environment[@name = \"{refString}\"]",
-                new NodeValue<XmlNode>(testCase, domFacade), domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver))
-            : Evaluate.EvaluateXPathToFirstNode("./environment", new NodeValue<XmlNode>(testCase, domFacade),
-                domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver));
-        
-        var env = environmentNode != null
+            ? Evaluate.EvaluateXPathToFirstNode(
+                $"/test-set/environment[@name = \"{refString}\"]",
+                testCase,
+                domFacade,
+                Options)
+            : Evaluate.EvaluateXPathToFirstNode(
+                "./environment",
+                testCase,
+                domFacade,
+                Options);
+
+        var (contextNode, resolver, variablesInScope) = (environmentNode != null
             ? CreateEnvironment(baseUrl, environmentNode, domFacade)
             : EnvironmentsByNameCache.Instance.GetResource(
-                Evaluate.EvaluateXPathToString("(./environment/@ref, \"empty\")[1]", 
+                Evaluate.EvaluateXPathToString(
+                    "(./environment/@ref, \"empty\")[1]",
                     testCase,
-                    domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver)));
+                    domFacade,
+                    Options) ?? String.Empty
+            ))!;
 
-        var contextNode = env.ContextNode;
         namespaceResolver = localNamespaceResolver != null
-            ? prefix => localNamespaceResolver(prefix) ?? env.NamespaceResolver?.Invoke(prefix)
-            : prefix => env.NamespaceResolver?.Invoke(prefix);
-
-        var variablesInScope = env.Variables;
+            ? prefix => localNamespaceResolver(prefix) ?? resolver?.Invoke(prefix)
+            : prefix => resolver?.Invoke(prefix);
 
         return new TestArguments(baseUrl, contextNode, testQuery, language, namespaceResolver, variablesInScope!);
     }
 
     public static Environment CreateEnvironment(string? baseUrl, XmlNode environmentNode, XmlNodeDomFacade domFacade)
     {
-        Func<string, string> nsResolver = (prefix) => "http://www.w3.org/2010/09/qt-fots-catalog";
-        
+        Func<string, string> nsResolver = prefix => "http://www.w3.org/2010/09/qt-fots-catalog";
+
         var fileName = Evaluate.EvaluateXPathToString(
             "source[@role=\".\"]/@file",
-            environmentNode, 
-            domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver));
-        
-        var variables = Evaluate.EvaluateXPathToNodes("source[@role!=\".\"]",
-                environmentNode, domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver))
+            environmentNode,
+            domFacade,
+            Options);
+
+        var variables = Evaluate.EvaluateXPathToNodes(
+                "source[@role!=\".\"]",
+                environmentNode,
+                domFacade,
+                Options)
             .Select(variable => new KeyValuePair<string, AbstractValue?>(
-                Evaluate.EvaluateXPathToString("@role", variable, domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver))?[1..],
+                Evaluate.EvaluateXPathToString(
+                    "@role",
+                    variable,
+                    domFacade,
+                    Options)?[1..] ?? string.Empty,
                 new StringValue(LoadFileToString(
-                    (baseUrl != null ? baseUrl + "/" : "") + Evaluate.EvaluateXPathToString("@file",
-                        variable, domFacade, null, new Options<XmlNode>(namespaceResolver:nsResolver))
+                    (baseUrl != null ? baseUrl + "/" : "") + Evaluate.EvaluateXPathToString(
+                        "@file",
+                        variable,
+                        domFacade,
+                        Options)
                 ) ?? string.Empty)))
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => x.Value);
