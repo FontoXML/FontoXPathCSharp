@@ -13,11 +13,19 @@ public struct OptimizationOptions
 {
     public readonly bool CanBeStaticallyEvaluated;
     public readonly ResultOrdering ResultOrder;
+    public readonly bool Subtree;
+    public readonly bool Peer;
 
-    public OptimizationOptions(bool canBeStaticallyEvaluated, ResultOrdering resultOrder = ResultOrdering.Unsorted)
+    public OptimizationOptions(
+        bool canBeStaticallyEvaluated = false, 
+        bool peer = false,
+        ResultOrdering resultOrder = ResultOrdering.Unsorted, 
+        bool subtree = false)
     {
         CanBeStaticallyEvaluated = canBeStaticallyEvaluated;
         ResultOrder = resultOrder;
+        Subtree = subtree;
+        Peer = peer;
     }
 }
 
@@ -25,16 +33,18 @@ public abstract class AbstractExpression<TNode>
 {
     protected readonly AbstractExpression<TNode>[] _childExpressions;
     public readonly bool CanBeStaticallyEvaluated;
-
     public readonly bool IsUpdating;
-
-    public readonly ResultOrdering ResultOrder;
+    public readonly ResultOrdering ExpectedResultOrder;
+    public readonly bool Subtree;
+    public readonly bool Peer;
 
     protected AbstractExpression(AbstractExpression<TNode>[] childExpressions, OptimizationOptions optimizationOptions)
     {
         _childExpressions = childExpressions;
         CanBeStaticallyEvaluated = optimizationOptions.CanBeStaticallyEvaluated;
-        ResultOrder = optimizationOptions.ResultOrder;
+        ExpectedResultOrder = optimizationOptions.ResultOrder;
+        Subtree = optimizationOptions.Subtree;
+        Peer = optimizationOptions.Peer;
         IsUpdating = false;
     }
 

@@ -85,7 +85,8 @@ public static class CompileAstToExpression<TNode>
 
     private static AbstractExpression<TNode> CompilePathExpression(Ast ast, CompilationOptions options)
     {
-        var rawSteps = ast.GetChildren(AstNodeName.StepExpr);
+        var rawSteps = ast.GetChildren(AstNodeName.StepExpr).ToArray();
+        var hasAxisStep = false;
 
         var steps = rawSteps.Select(step =>
         {
@@ -112,6 +113,7 @@ public static class CompileAstToExpression<TNode>
 
             if (axis != null)
             {
+                hasAxisStep = true;
                 var test = step.GetFirstChild(
                     AstNodeName.AttributeTest, AstNodeName.AnyElementTest, AstNodeName.PiTest,
                     AstNodeName.DocumentTest, AstNodeName.ElementTest, AstNodeName.CommentTest,
@@ -158,9 +160,18 @@ public static class CompileAstToExpression<TNode>
                 };
 
             return stepExpression;
-        });
+        }).ToArray();
+        
+        var isAbsolute = ast.GetFirstChild(AstNodeName.RootExpr);
+        
+        var requireSorting = hasAxisStep || isAbsolute != null || rawSteps.Length > 1;
 
-        return new PathExpression<TNode>(steps.ToArray());
+        // Directly use expressions which are not path expression
+        if (!requireSorting && steps.Length == 1) {
+            return steps[0];
+        }
+
+        return new PathExpression<TNode>(steps.ToArray(), requireSorting);
     }
 
     private static AbstractExpression<TNode> CompileFunctionCallExpression(Ast ast, CompilationOptions options)

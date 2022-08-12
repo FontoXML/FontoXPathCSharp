@@ -12,7 +12,9 @@ public class IfExpression<TNode> : PossiblyUpdatingExpression<TNode>
         new[] { ifExpr, thenExpr, elseExpr },
         new OptimizationOptions(
             ifExpr.CanBeStaticallyEvaluated && thenExpr.CanBeStaticallyEvaluated && elseExpr.CanBeStaticallyEvaluated,
-            thenExpr.ResultOrder == elseExpr.ResultOrder ? thenExpr.ResultOrder : ResultOrdering.Unsorted)
+            resultOrder: thenExpr.ExpectedResultOrder == elseExpr.ExpectedResultOrder
+                ? thenExpr.ExpectedResultOrder
+                : ResultOrdering.Unsorted)
     )
     {
         _ifExpr = ifExpr;

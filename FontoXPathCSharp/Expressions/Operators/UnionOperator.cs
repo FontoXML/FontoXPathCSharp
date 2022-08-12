@@ -19,7 +19,7 @@ public class UnionOperator<TNode> : AbstractExpression<TNode> where TNode : notn
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        if (_subExpressions.All(e => e.ResultOrder == ResultOrdering.Sorted))
+        if (_subExpressions.All(e => e.ExpectedResultOrder == ResultOrdering.Sorted))
             throw new NotImplementedException("Returning sorted sequence unions not implemented yet");
         return ExpressionUtils.ConcatSequences(
             _subExpressions.Select(e =>

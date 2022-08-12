@@ -72,11 +72,8 @@ public class DocumentOrderUtils<TNode> where TNode : notnull
         var actualNodeA = nodeA;
         var actualNodeB = nodeB;
 
-        if (actualNodeA!.Equals(actualNodeB))
-        {
-            return 0;
-        }
-
+        if (actualNodeA!.Equals(actualNodeB)) return 0;
+        
         var actualAncestorsA = FindAllAncestors(domFacade, actualNodeA);
         var actualAncestorsB = FindAllAncestors(domFacade, actualNodeB);
 
@@ -108,17 +105,11 @@ public class DocumentOrderUtils<TNode> where TNode : notnull
             if (!actualAncestorsA[y].Equals(actualAncestorsB[y])) break;
         }
 
-        if (y >= actualAncestorsA.Count)
-        {
-            // All nodes under a node are higher in document order than said node
-            return -1;
-        }
-
-        if (y >= actualAncestorsB.Count)
-        {
-            // All nodes under a node are higher in document order than said node
-            return 1;
-        }
+        // All nodes under a node are higher in document order than said node
+        if (y >= actualAncestorsA.Count) return -1;
+        
+        // All nodes under a node are higher in document order than said node
+        if (y >= actualAncestorsB.Count) return 1;
 
         var actualAncestorA = actualAncestorsA[y];
         var actualAncestorB = actualAncestorsB[y];
@@ -135,7 +126,7 @@ public class DocumentOrderUtils<TNode> where TNode : notnull
         return 1;
     }
 
-    private static List<TNode> FindAllAncestors(DomFacade<TNode> domFacade, TNode node)
+    private static List<TNode> FindAllAncestors(IDomFacade<TNode> domFacade, TNode node)
     {
         var ancestors = new List<TNode>();
         for (var ancestor = node; ancestor != null; ancestor = domFacade.GetParentNode(ancestor))
@@ -144,5 +135,14 @@ public class DocumentOrderUtils<TNode> where TNode : notnull
         }
 
         return ancestors;
+    }
+
+    public static int CompareNodePositions(DomFacade<TNode> domFacade, NodeValue<TNode> node1, NodeValue<TNode> node2)
+    {
+        return CompareNodePositionsWithTieBreaker(
+            domFacade,
+            node1,
+            node2
+        );
     }
 }
