@@ -2,15 +2,16 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
 
-public abstract class UpdatingExpression : AbstractExpression
+public abstract class UpdatingExpression<TNode> : AbstractExpression<TNode>
 {
-    protected UpdatingExpression(AbstractExpression[] childExpressions, OptimizationOptions optimizationOptions) : base(
+    protected UpdatingExpression(AbstractExpression<TNode>[] childExpressions,
+        OptimizationOptions optimizationOptions) : base(
         childExpressions, optimizationOptions)
     {
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        throw new XPathException("XUST0001");
+        throw new XPathException("XUST0001", "Can not execute an updating expression in a non-updating context.");
     }
 }

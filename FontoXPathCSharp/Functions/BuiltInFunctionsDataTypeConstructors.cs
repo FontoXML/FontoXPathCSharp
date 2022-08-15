@@ -1,4 +1,3 @@
-using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -6,9 +5,9 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsDataTypeConstructors
+public class BuiltInFunctionsDataTypeConstructors<TNode>
 {
-    private static readonly FunctionSignature<ISequence> FnXsQName = (_, _, staticContext, args) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnXsQName = (_, _, staticContext, args) =>
     {
         var sequence = args[0];
 
@@ -17,20 +16,20 @@ public class BuiltInFunctionsDataTypeConstructors
         var value = sequence.First();
         if (value.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
             // This won't ever work
-            throw new XPathException("XPTY0004: The provided QName is not a string-like value.");
+            throw new XPathException("XPTY0004","The provided QName is not a string-like value.");
 
         var lexicalQName = value.CastToType(ValueType.XsString).GetAs<StringValue>().Value;
         // Test lexical scope
         lexicalQName = TypeHelpers.NormalizeWhitespace(lexicalQName, ValueType.XsQName);
         if (!TypeHelpers.ValidatePattern(lexicalQName, ValueType.XsQName))
-            throw new XPathException("FORG0001: The provided QName is invalid.");
+            throw new XPathException("FORG0001","The provided QName is invalid.");
 
         if (!lexicalQName.Contains(':'))
         {
             // Only a local part
             var resolvedDefaultNamespaceUri = staticContext?.ResolveNamespace("");
             return SequenceFactory.CreateFromValue(
-                Atomize.CreateAtomicValue(
+                AtomicValue.Create(
                     new QName("", resolvedDefaultNamespaceUri, lexicalQName),
                     ValueType.XsName
                 )
@@ -44,14 +43,15 @@ public class BuiltInFunctionsDataTypeConstructors
         var namespaceURI = staticContext?.ResolveNamespace(prefix);
         if (namespaceURI == null)
             throw new XPathException(
-                $"FONS0004: The value {lexicalQName} can not be cast to a QName. Did you mean to use fn:QName?");
+                "FONS0004",
+                $"The value {lexicalQName} can not be cast to a QName. Did you mean to use fn:QName?");
 
         return SequenceFactory.CreateFromValue(
-            Atomize.CreateAtomicValue(new QName(prefix, namespaceURI, localName), ValueType.XsQName)
+            AtomicValue.Create(new QName(prefix, namespaceURI, localName), ValueType.XsQName)
         );
     };
 
-    public static readonly BuiltinDeclarationType[] Declarations = GenerateDeclarations();
+    public static readonly BuiltinDeclarationType<TNode>[] Declarations = GenerateDeclarations();
 
     private static ISequence GenericDataTypeConstructor(
         ValueType dataType,
@@ -63,7 +63,7 @@ public class BuiltInFunctionsDataTypeConstructors
             : SequenceFactory.CreateFromValue(sequence.First()!.CastToType(dataType));
     }
 
-    private static BuiltinDeclarationType[] GenerateDeclarations()
+    private static BuiltinDeclarationType<TNode>[] GenerateDeclarations()
     {
         var ZeroOrOneConstructorTypes = new Dictionary<string, ValueType>
         {
@@ -114,7 +114,7 @@ public class BuiltInFunctionsDataTypeConstructors
         };
 
         var zeroOrOnedeclarations = ZeroOrOneConstructorTypes
-            .Select(nameValueType => new BuiltinDeclarationType(
+            .Select(nameValueType => new BuiltinDeclarationType<TNode>(
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 (_, _, _, args) => GenericDataTypeConstructor(nameValueType.Value, args[0]),
                 nameValueType.Key,
@@ -130,7 +130,7 @@ public class BuiltInFunctionsDataTypeConstructors
         };
 
         var zeroOrMoredeclarations = ZeroOrMoreConstructorTypes
-            .Select(nameValueType => new BuiltinDeclarationType(
+            .Select(nameValueType => new BuiltinDeclarationType<TNode>(
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 (_, _, _, args) => GenericDataTypeConstructor(nameValueType.Value, args[0]),
                 nameValueType.Key,
@@ -141,7 +141,7 @@ public class BuiltInFunctionsDataTypeConstructors
 
         var qNameDeclaration = new[]
         {
-            new BuiltinDeclarationType(
+            new BuiltinDeclarationType<TNode>(
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 FnXsQName,
                 "QName",

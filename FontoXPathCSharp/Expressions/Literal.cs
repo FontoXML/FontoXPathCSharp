@@ -5,23 +5,24 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class Literal : AbstractExpression
+public class Literal<TNode> : AbstractExpression<TNode>
 {
     private readonly Func<ISequence> _createValueSequence;
 
-    public Literal(string value, SequenceType type) : base(Array.Empty<AbstractExpression>(),
+    public Literal(string value, SequenceType type) : base(Array.Empty<AbstractExpression<TNode>>(),
         new OptimizationOptions(true))
     {
         _createValueSequence = type.ValueType switch
         {
-            ValueType.XsInteger or ValueType.XsDecimal => () => SequenceFactory.CreateFromValue(new IntValue(int.Parse(value))),
-            ValueType.XsString => () => SequenceFactory.CreateFromValue(new StringValue(value)),
-            ValueType.XsDouble => () => SequenceFactory.CreateFromValue(new DoubleValue(Decimal.Parse(value))),
-            _ => throw new XPathException("Type '" + type + "' not expected in literal")
+            ValueType.XsInteger or ValueType.XsDecimal => () =>
+                SequenceFactory.CreateFromValue(AtomicValue.Create(value, ValueType.XsInt)),
+            ValueType.XsString => () => SequenceFactory.CreateFromValue(AtomicValue.Create(value, ValueType.XsString)),
+            ValueType.XsDouble => () => SequenceFactory.CreateFromValue(AtomicValue.Create(value, ValueType.XsDouble)),
+            _ => throw new ArgumentOutOfRangeException("Type '" + type + "' not expected in literal")
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         return _createValueSequence();
     }

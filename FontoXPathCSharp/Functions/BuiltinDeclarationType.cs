@@ -4,15 +4,15 @@ using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltinDeclarationType
+public class BuiltinDeclarationType<TNode>
 {
     public readonly ParameterType[] ArgumentTypes;
-    public readonly FunctionSignature<ISequence> CallFunction;
+    public readonly FunctionSignature<ISequence, TNode> CallFunction;
     public readonly string LocalName;
     public readonly string NamespaceUri;
     public readonly SequenceType ReturnType;
 
-    public BuiltinDeclarationType(ParameterType[] argumentTypes, FunctionSignature<ISequence> callFunction,
+    public BuiltinDeclarationType(ParameterType[] argumentTypes, FunctionSignature<ISequence, TNode> callFunction,
         string localName, string namespaceUri, SequenceType returnType)
     {
         ArgumentTypes = argumentTypes;

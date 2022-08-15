@@ -2,7 +2,10 @@ namespace FontoXPathCSharp;
 
 public class XPathException : Exception
 {
-    public XPathException(string message) : base(message)
+    public readonly string ErrorCode;
+    
+    public XPathException(string errorCode, string message) : base(message)
     {
+        ErrorCode = errorCode;
     }
 }

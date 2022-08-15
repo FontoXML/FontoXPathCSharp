@@ -14,26 +14,26 @@ public abstract class ExpressionResult
     public CacheState CacheState { get; protected init; }
 }
 
-public class CompiledExpressionResult : ExpressionResult
+public class CompiledExpressionResult<TNode> : ExpressionResult
 {
-    public CompiledExpressionResult(AbstractExpression expression)
+    public CompiledExpressionResult(AbstractExpression<TNode> expression)
     {
         CacheState = CacheState.Compiled;
         Expression = expression;
     }
 
-    public AbstractExpression Expression { get; }
+    public AbstractExpression<TNode> Expression { get; }
 }
 
-public class StaticallyAnalyzedExpressionResult : ExpressionResult
+public class StaticallyAnalyzedExpressionResult<TNode> : ExpressionResult
 {
-    public StaticallyAnalyzedExpressionResult(AbstractExpression expression)
+    public StaticallyAnalyzedExpressionResult(AbstractExpression<TNode> expression)
     {
         CacheState = CacheState.StaticAnalyzed;
         Expression = expression;
     }
 
-    public AbstractExpression Expression { get; }
+    public AbstractExpression<TNode> Expression { get; }
 }
 
 public class ParsedExpressionResult : ExpressionResult

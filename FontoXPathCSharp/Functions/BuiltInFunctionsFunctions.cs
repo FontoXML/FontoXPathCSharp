@@ -1,4 +1,3 @@
-using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -6,11 +5,11 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsFunctions
+public class BuiltInFunctionsFunctions<TNode>
 {
-    public static readonly FunctionSignature<ISequence> FnFunctionLookup = (_, _, staticContext, sequences) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnFunctionLookup = (_, _, staticContext, sequences) =>
     {
-        return SequenceUtils.ZipSingleton(sequences, nameArityTuple =>
+        return ISequence.ZipSingleton(sequences, nameArityTuple =>
         {
             var name = nameArityTuple[0]?.GetAs<QNameValue>();
             var arity = nameArityTuple[1]?.GetAs<IntValue>();
@@ -23,7 +22,7 @@ public class BuiltInFunctionsFunctions
 
             if (functionProperties == null) return SequenceFactory.CreateEmpty();
 
-            var functionItem = new FunctionValue<ISequence>(
+            var functionItem = new FunctionValue<ISequence, TNode>(
                 functionProperties.ArgumentTypes,
                 arity.Value,
                 name.Value.LocalName,
@@ -37,7 +36,7 @@ public class BuiltInFunctionsFunctions
     };
 
 
-    public static readonly BuiltinDeclarationType[] Declarations =
+    public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
         new(new[]
             {

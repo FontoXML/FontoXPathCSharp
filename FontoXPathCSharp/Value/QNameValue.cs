@@ -1,4 +1,3 @@
-using FontoXPathCSharp.Expressions;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
@@ -10,12 +9,12 @@ public class QNameValue : AtomicValue
         Value = value;
     }
 
-    public QName Value { get; }
-
-    public override string ToString()
+    public QNameValue(object? value) : base(ValueType.XsQName)
     {
-        return "<Value>[type: " + Type + ", value: " + Value + "]";
+        Value = value as QName ?? throw new NotImplementedException($"Haven't implemented Qnames from: {value}");
     }
+
+    public QName Value { get; }
 
     public override QName GetValue()
     {

@@ -6,8 +6,10 @@ namespace XPathTest;
 
 public class TestLoggingFixture : IDisposable
 {
+    private readonly ConcurrentDictionary<string, string> _castingErrors = new();
     private readonly ConcurrentDictionary<string, string> _failedTestsWithErrors = new();
     private readonly ConcurrentDictionary<string, string> _nonParseErrors = new();
+    private readonly ConcurrentDictionary<string, string> _nullPointerExceptions = new();
     private readonly ConcurrentDictionary<string, string> _parseErrors = new();
 
 
@@ -20,6 +22,8 @@ public class TestLoggingFixture : IDisposable
             TestingUtils.GetSortedValueOccurrences(_nonParseErrors.Values), "mostCommonNonParseErrors.csv");
         TestingUtils.WriteKvpCollectionToDisk(
             TestingUtils.GetSortedValueOccurrences(_failedTestsWithErrors.Values), "mostCommonErrors.csv");
+        TestingUtils.WriteKvpCollectionToDisk(_nullPointerExceptions, "nullPointerExceptions.csv");
+        TestingUtils.WriteKvpCollectionToDisk(_castingErrors, "castingExceptions.csv");
     }
 
     public void ProcessError(Exception ex, string testName, string testSetName, string description)
@@ -30,8 +34,11 @@ public class TestLoggingFixture : IDisposable
             .Split(Environment.NewLine)
             .First();
 
+        if (ex is NullReferenceException) _nullPointerExceptions[testName] = ex.ToString();
+        if (ex is InvalidCastException) _castingErrors[testName] = ex.ToString();
+
         _failedTestsWithErrors[testName] = exceptionString;
         if (!exceptionString.Contains("PRSC Error")) _nonParseErrors[testName] = exceptionString;
-        else { _parseErrors[testName] = exceptionString; }
+        else _parseErrors[testName] = exceptionString;
     }
 }

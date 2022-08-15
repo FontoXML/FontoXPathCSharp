@@ -19,4 +19,16 @@ public class DynamicContext
     {
         return new DynamicContext(contextItem, contextItemIndex, contextSequence ?? ContextSequence);
     }
+
+    public Iterator<DynamicContext> CreateSequenceIterator(ISequence contextSequence)
+    {
+        var i = 0;
+        var iterator = contextSequence.GetValue();
+        return hint => {
+                var value = iterator(hint);
+                return value.IsDone 
+                    ? IteratorResult<DynamicContext>.Done() 
+                    : IteratorResult<DynamicContext>.Ready(ScopeWithFocus(i++, value.Value, contextSequence));
+        };
+    }
 }

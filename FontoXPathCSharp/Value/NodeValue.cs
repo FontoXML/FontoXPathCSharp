@@ -1,28 +1,27 @@
-using System.Xml;
+using FontoXPathCSharp.DomFacade;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class NodeValue : AbstractValue
+public class NodeValue<TNode> : AbstractValue where TNode : notnull
 {
-    public NodeValue(XmlNode value) : base(GetNodeType(value))
+    public NodeValue(TNode value, IDomFacade<TNode> domFacade) : base(GetNodeType(value, domFacade))
     {
         Value = value;
     }
 
-    public XmlNode Value { get; }
+    public TNode Value { get; }
 
-    private static ValueType GetNodeType(XmlNode node)
+    private static ValueType GetNodeType(TNode node, IDomFacade<TNode> domFacade)
     {
-        return node.NodeType switch
+        return domFacade.GetNodeType(node) switch
         {
-            XmlNodeType.Element => ValueType.Element,
-            XmlNodeType.Attribute => ValueType.Attribute,
-            XmlNodeType.Text => ValueType.Text,
-            XmlNodeType.CDATA => ValueType.Text,
-            XmlNodeType.ProcessingInstruction => ValueType.ProcessingInstruction,
-            XmlNodeType.Comment => ValueType.Comment,
-            XmlNodeType.Document => ValueType.DocumentNode,
+            NodeType.Element => ValueType.Element,
+            NodeType.Attribute => ValueType.Attribute,
+            NodeType.Text or NodeType.CData => ValueType.Text,
+            NodeType.ProcessingInstruction => ValueType.ProcessingInstruction,
+            NodeType.Comment => ValueType.Comment,
+            NodeType.Document => ValueType.DocumentNode,
             _ => ValueType.Node
         };
     }

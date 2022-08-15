@@ -20,10 +20,11 @@ internal static class EffectiveBooleanValue
             return value.GetAs<StringValue>().Value.Length > 0;
 
         if (value.GetValueType().IsSubtypeOf(ValueType.XsUntypedAtomic))
-            return value.GetAs<StringValue>().Value.Length > 0;
+            return (Convert.ToString(value.GetAs<UntypedAtomicValue>().Value) ?? string.Empty).Length > 0;
 
         if (value.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
-            return value.GetAs<IntValue>().Value > 0;
+            return Convert.ToDecimal(value.GetAs<AtomicValue>().GetValue()) > 0;
+
 
         throw new Exception("FORG0006");
     }

@@ -56,17 +56,32 @@ internal class ArrayBackedSequence : ISequence
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
     {
-        throw new NotImplementedException();
+        var i = -1;
+        return SequenceFactory.CreateFromIterator(_ =>
+        {
+            i++;
+            while (i < _values.Length && !callback(_values[i], i, this)) i++;
+
+            return i >= _values.Length
+                ? IteratorResult<AbstractValue>.Done()
+                : IteratorResult<AbstractValue>.Ready(_values[i]);
+        });
     }
 
     public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
     {
-        throw new NotImplementedException();
+        var i = -1;
+        return SequenceFactory.CreateFromIterator(
+            _ => ++i >= _values.Length
+                ? IteratorResult<AbstractValue>.Done()
+                : IteratorResult<AbstractValue>.Ready(callback(_values[i], i, this)),
+            _values.Length
+        );
     }
 
     public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues, IterationHint hint)
     {
-        throw new NotImplementedException();
+        return allvalues(_values);
     }
 
     public bool GetEffectiveBooleanValue()

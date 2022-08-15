@@ -5,45 +5,49 @@ using FontoXPathCSharp.Types;
 
 namespace FontoXPathCSharp;
 
-public class StaticContext : AbstractContext
+public class StaticContext<TNode> : AbstractContext<TNode>
 {
-    private readonly AbstractContext _parentContext;
+    private readonly AbstractContext<TNode> _parentContext;
 
-    private readonly Dictionary<string, string>[] _registeredNamespaceURIByPrefix;
+    private readonly Dictionary<string, string>[] _registeredNamespaceUriByPrefix;
 
     private readonly int _scopeDepth;
-    private Dictionary<string, FunctionProperties> _registeredFunctionsByHash;
+    private Dictionary<string, FunctionProperties<TNode>> _registeredFunctionsByHash;
 
-    public StaticContext(AbstractContext parentContext)
+    public StaticContext(AbstractContext<TNode> parentContext)
     {
         _parentContext = parentContext;
 
         _scopeDepth = 0;
 
-        _registeredNamespaceURIByPrefix = new[]
+        _registeredNamespaceUriByPrefix = new[]
         {
             new Dictionary<string, string>()
         };
 
-        _registeredFunctionsByHash = new Dictionary<string, FunctionProperties>();
+        _registeredFunctionsByHash = new Dictionary<string, FunctionProperties<TNode>>();
 
         registeredDefaultFunctionNamespaceURI = null;
 
         // NOTE: not sure if these default values are correct   
         registeredVariableDeclarationByHashKey = parentContext?.RegisteredVariableDeclarationByHashKey ??
                                                  new Dictionary<string,
-                                                     Func<DynamicContext, ExecutionParameters, ISequence>>();
+                                                     Func<DynamicContext, ExecutionParameters<TNode>, ISequence>>();
         registeredVariableBindingByHashKey =
             parentContext?.RegisteredVariableBindingByHashKey ?? new Dictionary<string, string>();
 
         // TODO: this should not be done here but lets populate the static context with the default functions right here for now
-        foreach (var function in BuiltInFunctions.Declarations)
+        foreach (var function in BuiltInFunctions<TNode>.Declarations)
         {
-            FunctionRegistry.RegisterFunction(function.NamespaceUri, function.LocalName, function.ArgumentTypes,
+            if (function.CallFunction == null)
+                throw new Exception("The callback needs to be declared before the declaration itself.");
+
+            FunctionRegistry<TNode>.RegisterFunction(function.NamespaceUri, function.LocalName, function.ArgumentTypes,
                 function.ReturnType, function.CallFunction);
 
             var functionProperties =
-                new FunctionProperties(function.ArgumentTypes, function.ArgumentTypes.Length, function.CallFunction,
+                new FunctionProperties<TNode>(function.ArgumentTypes, function.ArgumentTypes.Length,
+                    function.CallFunction,
                     false, function.LocalName, function.NamespaceUri, function.ReturnType);
             RegisterFunctionDefinition(functionProperties!);
         }
@@ -51,7 +55,7 @@ public class StaticContext : AbstractContext
 
     public override string ToString()
     {
-        var nsUriString = "[ " + string.Join(", ", _registeredNamespaceURIByPrefix.Select(nsUri =>
+        var nsUriString = "[ " + string.Join(", ", _registeredNamespaceUriByPrefix.Select(nsUri =>
             $"[{string.Join(", ", nsUri.Select(kvp => $"[{kvp.Key.ToString()}]: {kvp.Value.ToString()}"))}]")) + " ]";
         var funcString = $"[\n{string.Join(",\n", _registeredFunctionsByHash.Select(f => $"[{f.Key.ToString()}]"))} ]";
 
@@ -63,9 +67,9 @@ public class StaticContext : AbstractContext
                $"Registered Functions By Hash: {funcString}\n}}";
     }
 
-    public StaticContext Clone()
+    public StaticContext<TNode> Clone()
     {
-        var contextAtThisPoint = new StaticContext(_parentContext);
+        var contextAtThisPoint = new StaticContext<TNode>(_parentContext);
         contextAtThisPoint._registeredFunctionsByHash =
             _registeredFunctionsByHash.ToDictionary(e => e.Key, e => e.Value);
         return contextAtThisPoint;
@@ -73,10 +77,10 @@ public class StaticContext : AbstractContext
 
     private static string GetSignatureHash(string? namespaceUri, string localName, int arity)
     {
-        return $"Q{{{namespaceUri ?? ""}}}{localName}~{arity}";
+        return $"Q{{{namespaceUri ?? string.Empty}}}{localName}~{arity}";
     }
 
-    public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
+    public override FunctionProperties<TNode>? LookupFunction(string? namespaceUri, string localName, int arity,
         bool skipExternal = false)
     {
         var hashKey = GetSignatureHash(namespaceUri, localName, arity);
@@ -111,21 +115,22 @@ public class StaticContext : AbstractContext
 
     private static string? LookupInOverrides(IEnumerable<Dictionary<string, string>> overrides, string key)
     {
-        return (from o in overrides.Reverse()
-                where o.ContainsKey(key)
-                select o[key])
+        return overrides
+            .Reverse()
+            .Where(o => o.ContainsKey(key))
+            .Select(o => o[key])
             .FirstOrDefault();
     }
 
-    public override string? ResolveNamespace(string? prefix, bool useExternalResolver = true)
+    public override string ResolveNamespace(string? prefix, bool useExternalResolver = true)
     {
-        var uri = LookupInOverrides(_registeredNamespaceURIByPrefix, prefix ?? "");
-        return uri ?? _parentContext?.ResolveNamespace(prefix, useExternalResolver);
+        var uri = LookupInOverrides(_registeredNamespaceUriByPrefix, prefix ?? "");
+        return uri ?? _parentContext.ResolveNamespace(prefix, useExternalResolver);
     }
 
     public void RegisterNamespace(string prefix, string namespaceUri)
     {
-        _registeredNamespaceURIByPrefix[_scopeDepth][prefix] = namespaceUri;
+        _registeredNamespaceUriByPrefix[_scopeDepth][prefix] = namespaceUri;
     }
 
     public static void EnhanceWithModule(string uri)
@@ -133,12 +138,12 @@ public class StaticContext : AbstractContext
         throw new NotImplementedException("EnhanceStaticContextWithModule not implemented yet.");
     }
 
-    public void RegisterFunctionDefinition(FunctionProperties properties)
+    public void RegisterFunctionDefinition(FunctionProperties<TNode> properties)
     {
         var hashKey = GetSignatureHash(properties.NamespaceUri, properties.LocalName, properties.Arity);
 
         if (_registeredFunctionsByHash.ContainsKey(hashKey))
-            throw new XPathException($"XQT0049 {properties.NamespaceUri} {properties.LocalName}");
+            throw new XPathException("XQT0049", $"{properties.NamespaceUri} {properties.LocalName}");
 
         _registeredFunctionsByHash[hashKey] = properties;
     }

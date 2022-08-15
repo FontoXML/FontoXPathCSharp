@@ -6,9 +6,9 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Operators;
 
-public class UnaryOperator : AbstractExpression
+public class UnaryOperator<TNode> : AbstractExpression<TNode>
 {
-    private static readonly Dictionary<ValueType, ValueType> UnaryLookup = new()
+    private static readonly IReadOnlyDictionary<ValueType, ValueType> UnaryLookup = new Dictionary<ValueType, ValueType>
     {
         { ValueType.XsInteger, ValueType.XsInteger },
         { ValueType.XsNonPositiveInteger, ValueType.XsInteger },
@@ -31,9 +31,9 @@ public class UnaryOperator : AbstractExpression
     };
 
     private readonly UnaryOperatorKind _kind;
-    private readonly AbstractExpression _valueExpr;
+    private readonly AbstractExpression<TNode> _valueExpr;
 
-    public UnaryOperator(AstNodeName kind, AbstractExpression valueExpr) : base(new[] { valueExpr },
+    public UnaryOperator(AstNodeName kind, AbstractExpression<TNode> valueExpr) : base(new[] { valueExpr },
         new OptimizationOptions(false))
     {
         _valueExpr = valueExpr;
@@ -41,12 +41,11 @@ public class UnaryOperator : AbstractExpression
         {
             AstNodeName.UnaryMinusOp => UnaryOperatorKind.Minus,
             AstNodeName.UnaryPlusOp => UnaryOperatorKind.Plus,
-            _ => throw new XPathException(
-                "It's not possible to create a unary operator with any other type than + or - ")
+            _ => throw new ArgumentOutOfRangeException($"It's not possible to create a unary operator with {kind}")
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         return Atomize.AtomizeSequence(
             _valueExpr.EvaluateMaybeStatically(dynamicContext, executionParameters),
@@ -67,13 +66,14 @@ public class UnaryOperator : AbstractExpression
 
             if (atomizedValues.Length > 1)
                 throw new XPathException(
-                    "XPTY0004: The operand to a unary operator must be a sequence with a length less than one");
+                    "XPTY0004",
+                    "The operand to a unary operator must be a sequence with a length less than one");
 
             if (value.GetValueType().IsSubtypeOf(ValueType.XsUntypedAtomic))
             {
                 var castValue = value.CastToType(ValueType.XsDouble).GetAs<DoubleValue>();
                 return SequenceFactory.CreateFromValue(
-                    Atomize.CreateAtomicValue(
+                    AtomicValue.Create(
                         _kind == UnaryOperatorKind.Minus ? -castValue.Value : castValue.Value,
                         ValueType.XsDouble
                     )
@@ -87,22 +87,20 @@ public class UnaryOperator : AbstractExpression
                 // Not very pretty, but it is what it is, maybe this can be fixed later.
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsDouble))
                     return SequenceFactory.CreateFromValue(
-                        Atomize.CreateAtomicValue(value.GetAs<DoubleValue>().Value * -1,
-                            UnaryLookup[value.GetValueType()])
+                        AtomicValue.Create(value.GetAs<DoubleValue>().Value * -1, ValueType.XsDouble)
                     );
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsFloat))
                     return SequenceFactory.CreateFromValue(
-                        Atomize.CreateAtomicValue(value.GetAs<FloatValue>().Value * -1,
-                            UnaryLookup[value.GetValueType()])
+                        AtomicValue.Create(value.GetAs<FloatValue>().Value * -1, ValueType.XsFloat)
                     );
 
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsInteger))
                     return SequenceFactory.CreateFromValue(
-                        Atomize.CreateAtomicValue(value.GetAs<IntValue>().Value * -1, UnaryLookup[value.GetValueType()])
+                        AtomicValue.Create(value.GetAs<IntValue>().Value * -1, ValueType.XsInteger)
                     );
             }
 
-            return SequenceFactory.CreateFromValue(Atomize.CreateAtomicValue(double.NaN, ValueType.XsDouble));
+            return SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN, ValueType.XsDouble));
         });
     }
 

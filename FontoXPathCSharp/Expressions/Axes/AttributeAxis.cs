@@ -1,42 +1,38 @@
-using System.Xml;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class AttributeAxis : AbstractExpression
+public class AttributeAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression _selector;
+    private readonly AbstractTestExpression<TNode> _selector;
 
-    public AttributeAxis(AbstractTestExpression selector) : base(new AbstractExpression[] { selector },
+    public AttributeAxis(AbstractTestExpression<TNode> selector) : base(new AbstractExpression<TNode>[] { selector },
         new OptimizationOptions(false))
     {
         _selector = selector;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
+        var domFacade = executionParameters.DomFacade;
+
+        var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 
         if (contextItem.GetValueType() != ValueType.Element) return SequenceFactory.CreateEmpty();
 
-        // var matchingAttributes = domfacade?.Attributes?.Cast<XmlAttribute>()
-        //     .Where(attr => attr.NamespaceURI != BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri())
-        //     .Select(attr => new NodeValue(attr))
-        //     .Where(attribPointer => _selector.EvaluateToBoolean(dynamicContext, attribPointer, executionParameters));
-
-        var matchingAttributes = new List<NodeValue>();
-        foreach (XmlAttribute attr in contextItem.Value.Attributes)
+        //TODO: LINQ this stuff properly
+        var matchingAttributes = new List<NodeValue<TNode>>();
+        foreach (var attr in domFacade.GetAllAttributes(contextItem.Value))
         {
-            if (attr.NamespaceURI == BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri())
+            if (domFacade.GetNamespaceUri(attr) == BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri())
                 continue;
-            var nodeValue = new NodeValue(attr);
+            var nodeValue = new NodeValue<TNode>(attr, domFacade);
             var matches = _selector.EvaluateToBoolean(dynamicContext, nodeValue, executionParameters);
-            if (matches)
-                matchingAttributes.Add(nodeValue);
+            if (matches) matchingAttributes.Add(nodeValue);
         }
 
-        return SequenceFactory.CreateFromArray(matchingAttributes.ToArray());
+        return SequenceFactory.CreateFromArray(matchingAttributes.Cast<AbstractValue>().ToArray());
     }
 }

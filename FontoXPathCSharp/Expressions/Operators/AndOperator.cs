@@ -1,21 +1,21 @@
-using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Operators;
 
-public class AndOperator : AbstractExpression
+public class AndOperator<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractExpression[] _subExpressions;
+    private readonly AbstractExpression<TNode>[] _subExpressions;
 
 
-    public AndOperator(AbstractExpression[] childExpressions) : base(childExpressions,
+    public AndOperator(AbstractExpression<TNode>[] childExpressions) : base(
+        childExpressions,
         new OptimizationOptions(childExpressions.All(e => e.CanBeStaticallyEvaluated)))
     {
         _subExpressions = childExpressions;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         var i = 0;
         ISequence? resultSequence = null;
@@ -39,7 +39,7 @@ public class AndOperator : AbstractExpression
                 if (ebv == false)
                 {
                     done = true;
-                    return IteratorResult<AbstractValue>.Ready(Atomize.FalseBoolean);
+                    return IteratorResult<AbstractValue>.Ready(AtomicValue.FalseBoolean);
                 }
 
                 resultSequence = null;
@@ -47,7 +47,7 @@ public class AndOperator : AbstractExpression
             }
 
             done = true;
-            return IteratorResult<AbstractValue>.Ready(Atomize.TrueBoolean);
+            return IteratorResult<AbstractValue>.Ready(AtomicValue.TrueBoolean);
         });
     }
 }

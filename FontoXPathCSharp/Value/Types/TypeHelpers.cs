@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.DataTypes.Builtins;
 
@@ -22,19 +23,15 @@ public class TypeHelpers
         return whiteSpaceType switch
         {
             WhitespaceHandling.Preserve => input,
-            WhitespaceHandling.Replace => throw new NotImplementedException(),
-            WhitespaceHandling.Collapse => throw new NotImplementedException(),
+            WhitespaceHandling.Replace => Regex.Replace(input, "[\u0009\u000A\u000D]", " "),
+            WhitespaceHandling.Collapse =>
+                Regex.Replace(
+                    Regex.Replace(
+                        Regex.Replace(input, "[\u0009\u000A\u000D]", " "),
+                        " {2,}", " "),
+                    "^ | $", ""),
             _ => throw new ArgumentOutOfRangeException()
         };
-
-        // Replace:
-        // return input.replace(/[\u0009\u000A\u000D]/g, ' ');
-
-        // Collapse:
-        // return input
-        //     .replace(/[\u0009\u000A\u000D]/g, ' ')
-        //     .replace(/ {2,}/g, ' ')
-        //     .replace(/^ | $/g, '');
     }
 
     public static bool ValidatePattern(string input, ValueType type)

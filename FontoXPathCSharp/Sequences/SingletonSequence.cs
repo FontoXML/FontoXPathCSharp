@@ -54,17 +54,17 @@ internal class SingletonSequence : ISequence
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("SingletonSequence.Filter not implemented");
     }
 
     public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("SingletonSequence.Map not implemented");
     }
 
     public ISequence MapAll(Func<AbstractValue[], ISequence> allvalues, IterationHint hint)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("SingletonSequence.MapAll not implemented");
     }
 
     public bool GetEffectiveBooleanValue()

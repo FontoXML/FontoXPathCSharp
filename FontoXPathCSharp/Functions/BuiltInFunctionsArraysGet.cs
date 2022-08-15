@@ -3,12 +3,12 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsArraysGet
+public class BuiltInFunctionsArraysGet<TNode>
 {
     public static ISequence ArrayGet(
         DynamicContext dynamicContext,
-        ExecutionParameters executionParameters,
-        StaticContext staticContext,
+        ExecutionParameters<TNode> executionParameters,
+        StaticContext<TNode> staticContext,
         ISequence arraySequence,
         ISequence positionSequence)
     {
@@ -19,9 +19,9 @@ public class BuiltInFunctionsArraysGet
             return arraySequence.MapAll(arrays =>
             {
                 var array = arrays.First();
-                var arrayValue = array.GetAs<ArrayValue>();
+                var arrayValue = array.GetAs<ArrayValue<TNode>>();
                 if (positionValue <= 0 || positionValue > arrayValue.Members.Count)
-                    throw new XPathException("FOAY0001: array position out of bounds.");
+                    throw new XPathException("FOAY0001","Array position out of bounds.");
                 return arrayValue.Members[positionValue - 1]();
             });
         });

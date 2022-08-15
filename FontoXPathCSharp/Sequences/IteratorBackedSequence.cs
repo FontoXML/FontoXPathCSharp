@@ -97,7 +97,7 @@ public class IteratorBackedSequence : ISequence
     public AbstractValue[] GetAllValues()
     {
         if (_currentPosition > _cachedValues.Count && _length != _cachedValues.Count)
-            throw new XPathException("Implementation error: Sequence Iterator has progressed.");
+            throw new Exception("Implementation error: Sequence Iterator has progressed.");
 
         _cacheAllValues = true;
 
@@ -140,7 +140,14 @@ public class IteratorBackedSequence : ISequence
 
     public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
     {
-        throw new NotImplementedException();
+        var i = 0;
+        var iterator = _value;
+        return SequenceFactory.CreateFromIterator(hint =>
+        {
+            var value = iterator(hint);
+            if (value.IsDone) return IteratorResult<AbstractValue>.Done();
+            return IteratorResult<AbstractValue>.Ready(callback(value.Value!, i++, this));
+        });
     }
 
     public ISequence MapAll(Func<AbstractValue[], ISequence> callback, IterationHint hint)
@@ -179,7 +186,8 @@ public class IteratorBackedSequence : ISequence
         var secondValue = _value(IterationHint.None);
         if (!secondValue.IsDone)
             throw new XPathException(
-                "FORG0006: A wrong argument type was specified in a function call.");
+                "FORG0006",
+                "A wrong argument type was specified in a function call.");
 
         Reset(oldPosition);
         return firstValue.GetEffectiveBooleanValue();

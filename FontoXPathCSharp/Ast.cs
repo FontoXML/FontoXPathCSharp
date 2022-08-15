@@ -104,13 +104,50 @@ public enum AstNodeName
     Uri,
     SchemaElementTest,
     SingleType,
-    Optional
+    Optional,
+    IfThenElseExpr,
+    IfClause,
+    ThenClause,
+    ElseClause,
+    StartExpr,
+    EndExpr,
+    FlworExpr,
+    LetClause,
+    LetClauseItem,
+    TypeDeclaration,
+    VoidSequenceType,
+    OccurrenceIndicator,
+    TypedVariableBinding,
+    LetExpr,
+    VarName,
+    ForClause,
+    ForClauseItem,
+    AllowingEmpty,
+    ForExpr,
+    PositionalVariableBinding,
+    WhereClause,
+    GroupByClause,
+    Collation,
+    GroupingSpec,
+    GroupVarInitialize,
+    VarValue,
+    OrderByClause,
+    Stable,
+    OrderBySpec,
+    OrderByExpr,
+    OrderModifier,
+    OrderingKind,
+    EmptyOrderingMode,
+    ReturnClause,
+    XStackTrace
 }
 
 public class Ast
 {
     public readonly AstNodeName Name;
     public readonly Dictionary<string, string?> StringAttributes;
+    public StackTraceInfo? _end;
+    public StackTraceInfo? _start;
     public List<Ast> Children;
     public string TextContent;
 
@@ -120,6 +157,8 @@ public class Ast
         StringAttributes = new Dictionary<string, string?>();
         Children = new List<Ast>();
         TextContent = "";
+        _start = null;
+        _end = null;
     }
 
     public Ast(AstNodeName name, params Ast[] children)
@@ -128,7 +167,21 @@ public class Ast
         StringAttributes = new Dictionary<string, string?>();
         Children = children.ToList();
         TextContent = "";
+        _start = null;
+        _end = null;
     }
+
+    public Ast(AstNodeName name, IEnumerable<Ast> children)
+    {
+        Name = name;
+        StringAttributes = new Dictionary<string, string?>();
+        Children = children.ToList();
+        TextContent = "";
+    }
+
+    public StackTraceInfo? Start => _start;
+
+    public StackTraceInfo? End => _end;
 
     public Ast? GetFirstChild(AstNodeName name = AstNodeName.All)
     {
@@ -174,5 +227,25 @@ public class Ast
         return string.Format("<AST \"{0}\", {{{1}}}, \"{2}\", [{3}]>", Name,
             string.Join(", ", StringAttributes.Select(x => $"{x.Key}: \"{x.Value}\"")),
             TextContent, Children.Count == 0 ? "" : $"\n{string.Join("\n", Children)}\n");
+    }
+
+    public Ast AddChildren(IEnumerable<Ast> children)
+    {
+        Children.AddRange(children);
+        return this;
+    }
+
+    public class StackTraceInfo
+    {
+        private int _column;
+        private int _line;
+        private int _offset;
+
+        public StackTraceInfo(int offset, int line, int column)
+        {
+            _offset = offset;
+            _line = line;
+            _column = column;
+        }
     }
 }

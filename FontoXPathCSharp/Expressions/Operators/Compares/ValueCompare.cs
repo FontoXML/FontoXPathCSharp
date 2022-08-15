@@ -9,17 +9,21 @@ namespace FontoXPathCSharp.Expressions;
 public enum CompareType
 {
     Equal,
-    NotEqual
+    NotEqual,
+    LessThan,
+    LessEquals,
+    GreaterThan,
+    GreaterEquals
 }
 
-public class ValueCompare : AbstractExpression
+public class ValueCompare<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractExpression _firstExpression;
-    private readonly AbstractExpression _secondExpression;
+    private readonly AbstractExpression<TNode> _firstExpression;
+    private readonly AbstractExpression<TNode> _secondExpression;
     private readonly CompareType _type;
 
-    public ValueCompare(CompareType type, AbstractExpression firstExpression,
-        AbstractExpression secondExpression) : base(
+    public ValueCompare(CompareType type, AbstractExpression<TNode> firstExpression,
+        AbstractExpression<TNode> secondExpression) : base(
         new[] { firstExpression, secondExpression }, new OptimizationOptions(false))
     {
         _type = type;
@@ -27,54 +31,43 @@ public class ValueCompare : AbstractExpression
         _secondExpression = secondExpression;
     }
 
-    private static bool HandleNumericEqualOp(AbstractValue first, AbstractValue second)
+    private static bool Compare<T>(CompareType compareType, T a, T b) where T : IComparable
     {
-        if (first.GetValueType() == ValueType.XsInteger && second.GetValueType() == ValueType.XsInteger)
-            return first.GetAs<IntValue>().Value == second.GetAs<IntValue>().Value;
-        if (first.GetValueType() == ValueType.XsFloat && second.GetValueType() == ValueType.XsFloat)
-            return first.GetAs<FloatValue>().Value == second.GetAs<FloatValue>().Value;
-        if (first.GetValueType() == ValueType.XsDouble && second.GetValueType() == ValueType.XsDouble)
-            return first.GetAs<DoubleValue>().Value == second.GetAs<DoubleValue>().Value;
-        if (first.GetValueType() == ValueType.XsString && second.GetValueType() == ValueType.XsString)
-            return first.GetAs<StringValue>().Value == second.GetAs<StringValue>().Value;
-        if (first.GetValueType() == ValueType.XsBoolean && second.GetValueType() == ValueType.XsBoolean)
-            return first.GetAs<BooleanValue>().Value == second.GetAs<BooleanValue>().Value;
-        throw new NotImplementedException("HandleNumericEqualOp: comparison for " + first.GetValueType() +
-                                          " not supported");
-    }
-
-    private static bool HandleNumericNotEqualOp(AbstractValue first, AbstractValue second)
-    {
-        if (first.GetValueType() == ValueType.XsInteger && second.GetValueType() == ValueType.XsInteger)
-            return first.GetAs<IntValue>().Value != second.GetAs<IntValue>().Value;
-        if (first.GetValueType() == ValueType.XsFloat && second.GetValueType() == ValueType.XsFloat)
-            return first.GetAs<FloatValue>().Value != second.GetAs<FloatValue>().Value;
-        if (first.GetValueType() == ValueType.XsDouble && second.GetValueType() == ValueType.XsDouble)
-            return first.GetAs<DoubleValue>().Value != second.GetAs<DoubleValue>().Value;
-        if (first.GetValueType() == ValueType.XsString && second.GetValueType() == ValueType.XsString)
-            return first.GetAs<StringValue>().Value != second.GetAs<StringValue>().Value;
-        if (first.GetValueType() == ValueType.XsBoolean && second.GetValueType() == ValueType.XsBoolean)
-            return first.GetAs<BooleanValue>().Value != second.GetAs<BooleanValue>().Value;
-        throw new NotImplementedException("HandleNumericNotEqualOp: comparison for " + first.GetValueType() +
-                                          " not supported");
-    }
-
-    private static bool HandleNumericOperator(CompareType type, AbstractValue first, AbstractValue second)
-    {
-        if (first.GetValueType() != second.GetValueType())
-            throw new NotImplementedException(
-                "HandleNumericOperator: Different numeric types");
-
-
-        return type switch
+        return compareType switch
         {
-            CompareType.Equal => HandleNumericEqualOp(first, second),
-            CompareType.NotEqual => HandleNumericNotEqualOp(first, second),
-            _ => throw new NotImplementedException("HandleNumericOperator: " + type)
+            CompareType.Equal => a.CompareTo(b) == 0,
+            CompareType.NotEqual => a.CompareTo(b) != 0,
+            CompareType.LessThan => a.CompareTo(b) < 0,
+            CompareType.LessEquals => a.CompareTo(b) <= 0,
+            CompareType.GreaterThan => a.CompareTo(b) > 0,
+            CompareType.GreaterEquals => a.CompareTo(b) >= 0,
+            _ => throw new ArgumentOutOfRangeException(nameof(compareType), compareType, null)
         };
     }
 
-    public static bool PerformValueCompare(CompareType type, AbstractValue first, AbstractValue second,
+    private static bool HandleNumericOperator(CompareType type, AbstractValue a, AbstractValue b)
+    {
+        if (a.GetValueType() != b.GetValueType())
+            throw new NotImplementedException(
+                "HandleNumericOperator: Different numeric types");
+
+        return a.GetValueType() switch
+        {
+            ValueType.XsBoolean => Compare(type, a.GetAs<BooleanValue>().Value, b.GetAs<BooleanValue>().Value),
+            ValueType.XsInteger or ValueType.XsInt => Compare(type, a.GetAs<IntValue>().Value,
+                b.GetAs<IntValue>().Value),
+            ValueType.XsFloat => Compare(type, a.GetAs<FloatValue>().Value, b.GetAs<FloatValue>().Value),
+            ValueType.XsDouble => Compare(type, a.GetAs<DoubleValue>().Value, b.GetAs<DoubleValue>().Value),
+            ValueType.XsString => Compare(type, a.GetAs<StringValue>().Value, b.GetAs<StringValue>().Value),
+            _ => throw new ArgumentOutOfRangeException(
+                $"Comparison between operands of type {a.GetValueType()} not implemented yet.")
+        };
+    }
+
+    public static bool PerformValueCompare(
+        CompareType type,
+        AbstractValue first,
+        AbstractValue second,
         DynamicContext dynamicContext)
     {
         var firstType = first.GetValueType();
@@ -138,10 +131,10 @@ public class ValueCompare : AbstractExpression
             AreBothSubtypeOf(ValueType.XsGDay))
             throw new NotImplementedException("GYearMonth, GYear, GMonthDay, GMonth, and GDay comparison");
 
-        throw new XPathException("XPTY0004: " + type + " not available for " + firstType + " and " + secondType);
+        throw new XPathException( "XPTY0004",type + " not available for " + firstType + " and " + secondType);
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         var firstSequence = _firstExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
         var secondSequence = _secondExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);

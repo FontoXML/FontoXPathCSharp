@@ -4,13 +4,13 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class NamedFunctionRef : AbstractExpression
+public class NamedFunctionRef<TNode> : AbstractExpression<TNode>
 {
     private readonly int _arity;
     private readonly QName _functionReference;
-    private FunctionProperties? _functionProperties;
+    private FunctionProperties<TNode>? _functionProperties;
 
-    public NamedFunctionRef(QName functionReference, int arity) : base(Array.Empty<AbstractExpression>(),
+    public NamedFunctionRef(QName functionReference, int arity) : base(Array.Empty<AbstractExpression<TNode>>(),
         new OptimizationOptions(true))
     {
         _arity = arity;
@@ -18,15 +18,19 @@ public class NamedFunctionRef : AbstractExpression
         _functionProperties = null;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        var functionProps = _functionProperties!;
-        var functionItem = new FunctionValue<ISequence>(functionProps.ArgumentTypes, functionProps.Arity,
-            functionProps.CallFunction, functionProps.IsUpdating);
-        return SequenceFactory.CreateFromValue(functionItem);
+        return SequenceFactory.CreateFromValue(new FunctionValue<ISequence, TNode>(
+            _functionProperties!.ArgumentTypes,
+            _functionProperties!.Arity,
+            _functionProperties!.LocalName,
+            _functionProperties!.NamespaceUri,
+            _functionProperties!.ReturnType,
+            _functionProperties!.CallFunction,
+            _functionProperties!.IsUpdating));
     }
 
-    public override void PerformStaticEvaluation(StaticContext staticContext)
+    public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
     {
         var namespaceUri = _functionReference.NamespaceUri;
         var localName = _functionReference.LocalName;
@@ -38,7 +42,7 @@ public class NamedFunctionRef : AbstractExpression
 
             if (functionName == null)
                 throw new XPathException(
-                    $"XPST0017: The function {(prefix == null ? "" : prefix + ":")}{localName} 1with arity {_arity} could not be resolved.");
+                    "XPST0017",$"The function {(string.IsNullOrEmpty(prefix) ? "" : prefix + ":")}{localName} 1with arity {_arity} could not be resolved.");
 
             namespaceUri = functionName.NamespaceUri;
             localName = functionName.LocalName;
@@ -49,7 +53,7 @@ public class NamedFunctionRef : AbstractExpression
 
         if (_functionProperties == null)
             throw new XPathException(
-                $"XPST0017: The function {(prefix == null ? "" : prefix + ":")}{localName} with arity {_arity} is not registered.");
+                "XPST0017", $"The function {(string.IsNullOrEmpty(prefix) ? "" : prefix + ":")}{localName} with arity {_arity} is not registered.");
 
 
         base.PerformStaticEvaluation(staticContext);

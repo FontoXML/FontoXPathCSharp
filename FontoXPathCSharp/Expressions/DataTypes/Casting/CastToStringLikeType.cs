@@ -1,4 +1,5 @@
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
@@ -7,14 +8,15 @@ public delegate Result<string> IntermediateStringResultFunction(AbstractValue in
 
 public class CastToStringLikeType
 {
-    public static IntermediateStringResultFunction ToStringLikeType(InstanceOfFunction instanceOf)
+    public static IntermediateStringResultFunction ToStringLikeType(ValueType from)
     {
-        if (instanceOf(ValueType.XsString, ValueType.XsUntypedAtomic))
+        if (from.IsSubtypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic))
             return value => new SuccessResult<string>(value + "");
 
-        if (instanceOf(ValueType.XsAnyUri)) return value => new SuccessResult<string>(value.ToString() ?? string.Empty);
+        if (from.IsSubtypeOf(ValueType.XsAnyUri))
+            return value => new SuccessResult<string>(value.ToString() ?? string.Empty);
 
-        if (instanceOf(ValueType.XsQName))
+        if (from.IsSubtypeOf(ValueType.XsQName))
             return value =>
             {
                 var qNameValue = value.GetAs<QNameValue>().Value;
@@ -23,34 +25,42 @@ public class CastToStringLikeType
                     : qNameValue.LocalName);
             };
 
-        if (instanceOf(ValueType.XsNotation))
+        if (from.IsSubtypeOf(ValueType.XsNotation))
             return value => new SuccessResult<string>(value.ToString() ?? string.Empty);
 
-        if (instanceOf(ValueType.XsNumeric))
+        if (from.IsSubtypeOf(ValueType.XsNumeric))
         {
-            if (instanceOf(ValueType.XsInteger, ValueType.XsDecimal))
+            if (from.IsSubtypeOfAny(ValueType.XsInteger, ValueType.XsDecimal))
                 return value =>
                     new SuccessResult<string>(value.ToString() ?? string.Empty);
 
-            if (instanceOf(ValueType.XsFloat))
+            if (from.IsSubtypeOf(ValueType.XsFloat))
                 return value =>
                 {
-                    var floatValue = (float)value.GetAs<FloatValue>().Value;
-
+                    var floatValue = value.GetAs<FloatValue>().Value;
 
                     if (!float.IsFinite(floatValue))
                         return new SuccessResult<string>($"{(floatValue < 0 ? "-" : "")}INF");
 
                     if (float.IsNaN(floatValue)) return new SuccessResult<string>("NaN");
+                    //Yes, this should be precisely equal to -0.0, it's a special case.
                     if (floatValue == -0.0f) return new SuccessResult<string>("-0");
                     // C#'s notation for large numbers uses E+, XPath's uses E
                     return new SuccessResult<string>((floatValue + "").Replace("E+", "E"));
                 };
 
-            if (instanceOf(ValueType.XsDouble))
+            if (from.IsSubtypeOf(ValueType.XsDouble))
                 return value =>
                 {
-                    var doubleValue = (double)value.GetAs<DoubleValue>().Value;
+                    double doubleValue;
+                    try
+                    {
+                        doubleValue = value.GetAs<DoubleValue>().Value;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new InvalidCastException($"Type: {value.GetType().Name}, Value: {value}", ex);
+                    }
 
                     if (!double.IsFinite(doubleValue))
                         return new SuccessResult<string>($"{(doubleValue < 0 ? "-" : "")}INF");
@@ -63,7 +73,7 @@ public class CastToStringLikeType
         }
 
         if (
-            instanceOf(
+            from.IsSubtypeOfAny(
                 ValueType.XsDateTime,
                 ValueType.XsDate,
                 ValueType.XsTime,
@@ -77,7 +87,7 @@ public class CastToStringLikeType
                 ValueType.XsDuration)
         ) return value => new SuccessResult<string>(value.ToString() ?? string.Empty);
 
-        if (instanceOf(ValueType.XsHexBinary))
+        if (from.IsSubtypeOfAny(ValueType.XsHexBinary))
             return value => new SuccessResult<string>(value.ToString()?.ToUpper() ?? string.Empty);
 
         return value => new SuccessResult<string>(value.ToString() ?? string.Empty);

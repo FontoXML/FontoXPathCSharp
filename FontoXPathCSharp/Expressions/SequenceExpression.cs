@@ -2,15 +2,20 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class SequenceExpression : AbstractExpression
+public class SequenceExpression<TNode> : PossiblyUpdatingExpression<TNode>
 {
-    public SequenceExpression(AbstractExpression[] childExpressions) : base(childExpressions,
+    public SequenceExpression(AbstractExpression<TNode>[] childExpressions) : base(childExpressions,
         new OptimizationOptions(childExpressions.All(e => e.CanBeStaticallyEvaluated)))
     {
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence PerformFunctionalEvaluation(
+        DynamicContext? dynamicContext,
+        ExecutionParameters<TNode> executionParameters,
+        SequenceCallback[] sequenceCallbacks)
     {
-        throw new NotImplementedException();
+        return sequenceCallbacks.Length == 0
+            ? SequenceFactory.CreateEmpty()
+            : ISequence.ConcatSequences(sequenceCallbacks.Select(cb => cb(dynamicContext!)).ToArray());
     }
 }

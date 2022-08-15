@@ -3,15 +3,15 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class FunctionCall : PossiblyUpdatingExpression
+public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
 {
-    private readonly AbstractExpression[] _argumentExpressions;
+    private readonly AbstractExpression<TNode>[] _argumentExpressions;
     private readonly int _callArity;
-    private readonly AbstractExpression _functionReferenceExpression;
-    private FunctionValue<ISequence>? _functionReference;
-    private StaticContext? _staticContext;
+    private readonly AbstractExpression<TNode> _functionReferenceExpression;
+    private FunctionValue<ISequence, TNode>? _functionReference;
+    private StaticContext<TNode>? _staticContext;
 
-    public FunctionCall(AbstractExpression functionReferenceExpression, AbstractExpression[] args) : base(
+    public FunctionCall(AbstractExpression<TNode> functionReferenceExpression, AbstractExpression<TNode>[] args) : base(
         new[] { functionReferenceExpression }.Concat(args).ToArray(),
         new OptimizationOptions(false))
     {
@@ -22,10 +22,13 @@ public class FunctionCall : PossiblyUpdatingExpression
     }
 
     public override ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
-        ExecutionParameters? executionParameters, SequenceCallback[] createArgumentSequences)
+        ExecutionParameters<TNode> executionParameters, SequenceCallback[] createArgumentSequences)
     {
         if (_functionReference != null)
-            return _functionReference.Value(dynamicContext, executionParameters, null,
+            return _functionReference.Value(
+                dynamicContext,
+                executionParameters,
+                null,
                 _argumentExpressions.Select(x => x.Evaluate(dynamicContext, executionParameters)).ToArray());
 
 
@@ -35,14 +38,14 @@ public class FunctionCall : PossiblyUpdatingExpression
         var sequence = createFunctionReferenceSequence(dynamicContext);
         if (!sequence.IsSingleton())
             throw new XPathException(
-                "Expected base expression of a function call to evaluate to a sequence of single function item");
+                "XPTY0004","Expected base expression of a function call to evaluate to a sequence of single function item");
 
         return sequence.MapAll(item =>
         {
             var functionItem = ValidateFunctionItem<AbstractValue>(item[0], _callArity);
             if (functionItem.IsUpdating)
                 throw new XPathException(
-                    "XUDY0038: The function returned by the PrimaryExpr of a dynamic function invocation can not be an updating function");
+                    "XUDY0038","The function returned by the PrimaryExpr of a dynamic function invocation can not be an updating function");
 
             return CallFunction(
                 functionItem,
@@ -53,24 +56,23 @@ public class FunctionCall : PossiblyUpdatingExpression
                 _staticContext
             );
         });
-        ;
 
         throw new XPathException(
-            "Expected base expression of a function call to evaluate to a sequence of single function item");
+            "XUDY0038","Expected base expression of a function call to evaluate to a sequence of single function item");
     }
 
     private ISequence CallFunction(
         AbstractValue functionItem,
         MulticastDelegate functionItemValue,
         DynamicContext dynamicContext,
-        ExecutionParameters executionParameters,
+        ExecutionParameters<TNode> executionParameters,
         SequenceCallback[] createArgumentSequences,
-        StaticContext staticContext)
+        StaticContext<TNode> staticContext)
     {
         throw new NotImplementedException("Function calls not implemented yet.");
     }
 
-    public override void PerformStaticEvaluation(StaticContext staticContext)
+    public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
     {
         _staticContext = staticContext.Clone();
 
@@ -79,7 +81,7 @@ public class FunctionCall : PossiblyUpdatingExpression
         if (_functionReferenceExpression.CanBeStaticallyEvaluated)
         {
             var functionRefSequence = _functionReferenceExpression.EvaluateMaybeStatically(null, null);
-            if (!functionRefSequence.IsSingleton()) throw new XPathException("XPTY0004");
+            if (!functionRefSequence.IsSingleton()) throw new XPathException("XPTY0004", "");
 
             _functionReference = ValidateFunctionItem<ISequence>(functionRefSequence.First()!, _callArity);
 
@@ -87,13 +89,13 @@ public class FunctionCall : PossiblyUpdatingExpression
         }
     }
 
-    private static FunctionValue<T> ValidateFunctionItem<T>(AbstractValue item, int callArity)
+    private static FunctionValue<T, TNode> ValidateFunctionItem<T>(AbstractValue item, int callArity)
     {
-        var functionItem = item.GetAs<FunctionValue<T>>();
+        var functionItem = item.GetAs<FunctionValue<T, TNode>>();
 
-        if (functionItem == null) throw new XPathException("Expected base expression to evaluate to a function item");
+        if (functionItem == null) throw new XPathException("XPTY0004", "Expected base expression of a function call to evaluate to a sequence of single function item");
 
-        if (functionItem.GetArity() != callArity) throw new XPathException("XPTY0004");
+        if (functionItem.Arity != callArity) throw new XPathException("XPTY0004", "Expected base expression of a function call to evaluate to a sequence of single function item");
 
         return functionItem;
     }

@@ -5,19 +5,20 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class FilterExpression : AbstractExpression
+public class FilterExpression<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractExpression _filterExpression;
-    private readonly AbstractExpression _selector;
+    private readonly AbstractExpression<TNode> _filterExpression;
+    private readonly AbstractExpression<TNode> _selector;
 
-    public FilterExpression(AbstractExpression selector, AbstractExpression filterExpression) : base(new[] { selector },
+    public FilterExpression(AbstractExpression<TNode> selector, AbstractExpression<TNode> filterExpression) : base(
+        new[] { selector },
         new OptimizationOptions(selector.CanBeStaticallyEvaluated && filterExpression.CanBeStaticallyEvaluated))
     {
         _selector = selector;
         _filterExpression = filterExpression;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         var valuesToFilter = _selector.EvaluateMaybeStatically(dynamicContext, executionParameters);
 

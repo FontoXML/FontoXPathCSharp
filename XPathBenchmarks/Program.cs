@@ -11,6 +11,7 @@ using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 using FontoXPathCSharp;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Sequences;
@@ -25,7 +26,7 @@ BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
 
 internal static class Helper
 {
-    internal static AbstractExpression CompileExpression(string expression)
+    internal static AbstractExpression<XmlNode> CompileExpression(string expression)
     {
         var result = XPathParser.Parse(expression, new ParseOptions(false, true)).UnwrapOr((expected, fatal) =>
         {
@@ -34,7 +35,7 @@ internal static class Helper
             return new Ast(AstNodeName.All);
         });
 
-        return CompileAstToExpression.CompileAst(result, new CompilationOptions(true, false, true, true));
+        return CompileAstToExpression<XmlNode>.CompileAst(result, new CompilationOptions(true, false, true, true));
     }
 }
 
@@ -43,7 +44,7 @@ public class BooleanExpressionBenchmark
 {
     private static readonly XNode Source = new XElement("test");
     private static readonly XPathExpression CompiledExpression = XPathExpression.Compile("false()");
-    private static readonly AbstractExpression Expr = Helper.CompileExpression("false()");
+    private static readonly AbstractExpression<XmlNode> Expr = Helper.CompileExpression("false()");
 
     [Benchmark(Baseline = true)]
     public bool BuiltIn_Evaluate()
@@ -68,8 +69,9 @@ public class BooleanExpressionBenchmark
 [MemoryDiagnoser]
 public class SimpleExpressionBenchmark
 {
-    private static readonly AbstractExpression Expr = Helper.CompileExpression("self::p");
+    private static readonly AbstractExpression<XmlNode> Expr = Helper.CompileExpression("self::p");
     private static readonly XPathExpression CompiledExpression = XPathExpression.Compile("self::p");
+    private readonly DomFacade<XmlNode> _domFacade = new(new XmlNodeDomFacade());
     private readonly XmlNode _source;
 
     public SimpleExpressionBenchmark()
@@ -96,7 +98,8 @@ public class SimpleExpressionBenchmark
     [Benchmark]
     public object FontoXPath()
     {
-        return Expr.Evaluate(new DynamicContext(new NodeValue(_source), 0, SequenceFactory.CreateEmpty()),
-            new ExecutionParameters(_source));
+        return Expr.Evaluate(
+            new DynamicContext(new NodeValue<XmlNode>(_source, _domFacade), 0, SequenceFactory.CreateEmpty()),
+            new ExecutionParameters<XmlNode>(false, false, _domFacade, _source));
     }
 }

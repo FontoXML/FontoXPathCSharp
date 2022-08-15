@@ -5,16 +5,17 @@ using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp.Functions;
 
-public static class FunctionRegistry
+public static class FunctionRegistry<TNode>
 {
-    private static readonly ConcurrentDictionary<string, List<FunctionProperties>> RegisteredFunctionsByName = new();
+    private static readonly ConcurrentDictionary<string, List<FunctionProperties<TNode>>> RegisteredFunctionsByName =
+        new();
 
-    public static FunctionProperties? GetFunctionByArity(
+    public static FunctionProperties<TNode>? GetFunctionByArity(
         string functionNamespaceUri, string functionLocalName, int arity)
     {
-        var index = functionNamespaceUri + ":" + functionLocalName;
-
-        if (!RegisteredFunctionsByName.TryGetValue(index, out var matchingFunctions)) return null;
+        List<FunctionProperties<TNode>> matchingFunctions;
+        if (!RegisteredFunctionsByName.TryGetValue(functionNamespaceUri + ":" + functionLocalName,
+                out matchingFunctions)) return null;
 
         var matchingFunction = matchingFunctions.Find(functionDecl =>
         {
@@ -27,7 +28,7 @@ public static class FunctionRegistry
 
         if (matchingFunction == null) return null;
 
-        return new FunctionProperties(
+        return new FunctionProperties<TNode>(
             matchingFunction.ArgumentTypes,
             arity,
             matchingFunction.CallFunction,
@@ -38,15 +39,19 @@ public static class FunctionRegistry
         );
     }
 
-    public static void RegisterFunction(string namespaceUri, string localName, ParameterType[] argumentTypes,
-        SequenceType returnType, FunctionSignature<ISequence> callFunction)
+    public static void RegisterFunction(
+        string namespaceUri,
+        string localName,
+        ParameterType[] argumentTypes,
+        SequenceType returnType,
+        FunctionSignature<ISequence, TNode> callFunction)
     {
         var index = namespaceUri + ":" + localName;
 
         if (!RegisteredFunctionsByName.ContainsKey(index))
-            RegisteredFunctionsByName[index] = new List<FunctionProperties>();
+            RegisteredFunctionsByName[index] = new List<FunctionProperties<TNode>>();
 
-        RegisteredFunctionsByName[index].Add(new FunctionProperties(argumentTypes, argumentTypes.Length,
+        RegisteredFunctionsByName[index].Add(new FunctionProperties<TNode>(argumentTypes, argumentTypes.Length,
             callFunction, false, localName, namespaceUri, returnType));
     }
 }

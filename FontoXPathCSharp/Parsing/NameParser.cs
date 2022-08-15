@@ -49,8 +49,13 @@ public static class NameParser
         Token("}")
     );
 
-    // TODO: add uriQualifiedName
-    public static readonly ParseFunc<QName> EqName = Or(QName);
+    public static readonly ParseFunc<QName> UriQualifiedName = Then(
+        BracedUriLiteral,
+        NcName,
+        (uri, localName) => new QName(localName, uri)
+    );
+
+    public static readonly ParseFunc<QName> EqName = Or(QName, UriQualifiedName);
 
     public static readonly ParseFunc<QName> ElementName = EqName;
 

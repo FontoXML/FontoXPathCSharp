@@ -1,69 +1,69 @@
-using System.Xml;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class ChildAxis : AbstractExpression
+public class ChildAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression _selector;
+    //TODO: Bucket stuff
+    private readonly AbstractTestExpression<TNode> _childExpression;
 
-    public ChildAxis(AbstractTestExpression selector) : base(new AbstractExpression[] { selector },
+    public ChildAxis(AbstractTestExpression<TNode> childExpression) : base(
+        new AbstractExpression<TNode>[] { childExpression },
         new OptimizationOptions(false))
     {
-        _selector = selector;
+        _childExpression = childExpression;
     }
 
     public override string ToString()
     {
-        return $"ChildAxis[ {_selector} ]";
+        return $"ChildAxis[ {_childExpression} ]";
     }
 
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        var contextNode = ContextNodeUtils.ValidateContextNode(dynamicContext?.ContextItem);
+        var domFacade = executionParameters.DomFacade;
+        var contextNode = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext?.ContextItem);
         var nodeType = contextNode.GetValueType();
 
-        switch (nodeType)
+        if (nodeType != ValueType.Element && nodeType != ValueType.DocumentNode) return SequenceFactory.CreateEmpty();
+
+        var node = default(TNode);
+        var isDone = false;
+
+        return SequenceFactory.CreateFromIterator(_ =>
         {
-            case ValueType.Element:
+            while (!isDone)
             {
-                var element = (XmlElement)contextNode.Value;
-                var children = element.ChildNodes;
-                var filteredChildren = new List<AbstractValue>();
-                for (var i = 0; i < children.Count; ++i)
+                if (node == null)
                 {
-                    var child = children[i]!;
-                    var childNodeValue = new NodeValue(child);
+                    node = domFacade.GetFirstChild(contextNode.Value);
+                    if (node == null)
+                    {
+                        isDone = true;
+                        continue;
+                    }
 
-                    var childDynamicContext = new DynamicContext(childNodeValue, i, SequenceFactory.CreateEmpty());
-                    if (_selector.EvaluateToBoolean(childDynamicContext, childNodeValue, executionParameters))
-                        filteredChildren.Add(childNodeValue);
+                    return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(node, domFacade));
                 }
 
-                return SequenceFactory.CreateFromArray(filteredChildren.ToArray());
-            }
-            case ValueType.DocumentNode:
-            {
-                var element = (XmlDocument)contextNode.Value;
-                var children = element.ChildNodes;
-                var filteredChildren = new List<AbstractValue>();
-                for (var i = 0; i < children.Count; ++i)
+                node = domFacade.GetNextSibling(node);
+                if (node == null)
                 {
-                    var child = children[i]!;
-                    //TODO: Document Value Type
-                    var childNodeValue = new NodeValue(child);
-                    var childDynamicContext = new DynamicContext(childNodeValue, i, SequenceFactory.CreateEmpty());
-                    if (_selector.EvaluateToBoolean(childDynamicContext, childNodeValue, executionParameters))
-                        filteredChildren.Add(childNodeValue);
+                    isDone = true;
+                    continue;
                 }
 
-                return SequenceFactory.CreateFromArray(filteredChildren.ToArray());
+                return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(node, domFacade));
             }
-            default:
-                return SequenceFactory.CreateEmpty();
-        }
+
+            return IteratorResult<AbstractValue>.Done();
+        }).Filter((item, _, _) => _childExpression.EvaluateToBoolean(
+            dynamicContext,
+            item,
+            executionParameters)
+        );
     }
 }

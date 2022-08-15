@@ -5,22 +5,22 @@ using FunctionNameResolverFunc =
 
 namespace FontoXPathCSharp.Value;
 
-public record StaticCompilationResult(StaticContext StaticContext, AbstractExpression Expression);
+public record StaticCompilationResult<TNode>(StaticContext<TNode> StaticContext, AbstractExpression<TNode> Expression);
 
-public record CachedExpression(AbstractExpression Expression, bool RequiresStaticCompilation);
+public record CachedExpression<TNode>(AbstractExpression<TNode> Expression, bool RequiresStaticCompilation);
 
-public class CompiledExpressionCache<TSelector> where TSelector : notnull
+public class CompiledExpressionCache<TSelector, TNode> where TSelector : notnull
 {
-    public static readonly CompiledExpressionCache<TSelector> Instance = new();
+    public static readonly CompiledExpressionCache<TSelector, TNode> Instance = new();
 
-    private readonly Dictionary<TSelector, AbstractExpression> _cache = new();
+    private readonly Dictionary<TSelector, AbstractExpression<TNode>> _cache = new();
 
     public void StoreStaticCompilationResultInCache(
         TSelector selectorExpression,
         string language,
-        ExecutionSpecificStaticContext executionStaticContext,
+        ExecutionSpecificStaticContext<TNode> executionStaticContext,
         Dictionary<string, string> moduleImports,
-        AbstractExpression compiledExpression,
+        AbstractExpression<TNode> compiledExpression,
         bool debug,
         string defaultFunctionNamespaceUri)
     {
@@ -28,7 +28,7 @@ public class CompiledExpressionCache<TSelector> where TSelector : notnull
         _cache[selectorExpression] = compiledExpression;
     }
 
-    public CachedExpression? GetStaticCompilationResultFromCache(
+    public CachedExpression<TNode>? GetStaticCompilationResultFromCache(
         TSelector xpathSource,
         string language,
         NamespaceResolverFunc namespaceResolver,
@@ -39,6 +39,6 @@ public class CompiledExpressionCache<TSelector> where TSelector : notnull
         FunctionNameResolverFunc functionNameResolver)
     {
         //TODO: Correctly use the other parameters of this function
-        return _cache.ContainsKey(xpathSource) ? new CachedExpression(_cache[xpathSource], false) : null;
+        return _cache.ContainsKey(xpathSource) ? new CachedExpression<TNode>(_cache[xpathSource], false) : null;
     }
 }

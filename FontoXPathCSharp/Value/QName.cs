@@ -6,7 +6,7 @@ public class QName
     public readonly string? Prefix;
     public string? NamespaceUri;
 
-    public QName(string localName, string? namespaceUri, string? prefix)
+    public QName(string localName, string? namespaceUri = null, string? prefix = null)
     {
         LocalName = localName;
         NamespaceUri = namespaceUri;

@@ -1,28 +1,29 @@
-using System.Xml;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class PrecedingAxis : AbstractExpression
+public class PrecedingAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression _testExpression;
+    private readonly AbstractTestExpression<TNode> _testExpression;
 
-    public PrecedingAxis(AbstractTestExpression testExpression) : base(new AbstractExpression[] { testExpression },
+    public PrecedingAxis(AbstractTestExpression<TNode> testExpression) : base(
+        new AbstractExpression<TNode>[] { testExpression },
         new OptimizationOptions(false))
     {
         _testExpression = testExpression;
     }
 
-    private static Iterator<AbstractValue> CreatePrecedingIterator(XmlNode node)
+    private static Iterator<AbstractValue> CreatePrecedingGenerator(IDomFacade<TNode> domFacade, TNode node)
     {
-        var nodeStack = new List<XmlNode>();
+        var nodeStack = new List<TNode>();
 
         for (var ancestorNode = node;
-             ancestorNode != null && ancestorNode.NodeType != XmlNodeType.Document;
-             ancestorNode = ancestorNode.ParentNode)
+             ancestorNode != null && !domFacade.IsDocument(node);
+             ancestorNode = domFacade.GetParentNode(ancestorNode))
         {
-            var previousSibling = ancestorNode.PreviousSibling;
+            var previousSibling = domFacade.GetPreviousSibling(ancestorNode);
             if (previousSibling == null)
                 continue;
             nodeStack.Add(previousSibling);
@@ -33,7 +34,7 @@ public class PrecedingAxis : AbstractExpression
         {
             while (nephewGenerator != null || nodeStack.Any())
             {
-                nephewGenerator ??= AxesUtils.CreateDescendantIterator(nodeStack.First(), true);
+                nephewGenerator ??= AxesUtils<TNode>.CreateDescendantIterator(domFacade, nodeStack.First(), true);
 
                 var nephew = nephewGenerator(IterationHint.None);
 
@@ -42,8 +43,8 @@ public class PrecedingAxis : AbstractExpression
 
                 nephewGenerator = null;
 
-                var nextNode = nodeStack.First().PreviousSibling;
-                var toReturn = IteratorResult<AbstractValue>.Ready(new NodeValue(nodeStack.First()));
+                var nextNode = domFacade.GetPreviousSibling(nodeStack.First());
+                var toReturn = IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(nodeStack.First(), domFacade));
                 if (nextNode == null)
                     nodeStack.RemoveAt(0);
                 else
@@ -56,11 +57,12 @@ public class PrecedingAxis : AbstractExpression
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
+        var domFacade = executionParameters.DomFacade;
+        var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 
-        return SequenceFactory.CreateFromIterator(CreatePrecedingIterator(contextItem.Value))
+        return SequenceFactory.CreateFromIterator(CreatePrecedingGenerator(domFacade, contextItem.Value))
             .Filter((item, _, _) =>
                 _testExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
     }

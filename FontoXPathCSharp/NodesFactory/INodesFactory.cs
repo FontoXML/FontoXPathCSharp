@@ -1,8 +1,5 @@
-using FontoXPathCSharp.Types.Node;
-
 namespace FontoXPathCSharp.NodesFactory;
 
-public interface INodesFactory
+public interface INodesFactory<TNode>
 {
-    public Document CreateDocument();
 }

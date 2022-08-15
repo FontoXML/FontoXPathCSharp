@@ -1,43 +1,42 @@
-using System.Xml;
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class DescendantAxis : AbstractExpression
+public class DescendantAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression _descendantExpression;
+    private readonly AbstractTestExpression<TNode> _descendantExpression;
     private readonly bool _inclusive;
 
-    public DescendantAxis(AbstractTestExpression descendantExpression, bool inclusive) : base(
-        new AbstractExpression[] { descendantExpression },
+    public DescendantAxis(AbstractTestExpression<TNode> descendantExpression, bool inclusive) : base(
+        new AbstractExpression<TNode>[] { descendantExpression },
         new OptimizationOptions(false))
     {
         _descendantExpression = descendantExpression;
         _inclusive = inclusive;
     }
 
-    private static Iterator<XmlNode> CreateChildGenerator(XmlNode node)
+    private static Iterator<TNode> CreateChildGenerator(TNode node, IDomFacade<TNode> domFacade)
     {
-        var nodeType = node.NodeType;
-        if (nodeType != XmlNodeType.Element && nodeType != XmlNodeType.Document)
-            return IteratorUtils.EmptyIterator<XmlNode>();
+        if (domFacade.IsElement(node) && domFacade.IsDocument(node))
+            return IteratorUtils.EmptyIterator<TNode>();
 
-        var childNode = node.FirstChild;
+        var childNode = domFacade.GetFirstChild(node);
         return _ =>
         {
-            if (childNode == null) return IteratorResult<XmlNode>.Done();
+            if (childNode == null) return IteratorResult<TNode>.Done();
 
             var current = childNode;
-            childNode = childNode.NextSibling;
-            return IteratorResult<XmlNode>.Ready(current);
+            childNode = domFacade.GetNextSibling(childNode);
+            return IteratorResult<TNode>.Ready(current);
         };
     }
 
     private static Iterator<AbstractValue> CreateInclusiveDescendantGenerator(
-        XmlNode node)
+        TNode node, IDomFacade<TNode> domFacade)
     {
-        var descendantIteratorStack = new List<Iterator<XmlNode>>
+        var descendantIteratorStack = new List<Iterator<TNode>>
         {
             IteratorUtils.SingleValueIterator(node)
         };
@@ -60,16 +59,17 @@ public class DescendantAxis : AbstractExpression
                 value = descendantIteratorStack.First()(IterationHint.None);
             }
 
-            descendantIteratorStack.Insert(0, CreateChildGenerator(value.Value));
-            return IteratorResult<AbstractValue>.Ready(new NodeValue(value.Value));
+            descendantIteratorStack.Insert(0, CreateChildGenerator(value.Value, domFacade));
+            return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(value.Value, domFacade));
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        var contextItem = ContextNodeUtils.ValidateContextNode(dynamicContext!.ContextItem!);
+        var domFacade = executionParameters.DomFacade;
+        var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
 
-        var iterator = CreateInclusiveDescendantGenerator(contextItem.Value);
+        var iterator = CreateInclusiveDescendantGenerator(contextItem.Value, domFacade);
         if (!_inclusive)
             iterator(IterationHint.None);
 

@@ -5,7 +5,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class ArrayValue : FunctionValue<ISequence>
+public class ArrayValue<TNode> : FunctionValue<ISequence, TNode>
 {
     public ArrayValue(List<Func<ISequence>> members) : base(
         new[] { new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne) }, 1,
@@ -13,8 +13,8 @@ public class ArrayValue : FunctionValue<ISequence>
         ValueType.Array)
     {
         Members = members;
-        _value = (dynamicContext, executionParameters, staticContext, key) =>
-            BuiltInFunctionsArraysGet.ArrayGet(
+        Value = (dynamicContext, executionParameters, staticContext, key) =>
+            BuiltInFunctionsArraysGet<TNode>.ArrayGet(
                 dynamicContext,
                 executionParameters,
                 staticContext,

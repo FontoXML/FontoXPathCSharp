@@ -4,6 +4,9 @@ namespace FontoXPathCSharp.Sequences;
 
 public static class SequenceFactory
 {
+    public static readonly ISequence SingletonTrueSequence = CreateFromValue(new BooleanValue(true));
+    public static readonly ISequence SingletonFalseSequence = CreateFromValue(new BooleanValue(false));
+
     public static ISequence CreateFromIterator<T>(Iterator<T> iterator, int? predictedLength = null)
         where T : AbstractValue
     {

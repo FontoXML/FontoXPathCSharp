@@ -8,9 +8,9 @@ using FunctionNameResolverFunc =
 
 namespace FontoXPathCSharp;
 
-public static class CompileXPath
+public static class CompileXPath<TSelector, TNode> where TSelector : notnull
 {
-    private static ExpressionResult CreateExpressionFromSource<TSelector>(
+    private static ExpressionResult CreateExpressionFromSource(
         TSelector xpathSource,
         CompilationOptions compilationOptions,
         NamespaceResolverFunc namespaceResolver,
@@ -23,7 +23,7 @@ public static class CompileXPath
 
         var fromCache = compilationOptions.DisableCache
             ? null
-            : CompiledExpressionCache<TSelector>.Instance.GetStaticCompilationResultFromCache(
+            : CompiledExpressionCache<TSelector, TNode>.Instance.GetStaticCompilationResultFromCache(
                 xpathSource,
                 language,
                 namespaceResolver,
@@ -35,8 +35,8 @@ public static class CompileXPath
 
         if (fromCache != null)
             return fromCache.RequiresStaticCompilation
-                ? new CompiledExpressionResult(fromCache.Expression)
-                : new StaticallyAnalyzedExpressionResult(fromCache.Expression);
+                ? new CompiledExpressionResult<TNode>(fromCache.Expression)
+                : new StaticallyAnalyzedExpressionResult<TNode>(fromCache.Expression);
 
         var ast =
             typeof(TSelector) == typeof(string)
@@ -46,23 +46,23 @@ public static class CompileXPath
         return new ParsedExpressionResult(ast);
     }
 
-    public static StaticCompilationResult StaticallyCompileXPath<TSelector>(
+    public static StaticCompilationResult<TNode> StaticallyCompileXPath(
         TSelector selector,
         CompilationOptions compilationOptions,
         NamespaceResolverFunc namespaceResolver,
         Dictionary<string, AbstractValue> variables,
         Dictionary<string, string> moduleImports,
         string defaultFunctionNamespaceUri,
-        FunctionNameResolverFunc functionNameResolver) where TSelector : notnull
+        FunctionNameResolverFunc functionNameResolver)
     {
-        var specificStaticContext = new ExecutionSpecificStaticContext(namespaceResolver, variables,
+        var specificStaticContext = new ExecutionSpecificStaticContext<TNode>(namespaceResolver, variables,
             defaultFunctionNamespaceUri, functionNameResolver);
-        var rootStaticContext = new StaticContext(specificStaticContext);
+        var rootStaticContext = new StaticContext<TNode>(specificStaticContext);
 
         foreach (var modulePrefix in moduleImports.Keys)
         {
             var moduleUri = moduleImports[modulePrefix];
-            StaticContext.EnhanceWithModule(moduleUri);
+            StaticContext<TNode>.EnhanceWithModule(moduleUri);
             rootStaticContext.RegisterNamespace(modulePrefix, moduleUri);
         }
 
@@ -83,18 +83,24 @@ public static class CompileXPath
         switch (result.CacheState)
         {
             case CacheState.StaticAnalyzed:
-                return new StaticCompilationResult(rootStaticContext,
-                    ((StaticallyAnalyzedExpressionResult)result).Expression);
+                return new StaticCompilationResult<TNode>(rootStaticContext,
+                    ((StaticallyAnalyzedExpressionResult<TNode>)result).Expression);
             case CacheState.Compiled:
             {
-                var compiledResult = (CompiledExpressionResult)result;
+                var compiledResult = (CompiledExpressionResult<TNode>)result;
                 compiledResult.Expression.PerformStaticEvaluation(rootStaticContext);
                 var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
 
-                CompiledExpressionCache<TSelector>.Instance.StoreStaticCompilationResultInCache(selector, language,
+                CompiledExpressionCache<TSelector, TNode>.Instance.StoreStaticCompilationResultInCache(
+                    selector,
+                    language,
                     specificStaticContext,
-                    moduleImports, compiledResult.Expression, compilationOptions.Debug, defaultFunctionNamespaceUri);
-                return new StaticCompilationResult(rootStaticContext, compiledResult.Expression);
+                    moduleImports,
+                    compiledResult.Expression,
+                    compilationOptions.Debug,
+                    defaultFunctionNamespaceUri
+                );
+                return new StaticCompilationResult<TNode>(rootStaticContext, compiledResult.Expression);
             }
 
             case CacheState.Parsed:
@@ -110,7 +116,7 @@ public static class CompileXPath
                 if (!compilationOptions.DisableCache)
                 {
                     var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
-                    CompiledExpressionCache<TSelector>.Instance.StoreStaticCompilationResultInCache(
+                    CompiledExpressionCache<TSelector, TNode>.Instance.StoreStaticCompilationResultInCache(
                         selector,
                         language,
                         specificStaticContext,
@@ -121,17 +127,17 @@ public static class CompileXPath
                     );
                 }
 
-                return new StaticCompilationResult(rootStaticContext, expressionFromAst);
+                return new StaticCompilationResult<TNode>(rootStaticContext, expressionFromAst);
             }
         }
 
         throw new NotImplementedException("StaticallyCompileXPath not finished yet.");
     }
 
-    private static AbstractExpression BuildExpressionFromAst(
+    private static AbstractExpression<TNode> BuildExpressionFromAst(
         Ast ast,
         CompilationOptions compilationOptions,
-        StaticContext rootStaticContext)
+        StaticContext<TNode> rootStaticContext)
     {
         //TODO: AST Annotation
         // AnnotateAst(ast, new AnnotationContext(rootStaticContext));
@@ -151,7 +157,7 @@ public static class CompileXPath
         // TODO: Implement prolog processing
         // processProlog(prolog, rootStaticContext);
 
-        return CompileAstToExpression.CompileAst(queryBodyContents!, compilationOptions);
+        return CompileAstToExpression<TNode>.CompileAst(queryBodyContents!, compilationOptions);
     }
 
     private static string NormalizeEndOfLines(string selector)
@@ -177,120 +183,3 @@ public class ResolvedFunction
 
     public ResolvedQualifiedName ResolvedQName { get; }
 }
-
-// public class ExecutionSpecificStaticContext : AbstractContext
-// {
-//     private readonly FunctionNameResolverFunc _functionNameResolver;
-//     private readonly NamespaceResolverFunc _namespaceResolver;
-//     private readonly Dictionary<string, (string, string)> _referredNamespaceByName;
-//     private readonly Dictionary<string, string> _referredVariableByName;
-//
-//     private readonly List<ResolvedFunction> _resolvedFunctions;
-//
-//     private readonly Dictionary<string, string> _variableBindingByName;
-//     private bool _executionContextWasRequired;
-//
-//     public ExecutionSpecificStaticContext(NamespaceResolverFunc namespaceResolver,
-//         Dictionary<string, IExternalValue> variableByName, string defaultFunctionNamespaceUri,
-//         FunctionNameResolverFunc functionNameResolver)
-//     {
-//         _namespaceResolver = namespaceResolver;
-//         _variableBindingByName = variableByName.Keys.Aggregate(new Dictionary<string, string>(),
-//             (bindings, variableName) =>
-//             {
-//                 if (variableByName.ContainsKey(variableName))
-//                     bindings[variableName] = GenerateGlobalVariableBindingName(variableName);
-//                 return bindings;
-//             }
-//         );
-//
-//         _referredVariableByName = new Dictionary<string, string>();
-//         _referredNamespaceByName = new Dictionary<string, (string, string)>();
-//
-//         registeredDefaultFunctionNamespaceURI = defaultFunctionNamespaceUri;
-//
-//         _functionNameResolver = functionNameResolver;
-//         _resolvedFunctions = new List<ResolvedFunction>();
-//
-//         _executionContextWasRequired = false;
-//     }
-//
-//     private static string GenerateGlobalVariableBindingName(string variableName)
-//     {
-//         return $"Q{{}}{variableName}[0]";
-//     }
-//
-//     public List<(string, string)> GetReferredNamespaces()
-//     {
-//         return _referredNamespaceByName.Values.ToList();
-//     }
-//
-//     public List<string> GetReferredVariables()
-//     {
-//         return _referredVariableByName.Values.ToList();
-//     }
-//
-//     public List<ResolvedFunction> GetResolvedFunctions()
-//     {
-//         return _resolvedFunctions;
-//     }
-//
-//     public override FunctionProperties? LookupFunction(string? namespaceUri, string localName, int arity,
-//         bool skipExternal)
-//     {
-//         return FunctionRegistry.GetFunctionByArity(namespaceUri, localName, arity);
-//     }
-//
-//     public override string? LookupVariable(string? namespaceUri, string localName)
-//     {
-//         _executionContextWasRequired = true;
-//         if (namespaceUri != null) return null;
-//
-//         var bindingName = _variableBindingByName[localName];
-//
-//         if (!_referredVariableByName.ContainsKey(localName)) _referredVariableByName.Add(localName, localName);
-//
-//         return bindingName;
-//     }
-//
-//     public override ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity)
-//     {
-//         var resolvedQName = _functionNameResolver(lexicalQName, arity);
-//
-//         if (resolvedQName != null)
-//         {
-//             _resolvedFunctions.Add(new ResolvedFunction(lexicalQName, arity, resolvedQName));
-//         }
-//         else if (lexicalQName.Prefix == "")
-//         {
-//             if (registeredDefaultFunctionNamespaceURI != null)
-//             {
-//                 return new ResolvedQualifiedName(lexicalQName.LocalName, registeredDefaultFunctionNamespaceURI);
-//             }
-//         }
-//         else
-//         {
-//             var namespaceUri = ResolveNamespace(lexicalQName.Prefix, true);
-//             if (namespaceUri != null) return new ResolvedQualifiedName(lexicalQName.LocalName, namespaceUri);
-//         }
-//
-//         return resolvedQName;
-//     }
-//
-//     public override string? ResolveNamespace(string? prefix, bool useExternalResolver)
-//     {
-//         if (!useExternalResolver) return null;
-//
-//         var knownNamespaceUri = StaticallyKnownNamespaceUtils.GetStaticallyKnownNamespaceByPrefix(prefix);
-//         if (knownNamespaceUri != null) return knownNamespaceUri;
-//
-//         _executionContextWasRequired = true;
-//
-//         var uri = _namespaceResolver(prefix);
-//
-//         if (!_referredNamespaceByName.ContainsKey(prefix) && uri != null)
-//             _referredNamespaceByName.Add(prefix, (uri, prefix));
-//
-//         return uri;
-//     }
-//}

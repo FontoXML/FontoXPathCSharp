@@ -4,6 +4,6 @@ public class XmlToAst
 {
     public static Ast ConvertXmlToAst<TSelector>(TSelector xpathSource)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("ConvertXmlToAst not implemented");
     }
 }

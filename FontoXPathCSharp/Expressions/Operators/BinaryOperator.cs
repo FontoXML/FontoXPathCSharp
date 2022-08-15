@@ -1,5 +1,6 @@
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Expressions.Operators.Arithmetic;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -9,9 +10,9 @@ namespace FontoXPathCSharp;
 
 internal delegate AbstractValue BinaryOperatorFunction(AbstractValue left, AbstractValue right);
 
-internal class BinaryOperator : AbstractExpression
+internal class BinaryOperator<TNode> : AbstractExpression<TNode>
 {
-    private static readonly ValueType[] _allTypes =
+    private static readonly ValueType[] AllTypes =
     {
         ValueType.XsNumeric,
         ValueType.XsYearMonthDuration,
@@ -21,14 +22,15 @@ internal class BinaryOperator : AbstractExpression
         ValueType.XsTime
     };
 
-    private readonly AbstractExpression _firstValueExpr;
+    private readonly AbstractExpression<TNode> _firstValueExpr;
     private readonly AstNodeName _operator;
-    private readonly AbstractExpression _secondValueExpr;
+    private readonly AbstractExpression<TNode> _secondValueExpr;
 
     private readonly Dictionary<(ValueType, ValueType, AstNodeName), BinaryOperatorFunction> OperatorsByTypingKey =
         new();
 
-    public BinaryOperator(AstNodeName op, AbstractExpression firstValueExpr, AbstractExpression secondValueExpr) : base(
+    public BinaryOperator(AstNodeName op, AbstractExpression<TNode> firstValueExpr,
+        AbstractExpression<TNode> secondValueExpr) : base(
         new[] { firstValueExpr, secondValueExpr }, new OptimizationOptions(true))
     {
         _operator = op;
@@ -36,7 +38,7 @@ internal class BinaryOperator : AbstractExpression
         _secondValueExpr = secondValueExpr;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         var firstValueSequence = Atomize.AtomizeSequence(
             _firstValueExpr.EvaluateMaybeStatically(dynamicContext, executionParameters),
@@ -58,7 +60,7 @@ internal class BinaryOperator : AbstractExpression
 
                 if (firstValues.Length > 1 || secondValues.Length > 1)
                     throw new XPathException(
-                        "XPTY0004: the operands of the {_operator} operator should be empty or singleton."
+                        "XPTY0004","the operands of the {_operator} operator should be empty or singleton."
                     );
 
                 var firstValue = firstValues.First();
@@ -74,7 +76,8 @@ internal class BinaryOperator : AbstractExpression
 
                 if (prefabOperator == null)
                     throw new XPathException(
-                        $"XPTY0004: {_operator} not available for types {firstValue.GetValueType()} and {secondValue.GetValueType()}"
+                        "XPTY0004",
+                        $"{_operator} not available for types {firstValue.GetValueType()} and {secondValue.GetValueType()}"
                     );
 
                 return SequenceFactory.CreateFromValue(prefabOperator(firstValue, secondValue));
@@ -92,11 +95,61 @@ internal class BinaryOperator : AbstractExpression
         return OperatorsByTypingKey[typingKey];
     }
 
-    private BinaryOperatorFunction GenerateBinaryOperatorFunction(AstNodeName op, ValueType typeA,
+    private static ValueType DetermineReturnType(ValueType typeA, ValueType typeB)
+    {
+        if (typeA.IsSubtypeOf(ValueType.XsInteger) && typeB.IsSubtypeOf(ValueType.XsInteger))
+        {
+            return ValueType.XsInteger;
+        }
+
+        if (typeA.IsSubtypeOf(ValueType.XsDecimal) && typeB.IsSubtypeOf(ValueType.XsDecimal))
+        {
+            return ValueType.XsDecimal;
+        }
+
+        if (typeA.IsSubtypeOf(ValueType.XsFloat) && typeB.IsSubtypeOf(ValueType.XsFloat))
+        {
+            return ValueType.XsFloat;
+        }
+
+        return ValueType.XsDouble;
+    }
+
+    private static (BinaryOperatorFunction, ValueType) IDivOpChecksFunction(
+        Func<AbstractValue, AbstractValue, (AtomicValue, AtomicValue)> applyCastFunctions,
+        Func<object, object, object> fun)
+    {
+        return ((a, b) =>
+        {
+            var (castA, castB) = applyCastFunctions((AtomicValue)a, (AtomicValue)b);
+            var valueA = Convert.ToDouble(castA.GetValue());
+            var valueB = Convert.ToDouble(castB.GetValue());
+            if (valueB == 0)
+            {
+                throw new XPathException("FOAR0001", "Divisor of idiv operator cannot be (-)0");
+            }
+
+            if (double.IsNaN(valueA) || double.IsNaN(valueB) || !double.IsFinite(valueA))
+            {
+                throw new XPathException("FOAR0002", "One of the operands of idiv is NaN or the first operand is (-)INF");
+            }
+
+            if (double.IsFinite(valueA) && !double.IsFinite(valueB))
+            {
+                return AtomicValue.Create(0, ValueType.XsInteger);
+            }
+
+            return AtomicValue.Create(fun(castA.GetValue(), castB.GetValue()), ValueType.XsInteger);
+        }, ValueType.XsInteger);
+    }
+
+    private BinaryOperatorFunction? GenerateBinaryOperatorFunction(
+        AstNodeName op,
+        ValueType typeA,
         ValueType typeB)
     {
-        Func<AbstractValue, AbstractValue> castFunctionForValueA = null;
-        Func<AbstractValue, AbstractValue> castFunctionForValueB = null;
+        Func<AbstractValue, AtomicValue> castFunctionForValueA = null;
+        Func<AbstractValue, AtomicValue> castFunctionForValueB = null;
 
         if (typeA.IsSubtypeOf(ValueType.XsUntypedAtomic))
         {
@@ -110,10 +163,50 @@ internal class BinaryOperator : AbstractExpression
             typeB = ValueType.XsDouble;
         }
 
-        // Filter all the possible types to only those which the operands are a subtype of.
-        var parentTypesOfA = _allTypes.Where(e => typeA.IsSubtypeOf(e));
-        var parentTypesOfB = _allTypes.Where(e => typeB.IsSubtypeOf(e));
+        Func<AbstractValue, AbstractValue, (AtomicValue, AtomicValue)> applyCastFunctions = (valueA, valueB) => (
+            castFunctionForValueA != null ? castFunctionForValueA(valueA) : (AtomicValue)valueA,
+            castFunctionForValueB != null ? castFunctionForValueB(valueB) : (AtomicValue)valueB
+        );
 
-        throw new NotImplementedException("Binary operations need to be finished");
+        // Filter all the possible types to only those which the operands are a subtype of.
+        var parentTypesOfA = AllTypes.Where(e => typeA.IsSubtypeOf(e));
+        var parentTypesOfB = AllTypes.Where(e => typeB.IsSubtypeOf(e));
+
+        if (parentTypesOfA.Contains(ValueType.XsNumeric) && parentTypesOfB.Contains(ValueType.XsNumeric))
+        {
+            var fun = BinaryEvaluationFunctionMap.GetOperationForOperands(ValueType.XsNumeric, ValueType.XsNumeric, op);
+            var mapRetType =
+                BinaryEvaluationFunctionMap.GetReturnTypeForOperands(ValueType.XsNumeric, ValueType.XsNumeric, op);
+            var retType = mapRetType ?? DetermineReturnType(typeA, typeB);
+            if (op == AstNodeName.DivOp && retType == ValueType.XsInteger) retType = ValueType.XsDecimal;
+            if (op == AstNodeName.IDivOp)
+                return IDivOpChecksFunction(applyCastFunctions,
+                    (a, b) => Math.Truncate(Convert.ToDecimal(a) / Convert.ToDecimal(b))).Item1;
+            return (a, b) =>
+            {
+                var (castA, castB) = applyCastFunctions(a, b);
+                return AtomicValue.Create(fun(castA.GetValue(), castB.GetValue()), retType);
+            };
+        }
+
+        foreach (var typeOfA in parentTypesOfA)
+        {
+            foreach (var typeOfB in parentTypesOfB)
+            {
+                var func = BinaryEvaluationFunctionMap.GetOperationForOperands(typeOfA, typeOfB, op);
+                var mapRet = BinaryEvaluationFunctionMap.GetReturnTypeForOperands(typeOfA, typeOfB, op);
+                if (func != null && mapRet != null)
+                {
+                    var ret = (ValueType)mapRet;
+                    return (a, b) =>
+                    {
+                        var (castA, castB) = applyCastFunctions(a, b);
+                        return AtomicValue.Create(func(castA.GetValue(), castB.GetValue()), ret);
+                    };
+                }
+            }
+        }
+
+        return null;
     }
 }

@@ -3,14 +3,14 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public abstract class AbstractTestExpression : AbstractExpression
+public abstract class AbstractTestExpression<TNode> : AbstractExpression<TNode>
 {
     protected AbstractTestExpression() :
-        base(Array.Empty<AbstractExpression>(), new OptimizationOptions(false))
+        base(Array.Empty<AbstractExpression<TNode>>(), new OptimizationOptions(false))
     {
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         return SequenceFactory.CreateFromValue(
             new BooleanValue(EvaluateToBoolean(dynamicContext, dynamicContext?.ContextItem!, executionParameters)));
@@ -18,5 +18,5 @@ public abstract class AbstractTestExpression : AbstractExpression
 
     protected internal abstract bool EvaluateToBoolean(DynamicContext? dynamicContext,
         AbstractValue value,
-        ExecutionParameters? executionParameters);
+        ExecutionParameters<TNode> executionParameters);
 }
