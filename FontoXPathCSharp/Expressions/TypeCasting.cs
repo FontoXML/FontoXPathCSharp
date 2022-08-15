@@ -6,11 +6,11 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public delegate Result<AtomicValue> CastingFunction(AtomicValue input);
+public delegate Result<AtomicValue> CastingFunction(AbstractValue input);
 
 public delegate bool InstanceOfFunction(params ValueType[] types);
 
-internal class TypeCasting
+public class TypeCasting
 {
     private readonly Dictionary<int, CastingFunction> _precomputedCastFunctions = new();
 
@@ -27,6 +27,7 @@ internal class TypeCasting
     }
 
     public static TypeCasting Instance { get; } = new();
+
 
     public static AtomicValue CastToType(AtomicValue value, ValueType type)
     {
@@ -54,8 +55,7 @@ internal class TypeCasting
     private CastingFunction CreateCastingFunction(ValueType from, ValueType to)
     {
         if (from == ValueType.XsUntypedAtomic && to == ValueType.XsString)
-            return value =>
-                new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value.GetValue(), ValueType.XsString));
+            return value => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value, ValueType.XsString));
 
         if (to == ValueType.XsNotation)
             return _ => new ErrorResult<AtomicValue>("XPST0080: Casting to xs:NOTATION is not permitted.");
@@ -74,8 +74,7 @@ internal class TypeCasting
             return _ =>
                 new ErrorResult<AtomicValue>("FOTY0014: Casting from function item to xs:string is not permitted.");
 
-        // Kind of a shortcut, not creating a new AtomicValue, since the type does not need to be changed. 
-        if (from == to) return value => new SuccessResult<AtomicValue>(value);
+        if (from == to) return value => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value, to));
 
         var primitiveFromNullable = _treatAsPrimitive.Contains(from) ? from : TypeHelpers.GetPrimitiveTypeName(from);
         var primitiveToNullable = _treatAsPrimitive.Contains(to) ? to : TypeHelpers.GetPrimitiveTypeName(to);
@@ -116,15 +115,15 @@ internal class TypeCasting
                     return new ErrorResult<AtomicValue>(
                         $"FORG0001: Cannot cast ${value} to ${to}, pattern validation failed.");
 
-                return new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value.GetValue(), primitiveTo));
+                return new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value, primitiveTo));
             });
 
-        converters.Add(value => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value.GetValue(), to)));
+        converters.Add(value => new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value, to)));
 
         return value =>
         {
             Result<AtomicValue> result =
-                new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value.GetValue(), primitiveTo));
+                new SuccessResult<AtomicValue>(Atomize.CreateAtomicValue(value, primitiveTo));
             foreach (var converter in converters)
             {
                 result = converter(result.Data);
@@ -151,7 +150,7 @@ internal class TypeCasting
             ValueType.XsFloat => CastToFloat.ToFloat(instanceOf),
             ValueType.XsDouble => CastToDouble.ToDouble(instanceOf),
             ValueType.XsDecimal => CastToDecimal.ToDecimal(instanceOf),
-            _ => _ => throw new NotImplementedException($"Type casting to {to} has not been implemented yet.")
+            _ => _ => throw new NotImplementedException($"Type casting to {to} has not been implemented yet."),
         };
     }
 }

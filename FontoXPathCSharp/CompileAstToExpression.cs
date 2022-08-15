@@ -227,12 +227,15 @@ public static class CompileAstToExpression
                 or AstNodeName.GreaterThanOrEqualOp
                 or AstNodeName.GreaterThanOp => throw new NotImplementedException(
                     "CompileAstToExpression: Other general compare operators"),
-            AstNodeName.EqOp => new ValueCompare(CompareType.Equal, firstExpression, secondExpression),
-            AstNodeName.NeOp => new ValueCompare(CompareType.NotEqual, firstExpression, secondExpression),
-            AstNodeName.LtOp => new ValueCompare(CompareType.Less, firstExpression, secondExpression),
-            AstNodeName.LeOp => new ValueCompare(CompareType.LessOrEqual, firstExpression, secondExpression),
-            AstNodeName.GtOp => new ValueCompare(CompareType.Greater, firstExpression, secondExpression),
-            AstNodeName.GeOp => new ValueCompare(CompareType.GreaterOrEqual, firstExpression, secondExpression),
+            AstNodeName.EqOp =>
+                new ValueCompare(CompareType.Equal, firstExpression, secondExpression),
+            AstNodeName.NeOp =>
+                new ValueCompare(CompareType.NotEqual, firstExpression, secondExpression),
+            AstNodeName.LtOp
+                or AstNodeName.LeOp
+                or AstNodeName.GtOp
+                or AstNodeName.GeOp => throw new NotImplementedException(
+                    "CompileAstToExpression: Other value compare operators"),
             _ => throw new Exception("Unreachable")
         };
     }

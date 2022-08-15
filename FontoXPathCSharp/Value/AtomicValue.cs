@@ -1,6 +1,7 @@
+using FontoXPathCSharp.Value;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Value;
+namespace FontoXPathCSharp.Expressions;
 
 public abstract class AtomicValue : AbstractValue
 {

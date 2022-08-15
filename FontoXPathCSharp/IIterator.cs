@@ -13,12 +13,12 @@ public class IteratorResult<T> where T : class
 
     public static IteratorResult<T> Done()
     {
-        return new IteratorResult<T>(true, null);
+        return new(true, null);
     }
 
     public static IteratorResult<T> Ready(T value)
     {
-        return new IteratorResult<T>(false, value);
+        return new(false, value);
     }
 }
 

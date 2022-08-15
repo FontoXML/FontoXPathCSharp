@@ -6,34 +6,23 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public delegate bool ComparatorFunction(AtomicValue lhs, AtomicValue rhs, DynamicContext dynamicContext);
-
-internal delegate (AtomicValue, AtomicValue) ApplyCastingFunction(AtomicValue lhs, AtomicValue rhs);
-
 public enum CompareType
 {
     Equal,
-    NotEqual,
-    Less,
-    LessOrEqual,
-    Greater,
-    GreaterOrEqual
+    NotEqual
 }
 
 public class ValueCompare : AbstractExpression
 {
-    private static readonly Dictionary<(ValueType, ValueType, CompareType), ComparatorFunction> ComparatorsByTypingKey =
-        new();
-
     private readonly AbstractExpression _firstExpression;
-    private readonly CompareType _operator;
     private readonly AbstractExpression _secondExpression;
+    private readonly CompareType _type;
 
-    public ValueCompare(CompareType operatorType, AbstractExpression firstExpression,
+    public ValueCompare(CompareType type, AbstractExpression firstExpression,
         AbstractExpression secondExpression) : base(
         new[] { firstExpression, secondExpression }, new OptimizationOptions(false))
     {
-        _operator = operatorType;
+        _type = type;
         _firstExpression = firstExpression;
         _secondExpression = secondExpression;
     }
@@ -85,190 +74,71 @@ public class ValueCompare : AbstractExpression
         };
     }
 
-    public static ComparatorFunction PerformValueCompare(CompareType op, ValueType typeA, ValueType typeB)
+    public static bool PerformValueCompare(CompareType type, AbstractValue first, AbstractValue second,
+        DynamicContext dynamicContext)
     {
-        var typingKey = (typeA, typeB, op);
-        if (!ComparatorsByTypingKey.ContainsKey(typingKey))
-            ComparatorsByTypingKey[typingKey] = GenerateCompareFunction(op, typeA, typeB);
+        var firstType = first.GetValueType();
+        var secondType = second.GetValueType();
 
-        return ComparatorsByTypingKey[typingKey];
-    }
-
-    private static bool AreBothSubtypeOf(ValueType typeA, ValueType typeB, ValueType superType)
-    {
-        return typeA.IsSubtypeOf(superType) && typeB.IsSubtypeOf(superType);
-    }
-
-    private static bool AreBothSubtypeOfAny(ValueType typeA, ValueType typeB, params ValueType[] superTypes)
-    {
-        return typeA.IsSubTypeOfAny(superTypes) && typeB.IsSubTypeOfAny(superTypes);
-    }
-
-    private static ComparatorFunction GenerateCompareFunction(CompareType op, ValueType typeA, ValueType typeB)
-    {
-        Func<AtomicValue, AtomicValue>? castFunctionForValueA = null;
-        Func<AtomicValue, AtomicValue>? castFunctionForValueB = null;
-
-        if (AreBothSubtypeOf(typeA, typeB, ValueType.XsUntypedAtomic))
+        if (firstType.IsSubtypeOf(ValueType.XsUntypedAtomic) &&
+            secondType.IsSubtypeOf(ValueType.XsUntypedAtomic))
         {
-            typeA = ValueType.XsString;
-            typeB = ValueType.XsString;
+            firstType = ValueType.XsString;
+            secondType = ValueType.XsString;
         }
-        else if (typeA.IsSubtypeOf(ValueType.XsUntypedAtomic))
+        else if (firstType.IsSubtypeOf(ValueType.XsUntypedAtomic))
         {
-            castFunctionForValueA = val => val.CastToType(typeB);
-            typeA = typeB;
+            first = first.CastToType(secondType);
+            firstType = secondType;
         }
-        else if (typeB.IsSubtypeOf(ValueType.XsUntypedAtomic))
+        else if (secondType.IsSubtypeOf(ValueType.XsUntypedAtomic))
         {
-            castFunctionForValueB = val => val.CastToType(typeA);
-            typeB = typeA;
+            second = second.CastToType(firstType);
+            secondType = firstType;
         }
 
-        ApplyCastingFunction applyCastFunctions = (valA, valB) =>
-            (castFunctionForValueA != null ? castFunctionForValueA(valA) : valA,
-                castFunctionForValueB != null ? castFunctionForValueB(valB) : valB);
+        if (firstType.IsSubtypeOf(ValueType.XsQName) && secondType.IsSubtypeOf(ValueType.XsQName))
+            throw new NotImplementedException("PerformValueCompare: Handle QName");
+        // return HandleQName(type, first, second);
 
-        if (AreBothSubtypeOf(typeA, typeB, ValueType.XsQName))
-            return HandleQName(op, applyCastFunctions);
-
-        if (AreBothSubtypeOf(typeA, typeB, ValueType.XsBoolean) ||
-            AreBothSubtypeOfAny(typeA, typeB, ValueType.XsString, ValueType.Attribute, ValueType.Map) ||
-            AreBothSubtypeOfAny(typeA, typeB, ValueType.XsNumeric, ValueType.Attribute, ValueType.Map) ||
-            AreBothSubtypeOf(typeA, typeB, ValueType.XsAnyUri) ||
-            AreBothSubtypeOf(typeA, typeB, ValueType.XsHexBinary) ||
-            AreBothSubtypeOf(typeA, typeB, ValueType.XsBase64Binary) ||
-            AreBothSubtypeOfAny(typeA, typeB, ValueType.XsString, ValueType.XsAnyUri))
+        bool AreBothSubtypeOf(params ValueType[] types)
         {
-            var result = HandleNumeric(op, applyCastFunctions);
-            if (result != null) return result;
+            return types.Select(x => firstType.IsSubtypeOf(x)).Any() &&
+                   types.Select(x => secondType.IsSubtypeOf(x)).Any();
         }
 
-        if (AreBothSubtypeOf(typeA, typeB, ValueType.XsYearMonthDuration))
-        {
-            var result = HandleYearMonthDuration(op, applyCastFunctions);
-            if (result != null) return result;
-        }
+        if (
+            AreBothSubtypeOf(ValueType.XsBoolean) ||
+            AreBothSubtypeOf(ValueType.XsString, ValueType.Attribute, ValueType.Map) ||
+            AreBothSubtypeOf(ValueType.XsNumeric, ValueType.Attribute, ValueType.Map) ||
+            AreBothSubtypeOf(ValueType.XsAnyUri) ||
+            AreBothSubtypeOf(ValueType.XsHexBinary) ||
+            AreBothSubtypeOf(ValueType.XsBase64Binary) ||
+            AreBothSubtypeOf(ValueType.XsString, ValueType.XsAnyUri)
+        )
+            return HandleNumericOperator(type, first, second);
 
-        if (AreBothSubtypeOf(typeA, typeB, ValueType.XsDayTimeDuration))
-        {
-            var result = HandleDayTimeDuration(op, applyCastFunctions);
-            if (result != null) return result;
-        }
+        if (AreBothSubtypeOf(ValueType.XsYearMonthDuration))
+            throw new NotImplementedException("YearMonthDuration comparison");
 
-        if (AreBothSubtypeOf(typeA, typeB, ValueType.XsDuration))
-        {
-            var result = HandleDuration(op, applyCastFunctions);
-            if (result != null) return result;
-        }
+        if (AreBothSubtypeOf(ValueType.XsDayTimeDuration))
+            throw new NotImplementedException("DayTimeDuration comparison");
 
-        if (AreBothSubtypeOf(typeA, typeB, ValueType.XsDateTime) ||
-            AreBothSubtypeOf(typeA, typeB, ValueType.XsDate) ||
-            AreBothSubtypeOf(typeA, typeB, ValueType.XsTime))
-        {
-            var result = HandleDateAndTime(op, applyCastFunctions);
-            if (result != null) return result;
-        }
+        if (AreBothSubtypeOf(ValueType.XsDuration)) throw new NotImplementedException("Duration comparison");
 
-        if (AreBothSubtypeOf(typeA, typeB, ValueType.XsGYearMonth) ||
-            AreBothSubtypeOf(typeA, typeB, ValueType.XsGYear) ||
-            AreBothSubtypeOf(typeA, typeB, ValueType.XsGMonthDay) ||
-            AreBothSubtypeOf(typeA, typeB, ValueType.XsGMonth) ||
-            AreBothSubtypeOf(typeA, typeB, ValueType.XsGDay))
-        {
-            var result = HandleDayMonthAndYear(op, applyCastFunctions);
-            if (result != null) return result;
-        }
+        if (AreBothSubtypeOf(ValueType.XsDateTime) ||
+            AreBothSubtypeOf(ValueType.XsDate) ||
+            AreBothSubtypeOf(ValueType.XsTime))
+            throw new NotImplementedException("DateTime, Date, and Time comparison");
 
-        throw new XPathException($"XPTY0004: {op} not available for {typeA.ToString()} and {typeB.ToString()}");
-    }
+        if (AreBothSubtypeOf(ValueType.XsGYearMonth) ||
+            AreBothSubtypeOf(ValueType.XsGYear) ||
+            AreBothSubtypeOf(ValueType.XsGMonthDay) ||
+            AreBothSubtypeOf(ValueType.XsGMonth) ||
+            AreBothSubtypeOf(ValueType.XsGDay))
+            throw new NotImplementedException("GYearMonth, GYear, GMonthDay, GMonth, and GDay comparison");
 
-    private static ComparatorFunction? HandleDayMonthAndYear(CompareType op, ApplyCastingFunction applyCastFunctions)
-    {
-        throw new NotImplementedException("HandleDayMonthAndYear not implemented yet.");
-    }
-
-    private static ComparatorFunction? HandleDateAndTime(CompareType op, ApplyCastingFunction applyCastFunctions)
-    {
-        throw new NotImplementedException("HandleDateAndTime not implemented yet.");
-    }
-
-    private static ComparatorFunction? HandleDuration(CompareType op, ApplyCastingFunction applyCastFunctions)
-    {
-        throw new NotImplementedException("HandleDuration not implemented yet.");
-    }
-
-    private static ComparatorFunction? HandleDayTimeDuration(CompareType op, ApplyCastingFunction applyCastFunctions)
-    {
-        throw new NotImplementedException("HandleDayTimeDuration not implemented yet.");
-    }
-
-    private static ComparatorFunction? HandleYearMonthDuration(CompareType op,
-        ApplyCastingFunction applyCastFunctions)
-    {
-        throw new NotImplementedException("HandleYearMonthDuration not implemented yet.");
-    }
-
-    private static ComparatorFunction? HandleNumeric(CompareType op,
-        ApplyCastingFunction applyCastFunctions)
-    {
-        return op switch
-        {
-            CompareType.Equal => (a, b, _) =>
-            {
-                var res = applyCastFunctions(a, b);
-                return (decimal)res.Item1.GetValue() == (decimal)res.Item2.GetValue();
-            },
-            CompareType.NotEqual => (a, b, _) =>
-            {
-                var res = applyCastFunctions(a, b);
-                return (decimal)res.Item1.GetValue() != (decimal)res.Item2.GetValue();
-            },
-            CompareType.Less => (a, b, _) =>
-            {
-                var res = applyCastFunctions(a, b);
-                return (decimal)res.Item1.GetValue() < (decimal)res.Item2.GetValue();
-            },
-            CompareType.LessOrEqual => (a, b, _) =>
-            {
-                var res = applyCastFunctions(a, b);
-                return (decimal)res.Item1.GetValue() <= (decimal)res.Item2.GetValue();
-            },
-            CompareType.Greater => (a, b, _) =>
-            {
-                var res = applyCastFunctions(a, b);
-                return (decimal)res.Item1.GetValue() > (decimal)res.Item2.GetValue();
-            },
-            CompareType.GreaterOrEqual => (a, b, _) =>
-            {
-                var res = applyCastFunctions(a, b);
-                return (decimal)res.Item1.GetValue() > (decimal)res.Item2.GetValue();
-            },
-            _ => throw new ArgumentOutOfRangeException(nameof(op), op, null)
-        };
-    }
-
-    private static ComparatorFunction HandleQName(CompareType op,
-        ApplyCastingFunction applyCastFunctions)
-    {
-        return op switch
-        {
-            CompareType.Equal => (a, b, _) =>
-            {
-                var res = applyCastFunctions(a, b);
-                var valA = res.Item1.GetAs<QNameValue>().Value;
-                var valB = res.Item2.GetAs<QNameValue>().Value;
-                return valA.NamespaceUri == valB.NamespaceUri && valA.LocalName == valB.LocalName;
-            },
-            CompareType.NotEqual => (a, b, _) =>
-            {
-                var res = applyCastFunctions(a, b);
-                var valA = res.Item1.GetAs<QNameValue>().Value;
-                var valB = res.Item2.GetAs<QNameValue>().Value;
-                return valA.NamespaceUri != valB.NamespaceUri || valA.LocalName != valB.LocalName;
-            },
-            _ => throw new XPathException("XPTY0004: Only the \"eq\" and \"ne\" comparison is defined for xs:QName")
-        };
+        throw new XPathException("XPTY0004: " + type + " not available for " + firstType + " and " + secondType);
     }
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters? executionParameters)
@@ -282,18 +152,10 @@ public class ValueCompare : AbstractExpression
         if (firstAtomizedSequence.IsEmpty() || secondAtomizedSequence.IsEmpty())
             return SequenceFactory.CreateEmpty();
 
-        if (!firstAtomizedSequence.IsSingleton() || !secondAtomizedSequence.IsSingleton())
-            throw new XPathException("XPTY0004: Sequences to compare are not singleton.");
-
         var onlyFirstValue = firstAtomizedSequence.First();
         var onlySecondValue = secondAtomizedSequence.First();
 
-
-        var valueCompare =
-            PerformValueCompare(_operator, onlyFirstValue.GetValueType(), onlySecondValue.GetValueType());
-
-        return valueCompare(onlyFirstValue.GetAs<AtomicValue>(), onlySecondValue.GetAs<AtomicValue>(), dynamicContext)
-            ? SequenceFactory.SingletonTrueSequence
-            : SequenceFactory.SingletonFalseSequence;
+        return SequenceFactory.CreateFromValue(
+            new BooleanValue(PerformValueCompare(_type, onlyFirstValue, onlySecondValue, dynamicContext)));
     }
 }
