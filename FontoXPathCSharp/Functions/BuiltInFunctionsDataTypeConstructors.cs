@@ -16,13 +16,13 @@ public class BuiltInFunctionsDataTypeConstructors<TNode>
         var value = sequence.First();
         if (value.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
             // This won't ever work
-            throw new XPathException("XPTY0004: The provided QName is not a string-like value.");
+            throw new XPathException("XPTY0004","The provided QName is not a string-like value.");
 
         var lexicalQName = value.CastToType(ValueType.XsString).GetAs<StringValue>().Value;
         // Test lexical scope
         lexicalQName = TypeHelpers.NormalizeWhitespace(lexicalQName, ValueType.XsQName);
         if (!TypeHelpers.ValidatePattern(lexicalQName, ValueType.XsQName))
-            throw new XPathException("FORG0001: The provided QName is invalid.");
+            throw new XPathException("FORG0001","The provided QName is invalid.");
 
         if (!lexicalQName.Contains(':'))
         {
@@ -43,7 +43,8 @@ public class BuiltInFunctionsDataTypeConstructors<TNode>
         var namespaceURI = staticContext?.ResolveNamespace(prefix);
         if (namespaceURI == null)
             throw new XPathException(
-                $"FONS0004: The value {lexicalQName} can not be cast to a QName. Did you mean to use fn:QName?");
+                "FONS0004",
+                $"The value {lexicalQName} can not be cast to a QName. Did you mean to use fn:QName?");
 
         return SequenceFactory.CreateFromValue(
             AtomicValue.Create(new QName(prefix, namespaceURI, localName), ValueType.XsQName)

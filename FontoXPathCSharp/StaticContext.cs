@@ -143,7 +143,7 @@ public class StaticContext<TNode> : AbstractContext<TNode>
         var hashKey = GetSignatureHash(properties.NamespaceUri, properties.LocalName, properties.Arity);
 
         if (_registeredFunctionsByHash.ContainsKey(hashKey))
-            throw new XPathException($"XQT0049 {properties.NamespaceUri} {properties.LocalName}");
+            throw new XPathException("XQT0049", $"{properties.NamespaceUri} {properties.LocalName}");
 
         _registeredFunctionsByHash[hashKey] = properties;
     }

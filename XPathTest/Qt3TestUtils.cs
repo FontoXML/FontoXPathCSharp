@@ -15,7 +15,18 @@ public static class Qt3TestUtils
 {
     private static readonly Options<XmlNode> Options = new(_ => "http://www.w3.org/2010/09/qt-fots-catalog");
 
-    public static XmlNode StringToXmlNode(string xml)
+    public static string XmlNodeToString(XmlNode node)
+    {
+        using var sw = new StringWriter();
+        using var xw = new XmlTextWriter(sw);
+        xw.Formatting = Formatting.Indented;
+        xw.Indentation = 2;
+
+        node.WriteTo(xw);
+        return sw.ToString();
+    }
+    
+    public static XmlDocument StringToXmlDocument(string xml)
     {
         var doc = new XmlDocument();
         doc.LoadXml(xml);
@@ -51,10 +62,11 @@ public static class Qt3TestUtils
         var baseUrl = testSetFileName.Substring(0, testSetFileName.LastIndexOf('/'));
 
         string testQuery;
+        var filename = Evaluate.EvaluateXPathToString("test/@file", testCase, domFacade, Options);
+        var filepath = $"{baseUrl}/{filename}";
+        
         if (Evaluate.EvaluateXPathToBoolean("./test/@file", testCase, domFacade, Options))
         {
-            var filename = Evaluate.EvaluateXPathToString("test/@file", testCase, domFacade, Options);
-            var filepath = $"{baseUrl}/{filename}";
             if (TestFileSystem.FileExists(filepath))
                 testQuery = LoadFileToString(filepath);
             else
@@ -110,14 +122,14 @@ public static class Qt3TestUtils
                     "(./environment/@ref, \"empty\")[1]",
                     testCase,
                     domFacade,
-                    Options) ?? String.Empty
+                    Options) ?? string.Empty
             ))!;
 
         namespaceResolver = localNamespaceResolver != null
             ? prefix => localNamespaceResolver(prefix) ?? resolver?.Invoke(prefix)
             : prefix => resolver?.Invoke(prefix);
 
-        return new TestArguments(baseUrl, contextNode, testQuery, language, namespaceResolver, variablesInScope!);
+        return new TestArguments(Path.GetDirectoryName(filepath), contextNode, testQuery, language, namespaceResolver, variablesInScope!);
     }
 
     public static Environment CreateEnvironment(string? baseUrl, XmlNode environmentNode, XmlNodeDomFacade domFacade)

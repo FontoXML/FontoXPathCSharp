@@ -69,7 +69,7 @@ public static class CompileAstToExpression<TNode>
             AstNodeName.Wildcard => CompileWildcard(ast),
             AstNodeName.TextTest => CompileTextTest(ast),
             AstNodeName.AtomicType => CompileTypeTest(ast),
-            _ => throw new XPathException($"{ast.Name} AST to Expression not yet implemented")
+            _ => throw new NotImplementedException($"{ast.Name} AST to Expression not yet implemented")
         };
     }
 
@@ -123,7 +123,7 @@ public static class CompileAstToExpression<TNode>
                     AstNodeName.AnyItemType, AstNodeName.ParenthesizedItemType, AstNodeName.TypedMapTest,
                     AstNodeName.TypedArrayTest, AstNodeName.NameTest, AstNodeName.Wildcard);
 
-                if (test == null) throw new XPathException("No test found in path expression axis");
+                if (test == null) throw new ArgumentOutOfRangeException("No test found in path expression axis");
 
                 var testExpression = CompileTestExpression(test);
 

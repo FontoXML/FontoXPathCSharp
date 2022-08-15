@@ -12,7 +12,7 @@ public class ContextItemExpression<TNode> : AbstractExpression<TNode>
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         if (dynamicContext?.ContextItem == null)
-            throw new XPathException("XPDY0002: context is absent, it needs to be present to use the \".\" operator");
+            throw new XPathException("XPDY0002","context is absent, it needs to be present to use the \".\" operator");
 
         return SequenceFactory.CreateFromValue(dynamicContext.ContextItem);
     }

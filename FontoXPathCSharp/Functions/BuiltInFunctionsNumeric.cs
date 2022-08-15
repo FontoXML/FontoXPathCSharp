@@ -14,18 +14,15 @@ public class BuiltInFunctionsNumeric<TNode>
     {
         var sequence = sequences[0];
         var atomized = Atomize.AtomizeSequence(sequence, executionParameters);
-        if (atomized.IsEmpty()) SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN, ValueType.XsDouble));
-        if (atomized.IsSingleton())
-            return sequence.First()?.TryCastToType(ValueType.XsDouble) switch
-            {
-                SuccessResult<AtomicValue> result => SequenceFactory.CreateFromValue(result.Data),
-                ErrorResult<AtomicValue> => SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN,
-                    ValueType.XsDouble)),
-                _ => throw new ArgumentOutOfRangeException(
-                    $"BuiltInFunctionsNumeric: Unexpected parameter in fn:number: ({atomized.IsSingleton()}).")
-            };
-
-        throw new XPathException("fn:number may only be called with zero or one values");
+        if (atomized.IsEmpty()) return SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN, ValueType.XsDouble));
+        return sequence.First()?.TryCastToType(ValueType.XsDouble) switch
+        {
+            SuccessResult<AtomicValue> result => SequenceFactory.CreateFromValue(result.Data),
+            ErrorResult<AtomicValue> => SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN,
+                ValueType.XsDouble)),
+            _ => throw new ArgumentOutOfRangeException(
+                $"BuiltInFunctionsNumeric: Unexpected parameter in fn:number: ({atomized.IsSingleton()}).")
+        };
     };
 
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
@@ -44,7 +41,7 @@ public class BuiltInFunctionsNumeric<TNode>
                         SequenceFactory.CreateFromValue(dynamicContext.ContextItem), executionParameters, "fn:number",
                         false);
                 if (atomizedContextItem == null)
-                    throw new XPathException("XPDY0002: fn:number needs an atomizable context item.");
+                    throw new XPathException("XPDY0002", "fn:number needs an atomizable context item.");
 
                 return FnNumber(dynamicContext, executionParameters, staticContext, atomizedContextItem);
             },

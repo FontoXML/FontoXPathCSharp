@@ -32,7 +32,7 @@ public class XObjectDomFacade : IDomFacade<XObject>
             XmlNodeType.ProcessingInstruction => (node as XProcessingInstruction)?.Data,
             XmlNodeType.Comment => (node as XComment)?.Value,
             XmlNodeType.Text or XmlNodeType.CDATA => (node as XText)?.Value,
-            _ => throw new XPathException($"Unexpected nodetype in XObjectDomFacade.GetData: {node.NodeType}")
+            _ => throw new Exception($"Unexpected nodetype in XObjectDomFacade.GetData: {node.NodeType}")
         } ?? string.Empty;
     }
 

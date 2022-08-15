@@ -41,7 +41,7 @@ public class UnaryOperator<TNode> : AbstractExpression<TNode>
         {
             AstNodeName.UnaryMinusOp => UnaryOperatorKind.Minus,
             AstNodeName.UnaryPlusOp => UnaryOperatorKind.Plus,
-            _ => throw new XPathException($"It's not possible to create a unary operator with {kind}")
+            _ => throw new ArgumentOutOfRangeException($"It's not possible to create a unary operator with {kind}")
         };
     }
 
@@ -66,7 +66,8 @@ public class UnaryOperator<TNode> : AbstractExpression<TNode>
 
             if (atomizedValues.Length > 1)
                 throw new XPathException(
-                    "XPTY0004: The operand to a unary operator must be a sequence with a length less than one");
+                    "XPTY0004",
+                    "The operand to a unary operator must be a sequence with a length less than one");
 
             if (value.GetValueType().IsSubtypeOf(ValueType.XsUntypedAtomic))
             {

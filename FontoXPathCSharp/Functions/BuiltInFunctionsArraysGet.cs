@@ -21,7 +21,7 @@ public class BuiltInFunctionsArraysGet<TNode>
                 var array = arrays.First();
                 var arrayValue = array.GetAs<ArrayValue<TNode>>();
                 if (positionValue <= 0 || positionValue > arrayValue.Members.Count)
-                    throw new XPathException("FOAY0001: array position out of bounds.");
+                    throw new XPathException("FOAY0001","Array position out of bounds.");
                 return arrayValue.Members[positionValue - 1]();
             });
         });

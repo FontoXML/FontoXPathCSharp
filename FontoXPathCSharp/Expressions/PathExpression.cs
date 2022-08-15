@@ -34,7 +34,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode>
             else resultContainsNonNodes = true;
 
         if (resultContainsNonNodes && resultContainsNodes)
-            throw new XPathException("XPTY0018: The path operator should either return nodes or non-nodes. " +
+            throw new XPathException("XPTY0018","The path operator should either return nodes or non-nodes. " +
                                      "Mixed sequences are not allowed."
             );
 
@@ -82,7 +82,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode>
                             // from outside. In that case, the axis step is supposed to error
                             // with XPTY0020
                             throw new XPathException(
-                                "XPTY0019: The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.");
+                                "XPTY0019","The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.");
                         }
                     }
 

@@ -28,7 +28,7 @@ public class UnionOperator<TNode> : AbstractExpression<TNode> where TNode : notn
         ).MapAll(allValues =>
         {
             if (allValues.Any(nodeValue => !nodeValue.GetValueType().IsSubtypeOf(ValueType.Node)))
-                throw new XPathException("XPTY0004: The sequences to union are not of type node()*");
+                throw new XPathException("XPTY0004","The sequences to union are not of type node()*");
 
             var sortedValues = DocumentOrderUtils<TNode>.SortNodeValues(executionParameters.DomFacade, allValues.Cast<NodeValue<TNode>>().ToList());
             return SequenceFactory.CreateFromArray(sortedValues.Cast<AbstractValue>().ToArray());

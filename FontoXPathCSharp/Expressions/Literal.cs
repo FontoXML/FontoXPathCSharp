@@ -18,7 +18,7 @@ public class Literal<TNode> : AbstractExpression<TNode>
                 SequenceFactory.CreateFromValue(AtomicValue.Create(value, ValueType.XsInt)),
             ValueType.XsString => () => SequenceFactory.CreateFromValue(AtomicValue.Create(value, ValueType.XsString)),
             ValueType.XsDouble => () => SequenceFactory.CreateFromValue(AtomicValue.Create(value, ValueType.XsDouble)),
-            _ => throw new XPathException("Type '" + type + "' not expected in literal")
+            _ => throw new ArgumentOutOfRangeException("Type '" + type + "' not expected in literal")
         };
     }
 

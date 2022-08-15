@@ -21,7 +21,7 @@ public class InstanceOfOperator<TNode> : AbstractExpression<TNode>
             "?" => SequenceMultiplicity.ZeroOrOne,
             "*" => SequenceMultiplicity.ZeroOrMore,
             "+" => SequenceMultiplicity.OneOrMore,
-            _ => throw new XPathException(
+            _ => throw new ArgumentOutOfRangeException(
                 $"InstanceOfOperator, somehow {multiplicity} got passed in as a multiplicity.")
         };
     }

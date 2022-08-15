@@ -599,7 +599,7 @@ public static class XPathParser
                             };
                             break;
                         default:
-                            throw new XPathException("Unreachable");
+                            throw new Exception("Unreachable");
                     }
 
                 FlushFilters(true, allowSinglePredicates);

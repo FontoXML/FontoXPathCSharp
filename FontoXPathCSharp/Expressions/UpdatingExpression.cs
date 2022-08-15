@@ -12,6 +12,6 @@ public abstract class UpdatingExpression<TNode> : AbstractExpression<TNode>
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
-        throw new XPathException("XUST0001");
+        throw new XPathException("XUST0001", "Can not execute an updating expression in a non-updating context.");
     }
 }

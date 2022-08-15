@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using System.Xml.Serialization;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DocumentWriter;
 using FontoXPathCSharp.DomFacade;
@@ -47,6 +48,8 @@ public class Qt3Assertions
         // TODO: Implement the nodefactory, maybe?
         IDocumentWriter<XmlNode>? nodesFactory = null;
 
+        // if (assertNode.LocalName != "assert-xml")  return (_, _, _, _) => Assert.True(false, $"Skipped test, it was a {assertNode.LocalName}");
+        
         switch (assertNode.LocalName)
         {
             case "all-of":
@@ -275,39 +278,60 @@ public class Qt3Assertions
                     );
                 };
             }
-            // case "assert-xml":
-            // {
-            //     XmlNode parsedFragment;
-            //     if (Evaluate.EvaluateXPathToBoolean(
-            //             "@file",
-            //             assertNode,
-            //             domFacade,
-            //             Qt3XmlNodeOptions))
-            //         // parsedFragment = Qt3TestUtils.LoadFileToXmlNode(
-            //         //     Evaluate.EvaluateXPathToString($"{baseUrl} || \"/\" || @file",
-            //         //         assertNode, domFacade, Qt3XmlNodeOptions)
-            //         // );
-            //         // else
-            //         //     parsedFragment = Qt3TestUtils.StringToXmlNode(
-            //         //         $"<xml>{Evaluate.EvaluateXPathToString(".", assertNode, domFacade)}</xml>");
-            //
-            //         return (xpath, contextNode, variablesInScope, namespaceResolver) =>
-            //         {
-            //             var results = Evaluate.EvaluateXPathToNodes(
-            //                 xpath,
-            //                 contextNode,
-            //                 domFacade,
-            //                 new Options<XmlNode>(
-            //                     namespaceResolver,
-            //                     documentWriter: nodesFactory,
-            //                     languageId: language),
-            //                 variablesInScope
-            //             ).ToList();
-            //
-            //             throw new NotImplementedException("assert-xml not properly implemented yet.");
-            //         };
-            //     break;
-            // }
+            case "assert-xml":
+            {
+                XmlNode? parsedFragment;
+                if (Evaluate.EvaluateXPathToBoolean(
+                        "@file",
+                        assertNode,
+                        domFacade,
+                        Qt3XmlNodeOptions))
+                {
+                    parsedFragment = Qt3TestUtils.LoadFileToXmlNode(
+                        Evaluate.EvaluateXPathToString(
+                            $"{baseUrl} || \"/\" || @file",
+                            assertNode,
+                            domFacade,
+                            Qt3XmlNodeOptions)
+                    );
+                }
+                else
+                {
+                    parsedFragment = Qt3TestUtils.StringToXmlDocument(
+                            $"<xml>{Evaluate.EvaluateXPathToString(".", assertNode, domFacade, Qt3XmlNodeOptions)}</xml>")
+                        .DocumentElement;
+                }
+
+                return (xpath, contextNode, variablesInScope, namespaceResolver) =>
+                {
+                    var results = Evaluate.EvaluateXPathToNodes(
+                        xpath,
+                        contextNode,
+                        domFacade,
+                        new Options<XmlNode>(
+                            namespaceResolver,
+                            documentWriter: nodesFactory,
+                            languageId: language),
+                        variablesInScope
+                    ).ToList();
+
+                    var parsedFragmentChildren = parsedFragment
+                        .ChildNodes
+                        .Cast<XmlNode>()
+                        .ToList();
+
+                    Assert.True(parsedFragmentChildren.Count == results.Count,
+                        "Expected results and parsedFragment children to match");
+
+
+                    for (var i = 0; i < results.Count; i++)
+                    {
+                        Assert.True(Qt3TestUtils.XmlNodeToString(results[i]) ==
+                                    Qt3TestUtils.XmlNodeToString(parsedFragmentChildren[i]),
+                            "Expected all children to match between result and parsedFragment.");
+                    }
+                };
+            }
             case "assert-string-value":
             {
                 var expectedString =
@@ -343,7 +367,8 @@ public class Qt3Assertions
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     var errorContents = "";
-                    Assert.Throws<Exception>(
+                    var actualErrorCode = "";
+                    Assert.Throws<XPathException>(
                         () =>
                         {
                             try
@@ -357,14 +382,15 @@ public class Qt3Assertions
                                         languageId: language),
                                     variablesInScope);
                             }
-                            catch (Exception ex)
+                            catch (XPathException ex)
                             {
-                                errorContents = ex.ToString();
+                                actualErrorCode = ex.ErrorCode;
+                                errorContents = ex.Message;
                                 throw;
                             }
                         }
                     );
-                    Assert.Matches(errorCode == "*" ? ".*" : errorCode, errorContents);
+                    Assert.Equal(errorCode, actualErrorCode);
                 };
             }
             case "assert-empty":

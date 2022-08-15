@@ -60,7 +60,7 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
 
                 if (firstValues.Length > 1 || secondValues.Length > 1)
                     throw new XPathException(
-                        "XPTY0004: the operands of the {_operator} operator should be empty or singleton."
+                        "XPTY0004","the operands of the {_operator} operator should be empty or singleton."
                     );
 
                 var firstValue = firstValues.First();
@@ -76,7 +76,8 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
 
                 if (prefabOperator == null)
                     throw new XPathException(
-                        $"XPTY0004: {_operator} not available for types {firstValue.GetValueType()} and {secondValue.GetValueType()}"
+                        "XPTY0004",
+                        $"{_operator} not available for types {firstValue.GetValueType()} and {secondValue.GetValueType()}"
                     );
 
                 return SequenceFactory.CreateFromValue(prefabOperator(firstValue, secondValue));
@@ -125,12 +126,12 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
             var valueB = Convert.ToDouble(castB.GetValue());
             if (valueB == 0)
             {
-                throw new XPathException("FOAR0001: Divisor of idiv operator cannot be (-)0");
+                throw new XPathException("FOAR0001", "Divisor of idiv operator cannot be (-)0");
             }
 
             if (double.IsNaN(valueA) || double.IsNaN(valueB) || !double.IsFinite(valueA))
             {
-                throw new XPathException("FOAR0002: One of the operands of idiv is NaN or the first operand is (-)INF");
+                throw new XPathException("FOAR0002", "One of the operands of idiv is NaN or the first operand is (-)INF");
             }
 
             if (double.IsFinite(valueA) && !double.IsFinite(valueB))
