@@ -19,12 +19,10 @@ public class EvaluationContext<TSelector, TNode>
         TSelector expression,
         AbstractValue? contextItem,
         IDomFacade<TNode>? domFacade,
-        Dictionary<string, AbstractValue>? variables,
+        Dictionary<string, AbstractValue?> variables,
         Options<TNode>? externalOptions,
         CompilationOptions compilationOptions)
     {
-        variables ??= new Dictionary<string, AbstractValue>();
-
         var internalOptions = externalOptions != null
             ? new Options<TNode>(externalOptions.NamespaceResolver)
             {
