@@ -40,7 +40,7 @@ public class CastAsOperator<TNode> : AbstractExpression<TNode>
         if (evaluatedExpression.IsEmpty())
         {
             if (!_allowsEmptySequence)
-                throw new XPathException("XPTY0004","Sequence to cast is empty while target type is singleton.");
+                throw new XPathException("XPTY0004", "Sequence to cast is empty while target type is singleton.");
             return SequenceFactory.CreateEmpty();
         }
 
@@ -48,6 +48,6 @@ public class CastAsOperator<TNode> : AbstractExpression<TNode>
             return evaluatedExpression.Map((val, _, _) =>
                 TypeCasting.CastToType(val.GetAs<AtomicValue>(), _targetType));
 
-        throw new XPathException("XPTY0004","Sequence to cast is not singleton or empty.");
+        throw new XPathException("XPTY0004", "Sequence to cast is not singleton or empty.");
     }
 }

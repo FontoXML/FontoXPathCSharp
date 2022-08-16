@@ -2,17 +2,15 @@ namespace FontoXPathCSharp.DomFacade;
 
 public class DomFacade<TNode> : IDomFacade<TNode>
 {
-    private readonly List<TNode> _orderOfDetachedNodes;
-    
     private readonly IDomFacade<TNode> _domFacade;
 
     public DomFacade(IDomFacade<TNode> domFacade)
     {
         _domFacade = domFacade;
-        _orderOfDetachedNodes = new List<TNode>();
+        OrderOfDetachedNodes = new List<TNode>();
     }
 
-    public List<TNode> OrderOfDetachedNodes => _orderOfDetachedNodes;
+    public List<TNode> OrderOfDetachedNodes { get; }
 
     public IEnumerable<TNode> GetAllAttributes(TNode node, string? bucket = null)
     {
@@ -117,11 +115,6 @@ public class DomFacade<TNode> : IDomFacade<TNode>
     public NodeType GetNodeType(TNode node)
     {
         return _domFacade.GetNodeType(node);
-    }
-
-    public string? LookupNamespaceUri(TNode node, string? prefix)
-    {
-        return _domFacade.LookupNamespaceUri(node, prefix);
     }
 
     public TNode? GetDocumentElement(TNode node)

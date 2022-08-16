@@ -60,7 +60,7 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
 
                 if (firstValues.Length > 1 || secondValues.Length > 1)
                     throw new XPathException(
-                        "XPTY0004","the operands of the {_operator} operator should be empty or singleton."
+                        "XPTY0004", "the operands of the {_operator} operator should be empty or singleton."
                     );
 
                 var firstValue = firstValues.First();
@@ -98,19 +98,12 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
     private static ValueType DetermineReturnType(ValueType typeA, ValueType typeB)
     {
         if (typeA.IsSubtypeOf(ValueType.XsInteger) && typeB.IsSubtypeOf(ValueType.XsInteger))
-        {
             return ValueType.XsInteger;
-        }
 
         if (typeA.IsSubtypeOf(ValueType.XsDecimal) && typeB.IsSubtypeOf(ValueType.XsDecimal))
-        {
             return ValueType.XsDecimal;
-        }
 
-        if (typeA.IsSubtypeOf(ValueType.XsFloat) && typeB.IsSubtypeOf(ValueType.XsFloat))
-        {
-            return ValueType.XsFloat;
-        }
+        if (typeA.IsSubtypeOf(ValueType.XsFloat) && typeB.IsSubtypeOf(ValueType.XsFloat)) return ValueType.XsFloat;
 
         return ValueType.XsDouble;
     }
@@ -124,20 +117,13 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
             var (castA, castB) = applyCastFunctions((AtomicValue)a, (AtomicValue)b);
             var valueA = Convert.ToDouble(castA.GetValue());
             var valueB = Convert.ToDouble(castB.GetValue());
-            if (valueB == 0)
-            {
-                throw new XPathException("FOAR0001", "Divisor of idiv operator cannot be (-)0");
-            }
+            if (valueB == 0) throw new XPathException("FOAR0001", "Divisor of idiv operator cannot be (-)0");
 
             if (double.IsNaN(valueA) || double.IsNaN(valueB) || !double.IsFinite(valueA))
-            {
-                throw new XPathException("FOAR0002", "One of the operands of idiv is NaN or the first operand is (-)INF");
-            }
+                throw new XPathException("FOAR0002",
+                    "One of the operands of idiv is NaN or the first operand is (-)INF");
 
-            if (double.IsFinite(valueA) && !double.IsFinite(valueB))
-            {
-                return AtomicValue.Create(0, ValueType.XsInteger);
-            }
+            if (double.IsFinite(valueA) && !double.IsFinite(valueB)) return AtomicValue.Create(0, ValueType.XsInteger);
 
             return AtomicValue.Create(fun(castA.GetValue(), castB.GetValue()), ValueType.XsInteger);
         }, ValueType.XsInteger);
@@ -190,20 +176,18 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
         }
 
         foreach (var typeOfA in parentTypesOfA)
+        foreach (var typeOfB in parentTypesOfB)
         {
-            foreach (var typeOfB in parentTypesOfB)
+            var func = BinaryEvaluationFunctionMap.GetOperationForOperands(typeOfA, typeOfB, op);
+            var mapRet = BinaryEvaluationFunctionMap.GetReturnTypeForOperands(typeOfA, typeOfB, op);
+            if (func != null && mapRet != null)
             {
-                var func = BinaryEvaluationFunctionMap.GetOperationForOperands(typeOfA, typeOfB, op);
-                var mapRet = BinaryEvaluationFunctionMap.GetReturnTypeForOperands(typeOfA, typeOfB, op);
-                if (func != null && mapRet != null)
+                var ret = (ValueType)mapRet;
+                return (a, b) =>
                 {
-                    var ret = (ValueType)mapRet;
-                    return (a, b) =>
-                    {
-                        var (castA, castB) = applyCastFunctions(a, b);
-                        return AtomicValue.Create(func(castA.GetValue(), castB.GetValue()), ret);
-                    };
-                }
+                    var (castA, castB) = applyCastFunctions(a, b);
+                    return AtomicValue.Create(func(castA.GetValue(), castB.GetValue()), ret);
+                };
             }
         }
 

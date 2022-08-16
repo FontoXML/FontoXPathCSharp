@@ -4,7 +4,7 @@ namespace FontoXPathCSharp.DomFacade;
 
 public class XmlNodeDomFacade : IDomFacade<XmlNode>
 {
-    public IEnumerable<XmlNode> GetAllAttributes(XmlNode node, string? bucket  = null)
+    public IEnumerable<XmlNode> GetAllAttributes(XmlNode node, string? bucket = null)
     {
         if (node.NodeType != XmlNodeType.Element) return Array.Empty<XmlNode>();
 
@@ -123,16 +123,6 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
             XmlNodeType.DocumentFragment => NodeType.DocumentFragment,
             _ => NodeType.OtherNode
         };
-    }
-
-    public string? LookupNamespaceUri(XmlNode node, string? prefix)
-    {
-        if (string.IsNullOrEmpty(prefix)) prefix = null;
-
-
-        Console.WriteLine($"XmlNodeDomFacade.LookupNamespaceUri: Not implemented yet for {node.NodeType}");
-        return null;
-        return LookupNamespaceUri(GetParentNode(node, null), prefix);
     }
 
     public XmlNode? GetDocumentElement(XmlNode node)

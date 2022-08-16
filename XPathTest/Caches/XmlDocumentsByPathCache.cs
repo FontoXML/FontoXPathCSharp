@@ -8,7 +8,7 @@ public class XmlDocumentsByPathCache : ResourceCache<string, XmlNode>
 {
     private static readonly XmlNodeUtils Utils = new();
     private static readonly XmlNodeDomFacade DomFacade = new();
-    
+
     private static readonly XmlDocument GlobalDocument = (XmlDocument)Utils.StringToXmlDocument("<xml/>");
     public static XmlDocumentsByPathCache Instance { get; } = new();
 
@@ -33,7 +33,7 @@ public class XmlDocumentsByPathCache : ResourceCache<string, XmlNode>
             parsedContents.ForEach(node => documentFragment.AppendChild(node));
             return documentFragment;
         }
+
         return Utils.StringToXmlDocument(content);
     }
-    
 }

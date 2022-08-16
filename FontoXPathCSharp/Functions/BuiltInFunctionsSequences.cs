@@ -25,7 +25,7 @@ public static class BuiltInFunctionsSequences<TNode>
         if (!arg.IsEmpty() && !arg.IsSingleton())
         {
             arg.GetAllValues().ToList().ForEach(Console.WriteLine);
-            throw new XPathException("FORG0003","The argument passed to fn:zero-or-one contained more than one item.");
+            throw new XPathException("FORG0003", "The argument passed to fn:zero-or-one contained more than one item.");
         }
 
         return arg;

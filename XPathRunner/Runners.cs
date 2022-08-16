@@ -1,9 +1,6 @@
 ﻿using System.Xml;
 using FontoXPathCSharp;
-using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Parsing;
-using FontoXPathCSharp.Types;
-using FontoXPathCSharp.Value;
 using Xunit;
 using Xunit.Abstractions;
 

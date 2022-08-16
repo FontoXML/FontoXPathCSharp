@@ -8,7 +8,7 @@ public class XObjectUtils : NodeUtils<XObject>
 {
     public string NodeToString(XObject node)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public XObject StringToXmlDocument(string xml)

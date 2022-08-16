@@ -1,10 +1,9 @@
 using System.Linq;
 using System.Xml.Linq;
-using System.Xml.XPath;
 
 namespace XPathTest.Caches;
 
-public class XDocumentByPathCache: ResourceCache<string, XObject>
+public class XDocumentByPathCache : ResourceCache<string, XObject>
 {
     private static readonly XDocument GlobalDocument = LoadXmlFromString("<xml/>");
     public static XmlDocumentsByPathCache Instance { get; } = new();
@@ -24,7 +23,7 @@ public class XDocumentByPathCache: ResourceCache<string, XObject>
                 .Nodes()
                 .Cast<XObject>()
                 .ToList();
-            
+
             var documentFragment = new XDocument(GlobalDocument);
             parsedContents?.ForEach(node => documentFragment.Add(node));
             return documentFragment;

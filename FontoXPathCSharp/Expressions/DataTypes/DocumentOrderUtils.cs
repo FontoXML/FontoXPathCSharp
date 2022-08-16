@@ -12,7 +12,6 @@ public class DocumentOrderUtils<TNode> where TNode : notnull
         var sorted = new List<T>();
 
         while (leftArray.Count > 0 && rightArray.Count > 0)
-        {
             if (comparer(leftArray[0], rightArray[0]) < 0)
             {
                 sorted.Add(leftArray[0]);
@@ -23,7 +22,6 @@ public class DocumentOrderUtils<TNode> where TNode : notnull
                 sorted.Add(rightArray[0]);
                 rightArray.RemoveAt(0);
             }
-        }
 
         return sorted.Concat(leftArray.Concat(rightArray)).ToList();
     }
@@ -62,34 +60,29 @@ public class DocumentOrderUtils<TNode> where TNode : notnull
             value1 = domFacade.GetParentNode(node1.Value);
             value2 = domFacade.GetParentNode(node2.Value);
             if (value1 != null && value1.Equals(value2))
-            {
                 // Same element, so A
                 return 1;
-            }
         }
         else if (isNode2SubtypeOfAttribute && !isNode1SubtypeOfAttribute)
         {
             value1 = node1.Value;
             value2 = domFacade.GetParentNode(node2.Value);
             if (value2 != null && value1.Equals(value2))
-            {
                 // Same element, so B before A
                 return -1;
-            }
         }
         else if (isNode1SubtypeOfAttribute && isNode2SubtypeOfAttribute)
         {
             var node1Parent = domFacade.GetParentNode(node1.Value);
             var node2Parent = domFacade.GetParentNode(node2.Value);
-            if (node1Parent != null && node1Parent.Equals(node2Parent) || (node1Parent == null && node2Parent == null))
-            {
+            if ((node1Parent != null && node1Parent.Equals(node2Parent)) ||
+                (node1Parent == null && node2Parent == null))
                 // Sort on attributes name
                 return string.Compare(
                     domFacade.GetLocalName(node1.Value),
                     domFacade.GetLocalName(node2.Value),
                     StringComparison.Ordinal
                 );
-            }
 
             value1 = node1Parent;
             value2 = node2Parent;
@@ -141,9 +134,8 @@ public class DocumentOrderUtils<TNode> where TNode : notnull
 
         var y = 1;
         for (var z = Math.Min(actualAncestorsA.Count, actualAncestorsB.Count); y < z; ++y)
-        {
-            if (!actualAncestorsA[y].Equals(actualAncestorsB[y])) break;
-        }
+            if (!actualAncestorsA[y].Equals(actualAncestorsB[y]))
+                break;
 
         // All nodes under a node are higher in document order than said node
         if (y >= actualAncestorsA.Count) return -1;
@@ -170,9 +162,7 @@ public class DocumentOrderUtils<TNode> where TNode : notnull
     {
         var ancestors = new List<TNode>();
         for (var ancestor = node; ancestor != null; ancestor = domFacade.GetParentNode(ancestor))
-        {
             ancestors.Insert(0, ancestor);
-        }
 
         return ancestors;
     }

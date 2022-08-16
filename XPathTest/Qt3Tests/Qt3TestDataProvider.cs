@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
+using XPathTest.Qt3Tests;
 
 namespace XPathTest;
 
@@ -25,9 +26,12 @@ public class Qt3TestDataXObject : Qt3TestDataProvider<XObject>
     }
 }
 
-
 public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where TNode : notnull
 {
+    private readonly IDomFacade<TNode> _domFacade;
+
+    private readonly NodeUtils<TNode> _nodeUtils;
+
     private readonly Options<TNode> _options =
         new(_ => "http://www.w3.org/2010/09/qt-fots-catalog");
 
@@ -36,10 +40,6 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
     private readonly List<object[]> _testCases = new();
 
     private readonly HashSet<string> _unrunnableTestCasesByName = new();
-
-    private readonly IDomFacade<TNode> _domFacade;
-
-    private readonly NodeUtils<TNode> _nodeUtils;
 
     public Qt3TestDataProvider(IDomFacade<TNode> domFacade, NodeUtils<TNode> nodeUtils)
     {
@@ -95,9 +95,9 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 
             var testCaseNodes = new List<TNode>(
                 Evaluate.EvaluateXPathToNodes(Qt3TestQueries.AllTestsQuery,
-                testSetData,
-                _domFacade,
-                _options)
+                    testSetData,
+                    _domFacade,
+                    _options)
             );
 
             if (!testCaseNodes.Any()) return Array.Empty<object[]>();
@@ -110,8 +110,8 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
                     {
                         var name = GetTestName(testCase);
                         var description = GetTestDescription(testSetName, name, testCase);
-                        var arguments = TestingUtils.GetArguments(testSetFileName, testCase, _domFacade, _options, _nodeUtils);
-                        testCases.Add(new object[] { name, testSetName, description, testCase, arguments, _nodeUtils});
+                        var arguments = new Qt3TestArguments<TNode>(testSetFileName, testCase, _domFacade, _options, _nodeUtils);
+                        testCases.Add(new object[] { name, testSetName, description, testCase, arguments, _nodeUtils });
                     }
                     catch (FileNotFoundException ex)
                     {

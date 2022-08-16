@@ -9,164 +9,157 @@ namespace FontoXPathCSharp.Expressions;
 
 public class SortedSequenceUtils<TNode> where TNode : notnull
 {
-	private class MappedIterator
-	{
-		public readonly Iterator<AbstractValue> Next;
-		public IteratorResult<AbstractValue> Current;
-
-		public MappedIterator(IteratorResult<AbstractValue>? current, Iterator<AbstractValue> next)
-		{
-			Next = next;
-			Current = current;
-		}
-	}
-	
     private static bool IsSameNodeValue(AbstractValue? a, AbstractValue? b)
     {
         if (a == null || b == null) return false;
-        
-        if (!a.GetValueType().IsSubtypeOf(ValueType.Node) || !b.GetValueType().IsSubtypeOf(ValueType.Node)) {
+
+        if (!a.GetValueType().IsSubtypeOf(ValueType.Node) || !b.GetValueType().IsSubtypeOf(ValueType.Node))
             return false;
-        }
 
         return a.GetAs<NodeValue<TNode>>().Value.Equals(b.GetAs<NodeValue<TNode>>().Value);
     }
 
-    public static ISequence ConcatSortedSequences(Iterator<ISequence> sequences) {
+    public static ISequence ConcatSortedSequences(Iterator<ISequence> sequences)
+    {
         var currentSequence = sequences(IterationHint.None);
-        if (currentSequence.IsDone) {
-            return SequenceFactory.CreateEmpty();
-        }
+        if (currentSequence.IsDone) return SequenceFactory.CreateEmpty();
         Iterator<AbstractValue> currentIterator = null;
         AbstractValue previousValue = null;
         return SequenceFactory.CreateFromIterator(
-            hint => {
-                if (currentSequence.IsDone) {
-                    return IteratorResult<AbstractValue>.Done();
-                }
-                if (currentIterator == null) {
-                    currentIterator = currentSequence.Value?.GetValue();
-                }
+            hint =>
+            {
+                if (currentSequence.IsDone) return IteratorResult<AbstractValue>.Done();
+                if (currentIterator == null) currentIterator = currentSequence.Value?.GetValue();
 
                 IteratorResult<AbstractValue> value;
                 // Scan to the next value
-                do {
+                do
+                {
                     value = currentIterator(hint);
-                    if (value.IsDone) {
+                    if (value.IsDone)
+                    {
                         currentSequence = sequences(IterationHint.None);
-                        if (currentSequence.IsDone) {
-                            return value;
-                        }
+                        if (currentSequence.IsDone) return value;
                         currentIterator = currentSequence.Value?.GetValue();
                     }
                 } while (value.IsDone || IsSameNodeValue(value.Value, previousValue));
+
                 previousValue = value.Value;
                 return value;
             }
         );
     }
 
-    public static ISequence MergeSortedSequences<TNode>(DomFacade<TNode> domFacade, Iterator<ISequence> sequences) where TNode : notnull
+    public static ISequence MergeSortedSequences<TNode>(DomFacade<TNode> domFacade, Iterator<ISequence> sequences)
+        where TNode : notnull
     {
-	    var allIterators = new List<MappedIterator>();
-		// Because the sequences are sorted locally, but unsorted globally, we first need to sort all the iterators.
-		// For that, we need to know all of them
-		var loadSequences = () => {
-			var val = sequences(IterationHint.None);
-			while (!val.IsDone) {
-				var iterator = val.Value!.GetValue();
-				var mappedIterator = new MappedIterator(
-					iterator(IterationHint.None), 
-					(hint) => iterator(hint)
-					);
-				if (!mappedIterator.Current.IsDone) {
-					allIterators.Add(mappedIterator);
-				}
-				val = sequences(IterationHint.None);
-			}
-		};
-		loadSequences();
-		
-		AbstractValue? previousNode = null;
+        var allIterators = new List<MappedIterator>();
+        // Because the sequences are sorted locally, but unsorted globally, we first need to sort all the iterators.
+        // For that, we need to know all of them
+        var loadSequences = () =>
+        {
+            var val = sequences(IterationHint.None);
+            while (!val.IsDone)
+            {
+                var iterator = val.Value!.GetValue();
+                var mappedIterator = new MappedIterator(
+                    iterator(IterationHint.None),
+                    hint => iterator(hint)
+                );
+                if (!mappedIterator.Current.IsDone) allIterators.Add(mappedIterator);
+                val = sequences(IterationHint.None);
+            }
+        };
+        loadSequences();
 
-		var allSequencesAreSorted = false;
-		return SequenceFactory.CreateFromIterator(
-			_ =>
-			{
-				if (!allSequencesAreSorted)
-				{
-					allSequencesAreSorted = true;
+        AbstractValue? previousNode = null;
 
-					if (
-						allIterators.All((iterator) =>
-							iterator.Current.Value!.GetValueType().IsSubtypeOf(ValueType.Node)
-						)
-					)
-					{
-						// Sort the iterators initially. We know these iterators return locally sorted items, but we do not know the inter-ordering of these items.
-						allIterators.Sort((iteratorA, iteratorB) =>
-							DocumentOrderUtils<TNode>.CompareNodePositions(
-								domFacade,
-								iteratorA.Current.Value!.GetAs<NodeValue<TNode>>()!,
-								iteratorB.Current.Value!.GetAs<NodeValue<TNode>>()!
-							)
-						);
-					}
-				}
+        var allSequencesAreSorted = false;
+        return SequenceFactory.CreateFromIterator(
+            _ =>
+            {
+                if (!allSequencesAreSorted)
+                {
+                    allSequencesAreSorted = true;
 
-				IteratorResult<AbstractValue> consumedValue;
-				do
-				{
-					if (allIterators.Count == 0)return IteratorResult<AbstractValue>.Done();
+                    if (
+                            allIterators.All(iterator =>
+                                iterator.Current.Value!.GetValueType().IsSubtypeOf(ValueType.Node)
+                            )
+                        )
+                        // Sort the iterators initially. We know these iterators return locally sorted items, but we do not know the inter-ordering of these items.
+                        allIterators.Sort((iteratorA, iteratorB) =>
+                            DocumentOrderUtils<TNode>.CompareNodePositions(
+                                domFacade,
+                                iteratorA.Current.Value!.GetAs<NodeValue<TNode>>()!,
+                                iteratorB.Current.Value!.GetAs<NodeValue<TNode>>()!
+                            )
+                        );
+                }
 
-					var consumedIterator = allIterators[0];
-					allIterators.RemoveAt(0);
-					
-					consumedValue = consumedIterator.Current;
-					consumedIterator.Current = consumedIterator.Next(IterationHint.None);
-					if (!consumedValue.Value!.GetValueType().IsSubtypeOf(ValueType.Node))
-					{
-						// Sorting does not matter
-						return consumedValue;
-					}
+                IteratorResult<AbstractValue> consumedValue;
+                do
+                {
+                    if (allIterators.Count == 0) return IteratorResult<AbstractValue>.Done();
 
-					if (!consumedIterator.Current.IsDone)
-					{
-						// Make the iterators sorted again
-						var low = 0;
-						var high = allIterators.Count - 1;
-						while (low <= high)
-						{
-							var mid = (int)Math.Floor((low + high) / 2.0);
-							var comparisonResult = DocumentOrderUtils<TNode>.CompareNodePositions(
-								domFacade,
-								consumedIterator.Current.Value!.GetAs<NodeValue<TNode>>(),
-								allIterators[mid].Current.Value!.GetAs<NodeValue<TNode>>()
-							);
-							if (comparisonResult == 0)
-							{
-								// The same, this should be 0
-								low = mid;
-								break;
-							}
+                    var consumedIterator = allIterators[0];
+                    allIterators.RemoveAt(0);
 
-							if (comparisonResult > 0)
-							{
-								// After:
-								low = mid + 1;
-								continue;
-							}
+                    consumedValue = consumedIterator.Current;
+                    consumedIterator.Current = consumedIterator.Next(IterationHint.None);
+                    if (!consumedValue.Value!.GetValueType().IsSubtypeOf(ValueType.Node))
+                        // Sorting does not matter
+                        return consumedValue;
 
-							high = mid - 1;
-						}
+                    if (!consumedIterator.Current.IsDone)
+                    {
+                        // Make the iterators sorted again
+                        var low = 0;
+                        var high = allIterators.Count - 1;
+                        while (low <= high)
+                        {
+                            var mid = (int)Math.Floor((low + high) / 2.0);
+                            var comparisonResult = DocumentOrderUtils<TNode>.CompareNodePositions(
+                                domFacade,
+                                consumedIterator.Current.Value!.GetAs<NodeValue<TNode>>(),
+                                allIterators[mid].Current.Value!.GetAs<NodeValue<TNode>>()
+                            );
+                            if (comparisonResult == 0)
+                            {
+                                // The same, this should be 0
+                                low = mid;
+                                break;
+                            }
 
-						allIterators.Insert(low, consumedIterator);
-					}
-				} while (IsSameNodeValue(consumedValue.Value, previousNode));
+                            if (comparisonResult > 0)
+                            {
+                                // After:
+                                low = mid + 1;
+                                continue;
+                            }
 
-				previousNode = consumedValue.Value;
-				return consumedValue;
-			}
-		);
+                            high = mid - 1;
+                        }
+
+                        allIterators.Insert(low, consumedIterator);
+                    }
+                } while (IsSameNodeValue(consumedValue.Value, previousNode));
+
+                previousNode = consumedValue.Value;
+                return consumedValue;
+            }
+        );
+    }
+
+    private class MappedIterator
+    {
+        public readonly Iterator<AbstractValue> Next;
+        public IteratorResult<AbstractValue> Current;
+
+        public MappedIterator(IteratorResult<AbstractValue>? current, Iterator<AbstractValue> next)
+        {
+            Next = next;
+            Current = current;
+        }
     }
 }

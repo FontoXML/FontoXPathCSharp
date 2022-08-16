@@ -161,15 +161,13 @@ public static class CompileAstToExpression<TNode>
 
             return stepExpression;
         }).ToArray();
-        
+
         var isAbsolute = ast.GetFirstChild(AstNodeName.RootExpr);
-        
+
         var requireSorting = hasAxisStep || isAbsolute != null || rawSteps.Length > 1;
 
         // Directly use expressions which are not path expression
-        if (!requireSorting && steps.Length == 1) {
-            return steps[0];
-        }
+        if (!requireSorting && steps.Length == 1) return steps[0];
 
         return new PathExpression<TNode>(steps.ToArray(), requireSorting);
     }

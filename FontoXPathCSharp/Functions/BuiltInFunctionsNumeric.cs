@@ -14,7 +14,8 @@ public class BuiltInFunctionsNumeric<TNode>
     {
         var sequence = sequences[0];
         var atomized = Atomize.AtomizeSequence(sequence, executionParameters);
-        if (atomized.IsEmpty()) return SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN, ValueType.XsDouble));
+        if (atomized.IsEmpty())
+            return SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN, ValueType.XsDouble));
         return sequence.First()?.TryCastToType(ValueType.XsDouble) switch
         {
             SuccessResult<AtomicValue> result => SequenceFactory.CreateFromValue(result.Data),

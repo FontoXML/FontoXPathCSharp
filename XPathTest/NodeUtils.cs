@@ -1,5 +1,3 @@
-using FontoXPathCSharp.Types;
-
 namespace XPathTest;
 
 public interface NodeUtils<TNode>

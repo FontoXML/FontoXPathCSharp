@@ -37,7 +37,6 @@ public interface IDomFacade<TNode>
     bool IsDocumentFragment(TNode node);
     bool IsCharacterData(TNode node);
     NodeType GetNodeType(TNode node);
-    string? LookupNamespaceUri(TNode node, string? prefix);
     TNode? GetDocumentElement(TNode node);
 }
 

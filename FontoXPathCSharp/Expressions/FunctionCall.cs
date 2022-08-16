@@ -38,14 +38,16 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
         var sequence = createFunctionReferenceSequence(dynamicContext);
         if (!sequence.IsSingleton())
             throw new XPathException(
-                "XPTY0004","Expected base expression of a function call to evaluate to a sequence of single function item");
+                "XPTY0004",
+                "Expected base expression of a function call to evaluate to a sequence of single function item");
 
         return sequence.MapAll(item =>
         {
             var functionItem = ValidateFunctionItem<AbstractValue>(item[0], _callArity);
             if (functionItem.IsUpdating)
                 throw new XPathException(
-                    "XUDY0038","The function returned by the PrimaryExpr of a dynamic function invocation can not be an updating function");
+                    "XUDY0038",
+                    "The function returned by the PrimaryExpr of a dynamic function invocation can not be an updating function");
 
             return CallFunction(
                 functionItem,
@@ -58,7 +60,8 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
         });
 
         throw new XPathException(
-            "XUDY0038","Expected base expression of a function call to evaluate to a sequence of single function item");
+            "XUDY0038",
+            "Expected base expression of a function call to evaluate to a sequence of single function item");
     }
 
     private ISequence CallFunction(
@@ -93,9 +96,13 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
     {
         var functionItem = item.GetAs<FunctionValue<T, TNode>>();
 
-        if (functionItem == null) throw new XPathException("XPTY0004", "Expected base expression of a function call to evaluate to a sequence of single function item");
+        if (functionItem == null)
+            throw new XPathException("XPTY0004",
+                "Expected base expression of a function call to evaluate to a sequence of single function item");
 
-        if (functionItem.Arity != callArity) throw new XPathException("XPTY0004", "Expected base expression of a function call to evaluate to a sequence of single function item");
+        if (functionItem.Arity != callArity)
+            throw new XPathException("XPTY0004",
+                "Expected base expression of a function call to evaluate to a sequence of single function item");
 
         return functionItem;
     }

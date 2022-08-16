@@ -10,10 +10,7 @@ public class ParameterUtils
         Dictionary<string, object> variablesMap)
     {
         var returnVariables = new Dictionary<string, AbstractValue?>();
-        foreach (var (varName, varVal) in variablesMap)
-        {
-            returnVariables.Add(varName, ConvertToAbstractValue(varVal));
-        }
+        foreach (var (varName, varVal) in variablesMap) returnVariables.Add(varName, ConvertToAbstractValue(varVal));
 
         return returnVariables;
     }
@@ -33,12 +30,13 @@ public class ParameterUtils
             $"The type {actualType} is not supported yet for automatic conversion to AbstractValues. " +
             "Only a subset set of Atomic Values are implemented as variables so far.");
     }
-    
-    public static NodeValue<TNode> VerifyContextNode<TNode>(TNode contextNode, IDomFacade<TNode> domFacade) where TNode : notnull
+
+    public static NodeValue<TNode> VerifyContextNode<TNode>(TNode contextNode, IDomFacade<TNode> domFacade)
+        where TNode : notnull
     {
         if (contextNode == null)
             throw new Exception("Cannot create a context node from a null value.");
-        
+
         if (domFacade == null)
             throw new Exception("Cannot have a null DOM facade when context item is an XML node.");
 

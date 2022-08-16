@@ -22,7 +22,7 @@ public static class BuiltInFunctions<TNode>
         {
             if (context?.ContextItem == null)
                 throw new XPathException(
-                    "XPDY0002","The function which was called depends on dynamic context, which is absent.");
+                    "XPDY0002", "The function which was called depends on dynamic context, which is absent.");
 
             return fn(context, parameters, staticContext, SequenceFactory.CreateFromValue(context.ContextItem));
         };

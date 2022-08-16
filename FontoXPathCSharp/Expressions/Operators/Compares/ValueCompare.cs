@@ -131,7 +131,7 @@ public class ValueCompare<TNode> : AbstractExpression<TNode>
             AreBothSubtypeOf(ValueType.XsGDay))
             throw new NotImplementedException("GYearMonth, GYear, GMonthDay, GMonth, and GDay comparison");
 
-        throw new XPathException( "XPTY0004",type + " not available for " + firstType + " and " + secondType);
+        throw new XPathException("XPTY0004", type + " not available for " + firstType + " and " + secondType);
     }
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)

@@ -24,11 +24,12 @@ public class DynamicContext
     {
         var i = 0;
         var iterator = contextSequence.GetValue();
-        return hint => {
-                var value = iterator(hint);
-                return value.IsDone 
-                    ? IteratorResult<DynamicContext>.Done() 
-                    : IteratorResult<DynamicContext>.Ready(ScopeWithFocus(i++, value.Value, contextSequence));
+        return hint =>
+        {
+            var value = iterator(hint);
+            return value.IsDone
+                ? IteratorResult<DynamicContext>.Done()
+                : IteratorResult<DynamicContext>.Ready(ScopeWithFocus(i++, value.Value, contextSequence));
         };
     }
 }

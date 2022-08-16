@@ -39,17 +39,17 @@ public class Qt3Assertions<TNode> where TNode : notnull
     }
 
     private static AsserterCall<TNode> CreateAsserterForExpression(
-        string baseUrl, 
-        TNode assertNode, 
-        IDomFacade<TNode> domFacade, 
-        Language.LanguageId language, 
+        string baseUrl,
+        TNode assertNode,
+        IDomFacade<TNode> domFacade,
+        Language.LanguageId language,
         NodeUtils<TNode> nodeUtils)
     {
         // TODO: Implement the nodefactory, maybe?
         IDocumentWriter<TNode>? nodesFactory = null;
 
         // if (assertNode.LocalName != "assert-xml")  return (_, _, _, _) => Assert.True(false, $"Skipped test, it was a {assertNode.LocalName}");
-        
+
         switch (domFacade.GetLocalName(assertNode))
         {
             case "all-of":
@@ -61,7 +61,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                         domFacade,
                         Qt3Options)
                     .Select(innerAssertNode =>
-                        CreateAsserterForExpression(baseUrl, innerAssertNode, domFacade, language,nodeUtils))
+                        CreateAsserterForExpression(baseUrl, innerAssertNode, domFacade, language, nodeUtils))
                     .ToList();
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -286,7 +286,6 @@ public class Qt3Assertions<TNode> where TNode : notnull
                         assertNode,
                         domFacade,
                         Qt3Options))
-                {
                     parsedFragment = nodeUtils.LoadFileToXmlNode(
                         Evaluate.EvaluateXPathToString(
                             $"{baseUrl} || \"/\" || @file",
@@ -294,12 +293,9 @@ public class Qt3Assertions<TNode> where TNode : notnull
                             domFacade,
                             Qt3Options)
                     );
-                }
                 else
-                {
                     parsedFragment = domFacade.GetDocumentElement(nodeUtils.StringToXmlDocument(
                         $"<xml>{Evaluate.EvaluateXPathToString(".", assertNode, domFacade, Qt3Options)}</xml>"));
-                }
 
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -314,8 +310,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                         variablesInScope
                     ).ToList();
 
-                    
-                    
+
                     var parsedFragmentChildren = domFacade
                         .GetChildNodes(parsedFragment)
                         .ToList();
@@ -325,11 +320,9 @@ public class Qt3Assertions<TNode> where TNode : notnull
 
 
                     for (var i = 0; i < results.Count; i++)
-                    {
                         Assert.True(nodeUtils.NodeToString(results[i]) ==
                                     nodeUtils.NodeToString(parsedFragmentChildren[i]),
                             "Expected all children to match between result and parsedFragment.");
-                    }
                 };
             }
             case "assert-string-value":
@@ -411,7 +404,8 @@ public class Qt3Assertions<TNode> where TNode : notnull
                 };
             }
             default:
-                return (_, _, _, _) => Assert.True(false, $"Skipped test, it was a {domFacade.GetLocalName(assertNode)}");
+                return (_, _, _, _) =>
+                    Assert.True(false, $"Skipped test, it was a {domFacade.GetLocalName(assertNode)}");
         }
     }
 }

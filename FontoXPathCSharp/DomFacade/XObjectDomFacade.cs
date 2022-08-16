@@ -145,16 +145,6 @@ public class XObjectDomFacade : IDomFacade<XObject>
         };
     }
 
-    public string? LookupNamespaceUri(XObject node, string? prefix)
-    {
-        if (string.IsNullOrEmpty(prefix)) prefix = null;
-
-        if (node is null or XDocumentType) return null;
-        throw new NotImplementedException(
-            $"XObjectDomFacade.LookupNamespaceUri: Not implemented yet for {node.NodeType}");
-        return LookupNamespaceUri(GetParentNode(node, null), prefix);
-    }
-
     public XObject? GetDocumentElement(XObject node)
     {
         return (node as XDocument)?.Root;
