@@ -147,22 +147,22 @@ public static class Qt3TestUtils
                 environmentNode,
                 domFacade,
                 Options)
-            .Select(variable => new KeyValuePair<string, AbstractValue?>(
+            .Select(variable => new KeyValuePair<string, object>(
                 Evaluate.EvaluateXPathToString(
                     "@role",
                     variable,
                     domFacade,
                     Options)?[1..] ?? string.Empty,
-                new StringValue(LoadFileToString(
+                LoadFileToString(
                     (baseUrl != null ? baseUrl + "/" : "") + Evaluate.EvaluateXPathToString(
                         "@file",
                         variable,
                         domFacade,
                         Options)
-                ) ?? string.Empty)))
+                ) ?? string.Empty))
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => x.Value);
-        var contextNode = fileName != null && fileName.Length > 0 ? LoadFileToXmlNode(fileName) : null;
+        var contextNode = !string.IsNullOrEmpty(fileName) ? LoadFileToXmlNode(fileName) : null;
 
         // TODO: ehh... no idea what is going on with that nested EvaluateXPath that's in the original.
         // Evaluate.EvaluateXPathToNodes("param", environmentNode).ToList().ForEach(paramNode => {
@@ -195,7 +195,7 @@ public static class Qt3TestUtils
     public record Environment(
         XmlNode? ContextNode,
         Func<string, string>? NamespaceResolver,
-        Dictionary<string, AbstractValue?>? Variables
+        Dictionary<string, object>? Variables
     );
 
     public record TestArguments(
@@ -204,7 +204,7 @@ public static class Qt3TestUtils
         string TestQuery,
         Language.LanguageId Language,
         Func<string, string?>? NamespaceResolver,
-        Dictionary<string, AbstractValue>? VariablesInScope
+        Dictionary<string, object>? VariablesInScope
     )
     {
         public override string ToString()

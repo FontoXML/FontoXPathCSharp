@@ -15,7 +15,7 @@ namespace XPathTest.UnitTests;
 public delegate void AsserterCall(
     string testQuery,
     XmlNode? contextNode,
-    Dictionary<string, AbstractValue> variablesInScope,
+    Dictionary<string, object> variablesInScope,
     Func<string, string?>? namespaceResolver
 );
 

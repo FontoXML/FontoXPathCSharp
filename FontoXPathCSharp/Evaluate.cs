@@ -15,7 +15,7 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull
     {
         return EvaluateXPath<bool, TSelector, TNode>(
             selector,
@@ -32,7 +32,7 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull
     {
         AbstractValue? contextItemValue = null;
         if (contextItem != null && domFacade == null)
@@ -58,11 +58,11 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull
     {
-        if (options == null || options.NamespaceResolver == null)
+        if (options.NamespaceResolver == null)
             throw new Exception("Always pass in a namespace resolver");
-        
+
         if (contextItem != null && domFacade == null)
             throw new Exception("Cannot have a null domFacade when contextItem is an XML node.");
         var contextItemValue = new NodeValue<TNode>(contextItem!, domFacade!);
@@ -81,7 +81,7 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull
     {
         return EvaluateXPath<int, TSelector, TNode>(
             selector,
@@ -97,7 +97,7 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull
     {
         return EvaluateXPath<IEnumerable<int>, TSelector, TNode>(
             selector,
@@ -113,7 +113,7 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, AbstractValue>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull
     {
         if (domFacade == null) throw new ArgumentException("DomFacade cannot be null");
         return EvaluateXPathToString(
@@ -130,7 +130,7 @@ public class Evaluate
         AbstractValue? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, AbstractValue>? variables = null)
+        Dictionary<string, object>? variables = null)
     {
         return EvaluateXPath<string, TSelector, TNode>(
             selector,
@@ -146,9 +146,11 @@ public class Evaluate
         AbstractValue contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, AbstractValue>? variables)
+        Dictionary<string, object>? variablesMap)
     {
-        variables ??= new Dictionary<string, AbstractValue>();
+        variablesMap ??= new Dictionary<string, object>();
+
+        var variables = ConvertToAbstractValueVariables(variablesMap);
 
         DynamicContext? dynamicContext;
         ExecutionParameters<TNode> executionParameters;
@@ -197,5 +199,32 @@ public class Evaluate
             XdmReturnValue<TSelector, TReturn, TNode>.ConvertXmdReturnValue(selector, rawResults, executionParameters);
 
         return toReturn;
+    }
+
+    private static Dictionary<string, AbstractValue> ConvertToAbstractValueVariables(
+        Dictionary<string, object> variablesMap)
+    {
+        var returnVariables = new Dictionary<string, AbstractValue>();
+        foreach (var (varName, varVal) in variablesMap)
+        {
+            returnVariables.Add(varName, ToAbstractValue(varVal));
+        }
+
+        return returnVariables;
+    }
+
+    private static AbstractValue ToAbstractValue(object value)
+    {
+        var actualType = value.GetType();
+        if (actualType == typeof(bool)) return AtomicValue.Create(value, ValueType.XsBoolean);
+        if (actualType == typeof(string)) return AtomicValue.Create(value, ValueType.XsString);
+        if (actualType == typeof(int)) return AtomicValue.Create(value, ValueType.XsInt);
+        if (actualType == typeof(float)) return AtomicValue.Create(value, ValueType.XsFloat);
+        if (actualType == typeof(double)) return AtomicValue.Create(value, ValueType.XsDouble);
+        if (actualType == typeof(decimal)) return AtomicValue.Create(value, ValueType.XsDecimal);
+        if (actualType == typeof(QName)) return AtomicValue.Create(value, ValueType.XsQName);
+        throw new NotImplementedException(
+            $"The type {actualType} is not supported yet for automatic conversion to AbstractValues. " +
+            "Only a subset set of Atomic Values are implemented as variables so far.");
     }
 }
