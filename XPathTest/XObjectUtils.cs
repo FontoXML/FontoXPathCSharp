@@ -1,5 +1,6 @@
 using System;
 using System.Xml.Linq;
+using XPathTest.Caches;
 
 namespace XPathTest;
 
@@ -17,7 +18,7 @@ public class XObjectUtils : NodeUtils<XObject>
 
     public XObject? LoadFileToXmlNode(string filename)
     {
-        throw new System.NotImplementedException();
+        return XDocumentsByPathCache.Instance.GetResource(TestingUtils.PreprocessFilename(filename));
     }
 
     public void LoadModule(XObject testCase, string baseUrl)
@@ -28,5 +29,10 @@ public class XObjectUtils : NodeUtils<XObject>
     public XObject CreateDocument()
     {
         return new XDocument();
+    }
+
+    public XObject? CreateDocumentFragment(XObject document)
+    {
+        return new XDocument(document);
     }
 }

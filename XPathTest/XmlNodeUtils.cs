@@ -39,4 +39,9 @@ public class XmlNodeUtils : NodeUtils<XmlNode>
     {
         return new XmlDocument();
     }
+
+    public XmlNode? CreateDocumentFragment(XmlNode document)
+    {
+        return (document as XmlDocument)?.CreateDocumentFragment();
+    }
 }

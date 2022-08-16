@@ -85,7 +85,6 @@ public class Qt3Tests : IClassFixture<TestLoggingFixture>
         }
         catch (Exception ex)
         {
-            // Let logging fixture 
             _loggingFixture.ProcessError(ex, name, testSetName, description);
             throw;
         }

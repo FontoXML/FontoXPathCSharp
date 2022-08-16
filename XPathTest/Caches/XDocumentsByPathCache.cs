@@ -1,19 +1,18 @@
 using System.Linq;
-using System.Xml;
+using System.Xml.Linq;
 using FontoXPathCSharp.DomFacade;
 
 namespace XPathTest.Caches;
 
-public class XmlDocumentsByPathCache : ResourceCache<string, XmlNode>
+public class XDocumentsByPathCache : ResourceCache<string, XObject>
 {
-    private static readonly XmlNodeUtils Utils = new();
-    private static readonly XmlNodeDomFacade DomFacade = new();
-    
-    private static readonly XmlDocument GlobalDocument = (XmlDocument)Utils.StringToXmlDocument("<xml/>");
-    public static XmlDocumentsByPathCache Instance { get; } = new();
+    private static readonly XObjectUtils Utils = new();
+    private static readonly XObjectDomFacade DomFacade = new();
 
+    private static readonly XDocument GlobalDocument = (XDocument)Utils.StringToXmlDocument("<xml/>");
+    public static XDocumentsByPathCache Instance { get; } = new();
 
-    protected override XmlNode? Load(string filename)
+    protected override XObject? Load(string filename)
     {
         var content = TestFileSystem.ReadFile($"QT3TS/{filename}").Replace("\r\n", "\n");
 
@@ -29,11 +28,11 @@ public class XmlDocumentsByPathCache : ResourceCache<string, XmlNode>
                     )!
                 )
                 .ToList();
-            var documentFragment = Utils.CreateDocumentFragment(GlobalDocument);
-            parsedContents.ForEach(node => documentFragment.AppendChild(node));
+            var documentFragment = Utils.CreateDocumentFragment(GlobalDocument) as XDocument;
+            parsedContents.ForEach(node => documentFragment.Add(node));
             return documentFragment;
         }
+
         return Utils.StringToXmlDocument(content);
     }
-    
 }

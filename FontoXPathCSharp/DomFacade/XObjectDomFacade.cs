@@ -5,7 +5,7 @@ namespace FontoXPathCSharp.DomFacade;
 
 public class XObjectDomFacade : IDomFacade<XObject>
 {
-    public IEnumerable<XObject> GetAllAttributes(XObject node, string? bucket)
+    public IEnumerable<XObject> GetAllAttributes(XObject node, string? bucket = null)
     {
         if (node.NodeType != XmlNodeType.Element) return Array.Empty<XObject>();
 
@@ -19,7 +19,7 @@ public class XObjectDomFacade : IDomFacade<XObject>
         return (node as XElement)?.Attribute(attributeName ?? string.Empty)?.Value;
     }
 
-    public IEnumerable<XObject> GetChildNodes(XObject node, string? bucket)
+    public IEnumerable<XObject> GetChildNodes(XObject node, string? bucket = null)
     {
         return (node as XContainer)?.Nodes() ?? Array.Empty<XNode>();
     }
@@ -36,27 +36,27 @@ public class XObjectDomFacade : IDomFacade<XObject>
         } ?? string.Empty;
     }
 
-    public XObject? GetFirstChild(XObject node, string? bucket)
+    public XObject? GetFirstChild(XObject node, string? bucket = null)
     {
         return (node as XContainer)?.FirstNode;
     }
 
-    public XObject? GetLastChild(XObject node, string? bucket)
+    public XObject? GetLastChild(XObject node, string? bucket = null)
     {
         return (node as XContainer)?.LastNode;
     }
 
-    public XObject? GetNextSibling(XObject node, string? bucket)
+    public XObject? GetNextSibling(XObject node, string? bucket = null)
     {
         return (node as XNode)?.NextNode;
     }
 
-    public XObject? GetParentNode(XObject node, string? bucket)
+    public XObject? GetParentNode(XObject node, string? bucket = null)
     {
         return node.Parent;
     }
 
-    public XObject? GetPreviousSibling(XObject node, string? bucket)
+    public XObject? GetPreviousSibling(XObject node, string? bucket = null)
     {
         return (node as XNode)?.PreviousNode;
     }
