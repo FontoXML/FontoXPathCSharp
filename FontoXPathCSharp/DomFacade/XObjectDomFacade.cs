@@ -154,4 +154,9 @@ public class XObjectDomFacade : IDomFacade<XObject>
             $"XObjectDomFacade.LookupNamespaceUri: Not implemented yet for {node.NodeType}");
         return LookupNamespaceUri(GetParentNode(node, null), prefix);
     }
+
+    public XObject? GetDocumentElement(XObject node)
+    {
+        return (node as XDocument)?.Root;
+    }
 }

@@ -1,56 +1,56 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DocumentWriter;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
-using FontoXPathCSharp.Value;
 using Xunit;
 
 namespace XPathTest.UnitTests;
 
-public delegate void AsserterCall(
+public delegate void AsserterCall<TNode>(
     string testQuery,
-    XmlNode? contextNode,
+    TNode? contextNode,
     Dictionary<string, object> variablesInScope,
     Func<string, string?>? namespaceResolver
-);
+) where TNode : notnull;
 
-public class Qt3Assertions
+public class Qt3Assertions<TNode> where TNode : notnull
 {
-    private static readonly Options<XmlNode> Qt3XmlNodeOptions;
+    private static readonly Options<TNode> Qt3Options;
 
     static Qt3Assertions()
     {
-        Qt3XmlNodeOptions = new Options<XmlNode>(
+        Qt3Options = new Options<TNode>(
             _ => "http://www.w3.org/2010/09/qt-fots-catalog"
         );
     }
 
-    public static AsserterCall GetExpressionBackendAsserterForTest(string baseUrl, XmlNode testCase,
-        Language.LanguageId language)
+    public static AsserterCall<TNode> GetExpressionBackendAsserterForTest(string baseUrl, TNode testCase,
+        Language.LanguageId language, IDomFacade<TNode> domFacade, NodeUtils<TNode> nodeUtils)
     {
-        var domFacade = new XmlNodeDomFacade();
         var assertNode = Evaluate.EvaluateXPathToFirstNode(
             "./result/*",
             testCase,
             domFacade,
-            Qt3XmlNodeOptions);
-        return CreateAsserterForExpression(baseUrl, assertNode, domFacade, language);
+            Qt3Options);
+        return CreateAsserterForExpression(baseUrl, assertNode, domFacade, language, nodeUtils);
     }
 
-    private static AsserterCall CreateAsserterForExpression(
-        string baseUrl, XmlNode assertNode, XmlNodeDomFacade domFacade, Language.LanguageId language)
+    private static AsserterCall<TNode> CreateAsserterForExpression(
+        string baseUrl, 
+        TNode assertNode, 
+        IDomFacade<TNode> domFacade, 
+        Language.LanguageId language, 
+        NodeUtils<TNode> nodeUtils)
     {
         // TODO: Implement the nodefactory, maybe?
-        IDocumentWriter<XmlNode>? nodesFactory = null;
+        IDocumentWriter<TNode>? nodesFactory = null;
 
         // if (assertNode.LocalName != "assert-xml")  return (_, _, _, _) => Assert.True(false, $"Skipped test, it was a {assertNode.LocalName}");
         
-        switch (assertNode.LocalName)
+        switch (domFacade.GetLocalName(assertNode))
         {
             case "all-of":
             {
@@ -59,9 +59,9 @@ public class Qt3Assertions
                         "*",
                         assertNode,
                         domFacade,
-                        Qt3XmlNodeOptions)
+                        Qt3Options)
                     .Select(innerAssertNode =>
-                        CreateAsserterForExpression(baseUrl, innerAssertNode, domFacade, language))
+                        CreateAsserterForExpression(baseUrl, innerAssertNode, domFacade, language,nodeUtils))
                     .ToList();
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -75,9 +75,9 @@ public class Qt3Assertions
                         "*",
                         assertNode,
                         domFacade,
-                        Qt3XmlNodeOptions)
+                        Qt3Options)
                     .Select(innerAssertNode =>
-                        CreateAsserterForExpression(baseUrl, innerAssertNode, domFacade, language))
+                        CreateAsserterForExpression(baseUrl, innerAssertNode, domFacade, language, nodeUtils))
                     .ToList();
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -110,13 +110,13 @@ public class Qt3Assertions
                         ".",
                         assertNode,
                         domFacade,
-                        Qt3XmlNodeOptions);
+                        Qt3Options);
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
                             $"let $result := ({xpath}) return {result}",
                             contextNode,
                             domFacade,
-                            new Options<XmlNode>(
+                            new Options<TNode>(
                                 namespaceResolver,
                                 documentWriter: nodesFactory,
                                 languageId: language),
@@ -133,7 +133,7 @@ public class Qt3Assertions
                         Evaluate.EvaluateXPathToBoolean(xpath,
                             contextNode,
                             domFacade,
-                            new Options<XmlNode>(
+                            new Options<TNode>(
                                 namespaceResolver,
                                 documentWriter: nodesFactory,
                                 languageId: language),
@@ -148,7 +148,7 @@ public class Qt3Assertions
                         ".",
                         assertNode,
                         domFacade,
-                        Qt3XmlNodeOptions
+                        Qt3Options
                     );
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -157,7 +157,7 @@ public class Qt3Assertions
                             "${xpath} = ${equalWith}",
                             contextNode,
                             domFacade,
-                            new Options<XmlNode>(
+                            new Options<TNode>(
                                 namespaceResolver,
                                 documentWriter: nodesFactory,
                                 languageId: language),
@@ -174,7 +174,7 @@ public class Qt3Assertions
                         ".",
                         assertNode,
                         domFacade,
-                        Qt3XmlNodeOptions
+                        Qt3Options
                     );
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -183,7 +183,7 @@ public class Qt3Assertions
                             $"deep-equal(({xpath}), ({equalWith}))",
                             contextNode,
                             domFacade,
-                            new Options<XmlNode>(
+                            new Options<TNode>(
                                 namespaceResolver,
                                 documentWriter: nodesFactory,
                                 languageId: language),
@@ -202,7 +202,7 @@ public class Qt3Assertions
                             "(${xpath }) => empty()",
                             contextNode,
                             domFacade,
-                            new Options<XmlNode>(
+                            new Options<TNode>(
                                 namespaceResolver,
                                 documentWriter: nodesFactory,
                                 languageId: language),
@@ -220,7 +220,7 @@ public class Qt3Assertions
                             xpath,
                             contextNode,
                             domFacade,
-                            new Options<XmlNode>(
+                            new Options<TNode>(
                                 namespaceResolver,
                                 documentWriter: nodesFactory,
                                 languageId: language),
@@ -235,7 +235,7 @@ public class Qt3Assertions
                     "number(.)",
                     assertNode,
                     domFacade,
-                    Qt3XmlNodeOptions
+                    Qt3Options
                 );
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -244,7 +244,7 @@ public class Qt3Assertions
                             $"({xpath}) => count()",
                             contextNode,
                             domFacade,
-                            new Options<XmlNode>(
+                            new Options<TNode>(
                                 namespaceResolver,
                                 documentWriter: nodesFactory,
                                 languageId: language),
@@ -259,7 +259,7 @@ public class Qt3Assertions
                         ".",
                         assertNode,
                         domFacade,
-                        Qt3XmlNodeOptions
+                        Qt3Options
                     );
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -268,7 +268,7 @@ public class Qt3Assertions
                             $"({xpath}) instance of ${expectedType}",
                             contextNode,
                             domFacade,
-                            new Options<XmlNode>(
+                            new Options<TNode>(
                                 namespaceResolver,
                                 documentWriter: nodesFactory,
                                 languageId: language),
@@ -280,26 +280,25 @@ public class Qt3Assertions
             }
             case "assert-xml":
             {
-                XmlNode? parsedFragment;
+                TNode? parsedFragment;
                 if (Evaluate.EvaluateXPathToBoolean(
                         "@file",
                         assertNode,
                         domFacade,
-                        Qt3XmlNodeOptions))
+                        Qt3Options))
                 {
-                    parsedFragment = Qt3TestUtils.LoadFileToXmlNode(
+                    parsedFragment = nodeUtils.LoadFileToXmlNode(
                         Evaluate.EvaluateXPathToString(
                             $"{baseUrl} || \"/\" || @file",
                             assertNode,
                             domFacade,
-                            Qt3XmlNodeOptions)
+                            Qt3Options)
                     );
                 }
                 else
                 {
-                    parsedFragment = Qt3TestUtils.StringToXmlDocument(
-                            $"<xml>{Evaluate.EvaluateXPathToString(".", assertNode, domFacade, Qt3XmlNodeOptions)}</xml>")
-                        .DocumentElement;
+                    parsedFragment = domFacade.GetDocumentElement(nodeUtils.StringToXmlDocument(
+                        $"<xml>{Evaluate.EvaluateXPathToString(".", assertNode, domFacade, Qt3Options)}</xml>"));
                 }
 
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
@@ -308,16 +307,17 @@ public class Qt3Assertions
                         xpath,
                         contextNode,
                         domFacade,
-                        new Options<XmlNode>(
+                        new Options<TNode>(
                             namespaceResolver,
                             documentWriter: nodesFactory,
                             languageId: language),
                         variablesInScope
                     ).ToList();
 
-                    var parsedFragmentChildren = parsedFragment
-                        .ChildNodes
-                        .Cast<XmlNode>()
+                    
+                    
+                    var parsedFragmentChildren = domFacade
+                        .GetChildNodes(parsedFragment)
                         .ToList();
 
                     Assert.True(parsedFragmentChildren.Count == results.Count,
@@ -326,8 +326,8 @@ public class Qt3Assertions
 
                     for (var i = 0; i < results.Count; i++)
                     {
-                        Assert.True(Qt3TestUtils.XmlNodeToString(results[i]) ==
-                                    Qt3TestUtils.XmlNodeToString(parsedFragmentChildren[i]),
+                        Assert.True(nodeUtils.NodeToString(results[i]) ==
+                                    nodeUtils.NodeToString(parsedFragmentChildren[i]),
                             "Expected all children to match between result and parsedFragment.");
                     }
                 };
@@ -339,7 +339,7 @@ public class Qt3Assertions
                         ".",
                         assertNode,
                         domFacade,
-                        Qt3XmlNodeOptions
+                        Qt3Options
                     );
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -347,7 +347,7 @@ public class Qt3Assertions
                         Evaluate.EvaluateXPathToString($"{xpath}",
                             contextNode,
                             domFacade,
-                            new Options<XmlNode>(
+                            new Options<TNode>(
                                 namespaceResolver,
                                 documentWriter: nodesFactory,
                                 languageId: language),
@@ -362,7 +362,7 @@ public class Qt3Assertions
                     "@code",
                     assertNode,
                     domFacade,
-                    Qt3XmlNodeOptions
+                    Qt3Options
                 );
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -376,8 +376,8 @@ public class Qt3Assertions
                                 Evaluate.EvaluateXPathToString(xpath,
                                     contextNode,
                                     domFacade,
-                                    new Options<XmlNode>(
-                                        namespaceResolver,
+                                    new Options<TNode>(
+                                        namespaceResolver!,
                                         documentWriter: nodesFactory,
                                         languageId: language),
                                     variablesInScope);
@@ -401,7 +401,7 @@ public class Qt3Assertions
                         Evaluate.EvaluateXPathToBoolean($"({xpath}) => empty()",
                             contextNode,
                             domFacade,
-                            new Options<XmlNode>(
+                            new Options<TNode>(
                                 namespaceResolver,
                                 documentWriter: nodesFactory,
                                 languageId: language),
@@ -411,7 +411,7 @@ public class Qt3Assertions
                 };
             }
             default:
-                return (_, _, _, _) => Assert.True(false, $"Skipped test, it was a {assertNode.LocalName}");
+                return (_, _, _, _) => Assert.True(false, $"Skipped test, it was a {domFacade.GetLocalName(assertNode)}");
         }
     }
 }

@@ -38,6 +38,7 @@ public interface IDomFacade<TNode>
     bool IsCharacterData(TNode node);
     NodeType GetNodeType(TNode node);
     string? LookupNamespaceUri(TNode node, string? prefix);
+    TNode? GetDocumentElement(TNode node);
 }
 
 public enum NodeType

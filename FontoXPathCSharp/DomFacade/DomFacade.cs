@@ -123,4 +123,9 @@ public class DomFacade<TNode> : IDomFacade<TNode>
     {
         return _domFacade.LookupNamespaceUri(node, prefix);
     }
+
+    public TNode? GetDocumentElement(TNode node)
+    {
+        return _domFacade.GetDocumentElement(node);
+    }
 }

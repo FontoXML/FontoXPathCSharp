@@ -134,4 +134,9 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
         return null;
         return LookupNamespaceUri(GetParentNode(node, null), prefix);
     }
+
+    public XmlNode? GetDocumentElement(XmlNode node)
+    {
+        return (node as XmlDocument)?.DocumentElement;
+    }
 }
