@@ -161,6 +161,9 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
         if (parentTypesOfA.Contains(ValueType.XsNumeric) && parentTypesOfB.Contains(ValueType.XsNumeric))
         {
             var fun = BinaryEvaluationFunctionMap.GetOperationForOperands(ValueType.XsNumeric, ValueType.XsNumeric, op);
+            if (fun == null)
+                throw new Exception(
+                    $"No suitable operator function could be found for {(ValueType.XsNumeric, ValueType.XsNumeric, op)}");
             var mapRetType =
                 BinaryEvaluationFunctionMap.GetReturnTypeForOperands(ValueType.XsNumeric, ValueType.XsNumeric, op);
             var retType = mapRetType ?? DetermineReturnType(typeA, typeB);
