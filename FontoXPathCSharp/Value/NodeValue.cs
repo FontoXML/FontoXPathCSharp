@@ -7,10 +7,13 @@ public class NodeValue<TNode> : AbstractValue where TNode : notnull
 {
     public NodeValue(TNode value, IDomFacade<TNode> domFacade) : base(GetNodeType(value, domFacade))
     {
+        NodeType = domFacade.GetNodeType(value);
         Value = value;
     }
 
     public TNode Value { get; }
+
+    public NodeType NodeType { get; }
 
     private static ValueType GetNodeType(TNode node, IDomFacade<TNode> domFacade)
     {

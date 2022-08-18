@@ -1,4 +1,5 @@
 using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
@@ -6,20 +7,22 @@ namespace FontoXPathCSharp.Expressions.Axes;
 
 public class PrecedingSiblingAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression<TNode> _testExpression;
+    private readonly AbstractTestExpression<TNode> _siblingExpression;
+    private readonly string? _filterBucket;
 
-    public PrecedingSiblingAxis(AbstractTestExpression<TNode> testExpression) : base(
-        new AbstractExpression<TNode>[] { testExpression },
+    public PrecedingSiblingAxis(AbstractTestExpression<TNode> siblingExpression, string? filterBucket) : base(
+        new AbstractExpression<TNode>[] { siblingExpression },
         new OptimizationOptions(false))
     {
-        _testExpression = testExpression;
+        _siblingExpression = siblingExpression;
+        _filterBucket = BucketUtils.IntersectBuckets(siblingExpression.GetBucket(), filterBucket);
     }
 
-    private static Iterator<AbstractValue> CreateSiblingIterator(IDomFacade<TNode> domFacade, TNode? node)
+    private static Iterator<AbstractValue> CreateSiblingIterator(IDomFacade<TNode> domFacade, TNode? node, string? bucket)
     {
         return _ =>
         {
-            node = node != null ? domFacade.GetPreviousSibling(node) : default;
+            node = node != null ? domFacade.GetPreviousSibling(node, bucket) : default;
 
             return node == null
                 ? IteratorResult<AbstractValue>.Done()
@@ -32,8 +35,8 @@ public class PrecedingSiblingAxis<TNode> : AbstractExpression<TNode>
         var domFacade = executionParameters.DomFacade;
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 
-        return SequenceFactory.CreateFromIterator(CreateSiblingIterator(domFacade, contextItem.Value))
+        return SequenceFactory.CreateFromIterator(CreateSiblingIterator(domFacade, contextItem.Value, _filterBucket))
             .Filter((item, _, _) =>
-                _testExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
+                _siblingExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
     }
 }

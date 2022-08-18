@@ -1,6 +1,7 @@
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -247,10 +248,16 @@ public class Evaluate
             throw new XPathException("XUST0001", "Updating expressions should be evaluated as updating expressions");
 
 
-        if (typeof(TReturn) == typeof(bool) && contextItem != null &&
+        if (typeof(TReturn) == typeof(bool) && 
+            contextItem != null && 
             contextItem.GetValueType().IsSubtypeOf(ValueType.Node))
         {
-            //TODO: Bucket stuff
+            var selectorBucket = expression.GetBucket();
+            var bucketsForNode = BucketUtils.GetBucketsForNode(contextItem.GetAs<NodeValue<TNode>>().Value, domFacade);
+            if (selectorBucket != null && !bucketsForNode.Contains(selectorBucket)) {
+                // We are sure that this selector will never match, without even running it
+                return (TReturn)(object)false;
+            }
         }
 
         var rawResults = expression.EvaluateMaybeStatically(dynamicContext, executionParameters);

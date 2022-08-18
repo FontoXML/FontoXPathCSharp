@@ -68,4 +68,9 @@ public abstract class AbstractExpression<TNode>
         foreach (var expression in _childExpressions) expression.PerformStaticEvaluation(staticContext);
         // TODO: make sure child expressions are not updating if we cannot be updating
     }
+
+    public virtual string? GetBucket()
+    {
+        return null;
+    }
 }

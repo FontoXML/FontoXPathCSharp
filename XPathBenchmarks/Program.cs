@@ -99,7 +99,10 @@ public class SimpleExpressionBenchmark
     public object FontoXPath()
     {
         return Expr.Evaluate(
-            new DynamicContext(new NodeValue<XmlNode>(_source, _domFacade), 0, SequenceFactory.CreateEmpty()),
+            new DynamicContext(
+                new NodeValue<XmlNode>(_source, _domFacade), 
+                0, 
+                SequenceFactory.CreateEmpty()),
             new ExecutionParameters<XmlNode>(false, false, _domFacade, _source));
     }
 }

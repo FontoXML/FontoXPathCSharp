@@ -1,4 +1,5 @@
 using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -65,5 +66,16 @@ public class NameTest<TNode> : AbstractTestExpression<TNode> where TNode : notnu
 
         return (domFacade.GetNamespaceUri(node) == "" ? null : domFacade.GetNamespaceUri(node)) ==
                (resolvedNamespaceUri == "" ? null : resolvedNamespaceUri);
+    }
+
+    public override string GetBucket()
+    {
+        if (_name.LocalName == "*") {
+            if (_kind == null) {
+                return "type-1-or-type-2";
+            }
+            return $"type-{BucketUtils.GetBucketTypeId((NodeType)_kind)}";
+        }
+        return $"name-{_name.LocalName}";
     }
 }

@@ -1,4 +1,5 @@
 using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
@@ -28,5 +29,10 @@ public class KindTest<TNode> : AbstractTestExpression<TNode>
             return true;
 
         return _nodeType == domFacade.GetNodeType(node);
+    }
+
+    public override string? GetBucket()
+    {
+        return $"type-{BucketUtils.GetBucketTypeId(_nodeType)}";
     }
 }

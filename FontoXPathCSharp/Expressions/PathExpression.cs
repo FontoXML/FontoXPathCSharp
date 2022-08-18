@@ -142,4 +142,9 @@ public class PathExpression<TNode> : AbstractExpression<TNode>
 
         return result;
     }
+
+    public override string? GetBucket()
+    {
+        return _stepExpressions.First().GetBucket();
+    }
 }

@@ -1,4 +1,5 @@
 using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
@@ -9,8 +10,10 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode>
     private readonly AbstractTestExpression<TNode> _ancestorExpression;
     private readonly bool _inclusive;
 
+
     public AncestorAxis(AbstractTestExpression<TNode> ancestorExpression, bool inclusive) : base(
-        new AbstractExpression<TNode>[] { ancestorExpression }, new OptimizationOptions(false)
+        new AbstractExpression<TNode>[] { ancestorExpression }, 
+        new OptimizationOptions(false)
     )
     {
         _ancestorExpression = ancestorExpression;
@@ -34,8 +37,13 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode>
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         var domFacade = executionParameters.DomFacade;
-
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
+
+        var ancestorExpressionBucket = _ancestorExpression.GetBucket();
+        var onlyElementAncestors = ancestorExpressionBucket != null &&
+                                   (ancestorExpressionBucket.StartsWith("name-") ||
+                                    ancestorExpressionBucket == "type-1");
+        var ancestorAxisBucket = onlyElementAncestors ? "type-1" : null;
 
         return SequenceFactory
             .CreateFromIterator(
@@ -43,10 +51,16 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode>
                     domFacade,
                     _inclusive
                         ? contextItem.Value
-                        : domFacade.GetParentNode(contextItem.Value)
+                        : domFacade.GetParentNode(contextItem.Value, ancestorAxisBucket)
                 )
             )
             .Filter(
-                (item, _, _) => _ancestorExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
+                (item, _, _) =>
+                    _ancestorExpression.EvaluateToBoolean(
+                        dynamicContext,
+                        item,
+                        executionParameters
+                    )
+            );
     }
 }

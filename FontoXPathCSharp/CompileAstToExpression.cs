@@ -4,6 +4,7 @@ using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Axes;
 using FontoXPathCSharp.Expressions.Operators;
 using FontoXPathCSharp.Expressions.Tests;
+using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -95,19 +96,29 @@ public static class CompileAstToExpression<TNode>
             var children = step.GetChildren(AstNodeName.All);
             var postFixExpressions = new List<(string Type, AbstractExpression<TNode> Postfix)>();
 
-            foreach (var child in children)
-                switch (child.Name)
-                {
+            string? intersectingBucket = null;
+            foreach (var child in children) {
+                switch (child.Name) {
                     case AstNodeName.Lookup:
-                        throw new NotImplementedException("CompileAstToExpression Lookup");
+                        postFixExpressions.Add(("lookup", CompileLookup(child, options)));
+                        break;
                     case AstNodeName.Predicate:
                     case AstNodeName.Predicates:
-                        postFixExpressions
-                            .AddRange(child.GetChildren(AstNodeName.All)
-                                .Select(childPredicate => CompileAst(childPredicate, DisallowUpdating(options)))
-                                .Select(predicateExpression => ("predicate", predicateExpression)));
+                        foreach (var childPredicate in child.GetChildren(AstNodeName.All)) {
+                            var predicateExpression = CompileAst(
+                                childPredicate,
+                                DisallowUpdating(options)
+                            );
+                            intersectingBucket = BucketUtils.IntersectBuckets(
+                                intersectingBucket,
+                                predicateExpression.GetBucket()
+                            );
+                        
+                            postFixExpressions.Add(("predicate", predicateExpression));
+                        }
                         break;
                 }
+            }
 
             AbstractExpression<TNode> stepExpression;
 
@@ -129,18 +140,18 @@ public static class CompileAstToExpression<TNode>
 
                 stepExpression = axis.TextContent switch
                 {
-                    "self" => new SelfAxis<TNode>(testExpression),
-                    "parent" => new ParentAxis<TNode>(testExpression),
-                    "child" => new ChildAxis<TNode>(testExpression),
-                    "attribute" => new AttributeAxis<TNode>(testExpression),
+                    "self" => new SelfAxis<TNode>(testExpression, intersectingBucket),
+                    "parent" => new ParentAxis<TNode>(testExpression, intersectingBucket),
+                    "child" => new ChildAxis<TNode>(testExpression, intersectingBucket),
+                    "attribute" => new AttributeAxis<TNode>(testExpression, intersectingBucket),
                     "ancestor" => new AncestorAxis<TNode>(testExpression, false),
                     "ancestor-or-self" => new AncestorAxis<TNode>(testExpression, true),
                     "descendant" => new DescendantAxis<TNode>(testExpression, false),
                     "descendant-or-self" => new DescendantAxis<TNode>(testExpression, true),
                     "following" => new FollowingAxis<TNode>(testExpression),
                     "preceding" => new PrecedingAxis<TNode>(testExpression),
-                    "following-sibling" => new FollowingSiblingAxis<TNode>(testExpression),
-                    "preceding-sibling" => new PrecedingSiblingAxis<TNode>(testExpression),
+                    "following-sibling" => new FollowingSiblingAxis<TNode>(testExpression, intersectingBucket),
+                    "preceding-sibling" => new PrecedingSiblingAxis<TNode>(testExpression, intersectingBucket),
                     _ => throw new InvalidDataException("Unknown axis type '" + axis.TextContent + "'")
                 };
             }
@@ -170,6 +181,19 @@ public static class CompileAstToExpression<TNode>
         if (!requireSorting && steps.Length == 1) return steps[0];
 
         return new PathExpression<TNode>(steps.ToArray(), requireSorting);
+    }
+
+    private static AbstractExpression<TNode> CompileLookup(Ast ast, CompilationOptions options)
+    {
+        var keyExpression = ast.GetFirstChild(AstNodeName.All);
+        switch (keyExpression.Name) {
+            case AstNodeName.NcName:
+                return new Literal<TNode>(keyExpression.TextContent, new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
+            case AstNodeName.Star:
+                throw new NotImplementedException("Star in Lookup is not implemented yet.");
+            default:
+                return CompileAst(keyExpression, DisallowUpdating(options));
+        }
     }
 
     private static AbstractExpression<TNode> CompileFunctionCallExpression(Ast ast, CompilationOptions options)

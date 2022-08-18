@@ -112,4 +112,9 @@ public class FilterExpression<TNode> : AbstractExpression<TNode>
             return iteratorItem;
         });
     }
+
+    public override string? GetBucket()
+    {
+        return _selector.GetBucket();
+    }
 }
