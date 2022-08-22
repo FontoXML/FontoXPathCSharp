@@ -6,9 +6,9 @@ namespace FontoXPathCSharp.Expressions.Axes;
 
 public class DescendantAxis<TNode> : AbstractExpression<TNode>
 {
+    private readonly string? _descendantBucket;
     private readonly AbstractTestExpression<TNode> _descendantExpression;
     private readonly bool _inclusive;
-    private readonly string? _descendantBucket;
 
     public DescendantAxis(
         AbstractTestExpression<TNode> descendantExpression,
@@ -17,7 +17,7 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode>
     {
         _descendantExpression = descendantExpression;
         _inclusive = inclusive;
-        
+
         var testBucket = descendantExpression.GetBucket();
         var onlyElementDescendants = testBucket != null && (testBucket.StartsWith("name-") || testBucket == "type-1");
         _descendantBucket = onlyElementDescendants ? "type-1" : null;

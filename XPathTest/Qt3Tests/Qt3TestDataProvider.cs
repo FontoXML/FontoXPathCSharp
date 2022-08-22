@@ -110,7 +110,8 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
                     {
                         var name = GetTestName(testCase);
                         var description = GetTestDescription(testSetName, name, testCase);
-                        var arguments = new Qt3TestArguments<TNode>(testSetFileName, testCase, _domFacade, _options, _nodeUtils);
+                        var arguments = new Qt3TestArguments<TNode>(testSetFileName, testCase, _domFacade, _options,
+                            _nodeUtils);
                         testCases.Add(new object[] { name, testSetName, description, testCase, arguments, _nodeUtils });
                     }
                     catch (FileNotFoundException ex)

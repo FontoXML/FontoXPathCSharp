@@ -8,9 +8,10 @@ namespace FontoXPathCSharp.Expressions.Axes;
 public class AttributeAxis<TNode> : AbstractExpression<TNode>
 {
     private readonly AbstractTestExpression<TNode> _attributeTestExpression;
-    private string? _filterBucket;
+    private readonly string? _filterBucket;
 
-    public AttributeAxis(AbstractTestExpression<TNode> attributeTestExpression, string? filterBucket) : base(new AbstractExpression<TNode>[] { attributeTestExpression },
+    public AttributeAxis(AbstractTestExpression<TNode> attributeTestExpression, string? filterBucket) : base(
+        new AbstractExpression<TNode>[] { attributeTestExpression },
         new OptimizationOptions(false))
     {
         _attributeTestExpression = attributeTestExpression;

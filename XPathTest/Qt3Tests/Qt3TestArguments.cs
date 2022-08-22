@@ -130,11 +130,11 @@ public class Qt3TestArguments<TNode>
     public Dictionary<string, object>? VariablesInScope { get; init; }
 
     public void Deconstruct(
-        out string BaseUrl, 
-        out TNode? ContextNode, 
+        out string BaseUrl,
+        out TNode? ContextNode,
         out IDomFacade<TNode> DomFacade,
-        out string TestQuery, 
-        out Language.LanguageId Language, 
+        out string TestQuery,
+        out Language.LanguageId Language,
         out Func<string, string?>? NamespaceResolver,
         out Dictionary<string, object>? VariablesInScope)
     {

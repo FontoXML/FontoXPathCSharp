@@ -7,8 +7,8 @@ namespace FontoXPathCSharp.Expressions.Axes;
 
 public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression<TNode> _siblingExpression;
     private readonly string? _filterBucket;
+    private readonly AbstractTestExpression<TNode> _siblingExpression;
 
     public FollowingSiblingAxis(AbstractTestExpression<TNode> siblingExpression, string? filterBucket) : base(
         new AbstractExpression<TNode>[] { siblingExpression },
@@ -18,7 +18,10 @@ public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode>
         _filterBucket = BucketUtils.IntersectBuckets(siblingExpression.GetBucket(), filterBucket);
     }
 
-    private static Iterator<AbstractValue> CreateSiblingIterator(IDomFacade<TNode> domFacade, TNode? node, string? bucket)
+    private static Iterator<AbstractValue> CreateSiblingIterator(
+        IDomFacade<TNode> domFacade,
+        TNode? node,
+        string? bucket)
     {
         return _ =>
         {

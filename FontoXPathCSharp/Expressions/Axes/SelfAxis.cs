@@ -5,10 +5,11 @@ namespace FontoXPathCSharp.Expressions.Axes;
 
 public class SelfAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression<TNode> _selector;
     private readonly string? _filterBucket;
+    private readonly AbstractTestExpression<TNode> _selector;
 
-    public SelfAxis(AbstractTestExpression<TNode> selector, string? filterBucket) : base(new AbstractExpression<TNode>[] { selector },
+    public SelfAxis(AbstractTestExpression<TNode> selector, string? filterBucket) : base(
+        new AbstractExpression<TNode>[] { selector },
         new OptimizationOptions(false))
     {
         _selector = selector;

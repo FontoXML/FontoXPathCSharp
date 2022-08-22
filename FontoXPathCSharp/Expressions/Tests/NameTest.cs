@@ -70,12 +70,12 @@ public class NameTest<TNode> : AbstractTestExpression<TNode> where TNode : notnu
 
     public override string GetBucket()
     {
-        if (_name.LocalName == "*") {
-            if (_kind == null) {
-                return "type-1-or-type-2";
-            }
+        if (_name.LocalName == "*")
+        {
+            if (_kind == null) return "type-1-or-type-2";
             return $"type-{BucketUtils.GetBucketTypeId((NodeType)_kind)}";
         }
+
         return $"name-{_name.LocalName}";
     }
 }

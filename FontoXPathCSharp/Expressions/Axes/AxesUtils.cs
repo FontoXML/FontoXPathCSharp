@@ -6,7 +6,7 @@ namespace FontoXPathCSharp.Expressions.Axes;
 public static class AxesUtils<TNode>
 {
     public static Iterator<AbstractValue> CreateDescendantIterator(
-        IDomFacade<TNode> domFacade, 
+        IDomFacade<TNode> domFacade,
         TNode node,
         bool returnInReverse,
         string? bucket)

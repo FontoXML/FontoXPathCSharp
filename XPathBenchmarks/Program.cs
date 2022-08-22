@@ -100,8 +100,8 @@ public class SimpleExpressionBenchmark
     {
         return Expr.Evaluate(
             new DynamicContext(
-                new NodeValue<XmlNode>(_source, _domFacade), 
-                0, 
+                new NodeValue<XmlNode>(_source, _domFacade),
+                0,
                 SequenceFactory.CreateEmpty()),
             new ExecutionParameters<XmlNode>(false, false, _domFacade, _source));
     }

@@ -8,8 +8,8 @@ namespace FontoXPathCSharp.Expressions.Operators;
 
 public class OrOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
-    private readonly AbstractExpression<TNode>[] _subExpressions;
     private readonly string? _bucket;
+    private readonly AbstractExpression<TNode>[] _subExpressions;
 
     public OrOperator(AbstractExpression<TNode>[] expressions) : base(expressions,
         new OptimizationOptions(expressions.All(e => e.CanBeStaticallyEvaluated)))
@@ -23,9 +23,9 @@ public class OrOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
         //     return selector;
         // });
         _subExpressions = expressions;
-        _bucket = expressions.First().GetBucket() != null 
-                  && expressions.All(e => e.GetBucket() == expressions.First().GetBucket()) 
-            ? expressions.First().GetBucket() 
+        _bucket = expressions.First().GetBucket() != null
+                  && expressions.All(e => e.GetBucket() == expressions.First().GetBucket())
+            ? expressions.First().GetBucket()
             : null;
     }
 
@@ -35,15 +35,15 @@ public class OrOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
         ISequence? resultSequence = null;
         var done = false;
         string[]? contextItemBuckets = null;
-        
-        if (dynamicContext != null) {
+
+        if (dynamicContext != null)
+        {
             var contextItem = dynamicContext.ContextItem;
-            if (contextItem != null && contextItem.GetValueType().IsSubtypeOf(ValueType.Node)) {
+            if (contextItem != null && contextItem.GetValueType().IsSubtypeOf(ValueType.Node))
                 contextItemBuckets = BucketUtils.GetBucketsForNode(
                     contextItem.GetAs<NodeValue<TNode>>().Value,
                     executionParameters.DomFacade
                 );
-            }
         }
 
         return SequenceFactory.CreateFromIterator(_ =>
@@ -56,7 +56,6 @@ public class OrOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
                     {
                         var subExpression = _subExpressions[i];
                         if (contextItemBuckets != null && subExpression.GetBucket() != null)
-                        {
                             if (!contextItemBuckets.Contains(subExpression.GetBucket()))
                             {
                                 // This subExpression may NEVER match the given node
@@ -64,7 +63,6 @@ public class OrOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
                                 i++;
                                 continue;
                             }
-                        }
 
                         resultSequence = subExpression.EvaluateMaybeStatically(
                             dynamicContext,

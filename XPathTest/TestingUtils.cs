@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using FontoXPathCSharp;
-using FontoXPathCSharp.DomFacade;
-using FontoXPathCSharp.Types;
 using XPathTest.Caches;
 
 namespace XPathTest;
@@ -44,7 +40,7 @@ public class TestingUtils
             dict.Select(d => $"{d.Key},{d.Value}")
         ));
     }
-    
+
     /**
      * Safely turns a list of key-value pairs into a dictionary by making sure there are no duplicate keys.
      */

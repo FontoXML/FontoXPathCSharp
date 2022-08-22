@@ -1,5 +1,4 @@
 using FontoXPathCSharp.DomFacade;
-using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
@@ -12,7 +11,7 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode>
 
 
     public AncestorAxis(AbstractTestExpression<TNode> ancestorExpression, bool inclusive) : base(
-        new AbstractExpression<TNode>[] { ancestorExpression }, 
+        new AbstractExpression<TNode>[] { ancestorExpression },
         new OptimizationOptions(false)
     )
     {

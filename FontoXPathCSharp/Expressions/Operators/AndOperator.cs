@@ -8,8 +8,8 @@ namespace FontoXPathCSharp.Expressions.Operators;
 
 public class AndOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
-    private readonly AbstractExpression<TNode>[] _subExpressions;
     private readonly string? _bucket;
+    private readonly AbstractExpression<TNode>[] _subExpressions;
 
     public AndOperator(AbstractExpression<TNode>[] childExpressions) : base(
         childExpressions,
@@ -33,14 +33,12 @@ public class AndOperator<TNode> : AbstractExpression<TNode> where TNode : notnul
         {
             var contextItem = dynamicContext.ContextItem;
             if (contextItem != null && contextItem.GetValueType().IsSubtypeOf(ValueType.Node))
-            {
                 contextItemBuckets = BucketUtils.GetBucketsForNode(
                     contextItem.GetAs<NodeValue<TNode>>().Value,
                     executionParameters.DomFacade
                 );
-            }
         }
-        
+
         return SequenceFactory.CreateFromIterator(_ =>
         {
             if (done) return IteratorResult<AbstractValue>.Done();
@@ -51,14 +49,12 @@ public class AndOperator<TNode> : AbstractExpression<TNode> where TNode : notnul
                     var subExpression = _subExpressions[i];
 
                     if (contextItemBuckets != null && subExpression.GetBucket() != null)
-                    {
                         if (!contextItemBuckets.Contains(subExpression.GetBucket()))
                         {
                             i++;
                             done = true;
                             return IteratorResult<AbstractValue>.Ready(AtomicValue.FalseBoolean);
                         }
-                    }
 
                     resultSequence = subExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
                 }

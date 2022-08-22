@@ -4,7 +4,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class PrecedingAxis<TNode> : AbstractExpression<TNode>
+public class PrecedingAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly string? _bucket;
     private readonly AbstractTestExpression<TNode> _testExpression;

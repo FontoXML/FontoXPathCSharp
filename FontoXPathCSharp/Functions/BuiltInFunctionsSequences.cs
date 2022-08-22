@@ -1,5 +1,4 @@
 using FontoXPathCSharp.EvaluationUtils;
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -30,13 +29,13 @@ public static class BuiltInFunctionsSequences<TNode>
 
         // Use first element in array as initial value
         return SequenceFactory.CreateFromValue(
-            items.Aggregate((max, item) => 
-                Convert.ToDecimal(((AtomicValue)max).GetValue()) < Convert.ToDecimal(((AtomicValue)item).GetValue()) 
-                    ? item 
+            items.Aggregate((max, item) =>
+                Convert.ToDecimal(((AtomicValue)max).GetValue()) < Convert.ToDecimal(((AtomicValue)item).GetValue())
+                    ? item
                     : max)
         );
     };
-    
+
     private static readonly FunctionSignature<ISequence, TNode> FnMin = (_, _, _, args) =>
     {
         var sequence = args[0];
@@ -46,9 +45,9 @@ public static class BuiltInFunctionsSequences<TNode>
 
         // Use first element in array as initial value
         return SequenceFactory.CreateFromValue(
-            items.Aggregate((max, item) => 
-                Convert.ToDecimal(((AtomicValue)max).GetValue()) > Convert.ToDecimal(((AtomicValue)item).GetValue()) 
-                    ? item 
+            items.Aggregate((max, item) =>
+                Convert.ToDecimal(((AtomicValue)max).GetValue()) > Convert.ToDecimal(((AtomicValue)item).GetValue())
+                    ? item
                     : max)
         );
     };
@@ -57,69 +56,30 @@ public static class BuiltInFunctionsSequences<TNode>
     {
         var sequence = args[0];
         if (sequence.IsEmpty()) return sequence;
-        
+
 
         // TODO: throw FORG0006 if the items contain both yearMonthDurations and dayTimeDurations
         var items = CastUntypedItemsToDouble(sequence.GetAllValues());
         items = CommonTypeUtils.ConvertItemsToCommonType(items);
-        if (items == null) {
-            throw new XPathException("FORG0006" ,"Incompatible types to be converted to a common type");
-        }
+        if (items == null) throw new XPathException("FORG0006", "Incompatible types to be converted to a common type");
 
-        if (!items.All((item) => item.GetValueType().IsSubtypeOf(ValueType.XsNumeric))) {
-            throw new XPathException("FORG0006" ,"Items passed to fn:avg are not all numeric.");
-        }
+        if (!items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsNumeric)))
+            throw new XPathException("FORG0006", "Items passed to fn:avg are not all numeric.");
 
-        var resultValue = items.Aggregate(0.0, (sum, item) => 
+        var resultValue = items.Aggregate(0.0, (sum, item) =>
             sum + Convert.ToDouble(((AtomicValue)item).GetValue())) / items.Length;
 
-        if (items.All(item => (
-                item.GetValueType().IsSubtypeOf(ValueType.XsInteger) ||
-                item.GetValueType().IsSubtypeOf(ValueType.XsDouble)
-            ))
-        ) {
+        if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsInteger) ||
+                              item.GetValueType().IsSubtypeOf(ValueType.XsDouble))
+           )
             return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsDouble));
-        }
 
-        if (items.All((item) => {
-                return item.GetValueType().IsSubtypeOf(ValueType.XsDecimal);
-            })
-        ) {
+        if (items.All(item => { return item.GetValueType().IsSubtypeOf(ValueType.XsDecimal); })
+           )
             return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsDecimal));
-        }
 
         return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsInteger));
-        
     };
-
-    private static AbstractValue[] CastItemsForMinMax(AbstractValue[] items)
-    {
-        // Values of type xs:untypedAtomic in $arg are cast to xs:double.
-        items = CastUntypedItemsToDouble(items);
-
-        if (items.Any(item => double.IsNaN(item.GetAs<DoubleValue>().Value) ||
-                              float.IsNaN(item.GetAs<FloatValue>().Value)))
-        {
-            return new[] { AtomicValue.Create(double.NaN, ValueType.XsDouble) };
-        }
-
-        var convertResult = CommonTypeUtils.ConvertItemsToCommonType(items);
-
-        if (convertResult == null)
-        {
-            throw new XPathException("FORG0006", "Incompatible types to be converted to a common type");
-        }
-
-        return convertResult!;
-    }
-
-    private static AbstractValue[] CastUntypedItemsToDouble(AbstractValue[] items)
-    {
-        return items.Select(item =>
-            item.GetValueType().IsSubtypeOf(ValueType.XsUntypedAtomic)
-                ? item.CastToType(ValueType.XsDouble)
-                : item).ToArray();
-    }
 
 
     private static readonly FunctionSignature<ISequence, TNode> FnZeroOrOne = (_, _, _, args) =>
@@ -212,4 +172,29 @@ public static class BuiltInFunctionsSequences<TNode>
             "deep-equal", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne))
     };
+
+    private static AbstractValue[] CastItemsForMinMax(AbstractValue[] items)
+    {
+        // Values of type xs:untypedAtomic in $arg are cast to xs:double.
+        items = CastUntypedItemsToDouble(items);
+
+        if (items.Any(item => double.IsNaN(item.GetAs<DoubleValue>().Value) ||
+                              float.IsNaN(item.GetAs<FloatValue>().Value)))
+            return new[] { AtomicValue.Create(double.NaN, ValueType.XsDouble) };
+
+        var convertResult = CommonTypeUtils.ConvertItemsToCommonType(items);
+
+        if (convertResult == null)
+            throw new XPathException("FORG0006", "Incompatible types to be converted to a common type");
+
+        return convertResult!;
+    }
+
+    private static AbstractValue[] CastUntypedItemsToDouble(AbstractValue[] items)
+    {
+        return items.Select(item =>
+            item.GetValueType().IsSubtypeOf(ValueType.XsUntypedAtomic)
+                ? item.CastToType(ValueType.XsDouble)
+                : item).ToArray();
+    }
 }

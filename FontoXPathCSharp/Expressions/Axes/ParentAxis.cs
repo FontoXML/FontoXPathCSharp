@@ -6,8 +6,8 @@ namespace FontoXPathCSharp.Expressions.Axes;
 
 public class ParentAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression<TNode> _parentExpression;
     private readonly string? _filterBucket;
+    private readonly AbstractTestExpression<TNode> _parentExpression;
 
     public ParentAxis(AbstractTestExpression<TNode> parentExpression, string? filterBucket) : base(
         new AbstractExpression<TNode>[] { parentExpression },
