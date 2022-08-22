@@ -1,4 +1,5 @@
 using System.Xml;
+using FontoXPathCSharp.Expressions.Util;
 
 namespace FontoXPathCSharp.DomFacade;
 
@@ -7,50 +8,78 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
     public IEnumerable<XmlNode> GetAllAttributes(XmlNode node, string? bucket = null)
     {
         if (node.NodeType != XmlNodeType.Element) return Array.Empty<XmlNode>();
-
-        return node.Attributes != null ? node.Attributes.Cast<XmlAttribute>() : Array.Empty<XmlAttribute>();
+        var attrs = node.Attributes != null ? node.Attributes.Cast<XmlAttribute>() : Array.Empty<XmlAttribute>();
+        return bucket == null
+            ? attrs
+            : attrs.Where(attr => BucketUtils.GetBucketsForNode(attr, this).Contains(bucket));
     }
 
     public string? GetAttribute(XmlNode node, string? attributeName)
     {
-        if (node.NodeType != XmlNodeType.Element) return null;
-
-        return node.Attributes?[attributeName ?? string.Empty]?.Value;
+        return node.NodeType == XmlNodeType.Element
+            ? node.Attributes?[attributeName ?? string.Empty]?.Value
+            : null;
     }
 
     public IEnumerable<XmlNode> GetChildNodes(XmlNode node, string? bucket = null)
     {
-        return node.ChildNodes.Cast<XmlNode>();
+        var childNodes = node.ChildNodes.Cast<XmlNode>();
+        return bucket == null
+            ? childNodes
+            : childNodes.Where(child => BucketUtils.GetBucketsForNode(child, this).Contains(bucket));
     }
 
     public string GetData(XmlNode node)
     {
-        return node.Value;
+        return node.Value!;
     }
 
     public XmlNode? GetFirstChild(XmlNode node, string? bucket = null)
     {
-        return node.FirstChild;
+        // Not sure if this does anything productive.
+        for (var child = node.FirstChild; child != null; child = child.NextSibling)
+            if (bucket == null || BucketUtils.GetBucketsForNode(child, this).Contains(bucket))
+                return child;
+        return null;
     }
 
     public XmlNode? GetLastChild(XmlNode node, string? bucket = null)
     {
-        return node.LastChild;
+        // Not sure if this does anything productive.
+        for (var child = node.LastChild; child != null; child = child.PreviousSibling)
+            if (bucket == null || BucketUtils.GetBucketsForNode(child, this).Contains(bucket))
+                return child;
+        return null;
     }
 
     public XmlNode? GetNextSibling(XmlNode node, string? bucket = null)
     {
-        return node.NextSibling;
+        // Not sure if this does anything productive.
+        for (var sibling = node.NextSibling; sibling != null; sibling = sibling.NextSibling)
+            if (bucket == null || BucketUtils.GetBucketsForNode(sibling, this).Contains(bucket))
+                return sibling;
+        return null;
     }
 
     public XmlNode? GetParentNode(XmlNode node, string? bucket = null)
     {
-        return node.ParentNode;
+        var parentNode = node.NodeType == XmlNodeType.Attribute
+            ? ((XmlAttribute)node).OwnerElement
+            : node.ParentNode;
+        if (parentNode == null) return null;
+
+        return bucket == null || BucketUtils.GetBucketsForNode(parentNode, this).Contains(bucket)
+            ? parentNode
+            : null;
     }
 
     public XmlNode? GetPreviousSibling(XmlNode node, string? bucket = null)
     {
-        return node.PreviousSibling;
+        for (var sibling = node.PreviousSibling; sibling != null; sibling = sibling.PreviousSibling)
+            if (bucket == null || BucketUtils.GetBucketsForNode(sibling, this).Contains(bucket))
+                return sibling;
+
+        return null;
     }
 
     public string GetLocalName(XmlNode node)
@@ -63,7 +92,7 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
         return node.NamespaceURI;
     }
 
-    public string? GetPrefix(XmlNode nodeValue)
+    public string GetPrefix(XmlNode nodeValue)
     {
         return nodeValue.Prefix;
     }
