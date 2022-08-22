@@ -1,18 +1,25 @@
+using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Operators;
 
-public class AndOperator<TNode> : AbstractExpression<TNode>
+public class AndOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractExpression<TNode>[] _subExpressions;
-
+    private readonly string? _bucket;
 
     public AndOperator(AbstractExpression<TNode>[] childExpressions) : base(
         childExpressions,
         new OptimizationOptions(childExpressions.All(e => e.CanBeStaticallyEvaluated)))
     {
         _subExpressions = childExpressions;
+        _bucket = childExpressions.Aggregate(
+            (string?)null,
+            (bucket, expression) => BucketUtils.IntersectBuckets(bucket, expression.GetBucket())
+        );
     }
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
@@ -20,7 +27,20 @@ public class AndOperator<TNode> : AbstractExpression<TNode>
         var i = 0;
         ISequence? resultSequence = null;
         var done = false;
+        string[]? contextItemBuckets = null;
 
+        if (dynamicContext != null)
+        {
+            var contextItem = dynamicContext.ContextItem;
+            if (contextItem != null && contextItem.GetValueType().IsSubtypeOf(ValueType.Node))
+            {
+                contextItemBuckets = BucketUtils.GetBucketsForNode(
+                    contextItem.GetAs<NodeValue<TNode>>().Value,
+                    executionParameters.DomFacade
+                );
+            }
+        }
+        
         return SequenceFactory.CreateFromIterator(_ =>
         {
             if (done) return IteratorResult<AbstractValue>.Done();
@@ -30,7 +50,15 @@ public class AndOperator<TNode> : AbstractExpression<TNode>
                 {
                     var subExpression = _subExpressions[i];
 
-                    // TODO: Context Item Buckets
+                    if (contextItemBuckets != null && subExpression.GetBucket() != null)
+                    {
+                        if (!contextItemBuckets.Contains(subExpression.GetBucket()))
+                        {
+                            i++;
+                            done = true;
+                            return IteratorResult<AbstractValue>.Ready(AtomicValue.FalseBoolean);
+                        }
+                    }
 
                     resultSequence = subExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
                 }
@@ -49,5 +77,10 @@ public class AndOperator<TNode> : AbstractExpression<TNode>
             done = true;
             return IteratorResult<AbstractValue>.Ready(AtomicValue.TrueBoolean);
         });
+    }
+
+    public override string? GetBucket()
+    {
+        return _bucket;
     }
 }

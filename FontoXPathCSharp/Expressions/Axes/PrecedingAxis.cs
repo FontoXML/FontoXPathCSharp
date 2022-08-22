@@ -6,8 +6,8 @@ namespace FontoXPathCSharp.Expressions.Axes;
 
 public class PrecedingAxis<TNode> : AbstractExpression<TNode>
 {
-    private readonly AbstractTestExpression<TNode> _testExpression;
     private readonly string? _bucket;
+    private readonly AbstractTestExpression<TNode> _testExpression;
 
     public PrecedingAxis(AbstractTestExpression<TNode> testExpression) : base(
         new AbstractExpression<TNode>[] { testExpression },
@@ -19,7 +19,8 @@ public class PrecedingAxis<TNode> : AbstractExpression<TNode>
         _bucket = onlyElementDescendants ? "type-1" : null;
     }
 
-    private static Iterator<AbstractValue> CreatePrecedingGenerator(IDomFacade<TNode> domFacade, TNode node, string? bucket)
+    private static Iterator<AbstractValue> CreatePrecedingGenerator(IDomFacade<TNode> domFacade, TNode node,
+        string? bucket)
     {
         var nodeStack = new List<TNode>();
 
@@ -38,7 +39,12 @@ public class PrecedingAxis<TNode> : AbstractExpression<TNode>
         {
             while (nephewGenerator != null || nodeStack.Any())
             {
-                nephewGenerator ??= AxesUtils<TNode>.CreateDescendantIterator(domFacade, nodeStack.First(), true);
+                nephewGenerator ??= AxesUtils<TNode>.CreateDescendantIterator(
+                    domFacade,
+                    nodeStack.First(),
+                    true,
+                    bucket
+                );
 
                 var nephew = nephewGenerator(IterationHint.None);
 

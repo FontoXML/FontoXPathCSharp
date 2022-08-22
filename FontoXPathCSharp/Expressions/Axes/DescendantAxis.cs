@@ -8,33 +8,41 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode>
 {
     private readonly AbstractTestExpression<TNode> _descendantExpression;
     private readonly bool _inclusive;
+    private readonly string? _descendantBucket;
 
-    public DescendantAxis(AbstractTestExpression<TNode> descendantExpression, bool inclusive) : base(
-        new AbstractExpression<TNode>[] { descendantExpression },
-        new OptimizationOptions(false))
+    public DescendantAxis(
+        AbstractTestExpression<TNode> descendantExpression,
+        bool inclusive)
+        : base(new AbstractExpression<TNode>[] { descendantExpression }, new OptimizationOptions(false))
     {
         _descendantExpression = descendantExpression;
         _inclusive = inclusive;
+        
+        var testBucket = descendantExpression.GetBucket();
+        var onlyElementDescendants = testBucket != null && (testBucket.StartsWith("name-") || testBucket == "type-1");
+        _descendantBucket = onlyElementDescendants ? "type-1" : null;
     }
 
-    private static Iterator<TNode> CreateChildGenerator(TNode node, IDomFacade<TNode> domFacade)
+    private static Iterator<TNode> CreateChildGenerator(TNode node, IDomFacade<TNode> domFacade, string? bucket)
     {
         if (domFacade.IsElement(node) && domFacade.IsDocument(node))
             return IteratorUtils.EmptyIterator<TNode>();
 
-        var childNode = domFacade.GetFirstChild(node);
+        var childNode = domFacade.GetFirstChild(node, bucket);
         return _ =>
         {
             if (childNode == null) return IteratorResult<TNode>.Done();
 
             var current = childNode;
-            childNode = domFacade.GetNextSibling(childNode);
+            childNode = domFacade.GetNextSibling(childNode, bucket);
             return IteratorResult<TNode>.Ready(current);
         };
     }
 
     private static Iterator<AbstractValue> CreateInclusiveDescendantGenerator(
-        TNode node, IDomFacade<TNode> domFacade)
+        TNode node,
+        IDomFacade<TNode> domFacade,
+        string? bucket)
     {
         var descendantIteratorStack = new List<Iterator<TNode>>
         {
@@ -59,7 +67,7 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode>
                 value = descendantIteratorStack.First()(IterationHint.None);
             }
 
-            descendantIteratorStack.Insert(0, CreateChildGenerator(value.Value, domFacade));
+            descendantIteratorStack.Insert(0, CreateChildGenerator(value.Value, domFacade, bucket));
             return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(value.Value, domFacade));
         };
     }
@@ -69,7 +77,7 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode>
         var domFacade = executionParameters.DomFacade;
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
 
-        var iterator = CreateInclusiveDescendantGenerator(contextItem.Value, domFacade);
+        var iterator = CreateInclusiveDescendantGenerator(contextItem.Value, domFacade, _descendantBucket);
         if (!_inclusive)
             iterator(IterationHint.None);
 
