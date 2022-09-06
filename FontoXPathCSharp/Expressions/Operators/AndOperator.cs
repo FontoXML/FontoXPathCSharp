@@ -12,6 +12,7 @@ public class AndOperator<TNode> : AbstractExpression<TNode> where TNode : notnul
     private readonly AbstractExpression<TNode>[] _subExpressions;
 
     public AndOperator(AbstractExpression<TNode>[] childExpressions) : base(
+        childExpressions.Aggregate(new Specificity(), (specificity, selector) => specificity.Add(selector.Specificity)),
         childExpressions,
         new OptimizationOptions(childExpressions.All(e => e.CanBeStaticallyEvaluated)))
     {

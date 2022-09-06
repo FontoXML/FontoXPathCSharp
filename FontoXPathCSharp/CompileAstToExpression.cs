@@ -460,7 +460,7 @@ public static class CompileAstToExpression<TNode>
         var childExpressions = ast.GetChildren(AstNodeName.All).Select(arg => CompileAst(arg, options)).ToArray();
         if (childExpressions.Length == 1) return childExpressions.First();
 
-        return new SequenceExpression<TNode>(childExpressions);
+        return new SequenceOperator<TNode>(childExpressions);
     }
 
     private static AbstractExpression<TNode> CompileAndOp(Ast ast, CompilationOptions options)

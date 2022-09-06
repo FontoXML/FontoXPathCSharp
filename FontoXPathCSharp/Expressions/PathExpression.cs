@@ -13,6 +13,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode>
     private readonly AbstractExpression<TNode>[] _stepExpressions;
 
     public PathExpression(AbstractExpression<TNode>[] stepExpressions, bool requireSortedResults) : base(
+        stepExpressions.Aggregate(new Specificity(), (specificity, selector) => specificity.Add(selector.Specificity)),
         stepExpressions,
         new OptimizationOptions(false))
     {

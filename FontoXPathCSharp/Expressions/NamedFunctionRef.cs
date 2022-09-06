@@ -10,7 +10,9 @@ public class NamedFunctionRef<TNode> : AbstractExpression<TNode>
     private readonly QName _functionReference;
     private FunctionProperties<TNode>? _functionProperties;
 
-    public NamedFunctionRef(QName functionReference, int arity) : base(Array.Empty<AbstractExpression<TNode>>(),
+    public NamedFunctionRef(QName functionReference, int arity) : base(
+        new Specificity(new Dictionary<SpecificityKind, int> { { SpecificityKind.External, 1 } }),
+        Array.Empty<AbstractExpression<TNode>>(),
         new OptimizationOptions(true))
     {
         _arity = arity;

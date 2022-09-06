@@ -11,6 +11,7 @@ public class PrecedingSiblingAxis<TNode> : AbstractExpression<TNode>
     private readonly AbstractTestExpression<TNode> _siblingExpression;
 
     public PrecedingSiblingAxis(AbstractTestExpression<TNode> siblingExpression, string? filterBucket) : base(
+        siblingExpression.Specificity,
         new AbstractExpression<TNode>[] { siblingExpression },
         new OptimizationOptions(false))
     {
@@ -19,7 +20,7 @@ public class PrecedingSiblingAxis<TNode> : AbstractExpression<TNode>
     }
 
     private static Iterator<AbstractValue> CreateSiblingIterator(
-        IDomFacade<TNode> domFacade, 
+        IDomFacade<TNode> domFacade,
         TNode? node,
         string? bucket)
     {

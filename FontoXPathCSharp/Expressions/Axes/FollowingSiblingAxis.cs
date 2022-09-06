@@ -11,6 +11,7 @@ public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode>
     private readonly AbstractTestExpression<TNode> _siblingExpression;
 
     public FollowingSiblingAxis(AbstractTestExpression<TNode> siblingExpression, string? filterBucket) : base(
+        siblingExpression.Specificity,
         new AbstractExpression<TNode>[] { siblingExpression },
         new OptimizationOptions(false))
     {

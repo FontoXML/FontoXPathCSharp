@@ -11,7 +11,10 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
     private FunctionValue<ISequence, TNode>? _functionReference;
     private StaticContext<TNode>? _staticContext;
 
-    public FunctionCall(AbstractExpression<TNode> functionReferenceExpression, AbstractExpression<TNode>[] args) : base(
+    public FunctionCall(
+        AbstractExpression<TNode> functionReferenceExpression,
+        AbstractExpression<TNode>[] args) : base(
+        new Specificity(new Dictionary<SpecificityKind, int> { { SpecificityKind.External, 1 } }),
         new[] { functionReferenceExpression }.Concat(args).ToArray(),
         new OptimizationOptions(false))
     {

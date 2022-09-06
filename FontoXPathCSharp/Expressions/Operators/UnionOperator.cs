@@ -10,7 +10,13 @@ public class UnionOperator<TNode> : AbstractExpression<TNode> where TNode : notn
 {
     private readonly AbstractExpression<TNode>[] _subExpressions;
 
-    public UnionOperator(AbstractExpression<TNode>[] childExpressions) : base(childExpressions,
+    public UnionOperator(AbstractExpression<TNode>[] childExpressions) : base(
+        childExpressions.Aggregate(new Specificity(),
+            (currentMaxSpecificity, selector) => currentMaxSpecificity > selector.Specificity
+                ? currentMaxSpecificity
+                : selector.Specificity
+        ),
+        childExpressions,
         new OptimizationOptions(childExpressions.All(e => e.CanBeStaticallyEvaluated)))
     {
         _subExpressions = childExpressions;

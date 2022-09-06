@@ -31,22 +31,27 @@ public struct OptimizationOptions
 
 public abstract class AbstractExpression<TNode>
 {
-    protected readonly AbstractExpression<TNode>[] _childExpressions;
     public readonly bool CanBeStaticallyEvaluated;
+    protected readonly AbstractExpression<TNode>[] ChildExpressions;
     public readonly ResultOrdering ExpectedResultOrder;
-    public readonly bool IsUpdating;
+
     public readonly bool Peer;
+    public readonly Specificity Specificity;
     public readonly bool Subtree;
 
-    protected AbstractExpression(AbstractExpression<TNode>[] childExpressions, OptimizationOptions optimizationOptions)
+    protected AbstractExpression(Specificity specificity, AbstractExpression<TNode>[] childExpressions,
+        OptimizationOptions optimizationOptions)
     {
-        _childExpressions = childExpressions;
+        Specificity = specificity;
+        ChildExpressions = childExpressions;
         CanBeStaticallyEvaluated = optimizationOptions.CanBeStaticallyEvaluated;
         ExpectedResultOrder = optimizationOptions.ResultOrder;
         Subtree = optimizationOptions.Subtree;
         Peer = optimizationOptions.Peer;
         IsUpdating = false;
     }
+
+    public bool IsUpdating { get; protected init; }
 
     public abstract ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters);
 
@@ -65,7 +70,7 @@ public abstract class AbstractExpression<TNode>
 
     public virtual void PerformStaticEvaluation(StaticContext<TNode> staticContext)
     {
-        foreach (var expression in _childExpressions) expression.PerformStaticEvaluation(staticContext);
+        foreach (var expression in ChildExpressions) expression.PerformStaticEvaluation(staticContext);
         // TODO: make sure child expressions are not updating if we cannot be updating
     }
 

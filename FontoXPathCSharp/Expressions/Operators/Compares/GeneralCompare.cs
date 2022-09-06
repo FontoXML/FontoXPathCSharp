@@ -13,7 +13,9 @@ public class GeneralCompare<TNode> : AbstractExpression<TNode>
     private readonly CompareType _type;
 
     public GeneralCompare(CompareType type, AbstractExpression<TNode> firstExpression,
-        AbstractExpression<TNode> secondExpression) : base(new[] { firstExpression, secondExpression },
+        AbstractExpression<TNode> secondExpression) : base(
+        firstExpression.Specificity,
+        new[] { firstExpression, secondExpression },
         new OptimizationOptions(false))
     {
         _type = type;

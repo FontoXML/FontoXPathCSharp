@@ -10,6 +10,7 @@ public class ParentAxis<TNode> : AbstractExpression<TNode>
     private readonly AbstractTestExpression<TNode> _parentExpression;
 
     public ParentAxis(AbstractTestExpression<TNode> parentExpression, string? filterBucket) : base(
+        parentExpression.Specificity,
         new AbstractExpression<TNode>[] { parentExpression },
         new OptimizationOptions(false))
     {

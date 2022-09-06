@@ -33,7 +33,9 @@ public class UnaryOperator<TNode> : AbstractExpression<TNode>
     private readonly UnaryOperatorKind _kind;
     private readonly AbstractExpression<TNode> _valueExpr;
 
-    public UnaryOperator(AstNodeName kind, AbstractExpression<TNode> valueExpr) : base(new[] { valueExpr },
+    public UnaryOperator(AstNodeName kind, AbstractExpression<TNode> valueExpr) : base(
+        valueExpr.Specificity,
+        new[] { valueExpr },
         new OptimizationOptions(false))
     {
         _valueExpr = valueExpr;

@@ -1,11 +1,10 @@
 using FontoXPathCSharp.EvaluationUtils;
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp;
+namespace FontoXPathCSharp.Expressions;
 
 public class CastAsOperator<TNode> : AbstractExpression<TNode>
 {
@@ -14,7 +13,7 @@ public class CastAsOperator<TNode> : AbstractExpression<TNode>
     private readonly ValueType _targetType;
 
     public CastAsOperator(AbstractExpression<TNode> expression, QName targetType, bool allowsEmptySequence) : base(
-        new[] { expression }, new OptimizationOptions(false))
+        expression.Specificity, new[] { expression }, new OptimizationOptions(false))
     {
         _targetType = (targetType.Prefix != null
             ? $"{targetType.Prefix}:{targetType.LocalName}"

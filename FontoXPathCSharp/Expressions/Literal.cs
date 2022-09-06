@@ -9,7 +9,9 @@ public class Literal<TNode> : AbstractExpression<TNode>
 {
     private readonly Func<ISequence> _createValueSequence;
 
-    public Literal(string value, SequenceType type) : base(Array.Empty<AbstractExpression<TNode>>(),
+    public Literal(string value, SequenceType type) : base(
+        new Specificity(),
+        Array.Empty<AbstractExpression<TNode>>(),
         new OptimizationOptions(true))
     {
         _createValueSequence = type.ValueType switch

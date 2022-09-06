@@ -11,6 +11,7 @@ public class ChildAxis<TNode> : AbstractExpression<TNode>
     private readonly string? _filterBucket;
 
     public ChildAxis(AbstractTestExpression<TNode> childExpression, string? filterBucket) : base(
+        childExpression.Specificity,
         new AbstractExpression<TNode>[] { childExpression },
         new OptimizationOptions(false))
     {

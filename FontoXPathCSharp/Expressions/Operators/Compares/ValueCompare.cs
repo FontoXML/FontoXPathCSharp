@@ -19,14 +19,16 @@ public enum CompareType
 public class ValueCompare<TNode> : AbstractExpression<TNode>
 {
     private readonly AbstractExpression<TNode> _firstExpression;
+    private readonly CompareType _operator;
     private readonly AbstractExpression<TNode> _secondExpression;
-    private readonly CompareType _type;
 
-    public ValueCompare(CompareType type, AbstractExpression<TNode> firstExpression,
+    public ValueCompare(CompareType kind, AbstractExpression<TNode> firstExpression,
         AbstractExpression<TNode> secondExpression) : base(
-        new[] { firstExpression, secondExpression }, new OptimizationOptions(false))
+        firstExpression.Specificity.Add(secondExpression.Specificity),
+        new[] { firstExpression, secondExpression },
+        new OptimizationOptions(false))
     {
-        _type = type;
+        _operator = kind;
         _firstExpression = firstExpression;
         _secondExpression = secondExpression;
     }
@@ -149,6 +151,6 @@ public class ValueCompare<TNode> : AbstractExpression<TNode>
         var onlySecondValue = secondAtomizedSequence.First();
 
         return SequenceFactory.CreateFromValue(
-            new BooleanValue(PerformValueCompare(_type, onlyFirstValue, onlySecondValue, dynamicContext)));
+            new BooleanValue(PerformValueCompare(_operator, onlyFirstValue, onlySecondValue, dynamicContext)));
     }
 }

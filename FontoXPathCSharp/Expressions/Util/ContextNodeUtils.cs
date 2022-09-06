@@ -2,7 +2,7 @@ using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Expressions.Axes;
+namespace FontoXPathCSharp.Expressions.Util;
 
 internal static class ContextNodeUtils<TNode>
 {

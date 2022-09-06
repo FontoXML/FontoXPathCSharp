@@ -12,13 +12,14 @@ public static class BucketConstants
     public const string TypePrefix = "type-";
     public const string Empty = "empty";
 }
+
 public class BucketUtils
 {
     private static readonly IReadOnlyDictionary<string, string[]> SubBucketsByBucket = new Dictionary<string, string[]>
     {
         { BucketConstants.Type1OrType2, new[] { BucketConstants.Name, BucketConstants.Type1, BucketConstants.Type2 } },
         { BucketConstants.Type1, new[] { BucketConstants.Name } },
-        { BucketConstants.Type2, new[] { BucketConstants.Name } },
+        { BucketConstants.Type2, new[] { BucketConstants.Name } }
     };
 
     // TODO: Think of a better way to do this rather than with string compares.
@@ -48,7 +49,7 @@ public class BucketUtils
 
         if (nodeType is NodeType.Attribute or NodeType.Element) buckets.Add(BucketConstants.Type1OrType2);
 
-        buckets.Add(BucketConstants.TypePrefix +GetBucketTypeId(nodeType));
+        buckets.Add(BucketConstants.TypePrefix + GetBucketTypeId(nodeType));
 
         if (localName != null) buckets.Add(BucketConstants.NamePrefix + localName);
 

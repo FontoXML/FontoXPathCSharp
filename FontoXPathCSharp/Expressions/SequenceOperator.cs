@@ -2,10 +2,12 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class SequenceExpression<TNode> : PossiblyUpdatingExpression<TNode>
+public class SequenceOperator<TNode> : PossiblyUpdatingExpression<TNode>
 {
-    public SequenceExpression(AbstractExpression<TNode>[] childExpressions) : base(childExpressions,
-        new OptimizationOptions(childExpressions.All(e => e.CanBeStaticallyEvaluated)))
+    public SequenceOperator(AbstractExpression<TNode>[] expressions) : base(
+        expressions.Aggregate(new Specificity(), (specificity, selector) => specificity.Add(selector.Specificity)),
+        expressions,
+        new OptimizationOptions(expressions.All(e => e.CanBeStaticallyEvaluated)))
     {
     }
 

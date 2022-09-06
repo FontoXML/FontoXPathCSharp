@@ -7,7 +7,7 @@ public class TypeTest<TNode> : AbstractTestExpression<TNode>
 {
     private readonly QName _type;
 
-    public TypeTest(QName type)
+    public TypeTest(QName type) : base(new Specificity())
     {
         _type = type;
     }

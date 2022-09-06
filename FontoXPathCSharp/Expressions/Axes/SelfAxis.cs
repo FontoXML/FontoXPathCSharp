@@ -9,6 +9,7 @@ public class SelfAxis<TNode> : AbstractExpression<TNode>
     private readonly AbstractTestExpression<TNode> _selector;
 
     public SelfAxis(AbstractTestExpression<TNode> selector, string? filterBucket) : base(
+        selector.Specificity,
         new AbstractExpression<TNode>[] { selector },
         new OptimizationOptions(false))
     {

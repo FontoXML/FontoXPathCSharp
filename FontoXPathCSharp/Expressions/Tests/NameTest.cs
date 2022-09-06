@@ -11,10 +11,19 @@ public class NameTest<TNode> : AbstractTestExpression<TNode> where TNode : notnu
     private readonly NodeType? _kind;
     private readonly QName _name;
 
-    public NameTest(QName name, NodeType? kind = null)
+    public NameTest(QName name, NodeType? kind = null) : base(CreateSpecificity(name))
     {
         _name = name;
         _kind = kind;
+    }
+
+    private static Specificity CreateSpecificity(QName name)
+    {
+        var specificityMap = new Dictionary<SpecificityKind, int>();
+        if (name.LocalName != "*") specificityMap.Add(SpecificityKind.NodeName, 1);
+        specificityMap.Add(SpecificityKind.NodeType, 1);
+
+        return new Specificity(specificityMap);
     }
 
     public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)

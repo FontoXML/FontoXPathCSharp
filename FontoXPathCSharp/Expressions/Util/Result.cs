@@ -1,4 +1,4 @@
-namespace FontoXPathCSharp.Expressions;
+namespace FontoXPathCSharp.Expressions.Util;
 
 public abstract class Result
 {

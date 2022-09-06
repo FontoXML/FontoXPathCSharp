@@ -4,10 +4,10 @@ namespace FontoXPathCSharp.Expressions;
 
 public abstract class UpdatingExpression<TNode> : AbstractExpression<TNode>
 {
-    protected UpdatingExpression(AbstractExpression<TNode>[] childExpressions,
-        OptimizationOptions optimizationOptions) : base(
-        childExpressions, optimizationOptions)
+    protected UpdatingExpression(Specificity specificity, AbstractExpression<TNode>[] childExpressions,
+        OptimizationOptions optimizationOptions) : base(specificity, childExpressions, optimizationOptions)
     {
+        IsUpdating = true;
     }
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)

@@ -1,7 +1,7 @@
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Value;
 
-namespace FontoXPathCSharp.Expressions.Axes;
+namespace FontoXPathCSharp.Expressions.Util;
 
 public static class AxesUtils<TNode>
 {

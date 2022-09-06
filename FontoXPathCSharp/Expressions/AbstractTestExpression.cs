@@ -5,8 +5,8 @@ namespace FontoXPathCSharp.Expressions;
 
 public abstract class AbstractTestExpression<TNode> : AbstractExpression<TNode>
 {
-    protected AbstractTestExpression() :
-        base(Array.Empty<AbstractExpression<TNode>>(), new OptimizationOptions(false))
+    protected AbstractTestExpression(Specificity specificity) :
+        base(specificity, Array.Empty<AbstractExpression<TNode>>(), new OptimizationOptions(false))
     {
     }
 

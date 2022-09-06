@@ -5,7 +5,7 @@ namespace FontoXPathCSharp.Expressions;
 public class ContextItemExpression<TNode> : AbstractExpression<TNode>
 {
     public ContextItemExpression() : base(
-        Array.Empty<AbstractExpression<TNode>>(), new OptimizationOptions(false))
+        new Specificity(), Array.Empty<AbstractExpression<TNode>>(), new OptimizationOptions(false))
     {
     }
 

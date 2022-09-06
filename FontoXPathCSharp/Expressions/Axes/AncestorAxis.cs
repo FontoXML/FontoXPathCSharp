@@ -12,6 +12,7 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode>
 
 
     public AncestorAxis(AbstractTestExpression<TNode> ancestorExpression, bool inclusive) : base(
+        ancestorExpression.Specificity,
         new AbstractExpression<TNode>[] { ancestorExpression },
         new OptimizationOptions(false)
     )

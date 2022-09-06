@@ -11,7 +11,13 @@ public class OrOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
     private readonly string? _bucket;
     private readonly AbstractExpression<TNode>[] _subExpressions;
 
-    public OrOperator(AbstractExpression<TNode>[] expressions) : base(expressions,
+    public OrOperator(AbstractExpression<TNode>[] expressions) : base(
+        expressions.Aggregate(new Specificity(),
+            (currentMaxSpecificity, selector) => currentMaxSpecificity > selector.Specificity
+                ? currentMaxSpecificity
+                : selector.Specificity
+        ),
+        expressions,
         new OptimizationOptions(expressions.All(e => e.CanBeStaticallyEvaluated)))
     {
         // TODO: Adding specificity to expressions

@@ -11,12 +11,15 @@ public class FollowingAxis<TNode> : AbstractExpression<TNode>
     private readonly AbstractTestExpression<TNode> _testExpression;
 
     public FollowingAxis(AbstractTestExpression<TNode> testExpression) : base(
+        testExpression.Specificity,
         new AbstractExpression<TNode>[] { testExpression },
         new OptimizationOptions(false))
     {
         _testExpression = testExpression;
         var testBucket = testExpression.GetBucket();
-        var onlyElementDescendants = testBucket != null && (testBucket.StartsWith(BucketConstants.NamePrefix) || testBucket == BucketConstants.Type1);
+        var onlyElementDescendants = testBucket != null &&
+                                     (testBucket.StartsWith(BucketConstants.NamePrefix) ||
+                                      testBucket == BucketConstants.Type1);
         _bucket = onlyElementDescendants ? BucketConstants.Type1 : null;
     }
 

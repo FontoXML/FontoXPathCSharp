@@ -9,6 +9,7 @@ public class IfExpression<TNode> : PossiblyUpdatingExpression<TNode>
 
     public IfExpression(AbstractExpression<TNode> ifExpr, AbstractExpression<TNode> thenExpr,
         AbstractExpression<TNode> elseExpr) : base(
+        ifExpr.Specificity.Add(thenExpr.Specificity).Add(elseExpr.Specificity),
         new[] { ifExpr, thenExpr, elseExpr },
         new OptimizationOptions(
             ifExpr.CanBeStaticallyEvaluated && thenExpr.CanBeStaticallyEvaluated && elseExpr.CanBeStaticallyEvaluated,

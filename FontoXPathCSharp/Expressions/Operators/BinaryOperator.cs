@@ -31,7 +31,9 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
 
     public BinaryOperator(AstNodeName op, AbstractExpression<TNode> firstValueExpr,
         AbstractExpression<TNode> secondValueExpr) : base(
-        new[] { firstValueExpr, secondValueExpr }, new OptimizationOptions(true))
+        firstValueExpr.Specificity.Add(secondValueExpr.Specificity),
+        new[] { firstValueExpr, secondValueExpr },
+        new OptimizationOptions(true))
     {
         _operator = op;
         _firstValueExpr = firstValueExpr;

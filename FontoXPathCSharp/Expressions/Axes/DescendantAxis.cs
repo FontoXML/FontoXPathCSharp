@@ -14,13 +14,17 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode>
     public DescendantAxis(
         AbstractTestExpression<TNode> descendantExpression,
         bool inclusive)
-        : base(new AbstractExpression<TNode>[] { descendantExpression }, new OptimizationOptions(false))
+        : base(descendantExpression.Specificity,
+            new AbstractExpression<TNode>[] { descendantExpression },
+            new OptimizationOptions(false))
     {
         _descendantExpression = descendantExpression;
         _inclusive = inclusive;
 
         var testBucket = descendantExpression.GetBucket();
-        var onlyElementDescendants = testBucket != null && (testBucket.StartsWith(BucketConstants.NamePrefix) || testBucket == BucketConstants.Type1);
+        var onlyElementDescendants = testBucket != null &&
+                                     (testBucket.StartsWith(BucketConstants.NamePrefix) ||
+                                      testBucket == BucketConstants.Type1);
         _descendantBucket = onlyElementDescendants ? BucketConstants.Type1 : null;
     }
 

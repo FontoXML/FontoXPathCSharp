@@ -10,7 +10,8 @@ public class KindTest<TNode> : AbstractTestExpression<TNode>
 {
     private readonly NodeType _nodeType;
 
-    public KindTest(NodeType nodeType)
+    public KindTest(NodeType nodeType) : base(
+        new Specificity(new Dictionary<SpecificityKind, int> { { SpecificityKind.NodeType, 1 } }))
     {
         _nodeType = nodeType;
     }

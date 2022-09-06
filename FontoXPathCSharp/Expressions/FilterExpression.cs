@@ -11,6 +11,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode>
     private readonly AbstractExpression<TNode> _selector;
 
     public FilterExpression(AbstractExpression<TNode> selector, AbstractExpression<TNode> filterExpression) : base(
+        selector.Specificity.Add(filterExpression.Specificity),
         new[] { selector },
         new OptimizationOptions(selector.CanBeStaticallyEvaluated && filterExpression.CanBeStaticallyEvaluated))
     {

@@ -11,7 +11,9 @@ public class InstanceOfOperator<TNode> : AbstractExpression<TNode>
 
     public InstanceOfOperator(AbstractExpression<TNode> expression, AbstractExpression<TNode> typeTest,
         string multiplicity) : base(
-        new[] { expression }, new OptimizationOptions(false))
+        expression.Specificity,
+        new[] { expression },
+        new OptimizationOptions(false))
     {
         _expression = expression;
         _typeTest = typeTest;
