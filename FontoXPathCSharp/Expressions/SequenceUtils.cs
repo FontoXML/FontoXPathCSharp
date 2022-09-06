@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public static class ExpressionUtils
+public static class SequenceUtils
 {
     public static ISequence ConcatSequences(IEnumerable<ISequence> sequencesContainer)
     {

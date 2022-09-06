@@ -5,7 +5,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp;
 
-public static class ExpressionUtils<TSelector, TNode>
+public static class ExpressionUtils<TNode, TSelector>
 {
     private static Dictionary<TSelector, AbstractExpression<TNode>> partiallyParsedXPathCache = new();
     

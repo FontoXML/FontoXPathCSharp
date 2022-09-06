@@ -26,7 +26,7 @@ public class UnionOperator<TNode> : AbstractExpression<TNode> where TNode : notn
     {
         if (_subExpressions.All(e => e.ExpectedResultOrder == ResultOrdering.Sorted))
             throw new NotImplementedException("Returning sorted sequence unions not implemented yet");
-        return ExpressionUtils.ConcatSequences(
+        return SequenceUtils.ConcatSequences(
             _subExpressions.Select(e =>
                 e.EvaluateMaybeStatically(dynamicContext, executionParameters)
             )
