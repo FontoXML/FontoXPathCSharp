@@ -1,5 +1,6 @@
 using System.Xml;
 using System.Xml.Linq;
+using FontoXPathCSharp.Expressions.Util;
 
 namespace FontoXPathCSharp.DomFacade;
 
@@ -8,8 +9,10 @@ public class XObjectDomFacade : IDomFacade<XObject>
     public IEnumerable<XObject> GetAllAttributes(XObject node, string? bucket = null)
     {
         if (node.NodeType != XmlNodeType.Element) return Array.Empty<XObject>();
-
-        return (node as XElement)?.Attributes() ?? Array.Empty<XAttribute>();
+        var attrs = (node as XElement)?.Attributes() ?? Array.Empty<XAttribute>();
+        return bucket == null
+            ? attrs
+            : attrs.Where(attr => BucketUtils.GetBucketsForNode(attr, this).Contains(bucket));
     }
 
     public string? GetAttribute(XObject node, string? attributeName)
@@ -21,7 +24,10 @@ public class XObjectDomFacade : IDomFacade<XObject>
 
     public IEnumerable<XObject> GetChildNodes(XObject node, string? bucket = null)
     {
-        return (node as XContainer)?.Nodes() ?? Array.Empty<XNode>();
+        var childNodes = (node as XContainer)?.Nodes() ?? Array.Empty<XNode>();
+        return bucket == null
+            ? childNodes
+            : childNodes.Where(child => BucketUtils.GetBucketsForNode(child, this).Contains(bucket));
     }
 
     public string GetData(XObject node)
@@ -38,27 +44,43 @@ public class XObjectDomFacade : IDomFacade<XObject>
 
     public XObject? GetFirstChild(XObject node, string? bucket = null)
     {
-        return (node as XContainer)?.FirstNode;
+        for (var child = (node as XContainer)?.FirstNode; child != null; child = child.NextNode)
+            if (bucket == null || BucketUtils.GetBucketsForNode(child, this).Contains(bucket))
+                return child;
+        return null;
     }
 
     public XObject? GetLastChild(XObject node, string? bucket = null)
     {
-        return (node as XContainer)?.LastNode;
+        for (var child = (node as XContainer)?.LastNode; child != null; child = child.PreviousNode)
+            if (bucket == null || BucketUtils.GetBucketsForNode(child, this).Contains(bucket))
+                return child;
+        return null;
     }
 
     public XObject? GetNextSibling(XObject node, string? bucket = null)
     {
-        return (node as XNode)?.NextNode;
+        for (var sibling = (node as XNode)?.NextNode; sibling != null; sibling = sibling.NextNode)
+            if (bucket == null || BucketUtils.GetBucketsForNode(sibling, this).Contains(bucket))
+                return sibling;
+        return null;
     }
 
     public XObject? GetParentNode(XObject node, string? bucket = null)
     {
-        return node.Parent;
+        var parentNode = node.Parent;
+        if (parentNode == null) return null;
+        return bucket == null || BucketUtils.GetBucketsForNode(parentNode, this).Contains(bucket)
+            ? parentNode
+            : null;
     }
 
     public XObject? GetPreviousSibling(XObject node, string? bucket = null)
     {
-        return (node as XNode)?.PreviousNode;
+        for (var sibling = (node as XNode)?.PreviousNode; sibling != null; sibling = sibling.PreviousNode)
+            if (bucket == null || BucketUtils.GetBucketsForNode(sibling, this).Contains(bucket))
+                return sibling;
+        return null;
     }
 
     public string GetLocalName(XObject node)

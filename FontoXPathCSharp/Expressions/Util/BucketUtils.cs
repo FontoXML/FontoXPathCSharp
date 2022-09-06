@@ -37,6 +37,7 @@ public class BucketUtils
             NodeType.Document => 9,
             NodeType.DocumentType => 10,
             NodeType.DocumentFragment => 11,
+            NodeType.OtherNode => 12,
             _ => throw new ArgumentOutOfRangeException(nameof(nodeType), nodeType, null)
         };
     }

@@ -36,7 +36,6 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
 
     public XmlNode? GetFirstChild(XmlNode node, string? bucket = null)
     {
-        // Not sure if this does anything productive.
         for (var child = node.FirstChild; child != null; child = child.NextSibling)
             if (bucket == null || BucketUtils.GetBucketsForNode(child, this).Contains(bucket))
                 return child;
@@ -45,7 +44,6 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
 
     public XmlNode? GetLastChild(XmlNode node, string? bucket = null)
     {
-        // Not sure if this does anything productive.
         for (var child = node.LastChild; child != null; child = child.PreviousSibling)
             if (bucket == null || BucketUtils.GetBucketsForNode(child, this).Contains(bucket))
                 return child;
@@ -54,7 +52,6 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
 
     public XmlNode? GetNextSibling(XmlNode node, string? bucket = null)
     {
-        // Not sure if this does anything productive.
         for (var sibling = node.NextSibling; sibling != null; sibling = sibling.NextSibling)
             if (bucket == null || BucketUtils.GetBucketsForNode(sibling, this).Contains(bucket))
                 return sibling;
