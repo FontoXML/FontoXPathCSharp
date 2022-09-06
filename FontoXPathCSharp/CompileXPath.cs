@@ -1,4 +1,5 @@
 using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.ExpressionResults;
@@ -7,6 +8,9 @@ using FunctionNameResolverFunc =
     System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName?>;
 
 namespace FontoXPathCSharp;
+
+public record StaticCompilationResult<TNode>(StaticContext<TNode> StaticContext, AbstractExpression<TNode> Expression);
+
 
 public static class CompileXPath<TSelector, TNode> where TSelector : notnull
 {
