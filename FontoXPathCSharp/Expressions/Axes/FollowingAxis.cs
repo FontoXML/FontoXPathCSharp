@@ -1,4 +1,5 @@
 using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
@@ -15,8 +16,8 @@ public class FollowingAxis<TNode> : AbstractExpression<TNode>
     {
         _testExpression = testExpression;
         var testBucket = testExpression.GetBucket();
-        var onlyElementDescendants = testBucket != null && (testBucket.StartsWith("name-") || testBucket == "type-1");
-        _bucket = onlyElementDescendants ? "type-1" : null;
+        var onlyElementDescendants = testBucket != null && (testBucket.StartsWith(BucketConstants.NamePrefix) || testBucket == BucketConstants.Type1);
+        _bucket = onlyElementDescendants ? BucketConstants.Type1 : null;
     }
 
     private static Iterator<AbstractValue> CreateFollowingGenerator(IDomFacade<TNode> domFacade, TNode node,

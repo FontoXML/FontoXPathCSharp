@@ -1,4 +1,5 @@
 using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
@@ -19,8 +20,8 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode>
         _inclusive = inclusive;
 
         var testBucket = descendantExpression.GetBucket();
-        var onlyElementDescendants = testBucket != null && (testBucket.StartsWith("name-") || testBucket == "type-1");
-        _descendantBucket = onlyElementDescendants ? "type-1" : null;
+        var onlyElementDescendants = testBucket != null && (testBucket.StartsWith(BucketConstants.NamePrefix) || testBucket == BucketConstants.Type1);
+        _descendantBucket = onlyElementDescendants ? BucketConstants.Type1 : null;
     }
 
     private static Iterator<TNode> CreateChildGenerator(TNode node, IDomFacade<TNode> domFacade, string? bucket)

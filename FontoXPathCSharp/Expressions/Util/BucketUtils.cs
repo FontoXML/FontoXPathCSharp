@@ -2,13 +2,23 @@ using FontoXPathCSharp.DomFacade;
 
 namespace FontoXPathCSharp.Expressions.Util;
 
+public static class BucketConstants
+{
+    public const string Type1 = "type-1";
+    public const string Type2 = "type-2";
+    public const string Type1OrType2 = "type-1-or-type-2";
+    public const string Name = "name";
+    public const string NamePrefix = "name-";
+    public const string TypePrefix = "type-";
+    public const string Empty = "empty";
+}
 public class BucketUtils
 {
     private static readonly IReadOnlyDictionary<string, string[]> SubBucketsByBucket = new Dictionary<string, string[]>
     {
-        { "type-1-or-type-2", new[] { "name", "type-1", "type-2" } },
-        { "type-1", new[] { "name" } },
-        { "type-2", new[] { "name" } }
+        { BucketConstants.Type1OrType2, new[] { BucketConstants.Name, BucketConstants.Type1, BucketConstants.Type2 } },
+        { BucketConstants.Type1, new[] { BucketConstants.Name } },
+        { BucketConstants.Type2, new[] { BucketConstants.Name } },
     };
 
     // TODO: Think of a better way to do this rather than with string compares.
@@ -31,15 +41,15 @@ public class BucketUtils
         };
     }
 
-    public static string[] CreateBuckets(NodeType nodeType, string? localName)
+    private static string[] CreateBuckets(NodeType nodeType, string? localName)
     {
         var buckets = new List<string>();
 
-        if (nodeType == NodeType.Attribute || nodeType == NodeType.Element) buckets.Add("type-1-or-type-2");
+        if (nodeType is NodeType.Attribute or NodeType.Element) buckets.Add(BucketConstants.Type1OrType2);
 
-        buckets.Add($"type-{GetBucketTypeId(nodeType)}");
+        buckets.Add(BucketConstants.TypePrefix +GetBucketTypeId(nodeType));
 
-        if (localName != null) buckets.Add($"name-${localName}");
+        if (localName != null) buckets.Add(BucketConstants.NamePrefix + localName);
 
         return buckets.ToArray();
     }
@@ -49,7 +59,7 @@ public class BucketUtils
         var nodeType = domFacade.GetNodeType(node);
         string? localName = null;
 
-        if (nodeType == NodeType.Attribute || nodeType == NodeType.Element) localName = domFacade.GetLocalName(node);
+        if (nodeType is NodeType.Attribute or NodeType.Element) localName = domFacade.GetLocalName(node);
 
         return CreateBuckets(nodeType, localName);
     }
@@ -62,8 +72,8 @@ public class BucketUtils
         // Same bucket is same
         if (bucket1 == bucket2) return bucket1;
         // Find the more specific one, given that the buckets are not equal
-        var type1 = bucket1.StartsWith("name-") ? "name" : bucket1;
-        var type2 = bucket2.StartsWith("name-") ? "name" : bucket2;
+        var type1 = bucket1.StartsWith(BucketConstants.NamePrefix) ? BucketConstants.Name : bucket1;
+        var type2 = bucket2.StartsWith(BucketConstants.NamePrefix) ? BucketConstants.Name : bucket2;
         if (SubBucketsByBucket.ContainsKey(type1) &&
             SubBucketsByBucket[type1].Contains(type2)) // bucket 2 is more specific
             return bucket2;
@@ -72,6 +82,6 @@ public class BucketUtils
             return bucket1;
 
         // Expression will never match any nodes
-        return "empty";
+        return BucketConstants.Empty;
     }
 }

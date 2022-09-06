@@ -31,8 +31,8 @@ public class KindTest<TNode> : AbstractTestExpression<TNode>
         return _nodeType == domFacade.GetNodeType(node);
     }
 
-    public override string? GetBucket()
+    public override string GetBucket()
     {
-        return $"type-{BucketUtils.GetBucketTypeId(_nodeType)}";
+        return BucketConstants.TypePrefix + BucketUtils.GetBucketTypeId(_nodeType);
     }
 }

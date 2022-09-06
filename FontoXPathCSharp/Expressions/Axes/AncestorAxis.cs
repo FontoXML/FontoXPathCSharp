@@ -1,4 +1,5 @@
 using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
@@ -40,9 +41,9 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode>
 
         var ancestorExpressionBucket = _ancestorExpression.GetBucket();
         var onlyElementAncestors = ancestorExpressionBucket != null &&
-                                   (ancestorExpressionBucket.StartsWith("name-") ||
-                                    ancestorExpressionBucket == "type-1");
-        var ancestorAxisBucket = onlyElementAncestors ? "type-1" : null;
+                                   (ancestorExpressionBucket.StartsWith(BucketConstants.NamePrefix) ||
+                                    ancestorExpressionBucket == BucketConstants.Type1);
+        var ancestorAxisBucket = onlyElementAncestors ? BucketConstants.Type1 : null;
 
         return SequenceFactory
             .CreateFromIterator(

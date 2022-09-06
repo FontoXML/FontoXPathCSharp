@@ -72,10 +72,10 @@ public class NameTest<TNode> : AbstractTestExpression<TNode> where TNode : notnu
     {
         if (_name.LocalName == "*")
         {
-            if (_kind == null) return "type-1-or-type-2";
-            return $"type-{BucketUtils.GetBucketTypeId((NodeType)_kind)}";
+            if (_kind == null) return BucketConstants.Type1OrType2;
+            return BucketConstants.TypePrefix + BucketUtils.GetBucketTypeId((NodeType)_kind);
         }
 
-        return $"name-{_name.LocalName}";
+        return BucketConstants.NamePrefix + _name.LocalName;
     }
 }
