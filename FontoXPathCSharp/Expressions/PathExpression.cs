@@ -7,7 +7,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class PathExpression<TNode> : AbstractExpression<TNode>
+public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly bool _requireSortedResults;
     private readonly AbstractExpression<TNode>[] _stepExpressions;

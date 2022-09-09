@@ -11,7 +11,14 @@ public enum SpecificityKind
 
 public class Specificity : IComparable<Specificity>
 {
-    private static readonly SpecificityKind[] SpecificityDimensions = Enum.GetValues<SpecificityKind>();
+    private static readonly SpecificityKind[] SpecificityDimensions =
+    {
+        SpecificityKind.External,
+        SpecificityKind.Attribute,
+        SpecificityKind.NodeName,
+        SpecificityKind.NodeType,
+        SpecificityKind.Universal
+    };
 
     private readonly Dictionary<SpecificityKind, int> _counts;
 
