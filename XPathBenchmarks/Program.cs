@@ -69,8 +69,10 @@ public class BooleanExpressionBenchmark
 [MemoryDiagnoser]
 public class SimpleExpressionBenchmark
 {
-    private static readonly AbstractExpression<XmlNode> Expr = Helper.CompileExpression("self::p");
-    private static readonly XPathExpression CompiledExpression = XPathExpression.Compile("self::p");
+    private const string Selector = "self::p";
+
+    private static readonly AbstractExpression<XmlNode> Expr = Helper.CompileExpression(Selector);
+    private static readonly XPathExpression CompiledExpression = XPathExpression.Compile(Selector);
     private readonly DomFacade<XmlNode> _domFacade = new(new XmlNodeDomFacade());
     private readonly XmlNode _source;
 
@@ -85,7 +87,90 @@ public class SimpleExpressionBenchmark
     public object BuiltIn_Evaluate()
     {
         var navigator = _source.CreateNavigator()!;
-        return navigator.Evaluate("self::p");
+        return navigator.Evaluate(Selector);
+    }
+
+    [Benchmark]
+    public object BuiltIn_Compiled()
+    {
+        var navigator = _source.CreateNavigator()!;
+        return navigator.Evaluate(CompiledExpression);
+    }
+
+    [Benchmark]
+    public object FontoXPath()
+    {
+        return Expr.Evaluate(
+            new DynamicContext(
+                new NodeValue<XmlNode>(_source, _domFacade),
+                0,
+                SequenceFactory.CreateEmpty()),
+            new ExecutionParameters<XmlNode>(false, false, _domFacade, _source));
+    }
+}
+
+public class AttributeBenchmark
+{
+    private const string Selector = "self::p[@class='title']";
+    private static readonly AbstractExpression<XmlNode> Expr = Helper.CompileExpression(Selector);
+    private static readonly XPathExpression CompiledExpression = XPathExpression.Compile(Selector);
+    private readonly DomFacade<XmlNode> _domFacade = new(new XmlNodeDomFacade());
+    private readonly XmlNode _source;
+
+    public AttributeBenchmark()
+    {
+        var doc = new XmlDocument();
+        doc.LoadXml("<p class='title'></p>");
+        _source = doc.DocumentElement!;
+    }
+
+    [Benchmark(Baseline = true)]
+    public object BuiltIn_Evaluate()
+    {
+        var navigator = _source.CreateNavigator()!;
+        return navigator.Evaluate(Selector);
+    }
+
+    [Benchmark]
+    public object BuiltIn_Compiled()
+    {
+        var navigator = _source.CreateNavigator()!;
+        return navigator.Evaluate(CompiledExpression);
+    }
+
+    [Benchmark]
+    public object FontoXPath()
+    {
+        return Expr.Evaluate(
+            new DynamicContext(
+                new NodeValue<XmlNode>(_source, _domFacade),
+                0,
+                SequenceFactory.CreateEmpty()),
+            new ExecutionParameters<XmlNode>(false, false, _domFacade, _source));
+    }
+}
+
+
+public class PropertyBenchmark
+{
+    private const string Selector = "self::p[parent::sec]";
+    private static readonly AbstractExpression<XmlNode> Expr = Helper.CompileExpression(Selector);
+    private static readonly XPathExpression CompiledExpression = XPathExpression.Compile(Selector);
+    private readonly DomFacade<XmlNode> _domFacade = new(new XmlNodeDomFacade());
+    private readonly XmlNode _source;
+
+    public PropertyBenchmark()
+    {
+        var doc = new XmlDocument();
+        doc.LoadXml("<p><q title='q'>r</q><sec>q</sec></p>");
+        _source = doc.DocumentElement!;
+    }
+
+    [Benchmark(Baseline = true)]
+    public object BuiltIn_Evaluate()
+    {
+        var navigator = _source.CreateNavigator()!;
+        return navigator.Evaluate(Selector);
     }
 
     [Benchmark]
