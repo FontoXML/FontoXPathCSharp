@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Xml;
 using FontoXPathCSharp;
@@ -11,10 +12,10 @@ namespace XPathTest.UnitTests;
 
 public class TestMisc
 {
-    private readonly ITestOutputHelper _testOutputHelper;
     private static readonly XmlDocument XmlNodeEmptyContext;
     private static readonly XmlNodeDomFacade XmlNodeDomFacade;
     private static readonly Options<XmlNode> XmlNodeOptions;
+    private readonly ITestOutputHelper _testOutputHelper;
 
     static TestMisc()
     {
@@ -54,15 +55,33 @@ public class TestMisc
 
 
     [Fact]
-    public void OrderTest()
+    public void TestPathOrder()
     {
         var document = new XmlDocument();
         document.LoadXml("<x><a/><b/><c/></x>");
-        XmlNode nodeContext = document.DocumentElement!;
-        _testOutputHelper.WriteLine(document.OuterXml);
-        var res = Evaluate.EvaluateXPathToNodes("(b,a,c,a)/self::*", nodeContext, XmlNodeDomFacade, XmlNodeOptions);
-        _testOutputHelper.WriteLine(res.Count().ToString());
-        _testOutputHelper.WriteLine($"[{string.Join(", ", res.Select(v => v.Name))}]");
+        var res = Evaluate
+            .EvaluateXPathToNodes("(b,a,c,a)/self::*", document.DocumentElement!, XmlNodeDomFacade, XmlNodeOptions)
+            .Select(node => node.Name)
+            .ToArray();
+        var expected = new[] { "a", "a", "b", "c" };
+        Assert.Equal(res, expected);
     }
 
+    [Fact]
+    public void TestExpressionCache()
+    {
+        var selector = string.Concat(Enumerable.Repeat("false() or ", 1000)) + "true()";
+        
+        var sw = new Stopwatch();
+        sw.Start();
+        Evaluate.EvaluateXPathToNodes(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        var uncached = sw.Elapsed;
+        sw.Restart();
+        Evaluate.EvaluateXPathToNodes(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        var cached = sw.Elapsed;
+        sw.Stop();
+        
+        _testOutputHelper.WriteLine($"Uncached: {uncached.TotalSeconds}s, Cached: {cached.TotalSeconds}s");
+        Assert.True(cached < uncached);
+    }
 }
