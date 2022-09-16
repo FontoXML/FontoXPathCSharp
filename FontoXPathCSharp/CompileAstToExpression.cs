@@ -304,6 +304,7 @@ public static class CompileAstToExpression<TNode>
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
             AstNodeName.DecimalConstantExpr => CompileDecimalConstantExpr(ast),
             AstNodeName.DoubleConstantExpr => CompileDoubleConstantExpr(ast),
+            AstNodeName.VarRef => CompileVarRef(ast),
             AstNodeName.FlworExpr => CompileFlworExpr(ast, options),
             AstNodeName.StringConcatenateOp => CompileStringConcatenateExpr(ast, options),
             AstNodeName.EqualOp
@@ -337,6 +338,13 @@ public static class CompileAstToExpression<TNode>
             AstNodeName.InstanceOfExpr => CompileInstanceOfExpr(ast, options),
             _ => CompileTestExpression(ast)
         };
+    }
+
+    private static AbstractExpression<TNode> CompileVarRef(Ast ast)
+    {
+        var qualifiedName = ast.GetFirstChild(AstNodeName.Name)?.GetQName();
+        if (qualifiedName == null) throw new Exception("Variable reference does not have a QName associated with it");
+        return new VarRef<TNode>(qualifiedName);
     }
 
     private static AbstractExpression<TNode> CompileFlworExpr(Ast ast, CompilationOptions options)

@@ -7,7 +7,6 @@ public class LetExpression<TNode> : FlworExpression<TNode>
 {
     public readonly AbstractExpression<TNode> BindingSequence;
     public readonly QName RangeVariable;
-    public string? VariableBinding {get ; protected set; }
 
     public LetExpression(QName rangeVariable,
         AbstractExpression<TNode> bindingSequence,
@@ -22,13 +21,16 @@ public class LetExpression<TNode> : FlworExpression<TNode>
             ), returnExpression
         )
     {
-        if (rangeVariable.Prefix != null || rangeVariable.NamespaceUri != null)
-            throw new NotImplementedException("Not implemented: let expressions with namespace usage.");
+        if (!string.IsNullOrEmpty(rangeVariable.Prefix) || !string.IsNullOrEmpty(rangeVariable.NamespaceUri))
+            throw new NotImplementedException("Not implemented: let expressions with namespace usage." +
+                                              $"Prefix: {rangeVariable.Prefix}, Namespace: {rangeVariable.NamespaceUri}");
 
         RangeVariable = rangeVariable;
         BindingSequence = bindingSequence;
         VariableBinding = null;
     }
+
+    public string? VariableBinding { get; protected set; }
 
     public override ISequence DoFlworExpression(
         DynamicContext dynamicContext,
@@ -80,6 +82,7 @@ public class LetExpression<TNode> : FlworExpression<TNode>
 
         IsUpdating = ReturnExpression.IsUpdating;
 
-        if (BindingSequence.IsUpdating) throw new XPathException("XUST0001","Can not execute an updating expression in a non-updating context.");
+        if (BindingSequence.IsUpdating)
+            throw new XPathException("XUST0001", "Can not execute an updating expression in a non-updating context.");
     }
 }
