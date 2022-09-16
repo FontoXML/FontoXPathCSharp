@@ -1000,7 +1000,7 @@ public static class XPathParser
     private static ParseResult<Ast> ExprSingle(string input, int offset)
     {
         // TODO: wrap in stacktrace
-        return Or(IfExpr, OrExpr, FlworExpr)(input, offset);
+        return Or(FlworExpr, IfExpr, OrExpr)(input, offset);
     }
 
     private static ParseFunc<Ast> Expr()

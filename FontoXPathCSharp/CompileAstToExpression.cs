@@ -300,6 +300,7 @@ public static class CompileAstToExpression<TNode>
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
             AstNodeName.DecimalConstantExpr => CompileDecimalConstantExpr(ast),
             AstNodeName.DoubleConstantExpr => CompileDoubleConstantExpr(ast),
+            AstNodeName.FlworExpr => CompileFlworExpr(ast, options),
             AstNodeName.StringConcatenateOp => CompileStringConcatenateExpr(ast, options),
             AstNodeName.EqualOp
                 or AstNodeName.NotEqualOp
@@ -332,6 +333,86 @@ public static class CompileAstToExpression<TNode>
             AstNodeName.InstanceOfExpr => CompileInstanceOfExpr(ast, options),
             _ => CompileTestExpression(ast)
         };
+    }
+
+    private static AbstractExpression<TNode> CompileFlworExpr(Ast ast, CompilationOptions options)
+    {
+        var clausesAndReturnClause = ast.GetChildren(AstNodeName.All).ToArray();
+        var returnClauseExpression = clausesAndReturnClause.Last().GetFirstChild();
+
+        // Return intermediate and initial clauses handling
+        var clauses = clausesAndReturnClause[..^1].ToList();
+
+        // We have to check if there are any intermediate clauses before compiling them.
+        if (clauses.Count > 1) {
+            if (!options.AllowXQuery) {
+                throw new XPathException("XPST0003" , "Use of XQuery FLWOR expressions in XPath is no allowed");
+            }
+        }
+
+        //Originally this was a reduceRight
+        clauses.Reverse();
+        return clauses.Aggregate(
+            CompileAst(returnClauseExpression, options),
+            (returnOfPreviousExpression, flworExpressionClause) =>
+            {
+                return flworExpressionClause.Name switch
+                {
+                    AstNodeName.ForClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    // return forClause(
+                    //     flworExpressionClause,
+                    //     compilationOptions,
+                    //     returnOfPreviousExpression
+                    // );
+                    AstNodeName.LetClause => LetClause(flworExpressionClause, options,
+                        returnOfPreviousExpression),
+                    AstNodeName.WhereClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    // return whereClause(
+                    //     flworExpressionClause,
+                    //     compilationOptions,
+                    //     returnOfPreviousExpression
+                    // );
+                    AstNodeName.WindowClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    AstNodeName.GroupByClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    AstNodeName.OrderByClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    // return orderByClause(
+                    //     flworExpressionClause,
+                    //     compilationOptions,
+                    //     returnOfPreviousExpression
+                    // );
+                    AstNodeName.CountClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    _ => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not supported in a flwor expression")
+                };
+            }
+        );
+    }
+
+    private static AbstractExpression<TNode> LetClause(
+        Ast expressionClause, 
+        CompilationOptions compilationOptions, 
+        AbstractExpression<TNode> returnClauseExpression)
+    {
+        var letClauseItems = expressionClause.GetChildren(AstNodeName.All).ToArray();
+        var returnExpr = returnClauseExpression;
+
+        for (var i = letClauseItems.Length - 1; i >= 0; --i) {
+            var letClauseItem = letClauseItems[i];
+            var expression = letClauseItem.FollowPath(AstNodeName.LetExpr, AstNodeName.All);
+            returnExpr = new LetExpression(
+                letClauseItem.FollowPath(AstNodeName.TypedVariableBinding, AstNodeName.VarName).GetQName(),
+                CompileAst(expression, DisallowUpdating(compilationOptions)),
+                returnExpr
+                );
+        }
+
+        return returnExpr;
     }
 
     private static AbstractExpression<TNode> CompileInstanceOfExpr(Ast ast, CompilationOptions options)

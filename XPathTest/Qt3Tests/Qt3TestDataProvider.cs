@@ -49,8 +49,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 
     public IEnumerator<object[]> GetEnumerator()
     {
-        // return (IEnumerator<object[]>)Array.Empty<object[]>().GetEnumerator();
-
+        return Array.Empty<object[]>().Cast<object[]>().GetEnumerator();
         if (TestFileSystem.FileExists("runnableTestSets.csv"))
             File.ReadLines("../../../assets/runnableTestSets.csv")
                 .Select(line => line.Split(','))

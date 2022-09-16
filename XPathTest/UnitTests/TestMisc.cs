@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Xml;
@@ -13,6 +12,7 @@ namespace XPathTest.UnitTests;
 public class TestMisc
 {
     private static readonly XmlDocument XmlNodeEmptyContext;
+    private static readonly XmlDocument XmlSimpleDocument;
     private static readonly XmlNodeDomFacade XmlNodeDomFacade;
     private static readonly Options<XmlNode> XmlNodeOptions;
     private readonly ITestOutputHelper _testOutputHelper;
@@ -20,6 +20,8 @@ public class TestMisc
     static TestMisc()
     {
         XmlNodeEmptyContext = new XmlDocument();
+        XmlSimpleDocument = new XmlDocument();
+        XmlSimpleDocument.LoadXml("<p />");
         XmlNodeDomFacade = new XmlNodeDomFacade();
         XmlNodeOptions = new Options<XmlNode>(_ => null);
     }
@@ -71,7 +73,7 @@ public class TestMisc
     public void TestExpressionCache()
     {
         var selector = string.Concat(Enumerable.Repeat("false() or ", 1000)) + "true()";
-        
+
         var sw = new Stopwatch();
         sw.Start();
         Evaluate.EvaluateXPathToNodes(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
@@ -80,7 +82,7 @@ public class TestMisc
         Evaluate.EvaluateXPathToNodes(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
         var cached = sw.Elapsed;
         sw.Stop();
-        
+
         _testOutputHelper.WriteLine($"Uncached: {uncached.TotalSeconds}s, Cached: {cached.TotalSeconds}s");
         Assert.True(cached < uncached);
     }

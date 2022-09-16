@@ -139,7 +139,9 @@ public enum AstNodeName
     OrderingKind,
     EmptyOrderingMode,
     ReturnClause,
-    XStackTrace
+    XStackTrace,
+    WindowClause,
+    CountClause
 }
 
 public class Ast
