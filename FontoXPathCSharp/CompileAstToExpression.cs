@@ -97,14 +97,16 @@ public static class CompileAstToExpression<TNode>
             var postFixExpressions = new List<(string Type, AbstractExpression<TNode> Postfix)>();
 
             string? intersectingBucket = null;
-            foreach (var child in children) {
-                switch (child.Name) {
+            foreach (var child in children)
+                switch (child.Name)
+                {
                     case AstNodeName.Lookup:
                         postFixExpressions.Add(("lookup", CompileLookup(child, options)));
                         break;
                     case AstNodeName.Predicate:
                     case AstNodeName.Predicates:
-                        foreach (var childPredicate in child.GetChildren(AstNodeName.All)) {
+                        foreach (var childPredicate in child.GetChildren(AstNodeName.All))
+                        {
                             var predicateExpression = CompileAst(
                                 childPredicate,
                                 DisallowUpdating(options)
@@ -113,12 +115,12 @@ public static class CompileAstToExpression<TNode>
                                 intersectingBucket,
                                 predicateExpression.GetBucket()
                             );
-                        
+
                             postFixExpressions.Add(("predicate", predicateExpression));
                         }
+
                         break;
                 }
-            }
 
             AbstractExpression<TNode> stepExpression;
 
@@ -185,10 +187,12 @@ public static class CompileAstToExpression<TNode>
 
     private static AbstractExpression<TNode> CompileLookup(Ast ast, CompilationOptions options)
     {
-        var keyExpression = ast.GetFirstChild(AstNodeName.All);
-        switch (keyExpression.Name) {
+        var keyExpression = ast.GetFirstChild();
+        switch (keyExpression.Name)
+        {
             case AstNodeName.NcName:
-                return new Literal<TNode>(keyExpression.TextContent, new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
+                return new Literal<TNode>(keyExpression.TextContent,
+                    new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
             case AstNodeName.Star:
                 throw new NotImplementedException("Star in Lookup is not implemented yet.");
             default:
@@ -344,11 +348,9 @@ public static class CompileAstToExpression<TNode>
         var clauses = clausesAndReturnClause[..^1].ToList();
 
         // We have to check if there are any intermediate clauses before compiling them.
-        if (clauses.Count > 1) {
-            if (!options.AllowXQuery) {
-                throw new XPathException("XPST0003" , "Use of XQuery FLWOR expressions in XPath is no allowed");
-            }
-        }
+        if (clauses.Count > 1)
+            if (!options.AllowXQuery)
+                throw new XPathException("XPST0003", "Use of XQuery FLWOR expressions in XPath is no allowed");
 
         //Originally this was a reduceRight
         clauses.Reverse();
@@ -395,21 +397,21 @@ public static class CompileAstToExpression<TNode>
     }
 
     private static AbstractExpression<TNode> LetClause(
-        Ast expressionClause, 
-        CompilationOptions compilationOptions, 
+        Ast expressionClause,
+        CompilationOptions compilationOptions,
         AbstractExpression<TNode> returnClauseExpression)
     {
         var letClauseItems = expressionClause.GetChildren(AstNodeName.All).ToArray();
         var returnExpr = returnClauseExpression;
 
-        for (var i = letClauseItems.Length - 1; i >= 0; --i) {
+        for (var i = letClauseItems.Length - 1; i >= 0; --i)
+        {
             var letClauseItem = letClauseItems[i];
             var expression = letClauseItem.FollowPath(AstNodeName.LetExpr, AstNodeName.All);
-            returnExpr = new LetExpression(
+            returnExpr = new LetExpression<TNode>(
                 letClauseItem.FollowPath(AstNodeName.TypedVariableBinding, AstNodeName.VarName).GetQName(),
                 CompileAst(expression, DisallowUpdating(compilationOptions)),
-                returnExpr
-                );
+                returnExpr);
         }
 
         return returnExpr;

@@ -62,7 +62,12 @@ public class BooleanExpressionBenchmark
     [Benchmark]
     public object FontoXPath()
     {
-        return Expr.Evaluate(new DynamicContext(null, 0, SequenceFactory.CreateEmpty()), null);
+        return Expr.Evaluate(new DynamicContext(
+                null,
+                0,
+                SequenceFactory.CreateEmpty(),
+                new Dictionary<string, Func<ISequence>>()),
+            null);
     }
 }
 
@@ -104,7 +109,7 @@ public class SimpleExpressionBenchmark
             new DynamicContext(
                 new NodeValue<XmlNode>(_source, _domFacade),
                 0,
-                SequenceFactory.CreateEmpty()),
+                SequenceFactory.CreateEmpty(), new Dictionary<string, Func<ISequence>>()),
             new ExecutionParameters<XmlNode>(false, false, _domFacade, _source));
     }
 }
@@ -145,7 +150,7 @@ public class AttributeBenchmark
             new DynamicContext(
                 new NodeValue<XmlNode>(_source, _domFacade),
                 0,
-                SequenceFactory.CreateEmpty()),
+                SequenceFactory.CreateEmpty(), new Dictionary<string, Func<ISequence>>()),
             new ExecutionParameters<XmlNode>(false, false, _domFacade, _source));
     }
 }
@@ -187,7 +192,7 @@ public class PropertyBenchmark
             new DynamicContext(
                 new NodeValue<XmlNode>(_source, _domFacade),
                 0,
-                SequenceFactory.CreateEmpty()),
+                SequenceFactory.CreateEmpty(), new Dictionary<string, Func<ISequence>>()),
             new ExecutionParameters<XmlNode>(false, false, _domFacade, _source));
     }
 }

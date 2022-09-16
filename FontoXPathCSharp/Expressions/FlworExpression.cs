@@ -37,7 +37,7 @@ public abstract class FlworExpression<TNode> : AbstractExpression<TNode>
             dynamicContextIterator =>
             {
                 if (ReturnExpression is FlworExpression<TNode> expression)
-                    // We are in a FLWOR, the return is also a FLWOR, keep piping dynamiccontext generators
+                    // We are in a FLWOR, the return is also a FLWOR, keep piping dynamicContext generators
                     return expression.DoFlworExpressionInternal(
                         dynamicContext!,
                         dynamicContextIterator,
