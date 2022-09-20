@@ -10,6 +10,7 @@ using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
 using XPathTest.Qt3Tests;
 
+
 namespace XPathTest;
 
 public class Qt3TestDataXmlNode : Qt3TestDataProvider<XmlNode>
@@ -52,34 +53,38 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
         // return (IEnumerator<object[]>)Array.Empty<object[]>().GetEnumerator();
 
         if (TestFileSystem.FileExists("runnableTestSets.csv"))
-            File.ReadLines("../../../assets/runnableTestSets.csv")
-                .Select(line => line.Split(','))
-                .DistinctBy(l => l[0])
-                .Where(l => ParseBooleanNoFail(l[1]))
-                .Select(l => l[0])
-                .ToList()
-                .ForEach(x => _shouldRunTestByName.Add(x));
 
-        // Addinf failed test cases that come from parse errors to the ignore set.
-        if (TestFileSystem.FileExists("parseUnrunnableTestCases.csv"))
+			TestFileSystem.ReadFile("runnableTestSets.csv")
+				.Split(Environment.NewLine)
+				.Select(line => line.Split(','))
+				.DistinctBy(l => l[0])
+				.Where(l => l.Length > 1 && ParseBooleanNoFail(l[1]))
+				.Select(l => l[0])
+				.ToList()
+				.ForEach(x => _shouldRunTestByName.Add(x));
+
+        if (Environment.GetEnvironmentVariable("REGENERATE") == "TRUE")
         {
-            var parseErrorCases = TestFileSystem.ReadFile("parseUnrunnableTestCases.csv")
-                .Split(Environment.NewLine)
-                .Select(e => e.Split(','))
-                .Where(e => e.Length > 1)
-                .ToDictionary(
-                    e => e[0],
-                    e => e[1]
-                );
+            // Addinf failed test cases that come from parse errors to the ignore set.
+            if (TestFileSystem.FileExists("parseUnrunnableTestCases.csv"))
+            {
+                TestFileSystem.ReadFile("parseUnrunnableTestCases.csv")
+                    .Split(Environment.NewLine)
+                    .Select(e => e.Split(','))
+                    .Where(e => e.Length > 1)
+                    .ToList()
+                    .ForEach(x => _unrunnableTestCasesByName.Add(x[0]));
+            }
 
-            parseErrorCases.Aggregate(
-                _unrunnableTestCasesByName,
-                (acc, val) =>
-                {
-                    acc.Add(val.Key);
-                    return acc;
-                }
-            );
+            if (TestFileSystem.FileExists("unrunnableTestCases.csv"))
+            {
+                TestFileSystem.ReadFile("unrunnableTestCases.csv")
+                    .Split(Environment.NewLine)
+                    .Select(e => e.Split(','))
+                    .Where(e => e.Length > 1)
+                    .ToList()
+                    .ForEach(x => _unrunnableTestCasesByName.Add(x[0]));
+            }
         }
 
         var qt3Tests = _nodeUtils.LoadFileToXmlNode("catalog.xml");
@@ -105,8 +110,12 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
             var testCasesReturn = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
             {
                 var testName = GetTestName(testCase);
-                if (!_unrunnableTestCasesByName.Contains(testName))
-                    try
+                if (_unrunnableTestCasesByName.Contains(testName))
+                {
+                    Console.WriteLine("Skipping over " + testName);
+                    return testCases;
+                }
+                try
                     {
                         var name = GetTestName(testCase);
                         var description = GetTestDescription(testSetName, name, testCase);

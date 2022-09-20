@@ -14,7 +14,7 @@ public class XDocumentsByPathCache : ResourceCache<string, XObject>
 
     protected override XObject? Load(string filename)
     {
-        var content = TestFileSystem.ReadFile($"QT3TS/{filename}").Replace("\r\n", "\n");
+        var content = TestFileSystem.ReadFile($"qt3tests/{filename}").Replace("\r\n", "\n");
 
         if (filename.EndsWith(".out"))
         {
