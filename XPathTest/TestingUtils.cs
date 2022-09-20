@@ -35,10 +35,13 @@ public class TestingUtils
     public static void WriteKvpCollectionToDisk<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> dict,
         string fileName)
     {
-        TestFileSystem.WriteFile(fileName, string.Join(
-            Environment.NewLine,
-            dict.Select(d => $"{d.Key},{d.Value}")
-        ));
+        TestFileSystem.WriteFile(
+            fileName,
+			string.Join(
+				Environment.NewLine,
+				dict.Select(d => $"{d.Key},{d.Value}")
+            ),
+			true);
     }
 
     /**
