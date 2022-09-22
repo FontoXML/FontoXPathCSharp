@@ -11,7 +11,6 @@ namespace FontoXPathCSharp;
 
 public record StaticCompilationResult<TNode>(StaticContext<TNode> StaticContext, AbstractExpression<TNode> Expression);
 
-
 public static class CompileXPath<TSelector, TNode> where TSelector : notnull
 {
     private static ExpressionResult CreateExpressionFromSource(

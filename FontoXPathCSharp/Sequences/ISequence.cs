@@ -93,4 +93,34 @@ public interface ISequence : IEnumerable<AbstractValue>
             }
         );
     }
+
+    public static Func<ISequence> CreateDoublyIterableSequence(ISequence sequence)
+    {
+        var savedValues = new List<IteratorResult<AbstractValue>>();
+        var backingIterator = sequence.GetValue();
+        return () =>
+        {
+            var i = 0;
+            return SequenceFactory.CreateFromIterator(
+                _ =>
+                {
+                    if (i < savedValues.Count) return savedValues[i++];
+                    var val = backingIterator(IterationHint.None);
+                    if (val.IsDone) return val;
+
+                    if (i < savedValues.Count)
+                    {
+                        savedValues[i++] = val;
+                    }
+                    else
+                    {
+                        savedValues.Add(val);
+                        i++;
+                    }
+
+                    return val;
+                }
+            );
+        };
+    }
 }

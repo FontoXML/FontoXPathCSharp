@@ -8,33 +8,34 @@ namespace FontoXPathCSharp;
 public class StaticContext<TNode> : AbstractContext<TNode>
 {
     private readonly AbstractContext<TNode> _parentContext;
+    private readonly List<Dictionary<string, string>> _registeredNamespaceUriByPrefix;
 
-    private readonly Dictionary<string, string>[] _registeredNamespaceUriByPrefix;
-
-    private readonly int _scopeDepth;
     private Dictionary<string, FunctionProperties<TNode>> _registeredFunctionsByHash;
+    private int _scopeCount;
 
-    public StaticContext(AbstractContext<TNode> parentContext)
+    private int _scopeDepth;
+
+
+    public StaticContext(AbstractContext<TNode>? parentContext)
     {
         _parentContext = parentContext;
 
         _scopeDepth = 0;
+        _scopeCount = 0;
 
-        _registeredNamespaceUriByPrefix = new[]
-        {
-            new Dictionary<string, string>()
-        };
+        _registeredNamespaceUriByPrefix = new List<Dictionary<string, string>>();
 
         _registeredFunctionsByHash = new Dictionary<string, FunctionProperties<TNode>>();
-
         registeredDefaultFunctionNamespaceURI = null;
 
-        // NOTE: not sure if these default values are correct   
-        registeredVariableDeclarationByHashKey = parentContext?.RegisteredVariableDeclarationByHashKey ??
-                                                 new Dictionary<string,
-                                                     Func<DynamicContext, ExecutionParameters<TNode>, ISequence>>();
+        registeredVariableDeclarationByHashKey =
+            parentContext != null
+                ? parentContext.RegisteredVariableDeclarationByHashKey
+                : new Dictionary<string, Func<DynamicContext, ExecutionParameters<TNode>, ISequence>>();
         registeredVariableBindingByHashKey =
-            parentContext?.RegisteredVariableBindingByHashKey ?? new Dictionary<string, string>();
+            parentContext != null
+                ? parentContext.RegisteredVariableBindingByHashKey
+                : new List<Dictionary<string, string>>();
 
         // TODO: this should not be done here but lets populate the static context with the default functions right here for now
         foreach (var function in BuiltInFunctions<TNode>.Declarations)
@@ -75,15 +76,20 @@ public class StaticContext<TNode> : AbstractContext<TNode>
         return contextAtThisPoint;
     }
 
-    private static string GetSignatureHash(string? namespaceUri, string localName, int arity)
+    private static string CreateHashKey(string? namespaceUri, string localName)
     {
-        return $"Q{{{namespaceUri ?? string.Empty}}}{localName}~{arity}";
+        return $"Q{{{namespaceUri ?? string.Empty}}}{localName}";
+    }
+
+    private static string CreateSignatureHash(string? namespaceUri, string localName, int arity)
+    {
+        return CreateHashKey(namespaceUri, localName) + "~" + arity;
     }
 
     public override FunctionProperties<TNode>? LookupFunction(string? namespaceUri, string localName, int arity,
         bool skipExternal = false)
     {
-        var hashKey = GetSignatureHash(namespaceUri, localName, arity);
+        var hashKey = CreateSignatureHash(namespaceUri, localName, arity);
 
         if (_registeredFunctionsByHash.ContainsKey(hashKey))
         {
@@ -140,11 +146,48 @@ public class StaticContext<TNode> : AbstractContext<TNode>
 
     public void RegisterFunctionDefinition(FunctionProperties<TNode> properties)
     {
-        var hashKey = GetSignatureHash(properties.NamespaceUri, properties.LocalName, properties.Arity);
+        var hashKey = CreateSignatureHash(properties.NamespaceUri, properties.LocalName, properties.Arity);
 
         if (_registeredFunctionsByHash.ContainsKey(hashKey))
             throw new XPathException("XQT0049", $"{properties.NamespaceUri} {properties.LocalName}");
 
         _registeredFunctionsByHash[hashKey] = properties;
+    }
+
+    public void IntroduceScope()
+    {
+        _scopeCount++;
+        _scopeDepth++;
+
+        _registeredNamespaceUriByPrefix.Add(new Dictionary<string, string>());
+        RegisteredVariableBindingByHashKey.Add(new Dictionary<string, string>());
+    }
+
+    public void RemoveScope()
+    {
+        _registeredNamespaceUriByPrefix.RemoveRange(_scopeDepth, _registeredNamespaceUriByPrefix.Count);
+        RegisteredVariableBindingByHashKey.RemoveRange(_scopeDepth, RegisteredVariableBindingByHashKey.Count);
+
+        _scopeDepth--;
+    }
+
+    public string RegisterVariable(string? namespaceUri, string localName)
+    {
+        var hash = CreateHashKey(namespaceUri ?? "", localName);
+        var registration = $"{hash}[{_scopeCount}]";
+        registeredVariableBindingByHashKey[_scopeDepth][hash] = registration;
+        return registration;
+    }
+
+    public IEnumerable<string> GetVariableBindings()
+    {
+        return RegisteredVariableDeclarationByHashKey.Keys;
+    }
+
+    public Func<DynamicContext, ExecutionParameters<TNode>, ISequence>? GetVariableDeclaration(string hashKey)
+    {
+        return RegisteredVariableDeclarationByHashKey.ContainsKey(hashKey)
+            ? RegisteredVariableDeclarationByHashKey[hashKey]
+            : null;
     }
 }

@@ -78,7 +78,37 @@ public class EvaluationContext<TSelector, TNode>
 
         var xmlSerializer = internalOptions.XmlSerializer;
 
-        DynamicContext = new DynamicContext(contextSequence.First(), 0, contextSequence);
+        var variableBindings = variables.Keys.Aggregate(
+            new Dictionary<string, Func<ISequence>>(),
+            (typedVariableByName, variableName) =>
+            {
+                var variable = variables[variableName];
+                // if (variable && IS_XPATH_VALUE_SYMBOL in variable) {
+                //     // If this symbol is present, the value has already undergone type conversion.
+                //     const castedObject = variable as TypedExternalValue;
+                //     typedVariableByName[generateGlobalVariableBindingName(variableName)] = () => {
+                //         return sequenceFactory.create(castedObject.convertedValue);
+                //     };
+                // } else {
+                //     typedVariableByName[generateGlobalVariableBindingName(variableName)] = () => {
+                //         // The value is not converted yet. Do it just in time.
+                //         return adaptJavaScriptValueToSequence(
+                //             wrappedDomFacade,
+                //             variables[variableName]
+                //         );
+                //     };
+                // }
+                return typedVariableByName;
+            }
+        );
+
+        var dynamicContext = new DynamicContext(
+            contextSequence.First(),
+            0,
+            contextSequence,
+            variableBindings
+        );
+
         ExecutionParameters = new ExecutionParameters<TNode>(
             compilationOptions.Debug,
             compilationOptions.DisableCache,
@@ -89,6 +119,15 @@ public class EvaluationContext<TSelector, TNode>
             internalOptions.Logger,
             xmlSerializer
         );
+
+        foreach (var binding in expressionAndStaticContext.StaticContext.GetVariableBindings())
+            if (!variableBindings.ContainsKey(binding))
+                variableBindings[binding] = () =>
+                    expressionAndStaticContext.StaticContext.GetVariableDeclaration(binding)(
+                        dynamicContext,
+                        ExecutionParameters
+                    );
+
         Expression = expressionAndStaticContext.Expression;
     }
 

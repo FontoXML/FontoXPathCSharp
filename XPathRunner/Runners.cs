@@ -32,8 +32,9 @@ public class Runners
             Environment.Exit(1);
             return new Ast(AstNodeName.All);
         });
-        _testOutputHelper.WriteLine($"Parsed query:\n{result}");
+        _testOutputHelper.WriteLine($"Parsed query: {result}");
     }
+
 
     // [Fact]
     // public void Qt3TestNodes()

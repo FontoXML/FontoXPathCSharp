@@ -97,14 +97,16 @@ public static class CompileAstToExpression<TNode>
             var postFixExpressions = new List<(string Type, AbstractExpression<TNode> Postfix)>();
 
             string? intersectingBucket = null;
-            foreach (var child in children) {
-                switch (child.Name) {
+            foreach (var child in children)
+                switch (child.Name)
+                {
                     case AstNodeName.Lookup:
                         postFixExpressions.Add(("lookup", CompileLookup(child, options)));
                         break;
                     case AstNodeName.Predicate:
                     case AstNodeName.Predicates:
-                        foreach (var childPredicate in child.GetChildren(AstNodeName.All)) {
+                        foreach (var childPredicate in child.GetChildren(AstNodeName.All))
+                        {
                             var predicateExpression = CompileAst(
                                 childPredicate,
                                 DisallowUpdating(options)
@@ -113,12 +115,12 @@ public static class CompileAstToExpression<TNode>
                                 intersectingBucket,
                                 predicateExpression.GetBucket()
                             );
-                        
+
                             postFixExpressions.Add(("predicate", predicateExpression));
                         }
+
                         break;
                 }
-            }
 
             AbstractExpression<TNode> stepExpression;
 
@@ -185,10 +187,12 @@ public static class CompileAstToExpression<TNode>
 
     private static AbstractExpression<TNode> CompileLookup(Ast ast, CompilationOptions options)
     {
-        var keyExpression = ast.GetFirstChild(AstNodeName.All);
-        switch (keyExpression.Name) {
+        var keyExpression = ast.GetFirstChild();
+        switch (keyExpression.Name)
+        {
             case AstNodeName.NcName:
-                return new Literal<TNode>(keyExpression.TextContent, new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
+                return new Literal<TNode>(keyExpression.TextContent,
+                    new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
             case AstNodeName.Star:
                 throw new NotImplementedException("Star in Lookup is not implemented yet.");
             default:
@@ -300,6 +304,8 @@ public static class CompileAstToExpression<TNode>
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
             AstNodeName.DecimalConstantExpr => CompileDecimalConstantExpr(ast),
             AstNodeName.DoubleConstantExpr => CompileDoubleConstantExpr(ast),
+            AstNodeName.VarRef => CompileVarRef(ast),
+            AstNodeName.FlworExpr => CompileFlworExpr(ast, options),
             AstNodeName.StringConcatenateOp => CompileStringConcatenateExpr(ast, options),
             AstNodeName.EqualOp
                 or AstNodeName.NotEqualOp
@@ -332,6 +338,91 @@ public static class CompileAstToExpression<TNode>
             AstNodeName.InstanceOfExpr => CompileInstanceOfExpr(ast, options),
             _ => CompileTestExpression(ast)
         };
+    }
+
+    private static AbstractExpression<TNode> CompileVarRef(Ast ast)
+    {
+        var qualifiedName = ast.GetFirstChild(AstNodeName.Name)?.GetQName();
+        if (qualifiedName == null) throw new Exception("Variable reference does not have a QName associated with it");
+        return new VarRef<TNode>(qualifiedName);
+    }
+
+    private static AbstractExpression<TNode> CompileFlworExpr(Ast ast, CompilationOptions options)
+    {
+        var clausesAndReturnClause = ast.GetChildren(AstNodeName.All).ToArray();
+        var returnClauseExpression = clausesAndReturnClause.Last().GetFirstChild();
+
+        // Return intermediate and initial clauses handling
+        var clauses = clausesAndReturnClause[..^1].ToList();
+
+        // We have to check if there are any intermediate clauses before compiling them.
+        if (clauses.Count > 1)
+            if (!options.AllowXQuery)
+                throw new XPathException("XPST0003", "Use of XQuery FLWOR expressions in XPath is no allowed");
+
+        //Originally this was a reduceRight
+        clauses.Reverse();
+        return clauses.Aggregate(
+            CompileAst(returnClauseExpression, options),
+            (returnOfPreviousExpression, flworExpressionClause) =>
+            {
+                return flworExpressionClause.Name switch
+                {
+                    AstNodeName.ForClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    // return forClause(
+                    //     flworExpressionClause,
+                    //     compilationOptions,
+                    //     returnOfPreviousExpression
+                    // );
+                    AstNodeName.LetClause => LetClause(flworExpressionClause, options,
+                        returnOfPreviousExpression),
+                    AstNodeName.WhereClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    // return whereClause(
+                    //     flworExpressionClause,
+                    //     compilationOptions,
+                    //     returnOfPreviousExpression
+                    // );
+                    AstNodeName.WindowClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    AstNodeName.GroupByClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    AstNodeName.OrderByClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    // return orderByClause(
+                    //     flworExpressionClause,
+                    //     compilationOptions,
+                    //     returnOfPreviousExpression
+                    // );
+                    AstNodeName.CountClause => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    _ => throw new Exception(
+                        $"Not implemented: {flworExpressionClause.Name} is not supported in a flwor expression")
+                };
+            }
+        );
+    }
+
+    private static AbstractExpression<TNode> LetClause(
+        Ast expressionClause,
+        CompilationOptions compilationOptions,
+        AbstractExpression<TNode> returnClauseExpression)
+    {
+        var letClauseItems = expressionClause.GetChildren(AstNodeName.All).ToArray();
+        var returnExpr = returnClauseExpression;
+
+        for (var i = letClauseItems.Length - 1; i >= 0; --i)
+        {
+            var letClauseItem = letClauseItems[i];
+            var expression = letClauseItem.FollowPath(AstNodeName.LetExpr, AstNodeName.All);
+            returnExpr = new LetExpression<TNode>(
+                letClauseItem.FollowPath(AstNodeName.TypedVariableBinding, AstNodeName.VarName).GetQName(),
+                CompileAst(expression, DisallowUpdating(compilationOptions)),
+                returnExpr);
+        }
+
+        return returnExpr;
     }
 
     private static AbstractExpression<TNode> CompileInstanceOfExpr(Ast ast, CompilationOptions options)

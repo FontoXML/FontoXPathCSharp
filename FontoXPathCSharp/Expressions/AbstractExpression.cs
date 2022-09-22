@@ -51,7 +51,7 @@ public abstract class AbstractExpression<TNode>
         IsUpdating = false;
     }
 
-    public bool IsUpdating { get; protected init; }
+    public bool IsUpdating { get; protected set; }
 
     public abstract ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters);
 
