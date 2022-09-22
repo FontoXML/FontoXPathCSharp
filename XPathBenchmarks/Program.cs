@@ -109,7 +109,8 @@ public class SimpleExpressionBenchmark
             new DynamicContext(
                 new NodeValue<XmlNode>(_source, _domFacade),
                 0,
-                SequenceFactory.CreateEmpty(), new Dictionary<string, Func<ISequence>>()),
+                SequenceFactory.CreateEmpty(),
+                new Dictionary<string, Func<ISequence>>()),
             new ExecutionParameters<XmlNode>(false, false, _domFacade, _source));
     }
 }

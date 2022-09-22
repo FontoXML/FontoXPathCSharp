@@ -65,7 +65,7 @@ public class TestMisc
             .EvaluateXPathToNodes("(b,a,c,a)/self::*", document.DocumentElement!, XmlNodeDomFacade, XmlNodeOptions)
             .Select(node => node.Name)
             .ToArray();
-        var expected = new[] { "a", "a", "b", "c" };
+        var expected = new[] { "a", "b", "c" };
         Assert.Equal(res, expected);
     }
 

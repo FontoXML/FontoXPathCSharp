@@ -10,7 +10,8 @@ public class DynamicContext
     public ISequence ContextSequence;
     public Dictionary<string, Func<ISequence>> VariableBindings;
 
-    public DynamicContext(AbstractValue? contextItem, int contextItemIndex, ISequence contextSequence, Dictionary<string, Func<ISequence>> variableBindings)
+    public DynamicContext(AbstractValue? contextItem, int contextItemIndex, ISequence contextSequence,
+        Dictionary<string, Func<ISequence>> variableBindings)
     {
         ContextItem = contextItem;
         ContextItemIndex = contextItemIndex;

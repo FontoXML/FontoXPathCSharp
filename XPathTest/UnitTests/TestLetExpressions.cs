@@ -30,8 +30,9 @@ public class TestLetExpressions
     [Fact]
     public void LetExpressionTest()
     {
+        var selector = "let $x := 1 return $x";
         var res = Evaluate.EvaluateXPathToInt(
-            "let $x := 1 return $x",
+            selector,
             XmlNodeDocument,
             XmlNodeDomfacade,
             XmlNodeOptions
@@ -40,7 +41,7 @@ public class TestLetExpressions
         Assert.True(res == 1, "Expression should evaluate to 1 (XmlNode)");
 
         var res2 = Evaluate.EvaluateXPathToInt(
-            "let $x := 1 return $x",
+            selector,
             XObjectDocument,
             XObjectDomFacade,
             XObjectOptions
@@ -52,8 +53,9 @@ public class TestLetExpressions
     [Fact]
     public void LetExpressionTest2()
     {
+        var selector = "let $x := 1, let $y := 2 return $x + $y";
         var res = Evaluate.EvaluateXPathToInt(
-            "let $x := 1, let $y := 2 return $x + $y",
+            selector,
             XmlNodeDocument,
             XmlNodeDomfacade,
             XmlNodeOptions
@@ -62,12 +64,37 @@ public class TestLetExpressions
         Assert.True(res == 3, "Expression should evaluate to 3 (XmlNode)");
 
         var res2 = Evaluate.EvaluateXPathToInt(
-            "let $x := 1, let $y := 2 return $x + $y",
+            selector,
+            XObjectDocument,
+            XObjectDomFacade,
+            XObjectOptions
+        );
+
+        Assert.True(res2 == 3, "Expression should evaluate to 3 (XObject)");
+    }
+
+    public void LetExpressionTest3()
+    {
+        var selector = "let $x := 1," +
+                       "let $x := $x + 1 " +
+                       "return $x";
+
+        var res = Evaluate.EvaluateXPathToInt(
+            selector,
             XmlNodeDocument,
             XmlNodeDomfacade,
             XmlNodeOptions
         );
 
-        Assert.True(res2 == 3, "Expression should evaluate to 3 (XObject)");
+        Assert.True(res == 2, "Expression should evaluate to 2 (XmlNode)");
+
+        var res2 = Evaluate.EvaluateXPathToInt(
+            selector,
+            XObjectDocument,
+            XObjectDomFacade,
+            XObjectOptions
+        );
+
+        Assert.True(res2 == 2, "Expression should evaluate to 2 (XObject)");
     }
 }

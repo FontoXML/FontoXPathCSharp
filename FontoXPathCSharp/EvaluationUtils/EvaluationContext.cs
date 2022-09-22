@@ -80,7 +80,8 @@ public class EvaluationContext<TSelector, TNode>
 
         var variableBindings = variables.Keys.Aggregate(
             new Dictionary<string, Func<ISequence>>(),
-                (typedVariableByName, variableName) => {
+            (typedVariableByName, variableName) =>
+            {
                 var variable = variables[variableName];
                 // if (variable && IS_XPATH_VALUE_SYMBOL in variable) {
                 //     // If this symbol is present, the value has already undergone type conversion.
@@ -102,12 +103,12 @@ public class EvaluationContext<TSelector, TNode>
         );
 
         var dynamicContext = new DynamicContext(
-            contextSequence.First(), 
-            0, 
-            contextSequence, 
+            contextSequence.First(),
+            0,
+            contextSequence,
             variableBindings
         );
-        
+
         ExecutionParameters = new ExecutionParameters<TNode>(
             compilationOptions.Debug,
             compilationOptions.DisableCache,
@@ -118,16 +119,14 @@ public class EvaluationContext<TSelector, TNode>
             internalOptions.Logger,
             xmlSerializer
         );
-        
-        foreach (var binding in expressionAndStaticContext.StaticContext.GetVariableBindings()) {
-            if (!variableBindings.ContainsKey(binding)) {
+
+        foreach (var binding in expressionAndStaticContext.StaticContext.GetVariableBindings())
+            if (!variableBindings.ContainsKey(binding))
                 variableBindings[binding] = () =>
                     expressionAndStaticContext.StaticContext.GetVariableDeclaration(binding)(
                         dynamicContext,
                         ExecutionParameters
                     );
-            }
-        }
 
         Expression = expressionAndStaticContext.Expression;
     }
