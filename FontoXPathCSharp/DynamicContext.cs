@@ -39,7 +39,7 @@ public class DynamicContext
 
     public DynamicContext ScopeWithVariableBindings(Dictionary<string, Func<ISequence>> variableBindings)
     {
-        return new(
+        return new DynamicContext(
             ContextItem,
             ContextItemIndex,
             ContextSequence,

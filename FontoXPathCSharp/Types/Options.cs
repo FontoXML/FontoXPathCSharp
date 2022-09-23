@@ -1,8 +1,6 @@
 using FontoXPathCSharp.DocumentWriter;
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.NodesFactory;
-using NamespaceResolverFunc = System.Func<string, string?>;
-using FunctionNameResolverFunc =
-    System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName>;
 using LoggingFunc = System.Action<string>;
 
 namespace FontoXPathCSharp.Types;
@@ -37,7 +35,7 @@ public delegate string XmlSerializerFunc<TNode>(TNode root);
 public class Options<TNode>
 {
     public Options(
-        NamespaceResolverFunc namespaceResolver,
+        NamespaceResolver namespaceResolver,
         bool debug = false,
         bool disableCache = false,
         string? defaultFunctionNamespaceUri = null,
@@ -45,7 +43,7 @@ public class Options<TNode>
         IDocumentWriter<TNode>? documentWriter = null,
         Language.LanguageId? languageId = null,
         Dictionary<string, string>? moduleImports = null,
-        FunctionNameResolverFunc? functionNameResolver = null,
+        FunctionNameResolver? functionNameResolver = null,
         XmlSerializerFunc<TNode>? xmlSerializer = null
     )
     {
@@ -75,8 +73,9 @@ public class Options<TNode>
 
     public string? DefaultFunctionNamespaceUri { get; set; }
 
-    public NamespaceResolverFunc? NamespaceResolver { get; set; }
-    public FunctionNameResolverFunc? FunctionNameResolver { get; set; }
+    public NamespaceResolver? NamespaceResolver { get; set; }
+    
+    public FunctionNameResolver? FunctionNameResolver { get; set; }
 
     public INodesFactory<TNode>? NodesFactory { get; set; }
 

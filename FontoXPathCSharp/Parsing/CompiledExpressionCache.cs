@@ -1,8 +1,5 @@
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Value;
-using NamespaceResolverFunc = System.Func<string, string?>;
-using FunctionNameResolverFunc =
-    System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName?>;
 
 namespace FontoXPathCSharp.Parsing;
 
@@ -122,12 +119,12 @@ public class CompiledExpressionCache<TSelector, TNode> where TSelector : notnull
     public ExpressionCacheResult<TNode>? GetStaticCompilationResultFromCache(
         TSelector selectorExpression,
         string language,
-        NamespaceResolverFunc namespaceResolver,
+        NamespaceResolver namespaceResolver,
         Dictionary<string, AbstractValue> variables,
         Dictionary<string, string> moduleImports,
         bool debug,
         string defaultFunctionNamespaceUri,
-        FunctionNameResolverFunc functionNameResolver)
+        FunctionNameResolver functionNameResolver)
     {
         if (!_compiledExpressionCache.ContainsKey(selectorExpression)) return null;
 

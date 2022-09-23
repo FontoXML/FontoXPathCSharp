@@ -37,11 +37,11 @@ public class TestingUtils
     {
         TestFileSystem.WriteFile(
             fileName,
-			string.Join(
-				Environment.NewLine,
-				dict.Select(d => $"{d.Key},{d.Value}")
+            string.Join(
+                Environment.NewLine,
+                dict.Select(d => $"{d.Key},{d.Value}")
             ),
-			true);
+            true);
     }
 
     /**

@@ -10,7 +10,6 @@ using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
 using XPathTest.Qt3Tests;
 
-
 namespace XPathTest;
 
 public class Qt3TestDataXmlNode : Qt3TestDataProvider<XmlNode>
@@ -50,40 +49,36 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 
     public IEnumerator<object[]> GetEnumerator()
     {
-        return Array.Empty<object[]>().Cast<object[]>().GetEnumerator();
+        // return Array.Empty<object[]>().Cast<object[]>().GetEnumerator();
         if (TestFileSystem.FileExists("runnableTestSets.csv"))
 
-			TestFileSystem.ReadFile("runnableTestSets.csv")
-				.Split(Environment.NewLine)
-				.Select(line => line.Split(','))
-				.DistinctBy(l => l[0])
-				.Where(l => l.Length > 1 && ParseBooleanNoFail(l[1]))
-				.Select(l => l[0])
-				.ToList()
-				.ForEach(x => _shouldRunTestByName.Add(x));
+            TestFileSystem.ReadFile("runnableTestSets.csv")
+                .Split(Environment.NewLine)
+                .Select(line => line.Split(','))
+                .DistinctBy(l => l[0])
+                .Where(l => l.Length > 1 && ParseBooleanNoFail(l[1]))
+                .Select(l => l[0])
+                .ToList()
+                .ForEach(x => _shouldRunTestByName.Add(x));
 
         if (Environment.GetEnvironmentVariable("REGENERATE") == "TRUE")
         {
             // Addinf failed test cases that come from parse errors to the ignore set.
             if (TestFileSystem.FileExists("parseUnrunnableTestCases.csv"))
-            {
                 TestFileSystem.ReadFile("parseUnrunnableTestCases.csv")
                     .Split(Environment.NewLine)
                     .Select(e => e.Split(','))
                     .Where(e => e.Length > 1)
                     .ToList()
                     .ForEach(x => _unrunnableTestCasesByName.Add(x[0]));
-            }
 
             if (TestFileSystem.FileExists("unrunnableTestCases.csv"))
-            {
                 TestFileSystem.ReadFile("unrunnableTestCases.csv")
                     .Split(Environment.NewLine)
                     .Select(e => e.Split(','))
                     .Where(e => e.Length > 1)
                     .ToList()
                     .ForEach(x => _unrunnableTestCasesByName.Add(x[0]));
-            }
         }
 
         var qt3Tests = _nodeUtils.LoadFileToXmlNode("catalog.xml");
@@ -114,18 +109,19 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
                     Console.WriteLine("Skipping over " + testName);
                     return testCases;
                 }
+
                 try
-                    {
-                        var name = GetTestName(testCase);
-                        var description = GetTestDescription(testSetName, name, testCase);
-                        var arguments = new Qt3TestArguments<TNode>(testSetFileName, testCase, _domFacade, _options,
-                            _nodeUtils);
-                        testCases.Add(new object[] { name, testSetName, description, testCase, arguments, _nodeUtils });
-                    }
-                    catch (FileNotFoundException ex)
-                    {
-                        /* Test file was probably not found. */
-                    }
+                {
+                    var name = GetTestName(testCase);
+                    var description = GetTestDescription(testSetName, name, testCase);
+                    var arguments = new Qt3TestArguments<TNode>(testSetFileName, testCase, _domFacade, _options,
+                        _nodeUtils);
+                    testCases.Add(new object[] { name, testSetName, description, testCase, arguments, _nodeUtils });
+                }
+                catch (FileNotFoundException ex)
+                {
+                    /* Test file was probably not found. */
+                }
 
                 return testCases;
             });

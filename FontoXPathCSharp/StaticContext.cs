@@ -107,9 +107,7 @@ public class StaticContext<TNode> : AbstractContext<TNode>
             RegisteredVariableBindingByHashKey,
             hash
         );
-        if (varNameInCurrentScope != null) {
-            return varNameInCurrentScope;
-        }
+        if (varNameInCurrentScope != null) return varNameInCurrentScope;
         return _parentContext == null
             ? null
             : _parentContext.LookupVariable(namespaceUri, localName);
@@ -138,7 +136,7 @@ public class StaticContext<TNode> : AbstractContext<TNode>
             .FirstOrDefault();
     }
 
-    public override string ResolveNamespace(string? prefix, bool useExternalResolver = true)
+    public override string? ResolveNamespace(string? prefix, bool useExternalResolver = true)
     {
         var uri = LookupInOverrides(_registeredNamespaceUriByPrefix, prefix ?? "");
         return uri ?? _parentContext.ResolveNamespace(prefix, useExternalResolver);
@@ -175,8 +173,14 @@ public class StaticContext<TNode> : AbstractContext<TNode>
 
     public void RemoveScope()
     {
-        _registeredNamespaceUriByPrefix.RemoveRange(_scopeDepth, _registeredNamespaceUriByPrefix.Count - _scopeDepth);
-        RegisteredVariableBindingByHashKey.RemoveRange(_scopeDepth, RegisteredVariableBindingByHashKey.Count - _scopeDepth);
+        _registeredNamespaceUriByPrefix.RemoveRange(
+            _scopeDepth,
+            _registeredNamespaceUriByPrefix.Count - _scopeDepth
+        );
+        RegisteredVariableBindingByHashKey.RemoveRange(
+            _scopeDepth,
+            RegisteredVariableBindingByHashKey.Count - _scopeDepth
+        );
 
         _scopeDepth--;
     }

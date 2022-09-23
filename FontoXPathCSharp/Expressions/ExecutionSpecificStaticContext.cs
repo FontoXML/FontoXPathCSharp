@@ -5,10 +5,14 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
+public delegate string? NamespaceResolver(string namespaceUri);
+
+public delegate ResolvedQualifiedName? FunctionNameResolver(LexicalQualifiedName qName, int arity);
+
 public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode>
 {
-    private readonly Func<LexicalQualifiedName, int, ResolvedQualifiedName?> _functionNameResolver;
-    private readonly Func<string, string?> _namespaceResolver;
+    private readonly FunctionNameResolver _functionNameResolver;
+    private readonly NamespaceResolver _namespaceResolver;
     private readonly Dictionary<string, (string, string)> _referredNamespaceByName;
     private readonly Dictionary<string, string> _referredVariableByName;
 
@@ -16,9 +20,11 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode>
 
     private readonly Dictionary<string, string> _variableBindingByName;
 
-    public ExecutionSpecificStaticContext(Func<string, string?> namespaceResolver,
-        Dictionary<string, AbstractValue> variableByName, string defaultFunctionNamespaceUri,
-        Func<LexicalQualifiedName, int, ResolvedQualifiedName?> functionNameResolver)
+    public ExecutionSpecificStaticContext(
+        NamespaceResolver namespaceResolver,
+        Dictionary<string, AbstractValue> variableByName,
+        string defaultFunctionNamespaceUri,
+        FunctionNameResolver functionNameResolver)
     {
         _namespaceResolver = namespaceResolver;
         _variableBindingByName = variableByName.Keys.Aggregate(new Dictionary<string, string>(),
@@ -30,13 +36,11 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode>
             }
         );
 
-
         RegisteredVariableBindingByHashKey =
-            new List<Dictionary<string, string>>{new()};
-
+            new List<Dictionary<string, string>> { new() };
         RegisteredVariableDeclarationByHashKey =
             new Dictionary<string, Func<DynamicContext, ExecutionParameters<TNode>, ISequence>>();
-        
+
         _referredVariableByName = new Dictionary<string, string>();
         _referredNamespaceByName = new Dictionary<string, (string, string)>();
 
@@ -86,7 +90,9 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode>
     public override FunctionProperties<TNode>? LookupFunction(string? namespaceUri, string localName, int arity,
         bool skipExternal = false)
     {
-        return namespaceUri != null ? FunctionRegistry<TNode>.GetFunctionByArity(namespaceUri, localName, arity) : null;
+        return namespaceUri != null
+            ? FunctionRegistry<TNode>.GetFunctionByArity(namespaceUri, localName, arity)
+            : null;
     }
 
     public override string? LookupVariable(string? namespaceUri, string localName)

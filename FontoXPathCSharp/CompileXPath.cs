@@ -3,9 +3,6 @@ using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.ExpressionResults;
-using NamespaceResolverFunc = System.Func<string, string?>;
-using FunctionNameResolverFunc =
-    System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName?>;
 
 namespace FontoXPathCSharp;
 
@@ -16,11 +13,11 @@ public static class CompileXPath<TSelector, TNode> where TSelector : notnull
     private static ExpressionResult CreateExpressionFromSource(
         TSelector xpathSource,
         CompilationOptions compilationOptions,
-        NamespaceResolverFunc namespaceResolver,
+        NamespaceResolver namespaceResolver,
         Dictionary<string, AbstractValue> variables,
         Dictionary<string, string> moduleImports,
         string defaultFunctionNamespaceUri,
-        FunctionNameResolverFunc functionNameResolver)
+        FunctionNameResolver functionNameResolver)
     {
         var language = compilationOptions.AllowXQuery ? "XQuery" : "XPath";
 
@@ -52,11 +49,11 @@ public static class CompileXPath<TSelector, TNode> where TSelector : notnull
     public static StaticCompilationResult<TNode> StaticallyCompileXPath(
         TSelector selector,
         CompilationOptions compilationOptions,
-        NamespaceResolverFunc namespaceResolver,
+        NamespaceResolver namespaceResolver,
         Dictionary<string, AbstractValue> variables,
         Dictionary<string, string> moduleImports,
         string defaultFunctionNamespaceUri,
-        FunctionNameResolverFunc functionNameResolver)
+        FunctionNameResolver functionNameResolver)
     {
         var specificStaticContext = new ExecutionSpecificStaticContext<TNode>(namespaceResolver, variables,
             defaultFunctionNamespaceUri, functionNameResolver);

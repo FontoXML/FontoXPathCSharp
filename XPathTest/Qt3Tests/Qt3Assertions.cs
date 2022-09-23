@@ -4,6 +4,7 @@ using System.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DocumentWriter;
 using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 using Xunit;
 
@@ -13,7 +14,7 @@ public delegate void AsserterCall<TNode>(
     string testQuery,
     TNode? contextNode,
     Dictionary<string, object> variablesInScope,
-    Func<string, string?>? namespaceResolver
+    NamespaceResolver? namespaceResolver
 ) where TNode : notnull;
 
 public class Qt3Assertions<TNode> where TNode : notnull

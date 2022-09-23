@@ -6,9 +6,6 @@ using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
-using NamespaceResolverFunc = System.Func<string, string?>;
-using FunctionNameResolverFunc =
-    System.Func<FontoXPathCSharp.Types.LexicalQualifiedName, int, FontoXPathCSharp.Types.ResolvedQualifiedName?>;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.EvaluationUtils;
@@ -153,7 +150,7 @@ public class EvaluationContext<TSelector, TNode>
         return new SingletonSequence(new NodeValue<TNode>(value.GetAs<NodeValue<TNode>>().Value, domFacade));
     }
 
-    private static NamespaceResolverFunc CreateDefaultNamespaceResolver(
+    private static NamespaceResolver CreateDefaultNamespaceResolver(
         AbstractValue? contextItem,
         DomFacade<TNode>? domFacade
     )
@@ -169,7 +166,7 @@ public class EvaluationContext<TSelector, TNode>
         // return prefix => domFacade.LookupNamespaceUri(node, prefix);
     }
 
-    private static FunctionNameResolverFunc CreateDefaultFunctionNameResolver(string defaultFunctionNamespaceUri)
+    private static FunctionNameResolver CreateDefaultFunctionNameResolver(string defaultFunctionNamespaceUri)
     {
         return (lexicalQualifiedName, arity) => lexicalQualifiedName.Prefix == null
             ? new ResolvedQualifiedName(lexicalQualifiedName.LocalName, defaultFunctionNamespaceUri)
