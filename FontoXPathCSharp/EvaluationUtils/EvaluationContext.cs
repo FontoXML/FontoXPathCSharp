@@ -79,27 +79,18 @@ public class EvaluationContext<TSelector, TNode>
             new Dictionary<string, Func<ISequence>>(),
             (typedVariableByName, variableName) =>
             {
-                var variable = variables[variableName];
-                // if (variable && IS_XPATH_VALUE_SYMBOL in variable) {
-                //     // If this symbol is present, the value has already undergone type conversion.
-                //     const castedObject = variable as TypedExternalValue;
-                //     typedVariableByName[generateGlobalVariableBindingName(variableName)] = () => {
-                //         return sequenceFactory.create(castedObject.convertedValue);
-                //     };
-                // } else {
-                //     typedVariableByName[generateGlobalVariableBindingName(variableName)] = () => {
-                //         // The value is not converted yet. Do it just in time.
-                //         return adaptJavaScriptValueToSequence(
-                //             wrappedDomFacade,
-                //             variables[variableName]
-                //         );
-                //     };
-                // }
+                typedVariableByName[GenerateGlobalVariableBindingName(variableName)] =
+                    variables.ContainsKey(variableName)
+                        ? () => SequenceFactory.CreateFromValue(variables[variableName])
+                        : () => AdaptValueToSequence(
+                            wrappedDomFacade,
+                            variables[variableName]
+                        );
                 return typedVariableByName;
             }
         );
 
-        var dynamicContext = new DynamicContext(
+        DynamicContext = new DynamicContext(
             contextSequence.First(),
             0,
             contextSequence,
@@ -121,7 +112,7 @@ public class EvaluationContext<TSelector, TNode>
             if (!variableBindings.ContainsKey(binding))
                 variableBindings[binding] = () =>
                     expressionAndStaticContext.StaticContext.GetVariableDeclaration(binding)(
-                        dynamicContext,
+                        DynamicContext,
                         ExecutionParameters
                     );
 
@@ -133,6 +124,11 @@ public class EvaluationContext<TSelector, TNode>
     public ExecutionParameters<TNode> ExecutionParameters { get; }
 
     public AbstractExpression<TNode> Expression { get; }
+
+    private static string GenerateGlobalVariableBindingName(string variableName)
+    {
+        return $"Q{{}}{variableName}[0]";
+    }
 
     private static DomFacade<TNode> CreateWrappedDomFacade(IDomFacade<TNode>? domFacade)
     {
@@ -147,7 +143,9 @@ public class EvaluationContext<TSelector, TNode>
         AbstractValue value,
         SequenceType? expectedType = null)
     {
-        return new SingletonSequence(new NodeValue<TNode>(value.GetAs<NodeValue<TNode>>().Value, domFacade));
+        return SequenceFactory.CreateFromValue(
+            new NodeValue<TNode>(value.GetAs<NodeValue<TNode>>().Value, domFacade)
+        );
     }
 
     private static NamespaceResolver CreateDefaultNamespaceResolver(
@@ -161,9 +159,6 @@ public class EvaluationContext<TSelector, TNode>
         //TODO: Fix this stuff.
         Console.WriteLine("CreateDefaultNamespaceResolver is not finished properly.");
         return _ => null;
-        // var node = contextItem.GetAs<NodeValue<TNode>>().Value;
-        //
-        // return prefix => domFacade.LookupNamespaceUri(node, prefix);
     }
 
     private static FunctionNameResolver CreateDefaultFunctionNameResolver(string defaultFunctionNamespaceUri)
