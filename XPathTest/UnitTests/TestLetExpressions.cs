@@ -73,9 +73,10 @@ public class TestLetExpressions
         Assert.True(res2 == 3, "Expression should evaluate to 3 (XObject)");
     }
 
+    [Fact]
     public void LetExpressionTest3()
     {
-        var selector = "let $x := 1," +
+        var selector = "let $x := 1, " +
                        "let $x := $x + 1 " +
                        "return $x";
 
