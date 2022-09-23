@@ -28,11 +28,11 @@ public class StaticContext<TNode> : AbstractContext<TNode>
         _registeredFunctionsByHash = new Dictionary<string, FunctionProperties<TNode>>();
         registeredDefaultFunctionNamespaceURI = null;
 
-        registeredVariableDeclarationByHashKey =
+        RegisteredVariableDeclarationByHashKey =
             parentContext != null
                 ? parentContext.RegisteredVariableDeclarationByHashKey
                 : new Dictionary<string, Func<DynamicContext, ExecutionParameters<TNode>, ISequence>>();
-        registeredVariableBindingByHashKey =
+        RegisteredVariableBindingByHashKey =
             parentContext != null
                 ? parentContext.RegisteredVariableBindingByHashKey
                 : new List<Dictionary<string, string>>();
@@ -102,7 +102,17 @@ public class StaticContext<TNode> : AbstractContext<TNode>
 
     public override string? LookupVariable(string? namespaceUri, string localName)
     {
-        throw new NotImplementedException("LookupVariable Not Yet Implemented for StaticContext");
+        var hash = CreateHashKey(namespaceUri, localName);
+        var varNameInCurrentScope = LookupInOverrides(
+            RegisteredVariableBindingByHashKey,
+            hash
+        );
+        if (varNameInCurrentScope != null) {
+            return varNameInCurrentScope;
+        }
+        return _parentContext == null
+            ? null
+            : _parentContext.LookupVariable(namespaceUri, localName);
     }
 
     public override ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity)
@@ -165,8 +175,8 @@ public class StaticContext<TNode> : AbstractContext<TNode>
 
     public void RemoveScope()
     {
-        _registeredNamespaceUriByPrefix.RemoveRange(_scopeDepth, _registeredNamespaceUriByPrefix.Count);
-        RegisteredVariableBindingByHashKey.RemoveRange(_scopeDepth, RegisteredVariableBindingByHashKey.Count);
+        _registeredNamespaceUriByPrefix.RemoveRange(_scopeDepth, _registeredNamespaceUriByPrefix.Count - _scopeDepth);
+        RegisteredVariableBindingByHashKey.RemoveRange(_scopeDepth, RegisteredVariableBindingByHashKey.Count - _scopeDepth);
 
         _scopeDepth--;
     }
@@ -175,7 +185,7 @@ public class StaticContext<TNode> : AbstractContext<TNode>
     {
         var hash = CreateHashKey(namespaceUri ?? "", localName);
         var registration = $"{hash}[{_scopeCount}]";
-        registeredVariableBindingByHashKey[_scopeDepth][hash] = registration;
+        RegisteredVariableBindingByHashKey[_scopeDepth][hash] = registration;
         return registration;
     }
 

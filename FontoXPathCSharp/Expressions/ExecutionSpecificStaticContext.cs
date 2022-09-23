@@ -1,4 +1,5 @@
 using FontoXPathCSharp.Functions;
+using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 
@@ -29,6 +30,13 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode>
             }
         );
 
+
+        RegisteredVariableBindingByHashKey =
+            new List<Dictionary<string, string>>{new()};
+
+        RegisteredVariableDeclarationByHashKey =
+            new Dictionary<string, Func<DynamicContext, ExecutionParameters<TNode>, ISequence>>();
+        
         _referredVariableByName = new Dictionary<string, string>();
         _referredNamespaceByName = new Dictionary<string, (string, string)>();
 
