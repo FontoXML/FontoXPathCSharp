@@ -7,17 +7,16 @@ public static class ParsingFunctions
 {
     public static ParseFunc<T> Cached<T>(ParseFunc<T> parser, Dictionary<int, ParseResult<T>> cache)
     {
-        return (input, offset) => {
-            if (cache.ContainsKey(offset)) {
-                return cache[offset];
-            }
+        return (input, offset) =>
+        {
+            if (cache.ContainsKey(offset)) return cache[offset];
 
             var result = parser(input, offset);
             cache[offset] = result;
             return result;
         };
     }
-    
+
     public static ParseFunc<T> PrecededMultiple<TBefore, T>(
         IEnumerable<ParseFunc<TBefore>> before,
         ParseFunc<T> parser)

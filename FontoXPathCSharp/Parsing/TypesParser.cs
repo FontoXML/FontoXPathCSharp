@@ -4,18 +4,31 @@ using static PrscSharp.PrscSharp;
 
 namespace FontoXPathCSharp.Parsing;
 
-public static class TypesParser
+public class TypesParser
 {
-    public static readonly ParseFunc<QName> TypeName = NameParser.EqName;
+    private readonly ParseFunc<QName> SimpleTypeName;
 
-    private static readonly ParseFunc<QName> SimpleTypeName = TypeName;
+    public readonly ParseFunc<Ast> SingleType;
 
-    public static readonly ParseFunc<Ast> SingleType = Then(
-        SimpleTypeName,
-        Optional(Token("?")),
-        (type, opt) =>
-            opt == null
-                ? new Ast(AstNodeName.SingleType, type.GetAst(AstNodeName.AtomicType))
-                : new Ast(AstNodeName.SingleType, type.GetAst(AstNodeName.AtomicType), new Ast(AstNodeName.Optional))
-    );
+    public readonly ParseFunc<QName> TypeName;
+    private readonly NameParser _nameParser;
+
+    public TypesParser(NameParser nameParser)
+    {
+        _nameParser = nameParser;
+
+        TypeName = _nameParser.EqName;
+
+        SimpleTypeName = TypeName;
+
+        SingleType = Then(
+            SimpleTypeName,
+            Optional(Token("?")),
+            (type, opt) =>
+                opt == null
+                    ? new Ast(AstNodeName.SingleType, type.GetAst(AstNodeName.AtomicType))
+                    : new Ast(AstNodeName.SingleType, type.GetAst(AstNodeName.AtomicType),
+                        new Ast(AstNodeName.Optional))
+        );
+    }
 }
