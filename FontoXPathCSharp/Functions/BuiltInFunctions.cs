@@ -13,7 +13,9 @@ public static class BuiltInFunctions<TNode>
             .Concat(BuiltInFunctionsFunctions<TNode>.Declarations)
             .Concat(BuiltInFunctionsQName<TNode>.Declarations)
             .Concat(BuiltInFunctionsDataTypeConstructors<TNode>.Declarations)
-            .Concat(BuiltInFunctionsNumeric<TNode>.Declarations).ToArray();
+            .Concat(BuiltInFunctionsNumeric<TNode>.Declarations)
+            .Concat(BuiltInFunctionsMath<TNode>.Declarations)
+            .Concat(BuiltInFunctionsOperators<TNode>.Declarations).ToArray();
 
 
     public static FunctionSignature<ISequence, TNode> ContextItemAsFirstArgument(FunctionSignature<ISequence, TNode> fn)
