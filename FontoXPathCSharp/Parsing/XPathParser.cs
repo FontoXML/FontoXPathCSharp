@@ -23,6 +23,9 @@ public readonly struct ParseOptions
 
 public static class XPathParser
 {
+    // private static readonly Dictionary<int, ParseResult<Ast>> PathExprCache = new();
+    private static readonly Dictionary<int, Ast.StackTraceInfo> StackTraceMap = new();
+
     private static ParseOptions _options;
 
     private static readonly ParseFunc<Ast> Predicate =
@@ -368,7 +371,7 @@ public static class XPathParser
         new[] { Token("for"), WhitespacePlus },
         BinaryOperator(
             ForBinding,
-            Alias(AstNodeName.Arguments, ","),
+            Alias(AstNodeName.SequenceExpr, ","),
             (lhs, rhs) =>
                 new Ast(AstNodeName.ForClause, new[] { lhs }.Concat(rhs.Select(x => x.Item2)))));
 
@@ -496,14 +499,13 @@ public static class XPathParser
     );
 
 
-    private static readonly ParseFunc<Ast> FlworExpr =
-        Then3(
-            InitialClause,
-            Star(Preceded(Whitespace, IntermediateClause)),
-            Preceded(Whitespace, ReturnClause),
-            (initial, intermediate, ret) => new Ast(AstNodeName.FlworExpr,
-                new[] { initial }.Concat(intermediate).Concat(new[] { ret }))
-        );
+    private static readonly ParseFunc<Ast> FlworExpr = Then3(
+        InitialClause,
+        Star(Preceded(Whitespace, IntermediateClause)),
+        Preceded(Whitespace, ReturnClause),
+        (initial, intermediate, ret) => new Ast(AstNodeName.FlworExpr,
+            new[] { initial }.Concat(intermediate).Concat(new[] { ret }))
+    );
 
 
     private static readonly ParseFunc<Ast> ParenthesizedExpr = Or(
@@ -678,6 +680,11 @@ public static class XPathParser
         );
 
     private static readonly ParseFunc<Ast> PathExpr = Or(RelativePathExpr, AbsoluteLocationPath);
+    
+    // private static readonly ParseFunc<Ast> PathExpr = Cached(
+    //     Or(RelativePathExpr, AbsoluteLocationPath),
+    //     PathExprCache
+    // );
 
     private static readonly ParseFunc<Ast> ValueExpr =
         Or(
@@ -999,8 +1006,11 @@ public static class XPathParser
 
     private static ParseResult<Ast> ExprSingle(string input, int offset)
     {
-        // TODO: wrap in stacktrace
-        return Or(FlworExpr, IfExpr, OrExpr)(input, offset);
+        return WrapInStackTrace(Or(
+            FlworExpr,
+            IfExpr,
+            OrExpr)
+        )(input, offset);
     }
 
     private static ParseFunc<Ast> Expr()
@@ -1021,43 +1031,34 @@ public static class XPathParser
 
             if (result.IsErr()) return result;
 
-            var (startCol, startLine) = GetLineData(input, offset);
-            var (endCol, endLine) = GetLineData(input, result.Offset);
+            var start = StackTraceMap.ContainsKey(offset)
+                ? StackTraceMap[offset]
+                : new Ast.StackTraceInfo(offset, -1, -1);
+
+            var end = StackTraceMap.ContainsKey(result.Offset)
+                ? StackTraceMap[offset]
+                : new Ast.StackTraceInfo(result.Offset, -1, -1);
+
+            StackTraceMap[offset] = start;
+            StackTraceMap[result.Offset] = end;
 
             return OkWithValue(result.Offset,
-                new Ast(AstNodeName.XStackTrace)
+                new Ast(AstNodeName.XStackTrace, result.Unwrap())
                 {
-                    _start = new Ast.StackTraceInfo(offset, startLine, startCol),
-                    _end = new Ast.StackTraceInfo(result.Offset, endLine, endCol)
+                    _start = start,
+                    _end = end
                 }
             );
         };
     }
 
-    private static (int, int) GetLineData(string input, int offset)
-    {
-        var col = 1;
-        var line = 1;
-        for (var i = 0; i < offset; i++)
-        {
-            var c = input[i];
-            if (c is '\r' or '\n')
-            {
-                line++;
-                col = 1;
-            }
-            else
-            {
-                col++;
-            }
-        }
-
-        return (col, line);
-    }
-
     public static ParseResult<Ast> Parse(string input, ParseOptions options)
     {
         _options = options;
+        StackTraceMap.Clear();
+        // PathExprCache.Clear();
+        // WhitespaceCache.Clear();
+        // WhitespacePlusCache.Clear();
         return Complete(Surrounded(Module, Whitespace))(input, 0);
     }
 }

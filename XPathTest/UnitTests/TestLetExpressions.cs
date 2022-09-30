@@ -53,7 +53,7 @@ public class TestLetExpressions
     [Fact]
     public void LetExpressionTest2()
     {
-        var selector = "let $x := 1, let $y := 2 return $x + $y";
+        var selector = "let $x := 1, $y := 2 return $x + $y";
         var res = Evaluate.EvaluateXPathToInt(
             selector,
             XmlNodeDocument,
@@ -77,7 +77,7 @@ public class TestLetExpressions
     public void LetExpressionTest3()
     {
         var selector = "let $x := 1, " +
-                       "let $x := $x + 1 " +
+                       "$x := $x + 1 " +
                        "return $x";
 
         var res = Evaluate.EvaluateXPathToInt(

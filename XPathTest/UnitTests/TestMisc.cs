@@ -86,4 +86,22 @@ public class TestMisc
         _testOutputHelper.WriteLine($"Uncached: {uncached.TotalSeconds}s, Cached: {cached.TotalSeconds}s");
         Assert.True(cached < uncached);
     }
+
+    // [Fact]
+    // public void NestedExpression()
+    // {
+    //     var selector =
+    //         "((((((((((((false() eq false()) eq false()) eq false()) eq " +
+    //         "false()) eq false()) eq false()) eq false()) eq false()) eq " +
+    //         "false()) eq false()) eq false()) eq false()) eq false()";
+    //
+    //     var result = Evaluate.EvaluateXPathToBoolean(
+    //         selector,
+    //         XmlNodeEmptyContext,
+    //         XmlNodeDomFacade,
+    //         XmlNodeOptions
+    //     );
+    //     
+    //     Assert.True(result);
+    // }
 }

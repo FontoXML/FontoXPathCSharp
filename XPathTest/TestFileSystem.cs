@@ -24,7 +24,7 @@ public static class TestFileSystem
 
     public static void WriteFile(string filepath, string content, bool append = false)
     {
-        if (append) content = ReadFile(filepath) + content;
+        if (append && FileExists(filepath)) content = ReadFile(filepath) + content;
         File.WriteAllText(CreateAssetPath(filepath), content, Encoding.UTF8);
     }
 
