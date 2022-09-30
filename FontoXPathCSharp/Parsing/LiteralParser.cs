@@ -6,6 +6,8 @@ namespace FontoXPathCSharp.Parsing;
 
 public class LiteralParser
 {
+    private readonly WhitespaceParser _whitespaceParser;
+    
     public readonly ParseFunc<Ast> AnyKindTest = Alias(new Ast(AstNodeName.AnyKindTest), "node()");
 
     public readonly ParseFunc<string> AssertAdjacentOpeningTerminal;
@@ -112,7 +114,6 @@ public class LiteralParser
     public readonly ParseFunc<Ast> TextTest = Alias(new Ast(AstNodeName.TextTest), "text()");
 
     public readonly ParseFunc<AstNodeName> ValueCompare;
-    private readonly WhitespaceParser _whitespaceParser;
 
     public LiteralParser(WhitespaceParser whitespaceParser)
     {

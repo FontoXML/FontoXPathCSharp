@@ -74,7 +74,7 @@ public class Options<TNode>
     public string? DefaultFunctionNamespaceUri { get; set; }
 
     public NamespaceResolver? NamespaceResolver { get; set; }
-    
+
     public FunctionNameResolver? FunctionNameResolver { get; set; }
 
     public INodesFactory<TNode>? NodesFactory { get; set; }

@@ -116,7 +116,7 @@ public class TestMisc
             XmlNodeEmptyContext,
             XmlNodeDomFacade,
             XmlNodeOptions,
-            new Dictionary<string, object> { {"x", 1 },{ "y", 2 } }
+            new Dictionary<string, object> { { "x", 1 }, { "y", 2 } }
         );
 
         Assert.True(res == 3, "Expression should evaluate to 3 (XmlNode)");
