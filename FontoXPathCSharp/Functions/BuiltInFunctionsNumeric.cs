@@ -26,8 +26,25 @@ public class BuiltInFunctionsNumeric<TNode>
         };
     };
 
+    private static readonly FunctionSignature<ISequence, TNode> FnAbs = (_, _, _, sequences) =>
+    {
+        var sequence = sequences[0];
+        return sequence.Map((onlyValue, _, _) =>
+            CreateValidNumericType(onlyValue.GetValueType(),
+                Math.Abs(Convert.ToDouble(onlyValue.GetAs<UntypedAtomicValue>())))
+        );
+    };
+
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
+        new(new[]
+            {
+                new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnAbs, "abs",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
+
         new(new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
             FnNumber, "number",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
@@ -74,6 +91,15 @@ public class BuiltInFunctionsNumeric<TNode>
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne))
     };
+
+    private static AbstractValue CreateValidNumericType(ValueType type, double transformedValue)
+    {
+        if (type.IsSubtypeOf(ValueType.XsInteger)) return AtomicValue.Create(transformedValue, ValueType.XsInteger);
+        if (type.IsSubtypeOf(ValueType.XsFloat)) return AtomicValue.Create(transformedValue, ValueType.XsFloat);
+        if (type.IsSubtypeOf(ValueType.XsDouble)) return AtomicValue.Create(transformedValue, ValueType.XsDouble);
+        // It must be a decimal, only four numeric types
+        return AtomicValue.Create(transformedValue, ValueType.XsDecimal);
+    }
 
     private static ISequence FnRound(
         bool halfToEven,
