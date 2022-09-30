@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Xml;
@@ -94,14 +95,30 @@ public class TestMisc
             "((((((((((((false() eq false()) eq false()) eq false()) eq " +
             "false()) eq false()) eq false()) eq false()) eq false()) eq " +
             "false()) eq false()) eq false()) eq false()) eq false()";
-    
+
         var result = Evaluate.EvaluateXPathToBoolean(
             selector,
             XmlNodeEmptyContext,
             XmlNodeDomFacade,
             XmlNodeOptions
         );
-        
+
         Assert.True(result);
+    }
+
+
+    [Fact]
+    public void TextExternalVar()
+    {
+        var selector = "$x + $y";
+        var res = Evaluate.EvaluateXPathToInt(
+            selector,
+            XmlNodeEmptyContext,
+            XmlNodeDomFacade,
+            XmlNodeOptions,
+            new Dictionary<string, object> { {"x", 1 },{ "y", 2 } }
+        );
+
+        Assert.True(res == 3, "Expression should evaluate to 3 (XmlNode)");
     }
 }

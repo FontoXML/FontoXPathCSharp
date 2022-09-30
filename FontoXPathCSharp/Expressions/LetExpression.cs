@@ -5,8 +5,9 @@ namespace FontoXPathCSharp.Expressions;
 
 public class LetExpression<TNode> : FlworExpression<TNode>
 {
-    public readonly AbstractExpression<TNode> BindingSequence;
-    public readonly QName RangeVariable;
+    private readonly AbstractExpression<TNode> _bindingSequence;
+    private readonly QName _rangeVariable;
+    private string? _variableBinding;
 
     public LetExpression(QName rangeVariable,
         AbstractExpression<TNode> bindingSequence,
@@ -25,12 +26,10 @@ public class LetExpression<TNode> : FlworExpression<TNode>
             throw new NotImplementedException("Not implemented: let expressions with namespace usage." +
                                               $"Prefix: {rangeVariable.Prefix}, Namespace: {rangeVariable.NamespaceUri}");
 
-        RangeVariable = rangeVariable;
-        BindingSequence = bindingSequence;
-        VariableBinding = null;
+        _rangeVariable = rangeVariable;
+        _bindingSequence = bindingSequence;
+        _variableBinding = null;
     }
-
-    public string? VariableBinding { get; protected set; }
 
     public override ISequence DoFlworExpression(
         DynamicContext dynamicContext,
@@ -49,8 +48,8 @@ public class LetExpression<TNode> : FlworExpression<TNode>
                     new Dictionary<string, Func<ISequence>>
                     {
                         {
-                            VariableBinding!, ISequence.CreateDoublyIterableSequence(
-                                BindingSequence.EvaluateMaybeStatically(
+                            _variableBinding!, ISequence.CreateDoublyIterableSequence(
+                                _bindingSequence.EvaluateMaybeStatically(
                                     currentDynamicContext,
                                     executionParameters
                                 ))
@@ -63,26 +62,26 @@ public class LetExpression<TNode> : FlworExpression<TNode>
 
     public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
     {
-        if (RangeVariable.Prefix != null)
+        if (_rangeVariable.Prefix != null)
         {
-            RangeVariable.NamespaceUri = staticContext.ResolveNamespace(RangeVariable.Prefix);
+            _rangeVariable.NamespaceUri = staticContext.ResolveNamespace(_rangeVariable.Prefix);
 
-            if (RangeVariable.NamespaceUri == null)
+            if (_rangeVariable.NamespaceUri == null)
                 throw new XPathException(
                     "XPST0081",
-                    $"Could not resolve namespace for prefix {RangeVariable.Prefix} using in a for expression");
+                    $"Could not resolve namespace for prefix {_rangeVariable.Prefix} using in a for expression");
         }
 
-        BindingSequence.PerformStaticEvaluation(staticContext);
+        _bindingSequence.PerformStaticEvaluation(staticContext);
 
         staticContext.IntroduceScope();
-        VariableBinding = staticContext.RegisterVariable(RangeVariable.NamespaceUri, RangeVariable.LocalName);
+        _variableBinding = staticContext.RegisterVariable(_rangeVariable.NamespaceUri, _rangeVariable.LocalName);
         ReturnExpression.PerformStaticEvaluation(staticContext);
         staticContext.RemoveScope();
 
         IsUpdating = ReturnExpression.IsUpdating;
 
-        if (BindingSequence.IsUpdating)
+        if (_bindingSequence.IsUpdating)
             throw new XPathException("XUST0001", "Can not execute an updating expression in a non-updating context.");
     }
 }
