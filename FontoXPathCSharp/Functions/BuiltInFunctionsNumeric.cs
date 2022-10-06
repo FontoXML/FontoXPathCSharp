@@ -112,7 +112,8 @@ public class BuiltInFunctionsNumeric<TNode>
             FnAbs,
             "abs",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
+            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+        ),
 
         new(new[]
             {
@@ -122,7 +123,8 @@ public class BuiltInFunctionsNumeric<TNode>
             FnFormatInteger,
             "format-integer",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+        ),
 
         new(new[]
             {
@@ -131,7 +133,8 @@ public class BuiltInFunctionsNumeric<TNode>
             FnCeiling,
             "ceiling",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
+            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+        ),
 
         new(new[]
             {
@@ -140,7 +143,50 @@ public class BuiltInFunctionsNumeric<TNode>
             FnFloor,
             "floor",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
+            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+            },
+            (_, _, _, param) => FnRound(false, param),
+            "round",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)
+            },
+            (_, _, _, param) => FnRound(false, param),
+            "round",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+            },
+            (_, _, _, param) => FnRound(true, param),
+            "round-half-to-even",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)
+            },
+            (_, _, _, param) => FnRound(true, param),
+            "round-half-to-even",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+        ),
 
         new(new[]
             {
@@ -149,7 +195,9 @@ public class BuiltInFunctionsNumeric<TNode>
             FnNumber,
             "number",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne)),
+            new SequenceType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne)
+        ),
+
         new(Array.Empty<ParameterType>(),
             (dynamicContext, executionParameters, staticContext, _) =>
             {
@@ -166,35 +214,8 @@ public class BuiltInFunctionsNumeric<TNode>
             },
             "number",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne)),
-        new(new[]
-            {
-                new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
-            },
-            (_, _, _, param) => FnRound(false, param),
-            "round",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
-        new(new[]
-            {
-                new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne),
-                new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)
-            },
-            (_, _, _, param) => FnRound(false, param), "round",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
-        new(new[] { new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne) },
-            (_, _, _, param) => FnRound(true, param), "round-half-to-even",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
-        new(new[]
-            {
-                new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne),
-                new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)
-            },
-            (_, _, _, param) => FnRound(true, param), "round-half-to-even",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne))
+            new SequenceType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne)
+        )
     };
 
     private static string ConvertIntegerToAlphabet(string intString, bool isLowerCase)
