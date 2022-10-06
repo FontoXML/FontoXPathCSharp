@@ -35,18 +35,119 @@ public class BuiltInFunctionsNumeric<TNode>
         );
     };
 
+    private static readonly FunctionSignature<ISequence, TNode> FnCeiling = (_, _, _, sequences) =>
+    {
+        var sequence = sequences[0];
+        return sequence.Map((onlyValue, _, _) =>
+            CreateValidNumericType(onlyValue.GetValueType(),
+                Math.Ceiling(Convert.ToDouble(onlyValue.GetAs<UntypedAtomicValue>())))
+        );
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnFloor = (_, _, _, sequences) =>
+    {
+        var sequence = sequences[0];
+        return sequence.Map((onlyValue, _, _) =>
+            CreateValidNumericType(onlyValue.GetValueType(),
+                Math.Floor(Convert.ToDouble(onlyValue.GetAs<UntypedAtomicValue>())))
+        );
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnFormatInteger = (_, _, _, sequences) =>
+    {
+        var sequence = sequences[0];
+        var pictureSequence = sequences[1];
+
+        if (sequence.IsEmpty()) return SequenceFactory.CreateFromValue(AtomicValue.Create("", ValueType.XsString));
+
+        var sequenceValue = sequence.First()!.GetAs<StringValue>();
+        var pictureValue = pictureSequence.First()!.GetAs<StringValue>();
+
+        switch (pictureValue.Value)
+        {
+            case "I":
+                return SequenceFactory.CreateFromValue(AtomicValue.Create(
+                    ConvertIntegerToRoman(sequenceValue.Value, false), ValueType.XsString));
+            case "i":
+                return SequenceFactory.CreateFromValue(AtomicValue.Create(
+                    ConvertIntegerToRoman(sequenceValue.Value, true), ValueType.XsString));
+            case "A":
+                return SequenceFactory.CreateFromValue(AtomicValue.Create(
+                    ConvertIntegerToAlphabet(sequenceValue.Value, false), ValueType.XsString));
+            case "a":
+                return SequenceFactory.CreateFromValue(AtomicValue.Create(
+                    ConvertIntegerToAlphabet(sequenceValue.Value, true), ValueType.XsString));
+            default:
+                throw new Exception(
+                    $"Picture: {pictureValue!.Value} is not implemented yet. The supported picture strings are 'A', 'a', 'I', and 'i'"
+                );
+        }
+    };
+
+    private static readonly char[] Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".Split().Select(s => s[0]).ToArray();
+
+    private static readonly Dictionary<string, int> RomanNumbers = new()
+    {
+        { "M", 1000 },
+        { "CM", 900 },
+        { "D", 500 },
+        { "CD", 400 },
+        { "C", 100 },
+        { "XC", 90 },
+        { "L", 50 },
+        { "XL", 40 },
+        { "X", 10 },
+        { "IX", 9 },
+        { "V", 5 },
+        { "IV", 4 },
+        { "I", 1 }
+    };
+
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
         new(new[]
             {
                 new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
             },
-            FnAbs, "abs",
+            FnAbs,
+            "abs",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
 
-        new(new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
-            FnNumber, "number",
+        new(new[]
+            {
+                new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            FnFormatInteger,
+            "format-integer",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnCeiling,
+            "ceiling",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnFloor,
+            "floor",
+            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnNumber,
+            "number",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne)),
         new(Array.Empty<ParameterType>(),
@@ -66,8 +167,12 @@ public class BuiltInFunctionsNumeric<TNode>
             "number",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne)),
-        new(new[] { new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne) },
-            (_, _, _, param) => FnRound(false, param), "round",
+        new(new[]
+            {
+                new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)
+            },
+            (_, _, _, param) => FnRound(false, param),
+            "round",
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
         new(new[]
@@ -91,6 +196,48 @@ public class BuiltInFunctionsNumeric<TNode>
             BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne))
     };
+
+    private static string ConvertIntegerToAlphabet(string intString, bool isLowerCase)
+    {
+        if (!int.TryParse(intString, out var integer)) return "-";
+
+        var isNegative = integer < 0;
+
+        integer = Math.Abs(integer);
+
+        var output = "";
+
+        while (integer > 0)
+        {
+            var digit = (integer - 1) % Alphabet.Length;
+            output = Alphabet[digit] + output;
+            integer = ((integer - digit) / Alphabet.Length) | 0;
+        }
+
+        if (isLowerCase) output = output.ToLower();
+
+        return isNegative ? "-${output}" : output;
+    }
+
+    private static string ConvertIntegerToRoman(string intString, bool isLowerCase)
+    {
+        if (!int.TryParse(intString, out var integer)) return "-";
+
+        var isNegative = integer < 0;
+
+        integer = Math.Abs(integer);
+
+        var romanString = RomanNumbers.Aggregate(
+            "",
+            (str, roman) =>
+            {
+                var q = (int)Math.Floor(integer / (double)roman.Value);
+                integer -= q * roman.Value;
+                return str + string.Concat(Enumerable.Repeat(roman.Key, q));
+            });
+        if (isLowerCase) romanString = romanString.ToLower();
+        return isNegative ? $"-{romanString}" : romanString;
+    }
 
     private static AbstractValue CreateValidNumericType(ValueType type, double transformedValue)
     {
