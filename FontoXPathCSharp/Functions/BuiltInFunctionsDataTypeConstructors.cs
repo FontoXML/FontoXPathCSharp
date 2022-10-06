@@ -118,7 +118,7 @@ public class BuiltInFunctionsDataTypeConstructors<TNode>
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 (_, _, _, args) => GenericDataTypeConstructor(nameValueType.Value, args[0]),
                 nameValueType.Key,
-                BuiltInUri.XMLSCHEMA_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+                BuiltInUri.XmlschemaNamespaceUri.GetBuiltinNamespaceUri(),
                 new SequenceType(nameValueType.Value, SequenceMultiplicity.ZeroOrOne))
             ).ToList();
 
@@ -134,7 +134,7 @@ public class BuiltInFunctionsDataTypeConstructors<TNode>
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 (_, _, _, args) => GenericDataTypeConstructor(nameValueType.Value, args[0]),
                 nameValueType.Key,
-                BuiltInUri.XMLSCHEMA_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+                BuiltInUri.XmlschemaNamespaceUri.GetBuiltinNamespaceUri(),
                 new SequenceType(nameValueType.Value, SequenceMultiplicity.ZeroOrMore))
             ).ToList();
 
@@ -145,7 +145,7 @@ public class BuiltInFunctionsDataTypeConstructors<TNode>
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 FnXsQName,
                 "QName",
-                BuiltInUri.XMLSCHEMA_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+                BuiltInUri.XmlschemaNamespaceUri.GetBuiltinNamespaceUri(),
                 new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrMore))
         };
 

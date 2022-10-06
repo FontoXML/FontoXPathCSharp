@@ -1,3 +1,4 @@
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -9,38 +10,114 @@ public static class BuiltInFunctionsNode<TNode>
 {
     public static readonly FunctionSignature<ISequence, TNode> FnNodeName = (_, executionParameters, _, args) =>
     {
-        var firstArg = args[0];
-        var pointerValue = firstArg.First();
-        if (pointerValue == null) return SequenceFactory.CreateEmpty();
-
-        var domFacade = executionParameters.DomFacade;
-
-        // TODO: replace this with a node pointer
-        var node = pointerValue.GetAs<NodeValue<TNode>>()!;
-        var nodeValue = node.Value;
-
-        return node.GetValueType() switch
+        return ISequence.ZipSingleton(args, pointerValueList =>
         {
-            ValueType.Element => SequenceFactory.CreateFromValue(new QNameValue(new QName(
-                domFacade.GetLocalName(node.Value),
-                domFacade.GetNamespaceUri(node.Value), domFacade.GetPrefix(node.Value)))),
-            ValueType.Attribute => SequenceFactory.CreateFromValue(new QNameValue(new QName(
-                domFacade.GetLocalName(node.Value),
-                domFacade.GetNamespaceUri(node.Value), domFacade.GetPrefix(node.Value)))),
-            ValueType.ProcessingInstruction => throw new NotImplementedException(
-                "We need to get the target here somehow"),
-            _ => SequenceFactory.CreateEmpty()
-        };
+            if (pointerValueList.Count == 0) return SequenceFactory.CreateEmpty();
+
+            var pointerValue = pointerValueList.First();
+
+            var domFacade = executionParameters.DomFacade;
+            var pointer = pointerValue.GetAs<NodeValue<TNode>>().Value;
+            return domFacade.GetNodeType(pointer) switch
+            {
+                NodeType.Element =>
+                    // element or attribute
+                    SequenceFactory.CreateFromValue(AtomicValue.Create(
+                        new QName(
+                            domFacade.GetPrefix(pointer) ?? string.Empty,
+                            domFacade.GetNamespaceUri(pointer),
+                            domFacade.GetLocalName(pointer)
+                        ),
+                        ValueType.XsQName)),
+                NodeType.Attribute =>
+                    // element or attribute
+                    SequenceFactory.CreateFromValue(AtomicValue.Create(
+                        new QName(
+                            domFacade.GetPrefix(pointer) ?? string.Empty,
+                            domFacade.GetNamespaceUri(pointer),
+                            domFacade.GetLocalName(pointer)
+                        ),
+                        ValueType.XsQName)),
+                NodeType.ProcessingInstruction =>
+                    // A processing instruction's target is its nodename (https://www.w3.org/TR/xpath-functions-31/#func-node-name)
+                    SequenceFactory.CreateFromValue(AtomicValue.Create(
+                        new QName(
+                            string.Empty,
+                            string.Empty,
+                            domFacade.GetTarget(pointer)
+                        ),
+                        ValueType.XsQName)),
+                _ => SequenceFactory.CreateEmpty()
+            };
+        });
     };
+
+    public static readonly FunctionSignature<ISequence, TNode> FnName =
+        (dynamicContext, executionParameters, staticContext, args) =>
+        {
+            var sequence = args[0];
+            return sequence.IsEmpty()
+                ? SequenceFactory.CreateEmpty()
+                : BuiltInFunctionsString<TNode>.FnString(dynamicContext,
+                    executionParameters,
+                    staticContext,
+                    FnNodeName(dynamicContext, executionParameters, staticContext, sequence));
+        };
 
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
-        new(new[] { new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne) },
-            FnNodeName, "node-name", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne)),
+        new(new[]
+            {
+                new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnName,
+            "name",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
+        ),
+
         new(Array.Empty<ParameterType>(),
-            BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnNodeName), "node-name",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne))
+            (dynamicContext, executionParameters, staticContext, _) =>
+                ContextItemAsFirstArgument(FnName, dynamicContext, executionParameters, staticContext),
+            "name",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnNodeName,
+            "node-name",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(Array.Empty<ParameterType>(),
+            BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnNodeName),
+            "node-name",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne)
+        )
     };
+
+    private static ISequence ContextItemAsFirstArgument(
+        FunctionSignature<ISequence, TNode> fn,
+        DynamicContext dynamicContext,
+        ExecutionParameters<TNode> executionParameters,
+        StaticContext<TNode> staticContext)
+    {
+        if (dynamicContext.ContextItem == null)
+            throw new XPathException(
+                "XPDY0002",
+                "The function which was called depends on dynamic context, which is absent."
+            );
+        return fn(
+            dynamicContext,
+            executionParameters,
+            staticContext,
+            SequenceFactory.CreateFromValue(dynamicContext.ContextItem)
+        );
+    }
 }
