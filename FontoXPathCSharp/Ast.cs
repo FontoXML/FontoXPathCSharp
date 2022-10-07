@@ -179,6 +179,8 @@ public class Ast
         StringAttributes = new Dictionary<string, string?>();
         Children = children.ToList();
         TextContent = "";
+        _start = null;
+        _end = null;
     }
 
     public StackTraceInfo? Start => _start;
@@ -239,15 +241,15 @@ public class Ast
 
     public class StackTraceInfo
     {
-        private int _column;
-        private int _line;
-        private int _offset;
+        public int Column;
+        public int Line;
+        public int Offset;
 
         public StackTraceInfo(int offset, int line, int column)
         {
-            _offset = offset;
-            _line = line;
-            _column = column;
+            Offset = offset;
+            Line = line;
+            Column = column;
         }
     }
 }

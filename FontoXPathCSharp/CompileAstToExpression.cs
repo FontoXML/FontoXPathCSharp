@@ -419,7 +419,8 @@ public static class CompileAstToExpression<TNode>
             returnExpr = new LetExpression<TNode>(
                 letClauseItem.FollowPath(AstNodeName.TypedVariableBinding, AstNodeName.VarName).GetQName(),
                 CompileAst(expression, DisallowUpdating(compilationOptions)),
-                returnExpr);
+                returnExpr
+            );
         }
 
         return returnExpr;

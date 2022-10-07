@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 
 namespace XPathTest.Qt3Tests;
@@ -16,7 +16,7 @@ public class Qt3TestArguments<TNode>
         IDomFacade<TNode> DomFacade,
         string TestQuery,
         Language.LanguageId Language,
-        Func<string, string?>? NamespaceResolver,
+        NamespaceResolver? NamespaceResolver,
         Dictionary<string, object>? VariablesInScope)
     {
         this.BaseUrl = BaseUrl;
@@ -61,7 +61,7 @@ public class Qt3TestArguments<TNode>
         var namespaces = new Dictionary<string, string>();
 
         var localNamespaceResolver = namespaces.Count != 0
-            ? new Func<string, string?>(prefix => namespaces[prefix])
+            ? new NamespaceResolver(prefix => namespaces[prefix])
             : null;
 
         var namespaceResolver = localNamespaceResolver;
@@ -126,7 +126,7 @@ public class Qt3TestArguments<TNode>
     public IDomFacade<TNode> DomFacade { get; init; }
     public string TestQuery { get; init; }
     public Language.LanguageId Language { get; init; }
-    public Func<string, string?>? NamespaceResolver { get; init; }
+    public NamespaceResolver? NamespaceResolver { get; init; }
     public Dictionary<string, object>? VariablesInScope { get; init; }
 
     public void Deconstruct(
@@ -135,7 +135,7 @@ public class Qt3TestArguments<TNode>
         out IDomFacade<TNode> DomFacade,
         out string TestQuery,
         out Language.LanguageId Language,
-        out Func<string, string?>? NamespaceResolver,
+        out NamespaceResolver? NamespaceResolver,
         out Dictionary<string, object>? VariablesInScope)
     {
         BaseUrl = this.BaseUrl;

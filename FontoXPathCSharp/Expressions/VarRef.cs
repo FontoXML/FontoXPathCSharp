@@ -48,6 +48,7 @@ public class VarRef<TNode> : AbstractExpression<TNode>
             _qualifiedName.NamespaceUri ?? string.Empty,
             _qualifiedName.LocalName
         );
+
         if (_variableBindingName == null)
             throw new XPathException("XPST0008", $"The variable {_qualifiedName.LocalName} is not in scope.");
 
