@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using System.Web;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
@@ -345,6 +346,167 @@ public static class BuiltInFunctionsString<TNode>
         );
     };
 
+    private static readonly FunctionSignature<ISequence, TNode> FnCodepointsToString = (_, _, _, args) =>
+    {
+        var numberSequence = args[0];
+        return numberSequence.MapAll(numbers =>
+        {
+            var str = string.Join("", numbers
+                .Select(num =>
+                {
+                    var numericValue = num.GetAs<IntValue>().Value;
+                    if (
+                        numericValue is 0x9 or 0xa or 0xd
+                        or >= 0x20 and <= 0xd7ff
+                        or >= 0xe000 and <= 0xfffd
+                        or >= 0x10000 and <= 0x10ffff
+                    )
+                        return char.ConvertFromUtf32(numericValue);
+                    throw new Exception("FOCH0001");
+                }));
+            return SequenceFactory.CreateFromValue(AtomicValue.Create(str, ValueType.XsString));
+        });
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnStringToCodepoints = (_, _, _, args) =>
+    {
+        return ISequence.ZipSingleton(args, stringSequence =>
+        {
+            var str = stringSequence[0];
+            var characters = str != null ? str.GetAs<StringValue>().Value : "";
+            if (characters.Length == 0) return SequenceFactory.CreateEmpty();
+
+            // C# and JS handle strings differently, so this is needed to do the same thing in C#
+            var codePoints = new List<AbstractValue>();
+            for (var i = 0; i < characters.Length; i += char.IsSurrogatePair(characters, i) ? 2 : 1)
+            {
+                var codepoint = char.ConvertToUtf32(characters, i);
+                codePoints.Add(AtomicValue.Create(codepoint, ValueType.XsInteger));
+            }
+
+            return SequenceFactory.CreateFromArray(codePoints.ToArray());
+        });
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnEncodeForUri = (_, _, _, stringSequence) =>
+    {
+        return ISequence.ZipSingleton(stringSequence, stringSequenceVal =>
+        {
+            var str = stringSequenceVal.FirstOrDefault();
+            if (str == null || str.GetAs<StringValue>().Value.Length == 0)
+                return SequenceFactory.CreateFromValue(AtomicValue.Create("", ValueType.XsString));
+
+            // Adhering RFC 3986 which reserves !, ', (, ), and *
+            var regex = new Regex("[!'()*]");
+            var encoded = regex.Replace(HttpUtility.UrlEncode(
+                    str.GetAs<StringValue>().Value),
+                c => '%' + Convert.ToString(c.Value[0], 16).ToUpper()
+            );
+            return SequenceFactory.CreateFromValue(AtomicValue.Create(
+                encoded,
+                ValueType.XsString
+            ));
+        });
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnIriToUri = (_, _, _, stringSequence) =>
+    {
+        return ISequence.ZipSingleton(stringSequence, stringSequenceVal =>
+        {
+            var str = stringSequenceVal.FirstOrDefault();
+            if (str == null || str.GetAs<StringValue>().Value.Length == 0)
+                return SequenceFactory.CreateFromValue(AtomicValue.Create("", ValueType.XsString));
+
+
+            var strValue = str.GetAs<StringValue>().Value;
+
+            return SequenceFactory.CreateFromValue(
+                AtomicValue.Create(
+                    Regex.Replace(
+                        strValue,
+                        @"([\u00A0-\uD7FF\uE000-\uFDCF\uFDF0-\uFFEF ""<>{}|\\^`/\n\u007f\u0080-\u009f]|[\uD800-\uDBFF][\uDC00-\uDFFF])",
+                        match => HttpUtility.UrlEncode(match.Value)
+                    ),
+                    ValueType.XsString
+                )
+            );
+        });
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnCodepointEqual = (_, _, _, args) =>
+    {
+        var stringSequence1 = args[0];
+        var stringSequence2 = args[1];
+        return ISequence.ZipSingleton(new []{stringSequence1, stringSequence2}, sequenceValues => {
+                var value1 = sequenceValues[0];
+                var value2 = sequenceValues[1];
+            if (value1 == null || value2 == null) {
+                return SequenceFactory.CreateEmpty();
+            }
+
+            var string1 = value1.GetAs<StringValue>().Value;
+            var string2 = value2.GetAs<StringValue>().Value;
+
+            if (string1.Length != string2.Length) {
+                return SequenceFactory.SingletonFalseSequence;
+            }
+
+            for (var i = 0; i < string1.Length; i += char.IsSurrogatePair(string2, i) ? 2 : 1)
+            {
+                var codepoint1 = char.ConvertToUtf32(string1, i);
+                var codepoint2 = char.ConvertToUtf32(string2, i);
+                if(codepoint1 != codepoint2) return SequenceFactory.SingletonFalseSequence;
+            }
+
+            return SequenceFactory.SingletonTrueSequence;
+        });
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnReplace = (_, _, _, args) =>
+    {
+        var inputSequence = args[0];
+        var patternSequence = args[1];
+        var replacementSequence = args[2];
+        
+        return ISequence.ZipSingleton(
+            new []{inputSequence, patternSequence, replacementSequence}, (sequenceValues) =>
+            {
+                var inputValue = sequenceValues[0];
+                var patternValue = sequenceValues[1];
+                var replacementValue = sequenceValues[2];
+                var input = inputValue != null ? inputValue.GetAs<StringValue>().Value : "";
+                var pattern = patternValue != null ? patternValue.GetAs<StringValue>().Value : "";
+                var replacement = replacementValue != null ? replacementValue.GetAs<StringValue>().Value : "";
+                if (replacement.Contains("$0")) {
+                    throw new Exception(
+                        "Using $0 in fn:replace to replace substrings with full matches is not supported."
+                    );
+                }
+
+                // Note: while XPath patterns escape dollars with backslashes, JavaScript escapes them by duplicating
+                replacement = string.Join("", Regex.Split(replacement, @"((?:\$\$)|(?:\\\$)|(?:\\\\))")
+                    .Select(part => {
+                        switch (part) {
+                            case "\\$":
+                                return "$$";
+                            case "\\\\":
+                                return "\\";
+                            case "$$":
+                                throw new Exception("FORX0004: invalid replacement: '$$'");
+                            default:
+                                return part;
+                        }
+                    }));
+
+                // TODO: This is a bit silly, the re-stringification of the regex should not be needed. 
+                var regex = CompileJsRegex(pattern);
+                var result = Regex.Replace(input, regex.ToString(), replacement);
+
+                return SequenceFactory.CreateFromValue(AtomicValue.Create(result, ValueType.XsString));
+            }
+        );
+    };
+
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
         new(
@@ -610,7 +772,7 @@ public static class BuiltInFunctionsString<TNode>
                 new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne),
                 new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
             },
-            (_, _, _, _) => throw new Exception("Not implemented: Using flags in 'tokenize' is not supported"),
+            (_, _, _, _) => throw new NotImplementedException("Using flags in 'tokenize' is not supported"),
             "tokenize",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ZeroOrMore)
@@ -641,6 +803,57 @@ public static class BuiltInFunctionsString<TNode>
 
         new(new[]
             {
+                new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnCodepointsToString,
+            "codepoints-to-string",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnStringToCodepoints,
+            "string-to-codepoints",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ZeroOrMore)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnEncodeForUri,
+            "encode-for-uri",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnIriToUri,
+            "iri-to-uri",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnCodepointEqual,
+            "codepoint-equal",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
                 new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne),
                 new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
             },
@@ -648,6 +861,31 @@ public static class BuiltInFunctionsString<TNode>
             "matches",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            FnReplace,
+            "replace",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            (_, _, _, _) => throw new NotImplementedException("Using flags in 'replace' is not supported"),
+            "replace",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
         )
     };
 
