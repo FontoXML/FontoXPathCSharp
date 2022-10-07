@@ -49,6 +49,6 @@ public class BinaryEvaluationFunctionMap
         AstNodeName op)
     {
         var tuple = (lhs, rhs, op);
-        return ReturnTypeMap.ContainsKey(tuple) ? OperationMap[tuple] : null;
+        return OperationMap.ContainsKey(tuple) ? OperationMap[tuple] : null;
     }
 }
