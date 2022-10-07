@@ -248,6 +248,103 @@ public static class BuiltInFunctionsString<TNode>
     };
 
 
+    private static readonly FunctionSignature<ISequence, TNode> FnUpperCase = (_, _, _, args) =>
+    {
+        var stringSequence = args[0];
+
+        return stringSequence.IsEmpty()
+            ? SequenceFactory.CreateFromValue(AtomicValue.Create("", ValueType.XsString))
+            : stringSequence.Map((stringValue, _, _) =>
+                AtomicValue.Create(stringValue.GetAs<StringValue>().Value.ToUpper(), ValueType.XsString));
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnLowerCase = (_, _, _, args) =>
+    {
+        var stringSequence = args[0];
+
+        return stringSequence.IsEmpty()
+            ? SequenceFactory.CreateFromValue(AtomicValue.Create("", ValueType.XsString))
+            : stringSequence.Map((stringValue, _, _) =>
+                AtomicValue.Create(stringValue.GetAs<StringValue>().Value.ToLower(), ValueType.XsString));
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnStringJoin = (_, executionParameters, _, args) =>
+    {
+        var sequence = args[0];
+        var separator = args[1];
+
+        return ISequence.ZipSingleton(new[] { separator }, separatorList =>
+            {
+                var separatorString = separatorList.First()?.GetAs<StringValue>().Value;
+                return Atomize.AtomizeSequence(sequence, executionParameters).MapAll(allStrings =>
+                {
+                    var joinedString = string.Join(separatorString, allStrings.Select(stringValue =>
+                        stringValue.CastToType(ValueType.XsString).GetAs<StringValue>().Value));
+                    return SequenceFactory.CreateFromValue(AtomicValue.Create(joinedString, ValueType.XsString));
+                });
+            }
+        );
+    };
+
+    private static readonly Dictionary<string, Regex> CompiledRegexes = new();
+
+    private static readonly FunctionSignature<ISequence, TNode> FnTokenize = (_, _, _, args) =>
+    {
+        var input = args[0];
+        var pattern = args[1];
+
+        if (input.IsEmpty() || input.First()!.GetAs<StringValue>().Value.Length == 0)
+            return SequenceFactory.CreateEmpty();
+
+        var inputString = input.First()!.GetAs<StringValue>().Value;
+        var patternString = pattern.First()!.GetAs<StringValue>().Value;
+
+        var regex = CompileJsRegex(patternString);
+
+        return SequenceFactory.CreateFromArray(
+            regex.Matches(inputString)
+                .Select(token => AtomicValue.Create(token.Value, ValueType.XsString) as AbstractValue)
+                .ToArray()
+        );
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnTranslate = (_, _, _, args) =>
+    {
+        var argSequence = args[0];
+        var mapStringSequence = args[1];
+        var transStringSequence = args[2];
+
+        return ISequence.ZipSingleton(
+            new[] { argSequence, mapStringSequence, transStringSequence },
+            sequences =>
+            {
+                var argValue = sequences[0];
+                var mapStringSequenceValue = sequences[1];
+                var transStringSequenceValue = sequences[2];
+
+                var argArr = (argValue != null ? argValue.GetAs<StringValue>().Value : "").ToCharArray();
+                var mapString = mapStringSequenceValue?.GetAs<StringValue>().Value ?? "";
+                var transStringArr =
+                    (transStringSequenceValue != null ? transStringSequenceValue.GetAs<StringValue>().Value : "")
+                    .ToCharArray();
+
+                var result = argArr.Select(letter =>
+                {
+                    if (mapString.Contains(letter))
+                    {
+                        var index = mapString.IndexOf(letter);
+                        if (index <= transStringArr.Length) return transStringArr[index];
+                    }
+
+                    return letter;
+                });
+                return SequenceFactory.CreateFromValue(
+                    AtomicValue.Create(string.Join("", result), ValueType.XsString)
+                );
+            }
+        );
+    };
+
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
         new(
@@ -350,6 +447,24 @@ public static class BuiltInFunctionsString<TNode>
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
         ),
 
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnNormalizeSpace,
+            "normalize-space",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        // TODO: this is implemented differently in the javascript version
+        new(Array.Empty<ParameterType>(),
+            BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnNormalizeSpace),
+            "normalize-space",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+        ),
+
         new(
             new[]
             {
@@ -428,7 +543,50 @@ public static class BuiltInFunctionsString<TNode>
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
         ),
-        
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnUpperCase,
+            "upper-case",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnLowerCase,
+            "lower-case",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            FnStringJoin,
+            "string-join",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore)
+            },
+            (dynamicContext, executionParameters, staticContext, args) =>
+                FnStringJoin(dynamicContext, executionParameters, staticContext, args[0],
+                    SequenceFactory.CreateFromValue(AtomicValue.Create("", ValueType.XsString))),
+            "string-join",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+        ),
+
         new(new[]
             {
                 new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)
@@ -448,18 +606,35 @@ public static class BuiltInFunctionsString<TNode>
 
         new(new[]
             {
-                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
             },
-            FnNormalizeSpace,
-            "normalize-space",
+            (_, _, _, _) => throw new Exception("Not implemented: Using flags in 'tokenize' is not supported"),
+            "tokenize",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ZeroOrMore)
         ),
 
-        // TODO: this is implemented differently in the javascript version
-        new(Array.Empty<ParameterType>(),
-            BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnNormalizeSpace),
-            "normalize-space",
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            FnTokenize,
+            "tokenize",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ZeroOrMore)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            FnTranslate,
+            "translate",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
         ),
@@ -475,4 +650,25 @@ public static class BuiltInFunctionsString<TNode>
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
         )
     };
+
+    private static Regex CompileJsRegex(string pattern)
+    {
+        if (CompiledRegexes.ContainsKey(pattern)) return CompiledRegexes[pattern];
+
+        Regex regex;
+        try
+        {
+            regex = new Regex(pattern, RegexOptions.ECMAScript);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"FORX0002: {ex}");
+        }
+
+        // Only do this check once per regex
+        if (regex.IsMatch("")) throw new Exception($"FORX0003: the pattern {pattern} matches the zero length string");
+
+        CompiledRegexes.Add(pattern, regex);
+        return regex;
+    }
 }

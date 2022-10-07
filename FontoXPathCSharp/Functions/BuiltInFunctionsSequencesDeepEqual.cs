@@ -8,7 +8,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsSequencesDeepEqual<TNode>
+public class BuiltInFunctionsSequencesDeepEqual<TNode> where TNode : notnull
 {
     public static Iterator<BooleanValue> SequenceDeepEqual(
         DynamicContext dynamicContext,
@@ -70,8 +70,8 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode>
                         dynamicContext,
                         executionParameters,
                         staticContext,
-                        item1.Value,
-                        item2.Value
+                        item1.Value!,
+                        item2.Value!
                     );
 
                 var comparisonResult = comparisonGenerator(IterationHint.None);
@@ -295,11 +295,24 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode>
                                     temp1.Value.LocalName == temp2.Value.LocalName);
         }
 
-        if (item1.GetValueType().IsSubtypeOfAny(ValueType.XsDateTime, ValueType.XsDate, ValueType.XsTime,
-                ValueType.XsGYearMonth, ValueType.XsGYear, ValueType.XsGMonthDay, ValueType.XsGMonth,
+        if (item1.GetValueType().IsSubtypeOfAny(
+                ValueType.XsDateTime,
+                ValueType.XsDate,
+                ValueType.XsTime,
+                ValueType.XsGYearMonth,
+                ValueType.XsGYear,
+                ValueType.XsGMonthDay,
+                ValueType.XsGMonth,
                 ValueType.XsGDay) &&
-            item2.GetValueType().IsSubtypeOfAny(ValueType.XsDateTime, ValueType.XsDate, ValueType.XsTime,
-                ValueType.XsGYearMonth, ValueType.XsGYear, ValueType.XsGMonthDay, ValueType.XsGMonth, ValueType.XsGDay)
+            item2.GetValueType().IsSubtypeOfAny(
+                ValueType.XsDateTime,
+                ValueType.XsDate,
+                ValueType.XsTime,
+                ValueType.XsGYearMonth,
+                ValueType.XsGYear,
+                ValueType.XsGMonthDay,
+                ValueType.XsGMonth,
+                ValueType.XsGDay)
            )
             throw new NotImplementedException("Comparison between dates/times not implemented yet");
 
@@ -497,10 +510,12 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode>
         );
 
         var item1NodesSeq = SequenceFactory.CreateFromArray(
-            item1Nodes.Select(node => new NodeValue<TNode>(node, executionParameters.DomFacade)).ToArray()
+            item1Nodes.Select(node => new NodeValue<TNode>(node, executionParameters.DomFacade) as AbstractValue)
+                .ToArray()
         );
         var item2NodesSeq = SequenceFactory.CreateFromArray(
-            item2Nodes.Select(node => new NodeValue<TNode>(node, executionParameters.DomFacade)).ToArray()
+            item2Nodes.Select(node => new NodeValue<TNode>(node, executionParameters.DomFacade) as AbstractValue)
+                .ToArray()
         );
 
         return SequenceDeepEqual(
