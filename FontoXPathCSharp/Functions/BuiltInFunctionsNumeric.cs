@@ -269,9 +269,9 @@ public class BuiltInFunctionsNumeric<TNode>
         return AtomicValue.Create(transformedValue, ValueType.XsDecimal);
     }
 
-    private static ISequence FnRound(
+    public static ISequence FnRound(
         bool halfToEven,
-        params ISequence[] sequences)
+        params ISequence?[] sequences)
     {
         var sequence = sequences[0];
         var precision = sequences.Length > 1 ? sequences[1] : null;
@@ -282,7 +282,7 @@ public class BuiltInFunctionsNumeric<TNode>
             {
                 if (done) return IteratorResult<AbstractValue>.Done();
 
-                if (sequence.IsEmpty())
+                if (sequence != null && sequence.IsEmpty())
                 {
                     // Empty sequence
                     done = true;

@@ -404,7 +404,7 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode>
                 SequenceFactory.CreateFromValue(item2)
             )
         );
-        
+
         var nodeDeepEqualGenerator = NodeDeepEqual(
             dynamicContext,
             executionParameters,
@@ -412,7 +412,7 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode>
             item1,
             item2
         );
-        
+
         var domFacade = executionParameters.DomFacade;
         var attributes1 = domFacade
             .GetAllAttributes(item1.GetAs<NodeValue<TNode>>().Value)
@@ -453,12 +453,12 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode>
             SequenceFactory.CreateFromArray(attributes1Values),
             SequenceFactory.CreateFromArray(attributes2Values)
         );
-        
+
         var done = false;
         return _ =>
         {
             if (done) return IteratorResult<BooleanValue>.Done();
-            
+
             var namesAreEqualResult = namesAreEqualResultGenerator(IterationHint.None);
             if (!namesAreEqualResult.IsDone && namesAreEqualResult.Value is { Value: false })
             {
@@ -489,10 +489,10 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode>
         var item1Nodes = executionParameters.DomFacade.GetChildNodes(item1.GetAs<NodeValue<TNode>>().Value);
         var item2Nodes = executionParameters.DomFacade.GetChildNodes(item2.GetAs<NodeValue<TNode>>().Value);
 
-        item1Nodes = item1Nodes.Where((item1Node) =>
+        item1Nodes = item1Nodes.Where(item1Node =>
             FilterElementAndTextNodes(item1Node, executionParameters.DomFacade)
         );
-        item2Nodes = item2Nodes.Where((item2Node) =>
+        item2Nodes = item2Nodes.Where(item2Node =>
             FilterElementAndTextNodes(item2Node, executionParameters.DomFacade)
         );
 

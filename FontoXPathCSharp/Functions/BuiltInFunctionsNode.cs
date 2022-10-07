@@ -77,8 +77,7 @@ public static class BuiltInFunctionsNode<TNode>
         ),
 
         new(Array.Empty<ParameterType>(),
-            (dynamicContext, executionParameters, staticContext, _) =>
-                ContextItemAsFirstArgument(FnName, dynamicContext, executionParameters, staticContext),
+            BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnName),
             "name",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
@@ -101,23 +100,4 @@ public static class BuiltInFunctionsNode<TNode>
             new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne)
         )
     };
-
-    private static ISequence ContextItemAsFirstArgument(
-        FunctionSignature<ISequence, TNode> fn,
-        DynamicContext dynamicContext,
-        ExecutionParameters<TNode> executionParameters,
-        StaticContext<TNode> staticContext)
-    {
-        if (dynamicContext.ContextItem == null)
-            throw new XPathException(
-                "XPDY0002",
-                "The function which was called depends on dynamic context, which is absent."
-            );
-        return fn(
-            dynamicContext,
-            executionParameters,
-            staticContext,
-            SequenceFactory.CreateFromValue(dynamicContext.ContextItem)
-        );
-    }
 }
