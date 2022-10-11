@@ -437,25 +437,22 @@ public static class BuiltInFunctionsString<TNode>
     {
         var stringSequence1 = args[0];
         var stringSequence2 = args[1];
-        return ISequence.ZipSingleton(new []{stringSequence1, stringSequence2}, sequenceValues => {
-                var value1 = sequenceValues[0];
-                var value2 = sequenceValues[1];
-            if (value1 == null || value2 == null) {
-                return SequenceFactory.CreateEmpty();
-            }
+        return ISequence.ZipSingleton(new[] { stringSequence1, stringSequence2 }, sequenceValues =>
+        {
+            var value1 = sequenceValues[0];
+            var value2 = sequenceValues[1];
+            if (value1 == null || value2 == null) return SequenceFactory.CreateEmpty();
 
             var string1 = value1.GetAs<StringValue>().Value;
             var string2 = value2.GetAs<StringValue>().Value;
 
-            if (string1.Length != string2.Length) {
-                return SequenceFactory.SingletonFalseSequence;
-            }
+            if (string1.Length != string2.Length) return SequenceFactory.SingletonFalseSequence;
 
             for (var i = 0; i < string1.Length; i += char.IsSurrogatePair(string2, i) ? 2 : 1)
             {
                 var codepoint1 = char.ConvertToUtf32(string1, i);
                 var codepoint2 = char.ConvertToUtf32(string2, i);
-                if(codepoint1 != codepoint2) return SequenceFactory.SingletonFalseSequence;
+                if (codepoint1 != codepoint2) return SequenceFactory.SingletonFalseSequence;
             }
 
             return SequenceFactory.SingletonTrueSequence;
@@ -467,9 +464,9 @@ public static class BuiltInFunctionsString<TNode>
         var inputSequence = args[0];
         var patternSequence = args[1];
         var replacementSequence = args[2];
-        
+
         return ISequence.ZipSingleton(
-            new []{inputSequence, patternSequence, replacementSequence}, (sequenceValues) =>
+            new[] { inputSequence, patternSequence, replacementSequence }, sequenceValues =>
             {
                 var inputValue = sequenceValues[0];
                 var patternValue = sequenceValues[1];
@@ -477,16 +474,17 @@ public static class BuiltInFunctionsString<TNode>
                 var input = inputValue != null ? inputValue.GetAs<StringValue>().Value : "";
                 var pattern = patternValue != null ? patternValue.GetAs<StringValue>().Value : "";
                 var replacement = replacementValue != null ? replacementValue.GetAs<StringValue>().Value : "";
-                if (replacement.Contains("$0")) {
+                if (replacement.Contains("$0"))
                     throw new Exception(
                         "Using $0 in fn:replace to replace substrings with full matches is not supported."
                     );
-                }
 
                 // Note: while XPath patterns escape dollars with backslashes, JavaScript escapes them by duplicating
                 replacement = string.Join("", Regex.Split(replacement, @"((?:\$\$)|(?:\\\$)|(?:\\\\))")
-                    .Select(part => {
-                        switch (part) {
+                    .Select(part =>
+                    {
+                        switch (part)
+                        {
                             case "\\$":
                                 return "$$";
                             case "\\\\":
