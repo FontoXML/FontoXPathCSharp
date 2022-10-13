@@ -49,6 +49,8 @@ public enum AstNodeName
     SubtractOp,
     MultiplyOp,
     DivOp,
+
+    // ReSharper disable once InconsistentNaming
     IDivOp,
     ModOp,
     UnionOp,
@@ -148,8 +150,6 @@ public class Ast
 {
     public readonly AstNodeName Name;
     public readonly Dictionary<string, string?> StringAttributes;
-    public StackTraceInfo? _end;
-    public StackTraceInfo? _start;
     public List<Ast> Children;
     public string TextContent;
 
@@ -159,8 +159,8 @@ public class Ast
         StringAttributes = new Dictionary<string, string?>();
         Children = new List<Ast>();
         TextContent = "";
-        _start = null;
-        _end = null;
+        Start = null;
+        End = null;
     }
 
     public Ast(AstNodeName name, params Ast[] children)
@@ -169,8 +169,8 @@ public class Ast
         StringAttributes = new Dictionary<string, string?>();
         Children = children.ToList();
         TextContent = "";
-        _start = null;
-        _end = null;
+        Start = null;
+        End = null;
     }
 
     public Ast(AstNodeName name, IEnumerable<Ast> children)
@@ -179,13 +179,12 @@ public class Ast
         StringAttributes = new Dictionary<string, string?>();
         Children = children.ToList();
         TextContent = "";
-        _start = null;
-        _end = null;
+        Start = null;
+        End = null;
     }
 
-    public StackTraceInfo? Start => _start;
-
-    public StackTraceInfo? End => _end;
+    public StackTraceInfo? End { get; set; }
+    public StackTraceInfo? Start { get; set; }
 
     public Ast? GetFirstChild(AstNodeName name = AstNodeName.All)
     {

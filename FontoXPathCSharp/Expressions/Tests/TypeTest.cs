@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp.Expressions.Tests;
 
-public class TypeTest<TNode> : AbstractTestExpression<TNode>
+public class TypeTest<TNode> : AbstractTestExpression<TNode> where TNode : notnull
 {
     private readonly QName _type;
 

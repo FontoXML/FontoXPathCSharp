@@ -29,7 +29,7 @@ public struct OptimizationOptions
     }
 }
 
-public abstract class AbstractExpression<TNode>
+public abstract class AbstractExpression<TNode> where TNode : notnull
 {
     public readonly bool CanBeStaticallyEvaluated;
     protected readonly AbstractExpression<TNode>[] ChildExpressions;

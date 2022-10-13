@@ -7,7 +7,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public static class BuiltInFunctionsString<TNode>
+public static class BuiltInFunctionsString<TNode> where TNode : notnull
 {
     private static readonly FunctionSignature<ISequence, TNode> FnConcat = (_, executionParameters, _, args) =>
     {

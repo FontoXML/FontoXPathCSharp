@@ -5,7 +5,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public delegate string? NamespaceResolver(string namespaceUri);
+public delegate string? NamespaceResolver(string? namespaceUri);
 
 public delegate ResolvedQualifiedName? FunctionNameResolver(LexicalQualifiedName qName, int arity);
 
@@ -22,7 +22,7 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode>
 
     public ExecutionSpecificStaticContext(
         NamespaceResolver namespaceResolver,
-        Dictionary<string, AbstractValue> variableByName,
+        Dictionary<string, AbstractValue?> variableByName,
         string defaultFunctionNamespaceUri,
         FunctionNameResolver functionNameResolver)
     {
@@ -44,7 +44,7 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode>
         _referredVariableByName = new Dictionary<string, string>();
         _referredNamespaceByName = new Dictionary<string, (string, string)>();
 
-        registeredDefaultFunctionNamespaceURI = defaultFunctionNamespaceUri;
+        RegisteredDefaultFunctionNamespaceUri = defaultFunctionNamespaceUri;
 
         _functionNameResolver = functionNameResolver;
         _resolvedFunctions = new List<ResolvedFunction>();
@@ -116,21 +116,21 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode>
         }
         else if (lexicalQName.Prefix == "")
         {
-            if (registeredDefaultFunctionNamespaceURI != null)
-                return new ResolvedQualifiedName(lexicalQName.LocalName, registeredDefaultFunctionNamespaceURI);
+            if (RegisteredDefaultFunctionNamespaceUri != null)
+                return new ResolvedQualifiedName(lexicalQName.LocalName, RegisteredDefaultFunctionNamespaceUri);
         }
         else
         {
             // NOTE: `lexicalQName == null` was added to get rid of nullable warning
             if (lexicalQName.Prefix == null) return null;
-            var namespaceUri = ResolveNamespace(lexicalQName.Prefix, true);
+            var namespaceUri = ResolveNamespace(lexicalQName.Prefix);
             if (namespaceUri != null) return new ResolvedQualifiedName(lexicalQName.LocalName, namespaceUri);
         }
 
         return resolvedQName;
     }
 
-    public override string? ResolveNamespace(string prefix, bool useExternalResolver)
+    public override string? ResolveNamespace(string? prefix, bool useExternalResolver = true)
     {
         if (!useExternalResolver) return null;
 
@@ -139,7 +139,7 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode>
 
         var uri = _namespaceResolver(prefix);
 
-        if (!_referredNamespaceByName.ContainsKey(prefix) && uri != null)
+        if (prefix != null && !_referredNamespaceByName.ContainsKey(prefix) && uri != null)
             _referredNamespaceByName.Add(prefix, (uri, prefix));
 
         return uri;

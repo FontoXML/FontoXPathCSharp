@@ -5,7 +5,7 @@ namespace FontoXPathCSharp.Sequences;
 
 internal class EmptySequence : ISequence
 {
-    private readonly Iterator<AbstractValue> _value = hint => IteratorResult<AbstractValue>.Done();
+    private readonly Iterator<AbstractValue> _value = _ => IteratorResult<AbstractValue>.Done();
 
     public bool IsEmpty()
     {

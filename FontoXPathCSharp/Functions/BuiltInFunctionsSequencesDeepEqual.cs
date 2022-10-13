@@ -8,7 +8,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsSequencesDeepEqual<TNode>
+public class BuiltInFunctionsSequencesDeepEqual<TNode> where TNode : notnull
 {
     public static Iterator<BooleanValue> SequenceDeepEqual(
         DynamicContext dynamicContext,

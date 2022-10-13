@@ -5,7 +5,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class ChildAxis<TNode> : AbstractExpression<TNode>
+public class ChildAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractTestExpression<TNode> _childExpression;
     private readonly string? _filterBucket;

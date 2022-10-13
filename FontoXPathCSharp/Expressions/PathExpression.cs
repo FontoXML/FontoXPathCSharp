@@ -63,7 +63,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
 
                 Iterator<ISequence> resultValuesInOrderOfEvaluation = hint =>
                 {
-                    var childContext = childContextIterator(hint);
+                    var childContext = childContextIterator!(hint);
 
                     if (childContext.IsDone) return IteratorResult<ISequence>.Done();
 

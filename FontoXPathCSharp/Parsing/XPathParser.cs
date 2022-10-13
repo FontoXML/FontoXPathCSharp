@@ -1142,8 +1142,8 @@ public class XPathParser
             return OkWithValue(result.Offset,
                 new Ast(AstNodeName.XStackTrace, result.Unwrap())
                 {
-                    _start = start,
-                    _end = end
+                    Start = start,
+                    End = end
                 }
             );
         };

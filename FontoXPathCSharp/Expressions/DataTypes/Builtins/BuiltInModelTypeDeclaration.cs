@@ -1,6 +1,6 @@
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Expressions;
+namespace FontoXPathCSharp.Expressions.DataTypes.Builtins;
 
 public class BuiltInModelTypeDeclaration
 {

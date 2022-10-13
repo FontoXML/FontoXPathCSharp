@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class IfExpression<TNode> : PossiblyUpdatingExpression<TNode>
+public class IfExpression<TNode> : PossiblyUpdatingExpression<TNode> where TNode : notnull
 {
     private AbstractExpression<TNode> _ifExpr;
 

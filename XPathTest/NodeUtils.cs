@@ -1,6 +1,6 @@
 namespace XPathTest;
 
-public interface NodeUtils<TNode>
+public interface INodeUtils<TNode>
 {
     public string NodeToString(TNode node);
 

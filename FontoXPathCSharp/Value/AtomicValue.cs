@@ -19,6 +19,11 @@ public abstract class AtomicValue : AbstractValue
         return GetValue().Equals(other.GetValue());
     }
 
+    public override int GetHashCode()
+    {
+        return GetValue().GetHashCode();
+    }
+
     public override string ToString()
     {
         return "<Value>[type: " + Type + ", value: " + GetValue() + "]";

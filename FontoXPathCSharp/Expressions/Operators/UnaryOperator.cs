@@ -6,7 +6,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Operators;
 
-public class UnaryOperator<TNode> : AbstractExpression<TNode>
+public class UnaryOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private static readonly IReadOnlyDictionary<ValueType, ValueType> UnaryLookup = new Dictionary<ValueType, ValueType>
     {

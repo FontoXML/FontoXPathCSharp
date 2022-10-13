@@ -5,7 +5,7 @@ using FontoXPathCSharp.Types;
 
 namespace FontoXPathCSharp;
 
-public class StaticContext<TNode> : AbstractContext<TNode>
+public class StaticContext<TNode> : AbstractContext<TNode> where TNode : notnull
 {
     private readonly AbstractContext<TNode> _parentContext;
     private readonly List<Dictionary<string, string>> _registeredNamespaceUriByPrefix;
@@ -26,7 +26,7 @@ public class StaticContext<TNode> : AbstractContext<TNode>
         _registeredNamespaceUriByPrefix = new List<Dictionary<string, string>>();
 
         _registeredFunctionsByHash = new Dictionary<string, FunctionProperties<TNode>>();
-        registeredDefaultFunctionNamespaceURI = null;
+        RegisteredDefaultFunctionNamespaceUri = null;
 
         RegisteredVariableDeclarationByHashKey =
             parentContext != null
@@ -115,8 +115,8 @@ public class StaticContext<TNode> : AbstractContext<TNode>
 
     public override ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity)
     {
-        if (lexicalQName.Prefix == "" && registeredDefaultFunctionNamespaceURI != null)
-            return new ResolvedQualifiedName(lexicalQName.LocalName, registeredDefaultFunctionNamespaceURI);
+        if (lexicalQName.Prefix == "" && RegisteredDefaultFunctionNamespaceUri != null)
+            return new ResolvedQualifiedName(lexicalQName.LocalName, RegisteredDefaultFunctionNamespaceUri);
 
         if (lexicalQName.Prefix != null)
         {

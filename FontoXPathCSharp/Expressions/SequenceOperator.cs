@@ -2,7 +2,7 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class SequenceOperator<TNode> : PossiblyUpdatingExpression<TNode>
+public class SequenceOperator<TNode> : PossiblyUpdatingExpression<TNode> where TNode : notnull
 {
     public SequenceOperator(AbstractExpression<TNode>[] expressions) : base(
         expressions.Aggregate(new Specificity(), (specificity, selector) => specificity.Add(selector.Specificity)),

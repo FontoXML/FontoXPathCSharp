@@ -32,7 +32,7 @@ public static class Language
 
 public delegate string XmlSerializerFunc<TNode>(TNode root);
 
-public class Options<TNode>
+public class Options<TNode> where TNode : notnull
 {
     public Options(
         NamespaceResolver namespaceResolver,
@@ -73,7 +73,7 @@ public class Options<TNode>
 
     public string? DefaultFunctionNamespaceUri { get; set; }
 
-    public NamespaceResolver? NamespaceResolver { get; set; }
+    public NamespaceResolver NamespaceResolver { get; set; }
 
     public FunctionNameResolver? FunctionNameResolver { get; set; }
 

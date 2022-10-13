@@ -5,15 +5,14 @@ namespace FontoXPathCSharp.Expressions;
 
 public abstract class AbstractContext<TNode>
 {
-    protected string? registeredDefaultFunctionNamespaceURI;
+    protected string? RegisteredDefaultFunctionNamespaceUri;
 
-    public List<Dictionary<string, string>>
-        RegisteredVariableBindingByHashKey { get; protected init; }
+    public List<Dictionary<string, string>>? RegisteredVariableBindingByHashKey { get; protected init; }
 
-    public Dictionary<string, Func<DynamicContext, ExecutionParameters<TNode>, ISequence>>
+    public Dictionary<string, Func<DynamicContext, ExecutionParameters<TNode>, ISequence>>?
         RegisteredVariableDeclarationByHashKey { get; protected init; }
 
-    public abstract FunctionProperties<TNode>? LookupFunction(string? namespaceURI, string localName, int arity,
+    public abstract FunctionProperties<TNode>? LookupFunction(string? namespaceUri, string localName, int arity,
         bool skipExternal = false);
 
     public abstract string? LookupVariable(string? namespaceUri, string localName);

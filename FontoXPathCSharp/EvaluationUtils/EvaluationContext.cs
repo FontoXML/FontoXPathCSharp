@@ -10,7 +10,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
-public class EvaluationContext<TSelector, TNode>
+public class EvaluationContext<TSelector, TNode> where TSelector : notnull where TNode : notnull
 {
     public EvaluationContext(
         TSelector expression,
@@ -34,7 +34,7 @@ public class EvaluationContext<TSelector, TNode>
                 Logger = Console.WriteLine,
                 DocumentWriter = null,
                 ModuleImports = new Dictionary<string, string>(),
-                NamespaceResolver = null,
+                NamespaceResolver = _ => null,
                 FunctionNameResolver = null,
                 NodesFactory = null
             };
@@ -43,8 +43,7 @@ public class EvaluationContext<TSelector, TNode>
 
         var moduleImports = internalOptions.ModuleImports ?? new Dictionary<string, string>();
 
-        var namespaceResolver = internalOptions.NamespaceResolver ??
-                                CreateDefaultNamespaceResolver(contextItem, wrappedDomFacade);
+        var namespaceResolver = internalOptions.NamespaceResolver;
 
         var defaultFunctionNamespaceUri = externalOptions?.DefaultFunctionNamespaceUri ??
                                           BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri();
@@ -66,12 +65,12 @@ public class EvaluationContext<TSelector, TNode>
             ? AdaptValueToSequence(wrappedDomFacade, contextItem)
             : SequenceFactory.CreateEmpty();
 
-        INodesFactory<TNode> nodesFactory = null;
+        INodesFactory<TNode>? nodesFactory = null;
         // var nodesFactory = internalOptions.NodesFactory != null && compilationOptions.AllowXQuery
         //     ? WrapExternalDocumentWriter(internalOptions.DocumentWriter)
         //     : DomBackedDocumentWriter;
 
-        IDocumentWriter<TNode> documentWriter = null;
+        IDocumentWriter<TNode>? documentWriter = null;
 
         var xmlSerializer = internalOptions.XmlSerializer;
 
@@ -111,7 +110,7 @@ public class EvaluationContext<TSelector, TNode>
         foreach (var binding in expressionAndStaticContext.StaticContext.GetVariableBindings())
             if (!variableBindings.ContainsKey(binding))
                 variableBindings[binding] = () =>
-                    expressionAndStaticContext.StaticContext.GetVariableDeclaration(binding)(
+                    expressionAndStaticContext.StaticContext.GetVariableDeclaration(binding)!(
                         DynamicContext,
                         ExecutionParameters
                     );
@@ -140,9 +139,11 @@ public class EvaluationContext<TSelector, TNode>
 
     private static ISequence AdaptValueToSequence(
         DomFacade<TNode> domFacade,
-        AbstractValue value,
+        AbstractValue? value,
         SequenceType? expectedType = null)
     {
+        // TODO: create a better implementation of AdaptValueToSequence
+        expectedType ??= new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne);
         return SequenceFactory.CreateFromValue(
             new NodeValue<TNode>(value.GetAs<NodeValue<TNode>>().Value, domFacade)
         );

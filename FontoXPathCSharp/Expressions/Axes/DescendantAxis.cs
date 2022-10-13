@@ -5,7 +5,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class DescendantAxis<TNode> : AbstractExpression<TNode>
+public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly string? _descendantBucket;
     private readonly AbstractTestExpression<TNode> _descendantExpression;

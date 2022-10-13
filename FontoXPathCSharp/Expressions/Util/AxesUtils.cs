@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Util;
 
-public static class AxesUtils<TNode>
+public static class AxesUtils<TNode> where TNode : notnull
 {
     public static Iterator<AbstractValue> CreateDescendantIterator(
         IDomFacade<TNode> domFacade,

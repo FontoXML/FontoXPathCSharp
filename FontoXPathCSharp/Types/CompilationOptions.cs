@@ -2,33 +2,33 @@ namespace FontoXPathCSharp.Types;
 
 public class CompilationOptions
 {
-    public CompilationOptions(bool AllowUpdating, bool AllowXQuery, bool Debug, bool DisableCache)
+    public CompilationOptions(bool allowUpdating, bool allowXQuery, bool debug, bool disableCache)
     {
-        this.AllowUpdating = AllowUpdating;
-        this.AllowXQuery = AllowXQuery;
-        this.Debug = Debug;
-        this.DisableCache = DisableCache;
+        AllowUpdating = allowUpdating;
+        AllowXQuery = allowXQuery;
+        Debug = debug;
+        DisableCache = disableCache;
     }
 
     public static CompilationOptions XPathMode =>
-        new(AllowXQuery: false, AllowUpdating: false, DisableCache: false, Debug: false);
+        new(allowXQuery: false, allowUpdating: false, disableCache: false, debug: false);
 
     public static CompilationOptions XQueryMode =>
-        new(AllowXQuery: true, AllowUpdating: false, DisableCache: false, Debug: false);
+        new(allowXQuery: true, allowUpdating: false, disableCache: false, debug: false);
 
     public static CompilationOptions XQueryUpdatingMode =>
-        new(AllowXQuery: true, AllowUpdating: true, DisableCache: false, Debug: false);
+        new(allowXQuery: true, allowUpdating: true, disableCache: false, debug: false);
 
     public bool AllowUpdating { get; }
     public bool AllowXQuery { get; }
     public bool Debug { get; }
     public bool DisableCache { get; }
 
-    public void Deconstruct(out bool AllowUpdating, out bool AllowXQuery, out bool Debug, out bool DisableCache)
+    public void Deconstruct(out bool allowUpdating, out bool allowXQuery, out bool debug, out bool disableCache)
     {
-        AllowUpdating = this.AllowUpdating;
-        AllowXQuery = this.AllowXQuery;
-        Debug = this.Debug;
-        DisableCache = this.DisableCache;
+        allowUpdating = AllowUpdating;
+        allowXQuery = AllowXQuery;
+        debug = Debug;
+        disableCache = DisableCache;
     }
 }

@@ -107,7 +107,6 @@ public class XObjectDomFacade : IDomFacade<XObject>
     {
         var element = node as XElement;
         return element?.GetPrefixOfNamespace(element.Name.Namespace) ?? "";
-        throw new NotImplementedException("XObjectDomFacade.GetPrefix not implemented yet");
     }
 
     public bool IsElement(XObject node)

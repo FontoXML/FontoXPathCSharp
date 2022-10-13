@@ -5,7 +5,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class Literal<TNode> : AbstractExpression<TNode>
+public class Literal<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly Func<ISequence> _createValueSequence;
 

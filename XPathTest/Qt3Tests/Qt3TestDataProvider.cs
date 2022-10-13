@@ -8,9 +8,8 @@ using System.Xml.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
-using XPathTest.Qt3Tests;
 
-namespace XPathTest;
+namespace XPathTest.Qt3Tests;
 
 public class Qt3TestDataXmlNode : Qt3TestDataProvider<XmlNode>
 {
@@ -30,7 +29,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 {
     private readonly IDomFacade<TNode> _domFacade;
 
-    private readonly NodeUtils<TNode> _nodeUtils;
+    private readonly INodeUtils<TNode> _nodeUtils;
 
     private readonly Options<TNode> _options =
         new(_ => "http://www.w3.org/2010/09/qt-fots-catalog");
@@ -41,7 +40,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 
     private readonly HashSet<string> _unrunnableTestCasesByName = new();
 
-    public Qt3TestDataProvider(IDomFacade<TNode> domFacade, NodeUtils<TNode> nodeUtils)
+    public Qt3TestDataProvider(IDomFacade<TNode> domFacade, INodeUtils<TNode> nodeUtils)
     {
         _domFacade = domFacade;
         _nodeUtils = nodeUtils;
@@ -88,15 +87,15 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 
             var testSetName = Evaluate.EvaluateXPathToString("/test-set/@name",
                 testSetData,
-                _domFacade,
-                _options
+                _domFacade!,
+                _options!
             );
 
             var testCaseNodes = new List<TNode>(
                 Evaluate.EvaluateXPathToNodes(Qt3TestQueries.AllTestsQuery,
                     testSetData,
-                    _domFacade,
-                    _options)
+                    _domFacade!,
+                    _options!)
             );
 
             if (!testCaseNodes.Any()) return Array.Empty<object[]>();

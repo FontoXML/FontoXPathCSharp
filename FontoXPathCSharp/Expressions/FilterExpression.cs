@@ -5,7 +5,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class FilterExpression<TNode> : AbstractExpression<TNode>
+public class FilterExpression<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractExpression<TNode> _filterExpression;
     private readonly AbstractExpression<TNode> _selector;

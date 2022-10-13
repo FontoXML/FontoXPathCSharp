@@ -10,7 +10,7 @@ namespace FontoXPathCSharp;
 
 internal delegate AbstractValue BinaryOperatorFunction(AbstractValue left, AbstractValue right);
 
-internal class BinaryOperator<TNode> : AbstractExpression<TNode>
+internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private static readonly ValueType[] AllTypes =
     {

@@ -6,7 +6,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Tests;
 
-public class KindTest<TNode> : AbstractTestExpression<TNode>
+public class KindTest<TNode> : AbstractTestExpression<TNode> where TNode : notnull
 {
     private readonly NodeType _nodeType;
 

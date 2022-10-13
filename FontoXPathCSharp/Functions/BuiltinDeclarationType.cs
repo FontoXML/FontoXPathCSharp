@@ -4,7 +4,7 @@ using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltinDeclarationType<TNode>
+public class BuiltinDeclarationType<TNode> where TNode : notnull
 {
     public readonly ParameterType[] ArgumentTypes;
     public readonly FunctionSignature<ISequence, TNode> CallFunction;

@@ -7,13 +7,13 @@ using FontoXPathCSharp.Types;
 
 namespace XPathTest.Qt3Tests;
 
-public record Qt3TestEnvironment<TNode>
+public record Qt3TestEnvironment<TNode> where TNode : notnull
 {
     public Qt3TestEnvironment(
         string? baseUrl,
         TNode environmentNode,
         IDomFacade<TNode> domFacade,
-        NodeUtils<TNode> nodeUtils,
+        INodeUtils<TNode> nodeUtils,
         Options<TNode> options)
     {
         var fileName = Evaluate.EvaluateXPathToString(

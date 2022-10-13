@@ -3,7 +3,7 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class SelfAxis<TNode> : AbstractExpression<TNode>
+public class SelfAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly string? _filterBucket;
     private readonly AbstractTestExpression<TNode> _selector;

@@ -4,7 +4,7 @@ using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Expressions;
+namespace FontoXPathCSharp.Expressions.Operators.Compares;
 
 public enum CompareType
 {
@@ -16,7 +16,7 @@ public enum CompareType
     GreaterEquals
 }
 
-public class ValueCompare<TNode> : AbstractExpression<TNode>
+public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractExpression<TNode> _firstExpression;
     private readonly CompareType _operator;

@@ -2,7 +2,7 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions.Operators.Compares;
 
-public class NodeCompare<TNode> : AbstractExpression<TNode>
+public class NodeCompare<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     //TODO: Implement Node Comparison Expression
     public NodeCompare(Specificity specificity, AbstractExpression<TNode>[] childExpressions,

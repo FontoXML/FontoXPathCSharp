@@ -6,7 +6,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public static class BuiltInFunctionsSequences<TNode>
+public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 {
     private static readonly FunctionSignature<ISequence, TNode> FnCount = (_, _, _, args) =>
     {

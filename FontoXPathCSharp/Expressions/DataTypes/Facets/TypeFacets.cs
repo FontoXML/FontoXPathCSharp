@@ -8,7 +8,7 @@ public class TypeFacetHandlers
 
 public class TypeFacets
 {
-    public static TypeFacetHandlers? GetFacetsByDataType(ValueType valueType)
+    public static TypeFacetHandlers GetFacetsByDataType(ValueType valueType)
     {
         return new TypeFacetHandlers();
         // TODO: Implement facet handlers,

@@ -30,7 +30,7 @@ public class XmlDocumentsByPathCache : ResourceCache<string, XmlNode>
                 )
                 .ToList();
             var documentFragment = Utils.CreateDocumentFragment(GlobalDocument);
-            parsedContents.ForEach(node => documentFragment.AppendChild(node));
+            parsedContents.ForEach(node => documentFragment?.AppendChild(node));
             return documentFragment;
         }
 

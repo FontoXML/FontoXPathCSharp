@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public abstract class FlworExpression<TNode> : AbstractExpression<TNode>
+public abstract class FlworExpression<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     protected readonly AbstractExpression<TNode> ReturnExpression;
 

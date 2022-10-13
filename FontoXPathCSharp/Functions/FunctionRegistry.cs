@@ -5,7 +5,7 @@ using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp.Functions;
 
-public static class FunctionRegistry<TNode>
+public static class FunctionRegistry<TNode> where TNode : notnull
 {
     private static readonly ConcurrentDictionary<string, List<FunctionProperties<TNode>>> RegisteredFunctionsByName =
         new();

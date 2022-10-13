@@ -1,6 +1,6 @@
-namespace XPathTest;
+namespace XPathTest.Qt3Tests;
 
-public class Qt3TestQueries
+public static class Qt3TestQueries
 {
     public const string AllTestNameQuery =
         @"/test-set/@name || /test-set/description!(if (string()) then ""~"" || . else """")";

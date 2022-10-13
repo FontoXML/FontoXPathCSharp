@@ -188,12 +188,13 @@ public class Evaluate
         );
     }
 
+    // ReSharper disable once UnusedMember.Local
     private static string? EvaluateXPathToString<TSelector, TNode>(
         TSelector selector,
         object? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null)
+        Dictionary<string, object>? variables = null) where TNode : notnull
     {
         return EvaluateXPath<string, TSelector, TNode>(
             selector,
@@ -209,7 +210,7 @@ public class Evaluate
         AbstractValue? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variablesMap)
+        Dictionary<string, object>? variablesMap) where TNode : notnull where TSelector : notnull
     {
         variablesMap ??= new Dictionary<string, object>();
 

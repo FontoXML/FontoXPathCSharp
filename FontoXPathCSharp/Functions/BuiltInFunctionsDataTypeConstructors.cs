@@ -5,7 +5,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsDataTypeConstructors<TNode>
+public class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
 {
     private static readonly FunctionSignature<ISequence, TNode> FnXsQName = (_, _, staticContext, args) =>
     {

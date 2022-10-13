@@ -1,6 +1,6 @@
 namespace FontoXPathCSharp.DocumentWriter;
 
-public interface IDocumentWriter<TNode>
+public interface IDocumentWriter<TNode> where TNode : notnull
 {
     void InsertBefore(TNode parent, TNode newNode, TNode? referenceNode);
 

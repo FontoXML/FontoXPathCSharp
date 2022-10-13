@@ -8,13 +8,13 @@ using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
 using Xunit;
 
-namespace XPathTest.UnitTests;
+namespace XPathTest.Qt3Tests;
 
 public delegate void AsserterCall<TNode>(
     string testQuery,
-    TNode? contextNode,
+    TNode contextNode,
     Dictionary<string, object> variablesInScope,
-    NamespaceResolver? namespaceResolver
+    NamespaceResolver namespaceResolver
 ) where TNode : notnull;
 
 public class Qt3Assertions<TNode> where TNode : notnull
@@ -29,7 +29,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
     }
 
     public static AsserterCall<TNode> GetExpressionBackendAsserterForTest(string baseUrl, TNode testCase,
-        Language.LanguageId language, IDomFacade<TNode> domFacade, NodeUtils<TNode> nodeUtils)
+        Language.LanguageId language, IDomFacade<TNode> domFacade, INodeUtils<TNode> nodeUtils)
     {
         var assertNode = Evaluate.EvaluateXPathToFirstNode(
             "./result/*",
@@ -44,7 +44,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
         TNode assertNode,
         IDomFacade<TNode> domFacade,
         Language.LanguageId language,
-        NodeUtils<TNode> nodeUtils)
+        INodeUtils<TNode> nodeUtils)
     {
         // TODO: Implement the nodefactory, maybe?
         IDocumentWriter<TNode>? nodesFactory = null;
@@ -281,7 +281,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
             }
             case "assert-xml":
             {
-                TNode? parsedFragment;
+                TNode parsedFragment;
                 if (Evaluate.EvaluateXPathToBoolean(
                         "@file",
                         assertNode,

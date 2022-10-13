@@ -1,4 +1,5 @@
 using FontoXPathCSharp.EvaluationUtils;
+using FontoXPathCSharp.Expressions.Operators.Compares;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -6,7 +7,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class GeneralCompare<TNode> : AbstractExpression<TNode>
+public class GeneralCompare<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractExpression<TNode> _firstExpression;
     private readonly AbstractExpression<TNode> _secondExpression;

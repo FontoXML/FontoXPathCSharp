@@ -4,7 +4,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class NamedFunctionRef<TNode> : AbstractExpression<TNode>
+public class NamedFunctionRef<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly int _arity;
     private readonly QName _functionReference;

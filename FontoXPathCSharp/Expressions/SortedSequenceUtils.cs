@@ -23,8 +23,8 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
     {
         var currentSequence = sequences(IterationHint.None);
         if (currentSequence.IsDone) return SequenceFactory.CreateEmpty();
-        Iterator<AbstractValue> currentIterator = null;
-        AbstractValue previousValue = null;
+        Iterator<AbstractValue>? currentIterator = null;
+        AbstractValue? previousValue = null;
         return SequenceFactory.CreateFromIterator(
             hint =>
             {
@@ -50,8 +50,7 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
         );
     }
 
-    public static ISequence MergeSortedSequences<TNode>(DomFacade<TNode> domFacade, Iterator<ISequence> sequences)
-        where TNode : notnull
+    public static ISequence MergeSortedSequences(DomFacade<TNode> domFacade, Iterator<ISequence> sequences)
     {
         var allIterators = new List<MappedIterator>();
         // Because the sequences are sorted locally, but unsorted globally, we first need to sort all the iterators.

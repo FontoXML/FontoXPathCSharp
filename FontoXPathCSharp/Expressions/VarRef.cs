@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class VarRef<TNode> : AbstractExpression<TNode>
+public class VarRef<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly QName _qualifiedName;
     private Func<DynamicContext, ExecutionParameters<TNode>, ISequence>? _staticallyBoundVariableValue;

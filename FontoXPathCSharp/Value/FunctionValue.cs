@@ -7,12 +7,12 @@ namespace FontoXPathCSharp.Value;
 public delegate T FunctionSignature<out T, TNode>(
     DynamicContext? dynamicContext,
     ExecutionParameters<TNode> executionParameters,
-    StaticContext<TNode>? staticContext, params ISequence[] sequences);
+    StaticContext<TNode>? staticContext, params ISequence[] sequences) where TNode : notnull;
 
 public delegate ISequence FunctionDefinitionType<TNode>(
     DynamicContext? dynamicContext,
     ExecutionParameters<TNode> executionParameters,
-    StaticContext<TNode>? staticContext, params ISequence[] sequences);
+    StaticContext<TNode>? staticContext, params ISequence[] sequences) where TNode : notnull;
 
 public class FunctionValue<T, TNode> : AbstractValue
 {

@@ -2,7 +2,7 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class ContextItemExpression<TNode> : AbstractExpression<TNode>
+public class ContextItemExpression<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     public ContextItemExpression() : base(
         new Specificity(), Array.Empty<AbstractExpression<TNode>>(), new OptimizationOptions(false))

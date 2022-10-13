@@ -5,7 +5,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class AncestorAxis<TNode> : AbstractExpression<TNode>
+public class AncestorAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractTestExpression<TNode> _ancestorExpression;
     private readonly bool _inclusive;
@@ -29,7 +29,7 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode>
             if (ancestor == null) return IteratorResult<AbstractValue>.Done();
 
             var previousAncestor = ancestor;
-            ancestor = domFacade.GetParentNode(previousAncestor);
+            ancestor = domFacade!.GetParentNode(previousAncestor);
 
             return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(previousAncestor, domFacade));
         };

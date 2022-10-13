@@ -2,7 +2,7 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
 
-public abstract class UpdatingExpression<TNode> : AbstractExpression<TNode>
+public abstract class UpdatingExpression<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     protected UpdatingExpression(Specificity specificity, AbstractExpression<TNode>[] childExpressions,
         OptimizationOptions optimizationOptions) : base(specificity, childExpressions, optimizationOptions)

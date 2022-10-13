@@ -6,7 +6,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
-public static class XdmReturnValue<TSelector, TReturn, TNode>
+public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notnull
 {
     //This function definitely should be split into multiple, avoids a lot of casting and avoids the type switching structure.
     public static TReturn? ConvertXmdReturnValue(

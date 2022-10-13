@@ -6,7 +6,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class CastAsOperator<TNode> : AbstractExpression<TNode>
+public class CastAsOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly bool _allowsEmptySequence;
     private readonly AbstractExpression<TNode> _expression;
