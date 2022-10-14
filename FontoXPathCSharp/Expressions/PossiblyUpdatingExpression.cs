@@ -27,6 +27,6 @@ public abstract class PossiblyUpdatingExpression<TNode> : UpdatingExpression<TNo
 
     public abstract ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
         ExecutionParameters<TNode> executionParameters, SequenceCallback[] sequenceCallbacks);
-    
+
     // TODO: this.DetermineUpdatingness();
 }

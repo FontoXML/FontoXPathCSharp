@@ -110,6 +110,7 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : n
         return ValueType.XsDouble;
     }
 
+    // ReSharper disable once InconsistentNaming
     private static (BinaryOperatorFunction, ValueType) IDivOpChecksFunction(
         Func<AbstractValue, AbstractValue, (AtomicValue, AtomicValue)> applyCastFunctions,
         Func<object, object, object> fun)
@@ -160,7 +161,9 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : n
         var parentTypesOfA = AllTypes.Where(e => typeA.IsSubtypeOf(e));
         var parentTypesOfB = AllTypes.Where(e => typeB.IsSubtypeOf(e));
 
-        if (parentTypesOfA.Contains(ValueType.XsNumeric) && parentTypesOfB.Contains(ValueType.XsNumeric))
+        var typesOfA = parentTypesOfA as ValueType[] ?? parentTypesOfA.ToArray();
+        var typesOfB = parentTypesOfB as ValueType[] ?? parentTypesOfB.ToArray();
+        if (typesOfA.Contains(ValueType.XsNumeric) && typesOfB.Contains(ValueType.XsNumeric))
         {
             var fun = BinaryEvaluationFunctionMap.GetOperationForOperands(ValueType.XsNumeric, ValueType.XsNumeric, op);
             if (fun == null)
@@ -180,8 +183,8 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : n
             };
         }
 
-        foreach (var typeOfA in parentTypesOfA)
-        foreach (var typeOfB in parentTypesOfB)
+        foreach (var typeOfA in typesOfA)
+        foreach (var typeOfB in typesOfB)
         {
             var func = BinaryEvaluationFunctionMap.GetOperationForOperands(typeOfA, typeOfB, op);
             var mapRet = BinaryEvaluationFunctionMap.GetReturnTypeForOperands(typeOfA, typeOfB, op);

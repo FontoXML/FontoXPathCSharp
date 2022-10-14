@@ -52,7 +52,7 @@ public static class AxesUtils<TNode> where TNode : notnull
             }
 
             // TODO: null check somehow
-            return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(currentNode, domFacade));
+            return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(currentNode!, domFacade));
         };
     }
 

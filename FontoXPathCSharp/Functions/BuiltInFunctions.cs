@@ -18,7 +18,7 @@ public static class BuiltInFunctions<TNode> where TNode : notnull
 
     public static FunctionSignature<ISequence, TNode> ContextItemAsFirstArgument(FunctionSignature<ISequence, TNode> fn)
     {
-        return (context, parameters, staticContext, args) =>
+        return (context, parameters, staticContext, _) =>
         {
             if (context?.ContextItem == null)
                 throw new XPathException(

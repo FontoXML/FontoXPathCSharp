@@ -80,13 +80,14 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
                             // with XPTY0020
                             throw new XPathException(
                                 "XPTY0019",
-                                "The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.");
+                                "The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes."
+                            );
 
                     return IteratorResult<ISequence>.Ready(
                         selector.EvaluateMaybeStatically(childContext.Value, executionParameters));
                 };
 
-                ISequence sortedResultSequence = null;
+                ISequence? sortedResultSequence = null;
 
                 if (!_requireSortedResults)
                     sortedResultSequence =
@@ -137,7 +138,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
 
                 sequenceHasPeerProperty = sequenceHasPeerProperty && selector.Peer;
                 index++;
-                return sortedResultSequence;
+                return sortedResultSequence!;
             }
         );
 

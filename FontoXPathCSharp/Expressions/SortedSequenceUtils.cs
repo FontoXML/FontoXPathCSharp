@@ -90,8 +90,8 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
                         allIterators.Sort((iteratorA, iteratorB) =>
                             DocumentOrderUtils<TNode>.CompareNodePositions(
                                 domFacade,
-                                iteratorA.Current.Value!.GetAs<NodeValue<TNode>>()!,
-                                iteratorB.Current.Value!.GetAs<NodeValue<TNode>>()!
+                                iteratorA.Current.Value!.GetAs<NodeValue<TNode>>(),
+                                iteratorB.Current.Value!.GetAs<NodeValue<TNode>>()
                             )
                         );
                 }
@@ -155,7 +155,7 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
         public readonly Iterator<AbstractValue> Next;
         public IteratorResult<AbstractValue> Current;
 
-        public MappedIterator(IteratorResult<AbstractValue>? current, Iterator<AbstractValue> next)
+        public MappedIterator(IteratorResult<AbstractValue> current, Iterator<AbstractValue> next)
         {
             Next = next;
             Current = current;

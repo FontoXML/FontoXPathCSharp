@@ -147,10 +147,10 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
         if (firstAtomizedSequence.IsEmpty() || secondAtomizedSequence.IsEmpty())
             return SequenceFactory.CreateEmpty();
 
-        var onlyFirstValue = firstAtomizedSequence.First();
-        var onlySecondValue = secondAtomizedSequence.First();
+        var onlyFirstValue = firstAtomizedSequence.First()!;
+        var onlySecondValue = secondAtomizedSequence.First()!;
 
         return SequenceFactory.CreateFromValue(
-            new BooleanValue(PerformValueCompare(_operator, onlyFirstValue, onlySecondValue, dynamicContext)));
+            new BooleanValue(PerformValueCompare(_operator, onlyFirstValue, onlySecondValue, dynamicContext!)));
     }
 }

@@ -128,7 +128,7 @@ public class IteratorBackedSequence : ISequence
             var value = iterator(hint);
             while (!value.IsDone)
             {
-                if (callback(value.Value, i, this)) return value;
+                if (value.Value != null && callback(value.Value, i, this)) return value;
 
                 i++;
                 value = iterator(IterationHint.None);

@@ -30,7 +30,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode> where TNode : n
             if (result.IsEmpty())
                 return result;
 
-            var resultValue = result.First();
+            var resultValue = result.First()!;
             if (!resultValue.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
                 return result.GetEffectiveBooleanValue() ? valuesToFilter : SequenceFactory.CreateEmpty();
 
@@ -81,7 +81,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode> where TNode : n
 
                 if (iteratorItem.IsDone) return iteratorItem;
 
-                var newContext = dynamicContext.ScopeWithFocus(i, iteratorItem.Value, new EmptySequence());
+                var newContext = dynamicContext?.ScopeWithFocus(i, iteratorItem.Value, new EmptySequence());
                 filterResultSequence ??= _filterExpression.EvaluateMaybeStatically(
                     newContext, executionParameters);
 
@@ -107,7 +107,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode> where TNode : n
 
                 i++;
                 if (shouldReturnCurrentValue)
-                    return IteratorResult<AbstractValue>.Ready(returnableValue);
+                    return IteratorResult<AbstractValue>.Ready(returnableValue!);
             }
 
             return iteratorItem;

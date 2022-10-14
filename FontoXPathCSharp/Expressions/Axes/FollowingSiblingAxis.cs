@@ -26,7 +26,7 @@ public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode> where TNode
     {
         return _ =>
         {
-            node = domFacade.GetNextSibling(node, bucket);
+            node = domFacade.GetNextSibling(node!, bucket);
 
             return node == null
                 ? IteratorResult<AbstractValue>.Done()

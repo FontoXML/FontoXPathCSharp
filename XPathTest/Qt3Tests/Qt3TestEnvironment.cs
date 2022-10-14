@@ -56,13 +56,13 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
         // TODO: Integrate namespace resolver here.
 
         ContextNode = contextNode;
-        NamespaceResolver = null;
+        NamespaceResolver = _ => null;
         Variables = variables;
     }
 
     public Qt3TestEnvironment(
         TNode? contextNode,
-        Func<string, string>? namespaceResolver,
+        Func<string, string?> namespaceResolver,
         Dictionary<string, object>? variables)
     {
         ContextNode = contextNode;
@@ -70,17 +70,17 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
         Variables = variables;
     }
 
-    public TNode? ContextNode { get; init; }
-    public Func<string, string>? NamespaceResolver { get; init; }
-    public Dictionary<string, object>? Variables { get; init; }
+    public TNode? ContextNode { get; }
+    public Func<string, string?> NamespaceResolver { get; }
+    public Dictionary<string, object>? Variables { get; }
 
     public void Deconstruct(
         out TNode? contextNode,
-        out Func<string, string>? resolver,
+        out Func<string, string?> namespaceResolver,
         out Dictionary<string, object>? variables)
     {
         contextNode = ContextNode;
-        resolver = NamespaceResolver;
+        namespaceResolver = NamespaceResolver;
         variables = Variables;
     }
 }

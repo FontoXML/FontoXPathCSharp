@@ -1,11 +1,10 @@
 using FontoXPathCSharp.EvaluationUtils;
-using FontoXPathCSharp.Expressions.Operators.Compares;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Expressions;
+namespace FontoXPathCSharp.Expressions.Operators.Compares;
 
 public class GeneralCompare<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
@@ -93,6 +92,6 @@ public class GeneralCompare<TNode> : AbstractExpression<TNode> where TNode : not
         var firstAtomizedSequence = Atomize.AtomizeSequence(firstSequence, executionParameters);
         var secondAtomizedSequence = Atomize.AtomizeSequence(secondSequence, executionParameters);
 
-        return PerformGeneralCompare(_type, firstAtomizedSequence, secondAtomizedSequence, dynamicContext);
+        return PerformGeneralCompare(_type, firstAtomizedSequence, secondAtomizedSequence, dynamicContext!);
     }
 }

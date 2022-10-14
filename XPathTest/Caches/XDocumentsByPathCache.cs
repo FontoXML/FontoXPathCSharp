@@ -29,7 +29,7 @@ public class XDocumentsByPathCache : ResourceCache<string, XObject>
                 )
                 .ToList();
             var documentFragment = Utils.CreateDocumentFragment(GlobalDocument) as XDocument;
-            parsedContents.ForEach(node => documentFragment.Add(node));
+            parsedContents.ForEach(node => documentFragment?.Add(node));
             return documentFragment;
         }
 

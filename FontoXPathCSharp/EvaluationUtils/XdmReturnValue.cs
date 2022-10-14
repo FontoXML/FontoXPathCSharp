@@ -32,7 +32,8 @@ public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notn
                     return (TReturn)(object)string.Join(' ',
                         allValues.Select(v =>
                             TypeCasting.CastToType((AtomicValue)v, ValueType.XsString)
-                                .GetAs<StringValue>()?.Value));
+                                .GetAs<StringValue>()
+                                .Value));
                 }
             },
             // Strings
@@ -40,7 +41,7 @@ public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notn
                 typeof(IEnumerable<string>), () =>
                 {
                     var allValues = Atomize.AtomizeSequence(rawResults, executionParameters).GetAllValues();
-                    return (TReturn)allValues.Select(v => v.GetAs<StringValue>()?.Value);
+                    return (TReturn)allValues.Select(v => v.GetAs<StringValue>().Value);
                 }
             },
             // First Integer

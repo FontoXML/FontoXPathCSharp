@@ -45,6 +45,7 @@ public class CastToStringLikeType
 
                     if (float.IsNaN(floatValue)) return new SuccessResult<string>("NaN");
                     //Yes, this should be precisely equal to -0.0, it's a special case.
+                    // ReSharper disable once CompareOfFloatsByEqualityOperator
                     if (floatValue == -0.0f) return new SuccessResult<string>("-0");
                     // C#'s notation for large numbers uses E+, XPath's uses E
                     return new SuccessResult<string>((floatValue + "").Replace("E+", "E"));
@@ -67,6 +68,7 @@ public class CastToStringLikeType
                         return new SuccessResult<string>($"{(doubleValue < 0 ? "-" : "")}INF");
 
                     if (double.IsNaN(doubleValue)) return new SuccessResult<string>("NaN");
+                    // ReSharper disable once CompareOfFloatsByEqualityOperator
                     if (doubleValue == -0.0) return new SuccessResult<string>("-0");
                     // C#'s notation for large numbers uses E+, XPath's uses E
                     return new SuccessResult<string>((doubleValue + "").Replace("E+", "E"));

@@ -5,7 +5,7 @@ using FontoXPathCSharp.Types;
 
 namespace FontoXPathCSharp;
 
-public class ExecutionParameters<TNode>
+public class ExecutionParameters<TNode> where TNode : notnull
 {
     public ExecutionParameters(
         bool debug,

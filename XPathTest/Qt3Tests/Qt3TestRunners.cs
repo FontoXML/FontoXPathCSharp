@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
-using XPathTest.UnitTests;
 using Xunit;
 
 namespace XPathTest.Qt3Tests;
@@ -47,7 +46,7 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
         {
             asserter(
                 arguments.TestQuery,
-                arguments.ContextNode,
+                arguments.ContextNode!,
                 arguments.VariablesInScope ?? new Dictionary<string, object>(),
                 arguments.NamespaceResolver
             );

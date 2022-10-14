@@ -11,8 +11,8 @@ public class BuiltInFunctionsFunctions<TNode> where TNode : notnull
     {
         return ISequence.ZipSingleton(sequences, nameArityTuple =>
         {
-            var name = nameArityTuple[0]?.GetAs<QNameValue>();
-            var arity = nameArityTuple[1]?.GetAs<IntValue>();
+            var name = nameArityTuple[0].GetAs<QNameValue>();
+            var arity = nameArityTuple[1].GetAs<IntValue>();
 
             var functionProperties = staticContext?.LookupFunction(
                 name.Value.NamespaceUri,
@@ -26,7 +26,7 @@ public class BuiltInFunctionsFunctions<TNode> where TNode : notnull
                 functionProperties.ArgumentTypes,
                 arity.Value,
                 name.Value.LocalName,
-                name.Value.NamespaceUri,
+                name.Value.NamespaceUri!,
                 functionProperties.ReturnType,
                 functionProperties.CallFunction
             );

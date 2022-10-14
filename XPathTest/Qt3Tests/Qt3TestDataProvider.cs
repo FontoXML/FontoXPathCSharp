@@ -36,7 +36,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 
     private readonly HashSet<string> _shouldRunTestByName = new();
 
-    private readonly List<object[]> _testCases = new();
+    // private readonly List<object[]> _testCases = new();
 
     private readonly HashSet<string> _unrunnableTestCasesByName = new();
 
@@ -80,22 +80,22 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
                     .ForEach(x => _unrunnableTestCasesByName.Add(x[0]));
         }
 
-        var qt3Tests = _nodeUtils.LoadFileToXmlNode("catalog.xml");
+        var qt3Tests = _nodeUtils.LoadFileToXmlNode("catalog.xml")!;
         var allTestSets = GetAllTestSets(qt3Tests).SelectMany<string, object[]>(testSetFileName =>
         {
-            var testSetData = _nodeUtils.LoadFileToXmlNode(testSetFileName);
+            var testSetData = _nodeUtils.LoadFileToXmlNode(testSetFileName)!;
 
             var testSetName = Evaluate.EvaluateXPathToString("/test-set/@name",
                 testSetData,
-                _domFacade!,
-                _options!
+                _domFacade,
+                _options
             );
 
             var testCaseNodes = new List<TNode>(
                 Evaluate.EvaluateXPathToNodes(Qt3TestQueries.AllTestsQuery,
                     testSetData,
-                    _domFacade!,
-                    _options!)
+                    _domFacade,
+                    _options)
             );
 
             if (!testCaseNodes.Any()) return Array.Empty<object[]>();
@@ -112,14 +112,14 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
                 try
                 {
                     var name = GetTestName(testCase);
-                    var description = GetTestDescription(testSetName, name, testCase);
+                    var description = GetTestDescription(testSetName!, name, testCase);
                     var arguments = new Qt3TestArguments<TNode>(testSetFileName, testCase, _domFacade, _options,
                         _nodeUtils);
-                    testCases.Add(new object[] { name, testSetName, description, testCase, arguments, _nodeUtils });
+                    testCases.Add(new object[] { name, testSetName!, description, testCase, arguments, _nodeUtils });
                 }
                 catch (FileNotFoundException ex)
                 {
-                    /* Test file was probably not found. */
+                    Console.WriteLine(ex.Message);
                 }
 
                 return testCases;

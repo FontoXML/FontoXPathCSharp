@@ -72,8 +72,8 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
                 value = descendantIteratorStack.First()(IterationHint.None);
             }
 
-            descendantIteratorStack.Insert(0, CreateChildGenerator(value.Value, domFacade, bucket));
-            return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(value.Value, domFacade));
+            descendantIteratorStack.Insert(0, CreateChildGenerator(value.Value!, domFacade, bucket));
+            return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(value.Value!, domFacade));
         };
     }
 

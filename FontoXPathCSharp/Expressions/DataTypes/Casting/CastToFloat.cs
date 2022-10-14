@@ -16,7 +16,8 @@ public class CastToFloat
             {
                 ErrorResult<double> e => new ErrorResult<AtomicValue>(e.Message),
                 SuccessResult<double> r => new SuccessResult<AtomicValue>(
-                    AtomicValue.Create(r.Data, ValueType.XsFloat))
+                    AtomicValue.Create(r.Data, ValueType.XsFloat)),
+                _ => throw new ArgumentOutOfRangeException()
             };
         };
     }

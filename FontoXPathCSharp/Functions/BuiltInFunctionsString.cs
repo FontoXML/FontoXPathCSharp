@@ -12,7 +12,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
     private static readonly FunctionSignature<ISequence, TNode> FnConcat = (_, executionParameters, _, args) =>
     {
         var stringSequences = args.Select(sequence =>
-            Atomize.AtomizeSequence(sequence, executionParameters!).MapAll(allValues =>
+            Atomize.AtomizeSequence(sequence, executionParameters).MapAll(allValues =>
                 SequenceFactory.CreateFromValue(AtomicValue.Create(
                     string.Join("", allValues.Select(x => x.GetAs<AtomicValue>().GetValue())),
                     ValueType.XsString))));
@@ -30,7 +30,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
     {
         if (args.Length == 0) return SequenceFactory.CreateFromValue(new IntValue(0));
 
-        var stringValue = args[0].First()!.GetAs<StringValue>()!.Value;
+        var stringValue = args[0].First()!.GetAs<StringValue>().Value;
 
         return SequenceFactory.CreateFromValue(new IntValue(stringValue.Length));
     };

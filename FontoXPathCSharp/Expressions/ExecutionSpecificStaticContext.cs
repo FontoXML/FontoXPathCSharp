@@ -5,11 +5,11 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public delegate string? NamespaceResolver(string? namespaceUri);
+public delegate string? NamespaceResolver(string namespaceUri);
 
 public delegate ResolvedQualifiedName? FunctionNameResolver(LexicalQualifiedName qName, int arity);
 
-public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode>
+public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode> where TNode : notnull
 {
     private readonly FunctionNameResolver _functionNameResolver;
     private readonly NamespaceResolver _namespaceResolver;

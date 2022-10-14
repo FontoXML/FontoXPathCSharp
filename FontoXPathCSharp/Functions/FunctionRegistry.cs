@@ -13,9 +13,8 @@ public static class FunctionRegistry<TNode> where TNode : notnull
     public static FunctionProperties<TNode>? GetFunctionByArity(
         string functionNamespaceUri, string functionLocalName, int arity)
     {
-        List<FunctionProperties<TNode>> matchingFunctions;
-        if (!RegisteredFunctionsByName.TryGetValue(functionNamespaceUri + ":" + functionLocalName,
-                out matchingFunctions)) return null;
+        if (!RegisteredFunctionsByName.TryGetValue($"{functionNamespaceUri}:{functionLocalName}",
+                out var matchingFunctions)) return null;
 
         var matchingFunction = matchingFunctions.Find(functionDecl =>
         {

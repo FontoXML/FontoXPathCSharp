@@ -3,7 +3,7 @@ using FontoXPathCSharp.Types;
 
 namespace FontoXPathCSharp.Expressions;
 
-public abstract class AbstractContext<TNode>
+public abstract class AbstractContext<TNode> where TNode : notnull
 {
     protected string? RegisteredDefaultFunctionNamespaceUri;
 

@@ -16,7 +16,7 @@ public class Qt3TestArguments<TNode> where TNode : notnull
         IDomFacade<TNode> domFacade,
         string testQuery,
         Language.LanguageId language,
-        NamespaceResolver? namespaceResolver,
+        NamespaceResolver namespaceResolver,
         Dictionary<string, object>? variablesInScope)
     {
         BaseUrl = baseUrl;
@@ -64,8 +64,6 @@ public class Qt3TestArguments<TNode> where TNode : notnull
         var localNamespaceResolver = namespaces.Count != 0
             ? new NamespaceResolver(prefix => namespaces[prefix])
             : null;
-
-        var namespaceResolver = localNamespaceResolver;
 
         var refString = Evaluate.EvaluateXPathToString(
             "./environment/@ref",
@@ -118,9 +116,9 @@ public class Qt3TestArguments<TNode> where TNode : notnull
         //             options) ?? string.Empty
         //     ))!;
 
-        namespaceResolver = localNamespaceResolver != null
-            ? prefix => localNamespaceResolver(prefix) ?? resolver?.Invoke(prefix)
-            : prefix => resolver?.Invoke(prefix);
+        NamespaceResolver namespaceResolver = localNamespaceResolver != null
+            ? prefix => localNamespaceResolver(prefix) ?? resolver(prefix)
+            : prefix => resolver(prefix);
 
         BaseUrl = Path.GetDirectoryName(filepath) ?? string.Empty;
         ContextNode = contextNode;
@@ -131,13 +129,13 @@ public class Qt3TestArguments<TNode> where TNode : notnull
         VariablesInScope = variablesInScope;
     }
 
-    public string BaseUrl { get; init; }
-    public TNode? ContextNode { get; init; }
-    public IDomFacade<TNode> DomFacade { get; init; }
-    public string TestQuery { get; init; }
-    public Language.LanguageId Language { get; init; }
-    public NamespaceResolver? NamespaceResolver { get; init; }
-    public Dictionary<string, object>? VariablesInScope { get; init; }
+    public string BaseUrl { get; }
+    public TNode? ContextNode { get; }
+    public IDomFacade<TNode> DomFacade { get; }
+    public string TestQuery { get; }
+    public Language.LanguageId Language { get; }
+    public NamespaceResolver NamespaceResolver { get; }
+    public Dictionary<string, object>? VariablesInScope { get; }
 
     public void Deconstruct(
         out string baseUrl,

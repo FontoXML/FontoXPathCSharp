@@ -6,7 +6,8 @@ using FontoXPathCSharp.Value.ExpressionResults;
 
 namespace FontoXPathCSharp;
 
-public record StaticCompilationResult<TNode>(StaticContext<TNode> StaticContext, AbstractExpression<TNode> Expression);
+public record StaticCompilationResult<TNode>(StaticContext<TNode> StaticContext, AbstractExpression<TNode> Expression)
+    where TNode : notnull;
 
 public static class CompileXPath<TSelector, TNode> where TSelector : notnull where TNode : notnull
 {
@@ -14,7 +15,7 @@ public static class CompileXPath<TSelector, TNode> where TSelector : notnull whe
         TSelector xpathSource,
         CompilationOptions compilationOptions,
         NamespaceResolver namespaceResolver,
-        Dictionary<string, AbstractValue> variables,
+        Dictionary<string, AbstractValue?> variables,
         Dictionary<string, string> moduleImports,
         string defaultFunctionNamespaceUri,
         FunctionNameResolver functionNameResolver)

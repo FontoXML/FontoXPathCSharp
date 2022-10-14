@@ -105,9 +105,9 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         {
             var hasPassed = false;
             var deepEqualityIterator = BuiltInFunctionsSequencesDeepEqual<TNode>.SequenceDeepEqual(
-                dynamicContext,
+                dynamicContext!,
                 executionParameters,
-                staticContext,
+                staticContext!,
                 args[0],
                 args[1]
             );
@@ -180,7 +180,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 
         if (items.Any(item => double.IsNaN(item.GetAs<DoubleValue>().Value) ||
                               float.IsNaN(item.GetAs<FloatValue>().Value)))
-            return new[] { AtomicValue.Create(double.NaN, ValueType.XsDouble) };
+            return new AbstractValue[] { AtomicValue.Create(double.NaN, ValueType.XsDouble) };
 
         var convertResult = CommonTypeUtils.ConvertItemsToCommonType(items);
 

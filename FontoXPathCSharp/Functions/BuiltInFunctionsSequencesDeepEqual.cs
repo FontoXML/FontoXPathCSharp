@@ -70,8 +70,8 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode> where TNode : notnull
                         dynamicContext,
                         executionParameters,
                         staticContext,
-                        item1.Value,
-                        item2.Value
+                        item1.Value!,
+                        item2.Value!
                     );
 
                 var comparisonResult = comparisonGenerator(IterationHint.None);

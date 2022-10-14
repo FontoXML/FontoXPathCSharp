@@ -100,7 +100,7 @@ public class EvaluationContext<TSelector, TNode> where TSelector : notnull where
             compilationOptions.Debug,
             compilationOptions.DisableCache,
             wrappedDomFacade,
-            externalOptions.CurrentContext,
+            externalOptions!.CurrentContext,
             nodesFactory,
             documentWriter,
             internalOptions.Logger,
@@ -143,28 +143,17 @@ public class EvaluationContext<TSelector, TNode> where TSelector : notnull where
         SequenceType? expectedType = null)
     {
         // TODO: create a better implementation of AdaptValueToSequence
+        if (value == null) return SequenceFactory.CreateEmpty();
         expectedType ??= new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne);
         return SequenceFactory.CreateFromValue(
             new NodeValue<TNode>(value.GetAs<NodeValue<TNode>>().Value, domFacade)
         );
     }
 
-    private static NamespaceResolver CreateDefaultNamespaceResolver(
-        AbstractValue? contextItem,
-        DomFacade<TNode>? domFacade
-    )
-    {
-        if (contextItem == null || domFacade == null || !contextItem.GetValueType().IsSubtypeOf(ValueType.Node))
-            return _ => null;
-
-        //TODO: Fix this stuff.
-        Console.WriteLine("CreateDefaultNamespaceResolver is not finished properly.");
-        return _ => null;
-    }
-
     private static FunctionNameResolver CreateDefaultFunctionNameResolver(string defaultFunctionNamespaceUri)
     {
-        return (lexicalQualifiedName, arity) => lexicalQualifiedName.Prefix == null
+        // Second parameter is arity.
+        return (lexicalQualifiedName, _) => lexicalQualifiedName.Prefix == null
             ? new ResolvedQualifiedName(lexicalQualifiedName.LocalName, defaultFunctionNamespaceUri)
             : null;
     }

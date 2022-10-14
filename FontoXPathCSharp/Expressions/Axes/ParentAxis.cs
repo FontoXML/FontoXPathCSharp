@@ -21,7 +21,7 @@ public class ParentAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
     {
         var domFacade = executionParameters.DomFacade;
-        var contextNode = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext.ContextItem);
+        var contextNode = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
         var parentNode = domFacade.GetParentNode(contextNode.Value, _filterBucket);
 
         if (parentNode == null) return SequenceFactory.CreateEmpty();

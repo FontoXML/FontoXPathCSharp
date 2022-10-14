@@ -13,7 +13,7 @@ public class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
 
         if (sequence.IsEmpty()) return sequence;
 
-        var value = sequence.First();
+        var value = sequence.First()!;
         if (value.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
             // This won't ever work
             throw new XPathException("XPTY0004", "The provided QName is not a string-like value.");
@@ -40,14 +40,14 @@ public class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
         var prefix = prefixLocalName[0];
         var localName = prefixLocalName[1];
 
-        var namespaceURI = staticContext?.ResolveNamespace(prefix);
-        if (namespaceURI == null)
+        var namespaceUri = staticContext?.ResolveNamespace(prefix);
+        if (namespaceUri == null)
             throw new XPathException(
                 "FONS0004",
                 $"The value {lexicalQName} can not be cast to a QName. Did you mean to use fn:QName?");
 
         return SequenceFactory.CreateFromValue(
-            AtomicValue.Create(new QName(prefix, namespaceURI, localName), ValueType.XsQName)
+            AtomicValue.Create(new QName(prefix, namespaceUri, localName), ValueType.XsQName)
         );
     };
 
@@ -113,7 +113,7 @@ public class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
             { "dayTimeDuration", ValueType.XsDayTimeDuration }
         };
 
-        var zeroOrOnedeclarations = ZeroOrOneConstructorTypes
+        var zeroOrOneDeclarations = ZeroOrOneConstructorTypes
             .Select(nameValueType => new BuiltinDeclarationType<TNode>(
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 (_, _, _, args) => GenericDataTypeConstructor(nameValueType.Value, args[0]),
@@ -122,14 +122,14 @@ public class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
                 new SequenceType(nameValueType.Value, SequenceMultiplicity.ZeroOrOne))
             ).ToList();
 
-        var ZeroOrMoreConstructorTypes = new Dictionary<string, ValueType>
+        var zeroOrMoreConstructorTypes = new Dictionary<string, ValueType>
         {
             { "NMTOKENS", ValueType.XsNmTokens },
             { "IDREFS", ValueType.XsIdRefs },
             { "ENTITIES", ValueType.XsEntities }
         };
 
-        var zeroOrMoredeclarations = ZeroOrMoreConstructorTypes
+        var zeroOrMoredeclarations = zeroOrMoreConstructorTypes
             .Select(nameValueType => new BuiltinDeclarationType<TNode>(
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 (_, _, _, args) => GenericDataTypeConstructor(nameValueType.Value, args[0]),
@@ -149,6 +149,6 @@ public class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
                 new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrMore))
         };
 
-        return zeroOrOnedeclarations.Concat(zeroOrMoredeclarations).Concat(qNameDeclaration).ToArray();
+        return zeroOrOneDeclarations.Concat(zeroOrMoredeclarations).Concat(qNameDeclaration).ToArray();
     }
 }
