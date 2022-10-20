@@ -56,13 +56,13 @@ public class Qt3TestArguments<TNode> where TNode : notnull
 
 
         //TODO: Retrieve the language from the test case.
-        var language = FontoXPathCSharp.Types.Language.LanguageId.XPATH_3_1_LANGUAGE;
+        var language = FontoXPathCSharp.Types.Language.LanguageId.Xpath31Language;
 
         //TODO: Retrieve namespaces from the test case.
         var namespaces = new Dictionary<string, string>();
 
         var localNamespaceResolver = namespaces.Count != 0
-            ? new NamespaceResolver(prefix => namespaces[prefix])
+            ? new NamespaceResolver(prefix => namespaces[prefix!])
             : null;
 
         var refString = Evaluate.EvaluateXPathToString(
@@ -117,8 +117,8 @@ public class Qt3TestArguments<TNode> where TNode : notnull
         //     ))!;
 
         NamespaceResolver namespaceResolver = localNamespaceResolver != null
-            ? prefix => localNamespaceResolver(prefix) ?? resolver(prefix)
-            : prefix => resolver(prefix);
+            ? prefix => localNamespaceResolver(prefix) ?? resolver(prefix!)
+            : prefix => resolver(prefix!);
 
         BaseUrl = Path.GetDirectoryName(filepath) ?? string.Empty;
         ContextNode = contextNode;

@@ -16,17 +16,17 @@ public static class BuiltInFunctionsNode<TNode> where TNode : notnull
         var domFacade = executionParameters.DomFacade;
 
         // TODO: replace this with a node pointer
-        var node = pointerValue.GetAs<NodeValue<TNode>>()!;
+        var node = pointerValue.GetAs<NodeValue<TNode>>();
         var nodeValue = node.Value;
 
         return node.GetValueType() switch
         {
             ValueType.Element => SequenceFactory.CreateFromValue(new QNameValue(new QName(
-                domFacade.GetLocalName(node.Value),
-                domFacade.GetNamespaceUri(node.Value), domFacade.GetPrefix(node.Value)))),
+                domFacade.GetLocalName(nodeValue),
+                domFacade.GetNamespaceUri(nodeValue), domFacade.GetPrefix(nodeValue)))),
             ValueType.Attribute => SequenceFactory.CreateFromValue(new QNameValue(new QName(
-                domFacade.GetLocalName(node.Value),
-                domFacade.GetNamespaceUri(node.Value), domFacade.GetPrefix(node.Value)))),
+                domFacade.GetLocalName(nodeValue),
+                domFacade.GetNamespaceUri(nodeValue), domFacade.GetPrefix(nodeValue)))),
             ValueType.ProcessingInstruction => throw new NotImplementedException(
                 "We need to get the target here somehow"),
             _ => SequenceFactory.CreateEmpty()
@@ -36,11 +36,11 @@ public static class BuiltInFunctionsNode<TNode> where TNode : notnull
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
         new(new[] { new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne) },
-            FnNodeName, "node-name", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            FnNodeName, "node-name", BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne)),
         new(Array.Empty<ParameterType>(),
             BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnNodeName), "node-name",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrOne))
     };
 }

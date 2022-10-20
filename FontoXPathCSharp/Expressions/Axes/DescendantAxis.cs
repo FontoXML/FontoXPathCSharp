@@ -77,9 +77,9 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
+        var domFacade = executionParameters!.DomFacade;
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
 
         var iterator = CreateInclusiveDescendantGenerator(contextItem.Value, domFacade, _descendantBucket);

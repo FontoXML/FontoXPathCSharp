@@ -40,12 +40,11 @@ public class NameTest<TNode> : AbstractTestExpression<TNode> where TNode : notnu
         return $"NameTest[ \"{_name}\" ]";
     }
 
-    protected internal override bool EvaluateToBoolean(
-        DynamicContext? _,
+    protected internal override bool EvaluateToBoolean(DynamicContext? _,
         AbstractValue value,
-        ExecutionParameters<TNode> executionParameters)
+        ExecutionParameters<TNode>? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
+        var domFacade = executionParameters!.DomFacade;
         var node = value.GetAs<NodeValue<TNode>>().Value;
         var nodeIsElement = value.GetValueType().IsSubtypeOf(ValueType.Element);
         var nodeIsAttribute = value.GetValueType().IsSubtypeOf(ValueType.Attribute);

@@ -7,7 +7,7 @@ namespace FontoXPathCSharp;
 
 public class StaticContext<TNode> : AbstractContext<TNode> where TNode : notnull
 {
-    private readonly AbstractContext<TNode> _parentContext;
+    private readonly AbstractContext<TNode>? _parentContext;
     private readonly List<Dictionary<string, string>> _registeredNamespaceUriByPrefix;
 
     private Dictionary<string, FunctionProperties<TNode>> _registeredFunctionsByHash;
@@ -50,7 +50,7 @@ public class StaticContext<TNode> : AbstractContext<TNode> where TNode : notnull
                 new FunctionProperties<TNode>(function.ArgumentTypes, function.ArgumentTypes.Length,
                     function.CallFunction,
                     false, function.LocalName, function.NamespaceUri, function.ReturnType);
-            RegisterFunctionDefinition(functionProperties!);
+            RegisterFunctionDefinition(functionProperties);
         }
     }
 
@@ -97,20 +97,18 @@ public class StaticContext<TNode> : AbstractContext<TNode> where TNode : notnull
             if (!skipExternal || !foundFunction.IsExternal) return foundFunction;
         }
 
-        return _parentContext.LookupFunction(namespaceUri, localName, arity, skipExternal);
+        return _parentContext!.LookupFunction(namespaceUri, localName, arity, skipExternal);
     }
 
     public override string? LookupVariable(string? namespaceUri, string localName)
     {
         var hash = CreateHashKey(namespaceUri, localName);
         var varNameInCurrentScope = LookupInOverrides(
-            RegisteredVariableBindingByHashKey,
+            RegisteredVariableBindingByHashKey!,
             hash
         );
         if (varNameInCurrentScope != null) return varNameInCurrentScope;
-        return _parentContext == null
-            ? null
-            : _parentContext.LookupVariable(namespaceUri, localName);
+        return _parentContext?.LookupVariable(namespaceUri, localName);
     }
 
     public override ResolvedQualifiedName? ResolveFunctionName(LexicalQualifiedName lexicalQName, int arity)
@@ -139,7 +137,7 @@ public class StaticContext<TNode> : AbstractContext<TNode> where TNode : notnull
     public override string? ResolveNamespace(string? prefix, bool useExternalResolver = true)
     {
         var uri = LookupInOverrides(_registeredNamespaceUriByPrefix, prefix ?? "");
-        return uri ?? _parentContext.ResolveNamespace(prefix, useExternalResolver);
+        return uri ?? _parentContext?.ResolveNamespace(prefix, useExternalResolver);
     }
 
     public void RegisterNamespace(string prefix, string namespaceUri)
@@ -168,7 +166,7 @@ public class StaticContext<TNode> : AbstractContext<TNode> where TNode : notnull
         _scopeDepth++;
 
         _registeredNamespaceUriByPrefix.Add(new Dictionary<string, string>());
-        RegisteredVariableBindingByHashKey.Add(new Dictionary<string, string>());
+        RegisteredVariableBindingByHashKey!.Add(new Dictionary<string, string>());
     }
 
     public void RemoveScope()
@@ -177,7 +175,7 @@ public class StaticContext<TNode> : AbstractContext<TNode> where TNode : notnull
             _scopeDepth,
             _registeredNamespaceUriByPrefix.Count - _scopeDepth
         );
-        RegisteredVariableBindingByHashKey.RemoveRange(
+        RegisteredVariableBindingByHashKey!.RemoveRange(
             _scopeDepth,
             RegisteredVariableBindingByHashKey.Count - _scopeDepth
         );
@@ -189,18 +187,18 @@ public class StaticContext<TNode> : AbstractContext<TNode> where TNode : notnull
     {
         var hash = CreateHashKey(namespaceUri ?? "", localName);
         var registration = $"{hash}[{_scopeCount}]";
-        RegisteredVariableBindingByHashKey[_scopeDepth][hash] = registration;
+        RegisteredVariableBindingByHashKey![_scopeDepth][hash] = registration;
         return registration;
     }
 
     public IEnumerable<string> GetVariableBindings()
     {
-        return RegisteredVariableDeclarationByHashKey.Keys;
+        return RegisteredVariableDeclarationByHashKey!.Keys;
     }
 
     public Func<DynamicContext, ExecutionParameters<TNode>, ISequence>? GetVariableDeclaration(string hashKey)
     {
-        return RegisteredVariableDeclarationByHashKey.ContainsKey(hashKey)
+        return RegisteredVariableDeclarationByHashKey!.ContainsKey(hashKey)
             ? RegisteredVariableDeclarationByHashKey[hashKey]
             : null;
     }

@@ -60,7 +60,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 
         // TODO: throw FORG0006 if the items contain both yearMonthDurations and dayTimeDurations
         var items = CastUntypedItemsToDouble(sequence.GetAllValues());
-        items = CommonTypeUtils.ConvertItemsToCommonType(items);
+        items = CommonTypeUtils.ConvertItemsToCommonType(items)!;
         if (items == null) throw new XPathException("FORG0006", "Incompatible types to be converted to a common type");
 
         if (!items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsNumeric)))
@@ -131,36 +131,36 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
     {
         new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne) },
             FnCount, "count",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
         new(new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore) },
             FnAvg, "avg",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)),
         new(new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore) },
             FnMax, "max",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)),
         new(new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore) },
             FnMin, "min",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)),
         new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore) },
             FnZeroOrOne, "zero-or-one",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)),
         new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore) },
-            FnEmpty, "empty", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            FnEmpty, "empty", BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
         new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore) },
-            FnExists, "exists", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            FnExists, "exists", BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
         new(new[]
             {
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
             },
-            FnDeepEqual, "deep-equal", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            FnDeepEqual, "deep-equal", BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
         new(new[]
             {
@@ -169,7 +169,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
                 new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
             },
             (_, _, _, _) => { throw new Exception("FOCH0002: No collations are supported"); },
-            "deep-equal", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            "deep-equal", BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne))
     };
 

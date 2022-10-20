@@ -18,9 +18,9 @@ public class ParentAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
         _filterBucket = BucketUtils.IntersectBuckets(filterBucket, parentExpression.GetBucket());
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
+        var domFacade = executionParameters!.DomFacade;
         var contextNode = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
         var parentNode = domFacade.GetParentNode(contextNode.Value, _filterBucket);
 

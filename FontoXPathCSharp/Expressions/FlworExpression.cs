@@ -28,12 +28,12 @@ public abstract class FlworExpression<TNode> : AbstractExpression<TNode> where T
 
     public override ISequence Evaluate(
         DynamicContext? dynamicContext,
-        ExecutionParameters<TNode> executionParameters)
+        ExecutionParameters<TNode>? executionParameters)
     {
         return DoFlworExpression(
             dynamicContext!,
             IteratorUtils.SingleValueIterator(dynamicContext)!,
-            executionParameters,
+            executionParameters!,
             dynamicContextIterator =>
             {
                 if (ReturnExpression is FlworExpression<TNode> expression)
@@ -41,7 +41,7 @@ public abstract class FlworExpression<TNode> : AbstractExpression<TNode> where T
                     return expression.DoFlworExpressionInternal(
                         dynamicContext!,
                         dynamicContextIterator,
-                        executionParameters
+                        executionParameters!
                     );
 
                 Iterator<AbstractValue>? currentSequenceIterator = null;

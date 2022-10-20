@@ -81,7 +81,7 @@ public class GeneralCompare<TNode> : AbstractExpression<TNode> where TNode : not
         });
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var firstSequence = _firstExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
         var secondSequence = _secondExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
@@ -89,8 +89,8 @@ public class GeneralCompare<TNode> : AbstractExpression<TNode> where TNode : not
         if (firstSequence.IsEmpty() || secondSequence.IsEmpty())
             return SequenceFactory.CreateFromValue(new BooleanValue(false));
 
-        var firstAtomizedSequence = Atomize.AtomizeSequence(firstSequence, executionParameters);
-        var secondAtomizedSequence = Atomize.AtomizeSequence(secondSequence, executionParameters);
+        var firstAtomizedSequence = Atomize.AtomizeSequence(firstSequence, executionParameters!);
+        var secondAtomizedSequence = Atomize.AtomizeSequence(secondSequence, executionParameters!);
 
         return PerformGeneralCompare(_type, firstAtomizedSequence, secondAtomizedSequence, dynamicContext!);
     }

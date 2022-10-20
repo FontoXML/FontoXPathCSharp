@@ -11,7 +11,7 @@ public class NodeCompare<TNode> : AbstractExpression<TNode> where TNode : notnul
         throw new NotImplementedException();
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         throw new NotImplementedException();
     }

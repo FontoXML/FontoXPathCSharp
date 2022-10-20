@@ -22,7 +22,7 @@ public class VarRef<TNode> : AbstractExpression<TNode> where TNode : notnull
         _staticallyBoundVariableValue = null;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var variableBinding = dynamicContext?.VariableBindings[_variableBindingName!];
 
@@ -30,7 +30,7 @@ public class VarRef<TNode> : AbstractExpression<TNode> where TNode : notnull
         if (variableBinding == null)
         {
             if (_staticallyBoundVariableValue != null)
-                return _staticallyBoundVariableValue(dynamicContext!, executionParameters);
+                return _staticallyBoundVariableValue(dynamicContext!, executionParameters!);
             throw new XPathException(
                 "XQDY0054", $"The variable {_qualifiedName.LocalName} is declared but not in scope."
             );

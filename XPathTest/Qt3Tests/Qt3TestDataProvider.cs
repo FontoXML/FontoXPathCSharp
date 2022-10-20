@@ -124,8 +124,6 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
             return testCasesReturn;
         });
 
-        var count = allTestSets.Count();
-
         return allTestSets.GetEnumerator();
     }
 

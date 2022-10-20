@@ -9,7 +9,7 @@ public class XDocumentByPathCache : ResourceCache<string, XObject>
     public static XmlDocumentsByPathCache Instance { get; } = new();
 
 
-    protected override XObject? Load(string filename)
+    protected override XObject Load(string filename)
     {
         var content = TestFileSystem.ReadFile($"qt3tests/{filename}").Replace("\r\n", "\n");
 

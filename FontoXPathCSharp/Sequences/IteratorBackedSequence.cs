@@ -177,7 +177,7 @@ public class IteratorBackedSequence : ISequence
         }
 
         var firstValue = it.Value;
-        if (firstValue.GetValueType().IsSubtypeOf(ValueType.Node))
+        if (firstValue!.GetValueType().IsSubtypeOf(ValueType.Node))
         {
             Reset(oldPosition);
             return true;

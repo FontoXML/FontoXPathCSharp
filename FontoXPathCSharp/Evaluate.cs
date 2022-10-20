@@ -229,9 +229,9 @@ public class Evaluate
                 variables,
                 options,
                 new CompilationOptions(
-                    options.LanguageId == Language.LanguageId.XQUERY_UPDATE_3_1_LANGUAGE,
-                    options.LanguageId is Language.LanguageId.XQUERY_3_1_LANGUAGE
-                        or Language.LanguageId.XQUERY_UPDATE_3_1_LANGUAGE,
+                    options.LanguageId == Language.LanguageId.XqueryUpdate31Language,
+                    options.LanguageId is Language.LanguageId.Xquery31Language
+                        or Language.LanguageId.XqueryUpdate31Language,
                     options.Debug,
                     options.DisableCache));
             dynamicContext = context.DynamicContext;

@@ -49,7 +49,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
     }
 
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var sequenceHasPeerProperty = true;
         var index = 0;
@@ -108,6 +108,20 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
                                     )
                                 );
                             };
+                            // Can't do fallthrough in C#, so it is copied.
+                            if (selector.Subtree && sequenceHasPeerProperty)
+                            {
+                                sortedResultSequence = SortedSequenceUtils<TNode>.ConcatSortedSequences(
+                                    resultValuesInOrderOfEvaluation
+                                );
+                                break;
+                            }
+
+                            // Only locally sorted
+                            sortedResultSequence = SortedSequenceUtils<TNode>.MergeSortedSequences(
+                                executionParameters!.DomFacade,
+                                resultValuesInOrderOfEvaluation
+                            );
                             break;
                         case ResultOrdering.Sorted:
                             if (selector.Subtree && sequenceHasPeerProperty)
@@ -120,7 +134,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
 
                             // Only locally sorted
                             sortedResultSequence = SortedSequenceUtils<TNode>.MergeSortedSequences(
-                                executionParameters.DomFacade,
+                                executionParameters!.DomFacade,
                                 resultValuesInOrderOfEvaluation
                             );
                             break;
@@ -131,7 +145,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
                             );
                             return concattedSequence.MapAll(allValues =>
                                 SequenceFactory.CreateFromArray(
-                                    SortResults(executionParameters.DomFacade, allValues)
+                                    SortResults(executionParameters!.DomFacade, allValues)
                                 )
                             );
                     }

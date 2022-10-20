@@ -2,7 +2,6 @@ using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
-using FontoXPathCSharp.Value.ExpressionResults;
 
 namespace FontoXPathCSharp;
 

@@ -16,10 +16,11 @@ public class KindTest<TNode> : AbstractTestExpression<TNode> where TNode : notnu
         _nodeType = nodeType;
     }
 
-    protected internal override bool EvaluateToBoolean(DynamicContext? dynamicContext, AbstractValue value,
-        ExecutionParameters<TNode> executionParameters)
+    protected internal override bool EvaluateToBoolean(DynamicContext? dynamicContext,
+        AbstractValue value,
+        ExecutionParameters<TNode>? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
+        var domFacade = executionParameters!.DomFacade;
         if (!value.GetValueType().IsSubtypeOf(ValueType.Node))
             return false;
 

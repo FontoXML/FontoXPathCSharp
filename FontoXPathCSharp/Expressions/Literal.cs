@@ -24,7 +24,7 @@ public class Literal<TNode> : AbstractExpression<TNode> where TNode : notnull
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         return _createValueSequence();
     }

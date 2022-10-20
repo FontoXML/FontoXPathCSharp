@@ -19,7 +19,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode> where TNode : n
         _filterExpression = filterExpression;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var valuesToFilter = _selector.EvaluateMaybeStatically(dynamicContext, executionParameters);
 

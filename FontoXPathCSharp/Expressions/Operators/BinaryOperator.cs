@@ -1,17 +1,17 @@
 using FontoXPathCSharp.EvaluationUtils;
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Operators.Arithmetic;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp;
+namespace FontoXPathCSharp.Expressions.Operators;
 
 internal delegate AbstractValue BinaryOperatorFunction(AbstractValue left, AbstractValue right);
 
 internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
+    // ReSharper disable once StaticMemberInGenericType
     private static readonly ValueType[] AllTypes =
     {
         ValueType.XsNumeric,
@@ -24,10 +24,11 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : n
 
     private readonly AbstractExpression<TNode> _firstValueExpr;
     private readonly AstNodeName _operator;
-    private readonly AbstractExpression<TNode> _secondValueExpr;
 
-    private readonly Dictionary<(ValueType, ValueType, AstNodeName), BinaryOperatorFunction> OperatorsByTypingKey =
+    private readonly Dictionary<(ValueType, ValueType, AstNodeName), BinaryOperatorFunction?> _operatorsByTypingKey =
         new();
+
+    private readonly AbstractExpression<TNode> _secondValueExpr;
 
     public BinaryOperator(AstNodeName op, AbstractExpression<TNode> firstValueExpr,
         AbstractExpression<TNode> secondValueExpr) : base(
@@ -40,11 +41,11 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : n
         _secondValueExpr = secondValueExpr;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var firstValueSequence = Atomize.AtomizeSequence(
             _firstValueExpr.EvaluateMaybeStatically(dynamicContext, executionParameters),
-            executionParameters
+            executionParameters!
         );
 
         return firstValueSequence.MapAll(firstValues =>
@@ -54,7 +55,7 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : n
                 return SequenceFactory.CreateEmpty();
             var secondValueSequence = Atomize.AtomizeSequence(
                 _secondValueExpr.EvaluateMaybeStatically(dynamicContext, executionParameters),
-                executionParameters
+                executionParameters!
             );
             return secondValueSequence.MapAll(secondValues =>
             {
@@ -87,14 +88,14 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : n
         });
     }
 
-    private BinaryOperatorFunction GetBinaryPrefabOperator(ValueType leftType, ValueType rightType, AstNodeName op)
+    private BinaryOperatorFunction? GetBinaryPrefabOperator(ValueType leftType, ValueType rightType, AstNodeName op)
     {
         var typingKey = (leftType, rightType, op); //$"{leftType}~{rightType}~{op}";
 
-        if (!OperatorsByTypingKey.ContainsKey(typingKey))
-            OperatorsByTypingKey.Add(typingKey, GenerateBinaryOperatorFunction(op, leftType, rightType));
+        if (!_operatorsByTypingKey.ContainsKey(typingKey))
+            _operatorsByTypingKey.Add(typingKey, GenerateBinaryOperatorFunction(op, leftType, rightType));
 
-        return OperatorsByTypingKey[typingKey];
+        return _operatorsByTypingKey[typingKey];
     }
 
     private static ValueType DetermineReturnType(ValueType typeA, ValueType typeB)
@@ -137,8 +138,8 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : n
         ValueType typeA,
         ValueType typeB)
     {
-        Func<AbstractValue, AtomicValue> castFunctionForValueA = null;
-        Func<AbstractValue, AtomicValue> castFunctionForValueB = null;
+        Func<AbstractValue, AtomicValue>? castFunctionForValueA = null;
+        Func<AbstractValue, AtomicValue>? castFunctionForValueB = null;
 
         if (typeA.IsSubtypeOf(ValueType.XsUntypedAtomic))
         {

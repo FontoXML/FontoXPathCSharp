@@ -65,7 +65,7 @@ public class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
 
     private static BuiltinDeclarationType<TNode>[] GenerateDeclarations()
     {
-        var ZeroOrOneConstructorTypes = new Dictionary<string, ValueType>
+        var zeroOrOneConstructorTypes = new Dictionary<string, ValueType>
         {
             { "untypedAtomic", ValueType.XsUntypedAtomic },
             { "error", ValueType.XsError },
@@ -113,12 +113,12 @@ public class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
             { "dayTimeDuration", ValueType.XsDayTimeDuration }
         };
 
-        var zeroOrOneDeclarations = ZeroOrOneConstructorTypes
+        var zeroOrOneDeclarations = zeroOrOneConstructorTypes
             .Select(nameValueType => new BuiltinDeclarationType<TNode>(
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 (_, _, _, args) => GenericDataTypeConstructor(nameValueType.Value, args[0]),
                 nameValueType.Key,
-                BuiltInUri.XMLSCHEMA_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+                BuiltInUri.XmlschemaNamespaceUri.GetBuiltinNamespaceUri(),
                 new SequenceType(nameValueType.Value, SequenceMultiplicity.ZeroOrOne))
             ).ToList();
 
@@ -134,7 +134,7 @@ public class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 (_, _, _, args) => GenericDataTypeConstructor(nameValueType.Value, args[0]),
                 nameValueType.Key,
-                BuiltInUri.XMLSCHEMA_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+                BuiltInUri.XmlschemaNamespaceUri.GetBuiltinNamespaceUri(),
                 new SequenceType(nameValueType.Value, SequenceMultiplicity.ZeroOrMore))
             ).ToList();
 
@@ -145,7 +145,7 @@ public class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
                 new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
                 FnXsQName,
                 "QName",
-                BuiltInUri.XMLSCHEMA_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+                BuiltInUri.XmlschemaNamespaceUri.GetBuiltinNamespaceUri(),
                 new SequenceType(ValueType.XsQName, SequenceMultiplicity.ZeroOrMore))
         };
 

@@ -75,7 +75,7 @@ public abstract class AtomicValue : AbstractValue
             ValueType.XsFloat => new FloatValue(value),
             ValueType.XsDouble => new DoubleValue(value),
             ValueType.XsQName => new QNameValue(value),
-            ValueType.XsUntypedAtomic => new UntypedAtomicValue(value),
+            ValueType.XsUntypedAtomic => new UntypedAtomicValue(value!),
             ValueType.XsString => new StringValue(value),
             _ => throw new NotImplementedException($"Atomic Value for {type} is not implemented yet.")
         };

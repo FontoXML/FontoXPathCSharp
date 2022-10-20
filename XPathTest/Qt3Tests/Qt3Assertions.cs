@@ -36,7 +36,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
             testCase,
             domFacade,
             Qt3Options);
-        return CreateAsserterForExpression(baseUrl, assertNode, domFacade, language, nodeUtils);
+        return CreateAsserterForExpression(baseUrl, assertNode!, domFacade, language, nodeUtils);
     }
 
     private static AsserterCall<TNode> CreateAsserterForExpression(
@@ -292,11 +292,14 @@ public class Qt3Assertions<TNode> where TNode : notnull
                             $"{baseUrl} || \"/\" || @file",
                             assertNode,
                             domFacade,
-                            Qt3Options)
-                    );
+                            Qt3Options)!
+                    )!;
                 else
-                    parsedFragment = domFacade.GetDocumentElement(nodeUtils.StringToXmlDocument(
-                        $"<xml>{Evaluate.EvaluateXPathToString(".", assertNode, domFacade, Qt3Options)}</xml>"));
+                    parsedFragment = domFacade.GetDocumentElement(
+                        nodeUtils.StringToXmlDocument(
+                            $"<xml>{Evaluate.EvaluateXPathToString(".", assertNode, domFacade, Qt3Options)}</xml>"
+                        )
+                    )!;
 
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
@@ -360,7 +363,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                 );
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
-                    var errorContents = "";
+                    // var errorContents = "";
                     var actualErrorCode = "";
                     Assert.Throws<XPathException>(
                         () =>
@@ -371,7 +374,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                                     contextNode,
                                     domFacade,
                                     new Options<TNode>(
-                                        namespaceResolver!,
+                                        namespaceResolver,
                                         documentWriter: nodesFactory,
                                         languageId: language),
                                     variablesInScope);
@@ -379,7 +382,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                             catch (XPathException ex)
                             {
                                 actualErrorCode = ex.ErrorCode;
-                                errorContents = ex.Message;
+                                // errorContents = ex.Message;
                                 throw;
                             }
                         }

@@ -13,18 +13,18 @@ public static class Language
 {
     public enum LanguageId
     {
-        XPATH_3_1_LANGUAGE,
-        XQUERY_3_1_LANGUAGE,
-        XQUERY_UPDATE_3_1_LANGUAGE
+        Xpath31Language,
+        Xquery31Language,
+        XqueryUpdate31Language
     }
 
     private static string GetLanguageName(LanguageId lang)
     {
         return lang switch
         {
-            LanguageId.XPATH_3_1_LANGUAGE => "XPath3.1",
-            LanguageId.XQUERY_3_1_LANGUAGE => "XQuery3.1",
-            LanguageId.XQUERY_UPDATE_3_1_LANGUAGE => "XQueryUpdate3.1",
+            LanguageId.Xpath31Language => "XPath3.1",
+            LanguageId.Xquery31Language => "XQuery3.1",
+            LanguageId.XqueryUpdate31Language => "XQueryUpdate3.1",
             _ => throw new Exception("Unreachable")
         };
     }

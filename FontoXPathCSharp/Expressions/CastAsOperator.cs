@@ -30,11 +30,11 @@ public class CastAsOperator<TNode> : AbstractExpression<TNode> where TNode : not
         _allowsEmptySequence = allowsEmptySequence;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var evaluatedExpression = Atomize.AtomizeSequence(
             _expression.EvaluateMaybeStatically(dynamicContext, executionParameters),
-            executionParameters
+            executionParameters!
         );
         if (evaluatedExpression.IsEmpty())
         {

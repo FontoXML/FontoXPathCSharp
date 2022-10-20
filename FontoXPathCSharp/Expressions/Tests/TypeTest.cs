@@ -13,7 +13,7 @@ public class TypeTest<TNode> : AbstractTestExpression<TNode> where TNode : notnu
     }
 
     protected internal override bool EvaluateToBoolean(DynamicContext? dynamicContext, AbstractValue value,
-        ExecutionParameters<TNode> executionParameters)
+        ExecutionParameters<TNode>? executionParameters)
     {
         return value.GetValueType()
             .IsSubtypeOf((_type.Prefix == null ? _type.LocalName : _type.Prefix + ":" + _type.LocalName)

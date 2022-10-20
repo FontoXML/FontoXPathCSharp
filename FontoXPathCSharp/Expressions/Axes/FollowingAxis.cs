@@ -74,9 +74,9 @@ public class FollowingAxis<TNode> : AbstractExpression<TNode> where TNode : notn
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
+        var domFacade = executionParameters!.DomFacade;
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 
         return SequenceFactory.CreateFromIterator(CreateFollowingGenerator(domFacade, contextItem.Value, _bucket))

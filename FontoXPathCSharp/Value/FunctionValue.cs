@@ -14,16 +14,24 @@ public delegate ISequence FunctionDefinitionType<TNode>(
     ExecutionParameters<TNode> executionParameters,
     StaticContext<TNode>? staticContext, params ISequence[] sequences) where TNode : notnull;
 
-public class FunctionValue<T, TNode> : AbstractValue
+public class FunctionValue<T, TNode> : AbstractValue where TNode : notnull
 {
-    protected readonly ParameterType[] ArgumentTypes;
+    private readonly ParameterType[] _argumentTypes;
     public readonly int Arity;
     public readonly bool IsUpdating;
+    private string? _localName;
+    private string? _namespaceUri;
+    private SequenceType? _returnType;
 
-    protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T, TNode> value,
-        ValueType type, bool isUpdating = false) : base(type)
+
+    protected FunctionValue(
+        ParameterType[] argumentTypes,
+        int arity,
+        FunctionSignature<T, TNode> value,
+        ValueType type,
+        bool isUpdating = false) : base(type)
     {
-        ArgumentTypes = argumentTypes;
+        _argumentTypes = argumentTypes;
         Arity = arity;
         Value = value;
         IsUpdating = isUpdating;
@@ -41,11 +49,11 @@ public class FunctionValue<T, TNode> : AbstractValue
     {
         Value = value;
         Arity = arity;
-        ArgumentTypes = ExpandParameterTypeToArity(argumentTypes, arity);
+        _argumentTypes = ExpandParameterTypeToArity(argumentTypes, arity);
         IsUpdating = isUpdating;
-        LocalName = localName;
-        NamespaceUri = namespaceUri;
-        ReturnType = returnType;
+        _localName = localName;
+        _namespaceUri = namespaceUri;
+        _returnType = returnType;
     }
 
     protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T, TNode> value,
@@ -55,11 +63,8 @@ public class FunctionValue<T, TNode> : AbstractValue
     }
 
     public FunctionSignature<T, TNode> Value { get; init; }
-    public string LocalName { get; }
-    public string NamespaceUri { get; }
-    public SequenceType ReturnType { get; }
 
-    private ParameterType[]? ExpandParameterTypeToArity(ParameterType[] argumentTypes, int arity)
+    private static ParameterType[] ExpandParameterTypeToArity(ParameterType[] argumentTypes, int arity)
     {
         var indexOfRest = -1;
         for (var i = 0; i < argumentTypes.Length; i++)

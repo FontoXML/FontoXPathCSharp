@@ -39,7 +39,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
     {
         if (args.Length == 0) return SequenceFactory.CreateFromValue(new StringValue(""));
 
-        var stringValue = args[0].First()!.GetAs<StringValue>()!.Value.Trim();
+        var stringValue = args[0].First()!.GetAs<StringValue>().Value.Trim();
         return SequenceFactory.CreateFromValue(new StringValue(Regex.Replace(stringValue, @"\s+", " ")));
     };
 
@@ -63,6 +63,8 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
         });
     };
 
+    // ReSharper disable once StaticMemberInGenericType
+    // ReSharper disable once CollectionNeverUpdated.Local
     private static readonly Dictionary<string, Func<string, bool>> CachedPatterns = new();
 
     private static readonly FunctionSignature<ISequence, TNode> FnMatches = (_, _, _, sequences) =>
@@ -93,35 +95,35 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
                 ParameterType.Ellipsis
             },
             FnConcat, "concat",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
         new(new[] { new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne) },
             FnStringLength, "string-length",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
         new(Array.Empty<ParameterType>(),
             BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnStringLength), "string-length",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
 
         new(new[] { new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne) },
             FnNormalizeSpace, "normalize-space",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
         // TODO: this is implemented differently in the javascript version
         new(Array.Empty<ParameterType>(),
             BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnNormalizeSpace), "normalize-space",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
         new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne) },
             FnString,
             "string",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
         new(Array.Empty<ParameterType>(),
             BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnString),
             "string",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
         new(new[]
             {
@@ -130,7 +132,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
             },
             FnMatches,
             "matches",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne))
     };
 }

@@ -1,6 +1,6 @@
 using FontoXPathCSharp.Expressions;
 
-namespace FontoXPathCSharp.Value.ExpressionResults;
+namespace FontoXPathCSharp.Value;
 
 public enum CacheState
 {
@@ -14,7 +14,7 @@ public abstract class ExpressionResult
     public CacheState CacheState { get; protected init; }
 }
 
-public class CompiledExpressionResult<TNode> : ExpressionResult
+public class CompiledExpressionResult<TNode> : ExpressionResult where TNode : notnull
 {
     public CompiledExpressionResult(AbstractExpression<TNode> expression)
     {
@@ -25,7 +25,7 @@ public class CompiledExpressionResult<TNode> : ExpressionResult
     public AbstractExpression<TNode> Expression { get; }
 }
 
-public class StaticallyAnalyzedExpressionResult<TNode> : ExpressionResult
+public class StaticallyAnalyzedExpressionResult<TNode> : ExpressionResult where TNode : notnull
 {
     public StaticallyAnalyzedExpressionResult(AbstractExpression<TNode> expression)
     {

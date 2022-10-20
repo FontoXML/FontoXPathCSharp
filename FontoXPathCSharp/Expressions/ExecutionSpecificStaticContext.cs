@@ -5,7 +5,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public delegate string? NamespaceResolver(string namespaceUri);
+public delegate string? NamespaceResolver(string? namespaceUri);
 
 public delegate ResolvedQualifiedName? FunctionNameResolver(LexicalQualifiedName qName, int arity);
 

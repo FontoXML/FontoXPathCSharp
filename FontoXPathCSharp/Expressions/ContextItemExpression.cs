@@ -9,7 +9,7 @@ public class ContextItemExpression<TNode> : AbstractExpression<TNode> where TNod
     {
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         if (dynamicContext?.ContextItem == null)
             throw new XPathException("XPDY0002", "context is absent, it needs to be present to use the \".\" operator");

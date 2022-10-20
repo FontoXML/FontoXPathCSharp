@@ -19,9 +19,9 @@ public class AttributeAxis<TNode> : AbstractExpression<TNode> where TNode : notn
         _filterBucket = BucketUtils.IntersectBuckets(_attributeTestExpression.GetBucket(), filterBucket);
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
+        var domFacade = executionParameters!.DomFacade;
 
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 

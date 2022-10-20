@@ -15,11 +15,11 @@ public abstract class PossiblyUpdatingExpression<TNode> : UpdatingExpression<TNo
         );
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         return PerformFunctionalEvaluation(
             dynamicContext,
-            executionParameters,
+            executionParameters!,
             ChildExpressions.Select<AbstractExpression<TNode>, SequenceCallback>(
                 expr => innerDynamicContext =>
                     expr.Evaluate(innerDynamicContext, executionParameters)).ToArray());

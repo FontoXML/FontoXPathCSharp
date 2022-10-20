@@ -35,8 +35,9 @@ public class OrOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
             : null;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
+        var domFacade = executionParameters!.DomFacade;
         var i = 0;
         ISequence? resultSequence = null;
         var done = false;
@@ -48,7 +49,7 @@ public class OrOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
             if (contextItem != null && contextItem.GetValueType().IsSubtypeOf(ValueType.Node))
                 contextItemBuckets = BucketUtils.GetBucketsForNode(
                     contextItem.GetAs<NodeValue<TNode>>().Value,
-                    executionParameters.DomFacade
+                    domFacade
                 );
         }
 

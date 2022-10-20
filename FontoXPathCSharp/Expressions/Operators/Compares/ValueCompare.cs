@@ -136,13 +136,13 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
         throw new XPathException("XPTY0004", type + " not available for " + firstType + " and " + secondType);
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var firstSequence = _firstExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
         var secondSequence = _secondExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
 
-        var firstAtomizedSequence = Atomize.AtomizeSequence(firstSequence, executionParameters);
-        var secondAtomizedSequence = Atomize.AtomizeSequence(secondSequence, executionParameters);
+        var firstAtomizedSequence = Atomize.AtomizeSequence(firstSequence, executionParameters!);
+        var secondAtomizedSequence = Atomize.AtomizeSequence(secondSequence, executionParameters!);
 
         if (firstAtomizedSequence.IsEmpty() || secondAtomizedSequence.IsEmpty())
             return SequenceFactory.CreateEmpty();

@@ -29,13 +29,13 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
             hint =>
             {
                 if (currentSequence.IsDone) return IteratorResult<AbstractValue>.Done();
-                if (currentIterator == null) currentIterator = currentSequence.Value?.GetValue();
+                currentIterator ??= currentSequence.Value?.GetValue();
 
                 IteratorResult<AbstractValue> value;
                 // Scan to the next value
                 do
                 {
-                    value = currentIterator(hint);
+                    value = currentIterator!(hint);
                     if (value.IsDone)
                     {
                         currentSequence = sequences(IterationHint.None);

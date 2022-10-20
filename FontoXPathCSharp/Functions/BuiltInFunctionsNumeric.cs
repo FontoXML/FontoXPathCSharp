@@ -30,7 +30,7 @@ public class BuiltInFunctionsNumeric<TNode> where TNode : notnull
     {
         new(new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne) },
             FnNumber, "number",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne)),
         new(Array.Empty<ParameterType>(),
             (dynamicContext, executionParameters, staticContext, _) =>
@@ -47,11 +47,11 @@ public class BuiltInFunctionsNumeric<TNode> where TNode : notnull
                 return FnNumber(dynamicContext, executionParameters, staticContext, atomizedContextItem);
             },
             "number",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne)),
         new(new[] { new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne) },
             (_, _, _, param) => FnRound(false, param), "round",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
         new(new[]
             {
@@ -59,11 +59,11 @@ public class BuiltInFunctionsNumeric<TNode> where TNode : notnull
                 new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)
             },
             (_, _, _, param) => FnRound(false, param), "round",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
         new(new[] { new ParameterType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne) },
             (_, _, _, param) => FnRound(true, param), "round-half-to-even",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne)),
         new(new[]
             {
@@ -71,7 +71,7 @@ public class BuiltInFunctionsNumeric<TNode> where TNode : notnull
                 new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)
             },
             (_, _, _, param) => FnRound(true, param), "round-half-to-even",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsNumeric, SequenceMultiplicity.ZeroOrOne))
     };
 

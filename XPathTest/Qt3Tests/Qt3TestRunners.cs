@@ -88,7 +88,7 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
         {
             asserter(
                 arguments.TestQuery,
-                arguments.ContextNode,
+                arguments.ContextNode!,
                 arguments.VariablesInScope ?? new Dictionary<string, object>(),
                 arguments.NamespaceResolver
             );
