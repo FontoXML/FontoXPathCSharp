@@ -155,4 +155,14 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
     {
         return (node as XmlDocument)?.DocumentElement;
     }
+
+    public string GetNodeName(XmlNode node)
+    {
+        return node.Name;
+    }
+
+    public string? GetTarget(XmlNode node)
+    {
+        return (node as XmlProcessingInstruction)?.Target;
+    }
 }

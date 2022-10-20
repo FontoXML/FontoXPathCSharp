@@ -170,4 +170,19 @@ public class XObjectDomFacade : IDomFacade<XObject>
     {
         return (node as XDocument)?.Root;
     }
+
+    public string GetNodeName(XObject node)
+    {
+        return node.NodeType switch
+        {
+            XmlNodeType.Element => ((XElement)node).Name.ToString(),
+            XmlNodeType.Attribute => ((XAttribute)node).Name.ToString(),
+            _ => ""
+        };
+    }
+
+    public string? GetTarget(XObject node)
+    {
+        return (node as XProcessingInstruction)?.Target;
+    }
 }

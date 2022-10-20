@@ -10,7 +10,7 @@ public enum BuiltInUri
     LocalNamespaceUri,
     MapNamespaceUri,
     MathNamespaceUri,
-    FontoxpathNamespaceUri,
+    FontoXpathNamespaceUri,
     XqueryxUpdatingNamespaceUri,
     XqueryxNamespaceUri
 }
@@ -27,7 +27,7 @@ public static class StaticallyKnownNamespaceUtils
         [BuiltInUri.LocalNamespaceUri] = "http://www.w3.org/2005/xquery-local-functions",
         [BuiltInUri.MapNamespaceUri] = "http://www.w3.org/2005/xpath-functions/map",
         [BuiltInUri.MathNamespaceUri] = "http://www.w3.org/2005/xpath-functions/math",
-        [BuiltInUri.FontoxpathNamespaceUri] = "http://fontoxml.com/fontoxpath",
+        [BuiltInUri.FontoXpathNamespaceUri] = "http://fontoxml.com/fontoxpath",
         [BuiltInUri.XqueryxUpdatingNamespaceUri] = "http://www.w3.org/2007/xquery-update-10",
         [BuiltInUri.XqueryxNamespaceUri] = "http://www.w3.org/2005/XQueryX"
     };
@@ -40,7 +40,7 @@ public static class StaticallyKnownNamespaceUtils
         ["map"] = GetBuiltinNamespaceUri(BuiltInUri.MapNamespaceUri),
         ["array"] = GetBuiltinNamespaceUri(BuiltInUri.ArrayNamespaceUri),
         ["math"] = GetBuiltinNamespaceUri(BuiltInUri.MathNamespaceUri),
-        ["fontoxpath"] = GetBuiltinNamespaceUri(BuiltInUri.FontoxpathNamespaceUri),
+        ["fontoxpath"] = GetBuiltinNamespaceUri(BuiltInUri.FontoXpathNamespaceUri),
         ["local"] = GetBuiltinNamespaceUri(BuiltInUri.LocalNamespaceUri)
     };
 
