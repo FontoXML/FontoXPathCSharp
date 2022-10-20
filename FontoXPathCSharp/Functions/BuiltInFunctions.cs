@@ -13,16 +13,21 @@ public static class BuiltInFunctions<TNode> where TNode : notnull
             .Concat(BuiltInFunctionsFunctions<TNode>.Declarations)
             .Concat(BuiltInFunctionsQName<TNode>.Declarations)
             .Concat(BuiltInFunctionsDataTypeConstructors<TNode>.Declarations)
-            .Concat(BuiltInFunctionsNumeric<TNode>.Declarations).ToArray();
+            .Concat(BuiltInFunctionsNumeric<TNode>.Declarations)
+            .Concat(BuiltInFunctionsMath<TNode>.Declarations)
+            .Concat(BuiltInFunctionsOperators<TNode>.Declarations).ToArray();
 
 
-    public static FunctionSignature<ISequence, TNode> ContextItemAsFirstArgument(FunctionSignature<ISequence, TNode> fn)
+    public static FunctionSignature<ISequence, TNode> ContextItemAsFirstArgument(
+        FunctionSignature<ISequence, TNode> fn)
     {
         return (context, parameters, staticContext, _) =>
         {
             if (context?.ContextItem == null)
                 throw new XPathException(
-                    "XPDY0002", "The function which was called depends on dynamic context, which is absent.");
+                    "XPDY0002",
+                    "The function which was called depends on dynamic context, which is absent."
+                );
 
             return fn(context, parameters, staticContext, SequenceFactory.CreateFromValue(context.ContextItem));
         };

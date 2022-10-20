@@ -109,7 +109,7 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
                 "XPTY0004",
                 "Expected base expression to evaluate to a function item"
             );
-        
+
         var functionItem = item.GetAs<FunctionValue<T, TNode>>();
 
         if (functionItem == null || functionItem.Arity != callArity)

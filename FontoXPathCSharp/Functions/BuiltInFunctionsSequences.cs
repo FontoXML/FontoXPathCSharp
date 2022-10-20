@@ -129,48 +129,98 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
-        new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne) },
-            FnCount, "count",
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnCount,
+            "count",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)),
-        new(new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore) },
-            FnAvg, "avg",
+            new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnAvg,
+            "avg",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)),
-        new(new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore) },
-            FnMax, "max",
+            new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnMax,
+            "max",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)),
-        new(new[] { new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore) },
-            FnMin, "min",
+            new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnMin,
+            "min",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)),
-        new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore) },
-            FnZeroOrOne, "zero-or-one",
+            new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnZeroOrOne,
+            "zero-or-one",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)),
-        new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore) },
-            FnEmpty, "empty", BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
-        new(new[] { new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore) },
-            FnExists, "exists", BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnEmpty,
+            "empty",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnExists,
+            "exists",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
+        ),
+
         new(new[]
             {
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
             },
-            FnDeepEqual, "deep-equal", BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)),
+            FnDeepEqual,
+            "deep-equal",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
+        ),
+
         new(new[]
             {
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
                 new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
             },
-            (_, _, _, _) => { throw new Exception("FOCH0002: No collations are supported"); },
-            "deep-equal", BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne))
+            (_, _, _, _) => throw new Exception("FOCH0002: No collations are supported"),
+            "deep-equal",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
+        )
     };
 
     private static AbstractValue[] CastItemsForMinMax(AbstractValue[] items)

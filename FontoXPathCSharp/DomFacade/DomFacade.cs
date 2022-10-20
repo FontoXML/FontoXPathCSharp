@@ -121,4 +121,14 @@ public class DomFacade<TNode> : IDomFacade<TNode>
     {
         return _domFacade.GetDocumentElement(node);
     }
+
+    public string GetNodeName(TNode node)
+    {
+        return _domFacade.GetNodeName(node);
+    }
+
+    public string? GetTarget(TNode node)
+    {
+        return _domFacade.GetTarget(node);
+    }
 }
