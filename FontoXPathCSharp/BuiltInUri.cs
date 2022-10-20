@@ -2,46 +2,46 @@ namespace FontoXPathCSharp;
 
 public enum BuiltInUri
 {
-    XMLNS_NAMESPACE_URI,
-    XML_NAMESPACE_URI,
-    XMLSCHEMA_NAMESPACE_URI,
-    ARRAY_NAMESPACE_URI,
-    FUNCTIONS_NAMESPACE_URI,
-    LOCAL_NAMESPACE_URI,
-    MAP_NAMESPACE_URI,
-    MATH_NAMESPACE_URI,
-    FONTOXPATH_NAMESPACE_URI,
-    XQUERYX_UPDATING_NAMESPACE_URI,
-    XQUERYX_NAMESPACE_URI
+    XmlnsNamespaceUri,
+    XmlNamespaceUri,
+    XmlschemaNamespaceUri,
+    ArrayNamespaceUri,
+    FunctionsNamespaceUri,
+    LocalNamespaceUri,
+    MapNamespaceUri,
+    MathNamespaceUri,
+    FontoXpathNamespaceUri,
+    XqueryxUpdatingNamespaceUri,
+    XqueryxNamespaceUri
 }
 
 public static class StaticallyKnownNamespaceUtils
 {
     private static readonly Dictionary<BuiltInUri, string> BuiltInNamespaceUris = new()
     {
-        [BuiltInUri.XMLNS_NAMESPACE_URI] = "http://www.w3.org/2000/xmlns/",
-        [BuiltInUri.XML_NAMESPACE_URI] = "http://www.w3.org/XML/1998/namespace",
-        [BuiltInUri.XMLSCHEMA_NAMESPACE_URI] = "http://www.w3.org/2001/XMLSchema",
-        [BuiltInUri.ARRAY_NAMESPACE_URI] = "http://www.w3.org/2005/xpath-functions/array",
-        [BuiltInUri.FUNCTIONS_NAMESPACE_URI] = "http://www.w3.org/2005/xpath-functions",
-        [BuiltInUri.LOCAL_NAMESPACE_URI] = "http://www.w3.org/2005/xquery-local-functions",
-        [BuiltInUri.MAP_NAMESPACE_URI] = "http://www.w3.org/2005/xpath-functions/map",
-        [BuiltInUri.MATH_NAMESPACE_URI] = "http://www.w3.org/2005/xpath-functions/math",
-        [BuiltInUri.FONTOXPATH_NAMESPACE_URI] = "http://fontoxml.com/fontoxpath",
-        [BuiltInUri.XQUERYX_UPDATING_NAMESPACE_URI] = "http://www.w3.org/2007/xquery-update-10",
-        [BuiltInUri.XQUERYX_NAMESPACE_URI] = "http://www.w3.org/2005/XQueryX"
+        [BuiltInUri.XmlnsNamespaceUri] = "http://www.w3.org/2000/xmlns/",
+        [BuiltInUri.XmlNamespaceUri] = "http://www.w3.org/XML/1998/namespace",
+        [BuiltInUri.XmlschemaNamespaceUri] = "http://www.w3.org/2001/XMLSchema",
+        [BuiltInUri.ArrayNamespaceUri] = "http://www.w3.org/2005/xpath-functions/array",
+        [BuiltInUri.FunctionsNamespaceUri] = "http://www.w3.org/2005/xpath-functions",
+        [BuiltInUri.LocalNamespaceUri] = "http://www.w3.org/2005/xquery-local-functions",
+        [BuiltInUri.MapNamespaceUri] = "http://www.w3.org/2005/xpath-functions/map",
+        [BuiltInUri.MathNamespaceUri] = "http://www.w3.org/2005/xpath-functions/math",
+        [BuiltInUri.FontoXpathNamespaceUri] = "http://fontoxml.com/fontoxpath",
+        [BuiltInUri.XqueryxUpdatingNamespaceUri] = "http://www.w3.org/2007/xquery-update-10",
+        [BuiltInUri.XqueryxNamespaceUri] = "http://www.w3.org/2005/XQueryX"
     };
 
     private static readonly Dictionary<string, string?> PrefixUriLookup = new()
     {
-        ["xml"] = GetBuiltinNamespaceUri(BuiltInUri.XML_NAMESPACE_URI),
-        ["xs"] = GetBuiltinNamespaceUri(BuiltInUri.XMLSCHEMA_NAMESPACE_URI),
-        ["fn"] = GetBuiltinNamespaceUri(BuiltInUri.FUNCTIONS_NAMESPACE_URI),
-        ["map"] = GetBuiltinNamespaceUri(BuiltInUri.MAP_NAMESPACE_URI),
-        ["array"] = GetBuiltinNamespaceUri(BuiltInUri.ARRAY_NAMESPACE_URI),
-        ["math"] = GetBuiltinNamespaceUri(BuiltInUri.MATH_NAMESPACE_URI),
-        ["fontoxpath"] = GetBuiltinNamespaceUri(BuiltInUri.FONTOXPATH_NAMESPACE_URI),
-        ["local"] = GetBuiltinNamespaceUri(BuiltInUri.LOCAL_NAMESPACE_URI)
+        ["xml"] = GetBuiltinNamespaceUri(BuiltInUri.XmlNamespaceUri),
+        ["xs"] = GetBuiltinNamespaceUri(BuiltInUri.XmlschemaNamespaceUri),
+        ["fn"] = GetBuiltinNamespaceUri(BuiltInUri.FunctionsNamespaceUri),
+        ["map"] = GetBuiltinNamespaceUri(BuiltInUri.MapNamespaceUri),
+        ["array"] = GetBuiltinNamespaceUri(BuiltInUri.ArrayNamespaceUri),
+        ["math"] = GetBuiltinNamespaceUri(BuiltInUri.MathNamespaceUri),
+        ["fontoxpath"] = GetBuiltinNamespaceUri(BuiltInUri.FontoXpathNamespaceUri),
+        ["local"] = GetBuiltinNamespaceUri(BuiltInUri.LocalNamespaceUri)
     };
 
     public static string GetBuiltinNamespaceUri(this BuiltInUri builtInUri)

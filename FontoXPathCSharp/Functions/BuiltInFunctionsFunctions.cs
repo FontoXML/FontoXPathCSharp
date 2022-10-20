@@ -43,7 +43,7 @@ public class BuiltInFunctionsFunctions<TNode>
                 new ParameterType(ValueType.XsQName, SequenceMultiplicity.ExactlyOne),
                 new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ZeroOrOne)
             },
-            FnFunctionLookup, "function-lookup", BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            FnFunctionLookup, "function-lookup", BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.Function, SequenceMultiplicity.ZeroOrOne))
     };
 }

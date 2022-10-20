@@ -49,7 +49,7 @@ public class BuiltInFunctionsQName<TNode>
                 new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
             },
             FnQName, "QName",
-            BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri(),
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsQName, SequenceMultiplicity.ExactlyOne))
     };
 }

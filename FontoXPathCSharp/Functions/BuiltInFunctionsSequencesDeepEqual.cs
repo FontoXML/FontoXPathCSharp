@@ -8,7 +8,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsSequencesDeepEqual<TNode>
+public class BuiltInFunctionsSequencesDeepEqual<TNode> where TNode : notnull
 {
     public static Iterator<BooleanValue> SequenceDeepEqual(
         DynamicContext dynamicContext,
@@ -70,8 +70,8 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode>
                         dynamicContext,
                         executionParameters,
                         staticContext,
-                        item1.Value,
-                        item2.Value
+                        item1.Value!,
+                        item2.Value!
                     );
 
                 var comparisonResult = comparisonGenerator(IterationHint.None);
@@ -295,19 +295,35 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode>
                                     temp1.Value.LocalName == temp2.Value.LocalName);
         }
 
-        if (item1.GetValueType().IsSubtypeOfAny(ValueType.XsDateTime, ValueType.XsDate, ValueType.XsTime,
-                ValueType.XsGYearMonth, ValueType.XsGYear, ValueType.XsGMonthDay, ValueType.XsGMonth,
+        if (item1.GetValueType().IsSubtypeOfAny(
+                ValueType.XsDateTime,
+                ValueType.XsDate,
+                ValueType.XsTime,
+                ValueType.XsGYearMonth,
+                ValueType.XsGYear,
+                ValueType.XsGMonthDay,
+                ValueType.XsGMonth,
                 ValueType.XsGDay) &&
-            item2.GetValueType().IsSubtypeOfAny(ValueType.XsDateTime, ValueType.XsDate, ValueType.XsTime,
-                ValueType.XsGYearMonth, ValueType.XsGYear, ValueType.XsGMonthDay, ValueType.XsGMonth, ValueType.XsGDay)
+            item2.GetValueType().IsSubtypeOfAny(
+                ValueType.XsDateTime,
+                ValueType.XsDate,
+                ValueType.XsTime,
+                ValueType.XsGYearMonth,
+                ValueType.XsGYear,
+                ValueType.XsGMonthDay,
+                ValueType.XsGMonth,
+                ValueType.XsGDay)
            )
             throw new NotImplementedException("Comparison between dates/times not implemented yet");
 
         return new BooleanValue(item1.Equals(item2));
     }
 
-    private static Iterator<BooleanValue> ArrayTypeDeepEqual(DynamicContext dynamicContext,
-        ExecutionParameters<TNode> executionParameters, StaticContext<TNode> staticContext, ArrayValue<TNode> item1,
+    private static Iterator<BooleanValue> ArrayTypeDeepEqual(
+        DynamicContext dynamicContext,
+        ExecutionParameters<TNode> executionParameters,
+        StaticContext<TNode> staticContext,
+        ArrayValue<TNode> item1,
         ArrayValue<TNode> item2)
     {
         if (item1.Members.Count != item2.Members.Count)
@@ -326,8 +342,11 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode>
         });
     }
 
-    private static Iterator<BooleanValue> AtomicTypeNodeDeepEqual(DynamicContext dynamicContext,
-        ExecutionParameters<TNode> executionParameters, StaticContext<TNode> staticContext, AbstractValue item1,
+    private static Iterator<BooleanValue> AtomicTypeNodeDeepEqual(
+        DynamicContext dynamicContext,
+        ExecutionParameters<TNode> executionParameters,
+        StaticContext<TNode> staticContext,
+        AbstractValue item1,
         AbstractValue item2)
     {
         var namesAreEqualResultGenerator = SequenceDeepEqual(
@@ -374,29 +393,157 @@ public class BuiltInFunctionsSequencesDeepEqual<TNode>
         };
     }
 
-    private static Iterator<BooleanValue> ElementNodeDeepEqual(DynamicContext dynamicContext,
-        ExecutionParameters<TNode> executionParameters, StaticContext<TNode> staticContext, AbstractValue item1,
+    private static Iterator<BooleanValue> ElementNodeDeepEqual(
+        DynamicContext dynamicContext,
+        ExecutionParameters<TNode> executionParameters,
+        StaticContext<TNode> staticContext,
+        AbstractValue item1,
         AbstractValue item2)
     {
-        throw new NotImplementedException("ElementNodeDeepEqual not implemented yet");
+        var namesAreEqualResultGenerator = SequenceDeepEqual(
+            dynamicContext,
+            executionParameters,
+            staticContext,
+            BuiltInFunctionsNode<TNode>.FnNodeName(
+                dynamicContext,
+                executionParameters,
+                staticContext,
+                SequenceFactory.CreateFromValue(item1)
+            ),
+            BuiltInFunctionsNode<TNode>.FnNodeName(
+                dynamicContext,
+                executionParameters,
+                staticContext,
+                SequenceFactory.CreateFromValue(item2)
+            )
+        );
+
+        var nodeDeepEqualGenerator = NodeDeepEqual(
+            dynamicContext,
+            executionParameters,
+            staticContext,
+            item1,
+            item2
+        );
+
+        var domFacade = executionParameters.DomFacade;
+        var attributes1 = domFacade
+            .GetAllAttributes(item1.GetAs<NodeValue<TNode>>().Value)
+            .Where(
+                attr =>
+                    domFacade.GetNamespaceUri(attr) != BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri()
+            )
+            .ToList();
+
+        attributes1.Sort((attrA, attrB) =>
+            string.Compare(domFacade.GetNodeName(attrA), domFacade.GetNodeName(attrB), StringComparison.Ordinal)
+        );
+
+        var attributes1Values = attributes1
+            .Select(attr => new NodeValue<TNode>(attr, domFacade) as AbstractValue)
+            .ToArray();
+
+        var attributes2 = domFacade
+            .GetAllAttributes(item2.GetAs<NodeValue<TNode>>().Value)
+            .Where(
+                attr =>
+                    domFacade.GetNamespaceUri(attr) != BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri()
+            )
+            .ToList();
+
+        attributes2.Sort((attrA, attrB) =>
+            string.Compare(domFacade.GetNodeName(attrA), domFacade.GetNodeName(attrB), StringComparison.Ordinal)
+        );
+
+        var attributes2Values = attributes2
+            .Select(attr => new NodeValue<TNode>(attr, domFacade) as AbstractValue)
+            .ToArray();
+
+        var attributesDeepEqualGenerator = SequenceDeepEqual(
+            dynamicContext,
+            executionParameters,
+            staticContext,
+            SequenceFactory.CreateFromArray(attributes1Values),
+            SequenceFactory.CreateFromArray(attributes2Values)
+        );
+
+        var done = false;
+        return _ =>
+        {
+            if (done) return IteratorResult<BooleanValue>.Done();
+
+            var namesAreEqualResult = namesAreEqualResultGenerator(IterationHint.None);
+            if (!namesAreEqualResult.IsDone && namesAreEqualResult.Value is { Value: false })
+            {
+                done = true;
+                return namesAreEqualResult;
+            }
+
+            var attributesEqualResult = attributesDeepEqualGenerator(IterationHint.None);
+            if (!attributesEqualResult.IsDone && attributesEqualResult.Value is { Value: false })
+            {
+                done = true;
+                return attributesEqualResult;
+            }
+
+            var contentsEqualResult = nodeDeepEqualGenerator(IterationHint.None);
+            done = true;
+            return contentsEqualResult;
+        };
     }
 
-    private static Iterator<BooleanValue> NodeDeepEqual(DynamicContext dynamicContext,
-        ExecutionParameters<TNode> executionParameters, StaticContext<TNode> staticContext, AbstractValue item1,
+    private static Iterator<BooleanValue> NodeDeepEqual(
+        DynamicContext dynamicContext,
+        ExecutionParameters<TNode> executionParameters,
+        StaticContext<TNode> staticContext,
+        AbstractValue item1,
         AbstractValue item2)
     {
-        throw new NotImplementedException("NodeDeepEqual not implemented yet");
+        var item1Nodes = executionParameters.DomFacade.GetChildNodes(item1.GetAs<NodeValue<TNode>>().Value);
+        var item2Nodes = executionParameters.DomFacade.GetChildNodes(item2.GetAs<NodeValue<TNode>>().Value);
+
+        item1Nodes = item1Nodes.Where(item1Node =>
+            FilterElementAndTextNodes(item1Node, executionParameters.DomFacade)
+        );
+        item2Nodes = item2Nodes.Where(item2Node =>
+            FilterElementAndTextNodes(item2Node, executionParameters.DomFacade)
+        );
+
+        var item1NodesSeq = SequenceFactory.CreateFromArray(
+            item1Nodes.Select(node => new NodeValue<TNode>(node, executionParameters.DomFacade) as AbstractValue)
+                .ToArray()
+        );
+        var item2NodesSeq = SequenceFactory.CreateFromArray(
+            item2Nodes.Select(node => new NodeValue<TNode>(node, executionParameters.DomFacade) as AbstractValue)
+                .ToArray()
+        );
+
+        return SequenceDeepEqual(
+            dynamicContext,
+            executionParameters,
+            staticContext,
+            item1NodesSeq,
+            item2NodesSeq
+        );
     }
 
-    private static IteratorResult<BooleanValue> CompareNormalizedTextNodes(DynamicContext dynamicContext,
-        ExecutionParameters<TNode> executionParameters, StaticContext<TNode> staticContext,
+    private static bool FilterElementAndTextNodes(TNode node, IDomFacade<TNode> domFacade)
+    {
+        return domFacade.GetNodeType(node) is NodeType.Element or NodeType.Text;
+    }
+
+    private static IteratorResult<BooleanValue> CompareNormalizedTextNodes(
+        DynamicContext dynamicContext,
+        ExecutionParameters<TNode> executionParameters,
+        StaticContext<TNode> staticContext,
         List<AbstractValue> textValues1,
         List<AbstractValue> textValues2)
     {
         var atomicValues = new[] { textValues1, textValues2 }.Select(textValues =>
         {
             var value = textValues.Aggregate("", (wholeValue, textValue) =>
-                wholeValue + Atomize.AtomizeSingleValue(textValue, executionParameters).First().GetAs<StringValue>()
+                wholeValue + Atomize.AtomizeSingleValue(textValue, executionParameters).First()
+                    ?.GetAs<StringValue>()
                     .Value);
 
             return AtomicValue.Create(value, ValueType.XsString);

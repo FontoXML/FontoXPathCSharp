@@ -4,7 +4,7 @@ namespace FontoXPathCSharp.Sequences;
 
 public interface ISequence : IEnumerable<AbstractValue>
 {
-    delegate ISequence CallbackType(IReadOnlyList<AbstractValue> values);
+    delegate ISequence CallbackType(IReadOnlyList<AbstractValue?> values);
 
     bool IsEmpty();
     bool IsSingleton();

@@ -47,7 +47,7 @@ public class EvaluationContext<TSelector, TNode>
                                 CreateDefaultNamespaceResolver(contextItem, wrappedDomFacade);
 
         var defaultFunctionNamespaceUri = externalOptions?.DefaultFunctionNamespaceUri ??
-                                          BuiltInUri.FUNCTIONS_NAMESPACE_URI.GetBuiltinNamespaceUri();
+                                          BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri();
 
         var functionNameResolver = internalOptions.FunctionNameResolver ??
                                    CreateDefaultFunctionNameResolver(defaultFunctionNamespaceUri);
