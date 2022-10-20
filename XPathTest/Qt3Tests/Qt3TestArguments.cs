@@ -45,7 +45,7 @@ public class Qt3TestArguments<TNode> where TNode : notnull
         if (Evaluate.EvaluateXPathToBoolean("./test/@file", testCase, domFacade, options))
         {
             if (TestFileSystem.FileExists(filepath))
-                testQuery = TestingUtils.LoadFileToString(filepath);
+                testQuery = TestingUtils.LoadQt3TestFileToString(filepath);
             else
                 throw new FileNotFoundException($"Could not load file {filepath}");
         }

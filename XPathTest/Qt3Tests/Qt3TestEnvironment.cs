@@ -33,7 +33,7 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
                     variable,
                     domFacade,
                     options)?[1..] ?? string.Empty,
-                TestingUtils.LoadFileToString(
+                TestingUtils.LoadQt3TestFileToString(
                     (baseUrl != null ? baseUrl + "/" : "") + Evaluate.EvaluateXPathToString(
                         "@file",
                         variable,

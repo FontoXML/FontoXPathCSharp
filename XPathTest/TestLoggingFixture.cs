@@ -6,30 +6,31 @@ namespace XPathTest;
 
 public class TestLoggingFixture : IDisposable
 {
+    //All of these are concurrent because the 
     private readonly ConcurrentDictionary<string, string> _castingErrors = new();
     private readonly ConcurrentDictionary<string, string> _failedTestsWithErrors = new();
     private readonly ConcurrentDictionary<string, string> _nonParseErrors = new();
     private readonly ConcurrentDictionary<string, string> _nullPointerExceptions = new();
     private readonly ConcurrentDictionary<string, string> _parseErrors = new();
 
-
     public void Dispose()
     {
-        TestingUtils.WriteKvpCollectionToDisk(_failedTestsWithErrors, "unrunnableTestCases.csv");
-        TestingUtils.WriteKvpCollectionToDisk(_nonParseErrors, "nonParseUnrunnableTestCases.csv");
-        TestingUtils.WriteKvpCollectionToDisk(_parseErrors, "parseUnrunnableTestCases.csv");
-        TestingUtils.WriteKvpCollectionToDisk(
-            TestingUtils.GetSortedValueOccurrences(_nonParseErrors.Values), "mostCommonNonParseErrors.csv");
-        TestingUtils.WriteKvpCollectionToDisk(
-            TestingUtils.GetSortedValueOccurrences(_failedTestsWithErrors.Values), "mostCommonErrors.csv");
-        TestingUtils.WriteKvpCollectionToDisk(_nullPointerExceptions, "nullPointerExceptions.csv");
-        TestingUtils.WriteKvpCollectionToDisk(_castingErrors, "castingExceptions.csv");
+        TestingUtils.WriteDictionaryToCsv(_failedTestsWithErrors, "unrunnableTestCases.csv", ',', true);
+
+        if (!TestFileSystem.DirExists("debug")) TestFileSystem.CreateDir("debug");
+
+        TestingUtils.WriteDictionaryToCsv(_nonParseErrors, "debug/nonParseUnrunnableTestCases.csv");
+        TestingUtils.WriteDictionaryToCsv(_parseErrors, "debug/parseUnrunnableTestCases.csv");
+        TestingUtils.WriteDictionaryToCsv(_nullPointerExceptions, "debug/nullPointerExceptions.csv");
+        TestingUtils.WriteDictionaryToCsv(_castingErrors, "debug/castingExceptions.csv");
+        TestingUtils.WriteOccurenceToCsv(_nonParseErrors.Values, "debug/mostCommonNonParseErrors.csv");
+        TestingUtils.WriteOccurenceToCsv(_failedTestsWithErrors.Values, "debug/mostCommonErrors.csv");
     }
 
     public void ProcessError(Exception ex, string testName, string testSetName, string description)
     {
         var exceptionString = ex.Message
-            .Replace(',', ' ')
+            .Replace(",", "<comma>")
             .ReplaceLineEndings()
             .Split(Environment.NewLine)
             .First();

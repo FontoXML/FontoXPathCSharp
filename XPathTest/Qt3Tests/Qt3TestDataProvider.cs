@@ -34,11 +34,11 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
     private readonly Options<TNode> _options =
         new(_ => "http://www.w3.org/2010/09/qt-fots-catalog");
 
-    private readonly HashSet<string> _shouldRunTestByName = new();
+    private HashSet<string> _shouldRunTestByName = new();
 
     // private readonly List<object[]> _testCases = new();
 
-    private readonly HashSet<string> _unrunnableTestCasesByName = new();
+    private HashSet<string> _unrunnableTestCasesByName = new();
 
     public Qt3TestDataProvider(IDomFacade<TNode> domFacade, INodeUtils<TNode> nodeUtils)
     {
@@ -50,35 +50,29 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
     {
         // return Array.Empty<object[]>().Cast<object[]>().GetEnumerator();
         if (TestFileSystem.FileExists("runnableTestSets.csv"))
-
-            TestFileSystem.ReadFile("runnableTestSets.csv")
+            _shouldRunTestByName = TestFileSystem.ReadFile("runnableTestSets.csv")
                 .Split(Environment.NewLine)
-                .Select(line => line.Split(','))
-                .DistinctBy(l => l[0])
-                .Where(l => l.Length > 1 && ParseBooleanNoFail(l[1]))
-                .Select(l => l[0])
-                .ToList()
-                .ForEach(x => _shouldRunTestByName.Add(x));
+                .AsParallel()
+                .Aggregate(new HashSet<string>(), (acc, line) =>
+                {
+                    var cols = line.Split(',');
+                    if (cols.Length > 1 && !acc.Contains(cols[0]) && ParseBooleanNoFail(cols[1])) acc.Add(cols[0]);
+                    return acc;
+                });
 
-        if (Environment.GetEnvironmentVariable("REGENERATE") == "TRUE")
-        {
-            // Addinf failed test cases that come from parse errors to the ignore set.
-            if (TestFileSystem.FileExists("parseUnrunnableTestCases.csv"))
-                TestFileSystem.ReadFile("parseUnrunnableTestCases.csv")
-                    .Split(Environment.NewLine)
-                    .Select(e => e.Split(','))
-                    .Where(e => e.Length > 1)
-                    .ToList()
-                    .ForEach(x => _unrunnableTestCasesByName.Add(x[0]));
-
-            if (TestFileSystem.FileExists("unrunnableTestCases.csv"))
-                TestFileSystem.ReadFile("unrunnableTestCases.csv")
-                    .Split(Environment.NewLine)
-                    .Select(e => e.Split(','))
-                    .Where(e => e.Length > 1)
-                    .ToList()
-                    .ForEach(x => _unrunnableTestCasesByName.Add(x[0]));
-        }
+        // if (Environment.GetEnvironmentVariable("REGENERATE") == "FALSE")
+        // {
+        if (TestFileSystem.FileExists("unrunnableTestCases.csv"))
+            _unrunnableTestCasesByName = TestFileSystem.ReadFile("unrunnableTestCases.csv")
+                .Split(Environment.NewLine)
+                .AsParallel()
+                .Aggregate(new HashSet<string>(), (acc, line) =>
+                {
+                    var cols = line.Split(',');
+                    if (cols.Length > 1) acc.Add(cols[0]);
+                    return acc;
+                });
+        // }
 
         var qt3Tests = _nodeUtils.LoadFileToXmlNode("catalog.xml")!;
         var allTestSets = GetAllTestSets(qt3Tests).SelectMany<string, object[]>(testSetFileName =>
@@ -103,19 +97,20 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
             var testCasesReturn = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
             {
                 var testName = GetTestName(testCase);
-                if (_unrunnableTestCasesByName.Contains(testName))
-                {
-                    Console.WriteLine("Skipping over " + testName);
-                    return testCases;
-                }
+                if (_unrunnableTestCasesByName.Contains(testName)) return testCases;
 
                 try
                 {
-                    var name = GetTestName(testCase);
-                    var description = GetTestDescription(testSetName!, name, testCase);
-                    var arguments = new Qt3TestArguments<TNode>(testSetFileName, testCase, _domFacade, _options,
-                        _nodeUtils);
-                    testCases.Add(new object[] { name, testSetName!, description, testCase, arguments, _nodeUtils });
+                    var description = GetTestDescription(testSetName!, testName, testCase);
+                    var arguments = new Qt3TestArguments<TNode>(
+                        testSetFileName,
+                        testCase,
+                        _domFacade,
+                        _options,
+                        _nodeUtils
+                    );
+                    testCases.Add(new object[]
+                        { testName, testSetName!, description, testCase, arguments, _nodeUtils });
                 }
                 catch (FileNotFoundException ex)
                 {
@@ -125,8 +120,11 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
                 return testCases;
             });
 
+
             return testCasesReturn;
         });
+
+        var count = allTestSets.Count();
 
         return allTestSets.GetEnumerator();
     }
