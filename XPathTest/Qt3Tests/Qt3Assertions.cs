@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DocumentWriter;
 using FontoXPathCSharp.DomFacade;
@@ -155,7 +156,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
-                            "${xpath} = ${equalWith}",
+                            $"{xpath} = {equalWith}",
                             contextNode,
                             domFacade,
                             new Options<TNode>(
@@ -200,7 +201,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
-                            "(${xpath }) => empty()",
+                            $"({xpath}) => empty()",
                             contextNode,
                             domFacade,
                             new Options<TNode>(
@@ -341,7 +342,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     Assert.True(
-                        Evaluate.EvaluateXPathToString($"{xpath}",
+                        Evaluate.EvaluateXPathToString(xpath,
                             contextNode,
                             domFacade,
                             new Options<TNode>(
@@ -363,31 +364,36 @@ public class Qt3Assertions<TNode> where TNode : notnull
                 );
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
-                    // var errorContents = "";
                     var actualErrorCode = "";
-                    Assert.Throws<XPathException>(
-                        () =>
-                        {
-                            try
-                            {
-                                Evaluate.EvaluateXPathToString(xpath,
-                                    contextNode,
-                                    domFacade,
-                                    new Options<TNode>(
-                                        namespaceResolver,
-                                        documentWriter: nodesFactory,
-                                        languageId: language),
-                                    variablesInScope);
-                            }
-                            catch (XPathException ex)
-                            {
-                                actualErrorCode = ex.ErrorCode;
-                                // errorContents = ex.Message;
-                                throw;
-                            }
-                        }
+                    var errorMessage = "";
+                    try
+                    {
+                        Evaluate.EvaluateXPathToString(xpath,
+                            contextNode,
+                            domFacade,
+                            new Options<TNode>(
+                                namespaceResolver,
+                                documentWriter: nodesFactory,
+                                languageId: language),
+                            variablesInScope);
+                    }
+                    catch (XPathException ex)
+                    {
+                        actualErrorCode = ex.ErrorCode;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Hopefully extracts error code from non-XPathExceptions
+                        errorMessage = ex.Message;
+                        var uncleanedError = errorMessage.Split(null).First();
+                        var regex = new Regex("[A-Z]{4}[0-9]{4}");
+                        actualErrorCode = regex.Match(uncleanedError).Value;
+                    }
+                    
+                    Assert.True(
+                        errorCode == actualErrorCode,
+                        $"Expected error code: {errorCode}. Found error code: {actualErrorCode} in error message: {errorMessage}"
                     );
-                    Assert.Equal(errorCode, actualErrorCode);
                 };
             }
             case "assert-empty":

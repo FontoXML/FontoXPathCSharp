@@ -15,10 +15,15 @@ public static class ParseExpression
 
         return XPathParser.Parse(xPathString, options) switch
         {
-            Err<Ast> err => throw new Exception($"PRSC Error: Failed to parse query '{xPathString}'\n\n" +
+            Err<Ast> err => throw new Exception($"PRSC Error: Failed to parse query '{ReformatXPathString(xPathString)}'\n\n" +
                                                 $"Expected: {string.Join('\n', err.Expected.Distinct())}"),
             Ok<Ast> ok => ok.Unwrap(),
             _ => throw new ArgumentOutOfRangeException()
         };
+    }
+
+    private static string ReformatXPathString(string input)
+    {
+        return input.ReplaceLineEndings().Replace(Environment.NewLine, "\\n");
     }
 }

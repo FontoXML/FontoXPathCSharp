@@ -44,7 +44,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
     {
         return new KindTest<TNode>(NodeType.Document);
     }
-    
+
     private static AbstractTestExpression<TNode> CompileWildcard(Ast ast)
     {
         if (ast.GetFirstChild(AstNodeName.Star) == null)
@@ -80,7 +80,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             _ => throw new NotImplementedException($"{ast.Name} AST to Expression not yet implemented")
         };
     }
-    
+
 
     private static AbstractTestExpression<TNode> CompileTypeTest(Ast ast)
     {
