@@ -25,37 +25,7 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
         Qt3TestArguments<XmlNode> arguments,
         INodeUtils<XmlNode> nodeUtils)
     {
-        AsserterCall<XmlNode> asserter;
-        try
-        {
-            asserter = Qt3Assertions<XmlNode>.GetExpressionBackendAsserterForTest(
-                arguments.BaseUrl,
-                testCase,
-                arguments.Language,
-                arguments.DomFacade,
-                nodeUtils);
-        }
-        catch (Exception ex)
-        {
-            // Let logging fixture 
-            _loggingFixture.ProcessError(ex, name, testSetName, description);
-            throw;
-        }
-
-        try
-        {
-            asserter(
-                arguments.TestQuery,
-                arguments.ContextNode!,
-                arguments.VariablesInScope ?? new Dictionary<string, object>(),
-                arguments.NamespaceResolver
-            );
-        }
-        catch (Exception ex)
-        {
-            _loggingFixture.ProcessError(ex, name, testSetName, description);
-            throw;
-        }
+        RunTest(name, testSetName, description, testCase, arguments, nodeUtils);
     }
 
     [Theory(Timeout = 60000, DisplayName = "Qt3 Tests: LINQ XML API")]
@@ -68,10 +38,21 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
         Qt3TestArguments<XObject> arguments,
         INodeUtils<XObject> nodeUtils)
     {
-        AsserterCall<XObject> asserter;
+        RunTest(name, testSetName, description, testCase, arguments, nodeUtils);
+    }
+
+    private void RunTest<TNode>(
+        string name,
+        string testSetName,
+        string description,
+        TNode testCase,
+        Qt3TestArguments<TNode> arguments,
+        INodeUtils<TNode> nodeUtils) where TNode : notnull
+    {
+        AsserterCall<TNode> asserter;
         try
         {
-            asserter = Qt3Assertions<XObject>.GetExpressionBackendAsserterForTest(
+            asserter = Qt3Assertions<TNode>.GetExpressionBackendAsserterForTest(
                 arguments.BaseUrl,
                 testCase,
                 arguments.Language,
@@ -80,6 +61,7 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
         }
         catch (Exception ex)
         {
+            // Let logging fixture 
             _loggingFixture.ProcessError(ex, name, testSetName, description);
             throw;
         }
