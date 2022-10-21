@@ -6,9 +6,9 @@ using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Functions;
+namespace FontoXPathCSharp.Expressions.Functions;
 
-public class BuiltInFunctionsNumeric<TNode> where TNode : notnull
+public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
 {
     private static readonly FunctionSignature<ISequence, TNode> FnNumber = (_, executionParameters, _, sequences) =>
     {

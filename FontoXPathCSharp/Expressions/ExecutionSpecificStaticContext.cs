@@ -1,4 +1,4 @@
-using FontoXPathCSharp.Functions;
+using FontoXPathCSharp.Expressions.Functions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;

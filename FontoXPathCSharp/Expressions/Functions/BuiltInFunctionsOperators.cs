@@ -3,9 +3,9 @@ using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Functions;
+namespace FontoXPathCSharp.Expressions.Functions;
 
-public class BuiltInFunctionsOperators<TNode> where TNode : notnull
+public static class BuiltInFunctionsOperators<TNode> where TNode : notnull
 {
     private static readonly FunctionSignature<ISequence, TNode> FnOpTo = (_, _, staticContext, sequences) =>
     {
