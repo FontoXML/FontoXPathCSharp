@@ -3,7 +3,7 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class SelfAxis<TNode> : AbstractExpression<TNode>
+public class SelfAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly string? _filterBucket;
     private readonly AbstractTestExpression<TNode> _selector;
@@ -17,7 +17,7 @@ public class SelfAxis<TNode> : AbstractExpression<TNode>
         _filterBucket = BucketUtils.IntersectBuckets(selector.GetBucket(), filterBucket);
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var isMatch = _selector.EvaluateToBoolean(dynamicContext, dynamicContext?.ContextItem!, executionParameters);
         return isMatch ? SequenceFactory.CreateFromValue(dynamicContext?.ContextItem!) : SequenceFactory.CreateEmpty();

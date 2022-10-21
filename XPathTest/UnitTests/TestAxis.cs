@@ -63,8 +63,8 @@ public class TestAxis
     [Fact]
     public void TestAncestorAxis()
     {
-        Assert.Equal(1, XmlNodeEvalQueryNodes("/xml/tips/tip/ancestor::xml").Count());
-        Assert.Equal(1, XObjectEvalQueryNodes("/xml/tips/tip/ancestor::xml").Count());
+        Assert.Single(XmlNodeEvalQueryNodes("/xml/tips/tip/ancestor::xml"));
+        Assert.Single(XObjectEvalQueryNodes("/xml/tips/tip/ancestor::xml"));
     }
 
     [Fact]

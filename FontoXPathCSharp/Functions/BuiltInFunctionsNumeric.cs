@@ -8,7 +8,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsNumeric<TNode>
+public class BuiltInFunctionsNumeric<TNode> where TNode : notnull
 {
     private static readonly FunctionSignature<ISequence, TNode> FnNumber = (_, executionParameters, _, sequences) =>
     {

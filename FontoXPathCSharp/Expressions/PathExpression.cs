@@ -49,7 +49,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
     }
 
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var sequenceHasPeerProperty = true;
         var index = 0;
@@ -63,7 +63,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
 
                 Iterator<ISequence> resultValuesInOrderOfEvaluation = hint =>
                 {
-                    var childContext = childContextIterator(hint);
+                    var childContext = childContextIterator!(hint);
 
                     if (childContext.IsDone) return IteratorResult<ISequence>.Done();
 
@@ -80,13 +80,14 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
                             // with XPTY0020
                             throw new XPathException(
                                 "XPTY0019",
-                                "The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.");
+                                "The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes."
+                            );
 
                     return IteratorResult<ISequence>.Ready(
                         selector.EvaluateMaybeStatically(childContext.Value, executionParameters));
                 };
 
-                ISequence sortedResultSequence = null;
+                ISequence? sortedResultSequence = null;
 
                 if (!_requireSortedResults)
                     sortedResultSequence =
@@ -107,6 +108,20 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
                                     )
                                 );
                             };
+                            // Can't do fallthrough in C#, so it is copied.
+                            if (selector.Subtree && sequenceHasPeerProperty)
+                            {
+                                sortedResultSequence = SortedSequenceUtils<TNode>.ConcatSortedSequences(
+                                    resultValuesInOrderOfEvaluation
+                                );
+                                break;
+                            }
+
+                            // Only locally sorted
+                            sortedResultSequence = SortedSequenceUtils<TNode>.MergeSortedSequences(
+                                executionParameters!.DomFacade,
+                                resultValuesInOrderOfEvaluation
+                            );
                             break;
                         case ResultOrdering.Sorted:
                             if (selector.Subtree && sequenceHasPeerProperty)
@@ -119,7 +134,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
 
                             // Only locally sorted
                             sortedResultSequence = SortedSequenceUtils<TNode>.MergeSortedSequences(
-                                executionParameters.DomFacade,
+                                executionParameters!.DomFacade,
                                 resultValuesInOrderOfEvaluation
                             );
                             break;
@@ -130,14 +145,14 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
                             );
                             return concattedSequence.MapAll(allValues =>
                                 SequenceFactory.CreateFromArray(
-                                    SortResults(executionParameters.DomFacade, allValues)
+                                    SortResults(executionParameters!.DomFacade, allValues)
                                 )
                             );
                     }
 
                 sequenceHasPeerProperty = sequenceHasPeerProperty && selector.Peer;
                 index++;
-                return sortedResultSequence;
+                return sortedResultSequence!;
             }
         );
 

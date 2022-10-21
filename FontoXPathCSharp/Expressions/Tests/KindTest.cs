@@ -6,7 +6,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Tests;
 
-public class KindTest<TNode> : AbstractTestExpression<TNode>
+public class KindTest<TNode> : AbstractTestExpression<TNode> where TNode : notnull
 {
     private readonly NodeType _nodeType;
 
@@ -16,10 +16,11 @@ public class KindTest<TNode> : AbstractTestExpression<TNode>
         _nodeType = nodeType;
     }
 
-    protected internal override bool EvaluateToBoolean(DynamicContext? dynamicContext, AbstractValue value,
-        ExecutionParameters<TNode> executionParameters)
+    protected internal override bool EvaluateToBoolean(DynamicContext? dynamicContext,
+        AbstractValue value,
+        ExecutionParameters<TNode>? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
+        var domFacade = executionParameters!.DomFacade;
         if (!value.GetValueType().IsSubtypeOf(ValueType.Node))
             return false;
 

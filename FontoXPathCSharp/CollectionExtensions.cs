@@ -2,7 +2,7 @@ namespace FontoXPathCSharp;
 
 public static class CollectionExtensions
 {
-    public static IList<TAccumulator> Reduce<TSource,TAccumulator>(
+    public static IList<TAccumulator> Reduce<TSource, TAccumulator>(
         this IList<TSource> source,
         IList<TAccumulator> seed,
         Func<IList<TAccumulator>, TSource, int, IList<TSource>, IList<TAccumulator>> func)
@@ -11,8 +11,8 @@ public static class CollectionExtensions
             (acc, valueAndIterator) => func(acc, valueAndIterator.v, valueAndIterator.i, source)
         );
     }
-    
-    public static IList<TAccumulator> Reduce<TSource,TAccumulator>(
+
+    public static IList<TAccumulator> Reduce<TSource, TAccumulator>(
         this IList<TSource> source,
         IList<TAccumulator> seed,
         Func<IList<TAccumulator>, TSource, int, IList<TAccumulator>> func)
@@ -21,10 +21,10 @@ public static class CollectionExtensions
             (acc, valueAndIterator) => func(acc, valueAndIterator.v, valueAndIterator.i)
         );
     }
-    
-    
+
+
     // Replacements for JS' ReduceRight functions. 
-    public static IList<TAccumulator> ReduceRight<TSource,TAccumulator>(
+    public static IList<TAccumulator> ReduceRight<TSource, TAccumulator>(
         this IList<TSource> source,
         IList<TAccumulator> seed,
         Func<IList<TAccumulator>, TSource, int, IList<TSource>, IList<TAccumulator>> func)
@@ -34,7 +34,7 @@ public static class CollectionExtensions
         );
     }
 
-    public static IList<TAccumulator> ReduceRight<TSource,TAccumulator>(
+    public static IList<TAccumulator> ReduceRight<TSource, TAccumulator>(
         this IList<TSource> source,
         IList<TAccumulator> seed,
         Func<IList<TAccumulator>, TSource, int, IList<TAccumulator>> func)
@@ -45,7 +45,7 @@ public static class CollectionExtensions
         );
     }
 
-    public static IList<TAccumulator> ReduceRight<TSource,TAccumulator>(
+    public static IList<TAccumulator> ReduceRight<TSource, TAccumulator>(
         this IList<TSource> source,
         IList<TAccumulator> seed,
         Func<IList<TAccumulator>, TSource, IList<TAccumulator>> func)

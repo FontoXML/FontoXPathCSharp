@@ -5,7 +5,7 @@ using XPathTest.Caches;
 
 namespace XPathTest;
 
-public class XmlNodeUtils : NodeUtils<XmlNode>
+public class XmlNodeUtils : INodeUtils<XmlNode>
 {
     public string NodeToString(XmlNode node)
     {

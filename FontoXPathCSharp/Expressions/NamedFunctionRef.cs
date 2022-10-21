@@ -4,7 +4,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class NamedFunctionRef<TNode> : AbstractExpression<TNode>
+public class NamedFunctionRef<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly int _arity;
     private readonly QName _functionReference;
@@ -20,7 +20,7 @@ public class NamedFunctionRef<TNode> : AbstractExpression<TNode>
         _functionProperties = null;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         return SequenceFactory.CreateFromValue(new FunctionValue<ISequence, TNode>(
             _functionProperties!.ArgumentTypes,

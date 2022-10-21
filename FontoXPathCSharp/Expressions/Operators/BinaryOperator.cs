@@ -1,17 +1,17 @@
 using FontoXPathCSharp.EvaluationUtils;
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Operators.Arithmetic;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp;
+namespace FontoXPathCSharp.Expressions.Operators;
 
 internal delegate AbstractValue BinaryOperatorFunction(AbstractValue left, AbstractValue right);
 
-internal class BinaryOperator<TNode> : AbstractExpression<TNode>
+internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
+    // ReSharper disable once StaticMemberInGenericType
     private static readonly ValueType[] AllTypes =
     {
         ValueType.XsNumeric,
@@ -24,10 +24,11 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
 
     private readonly AbstractExpression<TNode> _firstValueExpr;
     private readonly AstNodeName _operator;
-    private readonly AbstractExpression<TNode> _secondValueExpr;
 
-    private readonly Dictionary<(ValueType, ValueType, AstNodeName), BinaryOperatorFunction> OperatorsByTypingKey =
+    private readonly Dictionary<(ValueType, ValueType, AstNodeName), BinaryOperatorFunction?> _operatorsByTypingKey =
         new();
+
+    private readonly AbstractExpression<TNode> _secondValueExpr;
 
     public BinaryOperator(AstNodeName op, AbstractExpression<TNode> firstValueExpr,
         AbstractExpression<TNode> secondValueExpr) : base(
@@ -40,11 +41,11 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
         _secondValueExpr = secondValueExpr;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var firstValueSequence = Atomize.AtomizeSequence(
             _firstValueExpr.EvaluateMaybeStatically(dynamicContext, executionParameters),
-            executionParameters
+            executionParameters!
         );
 
         return firstValueSequence.MapAll(firstValues =>
@@ -54,7 +55,7 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
                 return SequenceFactory.CreateEmpty();
             var secondValueSequence = Atomize.AtomizeSequence(
                 _secondValueExpr.EvaluateMaybeStatically(dynamicContext, executionParameters),
-                executionParameters
+                executionParameters!
             );
             return secondValueSequence.MapAll(secondValues =>
             {
@@ -87,14 +88,14 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
         });
     }
 
-    private BinaryOperatorFunction GetBinaryPrefabOperator(ValueType leftType, ValueType rightType, AstNodeName op)
+    private BinaryOperatorFunction? GetBinaryPrefabOperator(ValueType leftType, ValueType rightType, AstNodeName op)
     {
         var typingKey = (leftType, rightType, op); //$"{leftType}~{rightType}~{op}";
 
-        if (!OperatorsByTypingKey.ContainsKey(typingKey))
-            OperatorsByTypingKey.Add(typingKey, GenerateBinaryOperatorFunction(op, leftType, rightType));
+        if (!_operatorsByTypingKey.ContainsKey(typingKey))
+            _operatorsByTypingKey.Add(typingKey, GenerateBinaryOperatorFunction(op, leftType, rightType));
 
-        return OperatorsByTypingKey[typingKey];
+        return _operatorsByTypingKey[typingKey];
     }
 
     private static ValueType DetermineReturnType(ValueType typeA, ValueType typeB)
@@ -110,6 +111,7 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
         return ValueType.XsDouble;
     }
 
+    // ReSharper disable once InconsistentNaming
     private static (BinaryOperatorFunction, ValueType) IDivOpChecksFunction(
         Func<AbstractValue, AbstractValue, (AtomicValue, AtomicValue)> applyCastFunctions,
         Func<object, object, object> fun)
@@ -136,8 +138,8 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
         ValueType typeA,
         ValueType typeB)
     {
-        Func<AbstractValue, AtomicValue> castFunctionForValueA = null;
-        Func<AbstractValue, AtomicValue> castFunctionForValueB = null;
+        Func<AbstractValue, AtomicValue>? castFunctionForValueA = null;
+        Func<AbstractValue, AtomicValue>? castFunctionForValueB = null;
 
         if (typeA.IsSubtypeOf(ValueType.XsUntypedAtomic))
         {
@@ -160,7 +162,9 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
         var parentTypesOfA = AllTypes.Where(e => typeA.IsSubtypeOf(e));
         var parentTypesOfB = AllTypes.Where(e => typeB.IsSubtypeOf(e));
 
-        if (parentTypesOfA.Contains(ValueType.XsNumeric) && parentTypesOfB.Contains(ValueType.XsNumeric))
+        var typesOfA = parentTypesOfA as ValueType[] ?? parentTypesOfA.ToArray();
+        var typesOfB = parentTypesOfB as ValueType[] ?? parentTypesOfB.ToArray();
+        if (typesOfA.Contains(ValueType.XsNumeric) && typesOfB.Contains(ValueType.XsNumeric))
         {
             var fun = BinaryEvaluationFunctionMap.GetOperationForOperands(ValueType.XsNumeric, ValueType.XsNumeric, op);
             if (fun == null)
@@ -180,8 +184,8 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode>
             };
         }
 
-        foreach (var typeOfA in parentTypesOfA)
-        foreach (var typeOfB in parentTypesOfB)
+        foreach (var typeOfA in typesOfA)
+        foreach (var typeOfB in typesOfB)
         {
             var func = BinaryEvaluationFunctionMap.GetOperationForOperands(typeOfA, typeOfB, op);
             var mapRet = BinaryEvaluationFunctionMap.GetReturnTypeForOperands(typeOfA, typeOfB, op);

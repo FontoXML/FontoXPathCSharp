@@ -6,7 +6,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public static class BuiltInFunctionsBoolean<TNode>
+public static class BuiltInFunctionsBoolean<TNode> where TNode : notnull
 {
     private static readonly FunctionSignature<ISequence, TNode> FnNot = (_, _, _, args) =>
         SequenceFactory.CreateFromValue(new BooleanValue(!args[0].GetEffectiveBooleanValue()));

@@ -3,12 +3,9 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsArraysGet<TNode>
+public class BuiltInFunctionsArraysGet<TNode> where TNode : notnull
 {
     public static ISequence ArrayGet(
-        DynamicContext dynamicContext,
-        ExecutionParameters<TNode> executionParameters,
-        StaticContext<TNode> staticContext,
         ISequence arraySequence,
         ISequence positionSequence)
     {

@@ -8,12 +8,12 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public static class BuiltInFunctionsString<TNode>
+public static class BuiltInFunctionsString<TNode> where TNode : notnull
 {
     private static readonly FunctionSignature<ISequence, TNode> FnConcat = (_, executionParameters, _, args) =>
     {
         var stringSequences = args.Select(sequence =>
-            Atomize.AtomizeSequence(sequence, executionParameters!).MapAll(allValues =>
+            Atomize.AtomizeSequence(sequence, executionParameters).MapAll(allValues =>
                 SequenceFactory.CreateFromValue(AtomicValue.Create(
                     string.Join("", allValues.Select(x => x.GetAs<AtomicValue>().GetValue())),
                     ValueType.XsString))));
@@ -31,7 +31,7 @@ public static class BuiltInFunctionsString<TNode>
     {
         if (args.Length == 0) return SequenceFactory.CreateFromValue(new IntValue(0));
 
-        var stringValue = args[0].First()!.GetAs<StringValue>()!.Value;
+        var stringValue = args[0].First()!.GetAs<StringValue>().Value;
 
         return SequenceFactory.CreateFromValue(new IntValue(stringValue.Length));
     };
@@ -40,7 +40,7 @@ public static class BuiltInFunctionsString<TNode>
     {
         if (args.Length == 0) return SequenceFactory.CreateFromValue(new StringValue(""));
 
-        var stringValue = args[0].First()!.GetAs<StringValue>()!.Value.Trim();
+        var stringValue = args[0].First()!.GetAs<StringValue>().Value.Trim();
         return SequenceFactory.CreateFromValue(new StringValue(Regex.Replace(stringValue, @"\s+", " ")));
     };
 
@@ -64,6 +64,8 @@ public static class BuiltInFunctionsString<TNode>
         });
     };
 
+    // ReSharper disable once StaticMemberInGenericType
+    // ReSharper disable once CollectionNeverUpdated.Local
     private static readonly Dictionary<string, Func<string, bool>> CachedPatterns = new();
 
     private static readonly FunctionSignature<ISequence, TNode> FnMatches = (_, _, _, sequences) =>

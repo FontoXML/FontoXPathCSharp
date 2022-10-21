@@ -5,7 +5,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class DescendantAxis<TNode> : AbstractExpression<TNode>
+public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly string? _descendantBucket;
     private readonly AbstractTestExpression<TNode> _descendantExpression;
@@ -72,14 +72,14 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode>
                 value = descendantIteratorStack.First()(IterationHint.None);
             }
 
-            descendantIteratorStack.Insert(0, CreateChildGenerator(value.Value, domFacade, bucket));
-            return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(value.Value, domFacade));
+            descendantIteratorStack.Insert(0, CreateChildGenerator(value.Value!, domFacade, bucket));
+            return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(value.Value!, domFacade));
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
+        var domFacade = executionParameters!.DomFacade;
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
 
         var iterator = CreateInclusiveDescendantGenerator(contextItem.Value, domFacade, _descendantBucket);

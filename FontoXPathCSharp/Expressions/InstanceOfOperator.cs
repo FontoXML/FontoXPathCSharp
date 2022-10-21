@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class InstanceOfOperator<TNode> : AbstractExpression<TNode>
+public class InstanceOfOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractExpression<TNode> _expression;
     private readonly SequenceMultiplicity _multiplicity;
@@ -28,7 +28,7 @@ public class InstanceOfOperator<TNode> : AbstractExpression<TNode>
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var evaluatedExpression = _expression.EvaluateMaybeStatically(dynamicContext, executionParameters);
 

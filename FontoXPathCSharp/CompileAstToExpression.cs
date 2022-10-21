@@ -3,6 +3,7 @@ using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Axes;
 using FontoXPathCSharp.Expressions.Operators;
+using FontoXPathCSharp.Expressions.Operators.Compares;
 using FontoXPathCSharp.Expressions.Tests;
 using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Types;
@@ -12,7 +13,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp;
 
-public static class CompileAstToExpression<TNode>
+public static class CompileAstToExpression<TNode> where TNode : notnull
 {
     private static CompilationOptions DisallowUpdating(CompilationOptions options)
     {
@@ -27,7 +28,7 @@ public static class CompileAstToExpression<TNode>
         var star = elementName?.GetFirstChild(AstNodeName.Star);
         if (elementName == null || star != null)
             return new KindTest<TNode>(NodeType.Element);
-        return new NameTest<TNode>(elementName.GetFirstChild(AstNodeName.QName).GetQName(), NodeType.Element);
+        return new NameTest<TNode>(elementName.GetFirstChild(AstNodeName.QName)!.GetQName(), NodeType.Element);
     }
 
     private static AbstractTestExpression<TNode> CompileAttributeTest(Ast ast)
@@ -36,7 +37,7 @@ public static class CompileAstToExpression<TNode>
         var star = attributeName?.GetFirstChild(AstNodeName.Star);
         if (attributeName == null || star != null)
             return new KindTest<TNode>(NodeType.Attribute);
-        return new NameTest<TNode>(attributeName.GetFirstChild(AstNodeName.QName).GetQName(), NodeType.Attribute);
+        return new NameTest<TNode>(attributeName.GetFirstChild(AstNodeName.QName)!.GetQName(), NodeType.Attribute);
     }
 
     private static AbstractTestExpression<TNode> CompileWildcard(Ast ast)
@@ -68,7 +69,7 @@ public static class CompileAstToExpression<TNode>
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
             AstNodeName.ElementTest => CompileElementTest(ast),
             AstNodeName.Wildcard => CompileWildcard(ast),
-            AstNodeName.TextTest => CompileTextTest(ast),
+            AstNodeName.TextTest => CompileTextTest(),
             AstNodeName.AtomicType => CompileTypeTest(ast),
             _ => throw new NotImplementedException($"{ast.Name} AST to Expression not yet implemented")
         };
@@ -79,7 +80,7 @@ public static class CompileAstToExpression<TNode>
         return new TypeTest<TNode>(ast.GetQName());
     }
 
-    private static AbstractTestExpression<TNode> CompileTextTest(Ast ast)
+    private static AbstractTestExpression<TNode> CompileTextTest()
     {
         return new KindTest<TNode>(NodeType.Text);
     }
@@ -136,7 +137,7 @@ public static class CompileAstToExpression<TNode>
                     AstNodeName.AnyItemType, AstNodeName.ParenthesizedItemType, AstNodeName.TypedMapTest,
                     AstNodeName.TypedArrayTest, AstNodeName.NameTest, AstNodeName.Wildcard);
 
-                if (test == null) throw new ArgumentOutOfRangeException("No test found in path expression axis");
+                if (test == null) throw new Exception("No test found in path expression axis");
 
                 var testExpression = CompileTestExpression(test);
 
@@ -160,7 +161,7 @@ public static class CompileAstToExpression<TNode>
             else
             {
                 var filterExpr = step.FollowPath(AstNodeName.FilterExpr, AstNodeName.All);
-                stepExpression = CompileAst(filterExpr, DisallowUpdating(options));
+                stepExpression = CompileAst(filterExpr!, DisallowUpdating(options));
             }
 
             foreach (var postfix in postFixExpressions)
@@ -188,16 +189,14 @@ public static class CompileAstToExpression<TNode>
     private static AbstractExpression<TNode> CompileLookup(Ast ast, CompilationOptions options)
     {
         var keyExpression = ast.GetFirstChild();
-        switch (keyExpression.Name)
+        if (keyExpression == null) throw new Exception("Lookup did not contain a key expression.");
+        return keyExpression.Name switch
         {
-            case AstNodeName.NcName:
-                return new Literal<TNode>(keyExpression.TextContent,
-                    new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne));
-            case AstNodeName.Star:
-                throw new NotImplementedException("Star in Lookup is not implemented yet.");
-            default:
-                return CompileAst(keyExpression, DisallowUpdating(options));
-        }
+            AstNodeName.NcName => new Literal<TNode>(keyExpression.TextContent,
+                new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)),
+            AstNodeName.Star => throw new NotImplementedException("Star in Lookup is not implemented yet."),
+            _ => CompileAst(keyExpression, DisallowUpdating(options))
+        };
     }
 
     private static AbstractExpression<TNode> CompileFunctionCallExpression(Ast ast, CompilationOptions options)
@@ -360,8 +359,9 @@ public static class CompileAstToExpression<TNode>
             if (!options.AllowXQuery)
                 throw new XPathException("XPST0003", "Use of XQuery FLWOR expressions in XPath is no allowed");
 
-        //Originally this was a reduceRight
+        // TODO: Turn this back into a ReduceRight.
         clauses.Reverse();
+        if (returnClauseExpression == null) throw new Exception("Return clause in flwor expression was null");
         return clauses.Aggregate(
             CompileAst(returnClauseExpression, options),
             (returnOfPreviousExpression, flworExpressionClause) =>
@@ -417,8 +417,8 @@ public static class CompileAstToExpression<TNode>
             var letClauseItem = letClauseItems[i];
             var expression = letClauseItem.FollowPath(AstNodeName.LetExpr, AstNodeName.All);
             returnExpr = new LetExpression<TNode>(
-                letClauseItem.FollowPath(AstNodeName.TypedVariableBinding, AstNodeName.VarName).GetQName(),
-                CompileAst(expression, DisallowUpdating(compilationOptions)),
+                letClauseItem.FollowPath(AstNodeName.TypedVariableBinding, AstNodeName.VarName)!.GetQName(),
+                CompileAst(expression!, DisallowUpdating(compilationOptions)),
                 returnExpr
             );
         }
@@ -428,11 +428,11 @@ public static class CompileAstToExpression<TNode>
 
     private static AbstractExpression<TNode> CompileInstanceOfExpr(Ast ast, CompilationOptions options)
     {
-        var expression = CompileAst(ast.FollowPath(AstNodeName.ArgExpr, AstNodeName.All), options);
+        var expression = CompileAst(ast.FollowPath(AstNodeName.ArgExpr, AstNodeName.All)!, options);
         var sequenceType = ast.FollowPath(AstNodeName.SequenceType, AstNodeName.All);
         var occurrence = ast.FollowPath(AstNodeName.SequenceType, AstNodeName.OccurrenceIndicator);
 
-        return new InstanceOfOperator<TNode>(expression, CompileAst(sequenceType, DisallowUpdating(options)),
+        return new InstanceOfOperator<TNode>(expression, CompileAst(sequenceType!, DisallowUpdating(options)),
             occurrence?.TextContent ?? "");
     }
 
@@ -460,7 +460,7 @@ public static class CompileAstToExpression<TNode>
         var parts = ast.GetChildren(AstNodeName.All).Skip(1).ToArray();
 
         IEnumerable<AbstractExpression<TNode>?> args = new List<AbstractExpression<TNode>?>
-            { CompileAst(argExpr, options) };
+            { CompileAst(argExpr!, options) };
 
         for (var i = 0; i < parts.Length; i++)
         {
@@ -475,10 +475,11 @@ public static class CompileAstToExpression<TNode>
                 );
             }
 
+            var abstractExpressions = args as AbstractExpression<TNode>?[] ?? args.ToArray();
             var func = parts[i].Name == AstNodeName.EqName
-                ? new NamedFunctionRef<TNode>(parts[i].GetQName(), args.Count())
+                ? new NamedFunctionRef<TNode>(parts[i].GetQName(), abstractExpressions.Length)
                 : CompileAst(parts[i], DisallowUpdating(options));
-            args = new List<AbstractExpression<TNode>?> { new FunctionCall<TNode>(func, args.ToArray()) };
+            args = new List<AbstractExpression<TNode>?> { new FunctionCall<TNode>(func, abstractExpressions!) };
         }
 
         return args.First()!;
@@ -497,15 +498,15 @@ public static class CompileAstToExpression<TNode>
             ).OfType<AbstractExpression<TNode>>().ToArray();
         }
 
-        return new FunctionCall<TNode>(CompileAst(functionItemContent, options), args);
+        return new FunctionCall<TNode>(CompileAst(functionItemContent!, options), args);
     }
 
     private static AbstractExpression<TNode> CompileIfThenElseExpr(Ast ast, CompilationOptions options)
     {
         return new IfExpression<TNode>(
-            CompileAst(ast.FollowPath(AstNodeName.IfClause, AstNodeName.All), options),
-            CompileAst(ast.FollowPath(AstNodeName.ThenClause, AstNodeName.All), options),
-            CompileAst(ast.FollowPath(AstNodeName.ElseClause, AstNodeName.All), options)
+            CompileAst(ast.FollowPath(AstNodeName.IfClause, AstNodeName.All)!, options),
+            CompileAst(ast.FollowPath(AstNodeName.ThenClause, AstNodeName.All)!, options),
+            CompileAst(ast.FollowPath(AstNodeName.ElseClause, AstNodeName.All)!, options)
         );
     }
 
@@ -516,7 +517,7 @@ public static class CompileAstToExpression<TNode>
             DisallowUpdating(options));
 
         var singleType = ast.GetFirstChild(AstNodeName.SingleType);
-        var targetType = singleType.GetFirstChild(AstNodeName.AtomicType).GetQName();
+        var targetType = singleType!.GetFirstChild(AstNodeName.AtomicType)!.GetQName();
         var optional = singleType.GetFirstChild(AstNodeName.Optional) != null;
 
         return new CastAsOperator<TNode>(expression, targetType, optional);
@@ -535,7 +536,7 @@ public static class CompileAstToExpression<TNode>
     private static AbstractExpression<TNode> CompileUnaryOperator(Ast ast, CompilationOptions options)
     {
         var operand = ast.FollowPath(AstNodeName.Operand, AstNodeName.All);
-        return new UnaryOperator<TNode>(ast.Name, CompileAst(operand, options));
+        return new UnaryOperator<TNode>(ast.Name, CompileAst(operand!, options));
     }
 
     private static AbstractExpression<TNode> CompileUnionOp(Ast ast, CompilationOptions options)
@@ -602,6 +603,6 @@ public static class CompileAstToExpression<TNode>
 
     private static void ProcessProlog(Ast prolog)
     {
-        throw new NotImplementedException("ProcessProlog not implemented");
+        throw new NotImplementedException($"ProcessProlog not implemented: {prolog}");
     }
 }

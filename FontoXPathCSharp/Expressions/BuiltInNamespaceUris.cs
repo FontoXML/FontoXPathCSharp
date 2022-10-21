@@ -17,7 +17,7 @@ public enum BuiltInNamespaceUris
 
 public static class StaticallyKnownNamespacesExtensions
 {
-    private static readonly Dictionary<string, string> _staticallyKnownNamespaceByPrefix = new()
+    private static readonly Dictionary<string, string> StaticallyKnownNamespaceByPrefix = new()
     {
         { "xml", BuiltInNamespaceUris.XmlNamespaceUri.GetUri() },
         { "xs", BuiltInNamespaceUris.XmlSchemaNamespaceUri.GetUri() },
@@ -50,15 +50,15 @@ public static class StaticallyKnownNamespacesExtensions
 
     public static string? GetStaticallyKnownNamespaceByPrefix(string prefix)
     {
-        return !_staticallyKnownNamespaceByPrefix.ContainsKey(prefix)
+        return !StaticallyKnownNamespaceByPrefix.ContainsKey(prefix)
             ? null
-            : _staticallyKnownNamespaceByPrefix[prefix];
+            : StaticallyKnownNamespaceByPrefix[prefix];
     }
 
     public static void RegisterStaticallyKnownNamespace(string prefix, string namespaceUri)
     {
-        if (_staticallyKnownNamespaceByPrefix.ContainsKey(prefix))
+        if (StaticallyKnownNamespaceByPrefix.ContainsKey(prefix))
             throw new Exception("Prefix already registered: Do not register the same prefix twice.");
-        _staticallyKnownNamespaceByPrefix.Add(prefix, namespaceUri);
+        StaticallyKnownNamespaceByPrefix.Add(prefix, namespaceUri);
     }
 }

@@ -16,7 +16,8 @@ public class CastToUntypedAtomic
             {
                 ErrorResult<string> e => new ErrorResult<AtomicValue>(e.Message),
                 SuccessResult<string> r => new SuccessResult<AtomicValue>(
-                    AtomicValue.Create(r.Data, ValueType.XsUntypedAtomic))
+                    AtomicValue.Create(r.Data, ValueType.XsUntypedAtomic)),
+                _ => throw new ArgumentOutOfRangeException()
             };
         };
     }

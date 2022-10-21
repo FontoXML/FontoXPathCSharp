@@ -5,7 +5,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class AttributeAxis<TNode> : AbstractExpression<TNode>
+public class AttributeAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractTestExpression<TNode> _attributeTestExpression;
     private readonly string? _filterBucket;
@@ -19,9 +19,9 @@ public class AttributeAxis<TNode> : AbstractExpression<TNode>
         _filterBucket = BucketUtils.IntersectBuckets(_attributeTestExpression.GetBucket(), filterBucket);
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
+        var domFacade = executionParameters!.DomFacade;
 
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 

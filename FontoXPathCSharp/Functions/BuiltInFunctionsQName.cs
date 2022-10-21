@@ -5,20 +5,20 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public class BuiltInFunctionsQName<TNode>
+public class BuiltInFunctionsQName<TNode> where TNode : notnull
 {
     private static readonly FunctionSignature<ISequence, TNode> FnQName = (_, _, _, param) =>
     {
         var paramUri = param[0];
         return ISequence.ZipSingleton(param, values =>
         {
-            var uriValue = values[0].GetAs<StringValue>();
+            var uriValue = values.FirstOrDefault()?.GetAs<StringValue>();
             var lexicalQNameValue = values[1].GetAs<StringValue>();
             var lexicalQName = lexicalQNameValue.Value;
             if (!TypeHelpers.ValidatePattern(lexicalQName, ValueType.XsQName))
                 throw new Exception("FOCA0002: The provided QName is invalid.");
 
-            var uri = uriValue != null ? uriValue.Value : null;
+            var uri = uriValue?.Value;
             if (uri == null && lexicalQName.Contains(':'))
                 throw new Exception("FOCA0002: The URI of a QName may not be empty if a prefix is provided.");
             // Skip URI validation for now

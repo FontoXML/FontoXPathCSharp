@@ -10,7 +10,7 @@ public class ArgumentHelper
         ISequence argument,
         ExecutionParameters<TNode> executionParameters,
         string functionName,
-        bool isReturn)
+        bool isReturn) where TNode : notnull
     {
         throw new NotImplementedException("PerformFunctionConversion is not implemented yet.");
     }

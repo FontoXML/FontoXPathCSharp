@@ -16,7 +16,7 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<bool, TSelector, TNode>(
             selector,
@@ -32,7 +32,7 @@ public class Evaluate
         object contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<bool, TSelector, TNode>(
             selector,
@@ -49,7 +49,7 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<TNode?, TSelector, TNode>(
             selector,
@@ -65,7 +65,7 @@ public class Evaluate
         object contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<TNode?, TSelector, TNode>(
             selector,
@@ -81,7 +81,7 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<IEnumerable<TNode>, TSelector, TNode>(
             selector,
@@ -97,7 +97,7 @@ public class Evaluate
         object? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<IEnumerable<TNode>, TSelector, TNode>(
             selector,
@@ -113,7 +113,7 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<int, TSelector, TNode>(
             selector,
@@ -129,7 +129,7 @@ public class Evaluate
         object? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<int, TSelector, TNode>(
             selector,
@@ -145,7 +145,7 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<IEnumerable<int>, TSelector, TNode>(
             selector,
@@ -161,7 +161,7 @@ public class Evaluate
         object? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<IEnumerable<int>, TSelector, TNode>(
             selector,
@@ -177,7 +177,7 @@ public class Evaluate
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null) where TNode : notnull
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<string, TSelector, TNode>(
             selector,
@@ -188,12 +188,13 @@ public class Evaluate
         );
     }
 
+    // ReSharper disable once UnusedMember.Local
     private static string? EvaluateXPathToString<TSelector, TNode>(
         TSelector selector,
         object? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variables = null)
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
         return EvaluateXPath<string, TSelector, TNode>(
             selector,
@@ -209,7 +210,7 @@ public class Evaluate
         AbstractValue? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object>? variablesMap)
+        Dictionary<string, object>? variablesMap) where TNode : notnull where TSelector : notnull
     {
         variablesMap ??= new Dictionary<string, object>();
 
@@ -228,9 +229,9 @@ public class Evaluate
                 variables,
                 options,
                 new CompilationOptions(
-                    options.LanguageId == Language.LanguageId.XQUERY_UPDATE_3_1_LANGUAGE,
-                    options.LanguageId is Language.LanguageId.XQUERY_3_1_LANGUAGE
-                        or Language.LanguageId.XQUERY_UPDATE_3_1_LANGUAGE,
+                    options.LanguageId == Language.LanguageId.XqueryUpdate31Language,
+                    options.LanguageId is Language.LanguageId.Xquery31Language
+                        or Language.LanguageId.XqueryUpdate31Language,
                     options.Debug,
                     options.DisableCache));
             dynamicContext = context.DynamicContext;

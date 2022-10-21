@@ -16,7 +16,8 @@ public class CastToDouble
             {
                 ErrorResult<double> e => new ErrorResult<AtomicValue>(e.Message),
                 SuccessResult<double> r => new SuccessResult<AtomicValue>(
-                    AtomicValue.Create(r.Data, ValueType.XsDouble))
+                    AtomicValue.Create(r.Data, ValueType.XsDouble)),
+                _ => throw new ArgumentOutOfRangeException()
             };
         };
     }

@@ -128,7 +128,7 @@ public class IteratorBackedSequence : ISequence
             var value = iterator(hint);
             while (!value.IsDone)
             {
-                if (callback(value.Value, i, this)) return value;
+                if (value.Value != null && callback(value.Value, i, this)) return value;
 
                 i++;
                 value = iterator(IterationHint.None);
@@ -177,7 +177,7 @@ public class IteratorBackedSequence : ISequence
         }
 
         var firstValue = it.Value;
-        if (firstValue.GetValueType().IsSubtypeOf(ValueType.Node))
+        if (firstValue!.GetValueType().IsSubtypeOf(ValueType.Node))
         {
             Reset(oldPosition);
             return true;

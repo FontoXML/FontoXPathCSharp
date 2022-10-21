@@ -3,9 +3,10 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Parsing;
 
-public record ExpressionCacheResult<TNode>(AbstractExpression<TNode> Expression, bool RequiresStaticCompilation);
+public record ExpressionCacheResult<TNode>(AbstractExpression<TNode> Expression, bool RequiresStaticCompilation)
+    where TNode : notnull;
 
-public class CacheEntry<TNode>
+public class CacheEntry<TNode> where TNode : notnull
 {
     public readonly AbstractExpression<TNode> CompiledExpression;
     public readonly string DefaultFunctionNamespaceUri;
@@ -31,7 +32,7 @@ public class CacheEntry<TNode>
     }
 }
 
-public class CompiledExpressionCache<TSelector, TNode> where TSelector : notnull
+public class CompiledExpressionCache<TSelector, TNode> where TSelector : notnull where TNode : notnull
 {
     public static readonly CompiledExpressionCache<TSelector, TNode> Instance = new();
 
@@ -120,7 +121,7 @@ public class CompiledExpressionCache<TSelector, TNode> where TSelector : notnull
         TSelector selectorExpression,
         string language,
         NamespaceResolver namespaceResolver,
-        Dictionary<string, AbstractValue> variables,
+        Dictionary<string, AbstractValue?> variables,
         Dictionary<string, string> moduleImports,
         bool debug,
         string defaultFunctionNamespaceUri,

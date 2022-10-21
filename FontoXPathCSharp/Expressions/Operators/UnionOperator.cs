@@ -22,7 +22,7 @@ public class UnionOperator<TNode> : AbstractExpression<TNode> where TNode : notn
         _subExpressions = childExpressions;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         if (_subExpressions.All(e => e.ExpectedResultOrder == ResultOrdering.Sorted))
             throw new NotImplementedException("Returning sorted sequence unions not implemented yet");
@@ -35,7 +35,7 @@ public class UnionOperator<TNode> : AbstractExpression<TNode> where TNode : notn
             if (allValues.Any(nodeValue => !nodeValue.GetValueType().IsSubtypeOf(ValueType.Node)))
                 throw new XPathException("XPTY0004", "The sequences to union are not of type node()*");
 
-            var sortedValues = DocumentOrderUtils<TNode>.SortNodeValues(executionParameters.DomFacade,
+            var sortedValues = DocumentOrderUtils<TNode>.SortNodeValues(executionParameters!.DomFacade,
                 allValues.Cast<NodeValue<TNode>>().ToList());
             return SequenceFactory.CreateFromArray(sortedValues.Cast<AbstractValue>().ToArray());
         });

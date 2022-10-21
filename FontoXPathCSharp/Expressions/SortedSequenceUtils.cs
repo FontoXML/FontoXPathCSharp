@@ -23,19 +23,19 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
     {
         var currentSequence = sequences(IterationHint.None);
         if (currentSequence.IsDone) return SequenceFactory.CreateEmpty();
-        Iterator<AbstractValue> currentIterator = null;
-        AbstractValue previousValue = null;
+        Iterator<AbstractValue>? currentIterator = null;
+        AbstractValue? previousValue = null;
         return SequenceFactory.CreateFromIterator(
             hint =>
             {
                 if (currentSequence.IsDone) return IteratorResult<AbstractValue>.Done();
-                if (currentIterator == null) currentIterator = currentSequence.Value?.GetValue();
+                currentIterator ??= currentSequence.Value?.GetValue();
 
                 IteratorResult<AbstractValue> value;
                 // Scan to the next value
                 do
                 {
-                    value = currentIterator(hint);
+                    value = currentIterator!(hint);
                     if (value.IsDone)
                     {
                         currentSequence = sequences(IterationHint.None);
@@ -50,8 +50,7 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
         );
     }
 
-    public static ISequence MergeSortedSequences<TNode>(DomFacade<TNode> domFacade, Iterator<ISequence> sequences)
-        where TNode : notnull
+    public static ISequence MergeSortedSequences(DomFacade<TNode> domFacade, Iterator<ISequence> sequences)
     {
         var allIterators = new List<MappedIterator>();
         // Because the sequences are sorted locally, but unsorted globally, we first need to sort all the iterators.
@@ -91,8 +90,8 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
                         allIterators.Sort((iteratorA, iteratorB) =>
                             DocumentOrderUtils<TNode>.CompareNodePositions(
                                 domFacade,
-                                iteratorA.Current.Value!.GetAs<NodeValue<TNode>>()!,
-                                iteratorB.Current.Value!.GetAs<NodeValue<TNode>>()!
+                                iteratorA.Current.Value!.GetAs<NodeValue<TNode>>(),
+                                iteratorB.Current.Value!.GetAs<NodeValue<TNode>>()
                             )
                         );
                 }
@@ -156,7 +155,7 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
         public readonly Iterator<AbstractValue> Next;
         public IteratorResult<AbstractValue> Current;
 
-        public MappedIterator(IteratorResult<AbstractValue>? current, Iterator<AbstractValue> next)
+        public MappedIterator(IteratorResult<AbstractValue> current, Iterator<AbstractValue> next)
         {
             Next = next;
             Current = current;

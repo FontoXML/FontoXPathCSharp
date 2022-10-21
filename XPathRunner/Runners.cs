@@ -8,21 +8,20 @@ namespace XPathRunner;
 
 public class Runners
 {
-    private readonly XmlDocument _qt3Tests;
     private readonly ITestOutputHelper _testOutputHelper;
 
     public Runners(ITestOutputHelper testOutputHelper)
     {
         _testOutputHelper = testOutputHelper;
-        _qt3Tests = new XmlDocument();
-        _qt3Tests.Load("../../../../XPathTest/assets/qt3tests/catalog.xml");
+        var qt3Tests = new XmlDocument();
+        qt3Tests.Load("../../../../XPathTest/assets/qt3tests/catalog.xml");
     }
 
     [Fact]
     public void BaseCase()
     {
         const string query = "/catalog/test-set";
-        const string xml = "<p>Test</p>";
+        // const string xml = "<p>Test</p>";
 
         _testOutputHelper.WriteLine($"Running: `{query}`\n");
 

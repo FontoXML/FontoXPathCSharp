@@ -4,7 +4,7 @@ using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Expressions;
+namespace FontoXPathCSharp.Expressions.Operators.Compares;
 
 public enum CompareType
 {
@@ -16,7 +16,7 @@ public enum CompareType
     GreaterEquals
 }
 
-public class ValueCompare<TNode> : AbstractExpression<TNode>
+public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractExpression<TNode> _firstExpression;
     private readonly CompareType _operator;
@@ -136,21 +136,21 @@ public class ValueCompare<TNode> : AbstractExpression<TNode>
         throw new XPathException("XPTY0004", type + " not available for " + firstType + " and " + secondType);
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var firstSequence = _firstExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
         var secondSequence = _secondExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
 
-        var firstAtomizedSequence = Atomize.AtomizeSequence(firstSequence, executionParameters);
-        var secondAtomizedSequence = Atomize.AtomizeSequence(secondSequence, executionParameters);
+        var firstAtomizedSequence = Atomize.AtomizeSequence(firstSequence, executionParameters!);
+        var secondAtomizedSequence = Atomize.AtomizeSequence(secondSequence, executionParameters!);
 
         if (firstAtomizedSequence.IsEmpty() || secondAtomizedSequence.IsEmpty())
             return SequenceFactory.CreateEmpty();
 
-        var onlyFirstValue = firstAtomizedSequence.First();
-        var onlySecondValue = secondAtomizedSequence.First();
+        var onlyFirstValue = firstAtomizedSequence.First()!;
+        var onlySecondValue = secondAtomizedSequence.First()!;
 
         return SequenceFactory.CreateFromValue(
-            new BooleanValue(PerformValueCompare(_operator, onlyFirstValue, onlySecondValue, dynamicContext)));
+            new BooleanValue(PerformValueCompare(_operator, onlyFirstValue, onlySecondValue, dynamicContext!)));
     }
 }

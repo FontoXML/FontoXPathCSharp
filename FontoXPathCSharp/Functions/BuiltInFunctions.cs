@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Functions;
 
-public static class BuiltInFunctions<TNode>
+public static class BuiltInFunctions<TNode> where TNode : notnull
 {
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
         BuiltInFunctionsNode<TNode>.Declarations

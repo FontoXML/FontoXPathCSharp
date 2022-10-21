@@ -1,10 +1,18 @@
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
+public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode : notnull
 {
+    // ReSharper disable once StaticMemberInGenericType
+    private static readonly XPathException Xpty0004 = new(
+        "XPTY0004",
+        "Expected base expression of a function call to evaluate to a sequence of single function item"
+    );
+
     private readonly AbstractExpression<TNode>[] _argumentExpressions;
     private readonly int _callArity;
     private readonly AbstractExpression<TNode> _functionReferenceExpression;
@@ -24,8 +32,10 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
         _staticContext = null;
     }
 
-    public override ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
-        ExecutionParameters<TNode> executionParameters, SequenceCallback[] createArgumentSequences)
+    public override ISequence PerformFunctionalEvaluation(
+        DynamicContext? dynamicContext,
+        ExecutionParameters<TNode> executionParameters,
+        SequenceCallback[] createArgumentSequences)
     {
         if (_functionReference != null)
             return _functionReference.Value(
@@ -38,7 +48,7 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
         var createFunctionReferenceSequence = createArgumentSequences[0];
         createArgumentSequences = createArgumentSequences.Skip(1).ToArray();
 
-        var sequence = createFunctionReferenceSequence(dynamicContext);
+        var sequence = createFunctionReferenceSequence(dynamicContext!);
         if (!sequence.IsSingleton())
             throw new XPathException(
                 "XPTY0004",
@@ -47,6 +57,7 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
         return sequence.MapAll(item =>
         {
             var functionItem = ValidateFunctionItem<AbstractValue>(item[0], _callArity);
+
             if (functionItem.IsUpdating)
                 throw new XPathException(
                     "XUDY0038",
@@ -55,16 +66,12 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
             return CallFunction(
                 functionItem,
                 functionItem.Value,
-                dynamicContext,
+                dynamicContext!,
                 executionParameters,
                 createArgumentSequences,
                 _staticContext
             );
         });
-
-        throw new XPathException(
-            "XUDY0038",
-            "Expected base expression of a function call to evaluate to a sequence of single function item");
     }
 
     private ISequence CallFunction(
@@ -73,7 +80,7 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
         DynamicContext dynamicContext,
         ExecutionParameters<TNode> executionParameters,
         SequenceCallback[] createArgumentSequences,
-        StaticContext<TNode> staticContext)
+        StaticContext<TNode>? staticContext)
     {
         throw new NotImplementedException("Function calls not implemented yet.");
     }
@@ -97,15 +104,16 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode>
 
     private static FunctionValue<T, TNode> ValidateFunctionItem<T>(AbstractValue item, int callArity)
     {
+        if (!item.GetValueType().IsSubtypeOf(ValueType.Function))
+            throw new XPathException(
+                "XPTY0004",
+                "Expected base expression to evaluate to a function item"
+            );
+
         var functionItem = item.GetAs<FunctionValue<T, TNode>>();
 
-        if (functionItem == null)
-            throw new XPathException("XPTY0004",
-                "Expected base expression of a function call to evaluate to a sequence of single function item");
-
-        if (functionItem.Arity != callArity)
-            throw new XPathException("XPTY0004",
-                "Expected base expression of a function call to evaluate to a sequence of single function item");
+        if (functionItem == null || functionItem.Arity != callArity)
+            throw Xpty0004;
 
         return functionItem;
     }

@@ -5,7 +5,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class FilterExpression<TNode> : AbstractExpression<TNode>
+public class FilterExpression<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractExpression<TNode> _filterExpression;
     private readonly AbstractExpression<TNode> _selector;
@@ -19,7 +19,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode>
         _filterExpression = filterExpression;
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var valuesToFilter = _selector.EvaluateMaybeStatically(dynamicContext, executionParameters);
 
@@ -30,7 +30,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode>
             if (result.IsEmpty())
                 return result;
 
-            var resultValue = result.First();
+            var resultValue = result.First()!;
             if (!resultValue.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
                 return result.GetEffectiveBooleanValue() ? valuesToFilter : SequenceFactory.CreateEmpty();
 
@@ -81,7 +81,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode>
 
                 if (iteratorItem.IsDone) return iteratorItem;
 
-                var newContext = dynamicContext.ScopeWithFocus(i, iteratorItem.Value, new EmptySequence());
+                var newContext = dynamicContext?.ScopeWithFocus(i, iteratorItem.Value, new EmptySequence());
                 filterResultSequence ??= _filterExpression.EvaluateMaybeStatically(
                     newContext, executionParameters);
 
@@ -107,7 +107,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode>
 
                 i++;
                 if (shouldReturnCurrentValue)
-                    return IteratorResult<AbstractValue>.Ready(returnableValue);
+                    return IteratorResult<AbstractValue>.Ready(returnableValue!);
             }
 
             return iteratorItem;

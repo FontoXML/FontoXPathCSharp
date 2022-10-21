@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class LetExpression<TNode> : FlworExpression<TNode>
+public class LetExpression<TNode> : FlworExpression<TNode> where TNode : notnull
 {
     private readonly AbstractExpression<TNode> _bindingSequence;
     private readonly QName _rangeVariable;

@@ -2,7 +2,7 @@ using FontoXPathCSharp.Sequences;
 
 namespace FontoXPathCSharp.Expressions;
 
-public abstract class PossiblyUpdatingExpression<TNode> : UpdatingExpression<TNode>
+public abstract class PossiblyUpdatingExpression<TNode> : UpdatingExpression<TNode> where TNode : notnull
 {
     public delegate ISequence SequenceCallback(DynamicContext context);
 
@@ -15,11 +15,11 @@ public abstract class PossiblyUpdatingExpression<TNode> : UpdatingExpression<TNo
         );
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         return PerformFunctionalEvaluation(
             dynamicContext,
-            executionParameters,
+            executionParameters!,
             ChildExpressions.Select<AbstractExpression<TNode>, SequenceCallback>(
                 expr => innerDynamicContext =>
                     expr.Evaluate(innerDynamicContext, executionParameters)).ToArray());
@@ -28,9 +28,5 @@ public abstract class PossiblyUpdatingExpression<TNode> : UpdatingExpression<TNo
     public abstract ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
         ExecutionParameters<TNode> executionParameters, SequenceCallback[] sequenceCallbacks);
 
-    public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
-    {
-        base.PerformStaticEvaluation(staticContext);
-        // TODO: this.DetermineUpdatingness();
-    }
+    // TODO: this.DetermineUpdatingness();
 }

@@ -4,7 +4,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class ParentAxis<TNode> : AbstractExpression<TNode>
+public class ParentAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly string? _filterBucket;
     private readonly AbstractTestExpression<TNode> _parentExpression;
@@ -18,10 +18,10 @@ public class ParentAxis<TNode> : AbstractExpression<TNode>
         _filterBucket = BucketUtils.IntersectBuckets(filterBucket, parentExpression.GetBucket());
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
-        var contextNode = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext.ContextItem);
+        var domFacade = executionParameters!.DomFacade;
+        var contextNode = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
         var parentNode = domFacade.GetParentNode(contextNode.Value, _filterBucket);
 
         if (parentNode == null) return SequenceFactory.CreateEmpty();

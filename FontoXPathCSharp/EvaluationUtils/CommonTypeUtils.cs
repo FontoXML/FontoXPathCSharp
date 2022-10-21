@@ -8,6 +8,8 @@ public class CommonTypeUtils
 {
     public static AbstractValue?[]? ConvertItemsToCommonType(AbstractValue?[]? items)
     {
+        if (items == null) return null;
+
         if (items.All(item =>
             {
                 // xs:integer is the only numeric type with inherits from another numeric type

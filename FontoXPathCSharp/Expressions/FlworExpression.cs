@@ -3,7 +3,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions;
 
-public abstract class FlworExpression<TNode> : AbstractExpression<TNode>
+public abstract class FlworExpression<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     protected readonly AbstractExpression<TNode> ReturnExpression;
 
@@ -28,12 +28,12 @@ public abstract class FlworExpression<TNode> : AbstractExpression<TNode>
 
     public override ISequence Evaluate(
         DynamicContext? dynamicContext,
-        ExecutionParameters<TNode> executionParameters)
+        ExecutionParameters<TNode>? executionParameters)
     {
         return DoFlworExpression(
             dynamicContext!,
             IteratorUtils.SingleValueIterator(dynamicContext)!,
-            executionParameters,
+            executionParameters!,
             dynamicContextIterator =>
             {
                 if (ReturnExpression is FlworExpression<TNode> expression)
@@ -41,7 +41,7 @@ public abstract class FlworExpression<TNode> : AbstractExpression<TNode>
                     return expression.DoFlworExpressionInternal(
                         dynamicContext!,
                         dynamicContextIterator,
-                        executionParameters
+                        executionParameters!
                     );
 
                 Iterator<AbstractValue>? currentSequenceIterator = null;

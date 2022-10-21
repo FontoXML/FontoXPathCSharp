@@ -5,7 +5,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Expressions.Axes;
 
-public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode>
+public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly string? _filterBucket;
     private readonly AbstractTestExpression<TNode> _siblingExpression;
@@ -26,7 +26,7 @@ public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode>
     {
         return _ =>
         {
-            node = domFacade.GetNextSibling(node, bucket);
+            node = domFacade.GetNextSibling(node!, bucket);
 
             return node == null
                 ? IteratorResult<AbstractValue>.Done()
@@ -34,9 +34,9 @@ public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode>
         };
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
-        var domFacade = executionParameters.DomFacade;
+        var domFacade = executionParameters!.DomFacade;
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 
         return SequenceFactory.CreateFromIterator(CreateSiblingIterator(domFacade, contextItem.Value, _filterBucket))

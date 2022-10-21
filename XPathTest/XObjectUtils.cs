@@ -4,7 +4,7 @@ using XPathTest.Caches;
 
 namespace XPathTest;
 
-public class XObjectUtils : NodeUtils<XObject>
+public class XObjectUtils : INodeUtils<XObject>
 {
     public string NodeToString(XObject node)
     {
@@ -31,7 +31,7 @@ public class XObjectUtils : NodeUtils<XObject>
         return new XDocument();
     }
 
-    public XObject? CreateDocumentFragment(XObject document)
+    public XObject CreateDocumentFragment(XObject document)
     {
         return new XDocument(document);
     }

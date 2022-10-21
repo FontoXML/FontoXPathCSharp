@@ -2,19 +2,19 @@ using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Parsing;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
-using FontoXPathCSharp.Value.ExpressionResults;
 
 namespace FontoXPathCSharp;
 
-public record StaticCompilationResult<TNode>(StaticContext<TNode> StaticContext, AbstractExpression<TNode> Expression);
+public record StaticCompilationResult<TNode>(StaticContext<TNode> StaticContext, AbstractExpression<TNode> Expression)
+    where TNode : notnull;
 
-public static class CompileXPath<TSelector, TNode> where TSelector : notnull
+public static class CompileXPath<TSelector, TNode> where TSelector : notnull where TNode : notnull
 {
     private static ExpressionResult CreateExpressionFromSource(
         TSelector xpathSource,
         CompilationOptions compilationOptions,
         NamespaceResolver namespaceResolver,
-        Dictionary<string, AbstractValue> variables,
+        Dictionary<string, AbstractValue?> variables,
         Dictionary<string, string> moduleImports,
         string defaultFunctionNamespaceUri,
         FunctionNameResolver functionNameResolver)
@@ -40,7 +40,7 @@ public static class CompileXPath<TSelector, TNode> where TSelector : notnull
 
         var ast =
             typeof(TSelector) == typeof(string)
-                ? ParseExpression.ParseXPathOrXQueryExpression((string)(object)xpathSource!, compilationOptions)
+                ? ParseExpression.ParseXPathOrXQueryExpression((string)(object)xpathSource, compilationOptions)
                 : XmlToAst.ConvertXmlToAst(xpathSource);
 
         return new ParsedExpressionResult(ast);
@@ -50,7 +50,7 @@ public static class CompileXPath<TSelector, TNode> where TSelector : notnull
         TSelector selector,
         CompilationOptions compilationOptions,
         NamespaceResolver namespaceResolver,
-        Dictionary<string, AbstractValue> variables,
+        Dictionary<string, AbstractValue?> variables,
         Dictionary<string, string> moduleImports,
         string defaultFunctionNamespaceUri,
         FunctionNameResolver functionNameResolver)
@@ -108,8 +108,7 @@ public static class CompileXPath<TSelector, TNode> where TSelector : notnull
                 var parsedResult = (ParsedExpressionResult)result;
                 var expressionFromAst = BuildExpressionFromAst(
                     parsedResult.Ast,
-                    compilationOptions,
-                    rootStaticContext
+                    compilationOptions
                 );
                 expressionFromAst.PerformStaticEvaluation(rootStaticContext);
 
@@ -136,12 +135,8 @@ public static class CompileXPath<TSelector, TNode> where TSelector : notnull
 
     private static AbstractExpression<TNode> BuildExpressionFromAst(
         Ast ast,
-        CompilationOptions compilationOptions,
-        StaticContext<TNode> rootStaticContext)
+        CompilationOptions compilationOptions)
     {
-        //TODO: AST Annotation
-        // AnnotateAst(ast, new AnnotationContext(rootStaticContext));
-
         var mainModule = ast.GetFirstChild(AstNodeName.MainModule);
 
         if (mainModule == null) throw new Exception("Can not execute a library module.");

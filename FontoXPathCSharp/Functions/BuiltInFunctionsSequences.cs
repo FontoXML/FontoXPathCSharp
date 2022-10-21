@@ -6,7 +6,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Functions;
 
-public static class BuiltInFunctionsSequences<TNode>
+public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 {
     private static readonly FunctionSignature<ISequence, TNode> FnCount = (_, _, _, args) =>
     {
@@ -60,7 +60,7 @@ public static class BuiltInFunctionsSequences<TNode>
 
         // TODO: throw FORG0006 if the items contain both yearMonthDurations and dayTimeDurations
         var items = CastUntypedItemsToDouble(sequence.GetAllValues());
-        items = CommonTypeUtils.ConvertItemsToCommonType(items);
+        items = CommonTypeUtils.ConvertItemsToCommonType(items)!;
         if (items == null) throw new XPathException("FORG0006", "Incompatible types to be converted to a common type");
 
         if (!items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsNumeric)))
@@ -105,9 +105,9 @@ public static class BuiltInFunctionsSequences<TNode>
         {
             var hasPassed = false;
             var deepEqualityIterator = BuiltInFunctionsSequencesDeepEqual<TNode>.SequenceDeepEqual(
-                dynamicContext,
+                dynamicContext!,
                 executionParameters,
-                staticContext,
+                staticContext!,
                 args[0],
                 args[1]
             );
@@ -230,7 +230,7 @@ public static class BuiltInFunctionsSequences<TNode>
 
         if (items.Any(item => double.IsNaN(item.GetAs<DoubleValue>().Value) ||
                               float.IsNaN(item.GetAs<FloatValue>().Value)))
-            return new[] { AtomicValue.Create(double.NaN, ValueType.XsDouble) };
+            return new AbstractValue[] { AtomicValue.Create(double.NaN, ValueType.XsDouble) };
 
         var convertResult = CommonTypeUtils.ConvertItemsToCommonType(items);
 

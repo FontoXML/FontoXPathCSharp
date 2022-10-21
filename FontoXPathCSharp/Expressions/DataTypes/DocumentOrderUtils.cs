@@ -105,12 +105,12 @@ public class DocumentOrderUtils<TNode> where TNode : notnull
         var actualNodeA = nodeA;
         var actualNodeB = nodeB;
 
-        if (actualNodeA!.Equals(actualNodeB)) return 0;
+        if (actualNodeA.Equals(actualNodeB)) return 0;
 
         var actualAncestorsA = FindAllAncestors(domFacade, actualNodeA);
         var actualAncestorsB = FindAllAncestors(domFacade, actualNodeB);
 
-        if (!actualAncestorsA[0]!.Equals(actualAncestorsB[0]))
+        if (!actualAncestorsA[0].Equals(actualAncestorsB[0]))
         {
             var topAncestorA = actualAncestorsA[0];
             var topAncestorB = actualAncestorsB[0];

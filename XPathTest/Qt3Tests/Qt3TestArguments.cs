@@ -8,24 +8,24 @@ using FontoXPathCSharp.Types;
 
 namespace XPathTest.Qt3Tests;
 
-public class Qt3TestArguments<TNode>
+public class Qt3TestArguments<TNode> where TNode : notnull
 {
     public Qt3TestArguments(
-        string BaseUrl,
-        TNode? ContextNode,
-        IDomFacade<TNode> DomFacade,
-        string TestQuery,
-        Language.LanguageId Language,
-        NamespaceResolver? NamespaceResolver,
-        Dictionary<string, object>? VariablesInScope)
+        string baseUrl,
+        TNode? contextNode,
+        IDomFacade<TNode> domFacade,
+        string testQuery,
+        Language.LanguageId language,
+        NamespaceResolver namespaceResolver,
+        Dictionary<string, object>? variablesInScope)
     {
-        this.BaseUrl = BaseUrl;
-        this.ContextNode = ContextNode;
-        this.DomFacade = DomFacade;
-        this.TestQuery = TestQuery;
-        this.Language = Language;
-        this.NamespaceResolver = NamespaceResolver;
-        this.VariablesInScope = VariablesInScope;
+        BaseUrl = baseUrl;
+        ContextNode = contextNode;
+        DomFacade = domFacade;
+        TestQuery = testQuery;
+        Language = language;
+        NamespaceResolver = namespaceResolver;
+        VariablesInScope = variablesInScope;
     }
 
     public Qt3TestArguments(
@@ -33,18 +33,19 @@ public class Qt3TestArguments<TNode>
         TNode testCase,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        NodeUtils<TNode> nodeUtils)
+        INodeUtils<TNode> nodeUtils)
     {
         var baseUrl = testSetFileName[..testSetFileName.LastIndexOf('/')];
 
-        string testQuery;
+
         var filename = Evaluate.EvaluateXPathToString("test/@file", testCase, domFacade, options);
         var filepath = $"{baseUrl}/{filename}";
 
+        string? testQuery;
         if (Evaluate.EvaluateXPathToBoolean("./test/@file", testCase, domFacade, options))
         {
             if (TestFileSystem.FileExists(filepath))
-                testQuery = TestingUtils.LoadFileToString(filepath);
+                testQuery = TestingUtils.LoadQt3TestFileToString(filepath);
             else
                 throw new FileNotFoundException($"Could not load file {filepath}");
         }
@@ -55,16 +56,14 @@ public class Qt3TestArguments<TNode>
 
 
         //TODO: Retrieve the language from the test case.
-        var language = FontoXPathCSharp.Types.Language.LanguageId.XPATH_3_1_LANGUAGE;
+        var language = FontoXPathCSharp.Types.Language.LanguageId.Xpath31Language;
 
         //TODO: Retrieve namespaces from the test case.
         var namespaces = new Dictionary<string, string>();
 
         var localNamespaceResolver = namespaces.Count != 0
-            ? new NamespaceResolver(prefix => namespaces[prefix])
+            ? new NamespaceResolver(prefix => namespaces[prefix!])
             : null;
-
-        var namespaceResolver = localNamespaceResolver;
 
         var refString = Evaluate.EvaluateXPathToString(
             "./environment/@ref",
@@ -94,9 +93,18 @@ public class Qt3TestArguments<TNode>
 
         var (contextNode, resolver, variablesInScope) =
             environmentNode != null
-                ? new Qt3TestEnvironment<TNode>(baseUrl, environmentNode, domFacade, nodeUtils, options)
-                : new Qt3TestEnvironment<TNode>(nodeUtils.CreateDocument(), s => null,
-                    new Dictionary<string, object>());
+                ? new Qt3TestEnvironment<TNode>(
+                    baseUrl,
+                    environmentNode,
+                    domFacade,
+                    nodeUtils,
+                    options
+                )
+                : new Qt3TestEnvironment<TNode>(
+                    nodeUtils.CreateDocument(),
+                    _ => null,
+                    new Dictionary<string, object>()
+                );
 
         // var (contextNode, resolver, variablesInScope) = (environmentNode != null
         //     ? CreateEnvironment(baseUrl, environmentNode, domFacade, nodeUtils, options)
@@ -108,42 +116,42 @@ public class Qt3TestArguments<TNode>
         //             options) ?? string.Empty
         //     ))!;
 
-        namespaceResolver = localNamespaceResolver != null
-            ? prefix => localNamespaceResolver(prefix) ?? resolver?.Invoke(prefix)
-            : prefix => resolver?.Invoke(prefix);
+        NamespaceResolver namespaceResolver = localNamespaceResolver != null
+            ? prefix => localNamespaceResolver(prefix) ?? resolver(prefix!)
+            : prefix => resolver(prefix!);
 
         BaseUrl = Path.GetDirectoryName(filepath) ?? string.Empty;
         ContextNode = contextNode;
         DomFacade = domFacade;
-        TestQuery = testQuery;
+        TestQuery = testQuery!;
         Language = language;
         NamespaceResolver = namespaceResolver;
         VariablesInScope = variablesInScope;
     }
 
-    public string BaseUrl { get; init; }
-    public TNode? ContextNode { get; init; }
-    public IDomFacade<TNode> DomFacade { get; init; }
-    public string TestQuery { get; init; }
-    public Language.LanguageId Language { get; init; }
-    public NamespaceResolver? NamespaceResolver { get; init; }
-    public Dictionary<string, object>? VariablesInScope { get; init; }
+    public string BaseUrl { get; }
+    public TNode? ContextNode { get; }
+    public IDomFacade<TNode> DomFacade { get; }
+    public string TestQuery { get; }
+    public Language.LanguageId Language { get; }
+    public NamespaceResolver NamespaceResolver { get; }
+    public Dictionary<string, object>? VariablesInScope { get; }
 
     public void Deconstruct(
-        out string BaseUrl,
-        out TNode? ContextNode,
-        out IDomFacade<TNode> DomFacade,
-        out string TestQuery,
-        out Language.LanguageId Language,
-        out NamespaceResolver? NamespaceResolver,
-        out Dictionary<string, object>? VariablesInScope)
+        out string baseUrl,
+        out TNode? contextNode,
+        out IDomFacade<TNode> domFacade,
+        out string testQuery,
+        out Language.LanguageId language,
+        out NamespaceResolver? namespaceResolver,
+        out Dictionary<string, object>? variablesInScope)
     {
-        BaseUrl = this.BaseUrl;
-        ContextNode = this.ContextNode;
-        DomFacade = this.DomFacade;
-        TestQuery = this.TestQuery;
-        Language = this.Language;
-        NamespaceResolver = this.NamespaceResolver;
-        VariablesInScope = this.VariablesInScope;
+        baseUrl = BaseUrl;
+        contextNode = ContextNode;
+        domFacade = DomFacade;
+        testQuery = TestQuery;
+        language = Language;
+        namespaceResolver = NamespaceResolver;
+        variablesInScope = VariablesInScope;
     }
 }

@@ -7,7 +7,7 @@ namespace FontoXPathCSharp.Parsing;
 public class TypesParser
 {
     private readonly NameParser _nameParser;
-    
+
     private readonly ParseFunc<QName> SimpleTypeName;
 
     public readonly ParseFunc<Ast> SingleType;

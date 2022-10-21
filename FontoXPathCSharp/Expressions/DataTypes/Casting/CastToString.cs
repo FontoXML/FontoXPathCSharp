@@ -16,7 +16,8 @@ public class CastToString
             {
                 ErrorResult<string> e => new ErrorResult<AtomicValue>(e.Message),
                 SuccessResult<string> r => new SuccessResult<AtomicValue>(
-                    AtomicValue.Create(r.Data, ValueType.XsString))
+                    AtomicValue.Create(r.Data, ValueType.XsString)),
+                _ => throw new ArgumentOutOfRangeException()
             };
         };
     }

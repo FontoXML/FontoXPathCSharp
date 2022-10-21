@@ -1,11 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
-using XPathTest.Qt3Tests;
-using XPathTest.UnitTests;
 using Xunit;
 
-namespace XPathTest;
+namespace XPathTest.Qt3Tests;
 
 public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
 {
@@ -24,7 +23,7 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
         string description,
         XmlNode testCase,
         Qt3TestArguments<XmlNode> arguments,
-        NodeUtils<XmlNode> nodeUtils)
+        INodeUtils<XmlNode> nodeUtils)
     {
         AsserterCall<XmlNode> asserter;
         try
@@ -47,8 +46,8 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
         {
             asserter(
                 arguments.TestQuery,
-                arguments.ContextNode,
-                arguments.VariablesInScope,
+                arguments.ContextNode!,
+                arguments.VariablesInScope ?? new Dictionary<string, object>(),
                 arguments.NamespaceResolver
             );
         }
@@ -67,7 +66,7 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
         string description,
         XObject testCase,
         Qt3TestArguments<XObject> arguments,
-        NodeUtils<XObject> nodeUtils)
+        INodeUtils<XObject> nodeUtils)
     {
         AsserterCall<XObject> asserter;
         try
@@ -89,8 +88,8 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
         {
             asserter(
                 arguments.TestQuery,
-                arguments.ContextNode,
-                arguments.VariablesInScope,
+                arguments.ContextNode!,
+                arguments.VariablesInScope ?? new Dictionary<string, object>(),
                 arguments.NamespaceResolver
             );
         }

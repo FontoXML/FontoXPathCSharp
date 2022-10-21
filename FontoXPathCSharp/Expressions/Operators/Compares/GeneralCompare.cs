@@ -4,9 +4,9 @@ using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Expressions;
+namespace FontoXPathCSharp.Expressions.Operators.Compares;
 
-public class GeneralCompare<TNode> : AbstractExpression<TNode>
+public class GeneralCompare<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly AbstractExpression<TNode> _firstExpression;
     private readonly AbstractExpression<TNode> _secondExpression;
@@ -81,7 +81,7 @@ public class GeneralCompare<TNode> : AbstractExpression<TNode>
         });
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var firstSequence = _firstExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
         var secondSequence = _secondExpression.EvaluateMaybeStatically(dynamicContext, executionParameters);
@@ -89,9 +89,9 @@ public class GeneralCompare<TNode> : AbstractExpression<TNode>
         if (firstSequence.IsEmpty() || secondSequence.IsEmpty())
             return SequenceFactory.CreateFromValue(new BooleanValue(false));
 
-        var firstAtomizedSequence = Atomize.AtomizeSequence(firstSequence, executionParameters);
-        var secondAtomizedSequence = Atomize.AtomizeSequence(secondSequence, executionParameters);
+        var firstAtomizedSequence = Atomize.AtomizeSequence(firstSequence, executionParameters!);
+        var secondAtomizedSequence = Atomize.AtomizeSequence(secondSequence, executionParameters!);
 
-        return PerformGeneralCompare(_type, firstAtomizedSequence, secondAtomizedSequence, dynamicContext);
+        return PerformGeneralCompare(_type, firstAtomizedSequence, secondAtomizedSequence, dynamicContext!);
     }
 }

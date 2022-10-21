@@ -4,7 +4,7 @@ using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp;
 
-public class FunctionProperties<TNode>
+public class FunctionProperties<TNode> where TNode : notnull
 {
     public FunctionProperties(ParameterType[] argumentTypes,
         int arity,

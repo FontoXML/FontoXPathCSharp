@@ -23,8 +23,9 @@ public class AndOperator<TNode> : AbstractExpression<TNode> where TNode : notnul
         );
     }
 
-    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters)
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
+        var domFacade = executionParameters!.DomFacade;
         var i = 0;
         ISequence? resultSequence = null;
         var done = false;
@@ -36,7 +37,7 @@ public class AndOperator<TNode> : AbstractExpression<TNode> where TNode : notnul
             if (contextItem != null && contextItem.GetValueType().IsSubtypeOf(ValueType.Node))
                 contextItemBuckets = BucketUtils.GetBucketsForNode(
                     contextItem.GetAs<NodeValue<TNode>>().Value,
-                    executionParameters.DomFacade
+                    domFacade
                 );
         }
 

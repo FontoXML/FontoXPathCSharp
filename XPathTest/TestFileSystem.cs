@@ -32,4 +32,14 @@ public static class TestFileSystem
     {
         return File.Exists(CreateAssetPath(filepath));
     }
+
+    public static bool DirExists(string path)
+    {
+        return Directory.Exists(CreateAssetPath(path));
+    }
+
+    public static void CreateDir(string path)
+    {
+        Directory.CreateDirectory(CreateAssetPath(path));
+    }
 }

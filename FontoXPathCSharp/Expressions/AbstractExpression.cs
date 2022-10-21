@@ -29,7 +29,7 @@ public struct OptimizationOptions
     }
 }
 
-public abstract class AbstractExpression<TNode>
+public abstract class AbstractExpression<TNode> where TNode : notnull
 {
     public readonly bool CanBeStaticallyEvaluated;
     protected readonly AbstractExpression<TNode>[] ChildExpressions;
@@ -53,10 +53,10 @@ public abstract class AbstractExpression<TNode>
 
     public bool IsUpdating { get; protected set; }
 
-    public abstract ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode> executionParameters);
+    public abstract ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters);
 
     public ISequence EvaluateMaybeStatically(DynamicContext? dynamicContext,
-        ExecutionParameters<TNode> executionParameters)
+        ExecutionParameters<TNode>? executionParameters)
     {
         if (dynamicContext?.ContextItem == null) return Evaluate(dynamicContext, executionParameters);
 

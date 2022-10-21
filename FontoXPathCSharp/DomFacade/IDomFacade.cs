@@ -38,7 +38,7 @@ public interface IDomFacade<TNode>
     bool IsCharacterData(TNode node);
     NodeType GetNodeType(TNode node);
     TNode? GetDocumentElement(TNode node);
-    
+
     string GetNodeName(TNode node);
 
     string? GetTarget(TNode node);

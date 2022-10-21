@@ -4,7 +4,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.Util;
 
-internal static class ContextNodeUtils<TNode>
+internal static class ContextNodeUtils<TNode> where TNode : notnull
 {
     public static NodeValue<TNode> ValidateContextNode(AbstractValue? value)
     {

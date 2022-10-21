@@ -8,12 +8,13 @@ namespace FontoXPathCSharp.EvaluationUtils;
 public static class Atomize
 {
     public static ISequence AtomizeSequence<TNode>(ISequence sequence, ExecutionParameters<TNode> parameters)
+        where TNode : notnull
     {
         var done = false;
         var it = sequence.GetValue();
         Iterator<AbstractValue>? currentOutput = null;
 
-        return SequenceFactory.CreateFromIterator(hint =>
+        return SequenceFactory.CreateFromIterator(_ =>
         {
             while (!done)
             {
@@ -26,7 +27,7 @@ public static class Atomize
                         break;
                     }
 
-                    var outputSequence = AtomizeSingleValue(inputItem.Value, parameters);
+                    var outputSequence = AtomizeSingleValue(inputItem.Value!, parameters);
                     currentOutput = outputSequence.GetValue();
                 }
 
@@ -45,7 +46,7 @@ public static class Atomize
     }
 
     public static ISequence AtomizeSingleValue<TNode>(AbstractValue value,
-        ExecutionParameters<TNode> executionParameters)
+        ExecutionParameters<TNode> executionParameters) where TNode : notnull
     {
         if (value.GetValueType().IsSubtypeOfAny(ValueType.XsAnyAtomicType, ValueType.XsUntypedAtomic,
                 ValueType.XsBoolean, ValueType.XsDecimal,
