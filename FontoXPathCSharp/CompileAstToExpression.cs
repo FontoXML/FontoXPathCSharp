@@ -40,6 +40,14 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         return new NameTest<TNode>(attributeName.GetFirstChild(AstNodeName.QName)!.GetQName(), NodeType.Attribute);
     }
 
+    private static AbstractTestExpression<TNode> CompilePiTest(Ast ast)
+    {
+        var piTarget = ast.GetFirstChild(AstNodeName.PiTarget);
+        return piTarget != null
+            ? new PiTest<TNode>(piTarget.TextContent)
+            : new KindTest<TNode>(NodeType.ProcessingInstruction);
+    }
+
     private static AbstractTestExpression<TNode> CompileWildcard(Ast ast)
     {
         if (ast.GetFirstChild(AstNodeName.Star) == null)
@@ -68,8 +76,9 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.AnyKindTest => CompileTypeTest(ast),
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
             AstNodeName.ElementTest => CompileElementTest(ast),
-            AstNodeName.Wildcard => CompileWildcard(ast),
             AstNodeName.TextTest => CompileTextTest(),
+            AstNodeName.PiTest => CompilePiTest(ast),
+            AstNodeName.Wildcard => CompileWildcard(ast),
             AstNodeName.AtomicType => CompileTypeTest(ast),
             _ => throw new NotImplementedException($"{ast.Name} AST to Expression not yet implemented")
         };
