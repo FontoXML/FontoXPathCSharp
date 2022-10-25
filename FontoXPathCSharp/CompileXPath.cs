@@ -146,8 +146,8 @@ public static class CompileXPath<TSelector, TNode> where TSelector : notnull whe
         var prolog = mainModule.GetFirstChild(AstNodeName.Prolog);
         if (prolog != null)
             if (!compilationOptions.AllowXQuery)
-                throw new Exception(
-                    "XPST0003: Use of XQuery functionality is not allowed in XPath context"
+                throw new XPathException(
+                    "XPST0003", "Use of XQuery functionality is not allowed in XPath context"
                 );
         // TODO: Implement prolog processing
         // processProlog(prolog, rootStaticContext);

@@ -240,7 +240,7 @@ public class Evaluate
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error with selector: {selector}\nInfo:{ex.Message}");
+            // Console.WriteLine($"Error with selector: {selector}\nInfo:{ex.Message}");
             throw;
         }
 

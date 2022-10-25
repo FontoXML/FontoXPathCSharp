@@ -4,7 +4,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 
-public class CastToString
+public static class CastToString
 {
     public static CastingFunction ToString(ValueType from)
     {
@@ -14,7 +14,7 @@ public class CastToString
             var castResult = caster(value);
             return castResult switch
             {
-                ErrorResult<string> e => new ErrorResult<AtomicValue>(e.Message),
+                ErrorResult<string> e => new ErrorResult<AtomicValue>(e.Message, e.Errors),
                 SuccessResult<string> r => new SuccessResult<AtomicValue>(
                     AtomicValue.Create(r.Data, ValueType.XsString)),
                 _ => throw new ArgumentOutOfRangeException()

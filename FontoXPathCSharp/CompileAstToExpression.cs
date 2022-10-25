@@ -249,13 +249,11 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
 
     private static AbstractExpression<TNode> CompileStringConcatenateExpr(Ast ast, CompilationOptions options)
     {
-        Console.WriteLine(ast);
         var args = new[]
         {
             ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All)!,
             ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!
         };
-        Console.WriteLine(args[0]);
         return new FunctionCall<TNode>(new NamedFunctionRef<TNode>(
             new QName("concat", "http://www.w3.org/2005/xpath-functions", ""),
             args.Length

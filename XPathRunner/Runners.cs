@@ -17,22 +17,22 @@ public class Runners
         qt3Tests.Load("../../../../XPathTest/assets/qt3tests/catalog.xml");
     }
 
-    [Fact]
-    public void BaseCase()
-    {
-        const string query = "/catalog/test-set";
-        // const string xml = "<p>Test</p>";
-
-        _testOutputHelper.WriteLine($"Running: `{query}`\n");
-
-        var result = XPathParser.Parse(query, new ParseOptions(false, false)).UnwrapOr((expected, fatal) =>
-        {
-            _testOutputHelper.WriteLine($"Parsing error ({fatal}): expected {string.Join(", ", expected.Distinct())}");
-            Environment.Exit(1);
-            return new Ast(AstNodeName.All);
-        });
-        _testOutputHelper.WriteLine($"Parsed query: {result}");
-    }
+    // [Fact]
+    // public void BaseCase()
+    // {
+    //     const string query = "/catalog/test-set";
+    //     // const string xml = "<p>Test</p>";
+    //
+    //     _testOutputHelper.WriteLine($"Running: `{query}`\n");
+    //
+    //     var result = XPathParser.Parse(query, new ParseOptions(false, false)).UnwrapOr((expected, fatal) =>
+    //     {
+    //         _testOutputHelper.WriteLine($"Parsing error ({fatal}): expected {string.Join(", ", expected.Distinct())}");
+    //         Environment.Exit(1);
+    //         return new Ast(AstNodeName.All);
+    //     });
+    //     _testOutputHelper.WriteLine($"Parsed query: {result}");
+    // }
 
 
     // [Fact]

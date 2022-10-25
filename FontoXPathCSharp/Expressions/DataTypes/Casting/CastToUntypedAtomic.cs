@@ -4,7 +4,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 
-public class CastToUntypedAtomic
+public static class CastToUntypedAtomic
 {
     public static CastingFunction ToUntypedAtomic(ValueType from)
     {
@@ -14,7 +14,7 @@ public class CastToUntypedAtomic
             var castResult = caster(value);
             return castResult switch
             {
-                ErrorResult<string> e => new ErrorResult<AtomicValue>(e.Message),
+                ErrorResult<string> e => new ErrorResult<AtomicValue>(e.Message, e.Errors),
                 SuccessResult<string> r => new SuccessResult<AtomicValue>(
                     AtomicValue.Create(r.Data, ValueType.XsUntypedAtomic)),
                 _ => throw new ArgumentOutOfRangeException()

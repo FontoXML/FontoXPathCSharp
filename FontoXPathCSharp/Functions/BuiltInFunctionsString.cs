@@ -18,8 +18,6 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
                     string.Join("", allValues.Select(x => x.GetAs<AtomicValue>().GetValue())),
                     ValueType.XsString))));
 
-        Console.WriteLine(stringSequences);
-
         return ISequence.ZipSingleton(stringSequences,
             stringValues =>
                 SequenceFactory.CreateFromValue(AtomicValue.Create(string.Join("", stringValues.Select(x =>
@@ -105,7 +103,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
     };
 
     private static readonly FunctionSignature<ISequence, TNode> CollationError = (_, _, _, _) =>
-        throw new Exception("FOCH0002: No collations are supported");
+        throw new XPathException("FOCH0002", "No collations are supported");
 
     private static readonly FunctionSignature<ISequence, TNode> FnContains = (_, _, _, args) =>
     {
@@ -357,14 +355,13 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
                 .Select(num =>
                 {
                     var numericValue = num.GetAs<IntValue>().Value;
-                    if (
-                        numericValue is 0x9 or 0xa or 0xd
+                    return numericValue is 0x9 or 0xa or 0xd
                         or >= 0x20 and <= 0xd7ff
                         or >= 0xe000 and <= 0xfffd
                         or >= 0x10000 and <= 0x10ffff
-                    )
-                        return char.ConvertFromUtf32(numericValue);
-                    throw new Exception("FOCH0001");
+                        ? char.ConvertFromUtf32(numericValue)
+                        : throw new XPathException("FOCH0001", 
+                            "Could not convert codepoint to string, it is outside of the valid range.");
                 }));
             return SequenceFactory.CreateFromValue(AtomicValue.Create(str, ValueType.XsString));
         });
@@ -492,7 +489,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
                             case "\\\\":
                                 return "\\";
                             case "$$":
-                                throw new Exception("FORX0004: invalid replacement: '$$'");
+                                throw new XPathException("FORX0004", "Invalid replacement: '$$'");
                             default:
                                 return part;
                         }
@@ -900,11 +897,12 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
         }
         catch (Exception ex)
         {
-            throw new Exception($"FORX0002: {ex}");
+            throw new XPathException("FORX0002", ex.Message);
         }
 
         // Only do this check once per regex
-        if (regex.IsMatch("")) throw new Exception($"FORX0003: the pattern {pattern} matches the zero length string");
+        if (regex.IsMatch(""))
+            throw new XPathException("FORX0003", $"the pattern {pattern} matches the zero length string");
 
         CompiledRegexes.Add(pattern, regex);
         return regex;

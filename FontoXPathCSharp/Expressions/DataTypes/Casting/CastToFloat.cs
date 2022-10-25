@@ -4,7 +4,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 
-public class CastToFloat
+public static class CastToFloat
 {
     public static CastingFunction ToFloat(ValueType from)
     {
@@ -14,7 +14,7 @@ public class CastToFloat
             var castResult = caster(value);
             return castResult switch
             {
-                ErrorResult<double> e => new ErrorResult<AtomicValue>(e.Message),
+                ErrorResult<double> e => new ErrorResult<AtomicValue>(e.Message, e.Errors),
                 SuccessResult<double> r => new SuccessResult<AtomicValue>(
                     AtomicValue.Create(r.Data, ValueType.XsFloat)),
                 _ => throw new ArgumentOutOfRangeException()

@@ -70,7 +70,7 @@ public class ErrorResult<T> : Result<T>, IErrorResult
         Errors = errors ?? Array.Empty<Error>();
     }
 
-    public string Message { get; set; }
+    public string Message { get; }
     public IReadOnlyCollection<Error> Errors { get; }
 }
 

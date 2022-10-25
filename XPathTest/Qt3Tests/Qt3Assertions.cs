@@ -383,13 +383,9 @@ public class Qt3Assertions<TNode> where TNode : notnull
                     }
                     catch (Exception ex)
                     {
-                        // Hopefully extracts error code from non-XPathExceptions
-                        errorMessage = ex.Message;
-                        var uncleanedError = errorMessage.Split(null).First();
-                        var regex = new Regex("[A-Z]{4}[0-9]{4}");
-                        actualErrorCode = regex.Match(uncleanedError).Value;
+                        Assert.True(false, $"Expected XPathException with code {errorCode}, but got {ex.Message}");
                     }
-                    
+
                     Assert.True(
                         errorCode == actualErrorCode,
                         $"Expected error code: {errorCode}. Found error code: {actualErrorCode} in error message: {errorMessage}"

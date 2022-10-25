@@ -7,7 +7,7 @@ namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 
 public delegate Result<double> IntermediateFloatResultFunction(AbstractValue input);
 
-public class CastToFloatLikeType
+public static class CastToFloatLikeType
 {
     public static IntermediateFloatResultFunction ToFloatLikeType(ValueType from, ValueType to)
     {
@@ -37,10 +37,15 @@ public class CastToFloatLikeType
 
                 if (!double.IsNaN(floatValue)) return new SuccessResult<double>(floatValue);
 
-                return new ErrorResult<double>($"FORG0001: Cannot cast {value} to {to.ToString()}");
+                return new ErrorResult<double>($"Cannot cast {value} to {to.ToString()}",
+                    new Error[] { new("FORG0001", $"Cannot cast {value} to {to.ToString()}") });
             };
 
         return _ => new ErrorResult<double>(
-            $"XPTY0004: Casting not supported from given type to {to} or any of its derived types.");
+            "",
+            new Error[]
+            {
+                new("XPTY0004", $"Casting not supported from given type to {to} or any of its derived types.")
+            });
     }
 }
