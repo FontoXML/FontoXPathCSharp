@@ -86,9 +86,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
     {
         var arg = args[0];
         if (!arg.IsEmpty() && !arg.IsSingleton())
-        {
             throw new XPathException("FORG0003", "The argument passed to fn:zero-or-one contained more than one item.");
-        }
 
         return arg;
     };

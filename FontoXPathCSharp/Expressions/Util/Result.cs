@@ -42,56 +42,34 @@ public class SuccessResult<T> : Result<T>
 
 public class ErrorResult : Result, IErrorResult
 {
-    public ErrorResult(string message) : this(message, Array.Empty<Error>())
+    public ErrorResult(string message) : this(message, null)
     {
     }
 
-    public ErrorResult(string message, IReadOnlyCollection<Error>? errors)
+    public ErrorResult(string message, string? errorCode)
     {
         Message = message;
         Success = false;
-        Errors = errors ?? Array.Empty<Error>();
+        ErrorCode = errorCode;
     }
 
     public string Message { get; }
-    public IReadOnlyCollection<Error> Errors { get; }
+    public string? ErrorCode { get; }
 }
 
 public class ErrorResult<T> : Result<T>, IErrorResult
 {
-    public ErrorResult(string message) : this(message, Array.Empty<Error>())
-    {
-    }
-
-    public ErrorResult(string message, IReadOnlyCollection<Error>? errors) : base(default!)
+    public ErrorResult(string message, string? errorCode = null) : base(default!)
     {
         Message = message;
         Success = false;
-        Errors = errors ?? Array.Empty<Error>();
+        ErrorCode = errorCode;
     }
 
     public string Message { get; }
-    public IReadOnlyCollection<Error> Errors { get; }
-}
-
-public class Error
-{
-    public Error(string details) : this(null, details)
-    {
-    }
-
-    public Error(string? code, string details)
-    {
-        Code = code;
-        Details = details;
-    }
-
-    public string? Code { get; }
-    public string Details { get; }
+    public string? ErrorCode { get; }
 }
 
 internal interface IErrorResult
 {
-    string Message { get; }
-    IReadOnlyCollection<Error> Errors { get; }
 }

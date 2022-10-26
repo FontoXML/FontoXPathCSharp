@@ -1,7 +1,4 @@
 ﻿using System.Xml;
-using FontoXPathCSharp;
-using FontoXPathCSharp.Parsing;
-using Xunit;
 using Xunit.Abstractions;
 
 namespace XPathRunner;

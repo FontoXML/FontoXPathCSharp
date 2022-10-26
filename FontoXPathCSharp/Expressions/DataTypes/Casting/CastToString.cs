@@ -14,7 +14,7 @@ public static class CastToString
             var castResult = caster(value);
             return castResult switch
             {
-                ErrorResult<string> e => new ErrorResult<AtomicValue>(e.Message, e.Errors),
+                ErrorResult<string> e => new ErrorResult<AtomicValue>(e.Message, e.ErrorCode),
                 SuccessResult<string> r => new SuccessResult<AtomicValue>(
                     AtomicValue.Create(r.Data, ValueType.XsString)),
                 _ => throw new ArgumentOutOfRangeException()

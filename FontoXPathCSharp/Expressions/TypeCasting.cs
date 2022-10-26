@@ -29,11 +29,11 @@ public class TypeCasting
     public static TypeCasting Instance { get; } = new();
 
 
-    private static Exception ProcessError(Error err)
+    private static Exception ProcessErrorResult<T>(ErrorResult<T> err)
     {
-        return string.IsNullOrEmpty(err.Code)
-            ? new Exception(err.Details)
-            : new XPathException(err.Code, err.Details);
+        return string.IsNullOrEmpty(err.ErrorCode)
+            ? new Exception(err.Message)
+            : new XPathException(err.ErrorCode, err.Message);
     }
 
     public static AtomicValue CastToType(AtomicValue value, ValueType type)
@@ -41,7 +41,7 @@ public class TypeCasting
         var result = TryCastToType(value, type);
         return result switch
         {
-            ErrorResult<AtomicValue> errorResult => throw ProcessError(errorResult.Errors.First()),
+            ErrorResult<AtomicValue> errorResult => throw ProcessErrorResult(errorResult),
             SuccessResult<AtomicValue> successResult => successResult.Data,
             _ => throw new ArgumentOutOfRangeException(nameof(result))
         };
@@ -70,26 +70,22 @@ public class TypeCasting
             return value => new SuccessResult<AtomicValue>(AtomicValue.Create(value.GetValue(), ValueType.XsString));
 
         if (to == ValueType.XsNotation)
-            return _ => new ErrorResult<AtomicValue>("Casting to xs:NOTATION is not permitted.",
-                new Error[] { new("XPST0080", "Casting to xs:NOTATION is not permitted.") });
+            return _ => new ErrorResult<AtomicValue>("Casting to xs:NOTATION is not permitted.", "XPST0080");
 
         if (to == ValueType.XsError)
-            return _ => new ErrorResult<AtomicValue>("Casting to xs:error is not permitted.",
-                new Error[] { new("FORG0001", "Casting to xs:error is not permitted.") });
+            return _ => new ErrorResult<AtomicValue>("Casting to xs:error is not permitted.", "FORG0001");
 
         if (from == ValueType.XsAnySimpleType || to == ValueType.XsAnySimpleType)
             return _ => new ErrorResult<AtomicValue>("Casting from or to xs:anySimpleType is not permitted.",
-                new Error[] { new("XPST0080", "Casting from or to xs:anySimpleType is not permitted.") });
+                "XPST0080");
 
         if (from == ValueType.XsAnyAtomicType || to == ValueType.XsAnyAtomicType)
             return _ => new ErrorResult<AtomicValue>(
-                "Casting from or to xs: anyAtomicType is not permitted.",
-                new Error[] { new("XPST0080", "Casting from or to xs: anyAtomicType is not permitted.") });
+                "Casting from or to xs: anyAtomicType is not permitted.", "XPST0080");
 
         if (from.IsSubtypeOf(ValueType.Function) && to == ValueType.XsString)
-            return _ =>
-                new ErrorResult<AtomicValue>("Casting from function item to xs:string is not permitted.",
-                    new Error[] { new("FOTY0014", "Casting from function item to xs:string is not permitted.") });
+            return _ => new ErrorResult<AtomicValue>("Casting from function item to xs:string is not permitted.",
+                "FOTY0014");
 
         if (from == to) return value => new SuccessResult<AtomicValue>(value);
 
@@ -98,11 +94,7 @@ public class TypeCasting
 
         if (primitiveFromNullable == null || primitiveToNullable == null)
             return _ => new ErrorResult<AtomicValue>(
-                $"Can not cast: type {(primitiveToNullable != null ? from : to)} is unknown.",
-                new Error[]
-                {
-                    new("XPST0081", $"Can not cast: type {(primitiveToNullable != null ? from : to)} is unknown.")
-                });
+                $"Can not cast: type {(primitiveToNullable != null ? from : to)} is unknown.", "XPST0081");
 
         // Compiler was being difficult, this was the only way to make it stop.
         var primitiveFrom = (ValueType)primitiveFromNullable;
@@ -119,8 +111,7 @@ public class TypeCasting
                         to);
                 if (!TypeHelpers.ValidatePattern(strValue, to))
                     return new ErrorResult<AtomicValue>(
-                        $"Cannot cast {value} to {to}, pattern validation failed.",
-                        new Error[] { new("FORG0001", $"Cannot cast {value} to {to}, pattern validation failed.") });
+                        $"Cannot cast {value} to {to}, pattern validation failed.", "FORG0001");
 
                 return new SuccessResult<AtomicValue>(new StringValue(strValue));
             });
@@ -138,8 +129,7 @@ public class TypeCasting
                 if (!TypeHelpers.ValidatePattern(
                         Convert.ToString(value.GetAs<AtomicValue>().GetValue()) ?? string.Empty, to))
                     return new ErrorResult<AtomicValue>(
-                        $"Cannot cast {value} to {to}, pattern validation failed.",
-                        new Error[] { new("FORG0001", $"Cannot cast {value} to {to}, pattern validation failed.") });
+                        $"Cannot cast {value} to {to}, pattern validation failed.", "FORG0001");
 
                 return new SuccessResult<AtomicValue>(AtomicValue.Create(value.GetValue(), primitiveTo));
             });
@@ -162,8 +152,7 @@ public class TypeCasting
     private static CastingFunction CastToPrimitiveType(ValueType from, ValueType to)
     {
         if (to == ValueType.XsError)
-            return _ => new ErrorResult<AtomicValue>("Casting to xs:error is always invalid.",
-                new Error[] { new("FORG0001", "Casting to xs:error is always invalid.") });
+            return _ => new ErrorResult<AtomicValue>("Casting to xs:error is always invalid.", "FORG0001");
 
         return to switch
         {

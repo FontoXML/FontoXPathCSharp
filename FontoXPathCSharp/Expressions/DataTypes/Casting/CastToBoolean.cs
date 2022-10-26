@@ -24,20 +24,11 @@ public static class CastToBoolean
                     "true" or "1" => new SuccessResult<AtomicValue>(AtomicValue.TrueBoolean),
                     "false" or "0" => new SuccessResult<AtomicValue>(AtomicValue.FalseBoolean),
                     _ => new ErrorResult<AtomicValue>(
-                        "Casting not supported from given type to xs:boolean or any of its derived types.",
-                        new Error[]
-                        {
-                            new("XPTY0004",
-                                "Casting not supported from given type to xs:boolean or any of its derived types.")
-                        })
+                        "Casting not supported from given type to xs:boolean or any of its derived types.", "XPTY0004")
                 };
             };
 
         return _ => new ErrorResult<AtomicValue>(
-            "Casting not supported from given type to xs:boolean or any of its derived types.",
-            new Error[]
-            {
-                new("XPTY0004", "Casting not supported from given type to xs:boolean or any of its derived types.")
-            });
+            "Casting not supported from given type to xs:boolean or any of its derived types.", "XPTY0004");
     }
 }

@@ -14,7 +14,7 @@ public static class CastToFloat
             var castResult = caster(value);
             return castResult switch
             {
-                ErrorResult<double> e => new ErrorResult<AtomicValue>(e.Message, e.Errors),
+                ErrorResult<double> e => new ErrorResult<AtomicValue>(e.Message, e.ErrorCode),
                 SuccessResult<double> r => new SuccessResult<AtomicValue>(
                     AtomicValue.Create(r.Data, ValueType.XsFloat)),
                 _ => throw new ArgumentOutOfRangeException()

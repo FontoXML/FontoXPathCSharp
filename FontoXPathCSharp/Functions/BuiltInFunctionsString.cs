@@ -360,7 +360,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
                         or >= 0xe000 and <= 0xfffd
                         or >= 0x10000 and <= 0x10ffff
                         ? char.ConvertFromUtf32(numericValue)
-                        : throw new XPathException("FOCH0001", 
+                        : throw new XPathException("FOCH0001",
                             "Could not convert codepoint to string, it is outside of the valid range.");
                 }));
             return SequenceFactory.CreateFromValue(AtomicValue.Create(str, ValueType.XsString));

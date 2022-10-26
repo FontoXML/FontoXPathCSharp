@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DocumentWriter;
 using FontoXPathCSharp.DomFacade;
