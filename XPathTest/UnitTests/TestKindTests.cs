@@ -39,7 +39,7 @@ public class TestKindTests
         var res1 = Evaluate.EvaluateXPathToBoolean(selector, _xmlNodeDocument, _xmlNodeDomFacade, _xmlNodeOptions);
         Assert.True(res1, $"(XmlNode) '{selector}' should return true on a document node.");
         
-        var res2 = Evaluate.EvaluateXPathToBoolean(selector, _xmlNodeDocument, _xmlNodeDomFacade, _xmlNodeOptions);
+        var res2 = Evaluate.EvaluateXPathToBoolean(selector, _xObjectDocument, _xObjectDomFacade, _xObjectOptions);
         Assert.True(res2, $"(XObject) '{selector}' should return true on a document node.");
     }
 }
