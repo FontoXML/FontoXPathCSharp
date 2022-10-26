@@ -7,7 +7,7 @@ namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 
 public delegate Result<string> IntermediateStringResultFunction(AbstractValue input);
 
-public class CastToStringLikeType
+public static class CastToStringLikeType
 {
     public static IntermediateStringResultFunction ToStringLikeType(ValueType from)
     {

@@ -98,7 +98,7 @@ public static class Atomize
         if (value.GetValueType().IsSubtypeOf(ValueType.Function) &&
             !value.GetValueType().IsSubtypeOf(ValueType.Array))
             //TODO: Create dedicated function and add proper type to string function.
-            throw new Exception($"FOTY0013: Atomization is not supported for {value.GetValueType()}.");
+            throw new XPathException("FOTY0013", $"Atomization is not supported for {value.GetValueType()}.");
 
         if (value.GetValueType().IsSubtypeOf(ValueType.Array))
             throw new NotImplementedException("Implement ArrayValue forst");

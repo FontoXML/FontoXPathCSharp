@@ -40,6 +40,11 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         return new NameTest<TNode>(attributeName.GetFirstChild(AstNodeName.QName)!.GetQName(), NodeType.Attribute);
     }
 
+    private static AbstractTestExpression<TNode> CompileDocumentTest()
+    {
+        return new KindTest<TNode>(NodeType.Document);
+    }
+
     private static AbstractTestExpression<TNode> CompileWildcard(Ast ast)
     {
         if (ast.GetFirstChild(AstNodeName.Star) == null)
@@ -66,12 +71,13 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         {
             AstNodeName.NameTest => new NameTest<TNode>(new QName(ast.TextContent)),
             AstNodeName.AnyKindTest => CompileTypeTest(ast),
+            AstNodeName.AtomicType => CompileTypeTest(ast),
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
             AstNodeName.ElementTest => CompileElementTest(ast),
             AstNodeName.CommentTest => CompileCommentTest(),
             AstNodeName.Wildcard => CompileWildcard(ast),
             AstNodeName.TextTest => CompileTextTest(),
-            AstNodeName.AtomicType => CompileTypeTest(ast),
+            AstNodeName.DocumentTest => CompileDocumentTest(),
             _ => throw new NotImplementedException($"{ast.Name} AST to Expression not yet implemented")
         };
     }
@@ -261,13 +267,11 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
 
     private static AbstractExpression<TNode> CompileStringConcatenateExpr(Ast ast, CompilationOptions options)
     {
-        Console.WriteLine(ast);
         var args = new[]
         {
             ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All)!,
             ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!
         };
-        Console.WriteLine(args[0]);
         return new FunctionCall<TNode>(new NamedFunctionRef<TNode>(
             new QName("concat", "http://www.w3.org/2005/xpath-functions", ""),
             args.Length
