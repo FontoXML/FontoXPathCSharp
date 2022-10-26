@@ -16,7 +16,8 @@ public class TestLoggingFixture : IDisposable
     public void Dispose()
     {
         TestingUtils.WriteDictionaryToCsv(_failedTestsWithErrors, "unrunnableTestCases.csv", ',', true);
-
+        TestingUtils.SortFileLines("unrunnableTestCases.csv");
+        
         if (!TestFileSystem.DirExists("debug")) TestFileSystem.CreateDir("debug");
 
         TestingUtils.WriteDictionaryToCsv(_nonParseErrors, "debug/nonParseUnrunnableTestCases.csv");
