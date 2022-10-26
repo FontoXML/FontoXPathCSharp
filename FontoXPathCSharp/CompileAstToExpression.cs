@@ -71,6 +71,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         {
             AstNodeName.NameTest => new NameTest<TNode>(new QName(ast.TextContent)),
             AstNodeName.AnyKindTest => CompileTypeTest(ast),
+            AstNodeName.AtomicType => CompileTypeTest(ast),
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
             AstNodeName.ElementTest => CompileElementTest(ast),
             AstNodeName.CommentTest => CompileCommentTest(),

@@ -15,23 +15,22 @@ public class TestLoggingFixture : IDisposable
 
     public void Dispose()
     {
-        TestingUtils.WriteDictionaryToCsv(_failedTestsWithErrors, "unrunnableTestCases.csv", ',', true);
+        TestingUtils.WriteDictionaryToCsv(_failedTestsWithErrors, "unrunnableTestCases.csv", ';', true);
         TestingUtils.SortFileLines("unrunnableTestCases.csv");
         
         if (!TestFileSystem.DirExists("debug")) TestFileSystem.CreateDir("debug");
 
-        TestingUtils.WriteDictionaryToCsv(_nonParseErrors, "debug/nonParseUnrunnableTestCases.csv");
-        TestingUtils.WriteDictionaryToCsv(_parseErrors, "debug/parseUnrunnableTestCases.csv");
-        TestingUtils.WriteDictionaryToCsv(_nullPointerExceptions, "debug/nullPointerExceptions.csv");
-        TestingUtils.WriteDictionaryToCsv(_castingErrors, "debug/castingExceptions.csv");
-        TestingUtils.WriteOccurenceToCsv(_nonParseErrors.Values, "debug/mostCommonNonParseErrors.csv");
-        TestingUtils.WriteOccurenceToCsv(_failedTestsWithErrors.Values, "debug/mostCommonErrors.csv");
+        TestingUtils.WriteDictionaryToCsv(_nonParseErrors, "debug/nonParseUnrunnableTestCases.csv",';' );
+        TestingUtils.WriteDictionaryToCsv(_parseErrors, "debug/parseUnrunnableTestCases.csv", ';' );
+        TestingUtils.WriteDictionaryToCsv(_nullPointerExceptions, "debug/nullPointerExceptions.csv", ';');
+        TestingUtils.WriteDictionaryToCsv(_castingErrors, "debug/castingExceptions.csv", ';');
+        TestingUtils.WriteOccurenceToCsv(_nonParseErrors.Values, "debug/mostCommonNonParseErrors.csv", ';');
+        TestingUtils.WriteOccurenceToCsv(_failedTestsWithErrors.Values, "debug/mostCommonErrors.csv", ';');
     }
 
     public void ProcessError(Exception ex, string testName, string testSetName, string description)
     {
         var exceptionString = ex.Message
-            .Replace(",", "<comma>")
             .ReplaceLineEndings()
             .Split(Environment.NewLine)
             .First();
