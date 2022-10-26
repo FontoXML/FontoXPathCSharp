@@ -12580,7 +12580,18 @@ instanceof30,Type casting to XsDate has not been implemented yet.
 instanceof31,Type casting to XsDate has not been implemented yet.
 instanceof32,Type casting to XsDate has not been implemented yet.
 instanceof33,Type casting to XsDate has not been implemented yet.
+instanceof34,AtomicType AST to Expression not yet implemented
+instanceof35,AtomicType AST to Expression not yet implemented
+instanceof36,AtomicType AST to Expression not yet implemented
+instanceof37,AtomicType AST to Expression not yet implemented
+instanceof38,AtomicType AST to Expression not yet implemented
+instanceof39,AtomicType AST to Expression not yet implemented
 instanceof4,Type casting to XsDateTime has not been implemented yet.
+instanceof40,AtomicType AST to Expression not yet implemented
+instanceof41,AtomicType AST to Expression not yet implemented
+instanceof42,AtomicType AST to Expression not yet implemented
+instanceof43,AtomicType AST to Expression not yet implemented
+instanceof44,AtomicType AST to Expression not yet implemented
 instanceof45,PRSC Error: Failed to parse query '1267.43233E12 instance of xs:dateTime'
 instanceof46,PRSC Error: Failed to parse query '1267.43233E12 instance of xs:time'
 instanceof47,PRSC Error: Failed to parse query '1267.43233E12 instance of xs:date'
@@ -12617,7 +12628,18 @@ instanceof74,Type casting to XsAnyUri has not been implemented yet.
 instanceof75,Type casting to XsAnyUri has not been implemented yet.
 instanceof76,Type casting to XsAnyUri has not been implemented yet.
 instanceof77,Type casting to XsAnyUri has not been implemented yet.
+instanceof78,AtomicType AST to Expression not yet implemented
+instanceof79,AtomicType AST to Expression not yet implemented
 instanceof8,Type casting to XsDateTime has not been implemented yet.
+instanceof80,AtomicType AST to Expression not yet implemented
+instanceof81,AtomicType AST to Expression not yet implemented
+instanceof82,AtomicType AST to Expression not yet implemented
+instanceof83,AtomicType AST to Expression not yet implemented
+instanceof84,AtomicType AST to Expression not yet implemented
+instanceof85,AtomicType AST to Expression not yet implemented
+instanceof86,AtomicType AST to Expression not yet implemented
+instanceof87,AtomicType AST to Expression not yet implemented
+instanceof88,AtomicType AST to Expression not yet implemented
 instanceof89,Can't parse 12678967.543233 into an int.
 instanceof9,Type casting to XsDateTime has not been implemented yet.
 instanceof90,Can't parse 12678967.543233 into an int.
@@ -12713,6 +12735,10 @@ K-CombinedErrorCodes-6,Expected executing the XPath "import schema default eleme
 K-CombinedErrorCodes-7,Expected error code: XPST0003. Found error code:  in error message: PRSC Error: Failed to parse query 'import schema namespace NCName := "http://example.com/Dummy"; 1'
 K-CombinedErrorCodes-9,Expected executing the XPath "validate { 1 }" to resolve to one of the expected results<comma> but got Xunit.Sdk.TrueException: Expected error code: XQTY0030. Found error code:  in error message: PRSC Error: Failed to parse query 'validate { 1 }'
 K-commaOp-1,Expected XPath deep-equal(((1<comma> (2<comma> (3<comma> 4<comma> (5<comma> 6))<comma> 7)<comma> 8<comma> (9<comma> 10)<comma> 11))<comma> (1<comma> 2<comma> 3<comma> 4<comma> 5<comma> 6<comma> 7<comma> 8<comma> 9<comma> 10<comma> 11)) to resolve to true
+K-ConcatFunc-4,AtomicType AST to Expression not yet implemented
+K-ConcatFunc-5,AtomicType AST to Expression not yet implemented
+K-ConcatOp-4,AtomicType AST to Expression not yet implemented
+K-ConcatOp-5,AtomicType AST to Expression not yet implemented
 K-CondExpr-10,The function current-time with arity 0 is not registered.
 K-CondExpr-11,The function remove with arity 2 is not registered.
 K-CondExpr-12,TreatExpr AST to Expression not yet implemented
@@ -13483,12 +13509,18 @@ K-LetExprWithout-2,Expected error code: XPST0003. Found error code:  in error me
 K-LetExprWithout-3,Expected error code: XPST0003. Found error code:  in error message: PRSC Error: Failed to parse query 'let $i in 5 return 3'
 K-LetExprWithout-4,PRSC Error: Failed to parse query '\n        declare variable $i := false(); \n        declare variable $t := false(); \n        deep-equal((let $i := true()<comma> $t := true() return ($i<comma> $t))<comma> (true()<comma> true()))'
 K-Literals-10,PRSC Error: Failed to parse query '1.3e-3 instance of xs:double'
+K-Literals-11,AtomicType AST to Expression not yet implemented
+K-Literals-12,AtomicType AST to Expression not yet implemented
 K-Literals-13,PRSC Error: Failed to parse query '1231.123e3 instance of xs:double'
+K-Literals-14,AtomicType AST to Expression not yet implemented
 K-Literals-15,PRSC Error: Failed to parse query '-1231.123e3 instance of xs:double'
+K-Literals-16,AtomicType AST to Expression not yet implemented
 K-Literals-17,Can't parse 3.3 into an int.
 K-Literals-18,PRSC Error: Failed to parse query '3.3e1 instance of xs:double'
+K-Literals-19,AtomicType AST to Expression not yet implemented
 K-Literals-20,Value was either too large or too small for a Decimal.
 K-Literals-21,Value was either too large or too small for a Decimal.
+K-Literals-22,AtomicType AST to Expression not yet implemented
 K-Literals-23,Expected error code: XPST0003. Found error code:  in error message: PRSC Error: Failed to parse query '3 >E 2'
 K-Literals-24,Expected error code: XPST0003. Found error code:  in error message: PRSC Error: Failed to parse query '33"'
 K-Literals-25,Expected error code: XPST0003. Found error code:  in error message: PRSC Error: Failed to parse query '2 + 3!#'
@@ -13627,6 +13659,7 @@ K-NodeBefore-9,Expected error code: XPST0003. Found error code:  in error messag
 K-NodeNameFunc-1,Expected error code: XPST0017. Found error code:  in error message: 
 K-NodeNameFunc-1a,Expected error code: XPDY0002. Found error code:  in error message: 
 K-NodeNameFunc-3,Object reference not set to an instance of an object.
+K-NodeNumberFunc-10,AtomicType AST to Expression not yet implemented
 K-NodeNumberFunc-11,Value was either too large or too small for a Decimal.
 K-NodeNumberFunc-12,Type casting to XsAnyUri has not been implemented yet.
 K-NodeNumberFunc-13,Type casting to XsAnyUri has not been implemented yet.
@@ -13635,7 +13668,11 @@ K-NodeNumberFunc-15,Type casting to XsGYear has not been implemented yet.
 K-NodeNumberFunc-2,HandleNumericOperator: Different numeric types
 K-NodeNumberFunc-3,Input string was not in a correct format.
 K-NodeNumberFunc-4,Input string was not in a correct format.
+K-NodeNumberFunc-5,AtomicType AST to Expression not yet implemented
 K-NodeNumberFunc-6,Can't parse 1.1 into an int.
+K-NodeNumberFunc-7,AtomicType AST to Expression not yet implemented
+K-NodeNumberFunc-8,AtomicType AST to Expression not yet implemented
+K-NodeNumberFunc-9,AtomicType AST to Expression not yet implemented
 K-NodeRootFunc-2,Expected error code: XPTY0004. Found error code:  in error message: Can't parse <Value>[type: XsInt<comma> value: 2] into an int.
 K-NodeRootFunc-3,Expected error code: XPTY0004. Found error code:  in error message: SingletonSequence.Map not implemented
 K-NodeSame-1,Expected executing the XPath "empty(1 is ())" to resolve to one of the expected results<comma> but got System.NotImplementedException: IsOp AST to Expression not yet implemented
@@ -13654,14 +13691,21 @@ K-NumericAdd-11,Value was either too large or too small for a Decimal.
 K-NumericAdd-12,Value was either too large or too small for a Decimal.
 K-NumericAdd-13,Atomic Value for XsDecimal is not implemented yet.
 K-NumericAdd-14,Atomic Value for XsDecimal is not implemented yet.
+K-NumericAdd-15,AtomicType AST to Expression not yet implemented
 K-NumericAdd-16,Atomic Value for XsDecimal is not implemented yet.
 K-NumericAdd-17,Atomic Value for XsDecimal is not implemented yet.
 K-NumericAdd-18,Atomic Value for XsDecimal is not implemented yet.
 K-NumericAdd-19,Expected XPath (xs:float(6) + xs:integer(2)) instance of xs:float to resolve to true
 K-NumericAdd-2,Atomic Value for XsDecimal is not implemented yet.
 K-NumericAdd-20,Expected XPath (xs:integer(6) + xs:float(2)) instance of xs:float to resolve to true
+K-NumericAdd-21,AtomicType AST to Expression not yet implemented
 K-NumericAdd-22,Atomic Value for XsDecimal is not implemented yet.
 K-NumericAdd-23,Atomic Value for XsDecimal is not implemented yet.
+K-NumericAdd-24,AtomicType AST to Expression not yet implemented
+K-NumericAdd-25,AtomicType AST to Expression not yet implemented
+K-NumericAdd-26,AtomicType AST to Expression not yet implemented
+K-NumericAdd-27,AtomicType AST to Expression not yet implemented
+K-NumericAdd-28,AtomicType AST to Expression not yet implemented
 K-NumericAdd-3,Can't parse 6.1 into an int.
 K-NumericAdd-31,Expected error code: FOER0000. Found error code: XPST0017 in error message: 
 K-NumericAdd-32,Expected error code: FOER0000. Found error code: XPST0017 in error message: 
@@ -13710,9 +13754,15 @@ K-NumericDivide-20,Atomic Value for XsDecimal is not implemented yet.
 K-NumericDivide-21,Atomic Value for XsDecimal is not implemented yet.
 K-NumericDivide-22,Expected XPath (xs:float(6) div xs:integer(2)) instance of xs:float to resolve to true
 K-NumericDivide-23,Expected XPath (xs:integer(6) div xs:float(2)) instance of xs:float to resolve to true
+K-NumericDivide-24,AtomicType AST to Expression not yet implemented
 K-NumericDivide-25,Atomic Value for XsDecimal is not implemented yet.
 K-NumericDivide-26,Atomic Value for XsDecimal is not implemented yet.
+K-NumericDivide-27,AtomicType AST to Expression not yet implemented
+K-NumericDivide-28,AtomicType AST to Expression not yet implemented
+K-NumericDivide-29,AtomicType AST to Expression not yet implemented
 K-NumericDivide-3,Atomic Value for XsDecimal is not implemented yet.
+K-NumericDivide-30,AtomicType AST to Expression not yet implemented
+K-NumericDivide-31,AtomicType AST to Expression not yet implemented
 K-NumericDivide-34,Input string was not in a correct format.
 K-NumericDivide-35,Input string was not in a correct format.
 K-NumericDivide-36,Expected error code: XPST0003. Found error code:  in error message: PRSC Error: Failed to parse query '10 div3'
@@ -13763,8 +13813,14 @@ K-NumericGT-5,HandleNumericOperator: Different numeric types
 K-NumericGT-6,HandleNumericOperator: Different numeric types
 K-NumericGT-9,HandleNumericOperator: Different numeric types
 K-NumericIntegerDivide-1,Atomic Value for XsDecimal is not implemented yet.
+K-NumericIntegerDivide-10,AtomicType AST to Expression not yet implemented
 K-NumericIntegerDivide-11,Atomic Value for XsDecimal is not implemented yet.
 K-NumericIntegerDivide-12,Atomic Value for XsDecimal is not implemented yet.
+K-NumericIntegerDivide-13,AtomicType AST to Expression not yet implemented
+K-NumericIntegerDivide-14,AtomicType AST to Expression not yet implemented
+K-NumericIntegerDivide-15,AtomicType AST to Expression not yet implemented
+K-NumericIntegerDivide-16,AtomicType AST to Expression not yet implemented
+K-NumericIntegerDivide-17,AtomicType AST to Expression not yet implemented
 K-NumericIntegerDivide-2,Atomic Value for XsDecimal is not implemented yet.
 K-NumericIntegerDivide-22,Can't parse 5.0 into an int.
 K-NumericIntegerDivide-23,Can't parse 9.0 into an int.
@@ -13774,6 +13830,7 @@ K-NumericIntegerDivide-26,PRSC Error: Failed to parse query '3.1E1 idiv 6 eq 5'
 K-NumericIntegerDivide-27,PRSC Error: Failed to parse query '3.1E1 idiv 7 eq 4'
 K-NumericIntegerDivide-28,Can't parse 1.1 into an int.
 K-NumericIntegerDivide-29,Can't parse 1.1 into an int.
+K-NumericIntegerDivide-3,AtomicType AST to Expression not yet implemented
 K-NumericIntegerDivide-30,Can't parse 1.1 into an int.
 K-NumericIntegerDivide-35,HandleNumericOperator: Different numeric types
 K-NumericIntegerDivide-36,HandleNumericOperator: Different numeric types
@@ -13790,6 +13847,8 @@ K-NumericIntegerDivide-50,Expected error code: FORG0001. Found error code:  in e
 K-NumericIntegerDivide-51,Expected error code: FORG0001. Found error code:  in error message: Input string was not in a correct format.
 K-NumericIntegerDivide-6,Atomic Value for XsDecimal is not implemented yet.
 K-NumericIntegerDivide-7,Atomic Value for XsDecimal is not implemented yet.
+K-NumericIntegerDivide-8,AtomicType AST to Expression not yet implemented
+K-NumericIntegerDivide-9,AtomicType AST to Expression not yet implemented
 K-NumericLT-10,HandleNumericOperator: Different numeric types
 K-NumericLT-13,HandleNumericOperator: Different numeric types
 K-NumericLT-14,HandleNumericOperator: Different numeric types
@@ -13809,6 +13868,11 @@ K-NumericLT-9,HandleNumericOperator: Different numeric types
 K-NumericMod-1,Atomic Value for XsDecimal is not implemented yet.
 K-NumericMod-10,Atomic Value for XsDecimal is not implemented yet.
 K-NumericMod-11,Atomic Value for XsDecimal is not implemented yet.
+K-NumericMod-12,AtomicType AST to Expression not yet implemented
+K-NumericMod-13,AtomicType AST to Expression not yet implemented
+K-NumericMod-14,AtomicType AST to Expression not yet implemented
+K-NumericMod-15,AtomicType AST to Expression not yet implemented
+K-NumericMod-16,AtomicType AST to Expression not yet implemented
 K-NumericMod-19,Can't parse 4.5 into an int.
 K-NumericMod-2,Atomic Value for XsDecimal is not implemented yet.
 K-NumericMod-20,PRSC Error: Failed to parse query '1.23E2 mod 0.6E1 eq 3.0E0'
@@ -13818,6 +13882,7 @@ K-NumericMod-23,Expected error code: XPST0003. Found error code:  in error messa
 K-NumericMod-25,Expected error code: XPTY0004. Found error code:  in error message: Can't parse 1.1 into an int.
 K-NumericMod-26,Input string was not in a correct format.
 K-NumericMod-27,Atomic Value for XsDecimal is not implemented yet.
+K-NumericMod-3,AtomicType AST to Expression not yet implemented
 K-NumericMod-4,Atomic Value for XsDecimal is not implemented yet.
 K-NumericMod-5,Atomic Value for XsDecimal is not implemented yet.
 K-NumericMod-6,Atomic Value for XsDecimal is not implemented yet.
@@ -13827,9 +13892,15 @@ K-NumericMultiply-1,HandleNumericOperator: Different numeric types
 K-NumericMultiply-10,Atomic Value for XsDecimal is not implemented yet.
 K-NumericMultiply-11,Expected XPath (xs:float(6) * xs:integer(2)) instance of xs:float to resolve to true
 K-NumericMultiply-12,Expected XPath (xs:integer(6) * xs:float(2)) instance of xs:float to resolve to true
+K-NumericMultiply-13,AtomicType AST to Expression not yet implemented
 K-NumericMultiply-14,Atomic Value for XsDecimal is not implemented yet.
 K-NumericMultiply-15,Atomic Value for XsDecimal is not implemented yet.
+K-NumericMultiply-16,AtomicType AST to Expression not yet implemented
+K-NumericMultiply-17,AtomicType AST to Expression not yet implemented
+K-NumericMultiply-18,AtomicType AST to Expression not yet implemented
+K-NumericMultiply-19,AtomicType AST to Expression not yet implemented
 K-NumericMultiply-2,Atomic Value for XsDecimal is not implemented yet.
+K-NumericMultiply-20,AtomicType AST to Expression not yet implemented
 K-NumericMultiply-21,Value was either too large or too small for a Decimal.
 K-NumericMultiply-22,Value was either too large or too small for a Decimal.
 K-NumericMultiply-23,Value was either too large or too small for a Decimal.
@@ -13842,15 +13913,22 @@ K-NumericMultiply-31,Can't parse <Value>[type: XsInt<comma> value: 3] into an in
 K-NumericMultiply-4,HandleNumericOperator: Different numeric types
 K-NumericMultiply-5,Atomic Value for XsDecimal is not implemented yet.
 K-NumericMultiply-6,Atomic Value for XsDecimal is not implemented yet.
+K-NumericMultiply-7,AtomicType AST to Expression not yet implemented
 K-NumericMultiply-8,Atomic Value for XsDecimal is not implemented yet.
 K-NumericMultiply-9,Atomic Value for XsDecimal is not implemented yet.
 K-NumericSubtract-1,HandleNumericOperator: Different numeric types
 K-NumericSubtract-10,Atomic Value for XsDecimal is not implemented yet.
 K-NumericSubtract-11,Expected XPath (xs:float(6) - xs:integer(2)) instance of xs:float to resolve to true
 K-NumericSubtract-12,Expected XPath (xs:integer(6) - xs:float(2)) instance of xs:float to resolve to true
+K-NumericSubtract-13,AtomicType AST to Expression not yet implemented
 K-NumericSubtract-14,Atomic Value for XsDecimal is not implemented yet.
 K-NumericSubtract-15,Atomic Value for XsDecimal is not implemented yet.
+K-NumericSubtract-16,AtomicType AST to Expression not yet implemented
+K-NumericSubtract-17,AtomicType AST to Expression not yet implemented
+K-NumericSubtract-18,AtomicType AST to Expression not yet implemented
+K-NumericSubtract-19,AtomicType AST to Expression not yet implemented
 K-NumericSubtract-2,Atomic Value for XsDecimal is not implemented yet.
+K-NumericSubtract-20,AtomicType AST to Expression not yet implemented
 K-NumericSubtract-21,Value was either too large or too small for a Decimal.
 K-NumericSubtract-22,Value was either too large or too small for a Decimal.
 K-NumericSubtract-23,Value was either too large or too small for a Decimal.
@@ -13867,6 +13945,7 @@ K-NumericSubtract-38,Expected executing the XPath "1 eq (0 + remove((current-tim
 K-NumericSubtract-4,HandleNumericOperator: Different numeric types
 K-NumericSubtract-5,Atomic Value for XsDecimal is not implemented yet.
 K-NumericSubtract-6,Atomic Value for XsDecimal is not implemented yet.
+K-NumericSubtract-7,AtomicType AST to Expression not yet implemented
 K-NumericSubtract-8,Atomic Value for XsDecimal is not implemented yet.
 K-NumericSubtract-9,Atomic Value for XsDecimal is not implemented yet.
 K-NumericUnaryMinus-1,Expected error code: XPTY0004. Found error code:  in error message: 
@@ -14106,6 +14185,7 @@ K-SeqAVGFunc-43,Can't parse 4.0 into an int.
 K-SeqAVGFunc-5,HandleNumericOperator: Different numeric types
 K-SeqAVGFunc-6,Expected XPath avg((xs:float(1)<comma> xs:integer(3)<comma> xs:float(3))) instance of xs:float to resolve to true
 K-SeqAVGFunc-7,Atomic Value for XsDecimal is not implemented yet.
+K-SeqAVGFunc-8,AtomicType AST to Expression not yet implemented
 K-SeqAVGFunc-9,Atomic Value for XsDecimal is not implemented yet.
 K-SeqBooleanFunc-11,Expected XPath not(boolean(xs:untypedAtomic(""))) to resolve to true
 K-SeqBooleanFunc-16,TreatExpr AST to Expression not yet implemented
@@ -15329,6 +15409,7 @@ K-SeqExprCast-766,Expected error code: XPTY0004. Found error code:  in error mes
 K-SeqExprCast-767,PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:dateTime)'
 K-SeqExprCast-768,Expected error code: XPTY0004. Found error code:  in error message: Type casting to XsDayTimeDuration has not been implemented yet.
 K-SeqExprCast-769,PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:time)'
+K-SeqExprCast-77,AtomicType AST to Expression not yet implemented
 K-SeqExprCast-770,Expected error code: XPTY0004. Found error code:  in error message: Type casting to XsDayTimeDuration has not been implemented yet.
 K-SeqExprCast-771,PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:date)'
 K-SeqExprCast-772,Expected error code: XPTY0004. Found error code:  in error message: Type casting to XsDayTimeDuration has not been implemented yet.
@@ -15382,6 +15463,7 @@ K-SeqExprCast-816,Expected error code: XPTY0004. Found error code:  in error mes
 K-SeqExprCast-817,PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:dayTimeDuration)'
 K-SeqExprCast-818,Type casting to XsDateTime has not been implemented yet.
 K-SeqExprCast-819,PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:dateTime'
+K-SeqExprCast-82,AtomicType AST to Expression not yet implemented
 K-SeqExprCast-820,Type casting to XsDateTime has not been implemented yet.
 K-SeqExprCast-821,PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:time'
 K-SeqExprCast-822,Type casting to XsDateTime has not been implemented yet.
@@ -15475,6 +15557,7 @@ K-SeqExprCast-906,Type casting to XsDate has not been implemented yet.
 K-SeqExprCast-907,PRSC Error: Failed to parse query 'xs:date("2004-10-13") castable as xs:string'
 K-SeqExprCast-908,Expected error code: XPTY0004. Found error code:  in error message: Type casting to XsDate has not been implemented yet.
 K-SeqExprCast-909,PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:float)'
+K-SeqExprCast-91,AtomicType AST to Expression not yet implemented
 K-SeqExprCast-910,Expected error code: XPTY0004. Found error code:  in error message: Type casting to XsDate has not been implemented yet.
 K-SeqExprCast-911,PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:double)'
 K-SeqExprCast-912,Expected error code: XPTY0004. Found error code:  in error message: Type casting to XsDate has not been implemented yet.
@@ -15485,6 +15568,7 @@ K-SeqExprCast-916,Expected error code: XPTY0004. Found error code:  in error mes
 K-SeqExprCast-917,PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:duration)'
 K-SeqExprCast-918,Expected error code: XPTY0004. Found error code:  in error message: Type casting to XsDate has not been implemented yet.
 K-SeqExprCast-919,PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:yearMonthDuration)'
+K-SeqExprCast-92,AtomicType AST to Expression not yet implemented
 K-SeqExprCast-920,Expected error code: XPTY0004. Found error code:  in error message: Type casting to XsDate has not been implemented yet.
 K-SeqExprCast-921,PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:dayTimeDuration)'
 K-SeqExprCast-922,Type casting to XsDate has not been implemented yet.
@@ -15615,14 +15699,26 @@ K-SeqExprCastable-7,Expected error code: XPST0080. Found error code:  in error m
 K-SeqExprCastable-8,Expected error code: XPST0080. Found error code:  in error message: PRSC Error: Failed to parse query '"notation is abstract" castable as xs:NOTATION?'
 K-SeqExprCastable-9,Expected error code: XPST0080. Found error code:  in error message: PRSC Error: Failed to parse query '() castable as xs:NOTATION?'
 K-SeqExprInstanceOf-1,PRSC Error: Failed to parse query '1 instance of item()'
+K-SeqExprInstanceOf-10,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-11,AtomicType AST to Expression not yet implemented
 K-SeqExprInstanceOf-12,Can't parse 1.1 into an int.
 K-SeqExprInstanceOf-13,Can't parse 1.1 into an int.
 K-SeqExprInstanceOf-14,Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprInstanceOf-15,Type casting to XsAnyUri has not been implemented yet.
+K-SeqExprInstanceOf-16,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-17,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-18,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-19,AtomicType AST to Expression not yet implemented
 K-SeqExprInstanceOf-2,PRSC Error: Failed to parse query '1 instance of item()'
+K-SeqExprInstanceOf-20,AtomicType AST to Expression not yet implemented
 K-SeqExprInstanceOf-21,PRSC Error: Failed to parse query '(1<comma> 2<comma> 3<comma> 4<comma> 5) instance of item()+'
+K-SeqExprInstanceOf-22,AtomicType AST to Expression not yet implemented
 K-SeqExprInstanceOf-23,Can't parse 1.1 into an int.
+K-SeqExprInstanceOf-24,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-25,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-26,AtomicType AST to Expression not yet implemented
 K-SeqExprInstanceOf-28,The given key 'URI' was not present in the dictionary.
+K-SeqExprInstanceOf-3,AtomicType AST to Expression not yet implemented
 K-SeqExprInstanceOf-30,PiTest AST to Expression not yet implemented
 K-SeqExprInstanceOf-31,CommentTest AST to Expression not yet implemented
 K-SeqExprInstanceOf-33,The given key 'URI' was not present in the dictionary.
@@ -15631,10 +15727,20 @@ K-SeqExprInstanceOf-36,CommentTest AST to Expression not yet implemented
 K-SeqExprInstanceOf-37,VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-38,VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-39,VoidSequenceType AST to Expression not yet implemented
+K-SeqExprInstanceOf-4,AtomicType AST to Expression not yet implemented
 K-SeqExprInstanceOf-40,VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-41,VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-42,VoidSequenceType AST to Expression not yet implemented
+K-SeqExprInstanceOf-43,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-44,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-45,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-46,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-47,AtomicType AST to Expression not yet implemented
 K-SeqExprInstanceOf-48,Can't parse 1.1 into an int.
+K-SeqExprInstanceOf-49,Expected XPathException with code XPST0081<comma> but got AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-5,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-50,Expected XPathException with code XPST0051<comma> but got AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-51,Expected XPathException with code XPST0051<comma> but got AtomicType AST to Expression not yet implemented
 K-SeqExprInstanceOf-52,Expected error code: XPST0051. Found error code: XPST0081 in error message: 
 K-SeqExprInstanceOf-53,Expected error code: XPST0051. Found error code: XPST0081 in error message: 
 K-SeqExprInstanceOf-54,Expected executing the XPath "3 instance of none()" to resolve to one of the expected results<comma> but got Xunit.Sdk.TrueException: Expected error code: XPST0051. Found error code:  in error message: PRSC Error: Failed to parse query '3 instance of none()'
@@ -15643,10 +15749,17 @@ K-SeqExprInstanceOf-56,Expected executing the XPath "error() instance of xs:inte
 K-SeqExprInstanceOf-57,Expected executing the XPath "error() instance of xs:integer*" to resolve to one of the expected results<comma> but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
 K-SeqExprInstanceOf-58,Expected executing the XPath "error() instance of empty-sequence()" to resolve to one of the expected results<comma> but got System.NotImplementedException: VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-59,Expected executing the XPath "(error()<comma> 1) instance of empty-sequence()" to resolve to one of the expected results<comma> but got System.NotImplementedException: VoidSequenceType AST to Expression not yet implemented
+K-SeqExprInstanceOf-6,AtomicType AST to Expression not yet implemented
 K-SeqExprInstanceOf-60,Expected error code: FOER0000. Found error code: XPST0017 in error message: 
 K-SeqExprInstanceOf-61,Expected error code: FOER0000. Found error code:  in error message: Can't parse <Value>[type: XsBoolean<comma> value: True] into an bool.
 K-SeqExprInstanceOf-62,Expected executing the XPath "(1<comma> error()) instance of xs:integer*" to resolve to one of the expected results<comma> but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
+K-SeqExprInstanceOf-63,Expected executing the XPath "(error()<comma> 1) instance of xs:integer*" to resolve to one of the expected results<comma> but got System.NotImplementedException: AtomicType AST to Expression not yet implemented
 K-SeqExprInstanceOf-64,Atomic Value for XsDecimal is not implemented yet.
+K-SeqExprInstanceOf-65,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-66,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-7,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-8,AtomicType AST to Expression not yet implemented
+K-SeqExprInstanceOf-9,AtomicType AST to Expression not yet implemented
 K-SeqIndexOfFunc-10,The function index-of with arity 2 is not registered.
 K-SeqIndexOfFunc-11,The function index-of with arity 2 is not registered.
 K-SeqIndexOfFunc-12,The function index-of with arity 2 is not registered.
@@ -15706,6 +15819,7 @@ K-SeqMAXFunc-25,SingletonSequence.Map not implemented
 K-SeqMAXFunc-26,Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMAXFunc-27,SingletonSequence.Map not implemented
 K-SeqMAXFunc-28,Casting AbstractValue(XsFloat) to DoubleValue
+K-SeqMAXFunc-29,AtomicType AST to Expression not yet implemented
 K-SeqMAXFunc-30,Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMAXFunc-31,Input string was not in a correct format.
 K-SeqMAXFunc-32,Input string was not in a correct format.
@@ -15761,6 +15875,7 @@ K-SeqMINFunc-25,SingletonSequence.Map not implemented
 K-SeqMINFunc-26,Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMINFunc-27,SingletonSequence.Map not implemented
 K-SeqMINFunc-28,Casting AbstractValue(XsFloat) to DoubleValue
+K-SeqMINFunc-29,AtomicType AST to Expression not yet implemented
 K-SeqMINFunc-30,Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMINFunc-31,Input string was not in a correct format.
 K-SeqMINFunc-32,Input string was not in a correct format.
@@ -15934,6 +16049,7 @@ K-StringJoinFunc-3,Expected XPath string-join(('Now'<comma> 'is'<comma> 'the'<co
 K-StringJoinFunc-4,Expected XPath string-join(("abc"<comma> "def")<comma> "") eq "abcdef" to resolve to true
 K-StringJoinFunc-5,Expected XPath string-join(('Blow<comma> '<comma> 'blow<comma> '<comma> 'thou '<comma> 'winter '<comma> 'wind!')<comma> '') eq "Blow<comma> blow<comma> thou winter wind!" to resolve to true
 K-StringJoinFunc-7,Expected error code: XPTY0004. Found error code:  in error message: 
+K-StringLengthFunc-3,AtomicType AST to Expression not yet implemented
 K-StringLengthFunc-4,Object reference not set to an instance of an object.
 K-StringLengthFunc-6,Object reference not set to an instance of an object.
 K-StringToCodepointFunc-10,Expected XPath deep-equal(string-to-codepoints("eee")<comma> (101<comma> 101<comma> 101)) to resolve to true
@@ -17777,6 +17893,7 @@ K2-RoundFunc-96,Casting not supported from given type to xs:decimal or any of it
 K2-RoundFunc-97,Atomic Value for XsDecimal is not implemented yet.
 K2-RoundFunc-98,Casting not supported from given type to xs:decimal or any of its derived types.
 K2-RoundFunc-99,Atomic Value for XsDecimal is not implemented yet.
+K2-SeqAVGFunc-1,AtomicType AST to Expression not yet implemented
 K2-SeqAVGFunc-2,Can't parse 3.3 into an int.
 K2-SeqAVGFunc-3,HandleNumericOperator: Different numeric types
 K2-SeqDeepEqualFunc-1,The function current-time with arity 0 is not registered.
@@ -18289,6 +18406,7 @@ K2-SeqExprInstanceOf-14,PRSC Error: Failed to parse query 'attribute e{"content"
 K2-SeqExprInstanceOf-15,Atomic Value for XsNonPositiveInteger is not implemented yet.
 K2-SeqExprInstanceOf-16,Atomic Value for XsNegativeInteger is not implemented yet.
 K2-SeqExprInstanceOf-17,Atomic Value for XsLong is not implemented yet.
+K2-SeqExprInstanceOf-18,AtomicType AST to Expression not yet implemented
 K2-SeqExprInstanceOf-19,Expected XPath xs:short(0) instance of xs:short to resolve to true
 K2-SeqExprInstanceOf-2,PRSC Error: Failed to parse query ''
 K2-SeqExprInstanceOf-20,Atomic Value for XsByte is not implemented yet.
@@ -18322,7 +18440,9 @@ K2-SeqExprInstanceOf-45,Atomic Value for XsEntity is not implemented yet.
 K2-SeqExprInstanceOf-46,Atomic Value for XsNonPositiveInteger is not implemented yet.
 K2-SeqExprInstanceOf-47,Atomic Value for XsNegativeInteger is not implemented yet.
 K2-SeqExprInstanceOf-48,Atomic Value for XsLong is not implemented yet.
+K2-SeqExprInstanceOf-49,AtomicType AST to Expression not yet implemented
 K2-SeqExprInstanceOf-5,PRSC Error: Failed to parse query ''
+K2-SeqExprInstanceOf-50,AtomicType AST to Expression not yet implemented
 K2-SeqExprInstanceOf-51,Atomic Value for XsByte is not implemented yet.
 K2-SeqExprInstanceOf-52,Atomic Value for XsNonNegativeInteger is not implemented yet.
 K2-SeqExprInstanceOf-53,Atomic Value for XsUnsignedLong is not implemented yet.
@@ -18352,6 +18472,7 @@ K2-SeqExprInstanceOf-74,Atomic Value for XsByte is not implemented yet.
 K2-SeqExprInstanceOf-75,Atomic Value for XsNonPositiveInteger is not implemented yet.
 K2-SeqExprInstanceOf-76,Atomic Value for XsNegativeInteger is not implemented yet.
 K2-SeqExprInstanceOf-77,Atomic Value for XsLong is not implemented yet.
+K2-SeqExprInstanceOf-78,AtomicType AST to Expression not yet implemented
 K2-SeqExprInstanceOf-79,Expected XPath xs:short(xs:double("-4")) instance of xs:short to resolve to true
 K2-SeqExprInstanceOf-8,PRSC Error: Failed to parse query 'attribute e{"content"} instance of attribute(e)'
 K2-SeqExprInstanceOf-80,Atomic Value for XsNonNegativeInteger is not implemented yet.
@@ -18365,6 +18486,7 @@ K2-SeqExprInstanceOf-87,Atomic Value for XsNonPositiveInteger is not implemented
 K2-SeqExprInstanceOf-88,Atomic Value for XsNegativeInteger is not implemented yet.
 K2-SeqExprInstanceOf-89,Atomic Value for XsLong is not implemented yet.
 K2-SeqExprInstanceOf-9,PRSC Error: Failed to parse query 'attribute e{"content"} instance of attribute()'
+K2-SeqExprInstanceOf-90,AtomicType AST to Expression not yet implemented
 K2-SeqExprInstanceOf-91,Expected XPath xs:short(xs:float("-4")) instance of xs:short to resolve to true
 K2-SeqExprInstanceOf-92,Atomic Value for XsNonNegativeInteger is not implemented yet.
 K2-SeqExprInstanceOf-93,Atomic Value for XsUnsignedLong is not implemented yet.
@@ -22671,6 +22793,7 @@ seq-queries-results-q2,PRSC Error: Failed to parse query ''
 seq-queries-results-q3,PRSC Error: Failed to parse query ''
 seq-queries-results-q4,PRSC Error: Failed to parse query ''
 seq-queries-results-q5,PRSC Error: Failed to parse query ''
+sequence-type-1,AtomicType AST to Expression not yet implemented
 sequence-type-10,PRSC Error: Failed to parse query '(1<comma>2) castable as xs:integer?'
 sequence-type-11,PRSC Error: Failed to parse query '(1E3) castable as xs:double?'
 sequence-type-12,PRSC Error: Failed to parse query '(1E3<comma>2E3) castable as xs:double?'
@@ -22680,9 +22803,16 @@ sequence-type-15,PRSC Error: Failed to parse query '("abc") castable as xs:strin
 sequence-type-16,PRSC Error: Failed to parse query '("abc"<comma>"def") castable as xs:string?'
 sequence-type-17,PRSC Error: Failed to parse query '("abc") castable as xs:integer?'
 sequence-type-18,PRSC Error: Failed to parse query '("abc"<comma>"def") castable as xs:integer?'
+sequence-type-19,AtomicType AST to Expression not yet implemented
+sequence-type-2,AtomicType AST to Expression not yet implemented
 sequence-type-20,Expected XPath (fn:true()<comma>fn:false()) instance of xs:boolean? to resolve to false
+sequence-type-21,AtomicType AST to Expression not yet implemented
 sequence-type-3,Can't parse 3.2 into an int.
+sequence-type-4,AtomicType AST to Expression not yet implemented
+sequence-type-5,AtomicType AST to Expression not yet implemented
+sequence-type-6,AtomicType AST to Expression not yet implemented
 sequence-type-7,Expected XPath (1<comma>2) instance of xs:integer? to resolve to false
+sequence-type-8,AtomicType AST to Expression not yet implemented
 sequence-type-9,PRSC Error: Failed to parse query '(2) castable as xs:integer?'
 sequenceexpressionhc2,Expected XPath (1<comma>(2<comma>3)<comma>4<comma>5) to (deep equally) resolve to 1<comma> 2<comma> 3<comma> 4<comma> 5
 sequenceexpressionhc4,Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -23408,6 +23538,7 @@ xs-error-005,PRSC Error: Failed to parse query 'fn:exists( xs:error#1 )'
 xs-error-006,PRSC Error: Failed to parse query 'xs:error#1 instance of function(xs:anyAtomicType?) as xs:error?'
 xs-error-007,PRSC Error: Failed to parse query 'xs:error#1 instance of function(xs:anyAtomicType?) as empty-sequence()'
 xs-error-011,Expected error code: FORG0001. Found error code:  in error message: Can't parse 1.0 into an int.
+xs-error-014,Expected executing the XPath "xs:error(1) instance of xs:error" to resolve to one of the expected results<comma> but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0001<comma> but got AtomicType AST to Expression not yet implemented
 xs-error-015,PRSC Error: Failed to parse query 'function() as empty-sequence() { () } instance of function() as xs:error?'
 xs-error-016,PRSC Error: Failed to parse query 'function() as empty-sequence() { () } instance of function() as xs:error*'
 xs-error-017,Expected error code: FOER0000. Found error code:  in error message: PRSC Error: Failed to parse query 'declare function local:identity($arg as xs:error)\n            {\n              $arg\n            };\n       local:identity(fn:error())\n      '
@@ -23431,6 +23562,7 @@ xs-error-034,PRSC Error: Failed to parse query 'xs:error(()) castable as xs:erro
 xs-error-035,PRSC Error: Failed to parse query 'xs:error(()) castable as xs:error?'
 xs-error-036,Expected error code: FOER0000. Found error code:  in error message: PRSC Error: Failed to parse query 'fn:error() castable as xs:error'
 xs-error-037,PRSC Error: Failed to parse query '() castable as xs:error?'
+xs-error-043,Expected executing the XPath "xs:error(1) instance of xs:error" to resolve to one of the expected results<comma> but got System.NotImplementedException: AtomicType AST to Expression not yet implemented
 xs-error-044,Expected executing the XPath "fn:error() instance of xs:error" to resolve to one of the expected results<comma> but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
 xs-error-045,Expected executing the XPath "typeswitch (xs:error(1)) 
 xs-error-046,Expected executing the XPath "typeswitch (fn:error()) 
@@ -23442,4 +23574,4 @@ xs-error-053,PRSC Error: Failed to parse query '1 castable as xs:error'
 xs-error-054,Expected error code: XPTY0004. Found error code:  in error message: PRSC Error: Failed to parse query 'declare function local:identity($arg as xs:error)\n         {\n         $arg\n         };\n         local:identity(())\n      '
 xs-float-001,SingletonSequence.Map not implemented
 xs-float-002,Attempted to divide by zero.
-xs-float-004,Expected error code: FORG0001. Found error code:  in error message: Can't parse <Value>[type: XsBoolean<comma> value: True] into an bool.
+xs-float-004,Expected error code: FORG0001. Found error code:  in error message: Can't parse <Value>[type: XsBoolean<comma> value: True] into an bool.K-NumericMod-9,AtomicType AST to Expression not yet implemented

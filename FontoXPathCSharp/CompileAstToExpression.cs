@@ -73,7 +73,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.AnyKindTest => CompileTypeTest(ast),
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
             AstNodeName.ElementTest => CompileElementTest(ast),
-            AstNodeName.AtomicType => CompileTypeTest(ast),
+            AstNodeName.CommentTest => CompileCommentTest(),
             AstNodeName.Wildcard => CompileWildcard(ast),
             AstNodeName.TextTest => CompileTextTest(),
             AstNodeName.DocumentTest => CompileDocumentTest(),
@@ -81,6 +81,10 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         };
     }
 
+    private static AbstractTestExpression<TNode> CompileCommentTest()
+    {
+        return new KindTest<TNode>(NodeType.Comment);
+    }
 
     private static AbstractTestExpression<TNode> CompileTypeTest(Ast ast)
     {
@@ -136,14 +140,27 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             {
                 hasAxisStep = true;
                 var test = step.GetFirstChild(
-                    AstNodeName.AttributeTest, AstNodeName.AnyElementTest, AstNodeName.PiTest,
-                    AstNodeName.DocumentTest, AstNodeName.ElementTest, AstNodeName.CommentTest,
+                    AstNodeName.AttributeTest, 
+                    AstNodeName.AnyElementTest, 
+                    AstNodeName.PiTest,
+                    AstNodeName.DocumentTest, 
+                    AstNodeName.ElementTest, 
+                    AstNodeName.CommentTest,
                     AstNodeName.NamespaceTest,
-                    AstNodeName.AnyKindTest, AstNodeName.TextTest, AstNodeName.AnyFunctionTest,
-                    AstNodeName.TypedFunctionTest, AstNodeName.SchemaAttributeTest, AstNodeName.AtomicType,
-                    AstNodeName.AnyItemType, AstNodeName.ParenthesizedItemType, AstNodeName.TypedMapTest,
-                    AstNodeName.TypedArrayTest, AstNodeName.NameTest, AstNodeName.Wildcard);
-
+                    AstNodeName.AnyKindTest, 
+                    AstNodeName.TextTest, 
+                    AstNodeName.AnyFunctionTest,
+                    AstNodeName.TypedFunctionTest, 
+                    AstNodeName.SchemaAttributeTest, 
+                    AstNodeName.AtomicType,
+                    AstNodeName.AnyItemType, 
+                    AstNodeName.ParenthesizedItemType, 
+                    AstNodeName.TypedMapTest,
+                    AstNodeName.TypedArrayTest, 
+                    AstNodeName.NameTest, 
+                    AstNodeName.Wildcard
+                );
+                
                 if (test == null) throw new Exception("No test found in path expression axis");
 
                 var testExpression = CompileTestExpression(test);
