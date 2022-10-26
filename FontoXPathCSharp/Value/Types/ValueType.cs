@@ -144,10 +144,10 @@ internal static class ValueTypeUtils
 
     public static ValueType StringToValueType(this string input)
     {
-        if (input == "none") throw new Exception("XPST0051: The type \"none\" could not be found");
+        if (input == "none") throw new XPathException("XPST0051", "The type \"none\" could not be found");
 
         if (!input.StartsWith("xs:", StringComparison.Ordinal) && input.IndexOf(':', StringComparison.Ordinal) >= 0)
-            throw new Exception("XPST0081: Invalid prefix for input \"{input}\"");
+            throw new XPathException("XPST0081", "Invalid prefix for input \"{input}\"");
 
         return input switch
         {
@@ -214,7 +214,7 @@ internal static class ValueTypeUtils
             "function(*)" => ValueType.Function,
             "map(*)" => ValueType.Map,
             "array(*)" => ValueType.Array,
-            _ => throw new Exception($"XPST0051: The type \"{input}\" could not be found")
+            _ => throw new XPathException("XPST0051", $"The type \"{input}\" could not be found")
         };
     }
 }

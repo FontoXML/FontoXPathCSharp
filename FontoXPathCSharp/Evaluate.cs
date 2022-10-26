@@ -220,29 +220,21 @@ public class Evaluate
         ExecutionParameters<TNode> executionParameters;
         AbstractExpression<TNode>? expression;
 
-        try
-        {
-            var context = new EvaluationContext<TSelector, TNode>(
-                selector,
-                contextItem,
-                domFacade,
-                variables,
-                options,
-                new CompilationOptions(
-                    options.LanguageId == Language.LanguageId.XqueryUpdate31Language,
-                    options.LanguageId is Language.LanguageId.Xquery31Language
-                        or Language.LanguageId.XqueryUpdate31Language,
-                    options.Debug,
-                    options.DisableCache));
-            dynamicContext = context.DynamicContext;
-            executionParameters = context.ExecutionParameters;
-            expression = context.Expression;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error with selector: {selector}\nInfo:{ex.Message}");
-            throw;
-        }
+        var context = new EvaluationContext<TSelector, TNode>(
+            selector,
+            contextItem,
+            domFacade,
+            variables,
+            options,
+            new CompilationOptions(
+                options.LanguageId == Language.LanguageId.XqueryUpdate31Language,
+                options.LanguageId is Language.LanguageId.Xquery31Language
+                    or Language.LanguageId.XqueryUpdate31Language,
+                options.Debug,
+                options.DisableCache));
+        dynamicContext = context.DynamicContext;
+        executionParameters = context.ExecutionParameters;
+        expression = context.Expression;
 
 
         if (expression.IsUpdating)

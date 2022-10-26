@@ -85,7 +85,6 @@ public class TestMisc
         var cached = sw.Elapsed;
         sw.Stop();
 
-        _testOutputHelper.WriteLine($"Uncached: {uncached.TotalSeconds}s, Cached: {cached.TotalSeconds}s");
         Assert.True(cached < uncached);
     }
 

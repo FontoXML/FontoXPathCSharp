@@ -48,6 +48,11 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             : new KindTest<TNode>(NodeType.ProcessingInstruction);
     }
 
+    private static AbstractTestExpression<TNode> CompileDocumentTest()
+    {
+        return new KindTest<TNode>(NodeType.Document);
+    }
+
     private static AbstractTestExpression<TNode> CompileWildcard(Ast ast)
     {
         if (ast.GetFirstChild(AstNodeName.Star) == null)
@@ -74,14 +79,21 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         {
             AstNodeName.NameTest => new NameTest<TNode>(new QName(ast.TextContent)),
             AstNodeName.AnyKindTest => CompileTypeTest(ast),
+            AstNodeName.AtomicType => CompileTypeTest(ast),
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
             AstNodeName.ElementTest => CompileElementTest(ast),
-            AstNodeName.TextTest => CompileTextTest(),
+            AstNodeName.CommentTest => CompileCommentTest(),
             AstNodeName.PiTest => CompilePiTest(ast),
             AstNodeName.Wildcard => CompileWildcard(ast),
-            AstNodeName.AtomicType => CompileTypeTest(ast),
+            AstNodeName.TextTest => CompileTextTest(),
+            AstNodeName.DocumentTest => CompileDocumentTest(),
             _ => throw new NotImplementedException($"{ast.Name} AST to Expression not yet implemented")
         };
+    }
+
+    private static AbstractTestExpression<TNode> CompileCommentTest()
+    {
+        return new KindTest<TNode>(NodeType.Comment);
     }
 
     private static AbstractTestExpression<TNode> CompileTypeTest(Ast ast)
@@ -138,14 +150,27 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             {
                 hasAxisStep = true;
                 var test = step.GetFirstChild(
-                    AstNodeName.AttributeTest, AstNodeName.AnyElementTest, AstNodeName.PiTest,
-                    AstNodeName.DocumentTest, AstNodeName.ElementTest, AstNodeName.CommentTest,
+                    AstNodeName.AttributeTest, 
+                    AstNodeName.AnyElementTest, 
+                    AstNodeName.PiTest,
+                    AstNodeName.DocumentTest, 
+                    AstNodeName.ElementTest, 
+                    AstNodeName.CommentTest,
                     AstNodeName.NamespaceTest,
-                    AstNodeName.AnyKindTest, AstNodeName.TextTest, AstNodeName.AnyFunctionTest,
-                    AstNodeName.TypedFunctionTest, AstNodeName.SchemaAttributeTest, AstNodeName.AtomicType,
-                    AstNodeName.AnyItemType, AstNodeName.ParenthesizedItemType, AstNodeName.TypedMapTest,
-                    AstNodeName.TypedArrayTest, AstNodeName.NameTest, AstNodeName.Wildcard);
-
+                    AstNodeName.AnyKindTest, 
+                    AstNodeName.TextTest, 
+                    AstNodeName.AnyFunctionTest,
+                    AstNodeName.TypedFunctionTest, 
+                    AstNodeName.SchemaAttributeTest, 
+                    AstNodeName.AtomicType,
+                    AstNodeName.AnyItemType, 
+                    AstNodeName.ParenthesizedItemType, 
+                    AstNodeName.TypedMapTest,
+                    AstNodeName.TypedArrayTest, 
+                    AstNodeName.NameTest, 
+                    AstNodeName.Wildcard
+                );
+                
                 if (test == null) throw new Exception("No test found in path expression axis");
 
                 var testExpression = CompileTestExpression(test);
@@ -251,13 +276,11 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
 
     private static AbstractExpression<TNode> CompileStringConcatenateExpr(Ast ast, CompilationOptions options)
     {
-        Console.WriteLine(ast);
         var args = new[]
         {
             ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All)!,
             ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All)!
         };
-        Console.WriteLine(args[0]);
         return new FunctionCall<TNode>(new NamedFunctionRef<TNode>(
             new QName("concat", "http://www.w3.org/2005/xpath-functions", ""),
             args.Length

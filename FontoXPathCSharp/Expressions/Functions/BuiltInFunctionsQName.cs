@@ -16,11 +16,11 @@ public static class BuiltInFunctionsQName<TNode> where TNode : notnull
             var lexicalQNameValue = values[1].GetAs<StringValue>();
             var lexicalQName = lexicalQNameValue.Value;
             if (!TypeHelpers.ValidatePattern(lexicalQName, ValueType.XsQName))
-                throw new Exception("FOCA0002: The provided QName is invalid.");
+                throw new XPathException("FOCA0002", "The provided QName is invalid.");
 
             var uri = uriValue?.Value;
             if (uri == null && lexicalQName.Contains(':'))
-                throw new Exception("FOCA0002: The URI of a QName may not be empty if a prefix is provided.");
+                throw new XPathException("FOCA0002", "The URI of a QName may not be empty if a prefix is provided.");
             // Skip URI validation for now
 
             if (paramUri.IsEmpty())

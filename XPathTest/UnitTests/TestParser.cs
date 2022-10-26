@@ -13,12 +13,9 @@ public class TestParser
         _output = output;
     }
 
-    private void ParseQuery(string query)
+    private static void ParseQuery(string query)
     {
         var result = XPathParser.Parse(query, new ParseOptions(false, false));
-        _output.WriteLine(query);
-        if (result.IsOk())
-            _output.WriteLine(result.Unwrap().ToString());
         Assert.True(result.IsOk(), "Query: " + query + "\n" + result);
     }
 

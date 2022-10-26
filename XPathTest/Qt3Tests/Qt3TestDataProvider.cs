@@ -68,7 +68,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
                 .AsParallel()
                 .Aggregate(new HashSet<string>(), (acc, line) =>
                 {
-                    var cols = line.Split(',');
+                    var cols = line.Split(';');
                     if (cols.Length > 1) acc.Add(cols[0]);
                     return acc;
                 });

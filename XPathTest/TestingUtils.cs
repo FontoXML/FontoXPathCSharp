@@ -127,4 +127,12 @@ public class TestingUtils
     {
         return DocumentsByPathCache.Instance.GetResource($"qt3tests/{PreprocessFilename(filename)}");
     }
+
+    public static void SortFileLines(string filename)
+    {
+        if (!TestFileSystem.FileExists(filename)) return;
+        var fileLines = TestFileSystem.ReadFile(filename).Split(Environment.NewLine).ToList();
+        fileLines.Sort();
+        TestFileSystem.WriteFile(filename, string.Join(Environment.NewLine,fileLines));
+    }
 }
