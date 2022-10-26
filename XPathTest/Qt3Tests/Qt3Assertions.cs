@@ -365,9 +365,10 @@ public class Qt3Assertions<TNode> where TNode : notnull
                 {
                     var actualErrorCode = "";
                     var errorMessage = "";
+                    string? result = null;
                     try
                     {
-                        Evaluate.EvaluateXPathToString(xpath,
+                        result = Evaluate.EvaluateXPathToString(xpath,
                             contextNode,
                             domFacade,
                             new Options<TNode>(
@@ -379,15 +380,24 @@ public class Qt3Assertions<TNode> where TNode : notnull
                     catch (XPathException ex)
                     {
                         actualErrorCode = ex.ErrorCode;
+                        errorMessage = ex.Message.Split(Environment.NewLine).First();
                     }
                     catch (Exception ex)
                     {
-                        Assert.True(false, $"Expected XPathException with code {errorCode}, but got {ex.Message}");
+                        errorMessage = ex.Message.Split(Environment.NewLine).First();
+                        Assert.True(false, $"Expected XPathException with code {errorCode}, but got {errorMessage}");
                     }
 
+                    if (result == null)
+                    {
+                        Assert.True(
+                            errorCode == actualErrorCode,
+                            $"Expected error code: {errorCode}. Found error code: {actualErrorCode} with error message: {errorMessage}"
+                        );
+                    }
                     Assert.True(
                         errorCode == actualErrorCode,
-                        $"Expected error code: {errorCode}. Found error code: {actualErrorCode} in error message: {errorMessage}"
+                        $"Expected error code: {errorCode}. Query succeeded with result: {result}"
                     );
                 };
             }
