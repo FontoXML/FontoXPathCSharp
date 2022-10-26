@@ -312,7 +312,7 @@ ArrowPostfix-021;PRSC Error: Failed to parse query 'deep-equal((2=>(map{1:2, 2:4
 ArrowPostfix-022;PRSC Error: Failed to parse query 'deep-equal((let $array:= ['a','b','c','d','e'] return 3=>$array()), ('c'))'
 ArrowPostfix-023;PRSC Error: Failed to parse query 'deep-equal((3=>(['a','b','c','d','e'])()), ('c'))'
 ArrowPostfix-025;Expected error code: XPTY0004. Found error code: XPST0081 in error message: 
-ArrowPostfix-026;Invalid prefix for input "{input}"
+ArrowPostfix-026;Expected XPath //hours => count() to resolve to 16
 ArrowPostfix-027;Skipped test, it was a assert-permutation
 ArrowPostfix-028;Skipped test, it was a assert-permutation
 ArrowPostfix-029;Skipped test, it was a assert-permutation
@@ -329,81 +329,52 @@ ArrowPostfix-107;PRSC Error: Failed to parse query '1 => ([2,3],[4,5][6])() = 2'
 ArrowPostfix-108;Object reference not set to an instance of an object.
 ArrowPostfix-109;PRSC Error: Failed to parse query 'let $days := map{"Mo": "Monday", "Tu": "Tuesday"} return "Tu" => $days() = "Tuesday"'
 ArrowPostfix-110;PRSC Error: Failed to parse query '"Tu" => (map{"Mo": "Monday", "Tu": "Tuesday"})() = "Tuesday"'
-Axes001-1;Invalid prefix for input "{input}"
-Axes001-2;Invalid prefix for input "{input}"
-Axes001-3;Invalid prefix for input "{input}"
-Axes002-1;Invalid prefix for input "{input}"
-Axes002-2;Invalid prefix for input "{input}"
-Axes002-3;Invalid prefix for input "{input}"
-Axes002-4;Invalid prefix for input "{input}"
-Axes003-1;Invalid prefix for input "{input}"
-Axes003-2;Invalid prefix for input "{input}"
-Axes003-3;Invalid prefix for input "{input}"
-Axes003-4;Invalid prefix for input "{input}"
-Axes004-1;Invalid prefix for input "{input}"
-Axes004-2;Invalid prefix for input "{input}"
-Axes004-3;Invalid prefix for input "{input}"
-Axes005-1;Invalid prefix for input "{input}"
-Axes005-2;Invalid prefix for input "{input}"
-Axes005-3;Invalid prefix for input "{input}"
-Axes005-4;Invalid prefix for input "{input}"
-Axes006-1;Invalid prefix for input "{input}"
-Axes006-2;Invalid prefix for input "{input}"
-Axes006-3;Invalid prefix for input "{input}"
-Axes006-4;Invalid prefix for input "{input}"
-Axes007-1;Invalid prefix for input "{input}"
-Axes007-2;Invalid prefix for input "{input}"
-Axes007-3;Invalid prefix for input "{input}"
-Axes008-1;Invalid prefix for input "{input}"
-Axes008-2;Invalid prefix for input "{input}"
-Axes008-3;Invalid prefix for input "{input}"
-Axes009-1;Invalid prefix for input "{input}"
-Axes009-2;Invalid prefix for input "{input}"
-Axes009-3;Invalid prefix for input "{input}"
-Axes010-1;Invalid prefix for input "{input}"
-Axes010-2;Invalid prefix for input "{input}"
-Axes010-3;Invalid prefix for input "{input}"
-Axes011-1;Invalid prefix for input "{input}"
-Axes011-2;Invalid prefix for input "{input}"
-Axes011-3;Invalid prefix for input "{input}"
+Axes001-2;Expected XPath fn:count(//center/child::*) to resolve to 1
+Axes001-3;Expected XPath fn:count(//center/child::*) to resolve to 6
+Axes002-3;Expected XPath fn:count(//center/child::south-east) to resolve to 1
+Axes002-4;Expected XPath fn:count(//center/child::south-east) to resolve to 2
+Axes003-2;Expected XPath fn:count(//center/child::node()) to resolve to 1
+Axes003-3;Expected XPath fn:count(//center/child::node()) to resolve to 1
+Axes003-4;Expected XPath fn:count(//center/child::node()) to resolve to 19
+Axes004-2;Expected XPath fn:count(//center/*) to resolve to 1
+Axes004-3;Expected XPath fn:count(//center/*) to resolve to 6
+Axes005-3;Expected XPath fn:count(//center/south-east) to resolve to 1
+Axes005-4;Expected XPath fn:count(//center/south-east) to resolve to 2
+Axes006-2;Expected XPath fn:count(//center/node()) to resolve to 1
+Axes006-3;Expected XPath fn:count(//center/node()) to resolve to 1
+Axes006-4;Expected XPath fn:count(//center/node()) to resolve to 19
+Axes007-2;Expected XPath fn:count(//west/attribute::*) to resolve to 1
+Axes007-3;Expected XPath fn:count(//west/attribute::*) to resolve to 4
+Axes008-3;Expected XPath fn:count(//west/attribute::west-attr-2) to resolve to 1
+Axes009-2;Expected XPath fn:count(//west/attribute::node()) to resolve to 1
+Axes009-3;Expected XPath fn:count(//west/attribute::node()) to resolve to 4
+Axes010-2;Expected XPath fn:count(//west/@*) to resolve to 1
+Axes010-3;Expected XPath fn:count(//west/@*) to resolve to 4
+Axes011-3;Expected XPath fn:count(//west/@west-attr-2) to resolve to 1
 Axes012-1;Expected XPath fn:count( / ) to resolve to 1
-Axes013-1;Invalid prefix for input "{input}"
-Axes015-1;Invalid prefix for input "{input}"
-Axes016-1;Invalid prefix for input "{input}"
-Axes017-1;Invalid prefix for input "{input}"
+Axes013-1;Expected XPath fn:count(//center/parent::*) to resolve to 1
+Axes015-1;Expected XPath fn:count(//center/parent::near-north) to resolve to 1
+Axes017-1;Expected XPath fn:count(//center/parent::node()) to resolve to 1
 Axes018-1;Expected XPath fn:count(/far-north/parent::node()) to resolve to 1
-Axes019-1;Invalid prefix for input "{input}"
-Axes020-1;Invalid prefix for input "{input}"
-Axes021-1;Invalid prefix for input "{input}"
-Axes023-1;Invalid prefix for input "{input}"
-Axes027-1;Invalid prefix for input "{input}"
-Axes030-1;Invalid prefix for input "{input}"
-Axes030-2;Invalid prefix for input "{input}"
-Axes031-1;Invalid prefix for input "{input}"
-Axes031-2;Invalid prefix for input "{input}"
-Axes031-3;Invalid prefix for input "{input}"
-Axes031-4;Invalid prefix for input "{input}"
-Axes032-1;Invalid prefix for input "{input}"
-Axes032-2;Invalid prefix for input "{input}"
-Axes032-3;Invalid prefix for input "{input}"
-Axes032-4;Invalid prefix for input "{input}"
-Axes033-1;Invalid prefix for input "{input}"
-Axes033-2;Invalid prefix for input "{input}"
-Axes033-3;Invalid prefix for input "{input}"
-Axes033-4;Invalid prefix for input "{input}"
-Axes034-1;Invalid prefix for input "{input}"
-Axes034-2;Invalid prefix for input "{input}"
-Axes035-1;Invalid prefix for input "{input}"
-Axes035-2;Invalid prefix for input "{input}"
-Axes035-3;Invalid prefix for input "{input}"
-Axes035-4;Invalid prefix for input "{input}"
-Axes036-1;Invalid prefix for input "{input}"
-Axes036-2;Invalid prefix for input "{input}"
-Axes037-1;Invalid prefix for input "{input}"
-Axes037-2;Invalid prefix for input "{input}"
-Axes041-1;Invalid prefix for input "{input}"
-Axes043-1;Invalid prefix for input "{input}"
-Axes043-2;Invalid prefix for input "{input}"
+Axes019-1;Expected XPath fn:count(//center/..) to resolve to 1
+Axes020-1;Expected XPath fn:count(//center/self::*) to resolve to 1
+Axes021-1;Expected XPath fn:count(//center/self::center) to resolve to 1
+Axes030-1;Expected XPath fn:count(//center/text()/self::node()) to resolve to 0
+Axes031-3;Expected XPath fn:count(//center/descendant::*) to resolve to 1
+Axes031-4;Expected XPath fn:count(//center/descendant::*) to resolve to 5
+Axes032-3;Expected XPath fn:count(//center/descendant::south) to resolve to 1
+Axes032-4;Expected XPath fn:count(//center/descendant::south) to resolve to 8
+Axes033-2;Expected XPath fn:count(//center/descendant::node()) to resolve to 1
+Axes033-3;Expected XPath fn:count(//center/descendant::node()) to resolve to 1
+Axes033-4;Expected XPath fn:count(//center/descendant::node()) to resolve to 21
+Axes034-1;Expected XPath fn:count(//center/descendant-or-self::*) to resolve to 1
+Axes034-2;Expected XPath fn:count(//center/descendant-or-self::*) to resolve to 6
+Axes035-3;Expected XPath fn:count(//center/descendant-or-self::south) to resolve to 1
+Axes035-4;Expected XPath fn:count(//center/descendant-or-self::south) to resolve to 8
+Axes036-1;Expected XPath fn:count(//center/descendant-or-self::center) to resolve to 1
+Axes036-2;Expected XPath fn:count(//center/descendant-or-self::center) to resolve to 9
+Axes037-2;Expected XPath fn:count(//center/descendant-or-self::node()) to resolve to 22
+Axes043-1;Expected XPath fn:count(//center/text()/descendant-or-self::node()) to resolve to 0
 Axes044-1;Expected XPath fn:count(/child::*) to resolve to 1
 Axes044-2;Expected XPath fn:count(/child::*) to resolve to 1
 Axes045-2;Expected XPath fn:count(/child::far-north) to resolve to 1
@@ -414,7 +385,6 @@ Axes047-2;Expected XPath fn:count(/*) to resolve to 1
 Axes048-2;Expected XPath fn:count(/far-north) to resolve to 1
 Axes049-1;Expected XPath fn:count(/node()) to resolve to 1
 Axes049-2;Expected XPath fn:count(/node()) to resolve to 7
-Axes055-1;Invalid prefix for input "{input}"
 Axes056-1;Expected XPath fn:count(/descendant::*) to resolve to 1
 Axes056-2;Expected XPath fn:count(/descendant::*) to resolve to 15
 Axes056-3;Expected XPath fn:count(/descendant::*) to resolve to 16
@@ -429,83 +399,61 @@ Axes059-2;Expected XPath fn:count(/descendant-or-self::*) to resolve to 15
 Axes060-2;Expected XPath fn:count(/descendant-or-self::south) to resolve to 1
 Axes060-3;Expected XPath fn:count(/descendant-or-self::south) to resolve to 1
 Axes060-4;Expected XPath fn:count(/descendant-or-self::south) to resolve to 8
-Axes061-1;Invalid prefix for input "{input}"
-Axes061-2;Invalid prefix for input "{input}"
-Axes062-1;Invalid prefix for input "{input}"
-Axes062-2;Invalid prefix for input "{input}"
-Axes063-1;Invalid prefix for input "{input}"
-Axes063-2;Invalid prefix for input "{input}"
-Axes063-3;Invalid prefix for input "{input}"
-Axes063-4;Invalid prefix for input "{input}"
-Axes064-1;Invalid prefix for input "{input}"
-Axes064-2;Invalid prefix for input "{input}"
-Axes064-3;Invalid prefix for input "{input}"
-Axes065-1;Invalid prefix for input "{input}"
-Axes065-2;Invalid prefix for input "{input}"
-Axes066-1;Invalid prefix for input "{input}"
-Axes066-2;Invalid prefix for input "{input}"
-Axes066-3;Invalid prefix for input "{input}"
-Axes066-4;Invalid prefix for input "{input}"
-Axes067-1;Invalid prefix for input "{input}"
-Axes067-2;Invalid prefix for input "{input}"
-Axes067-3;Invalid prefix for input "{input}"
-Axes068-1;Invalid prefix for input "{input}"
-Axes068-2;Invalid prefix for input "{input}"
-Axes068-3;Invalid prefix for input "{input}"
-Axes069-1;Invalid prefix for input "{input}"
-Axes069-2;Invalid prefix for input "{input}"
-Axes069-3;Invalid prefix for input "{input}"
-Axes070-1;Invalid prefix for input "{input}"
-Axes070-2;Invalid prefix for input "{input}"
-Axes070-3;Invalid prefix for input "{input}"
-Axes071-1;Invalid prefix for input "{input}"
-Axes071-2;Invalid prefix for input "{input}"
-Axes071-3;Invalid prefix for input "{input}"
-Axes072-1;Invalid prefix for input "{input}"
-Axes072-2;Invalid prefix for input "{input}"
-Axes073-1;Invalid prefix for input "{input}"
-Axes073-2;Invalid prefix for input "{input}"
-Axes074-1;Invalid prefix for input "{input}"
-Axes074-2;Invalid prefix for input "{input}"
-Axes074-3;Invalid prefix for input "{input}"
-Axes074-4;Invalid prefix for input "{input}"
-Axes075-1;Invalid prefix for input "{input}"
-Axes075-2;Invalid prefix for input "{input}"
-Axes075-3;Invalid prefix for input "{input}"
-Axes075-4;Invalid prefix for input "{input}"
-Axes076-1;Invalid prefix for input "{input}"
-Axes076-2;Invalid prefix for input "{input}"
-Axes076-3;Invalid prefix for input "{input}"
-Axes076-4;Invalid prefix for input "{input}"
-Axes077-1;Invalid prefix for input "{input}"
-Axes077-2;Invalid prefix for input "{input}"
-Axes077-3;Invalid prefix for input "{input}"
-Axes078-1;Invalid prefix for input "{input}"
-Axes078-2;Invalid prefix for input "{input}"
-Axes078-3;Invalid prefix for input "{input}"
-Axes078-4;Invalid prefix for input "{input}"
-Axes079-1;Invalid prefix for input "{input}"
-Axes079-2;Invalid prefix for input "{input}"
-Axes079-3;Invalid prefix for input "{input}"
-Axes079-4;Invalid prefix for input "{input}"
-Axes080-1;Invalid prefix for input "{input}"
-Axes080-2;Invalid prefix for input "{input}"
-Axes080-3;Invalid prefix for input "{input}"
-Axes081-1;Invalid prefix for input "{input}"
-Axes081-2;Invalid prefix for input "{input}"
-Axes081-3;Invalid prefix for input "{input}"
-Axes081-4;Invalid prefix for input "{input}"
-Axes082-1;Invalid prefix for input "{input}"
-Axes082-2;Invalid prefix for input "{input}"
-Axes082-3;Invalid prefix for input "{input}"
-Axes083-1;Invalid prefix for input "{input}"
-Axes083-2;Invalid prefix for input "{input}"
-Axes083-3;Invalid prefix for input "{input}"
-Axes084-1;Invalid prefix for input "{input}"
-Axes084-2;Invalid prefix for input "{input}"
-Axes084-3;Invalid prefix for input "{input}"
-Axes084-4;Invalid prefix for input "{input}"
-Axes084-5;Invalid prefix for input "{input}"
+Axes061-1;Expected XPath fn:count(/descendant-or-self::node()) to resolve to 57
+Axes061-2;Expected XPath fn:count(/descendant-or-self::node()) to resolve to 59
+Axes062-1;Expected XPath fn:count(//child::*) to resolve to 1
+Axes062-2;Expected XPath fn:count(//child::*) to resolve to 15
+Axes063-2;Expected XPath fn:count(//child::south) to resolve to 1
+Axes063-3;Expected XPath fn:count(//child::south) to resolve to 1
+Axes063-4;Expected XPath fn:count(//child::south) to resolve to 8
+Axes064-1;Expected XPath fn:count(//child::node()) to resolve to 1
+Axes064-2;Expected XPath fn:count(//child::node()) to resolve to 56
+Axes064-3;Expected XPath fn:count(//child::node()) to resolve to 58
+Axes065-1;Expected XPath fn:count(//*) to resolve to 1
+Axes065-2;Expected XPath fn:count(//*) to resolve to 15
+Axes066-2;Expected XPath fn:count(//south) to resolve to 1
+Axes066-3;Expected XPath fn:count(//south) to resolve to 1
+Axes066-4;Expected XPath fn:count(//south) to resolve to 8
+Axes067-1;Expected XPath fn:count(//node()) to resolve to 1
+Axes067-2;Expected XPath fn:count(//node()) to resolve to 56
+Axes067-3;Expected XPath fn:count(//node()) to resolve to 58
+Axes068-2;Expected XPath fn:count(//attribute::*) to resolve to 1
+Axes068-3;Expected XPath fn:count(//attribute::*) to resolve to 14
+Axes069-2;Expected XPath fn:count(//attribute::mark) to resolve to 1
+Axes069-3;Expected XPath fn:count(//attribute::mark) to resolve to 6
+Axes070-2;Expected XPath fn:count(//@*) to resolve to 1
+Axes070-3;Expected XPath fn:count(//@*) to resolve to 14
+Axes071-2;Expected XPath fn:count(//@mark) to resolve to 1
+Axes071-3;Expected XPath fn:count(//@mark) to resolve to 6
+Axes072-1;Expected XPath fn:count(//self::*) to resolve to 1
+Axes072-2;Expected XPath fn:count(//self::*) to resolve to 15
+Axes073-1;Expected XPath fn:count(//self::node()) to resolve to 57
+Axes073-2;Expected XPath fn:count(//self::node()) to resolve to 59
+Axes074-3;Expected XPath fn:count(//center//child::*) to resolve to 1
+Axes074-4;Expected XPath fn:count(//center//child::*) to resolve to 12
+Axes075-3;Expected XPath fn:count(//center//child::south) to resolve to 1
+Axes075-4;Expected XPath fn:count(//center//child::south) to resolve to 8
+Axes076-2;Expected XPath fn:count(//center//child::node()) to resolve to 1
+Axes076-3;Expected XPath fn:count(//center//child::node()) to resolve to 1
+Axes076-4;Expected XPath fn:count(//center//child::node()) to resolve to 37
+Axes077-2;Expected XPath fn:count(//center//*) to resolve to 1
+Axes077-3;Expected XPath fn:count(//center//*) to resolve to 12
+Axes078-3;Expected XPath fn:count(//center//south) to resolve to 1
+Axes078-4;Expected XPath fn:count(//center//south) to resolve to 8
+Axes079-2;Expected XPath fn:count(//center//node()) to resolve to 1
+Axes079-3;Expected XPath fn:count(//center//node()) to resolve to 1
+Axes079-4;Expected XPath fn:count(//center//node()) to resolve to 37
+Axes080-2;Expected XPath fn:count(//west//attribute::*) to resolve to 1
+Axes080-3;Expected XPath fn:count(//west//attribute::*) to resolve to 4
+Axes081-3;Expected XPath fn:count(//center//attribute::center-attr-2) to resolve to 1
+Axes081-4;Expected XPath fn:count(//center//attribute::center-attr-2) to resolve to 4
+Axes082-2;Expected XPath fn:count(//west//attribute::node()) to resolve to 1
+Axes082-3;Expected XPath fn:count(//west//attribute::node()) to resolve to 4
+Axes083-2;Expected XPath fn:count(//west//@*) to resolve to 1
+Axes083-3;Expected XPath fn:count(//west//@*) to resolve to 4
+Axes084-3;Expected XPath fn:count(//center//@center-attr-2) to resolve to 1
+Axes084-4;Expected XPath fn:count(//center//@center-attr-2) to resolve to 4
+Axes084-5;Expected XPath fn:count(//text()[normalize-space()]) to resolve to 827
 Axes085;PRSC Error: Failed to parse query ''
 Axes086;PRSC Error: Failed to parse query ''
 Axes087;PRSC Error: Failed to parse query ''
@@ -616,14 +564,13 @@ base64BinaryEqual-6;Type casting to XsBase64Binary has not been implemented yet.
 base64BinaryEqual-7;Type casting to XsBase64Binary has not been implemented yet.
 base64BinaryEqual-8;Type casting to XsBase64Binary has not been implemented yet.
 base64BinaryEqual-9;Type casting to XsBase64Binary has not been implemented yet.
-boolean-001;Invalid prefix for input "{input}"
-boolean-002;Invalid prefix for input "{input}"
+boolean-001;Expected XPath boolean(//*:Open) to resolve to true
 boolean-003;Can't parse 93.7 into an int.
 boolean-004;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 boolean-005;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 boolean-006;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 boolean-007;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsBoolean, value: True] into an bool.
-boolean-008;Invalid prefix for input "{input}"
+boolean-008;Expected XPath boolean((true(), //aspidistra)) to resolve to true
 boolean-009;SingletonSequence.Map not implemented
 boolean-010;Expected XPathException with code FORG0006, but got PRSC Error: Failed to parse query 'boolean([true()])'
 boolean-010b;Expected XPathException with code FORG0006, but got PRSC Error: Failed to parse query 'fn:boolean([])'
@@ -4494,20 +4441,17 @@ contextDecl-057;Expected XPathException with code XPTY0004, but got PRSC Error: 
 contextDecl-058;PRSC Error: Failed to parse query '\n      import module namespace m="http://www.w3.org/TestModules/libmodule5";\n      declare context item as array(xs:string) external;\n      $m:v eq 'green'\n    '
 contextDecl-059;Expected XPathException with code XPTY0004, but got PRSC Error: Failed to parse query '\n      declare context item := 15 to 25;\n      . = 17\n    '
 contextDecl-060;Expected XPathException with code XPTY0004, but got PRSC Error: Failed to parse query '\n      declare context item := ();\n      . = 17\n    '
-Count001;Invalid prefix for input "{input}"
+Count001;Expected XPath count(//employee[@name='John Doe 4']) = 1 to resolve to true
 Count002;PRSC Error: Failed to parse query ''
-Count003;Invalid prefix for input "{input}"
-Count004;Invalid prefix for input "{input}"
-Count005;Invalid prefix for input "{input}"
-Count006;Invalid prefix for input "{input}"
-Count007;Invalid prefix for input "{input}"
-Count008;Invalid prefix for input "{input}"
-Count009;Invalid prefix for input "{input}"
-Count010;Invalid prefix for input "{input}"
-Count011;Invalid prefix for input "{input}"
-Count012;Invalid prefix for input "{input}"
-Count013;Invalid prefix for input "{input}"
-Count014;Invalid prefix for input "{input}"
+Count003;Expected XPath count(//employee[@name='John Doe 4']) > 0 to resolve to true
+Count004;Can't parse 0.5 into an int.
+Count005;Can't parse 1.5 into an int.
+Count006;Expected XPath count(//*[@name='John Doe 4']) eq 0 to resolve to false
+Count008;Can't parse 1000000000000 into an int.
+Count010;Can't parse 0.3 into an int.
+Count011;Expected XPath count(//node()) gt 40 to resolve to true
+Count013;Expected XPath 0 = count(//node()) to resolve to false
+Count014;Expected XPath 40 gt count(//node()) to resolve to false
 Count015;Not implemented: ForClause is not implemented yet.
 CurlyArray-002;PRSC Error: Failed to parse query '(array{}) instance of $array(*)'
 CurlyArray-004;PRSC Error: Failed to parse query 'array:size(array{(), ('A', 'B', 'C'), 'D'}) = 4'
@@ -5025,8 +4969,6 @@ filterexpressionhc20;Can't parse <Value>[type: XsInt, value: 2] into an int.
 filterexpressionhc21;Can't parse <Value>[type: XsInt, value: 2] into an int.
 filterexpressionhc22;Expected executing the XPath "fn:count(((1,2,3,4,5,6,7,8,9,10,11)[fn:false()]))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:count(((1,2,3,4,5,6,7,8,9,10,11)[fn:false()])) to resolve to 0
 filterexpressionhc3;Casting AbstractValue(XsInt) to UntypedAtomicValue
-filterexpressionhc4;Invalid prefix for input "{input}"
-filterexpressionhc5;Invalid prefix for input "{input}"
 filterexpressionhc6;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc7;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc8;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -7095,7 +7037,6 @@ fn-innermost-011;Expected XPathException with code XPTY0004, but got PRSC Error:
 fn-innermost-012;Value was either too large or too small for an Int32.
 fn-innermost-014;Value was either too large or too small for an Int32.
 fn-innermost-015;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //*/@* ) ! string()), (('0a','00a','000a','01a','010a','02a','020a')))'
-fn-innermost-016;Invalid prefix for input "{input}"
 fn-innermost-017;Value was either too large or too small for an Int32.
 fn-innermost-018;Skipped test, it was a assert-permutation
 fn-innermost-019;Skipped test, it was a assert-permutation
@@ -7107,10 +7048,8 @@ fn-innermost-024;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //
 fn-innermost-025;PiTest AST to Expression not yet implemented
 fn-innermost-026;Value was either too large or too small for an Int32.
 fn-innermost-027;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //comment() ) ! string()), (('0c','00c','000c','01c','010c','02c','020c')))'
-fn-innermost-028;Invalid prefix for input "{input}"
 fn-innermost-029;Value was either too large or too small for an Int32.
 fn-innermost-030;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //text() ) ! string() ), (('0t',' ',\n                         '00t',' ','000t',' ',\n                         '01t',' ','010t',' ',\n                         '02t',' ','020t',' ')))'
-fn-innermost-031;Invalid prefix for input "{input}"
 fn-innermost-032;Value was either too large or too small for an Int32.
 fn-innermost-033;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //* ) ! local-name(.)), (('empty-level-0',   'non-empty-level-0',\n                         'empty-level-00',  'non-empty-level-00',\n                         'empty-level-000', 'non-empty-level-000',\n                         'empty-level-01',  'non-empty-level-01',\n                         'empty-level-010', 'non-empty-level-010',\n                         'empty-level-02',  'non-empty-level-02',\n                         'empty-level-020', 'non-empty-level-020')))'
 fn-innermost-034;ExceptOp AST to Expression not yet implemented
@@ -7136,7 +7075,6 @@ fn-innermost-053;Value was either too large or too small for an Int32.
 fn-innermost-054;ExceptOp AST to Expression not yet implemented
 fn-innermost-055;Use of XQuery FLWOR expressions in XPath is no allowed
 fn-innermost-056;Use of XQuery FLWOR expressions in XPath is no allowed
-fn-innermost-057;Invalid prefix for input "{input}"
 fn-innermost-058;ExceptOp AST to Expression not yet implemented
 fn-innermost-059;Value was either too large or too small for an Int32.
 fn-insert-before-mix-args-001;The function fn:insert-before with arity 3 is not registered.
@@ -7684,14 +7622,14 @@ fn-name-21;Expected XPath (fn:name(./works[1]/employee[1]),fn:name(./works[1]/em
 fn-name-22;Expected XPath fn:count(((fn:name(/works[1]/employee[1]),fn:name(/works[1]/employee[2])))) to resolve to 2
 fn-name-23;Expected error code: XPDY0002. Found error code:  in error message: 
 fn-name-24;Expected XPath name(/*) to resolve to ma:AuctionWatchList
-fn-name-25;Invalid prefix for input "{input}"
-fn-name-26;Invalid prefix for input "{input}"
+fn-name-25;Expected XPath name((//*:Start)[1]/@*) to resolve to ma:currency
+fn-name-26;Expected XPath name((//@xml:*)[1]) to resolve to xml:lang
 fn-name-27;PRSC Error: Failed to parse query 'name((//namespace::*[.='http://www.w3.org/1999/xlink'])[1])'
 fn-name-28;PiTest AST to Expression not yet implemented
-fn-name-29;Invalid prefix for input "{input}"
+fn-name-29;Expected XPath name((//*[.='1983'])[1]) to resolve to recorded
 fn-name-3;Expected XPath (fn:name(./works[1]/employee[1]/@name)) to resolve to name
-fn-name-30;Invalid prefix for input "{input}"
-fn-name-31;Invalid prefix for input "{input}"
+fn-name-30;Expected XPath name((//comment())[1]) = '' to resolve to true
+fn-name-31;Expected XPath name((//text())[1]) = '' to resolve to true
 fn-name-5;Object reference not set to an instance of an object.
 fn-name-6;Not implemented: ForClause is not implemented yet.
 fn-name-7;Expected error code: XPDY0002. Found error code:  in error message: 
@@ -7744,7 +7682,7 @@ fn-normalize-space-24;Expected XPathException with code FOTY0012, but got Castin
 fn-normalize-space-25;Value was either too large or too small for an Int32.
 fn-normalize-space-26;Expected error code: XPTY0004. Found error code: XPST0017 in error message: 
 fn-normalize-space-9;Value was either too large or too small for an Int32.
-fn-normalize-space0args-1;Invalid prefix for input "{input}"
+fn-normalize-space0args-1;Object reference not set to an instance of an object.
 fn-normalize-space1args-4;Value was either too large or too small for an Int32.
 fn-not-13;PRSC Error: Failed to parse query ''
 fn-not-14;PRSC Error: Failed to parse query ''
@@ -7752,8 +7690,7 @@ fn-not-18;SingletonSequence.Map not implemented
 fn-not-19;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 fn-not-20;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 fn-not-21;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
-fn-not-22;Invalid prefix for input "{input}"
-fn-not-23;Invalid prefix for input "{input}"
+fn-not-23;Expected XPath not(//*) to resolve to false
 fn-not-24;Value was either too large or too small for a Decimal.
 fn-not-25;Value was either too large or too small for a Decimal.
 fn-not-27;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsBoolean, value: True] into an bool.
@@ -7886,7 +7823,6 @@ fn-outermost-011;Expected XPathException with code XPTY0004, but got PRSC Error:
 fn-outermost-012;Value was either too large or too small for an Int32.
 fn-outermost-014;Value was either too large or too small for an Int32.
 fn-outermost-015;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //*/@* ) ! string()), (('0a','00a','000a','01a','010a','02a','020a')))'
-fn-outermost-016;Invalid prefix for input "{input}"
 fn-outermost-017;Value was either too large or too small for an Int32.
 fn-outermost-018;Skipped test, it was a assert-permutation
 fn-outermost-019;Skipped test, it was a assert-permutation
@@ -7898,10 +7834,8 @@ fn-outermost-024;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //
 fn-outermost-025;PiTest AST to Expression not yet implemented
 fn-outermost-026;Value was either too large or too small for an Int32.
 fn-outermost-027;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //comment() ) ! string()), (('0c','00c','000c','01c','010c','02c','020c')))'
-fn-outermost-028;Invalid prefix for input "{input}"
 fn-outermost-029;Value was either too large or too small for an Int32.
 fn-outermost-030;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //text() ) ! string() ), (('0t',' ',\n                         '00t',' ','000t',' ',\n                         '01t',' ','010t',' ',\n                         '02t',' ','020t',' ')))'
-fn-outermost-031;Invalid prefix for input "{input}"
 fn-outermost-032;Value was either too large or too small for an Int32.
 fn-outermost-033;PRSC Error: Failed to parse query 'fn:outermost( //* ) ! local-name(.) = ('root')'
 fn-outermost-034;ExceptOp AST to Expression not yet implemented
@@ -7927,7 +7861,6 @@ fn-outermost-053;Value was either too large or too small for an Int32.
 fn-outermost-054;ExceptOp AST to Expression not yet implemented
 fn-outermost-055;Use of XQuery FLWOR expressions in XPath is no allowed
 fn-outermost-056;Use of XQuery FLWOR expressions in XPath is no allowed
-fn-outermost-057;Invalid prefix for input "{input}"
 fn-outermost-058;ExceptOp AST to Expression not yet implemented
 fn-parse-json-001;PRSC Error: Failed to parse query 'deep-equal((parse-json("{}")), (map{}))'
 fn-parse-json-002;PRSC Error: Failed to parse query 'deep-equal((parse-json('{"abc":12}', map{'liberal':false()})), (map{"abc":12e0}))'
@@ -8447,15 +8380,15 @@ fn-string-1;Expected XPathException with code XPDY0002, but got SingletonSequenc
 fn-string-2;Value was either too large or too small for an Int32.
 fn-string-22;SingletonSequence.Map not implemented
 fn-string-23;Expected XPathException with code FOTY0014, but got PRSC Error: Failed to parse query 'string(string#1)'
-fn-string-24;Invalid prefix for input "{input}"
-fn-string-25;Invalid prefix for input "{input}"
-fn-string-26;Invalid prefix for input "{input}"
+fn-string-24;Expected XPath string((//*:Open)[1]) to resolve to 2000-03-21:07:41:34-05:00
+fn-string-25;Expected XPath string((//*:Start)[1]/@*) to resolve to USD
+fn-string-26;Expected XPath string((//@xml:*)[1]) to resolve to en
 fn-string-27;PRSC Error: Failed to parse query 'string((//namespace::*[.='http://www.w3.org/1999/xlink'])[1])'
 fn-string-28;PiTest AST to Expression not yet implemented
-fn-string-29;Invalid prefix for input "{input}"
+fn-string-29;Expected XPath normalize-space(string((//*:Price)[1])) to resolve to "3.00 10.00 5"
 fn-string-3;Expected XPathException with code XPDY0002, but got SingletonSequence.Map not implemented
 fn-string-30;Could not resolve namespace for prefix  using in a for expression
-fn-string-31;Invalid prefix for input "{input}"
+fn-string-31;Expected XPath string((//text())[normalize-space(.)][1]) to resolve to "2000-03-21:07:41:34-05:00"
 fn-string-32;Expected XPathException with code FOTY0014, but got PRSC Error: Failed to parse query 'string(map{1:2})'
 fn-string-33;Expected XPathException with code FOTY0014, but got PRSC Error: Failed to parse query 'string([1])'
 fn-string-34;Expected XPathException with code FOTY0014, but got PRSC Error: Failed to parse query 'string([[1, 2], [3, 4]])'
@@ -8489,7 +8422,7 @@ fn-string-join-5;Can't parse <Value>[type: XsInt, value: 1] into an int.
 fn-string-join-6;Can't parse <Value>[type: XsInt, value: 1] into an int.
 fn-string-join-7;Can't parse <Value>[type: XsInt, value: 1] into an int.
 fn-string-length-18;Expected XPathException with code XPDY0002, but got Casting AbstractValue(DocumentNode) to StringValue
-fn-string-length-19;Expected error code: XPTY0004. Found error code: XPST0081 in error message: 
+fn-string-length-19;Expected XPathException with code XPTY0004, but got Object reference not set to an instance of an object.
 fn-string-length-2;Object reference not set to an instance of an object.
 fn-string-length-20;Expected XPath string-length("𐀂") to resolve to 1
 fn-string-length-21;Expected XPathException with code FOTY0013, but got PRSC Error: Failed to parse query 'string-length(string-length#1)'
@@ -8999,8 +8932,6 @@ fn-union-node-args-005;PiTest AST to Expression not yet implemented
 fn-union-node-args-006;PiTest AST to Expression not yet implemented
 fn-union-node-args-009;PiTest AST to Expression not yet implemented
 fn-union-node-args-010;PiTest AST to Expression not yet implemented
-fn-union-node-args-012;Invalid prefix for input "{input}"
-fn-union-node-args-013;Invalid prefix for input "{input}"
 fn-union-node-args-014;Expected executing the XPath "() | ()" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath () | () to resolve to 
 fn-union-node-args-018;Expected XPath (/atomic:root/atomic:duration/text()) | (/atomic:root/atomic:duration/text()) to resolve to P1Y2M3DT10H30M
 fn-union-node-args-019;Expected XPath (/atomic:root/atomic:date/text()) | (/atomic:root/atomic:date/text()) to resolve to 2000-01-01+05:00
@@ -9887,7 +9818,7 @@ following-15;ExceptOp AST to Expression not yet implemented
 following-16;Expected XPath (/works[1]/employee[12]/following::employee) and fn:true() to resolve to true
 following-19;Expected XPath (/works[1]/employee[12]/following::employee) or fn:false() to resolve to true
 following-21;PRSC Error: Failed to parse query ' = 0'
-following-22;Invalid prefix for input "{input}"
+following-22;Expected XPath exists(//employee[@name="John Doe 10"]/following::text()[.='Monday']) to resolve to true
 following-3;IsOp AST to Expression not yet implemented
 following-4;IsOp AST to Expression not yet implemented
 following-5;PRSC Error: Failed to parse query ''
@@ -11016,7 +10947,7 @@ functx-fn-normalize-space-all;PRSC Error: Failed to parse query ''
 functx-fn-normalize-unicode-1;The function normalize-unicode with arity 1 is not registered.
 functx-fn-normalize-unicode-2;The function normalize-unicode with arity 2 is not registered.
 functx-fn-normalize-unicode-all;The function normalize-unicode with arity 2 is not registered.
-functx-fn-not-2;Invalid prefix for input "{input}"
+functx-fn-not-2;Expected XPath (not((/) //product)) to resolve to false
 functx-fn-not-7;PRSC Error: Failed to parse query ''
 functx-fn-not-all;PRSC Error: Failed to parse query ''
 functx-fn-number-1;Could not resolve namespace for prefix  using in a for expression
@@ -15609,17 +15540,12 @@ K-SeqExprCastable-6a;Expected XPathException with code XQST0052, but got PRSC Er
 K-SeqExprCastable-7;Expected XPathException with code XPST0080, but got PRSC Error: Failed to parse query ''string' castable as xs:anyAtomicType'
 K-SeqExprCastable-8;Expected XPathException with code XPST0080, but got PRSC Error: Failed to parse query '"notation is abstract" castable as xs:NOTATION?'
 K-SeqExprCastable-9;Expected XPathException with code XPST0080, but got PRSC Error: Failed to parse query '() castable as xs:NOTATION?'
-K-SeqExprInstanceOf-1;Invalid prefix for input "{input}"
 K-SeqExprInstanceOf-12;Can't parse 1.1 into an int.
 K-SeqExprInstanceOf-13;Can't parse 1.1 into an int.
 K-SeqExprInstanceOf-14;Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprInstanceOf-15;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprInstanceOf-2;Invalid prefix for input "{input}"
-K-SeqExprInstanceOf-21;Invalid prefix for input "{input}"
 K-SeqExprInstanceOf-23;Can't parse 1.1 into an int.
-K-SeqExprInstanceOf-28;Invalid prefix for input "{input}"
 K-SeqExprInstanceOf-30;PiTest AST to Expression not yet implemented
-K-SeqExprInstanceOf-33;Invalid prefix for input "{input}"
 K-SeqExprInstanceOf-35;PiTest AST to Expression not yet implemented
 K-SeqExprInstanceOf-37;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-38;VoidSequenceType AST to Expression not yet implemented
@@ -15628,8 +15554,6 @@ K-SeqExprInstanceOf-40;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-41;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-42;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-48;Can't parse 1.1 into an int.
-K-SeqExprInstanceOf-52;Expected error code: XPST0051. Found error code: XPST0081 in error message: 
-K-SeqExprInstanceOf-53;Expected error code: XPST0051. Found error code: XPST0081 in error message: 
 K-SeqExprInstanceOf-54;Expected executing the XPath "3 instance of none()" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPST0051, but got PRSC Error: Failed to parse query '3 instance of none()'
 K-SeqExprInstanceOf-55;Expected executing the XPath "3 instance of void()" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPST0051, but got PRSC Error: Failed to parse query '3 instance of void()'
 K-SeqExprInstanceOf-56;Expected executing the XPath "error() instance of xs:integer" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
@@ -16045,7 +15969,6 @@ K-XQueryComment-14;Expected XPathException with code XPST0003, but got PRSC Erro
 K-XQueryComment-15;Expected XPathException with code XPST0003, but got PRSC Error: Failed to parse query '(:*******************************************************:)\n(: Test: K-XQueryComment-15                              :)\n(: Written by: Frans Englich                             :)\n(: Date: 2007-11-22T11:31:22+01:00                       :)\n(: Purpose: A comment inside a comment that isn't terminated. :)\n(:*******************************************************:)\n1(: content (: this comment does not end :)'
 K-XQueryComment-16;Expected XPathException with code XPST0003, but got PRSC Error: Failed to parse query '(:*******************************************************:)\n(: Test: K-XQueryComment-16                              :)\n(: Written by: Frans Englich                             :)\n(: Date: 2007-11-22T11:31:22+01:00                       :)\n(: Purpose: A comment inside a comment that does not start properly. :)\n(:*******************************************************:)\n1(: content this comment does not start properly :) :)'
 K-XQueryComment-20;Expected XPathException with code XPST0003, but got PRSC Error: Failed to parse query '(:*******************************************************:)\n(: Test: K-XQueryComment-20                              :)\n(: Written by: Frans Englich                             :)\n(: Date: 2007-11-22T11:31:22+01:00                       :)\n(: Purpose: A syntactically invalid comment that doesn't properly start. :)\n(:*******************************************************:)\n: :) 1'
-K-XQueryComment-5;Invalid prefix for input "{input}"
 K-XQueryComment-8;Expected XPathException with code XPST0003, but got PRSC Error: Failed to parse query '(:*******************************************************:)\n(: Test: K-XQueryComment-8                               :)\n(: Written by: Frans Englich                             :)\n(: Date: 2007-11-22T11:31:22+01:00                       :)\n(: Purpose: A test whose essence is: `(: "recursive comments must be balanced, this one is not :)" :)`. :)\n(:*******************************************************:)\n(: "recursive comments must be \n	balanced, this one is not :)" :)'
 K-YearFromDateFunc-3;The function year-from-date with arity 1 is not registered.
 K-YearFromDateFunc-4;The function year-from-date with arity 1 is not registered.
@@ -16442,7 +16365,7 @@ K2-ConcatFunc-3;Expected error code: XPTY0004. Found error code:  in error messa
 K2-CondExpr-1;Expected executing the XPath "" to resolve to one of the expected results, but got System.Exception: PRSC Error: Failed to parse query ''
 K2-CondExpr-2;PRSC Error: Failed to parse query ''
 K2-CondExpr-3;PRSC Error: Failed to parse query 'declare default function namespace "http://www.example.com/"; declare function unordered() { 1 }; unordered() = 1'
-K2-CondExpr-4;Invalid prefix for input "{input}"
+K2-CondExpr-4;Expected XPath if(//(employee[location = "Denver"]/ancestor::*)) then 1 else 3 to resolve to 1
 K2-CondExpr-5;Expected XPathException with code XPST0003, but got PRSC Error: Failed to parse query 'if(!true()) then 2 else 3'
 K2-CondExpr-6;Expected XPathException with code XPST0003, but got PRSC Error: Failed to parse query ''
 K2-ConDocNode-1;Expected XPathException with code XPST0003, but got PRSC Error: Failed to parse query 'document-node{"content"}'
@@ -18524,8 +18447,8 @@ K2-SeqUnion-4;PRSC Error: Failed to parse query ''
 K2-SeqUnion-40;PRSC Error: Failed to parse query ''
 K2-SeqUnion-41;PRSC Error: Failed to parse query ''
 K2-SeqUnion-42;PRSC Error: Failed to parse query ''
-K2-SeqUnion-43;Invalid prefix for input "{input}"
-K2-SeqUnion-44;Invalid prefix for input "{input}"
+K2-SeqUnion-43;Expected XPath boolean(//employee[location = "Denver"] union //employee[last()]) to resolve to true
+K2-SeqUnion-44;Expected XPath boolean(//employee[location = "Denver"] | //employee[last()]) to resolve to true
 K2-SeqUnion-45;PRSC Error: Failed to parse query ''
 K2-SeqUnion-6;PRSC Error: Failed to parse query ''
 K2-SeqUnion-7;PRSC Error: Failed to parse query ''
@@ -19551,7 +19474,6 @@ op-concatenate-mix-args-015;Atomic Value for XsDecimal is not implemented yet.
 op-concatenate-mix-args-016;Atomic Value for XsDecimal is not implemented yet.
 op-concatenate-mix-args-018;Expected XPath (1,2,2),(1,2,3),(123,""),(),("") to (deep equally) resolve to 1, 2, 2, 1, 2, 3, 123, "", ""
 op-concatenate-mix-args-019;Could not resolve namespace for prefix  using in a for expression
-op-concatenate-mix-args-020;Invalid prefix for input "{input}"
 op-concatflt2args-1;Expected XPath (xs:float("-3.4028235E38") || xs:float("-3.4028235E38")) to resolve to -3.4028235E38-3.4028235E38
 op-concatflt2args-2;Expected XPath (xs:float("0") || xs:float("-3.4028235E38")) to resolve to 0-3.4028235E38
 op-concatflt2args-3;Expected XPath (xs:float("3.4028235E38") || xs:float("-3.4028235E38")) to resolve to 3.4028235E38-3.4028235E38
@@ -21258,14 +21180,14 @@ Parenexpr-19;Could not resolve namespace for prefix  using in a for expression
 Parenexpr-20;PRSC Error: Failed to parse query ''
 parts-queries-results-q1;Expected executing the XPath "" to resolve to one of the expected results, but got System.Exception: PRSC Error: Failed to parse query ''
 path002;Expected XPath fn:path(/*) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]
-path003;Invalid prefix for input "{input}"
-path004;Invalid prefix for input "{input}"
-path005;Invalid prefix for input "{input}"
-path006;Invalid prefix for input "{input}"
-path007;Invalid prefix for input "{input}"
-path008;Invalid prefix for input "{input}"
+path003;Expected XPath fn:path((//*:all-of)[1]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}result[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}all-of[1]
+path004;Expected XPath fn:path(//*[@name="fn-absintg1args-1"]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[4]
+path005;Expected XPath fn:path((//@idref)[1]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}link[1]/@idref
+path006;Expected XPath fn:path((//*:source)[3]/@xml:id) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}environment[3]/Q{http://www.w3.org/2010/09/qt-fots-catalog}source[1]/@Q{http://www.w3.org/XML/1998/namespace}id
+path007;Expected XPath fn:path((//comment())[2]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[2]/Q{http://www.w3.org/2010/09/qt-fots-catalog}description[1]/comment()[1]
+path008;Expected XPath fn:path(//text()[.='2147483647'][1]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[3]/Q{http://www.w3.org/2010/09/qt-fots-catalog}result[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}all-of[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}assert-eq[1]/text()[1]
 path009;PiTest AST to Expression not yet implemented
-path010;Invalid prefix for input "{input}"
+path010;Expected XPath fn:path(//p) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{}p[1]
 path011;PRSC Error: Failed to parse query 'fn:path((//namespace::xml)[1])'
 path012;PRSC Error: Failed to parse query 'fn:path((//namespace::xml)[1])'
 path013;PRSC Error: Failed to parse query 'fn:path((//namespace::*[name()=''])[1])'
@@ -21354,42 +21276,20 @@ preceding-sibling-7;PRSC Error: Failed to parse query ''
 preceding-sibling-8;NodeAfterOp AST to Expression not yet implemented
 preceding-sibling-9;NodeAfterOp AST to Expression not yet implemented
 preceding-sibling-attr;PRSC Error: Failed to parse query ''
-predicates-1;Invalid prefix for input "{input}"
 predicates-11;PRSC Error: Failed to parse query '(/root/float[xs:float(.) = xs:float(1267.43233E12)])'
 predicates-12;PRSC Error: Failed to parse query '(/root/double[xs:double(.) = 1267.43233E12])'
-predicates-18;Invalid prefix for input "{input}"
-predicates-19;Invalid prefix for input "{input}"
-predicates-2;Expected executing the XPath "fn:count((//integer[fn:false()]))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Invalid prefix for input "{input}"
-predicates-20;Invalid prefix for input "{input}"
-predicates-21;Invalid prefix for input "{input}"
-predicates-22;Invalid prefix for input "{input}"
-predicates-23;Invalid prefix for input "{input}"
-predicates-24;Invalid prefix for input "{input}"
 predicates-25;PRSC Error: Failed to parse query ''
 predicates-26;PRSC Error: Failed to parse query ''
-predicates-27;Invalid prefix for input "{input}"
-predicates-28;Invalid prefix for input "{input}"
 predicates-29;Expected XPathException with code FORG0006, but got PRSC Error: Failed to parse query ''
-predicates-3;Invalid prefix for input "{input}"
 predicates-30;Not implemented: ForClause is not implemented yet.
 predicates-31;Not implemented: ForClause is not implemented yet.
 predicates-32;PRSC Error: Failed to parse query '\n        declare variable $i := ("x", 1);\n        declare variable $j := $i[position() ne 1];\n        $i[$j]      \n       = "x"'
 predicates-33;Expected XPath count(/works/employee[(xs:integer(hours) gt 40) = xs:untypedAtomic("true"||substring(string(current-date()), 200))]) to resolve to 3
 predicates-34;PRSC Error: Failed to parse query 'deep-equal(((/works/employee[(xs:integer(hours) gt 40) = xs:untypedAtomic("true"||substring(string(current-date()), 200))]) ! (empnum || pnum)), ("E1P3", "E2P2", "E4P5"))'
 predicates-35;PRSC Error: Failed to parse query 'deep-equal(((/works/employee[(xs:integer(hours) eq 40, empnum, number(hours) - 39) = xs:untypedAtomic("1"||substring(string(current-date()), 200))]) ! (empnum || pnum)), ("E1P1", "E2P1", "E4P4"))'
-predicates-4;Invalid prefix for input "{input}"
-predicates-5;Invalid prefix for input "{input}"
-predicates-6;Expected executing the XPath "fn:count((//integer[fn:false() and fn:false()]))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Invalid prefix for input "{input}"
-predicates-7;Expected executing the XPath "fn:count((//integer[fn:false() or fn:false()]))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Invalid prefix for input "{input}"
-predicatesns-1;Invalid prefix for input "{input}"
+predicatesns-1;Expected XPath fn:count((//integer[fn:true()])) to resolve to 1
 predicatesns-11;PRSC Error: Failed to parse query '(/root/float[xs:float(.) = xs:float(1267.43233E12)])'
 predicatesns-12;PRSC Error: Failed to parse query '(/root/double[xs:double(.) = 1267.43233E12])'
-predicatesns-2;Expected executing the XPath "fn:count((//integer[fn:false()]))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Invalid prefix for input "{input}"
-predicatesns-3;Invalid prefix for input "{input}"
-predicatesns-4;Invalid prefix for input "{input}"
-predicatesns-5;Invalid prefix for input "{input}"
-predicatesns-6;Expected executing the XPath "fn:count((//integer[fn:false() and fn:false()]))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Invalid prefix for input "{input}"
-predicatesns-7;Expected executing the XPath "fn:count((//integer[fn:false() or fn:false()]))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Invalid prefix for input "{input}"
 prolog-version-1-v3;PRSC Error: Failed to parse query 'xquery version "3.0" encoding "utf-8"; 1,2'
 prolog-version-1;PRSC Error: Failed to parse query 'xquery version "1.0" encoding "utf-8"; 1,2'
 prolog-version-3-v3;PRSC Error: Failed to parse query 'xquery version "3.0" encoding "US-ASCII"; 1,2'
@@ -22680,7 +22580,6 @@ sequenceexpressionhc2;Expected XPath (1,(2,3),4,5) to (deep equally) resolve to 
 sequenceexpressionhc4;Casting AbstractValue(XsInt) to UntypedAtomicValue
 sequenceexpressionhc6;Casting AbstractValue(XsInt) to UntypedAtomicValue
 sequenceexpressionhc7;The function fn:reverse with arity 1 is not registered.
-sequenceexpressionhc8;Invalid prefix for input "{input}"
 sequenceexpressionhc9;The given key 'staff' was not present in the dictionary.
 sgml-queries-results-q1;PRSC Error: Failed to parse query ''
 sgml-queries-results-q10;PRSC Error: Failed to parse query ''
@@ -22987,7 +22886,7 @@ value-comp-eq-int-7;Expected XPath 40 eq xs:double(/works/employee[1]/hours) to 
 value-comparison-1;Type casting to XsAnyUri has not been implemented yet.
 value-comparison-10;Expected executing the XPath "map{} eq ()" to resolve to one of the expected results, but got System.Exception: PRSC Error: Failed to parse query '(map{} eq ()) => empty()'
 value-comparison-11;Expected XPathException with code FOTY0013, but got PRSC Error: Failed to parse query 'map{1:1} eq 1'
-value-comparison-12;Invalid prefix for input "{input}"
+value-comparison-12;Expected XPath //test:comparable[1]/test:int eq //test:comparable[2]/test:int to resolve to true
 value-comparison-13;PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) eq myType:integer-or-nothing(5)'
 value-comparison-14;Expected XPathException with code XPTY0004, but got PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) eq myType:integer-or-nothing("")'
 value-comparison-2;Type casting to XsAnyUri has not been implemented yet.
@@ -23366,7 +23265,6 @@ xquery31keywords3;PRSC Error: Failed to parse query ''
 xquery31keywords4;PRSC Error: Failed to parse query ''
 xquery31keywords5;PRSC Error: Failed to parse query ''
 XQueryComment001;PRSC Error: Failed to parse query ''
-XQueryComment002;Invalid prefix for input "{input}"
 XQueryComment003;PRSC Error: Failed to parse query ''
 XQueryComment004;PRSC Error: Failed to parse query ''
 XQueryComment005;PRSC Error: Failed to parse query ''

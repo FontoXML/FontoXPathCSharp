@@ -16,7 +16,7 @@ public class TypeTest<TNode> : AbstractTestExpression<TNode> where TNode : notnu
         ExecutionParameters<TNode>? executionParameters)
     {
         return value.GetValueType()
-            .IsSubtypeOf((_type.Prefix == null ? _type.LocalName : _type.Prefix + ":" + _type.LocalName)
+            .IsSubtypeOf((string.IsNullOrEmpty(_type.Prefix) ? _type.LocalName : _type.Prefix + ":" + _type.LocalName)
                 .StringToValueType());
     }
 }
