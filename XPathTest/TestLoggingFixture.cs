@@ -22,14 +22,14 @@ public class TestLoggingFixture : IDisposable
         
         if (!TestFileSystem.DirExists("debug")) TestFileSystem.CreateDir("debug");
 
-        TestingUtils.WriteDictionaryToCsv(_nonParseErrors, "debug/nonParseUnrunnableTestCases.csv");
-        TestingUtils.WriteDictionaryToCsv(_parseErrors, "debug/parseUnrunnableTestCases.csv");
-        TestingUtils.WriteDictionaryToCsv(_nullPointerExceptions, "debug/nullPointerExceptions.csv");
-        TestingUtils.WriteDictionaryToCsv(_castingErrors, "debug/castingExceptions.csv");
-        TestingUtils.WriteDictionaryToCsv(_documentNodeQueries, "debug/failedDocumentNodeQueries.csv");
+        TestingUtils.WriteDictionaryToCsv(_nonParseErrors, "debug/nonParseUnrunnableTestCases.csv",';' );
+        TestingUtils.WriteDictionaryToCsv(_parseErrors, "debug/parseUnrunnableTestCases.csv", ';' );
+        TestingUtils.WriteDictionaryToCsv(_nullPointerExceptions, "debug/nullPointerExceptions.csv", ';');
+        TestingUtils.WriteDictionaryToCsv(_castingErrors, "debug/castingExceptions.csv", ';');
+        TestingUtils.WriteDictionaryToCsv(_documentNodeQueries, "debug/failedDocumentNodeQueries.csv",';');
 
-        TestingUtils.WriteOccurenceToCsv(_nonParseErrors.Values, "debug/mostCommonNonParseErrors.csv");
-        TestingUtils.WriteOccurenceToCsv(_failedTestsWithErrors.Values, "debug/mostCommonErrors.csv");
+        TestingUtils.WriteOccurenceToCsv(_nonParseErrors.Values, "debug/mostCommonNonParseErrors.csv", ';');
+        TestingUtils.WriteOccurenceToCsv(_failedTestsWithErrors.Values, "debug/mostCommonErrors.csv", ';');
     }
 
     public void ProcessError<TNode>(Exception ex, string testName, string testSetName, string description, Qt3TestArguments<TNode> testArguments) where TNode : notnull
