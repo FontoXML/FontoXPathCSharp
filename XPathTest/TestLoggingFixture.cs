@@ -17,8 +17,9 @@ public class TestLoggingFixture : IDisposable
 
     public void Dispose()
     {
-        TestingUtils.WriteDictionaryToCsv(_failedTestsWithErrors, "unrunnableTestCases.csv", ',', true);
-
+        TestingUtils.WriteDictionaryToCsv(_failedTestsWithErrors, "unrunnableTestCases.csv", ';', true);
+        TestingUtils.SortFileLines("unrunnableTestCases.csv");
+        
         if (!TestFileSystem.DirExists("debug")) TestFileSystem.CreateDir("debug");
 
         TestingUtils.WriteDictionaryToCsv(_nonParseErrors, "debug/nonParseUnrunnableTestCases.csv");
@@ -34,7 +35,6 @@ public class TestLoggingFixture : IDisposable
     public void ProcessError<TNode>(Exception ex, string testName, string testSetName, string description, Qt3TestArguments<TNode> testArguments) where TNode : notnull
     {
         var exceptionString = ex.Message
-            .Replace(",", "<comma>")
             .ReplaceLineEndings()
             .Split(Environment.NewLine)
             .First();

@@ -155,7 +155,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
-                            "${xpath} = ${equalWith}",
+                            $"{xpath} = {equalWith}",
                             contextNode,
                             domFacade,
                             new Options<TNode>(
@@ -200,7 +200,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                 {
                     Assert.True(
                         Evaluate.EvaluateXPathToBoolean(
-                            "(${xpath }) => empty()",
+                            $"({xpath}) => empty()",
                             contextNode,
                             domFacade,
                             new Options<TNode>(
@@ -341,7 +341,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
                     Assert.True(
-                        Evaluate.EvaluateXPathToString($"{xpath}",
+                        Evaluate.EvaluateXPathToString(xpath,
                             contextNode,
                             domFacade,
                             new Options<TNode>(
@@ -363,31 +363,32 @@ public class Qt3Assertions<TNode> where TNode : notnull
                 );
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
-                    // var errorContents = "";
                     var actualErrorCode = "";
-                    Assert.Throws<XPathException>(
-                        () =>
-                        {
-                            try
-                            {
-                                Evaluate.EvaluateXPathToString(xpath,
-                                    contextNode,
-                                    domFacade,
-                                    new Options<TNode>(
-                                        namespaceResolver,
-                                        documentWriter: nodesFactory,
-                                        languageId: language),
-                                    variablesInScope);
-                            }
-                            catch (XPathException ex)
-                            {
-                                actualErrorCode = ex.ErrorCode;
-                                // errorContents = ex.Message;
-                                throw;
-                            }
-                        }
+                    var errorMessage = "";
+                    try
+                    {
+                        Evaluate.EvaluateXPathToString(xpath,
+                            contextNode,
+                            domFacade,
+                            new Options<TNode>(
+                                namespaceResolver,
+                                documentWriter: nodesFactory,
+                                languageId: language),
+                            variablesInScope);
+                    }
+                    catch (XPathException ex)
+                    {
+                        actualErrorCode = ex.ErrorCode;
+                    }
+                    catch (Exception ex)
+                    {
+                        Assert.True(false, $"Expected XPathException with code {errorCode}, but got {ex.Message}");
+                    }
+
+                    Assert.True(
+                        errorCode == actualErrorCode,
+                        $"Expected error code: {errorCode}. Found error code: {actualErrorCode} in error message: {errorMessage}"
                     );
-                    Assert.Equal(errorCode, actualErrorCode);
                 };
             }
             case "assert-empty":

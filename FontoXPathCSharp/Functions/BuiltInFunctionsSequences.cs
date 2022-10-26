@@ -86,10 +86,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
     {
         var arg = args[0];
         if (!arg.IsEmpty() && !arg.IsSingleton())
-        {
-            arg.GetAllValues().ToList().ForEach(Console.WriteLine);
             throw new XPathException("FORG0003", "The argument passed to fn:zero-or-one contained more than one item.");
-        }
 
         return arg;
     };
@@ -216,7 +213,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
                 new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
             },
-            (_, _, _, _) => throw new Exception("FOCH0002: No collations are supported"),
+            (_, _, _, _) => throw new XPathException("FOCH0002", "No collations are supported"),
             "deep-equal",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)

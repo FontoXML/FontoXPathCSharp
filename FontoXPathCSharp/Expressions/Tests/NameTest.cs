@@ -32,7 +32,7 @@ public class NameTest<TNode> : AbstractTestExpression<TNode> where TNode : notnu
         _name.NamespaceUri = staticContext.ResolveNamespace(_name.Prefix ?? "");
 
         if (_name.NamespaceUri == "" && _name.Prefix != "")
-            throw new Exception($"XPST0081: The prefix {_name.Prefix} could not be resolved");
+            throw new XPathException("XPST0081", $"The prefix {_name.Prefix} could not be resolved");
     }
 
     public override string ToString()

@@ -63,7 +63,7 @@ internal class BinaryOperator<TNode> : AbstractExpression<TNode> where TNode : n
 
                 if (firstValues.Length > 1 || secondValues.Length > 1)
                     throw new XPathException(
-                        "XPTY0004", "the operands of the {_operator} operator should be empty or singleton."
+                        "XPTY0004", "The operands of the {_operator} operator should be empty or singleton."
                     );
 
                 var firstValue = firstValues.First();

@@ -5,7 +5,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 
-public class CastToInteger
+public static class CastToInteger
 {
     public static CastingFunction ToInteger(ValueType from)
     {
@@ -22,7 +22,7 @@ public class CastToInteger
                     var floatValue = value.GetAs<FloatValue>().Value;
 
                     return !float.IsFinite(floatValue) || float.IsNaN(floatValue)
-                        ? new ErrorResult<AtomicValue>($"FOCA0002: can not cast {value} to xs:integer")
+                        ? new ErrorResult<AtomicValue>($"can not cast {value} to xs:integer", "FOCA0002")
                         : new SuccessResult<AtomicValue>(AtomicValue.Create(Math.Truncate(floatValue),
                             ValueType.XsInteger));
                 }
@@ -32,7 +32,7 @@ public class CastToInteger
                     var doubleValue = value.GetAs<DoubleValue>().Value;
 
                     return !double.IsFinite(doubleValue) || double.IsNaN(doubleValue)
-                        ? new ErrorResult<AtomicValue>($"FOCA0002: can not cast {value} to xs:integer")
+                        ? new ErrorResult<AtomicValue>($"Can not cast {value} to xs:integer", "FOCA0002")
                         : new SuccessResult<AtomicValue>(AtomicValue.Create(Math.Truncate(doubleValue),
                             ValueType.XsInteger));
                 }
@@ -44,6 +44,6 @@ public class CastToInteger
         return from.IsSubtypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic)
             ? value => new SuccessResult<AtomicValue>(AtomicValue.Create(value.GetValue(), ValueType.XsInteger))
             : _ => new ErrorResult<AtomicValue>(
-                "XPTY0004: Casting not supported from given type to xs:integer or any of its derived types.");
+                "Casting not supported from given type to xs:integer or any of its derived types.", "XPTY0004");
     }
 }

@@ -5,7 +5,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions.DataTypes.Casting;
 
-public class CastToBoolean
+public static class CastToBoolean
 {
     public static CastingFunction ToBoolean(ValueType from)
     {
@@ -24,14 +24,11 @@ public class CastToBoolean
                     "true" or "1" => new SuccessResult<AtomicValue>(AtomicValue.TrueBoolean),
                     "false" or "0" => new SuccessResult<AtomicValue>(AtomicValue.FalseBoolean),
                     _ => new ErrorResult<AtomicValue>(
-                        "XPTY0004: Casting not supported from given type to xs:boolean or any of its derived types.")
+                        "Casting not supported from given type to xs:boolean or any of its derived types.", "XPTY0004")
                 };
             };
 
-        return _ =>
-        {
-            return new ErrorResult<AtomicValue>(
-                "XPTY0004: Casting not supported from given type to xs:boolean or any of its derived types.");
-        };
+        return _ => new ErrorResult<AtomicValue>(
+            "Casting not supported from given type to xs:boolean or any of its derived types.", "XPTY0004");
     }
 }
