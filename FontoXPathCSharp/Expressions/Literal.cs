@@ -12,7 +12,10 @@ public class Literal<TNode> : AbstractExpression<TNode> where TNode : notnull
     public Literal(string value, SequenceType type) : base(
         new Specificity(),
         Array.Empty<AbstractExpression<TNode>>(),
-        new OptimizationOptions(true))
+        new OptimizationOptions(
+            true,
+            resultOrder: ResultOrdering.Sorted)
+    )
     {
         _createValueSequence = type.ValueType switch
         {

@@ -14,11 +14,10 @@ public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode> where TNode
         siblingExpression.Specificity,
         new AbstractExpression<TNode>[] { siblingExpression },
         new OptimizationOptions(
-            false, 
-            true, 
-            ResultOrdering.Sorted, 
-            false)
-        )
+            false,
+            true,
+            ResultOrdering.Sorted)
+    )
     {
         _siblingExpression = siblingExpression;
         _filterBucket = BucketUtils.IntersectBuckets(siblingExpression.GetBucket(), filterBucket);

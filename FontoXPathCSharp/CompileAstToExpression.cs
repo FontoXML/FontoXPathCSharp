@@ -106,7 +106,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
     {
         return new TypeTest<TNode>(new QName("item()", null, ""));
     }
-    
+
     private static AbstractTestExpression<TNode> CompileCommentTest()
     {
         return new KindTest<TNode>(NodeType.Comment);
@@ -166,27 +166,27 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             {
                 hasAxisStep = true;
                 var test = step.GetFirstChild(
-                    AstNodeName.AttributeTest, 
-                    AstNodeName.AnyElementTest, 
+                    AstNodeName.AttributeTest,
+                    AstNodeName.AnyElementTest,
                     AstNodeName.PiTest,
-                    AstNodeName.DocumentTest, 
-                    AstNodeName.ElementTest, 
+                    AstNodeName.DocumentTest,
+                    AstNodeName.ElementTest,
                     AstNodeName.CommentTest,
                     AstNodeName.NamespaceTest,
-                    AstNodeName.AnyKindTest, 
-                    AstNodeName.TextTest, 
+                    AstNodeName.AnyKindTest,
+                    AstNodeName.TextTest,
                     AstNodeName.AnyFunctionTest,
-                    AstNodeName.TypedFunctionTest, 
-                    AstNodeName.SchemaAttributeTest, 
+                    AstNodeName.TypedFunctionTest,
+                    AstNodeName.SchemaAttributeTest,
                     AstNodeName.AtomicType,
-                    AstNodeName.AnyItemType, 
-                    AstNodeName.ParenthesizedItemType, 
+                    AstNodeName.AnyItemType,
+                    AstNodeName.ParenthesizedItemType,
                     AstNodeName.TypedMapTest,
-                    AstNodeName.TypedArrayTest, 
-                    AstNodeName.NameTest, 
+                    AstNodeName.TypedArrayTest,
+                    AstNodeName.NameTest,
                     AstNodeName.Wildcard
                 );
-                
+
                 if (test == null) throw new Exception("No test found in path expression axis");
 
                 var testExpression = CompileTestExpression(test);
@@ -199,7 +199,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
                     "attribute" => new AttributeAxis<TNode>(testExpression, intersectingBucket),
                     "ancestor" => new AncestorAxis<TNode>(testExpression, false),
                     "ancestor-or-self" => new AncestorAxis<TNode>(testExpression, true),
-                    "descendant" => new DescendantAxis<TNode>(testExpression, false),
+                    "descendant" => new DescendantAxis<TNode>(testExpression),
                     "descendant-or-self" => new DescendantAxis<TNode>(testExpression, true),
                     "following" => new FollowingAxis<TNode>(testExpression),
                     "preceding" => new PrecedingAxis<TNode>(testExpression),

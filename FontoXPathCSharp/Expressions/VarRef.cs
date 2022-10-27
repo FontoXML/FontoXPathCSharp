@@ -13,8 +13,7 @@ public class VarRef<TNode> : AbstractExpression<TNode> where TNode : notnull
         new Specificity(),
         Array.Empty<AbstractExpression<TNode>>(),
         new OptimizationOptions(
-            false,
-            resultOrder: ResultOrdering.Unsorted
+            false
         ))
     {
         _qualifiedName = qualifiedName;

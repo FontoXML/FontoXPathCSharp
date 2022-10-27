@@ -14,7 +14,9 @@ public class IfExpression<TNode> : PossiblyUpdatingExpression<TNode> where TNode
         new OptimizationOptions(
             ifExpr.CanBeStaticallyEvaluated && thenExpr.CanBeStaticallyEvaluated && elseExpr.CanBeStaticallyEvaluated,
             thenExpr.Peer == elseExpr.Peer && thenExpr.Peer,
-            thenExpr.ExpectedResultOrder == elseExpr.ExpectedResultOrder ? thenExpr.ExpectedResultOrder : ResultOrdering.Unsorted,
+            thenExpr.ExpectedResultOrder == elseExpr.ExpectedResultOrder
+                ? thenExpr.ExpectedResultOrder
+                : ResultOrdering.Unsorted,
             thenExpr.Subtree == elseExpr.Subtree && thenExpr.Subtree)
     )
     {

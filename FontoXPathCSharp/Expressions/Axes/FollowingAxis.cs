@@ -16,9 +16,8 @@ public class FollowingAxis<TNode> : AbstractExpression<TNode> where TNode : notn
         new OptimizationOptions(
             false,
             true,
-            ResultOrdering.Sorted,
-            false)
-        )
+            ResultOrdering.Sorted)
+    )
     {
         _testExpression = testExpression;
         var testBucket = testExpression.GetBucket();

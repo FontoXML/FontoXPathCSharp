@@ -14,11 +14,10 @@ public class PrecedingSiblingAxis<TNode> : AbstractExpression<TNode> where TNode
         siblingExpression.Specificity,
         new AbstractExpression<TNode>[] { siblingExpression },
         new OptimizationOptions(
-            false, 
-            true, 
-            ResultOrdering.ReverseSorted, 
-            false)
-        )
+            false,
+            true,
+            ResultOrdering.ReverseSorted)
+    )
     {
         _siblingExpression = siblingExpression;
         _filterBucket = BucketUtils.IntersectBuckets(siblingExpression.GetBucket(), filterBucket);

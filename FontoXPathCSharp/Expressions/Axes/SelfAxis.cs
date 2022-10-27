@@ -12,11 +12,11 @@ public class SelfAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
         selector.Specificity,
         new AbstractExpression<TNode>[] { selector },
         new OptimizationOptions(
-            false, 
-            true, 
-            ResultOrdering.Sorted, 
+            false,
+            true,
+            ResultOrdering.Sorted,
             true)
-        )
+    )
     {
         _selector = selector;
         _filterBucket = BucketUtils.IntersectBuckets(selector.GetBucket(), filterBucket);

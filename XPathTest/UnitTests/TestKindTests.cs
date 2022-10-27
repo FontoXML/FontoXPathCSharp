@@ -54,16 +54,16 @@ public class TestKindTests
         var res2 = Evaluate.EvaluateXPathToBoolean(selector, _xObjectDocument, _xObjectDomFacade, _xObjectOptions);
         Assert.True(res2, $"(XObject) '{selector}' should return true on a document node.");
     }
-    
+
     [Fact]
     private void TestSelfDocumentTestFalse()
     {
         const string selector = "self::document-node()";
-        
+
         var element = _xmlNodeDocument.CreateElement("element");
         var res1 = Evaluate.EvaluateXPathToBoolean(selector, element, _xmlNodeDomFacade, _xmlNodeOptions);
         Assert.False(res1, $"(XmlNode) '{selector}' should return false on an element.");
-        
+
         var element2 = new XElement("element");
         var res2 = Evaluate.EvaluateXPathToBoolean(selector, element2, _xObjectDomFacade, _xObjectOptions);
         Assert.False(res2, $"(XObject) '{selector}' should return false on an element.");
@@ -77,7 +77,7 @@ public class TestKindTests
         var comment = _xmlNodeDocument.CreateComment("comment");
         var res1 = Evaluate.EvaluateXPathToBoolean(selector, comment, _xmlNodeDomFacade, _xmlNodeOptions);
         Assert.True(res1, $"(XmlNode) '{selector}' should return true on an comment.");
-        
+
         var comment2 = new XComment("comment");
         var res2 = Evaluate.EvaluateXPathToBoolean(selector, comment2, _xObjectDomFacade, _xObjectOptions);
         Assert.True(res2, $"(XObject) '{selector}' should return true on a comment.");

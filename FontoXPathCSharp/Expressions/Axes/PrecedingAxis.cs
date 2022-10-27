@@ -16,9 +16,8 @@ public class PrecedingAxis<TNode> : AbstractExpression<TNode> where TNode : notn
         new OptimizationOptions(
             false,
             true,
-            ResultOrdering.ReverseSorted,
-            false)
-        )
+            ResultOrdering.ReverseSorted)
+    )
     {
         _testExpression = testExpression;
         var testBucket = testExpression.GetBucket();

@@ -17,19 +17,20 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
         : base(descendantExpression.Specificity,
             new AbstractExpression<TNode>[] { descendantExpression },
             new OptimizationOptions(
-                false, 
-                false, 
-                ResultOrdering.Sorted, 
+                false,
+                false,
+                ResultOrdering.Sorted,
                 true)
-            )
+        )
     {
         _descendantExpression = descendantExpression;
         _inclusive = inclusive;
 
         var testBucket = descendantExpression.GetBucket();
-        var onlyElementDescendants = testBucket != null &&
-                                     (testBucket.StartsWith(BucketConstants.NamePrefix) ||
-                                      testBucket == BucketConstants.Type1) || testBucket == BucketConstants.Type1OrType2;
+        var onlyElementDescendants = (testBucket != null &&
+                                      (testBucket.StartsWith(BucketConstants.NamePrefix) ||
+                                       testBucket == BucketConstants.Type1)) ||
+                                     testBucket == BucketConstants.Type1OrType2;
         _descendantBucket = onlyElementDescendants ? BucketConstants.Type1 : null;
     }
 
@@ -84,7 +85,7 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
     }
 
     public override ISequence Evaluate(
-        DynamicContext? dynamicContext, 
+        DynamicContext? dynamicContext,
         ExecutionParameters<TNode>? executionParameters)
     {
         var domFacade = executionParameters!.DomFacade;

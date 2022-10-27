@@ -18,16 +18,10 @@ public class OrOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
                 : selector.Specificity
         ),
         expressions,
-        new OptimizationOptions(expressions.All(e => e.CanBeStaticallyEvaluated)))
+        new OptimizationOptions(
+            expressions.All(e => e.CanBeStaticallyEvaluated)
+        ))
     {
-        // TODO: Adding specificity to expressions
-        // var maxSpecificity = expressions.Aggregate(new Specificity(),
-        //     (currentMaxSpecificity, selector) => {
-        //     if (currentMaxSpecificity.CompareTo(selector.specificity) > 0) {
-        //         return currentMaxSpecificity;
-        //     }
-        //     return selector;
-        // });
         _subExpressions = expressions;
         _bucket = expressions.First().GetBucket() != null
                   && expressions.All(e => e.GetBucket() == expressions.First().GetBucket())

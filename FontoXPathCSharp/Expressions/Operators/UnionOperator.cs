@@ -17,7 +17,9 @@ public class UnionOperator<TNode> : AbstractExpression<TNode> where TNode : notn
                 : selector.Specificity
         ),
         childExpressions,
-        new OptimizationOptions(childExpressions.All(e => e.CanBeStaticallyEvaluated)))
+        new OptimizationOptions(
+            childExpressions.All(e => e.CanBeStaticallyEvaluated)
+        ))
     {
         _subExpressions = childExpressions;
     }
@@ -39,7 +41,7 @@ public class UnionOperator<TNode> : AbstractExpression<TNode> where TNode : notn
                             executionParameters
                         )
                     );
-                }).Map((value, _, _) => !value.GetValueType().IsSubtypeOf(ValueType.Node) 
+                }).Map((value, _, _) => !value.GetValueType().IsSubtypeOf(ValueType.Node)
                 ? throw new XPathException("XPTY0004", "The sequences to union are not of type node()*")
                 : value);
         }

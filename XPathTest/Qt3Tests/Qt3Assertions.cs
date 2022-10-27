@@ -389,12 +389,10 @@ public class Qt3Assertions<TNode> where TNode : notnull
                     }
 
                     if (result == null)
-                    {
                         Assert.True(
                             errorCode == actualErrorCode,
                             $"Expected error code: {errorCode}. Found error code: {actualErrorCode} with error message: {errorMessage}"
                         );
-                    }
                     Assert.True(
                         errorCode == actualErrorCode,
                         $"Expected error code: {errorCode}. Query succeeded with result: {result}"

@@ -13,7 +13,12 @@ public class FilterExpression<TNode> : AbstractExpression<TNode> where TNode : n
     public FilterExpression(AbstractExpression<TNode> selector, AbstractExpression<TNode> filterExpression) : base(
         selector.Specificity.Add(filterExpression.Specificity),
         new[] { selector },
-        new OptimizationOptions(selector.CanBeStaticallyEvaluated && filterExpression.CanBeStaticallyEvaluated))
+        new OptimizationOptions(
+            selector.CanBeStaticallyEvaluated && filterExpression.CanBeStaticallyEvaluated,
+            selector.Peer,
+            selector.ExpectedResultOrder,
+            selector.Subtree)
+    )
     {
         _selector = selector;
         _filterExpression = filterExpression;

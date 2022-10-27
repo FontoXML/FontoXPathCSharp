@@ -14,10 +14,10 @@ public class ParentAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
         new AbstractExpression<TNode>[] { parentExpression },
         new OptimizationOptions(
             false,
-            true, 
+            true,
             ResultOrdering.ReverseSorted,
             true)
-        )
+    )
     {
         _parentExpression = parentExpression;
         _filterBucket = BucketUtils.IntersectBuckets(filterBucket, parentExpression.GetBucket());

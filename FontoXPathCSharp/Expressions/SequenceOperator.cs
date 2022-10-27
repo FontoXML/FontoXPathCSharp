@@ -7,7 +7,9 @@ public class SequenceOperator<TNode> : PossiblyUpdatingExpression<TNode> where T
     public SequenceOperator(AbstractExpression<TNode>[] expressions) : base(
         expressions.Aggregate(new Specificity(), (specificity, selector) => specificity.Add(selector.Specificity)),
         expressions,
-        new OptimizationOptions(expressions.All(e => e.CanBeStaticallyEvaluated)))
+        new OptimizationOptions(
+            expressions.All(e => e.CanBeStaticallyEvaluated)
+        ))
     {
     }
 

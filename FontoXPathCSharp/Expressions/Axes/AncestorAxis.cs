@@ -15,11 +15,10 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode> where TNode : notnu
         ancestorExpression.Specificity,
         new AbstractExpression<TNode>[] { ancestorExpression },
         new OptimizationOptions(
-            false, 
-            false, 
-            ResultOrdering.ReverseSorted, 
-            false
-            )
+            false,
+            false,
+            ResultOrdering.ReverseSorted
+        )
     )
     {
         _ancestorExpression = ancestorExpression;
