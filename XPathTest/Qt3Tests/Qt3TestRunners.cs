@@ -57,12 +57,12 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
                 testCase,
                 arguments.Language,
                 arguments.DomFacade,
-                nodeUtils);
+                nodeUtils
+            );
         }
         catch (Exception ex)
         {
-            // Let logging fixture 
-            _loggingFixture.ProcessError(ex, name, testSetName, description);
+            _loggingFixture.ProcessError(ex, name, testSetName, description, arguments);
             throw;
         }
 
@@ -77,7 +77,7 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
         }
         catch (Exception ex)
         {
-            _loggingFixture.ProcessError(ex, name, testSetName, description);
+            _loggingFixture.ProcessError(ex, name, testSetName, description, arguments);
             throw;
         }
     }

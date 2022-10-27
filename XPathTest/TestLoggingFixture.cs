@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using XPathTest.Qt3Tests;
 
 namespace XPathTest;
 
@@ -24,16 +25,19 @@ public class TestLoggingFixture : IDisposable
         TestingUtils.WriteDictionaryToCsv(_parseErrors, "debug/parseUnrunnableTestCases.csv", ';' );
         TestingUtils.WriteDictionaryToCsv(_nullPointerExceptions, "debug/nullPointerExceptions.csv", ';');
         TestingUtils.WriteDictionaryToCsv(_castingErrors, "debug/castingExceptions.csv", ';');
+
         TestingUtils.WriteOccurenceToCsv(_nonParseErrors.Values, "debug/mostCommonNonParseErrors.csv", ';');
         TestingUtils.WriteOccurenceToCsv(_failedTestsWithErrors.Values, "debug/mostCommonErrors.csv", ';');
     }
 
-    public void ProcessError(Exception ex, string testName, string testSetName, string description)
+    public void ProcessError<TNode>(Exception ex, string testName, string testSetName, string description, Qt3TestArguments<TNode> testArguments) where TNode : notnull
     {
         var exceptionString = ex.Message
             .ReplaceLineEndings()
             .Split(Environment.NewLine)
             .First();
+
+        var query = testArguments.TestQuery;
 
         if (ex is NullReferenceException) _nullPointerExceptions[testName] = ex.ToString();
         if (ex is InvalidCastException) _castingErrors[testName] = ex.ToString();
