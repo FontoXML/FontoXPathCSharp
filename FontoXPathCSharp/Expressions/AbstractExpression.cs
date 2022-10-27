@@ -39,7 +39,9 @@ public abstract class AbstractExpression<TNode> where TNode : notnull
     public readonly Specificity Specificity;
     public readonly bool Subtree;
 
-    protected AbstractExpression(Specificity specificity, AbstractExpression<TNode>[] childExpressions,
+    protected AbstractExpression(
+        Specificity specificity, 
+        AbstractExpression<TNode>[] childExpressions,
         OptimizationOptions optimizationOptions)
     {
         Specificity = specificity;

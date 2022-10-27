@@ -9,6 +9,11 @@ namespace FontoXPathCSharp.Expressions;
 
 public class SortedSequenceUtils<TNode> where TNode : notnull
 {
+    private static bool AreNodesEqual(NodeValue<TNode> node1, NodeValue<TNode> node2)
+    {
+        return node1 == node2 || node1.Value.Equals(node2.Value);
+    }
+    
     private static bool IsSameNodeValue(AbstractValue? a, AbstractValue? b)
     {
         if (a == null || b == null) return false;
@@ -16,7 +21,7 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
         if (!a.GetValueType().IsSubtypeOf(ValueType.Node) || !b.GetValueType().IsSubtypeOf(ValueType.Node))
             return false;
 
-        return a.GetAs<NodeValue<TNode>>().Value.Equals(b.GetAs<NodeValue<TNode>>().Value);
+        return AreNodesEqual(a.GetAs<NodeValue<TNode>>(), b.GetAs<NodeValue<TNode>>());
     }
 
     public static ISequence ConcatSortedSequences(Iterator<ISequence> sequences)

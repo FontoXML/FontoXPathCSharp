@@ -13,9 +13,17 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
     private readonly AbstractExpression<TNode>[] _stepExpressions;
 
     public PathExpression(AbstractExpression<TNode>[] stepExpressions, bool requireSortedResults) : base(
-        stepExpressions.Aggregate(new Specificity(), (specificity, selector) => specificity.Add(selector.Specificity)),
+        stepExpressions.Aggregate(
+            new Specificity(),
+            (specificity, selector) => specificity.Add(selector.Specificity)
+        ),
         stepExpressions,
-        new OptimizationOptions(false))
+        new OptimizationOptions(
+            false,
+            stepExpressions.All(selector => selector.Peer),
+            requireSortedResults ? ResultOrdering.Sorted : ResultOrdering.Unsorted,
+            stepExpressions.All(selector => selector.Subtree))
+    )
     {
         _stepExpressions = stepExpressions;
         _requireSortedResults = requireSortedResults;
