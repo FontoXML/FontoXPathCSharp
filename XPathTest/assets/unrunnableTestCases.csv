@@ -1,8 +1,8 @@
 ﻿abbreviatedSyntax-1;Not implemented: ForClause is not implemented yet.
-abbreviatedSyntax-10;The given key 'URI' was not present in the dictionary.
-abbreviatedSyntax-12;The given key 'URI' was not present in the dictionary.
-abbreviatedSyntax-13;The given key 'URI' was not present in the dictionary.
-abbreviatedSyntax-14;The given key 'URI' was not present in the dictionary.
+abbreviatedSyntax-10;Not implemented: ForClause is not implemented yet.
+abbreviatedSyntax-12;Not implemented: ForClause is not implemented yet.
+abbreviatedSyntax-13;Not implemented: ForClause is not implemented yet.
+abbreviatedSyntax-14;Not implemented: ForClause is not implemented yet.
 abbreviatedSyntax-16;Not implemented: ForClause is not implemented yet.
 abbreviatedSyntax-17;Not implemented: ForClause is not implemented yet.
 abbreviatedSyntax-18;Not implemented: ForClause is not implemented yet.
@@ -19,7 +19,7 @@ abbreviatedSyntax-5;Not implemented: ForClause is not implemented yet.
 abbreviatedSyntax-6;Not implemented: ForClause is not implemented yet.
 abbreviatedSyntax-7;Not implemented: ForClause is not implemented yet.
 abbreviatedSyntax-8;Expected XPath /works/employee[5]/hours[2] to resolve to 30
-abbreviatedSyntax-9;The given key 'URI' was not present in the dictionary.
+abbreviatedSyntax-9;Not implemented: ForClause is not implemented yet.
 ancestor-1;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
 ancestor-10;NodeAfterOp AST to Expression not yet implemented
 ancestor-13;IntersectOp AST to Expression not yet implemented
@@ -309,7 +309,7 @@ ArrowPostfix-021;PRSC Error: Failed to parse query 'deep-equal((2=>(map{1:2, 2:4
 ArrowPostfix-022;PRSC Error: Failed to parse query 'deep-equal((let $array:= ['a','b','c','d','e'] return 3=>$array()), ('c'))'
 ArrowPostfix-023;PRSC Error: Failed to parse query 'deep-equal((3=>(['a','b','c','d','e'])()), ('c'))'
 ArrowPostfix-025;Expected error code: XPTY0004. Found error code: XPST0081 with error message: Could not resolve namespace for prefix  using in a for expression
-ArrowPostfix-026;The given key 'URI' was not present in the dictionary.
+ArrowPostfix-026;Expected XPath //hours => count() to resolve to 16
 ArrowPostfix-027;Skipped test, it was a assert-permutation
 ArrowPostfix-028;Skipped test, it was a assert-permutation
 ArrowPostfix-029;Skipped test, it was a assert-permutation
@@ -325,183 +325,131 @@ ArrowPostfix-107;PRSC Error: Failed to parse query '1 => ([2,3],[4,5][6])() = 2'
 ArrowPostfix-108;Object reference not set to an instance of an object.
 ArrowPostfix-109;PRSC Error: Failed to parse query 'let $days := map{"Mo": "Monday", "Tu": "Tuesday"} return "Tu" => $days() = "Tuesday"'
 ArrowPostfix-110;PRSC Error: Failed to parse query '"Tu" => (map{"Mo": "Monday", "Tu": "Tuesday"})() = "Tuesday"'
-Axes001-1;The given key 'URI' was not present in the dictionary.
-Axes001-2;The given key 'URI' was not present in the dictionary.
-Axes001-3;The given key 'URI' was not present in the dictionary.
-Axes002-1;The given key 'URI' was not present in the dictionary.
-Axes002-2;The given key 'URI' was not present in the dictionary.
-Axes002-3;The given key 'URI' was not present in the dictionary.
-Axes002-4;The given key 'URI' was not present in the dictionary.
-Axes003-1;The given key 'URI' was not present in the dictionary.
-Axes003-2;The given key 'URI' was not present in the dictionary.
-Axes003-3;The given key 'URI' was not present in the dictionary.
-Axes003-4;The given key 'URI' was not present in the dictionary.
-Axes004-1;The given key 'URI' was not present in the dictionary.
-Axes004-2;The given key 'URI' was not present in the dictionary.
-Axes004-3;The given key 'URI' was not present in the dictionary.
-Axes005-1;The given key 'URI' was not present in the dictionary.
-Axes005-2;The given key 'URI' was not present in the dictionary.
-Axes005-3;The given key 'URI' was not present in the dictionary.
-Axes005-4;The given key 'URI' was not present in the dictionary.
-Axes006-1;The given key 'URI' was not present in the dictionary.
-Axes006-2;The given key 'URI' was not present in the dictionary.
-Axes006-3;The given key 'URI' was not present in the dictionary.
-Axes006-4;The given key 'URI' was not present in the dictionary.
-Axes007-1;The given key 'URI' was not present in the dictionary.
-Axes007-2;The given key 'URI' was not present in the dictionary.
-Axes007-3;The given key 'URI' was not present in the dictionary.
-Axes008-1;The given key 'URI' was not present in the dictionary.
-Axes008-2;The given key 'URI' was not present in the dictionary.
-Axes008-3;The given key 'URI' was not present in the dictionary.
-Axes009-1;The given key 'URI' was not present in the dictionary.
-Axes009-2;The given key 'URI' was not present in the dictionary.
-Axes009-3;The given key 'URI' was not present in the dictionary.
-Axes010-1;The given key 'URI' was not present in the dictionary.
-Axes010-2;The given key 'URI' was not present in the dictionary.
-Axes010-3;The given key 'URI' was not present in the dictionary.
-Axes011-1;The given key 'URI' was not present in the dictionary.
-Axes011-2;The given key 'URI' was not present in the dictionary.
-Axes011-3;The given key 'URI' was not present in the dictionary.
+Axes001-2;Expected XPath fn:count(//center/child::*) to resolve to 1
+Axes001-3;Expected XPath fn:count(//center/child::*) to resolve to 6
+Axes002-3;Expected XPath fn:count(//center/child::south-east) to resolve to 1
+Axes002-4;Expected XPath fn:count(//center/child::south-east) to resolve to 2
+Axes003-2;Expected XPath fn:count(//center/child::node()) to resolve to 1
+Axes003-3;Expected XPath fn:count(//center/child::node()) to resolve to 1
+Axes003-4;Expected XPath fn:count(//center/child::node()) to resolve to 19
+Axes004-2;Expected XPath fn:count(//center/*) to resolve to 1
+Axes004-3;Expected XPath fn:count(//center/*) to resolve to 6
+Axes005-3;Expected XPath fn:count(//center/south-east) to resolve to 1
+Axes005-4;Expected XPath fn:count(//center/south-east) to resolve to 2
+Axes006-2;Expected XPath fn:count(//center/node()) to resolve to 1
+Axes006-3;Expected XPath fn:count(//center/node()) to resolve to 1
+Axes006-4;Expected XPath fn:count(//center/node()) to resolve to 19
+Axes007-2;Expected XPath fn:count(//west/attribute::*) to resolve to 1
+Axes007-3;Expected XPath fn:count(//west/attribute::*) to resolve to 4
+Axes008-3;Expected XPath fn:count(//west/attribute::west-attr-2) to resolve to 1
+Axes009-2;Expected XPath fn:count(//west/attribute::node()) to resolve to 1
+Axes009-3;Expected XPath fn:count(//west/attribute::node()) to resolve to 4
+Axes010-2;Expected XPath fn:count(//west/@*) to resolve to 1
+Axes010-3;Expected XPath fn:count(//west/@*) to resolve to 4
+Axes011-3;Expected XPath fn:count(//west/@west-attr-2) to resolve to 1
 Axes012-1;Expected XPath fn:count( / ) to resolve to 1
-Axes013-1;The given key 'URI' was not present in the dictionary.
-Axes015-1;The given key 'URI' was not present in the dictionary.
-Axes016-1;The given key 'URI' was not present in the dictionary.
-Axes017-1;The given key 'URI' was not present in the dictionary.
-Axes018-1;The given key 'URI' was not present in the dictionary.
-Axes019-1;The given key 'URI' was not present in the dictionary.
-Axes020-1;The given key 'URI' was not present in the dictionary.
-Axes021-1;The given key 'URI' was not present in the dictionary.
-Axes023-1;The given key 'URI' was not present in the dictionary.
-Axes027-1;The given key 'URI' was not present in the dictionary.
-Axes030-1;The given key 'URI' was not present in the dictionary.
-Axes030-2;The given key 'URI' was not present in the dictionary.
-Axes031-1;The given key 'URI' was not present in the dictionary.
-Axes031-2;The given key 'URI' was not present in the dictionary.
-Axes031-3;The given key 'URI' was not present in the dictionary.
-Axes031-4;The given key 'URI' was not present in the dictionary.
-Axes032-1;The given key 'URI' was not present in the dictionary.
-Axes032-2;The given key 'URI' was not present in the dictionary.
-Axes032-3;The given key 'URI' was not present in the dictionary.
-Axes032-4;The given key 'URI' was not present in the dictionary.
-Axes033-1;The given key 'URI' was not present in the dictionary.
-Axes033-2;The given key 'URI' was not present in the dictionary.
-Axes033-3;The given key 'URI' was not present in the dictionary.
-Axes033-4;The given key 'URI' was not present in the dictionary.
-Axes034-1;The given key 'URI' was not present in the dictionary.
-Axes034-2;The given key 'URI' was not present in the dictionary.
-Axes035-1;The given key 'URI' was not present in the dictionary.
-Axes035-2;The given key 'URI' was not present in the dictionary.
-Axes035-3;The given key 'URI' was not present in the dictionary.
-Axes035-4;The given key 'URI' was not present in the dictionary.
-Axes036-1;The given key 'URI' was not present in the dictionary.
-Axes036-2;The given key 'URI' was not present in the dictionary.
-Axes037-1;The given key 'URI' was not present in the dictionary.
-Axes037-2;The given key 'URI' was not present in the dictionary.
-Axes041-1;The given key 'URI' was not present in the dictionary.
-Axes043-1;The given key 'URI' was not present in the dictionary.
-Axes043-2;The given key 'URI' was not present in the dictionary.
+Axes013-1;Expected XPath fn:count(//center/parent::*) to resolve to 1
+Axes015-1;Expected XPath fn:count(//center/parent::near-north) to resolve to 1
+Axes017-1;Expected XPath fn:count(//center/parent::node()) to resolve to 1
+Axes018-1;Expected XPath fn:count(/far-north/parent::node()) to resolve to 1
+Axes019-1;Expected XPath fn:count(//center/..) to resolve to 1
+Axes020-1;Expected XPath fn:count(//center/self::*) to resolve to 1
+Axes021-1;Expected XPath fn:count(//center/self::center) to resolve to 1
+Axes030-1;Expected XPath fn:count(//center/text()/self::node()) to resolve to 0
+Axes031-3;Expected XPath fn:count(//center/descendant::*) to resolve to 1
+Axes031-4;Expected XPath fn:count(//center/descendant::*) to resolve to 5
+Axes032-3;Expected XPath fn:count(//center/descendant::south) to resolve to 1
+Axes032-4;Expected XPath fn:count(//center/descendant::south) to resolve to 8
+Axes033-2;Expected XPath fn:count(//center/descendant::node()) to resolve to 1
+Axes033-3;Expected XPath fn:count(//center/descendant::node()) to resolve to 1
+Axes033-4;Expected XPath fn:count(//center/descendant::node()) to resolve to 21
+Axes034-1;Expected XPath fn:count(//center/descendant-or-self::*) to resolve to 1
+Axes034-2;Expected XPath fn:count(//center/descendant-or-self::*) to resolve to 6
+Axes035-3;Expected XPath fn:count(//center/descendant-or-self::south) to resolve to 1
+Axes035-4;Expected XPath fn:count(//center/descendant-or-self::south) to resolve to 8
+Axes036-1;Expected XPath fn:count(//center/descendant-or-self::center) to resolve to 1
+Axes036-2;Expected XPath fn:count(//center/descendant-or-self::center) to resolve to 9
+Axes037-2;Expected XPath fn:count(//center/descendant-or-self::node()) to resolve to 22
+Axes043-1;Expected XPath fn:count(//center/text()/descendant-or-self::node()) to resolve to 0
 Axes044-1;Expected XPath fn:count(/child::*) to resolve to 1
 Axes044-2;Expected XPath fn:count(/child::*) to resolve to 1
 Axes045-2;Expected XPath fn:count(/child::far-north) to resolve to 1
-Axes046-1;The given key 'URI' was not present in the dictionary.
-Axes046-2;The given key 'URI' was not present in the dictionary.
+Axes046-1;Expected XPath fn:count(/child::node()) to resolve to 1
+Axes046-2;Expected XPath fn:count(/child::node()) to resolve to 7
 Axes047-1;Expected XPath fn:count(/*) to resolve to 1
 Axes047-2;Expected XPath fn:count(/*) to resolve to 1
 Axes048-2;Expected XPath fn:count(/far-north) to resolve to 1
-Axes049-1;The given key 'URI' was not present in the dictionary.
-Axes049-2;The given key 'URI' was not present in the dictionary.
-Axes055-1;The given key 'URI' was not present in the dictionary.
+Axes049-1;Expected XPath fn:count(/node()) to resolve to 1
+Axes049-2;Expected XPath fn:count(/node()) to resolve to 7
 Axes056-1;Expected XPath fn:count(/descendant::*) to resolve to 1
 Axes056-2;Expected XPath fn:count(/descendant::*) to resolve to 15
 Axes056-3;Expected XPath fn:count(/descendant::*) to resolve to 16
 Axes057-2;Expected XPath fn:count(/descendant::south) to resolve to 1
 Axes057-3;Expected XPath fn:count(/descendant::south) to resolve to 1
 Axes057-4;Expected XPath fn:count(/descendant::south) to resolve to 8
-Axes058-1;The given key 'URI' was not present in the dictionary.
-Axes058-2;The given key 'URI' was not present in the dictionary.
-Axes058-3;The given key 'URI' was not present in the dictionary.
+Axes058-1;Expected XPath fn:count(/descendant::node()) to resolve to 1
+Axes058-2;Expected XPath fn:count(/descendant::node()) to resolve to 56
+Axes058-3;Expected XPath fn:count(/descendant::node()) to resolve to 58
 Axes059-1;Expected XPath fn:count(/descendant-or-self::*) to resolve to 1
 Axes059-2;Expected XPath fn:count(/descendant-or-self::*) to resolve to 15
 Axes060-2;Expected XPath fn:count(/descendant-or-self::south) to resolve to 1
 Axes060-3;Expected XPath fn:count(/descendant-or-self::south) to resolve to 1
 Axes060-4;Expected XPath fn:count(/descendant-or-self::south) to resolve to 8
-Axes061-1;The given key 'URI' was not present in the dictionary.
-Axes061-2;The given key 'URI' was not present in the dictionary.
-Axes062-1;The given key 'URI' was not present in the dictionary.
-Axes062-2;The given key 'URI' was not present in the dictionary.
-Axes063-1;The given key 'URI' was not present in the dictionary.
-Axes063-2;The given key 'URI' was not present in the dictionary.
-Axes063-3;The given key 'URI' was not present in the dictionary.
-Axes063-4;The given key 'URI' was not present in the dictionary.
-Axes064-1;The given key 'URI' was not present in the dictionary.
-Axes064-2;The given key 'URI' was not present in the dictionary.
-Axes064-3;The given key 'URI' was not present in the dictionary.
-Axes065-1;The given key 'URI' was not present in the dictionary.
-Axes065-2;The given key 'URI' was not present in the dictionary.
-Axes066-1;The given key 'URI' was not present in the dictionary.
-Axes066-2;The given key 'URI' was not present in the dictionary.
-Axes066-3;The given key 'URI' was not present in the dictionary.
-Axes066-4;The given key 'URI' was not present in the dictionary.
-Axes067-1;The given key 'URI' was not present in the dictionary.
-Axes067-2;The given key 'URI' was not present in the dictionary.
-Axes067-3;The given key 'URI' was not present in the dictionary.
-Axes068-1;The given key 'URI' was not present in the dictionary.
-Axes068-2;The given key 'URI' was not present in the dictionary.
-Axes068-3;The given key 'URI' was not present in the dictionary.
-Axes069-1;The given key 'URI' was not present in the dictionary.
-Axes069-2;The given key 'URI' was not present in the dictionary.
-Axes069-3;The given key 'URI' was not present in the dictionary.
-Axes070-1;The given key 'URI' was not present in the dictionary.
-Axes070-2;The given key 'URI' was not present in the dictionary.
-Axes070-3;The given key 'URI' was not present in the dictionary.
-Axes071-1;The given key 'URI' was not present in the dictionary.
-Axes071-2;The given key 'URI' was not present in the dictionary.
-Axes071-3;The given key 'URI' was not present in the dictionary.
-Axes072-1;The given key 'URI' was not present in the dictionary.
-Axes072-2;The given key 'URI' was not present in the dictionary.
-Axes073-1;The given key 'URI' was not present in the dictionary.
-Axes073-2;The given key 'URI' was not present in the dictionary.
-Axes074-1;The given key 'URI' was not present in the dictionary.
-Axes074-2;The given key 'URI' was not present in the dictionary.
-Axes074-3;The given key 'URI' was not present in the dictionary.
-Axes074-4;The given key 'URI' was not present in the dictionary.
-Axes075-1;The given key 'URI' was not present in the dictionary.
-Axes075-2;The given key 'URI' was not present in the dictionary.
-Axes075-3;The given key 'URI' was not present in the dictionary.
-Axes075-4;The given key 'URI' was not present in the dictionary.
-Axes076-1;The given key 'URI' was not present in the dictionary.
-Axes076-2;The given key 'URI' was not present in the dictionary.
-Axes076-3;The given key 'URI' was not present in the dictionary.
-Axes076-4;The given key 'URI' was not present in the dictionary.
-Axes077-1;The given key 'URI' was not present in the dictionary.
-Axes077-2;The given key 'URI' was not present in the dictionary.
-Axes077-3;The given key 'URI' was not present in the dictionary.
-Axes078-1;The given key 'URI' was not present in the dictionary.
-Axes078-2;The given key 'URI' was not present in the dictionary.
-Axes078-3;The given key 'URI' was not present in the dictionary.
-Axes078-4;The given key 'URI' was not present in the dictionary.
-Axes079-1;The given key 'URI' was not present in the dictionary.
-Axes079-2;The given key 'URI' was not present in the dictionary.
-Axes079-3;The given key 'URI' was not present in the dictionary.
-Axes079-4;The given key 'URI' was not present in the dictionary.
-Axes080-1;The given key 'URI' was not present in the dictionary.
-Axes080-2;The given key 'URI' was not present in the dictionary.
-Axes080-3;The given key 'URI' was not present in the dictionary.
-Axes081-1;The given key 'URI' was not present in the dictionary.
-Axes081-2;The given key 'URI' was not present in the dictionary.
-Axes081-3;The given key 'URI' was not present in the dictionary.
-Axes081-4;The given key 'URI' was not present in the dictionary.
-Axes082-1;The given key 'URI' was not present in the dictionary.
-Axes082-2;The given key 'URI' was not present in the dictionary.
-Axes082-3;The given key 'URI' was not present in the dictionary.
-Axes083-1;The given key 'URI' was not present in the dictionary.
-Axes083-2;The given key 'URI' was not present in the dictionary.
-Axes083-3;The given key 'URI' was not present in the dictionary.
-Axes084-1;The given key 'URI' was not present in the dictionary.
-Axes084-2;The given key 'URI' was not present in the dictionary.
-Axes084-3;The given key 'URI' was not present in the dictionary.
-Axes084-4;The given key 'URI' was not present in the dictionary.
-Axes084-5;The given key 'URI' was not present in the dictionary.
+Axes061-1;Expected XPath fn:count(/descendant-or-self::node()) to resolve to 57
+Axes061-2;Expected XPath fn:count(/descendant-or-self::node()) to resolve to 59
+Axes062-1;Expected XPath fn:count(//child::*) to resolve to 1
+Axes062-2;Expected XPath fn:count(//child::*) to resolve to 15
+Axes063-2;Expected XPath fn:count(//child::south) to resolve to 1
+Axes063-3;Expected XPath fn:count(//child::south) to resolve to 1
+Axes063-4;Expected XPath fn:count(//child::south) to resolve to 8
+Axes064-1;Expected XPath fn:count(//child::node()) to resolve to 1
+Axes064-2;Expected XPath fn:count(//child::node()) to resolve to 56
+Axes064-3;Expected XPath fn:count(//child::node()) to resolve to 58
+Axes065-1;Expected XPath fn:count(//*) to resolve to 1
+Axes065-2;Expected XPath fn:count(//*) to resolve to 15
+Axes066-2;Expected XPath fn:count(//south) to resolve to 1
+Axes066-3;Expected XPath fn:count(//south) to resolve to 1
+Axes066-4;Expected XPath fn:count(//south) to resolve to 8
+Axes067-1;Expected XPath fn:count(//node()) to resolve to 1
+Axes067-2;Expected XPath fn:count(//node()) to resolve to 56
+Axes067-3;Expected XPath fn:count(//node()) to resolve to 58
+Axes068-2;Expected XPath fn:count(//attribute::*) to resolve to 1
+Axes068-3;Expected XPath fn:count(//attribute::*) to resolve to 14
+Axes069-2;Expected XPath fn:count(//attribute::mark) to resolve to 1
+Axes069-3;Expected XPath fn:count(//attribute::mark) to resolve to 6
+Axes070-2;Expected XPath fn:count(//@*) to resolve to 1
+Axes070-3;Expected XPath fn:count(//@*) to resolve to 14
+Axes071-2;Expected XPath fn:count(//@mark) to resolve to 1
+Axes071-3;Expected XPath fn:count(//@mark) to resolve to 6
+Axes072-1;Expected XPath fn:count(//self::*) to resolve to 1
+Axes072-2;Expected XPath fn:count(//self::*) to resolve to 15
+Axes073-1;Expected XPath fn:count(//self::node()) to resolve to 57
+Axes073-2;Expected XPath fn:count(//self::node()) to resolve to 59
+Axes074-3;Expected XPath fn:count(//center//child::*) to resolve to 1
+Axes074-4;Expected XPath fn:count(//center//child::*) to resolve to 12
+Axes075-3;Expected XPath fn:count(//center//child::south) to resolve to 1
+Axes075-4;Expected XPath fn:count(//center//child::south) to resolve to 8
+Axes076-2;Expected XPath fn:count(//center//child::node()) to resolve to 1
+Axes076-3;Expected XPath fn:count(//center//child::node()) to resolve to 1
+Axes076-4;Expected XPath fn:count(//center//child::node()) to resolve to 37
+Axes077-2;Expected XPath fn:count(//center//*) to resolve to 1
+Axes077-3;Expected XPath fn:count(//center//*) to resolve to 12
+Axes078-3;Expected XPath fn:count(//center//south) to resolve to 1
+Axes078-4;Expected XPath fn:count(//center//south) to resolve to 8
+Axes079-2;Expected XPath fn:count(//center//node()) to resolve to 1
+Axes079-3;Expected XPath fn:count(//center//node()) to resolve to 1
+Axes079-4;Expected XPath fn:count(//center//node()) to resolve to 37
+Axes080-2;Expected XPath fn:count(//west//attribute::*) to resolve to 1
+Axes080-3;Expected XPath fn:count(//west//attribute::*) to resolve to 4
+Axes081-3;Expected XPath fn:count(//center//attribute::center-attr-2) to resolve to 1
+Axes081-4;Expected XPath fn:count(//center//attribute::center-attr-2) to resolve to 4
+Axes082-2;Expected XPath fn:count(//west//attribute::node()) to resolve to 1
+Axes082-3;Expected XPath fn:count(//west//attribute::node()) to resolve to 4
+Axes083-2;Expected XPath fn:count(//west//@*) to resolve to 1
+Axes083-3;Expected XPath fn:count(//west//@*) to resolve to 4
+Axes084-3;Expected XPath fn:count(//center//@center-attr-2) to resolve to 1
+Axes084-4;Expected XPath fn:count(//center//@center-attr-2) to resolve to 4
+Axes084-5;Expected XPath fn:count(//text()[normalize-space()]) to resolve to 827
 Axes085;PRSC Error: Failed to parse query ''
 Axes086;PRSC Error: Failed to parse query ''
 Axes087;PRSC Error: Failed to parse query ''
@@ -611,14 +559,13 @@ base64BinaryEqual-6;Type casting to XsBase64Binary has not been implemented yet.
 base64BinaryEqual-7;Type casting to XsBase64Binary has not been implemented yet.
 base64BinaryEqual-8;Type casting to XsBase64Binary has not been implemented yet.
 base64BinaryEqual-9;Type casting to XsBase64Binary has not been implemented yet.
-boolean-001;The given key 'URI' was not present in the dictionary.
-boolean-002;The given key 'URI' was not present in the dictionary.
+boolean-001;Expected XPath boolean(//*:Open) to resolve to true
 boolean-003;Can't parse 93.7 into an int.
 boolean-004;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 boolean-005;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 boolean-006;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 boolean-007;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsBoolean, value: True] into an bool.
-boolean-008;The given key 'URI' was not present in the dictionary.
+boolean-008;Expected XPath boolean((true(), //aspidistra)) to resolve to true
 boolean-009;SingletonSequence.Map not implemented
 boolean-010;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'boolean([true()])'
 boolean-010b;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:boolean([])'
@@ -4208,7 +4155,7 @@ Constr-cont-data-1;PRSC Error: Failed to parse query ''
 Constr-cont-doc-1;PRSC Error: Failed to parse query ''
 Constr-cont-document-1;PRSC Error: Failed to parse query ' = 3'
 Constr-cont-document-2;PRSC Error: Failed to parse query ' = 3'
-Constr-cont-document-3;The given key 'URI' was not present in the dictionary.
+Constr-cont-document-3;Could not resolve namespace for prefix  using in a for expression
 Constr-cont-document-4;PRSC Error: Failed to parse query ' = 3'
 Constr-cont-document-5;PRSC Error: Failed to parse query 'count( document {'abc', 'def', document {'ghi', 'jkl'}, 'mno' } /node() ) = 1'
 Constr-cont-enclexpr-1;PRSC Error: Failed to parse query ' = 1'
@@ -4453,20 +4400,17 @@ contextDecl-057;Expected error code: XPTY0004. Found error code: XPST0003 with e
 contextDecl-058;PRSC Error: Failed to parse query '\n      import module namespace m="http://www.w3.org/TestModules/libmodule5";\n      declare context item as array(xs:string) external;\n      $m:v eq 'green'\n    '
 contextDecl-059;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      declare context item := 15 to 25;\n      . = 17\n    '
 contextDecl-060;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      declare context item := ();\n      . = 17\n    '
-Count001;The given key 'URI' was not present in the dictionary.
+Count001;Expected XPath count(//employee[@name='John Doe 4']) = 1 to resolve to true
 Count002;PRSC Error: Failed to parse query ''
-Count003;The given key 'URI' was not present in the dictionary.
-Count004;The given key 'URI' was not present in the dictionary.
-Count005;The given key 'URI' was not present in the dictionary.
-Count006;The given key 'URI' was not present in the dictionary.
-Count007;The given key 'URI' was not present in the dictionary.
-Count008;The given key 'URI' was not present in the dictionary.
-Count009;The given key 'URI' was not present in the dictionary.
-Count010;The given key 'URI' was not present in the dictionary.
-Count011;The given key 'URI' was not present in the dictionary.
-Count012;The given key 'URI' was not present in the dictionary.
-Count013;The given key 'URI' was not present in the dictionary.
-Count014;The given key 'URI' was not present in the dictionary.
+Count003;Expected XPath count(//employee[@name='John Doe 4']) > 0 to resolve to true
+Count004;Can't parse 0.5 into an int.
+Count005;Can't parse 1.5 into an int.
+Count006;Expected XPath count(//*[@name='John Doe 4']) eq 0 to resolve to false
+Count008;Can't parse 1000000000000 into an int.
+Count010;Can't parse 0.3 into an int.
+Count011;Expected XPath count(//node()) gt 40 to resolve to true
+Count013;Expected XPath 0 = count(//node()) to resolve to false
+Count014;Expected XPath 40 gt count(//node()) to resolve to false
 Count015;Not implemented: ForClause is not implemented yet.
 CurlyArray-002;PRSC Error: Failed to parse query '(array{}) instance of $array(*)'
 CurlyArray-004;PRSC Error: Failed to parse query 'array:size(array{(), ('A', 'B', 'C'), 'D'}) = 4'
@@ -4972,8 +4916,6 @@ filterexpressionhc20;Can't parse <Value>[type: XsInt, value: 2] into an int.
 filterexpressionhc21;Can't parse <Value>[type: XsInt, value: 2] into an int.
 filterexpressionhc22;Expected executing the XPath "fn:count(((1,2,3,4,5,6,7,8,9,10,11)[fn:false()]))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:count(((1,2,3,4,5,6,7,8,9,10,11)[fn:false()])) to resolve to 0
 filterexpressionhc3;Casting AbstractValue(XsInt) to UntypedAtomicValue
-filterexpressionhc4;The given key 'URI' was not present in the dictionary.
-filterexpressionhc5;The given key 'URI' was not present in the dictionary.
 filterexpressionhc6;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc7;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc8;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -6827,8 +6769,8 @@ fn-has-children-032;Expected XPath /root/non-empty/fn:has-children() to resolve 
 fn-has-children-033;Expected XPath fn:has-children( /root/non-empty ) to resolve to true
 fn-has-children-034;Expected XPath /fn:has-children() to resolve to true
 fn-has-children-035;Expected XPath fn:has-children( / ) to resolve to true
-fn-has-children-036;The given key 'URI' was not present in the dictionary.
-fn-has-children-037;The given key 'URI' was not present in the dictionary.
+fn-has-children-036;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
+fn-has-children-037;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 fn-hours-from-dateTime-1;The function fn:hours-from-dateTime with arity 1 is not registered.
 fn-hours-from-dateTime-10;The function fn:hours-from-dateTime with arity 1 is not registered.
 fn-hours-from-dateTime-11;The function fn:hours-from-dateTime with arity 1 is not registered.
@@ -6971,19 +6913,19 @@ fn-idref-dtd-13;IsOp AST to Expression not yet implemented
 fn-idref-dtd-14;IsOp AST to Expression not yet implemented
 fn-idref-dtd-15;The function fn:idref with arity 2 is not registered.
 fn-idref-dtd-16;The function fn:idref with arity 2 is not registered.
-fn-idref-dtd-17;The given key 'URI' was not present in the dictionary.
-fn-idref-dtd-18;The given key 'URI' was not present in the dictionary.
-fn-idref-dtd-19;The given key 'URI' was not present in the dictionary.
-fn-idref-dtd-20;The given key 'URI' was not present in the dictionary.
-fn-idref-dtd-21;The given key 'URI' was not present in the dictionary.
+fn-idref-dtd-17;The function fn:idref with arity 2 is not registered.
+fn-idref-dtd-18;The function fn:idref with arity 2 is not registered.
+fn-idref-dtd-19;The function fn:idref with arity 2 is not registered.
+fn-idref-dtd-20;The function fn:idref with arity 2 is not registered.
+fn-idref-dtd-21;The function fn:idref with arity 2 is not registered.
 fn-idref-dtd-23;PRSC Error: Failed to parse query ''
 fn-idref-dtd-24;PRSC Error: Failed to parse query ''
-fn-idref-dtd-25;The given key 'URI' was not present in the dictionary.
-fn-idref-dtd-5;The given key 'URI' was not present in the dictionary.
+fn-idref-dtd-25;The function fn:idref with arity 1 is not registered.
+fn-idref-dtd-5;The function fn:idref with arity 2 is not registered.
 fn-idref-dtd-6;The function fn:idref with arity 2 is not registered.
-fn-idref-dtd-7;The given key 'URI' was not present in the dictionary.
+fn-idref-dtd-7;The function fn:idref with arity 2 is not registered.
 fn-idref-dtd-8;Expected error code: XQDY0025. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-fn-idref-dtd-9;The given key 'URI' was not present in the dictionary.
+fn-idref-dtd-9;The function fn:idref with arity 2 is not registered.
 fn-implicit-timezone-10;Expected error code: FOCA0005. Found error code: XPST0017 with error message: The function fn:implicit-timezone with arity 0 is not registered.
 fn-implicit-timezone-11;Expected error code: FODT0002. Found error code: XPST0017 with error message: The function fn:implicit-timezone with arity 0 is not registered.
 fn-implicit-timezone-12;Expected error code: FODT0002. Found error code: XPST0017 with error message: The function fn:implicit-timezone with arity 0 is not registered.
@@ -7040,7 +6982,6 @@ fn-innermost-011;Expected error code: XPTY0004. Found error code: XPST0003 with 
 fn-innermost-012;Value was either too large or too small for an Int32.
 fn-innermost-014;Value was either too large or too small for an Int32.
 fn-innermost-015;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //*/@* ) ! string()), (('0a','00a','000a','01a','010a','02a','020a')))'
-fn-innermost-016;The given key 'URI' was not present in the dictionary.
 fn-innermost-017;Value was either too large or too small for an Int32.
 fn-innermost-018;Skipped test, it was a assert-permutation
 fn-innermost-019;Skipped test, it was a assert-permutation
@@ -7049,39 +6990,35 @@ fn-innermost-021;Skipped test, it was a assert-permutation
 fn-innermost-022;PRSC Error: Failed to parse query 'fn:deep-equal( fn:innermost( //*/namespace::* ),\n                           //*/namespace::* )'
 fn-innermost-023;Value was either too large or too small for an Int32.
 fn-innermost-024;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //processing-instruction() ) ! local-name() ), (('level-0','level-00','level-000','level-01','level-010','level-02','level-020')))'
-fn-innermost-025;The given key 'URI' was not present in the dictionary.
 fn-innermost-026;Value was either too large or too small for an Int32.
 fn-innermost-027;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //comment() ) ! string()), (('0c','00c','000c','01c','010c','02c','020c')))'
-fn-innermost-028;The given key 'URI' was not present in the dictionary.
 fn-innermost-029;Value was either too large or too small for an Int32.
 fn-innermost-030;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //text() ) ! string() ), (('0t',' ',\n                         '00t',' ','000t',' ',\n                         '01t',' ','010t',' ',\n                         '02t',' ','020t',' ')))'
-fn-innermost-031;The given key 'URI' was not present in the dictionary.
 fn-innermost-032;Value was either too large or too small for an Int32.
 fn-innermost-033;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //* ) ! local-name(.)), (('empty-level-0',   'non-empty-level-0',\n                         'empty-level-00',  'non-empty-level-00',\n                         'empty-level-000', 'non-empty-level-000',\n                         'empty-level-01',  'non-empty-level-01',\n                         'empty-level-010', 'non-empty-level-010',\n                         'empty-level-02',  'non-empty-level-02',\n                         'empty-level-020', 'non-empty-level-020')))'
-fn-innermost-034;The given key 'URI' was not present in the dictionary.
+fn-innermost-034;ExceptOp AST to Expression not yet implemented
 fn-innermost-035;Value was either too large or too small for an Int32.
-fn-innermost-036;The given key 'URI' was not present in the dictionary.
+fn-innermost-036;ExceptOp AST to Expression not yet implemented
 fn-innermost-037;Value was either too large or too small for an Int32.
-fn-innermost-038;The given key 'URI' was not present in the dictionary.
+fn-innermost-038;ExceptOp AST to Expression not yet implemented
 fn-innermost-039;Value was either too large or too small for an Int32.
-fn-innermost-040;The given key 'URI' was not present in the dictionary.
+fn-innermost-040;ExceptOp AST to Expression not yet implemented
 fn-innermost-041;Value was either too large or too small for an Int32.
-fn-innermost-042;The given key 'URI' was not present in the dictionary.
+fn-innermost-042;ExceptOp AST to Expression not yet implemented
 fn-innermost-043;Value was either too large or too small for an Int32.
-fn-innermost-044;The given key 'URI' was not present in the dictionary.
+fn-innermost-044;ExceptOp AST to Expression not yet implemented
 fn-innermost-045;Value was either too large or too small for an Int32.
-fn-innermost-046;The given key 'URI' was not present in the dictionary.
+fn-innermost-046;ExceptOp AST to Expression not yet implemented
 fn-innermost-047;Value was either too large or too small for an Int32.
-fn-innermost-048;The given key 'URI' was not present in the dictionary.
+fn-innermost-048;ExceptOp AST to Expression not yet implemented
 fn-innermost-049;Value was either too large or too small for an Int32.
-fn-innermost-050;The given key 'URI' was not present in the dictionary.
+fn-innermost-050;ExceptOp AST to Expression not yet implemented
 fn-innermost-051;Value was either too large or too small for an Int32.
-fn-innermost-052;The given key 'URI' was not present in the dictionary.
+fn-innermost-052;ExceptOp AST to Expression not yet implemented
 fn-innermost-053;Value was either too large or too small for an Int32.
-fn-innermost-054;The given key 'URI' was not present in the dictionary.
-fn-innermost-055;The given key 'URI' was not present in the dictionary.
-fn-innermost-056;The given key 'URI' was not present in the dictionary.
-fn-innermost-057;The given key 'URI' was not present in the dictionary.
+fn-innermost-054;ExceptOp AST to Expression not yet implemented
+fn-innermost-055;Use of XQuery FLWOR expressions in XPath is no allowed
+fn-innermost-056;Use of XQuery FLWOR expressions in XPath is no allowed
 fn-innermost-058;ExceptOp AST to Expression not yet implemented
 fn-innermost-059;Value was either too large or too small for an Int32.
 fn-insert-before-mix-args-001;The function fn:insert-before with arity 3 is not registered.
@@ -7134,7 +7071,7 @@ fn-iri-to-uri1args-1;Expected XPath iri-to-uri("http://www.example.com/00/Weathe
 fn-iri-to-uri1args-2;Expected XPath iri-to-uri("http://www.example.com/~bébé") to resolve to http://www.example.com/~b%C3%A9b%C3%A9
 fn-iri-to-uri1args-5;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to StringValue
 fn-local-name-from-qname-022;The function fn:local-name-from-QName with arity 1 is not registered.
-fn-local-name-from-qname-023;The given key 'URI' was not present in the dictionary.
+fn-local-name-from-qname-023;The function fn:local-name-from-QName with arity 1 is not registered.
 fn-local-name-from-qname-024;The function fn:local-name-from-QName with arity 1 is not registered.
 fn-lower-case-1;SingletonSequence.Map not implemented
 fn-lower-case-10;SingletonSequence.Map not implemented
@@ -7205,7 +7142,7 @@ fn-matches-47;SingletonSequence.MapAll not implemented
 fn-matches-48;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-49;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-5;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
-fn-matches-50;The given key 'URI' was not present in the dictionary.
+fn-matches-50;Could not resolve namespace for prefix  using in a for expression
 fn-matches-51;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-52;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-53;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
@@ -7613,14 +7550,14 @@ fn-months-from-duration1args-1;The function fn:months-from-duration with arity 1
 fn-months-from-duration1args-2;The function fn:months-from-duration with arity 1 is not registered.
 fn-months-from-duration1args-3;The function fn:months-from-duration with arity 1 is not registered.
 fn-name-1;Object reference not set to an instance of an object.
-fn-name-10;The given key 'URI' was not present in the dictionary.
+fn-name-10;Not implemented: ForClause is not implemented yet.
 fn-name-11;Not implemented: ForClause is not implemented yet.
 fn-name-12;Not implemented: ForClause is not implemented yet.
 fn-name-13;Not implemented: ForClause is not implemented yet.
 fn-name-14;Not implemented: ForClause is not implemented yet.
 fn-name-15;Not implemented: ForClause is not implemented yet.
 fn-name-16;Expected executing the XPath "for $h in (./works/employee[2]) return fn:count(fn:name($h/self::div))" to resolve to one of the expected results, but got System.Exception: Not implemented: ForClause is not implemented yet.
-fn-name-17;The given key 'URI' was not present in the dictionary.
+fn-name-17;Not implemented: ForClause is not implemented yet.
 fn-name-18;Object reference not set to an instance of an object.
 fn-name-19;PRSC Error: Failed to parse query ''
 fn-name-2;Expected XPath (fn:name(./works[1]/employee[1])) to resolve to employee
@@ -7629,14 +7566,14 @@ fn-name-21;Expected XPath (fn:name(./works[1]/employee[1]),fn:name(./works[1]/em
 fn-name-22;Expected XPath fn:count(((fn:name(/works[1]/employee[1]),fn:name(/works[1]/employee[2])))) to resolve to 2
 fn-name-23;Expected error code: XPDY0002. Query succeeded with result: 
 fn-name-24;Expected XPath name(/*) to resolve to ma:AuctionWatchList
-fn-name-25;The given key 'URI' was not present in the dictionary.
-fn-name-26;The given key 'URI' was not present in the dictionary.
+fn-name-25;Expected XPath name((//*:Start)[1]/@*) to resolve to ma:currency
+fn-name-26;Expected XPath name((//@xml:*)[1]) to resolve to xml:lang
 fn-name-27;PRSC Error: Failed to parse query 'name((//namespace::*[.='http://www.w3.org/1999/xlink'])[1])'
-fn-name-28;The given key 'URI' was not present in the dictionary.
-fn-name-29;The given key 'URI' was not present in the dictionary.
+fn-name-28;Expected XPath name((//processing-instruction())[1]) to resolve to xml-stylesheet
+fn-name-29;Expected XPath name((//*[.='1983'])[1]) to resolve to recorded
 fn-name-3;Expected XPath (fn:name(./works[1]/employee[1]/@name)) to resolve to name
-fn-name-30;The given key 'URI' was not present in the dictionary.
-fn-name-31;The given key 'URI' was not present in the dictionary.
+fn-name-30;Expected XPath name((//comment())[1]) = '' to resolve to true
+fn-name-31;Expected XPath name((//text())[1]) = '' to resolve to true
 fn-name-5;Object reference not set to an instance of an object.
 fn-name-6;Not implemented: ForClause is not implemented yet.
 fn-name-7;Expected error code: XPDY0002. Query succeeded with result: 
@@ -7689,7 +7626,7 @@ fn-normalize-space-24;Expected XPathException with code FOTY0012, but got Castin
 fn-normalize-space-25;Value was either too large or too small for an Int32.
 fn-normalize-space-26;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
 fn-normalize-space-9;Value was either too large or too small for an Int32.
-fn-normalize-space0args-1;The given key 'URI' was not present in the dictionary.
+fn-normalize-space0args-1;Object reference not set to an instance of an object.
 fn-normalize-space1args-4;Value was either too large or too small for an Int32.
 fn-not-13;PRSC Error: Failed to parse query ''
 fn-not-14;PRSC Error: Failed to parse query ''
@@ -7697,8 +7634,7 @@ fn-not-18;SingletonSequence.Map not implemented
 fn-not-19;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 fn-not-20;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 fn-not-21;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
-fn-not-22;The given key 'URI' was not present in the dictionary.
-fn-not-23;The given key 'URI' was not present in the dictionary.
+fn-not-23;Expected XPath not(//*) to resolve to false
 fn-not-24;Value was either too large or too small for a Decimal.
 fn-not-25;Value was either too large or too small for a Decimal.
 fn-not-27;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsBoolean, value: True] into an bool.
@@ -7831,7 +7767,6 @@ fn-outermost-011;Expected error code: XPTY0004. Found error code: XPST0003 with 
 fn-outermost-012;Value was either too large or too small for an Int32.
 fn-outermost-014;Value was either too large or too small for an Int32.
 fn-outermost-015;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //*/@* ) ! string()), (('0a','00a','000a','01a','010a','02a','020a')))'
-fn-outermost-016;The given key 'URI' was not present in the dictionary.
 fn-outermost-017;Value was either too large or too small for an Int32.
 fn-outermost-018;Skipped test, it was a assert-permutation
 fn-outermost-019;Skipped test, it was a assert-permutation
@@ -7840,39 +7775,35 @@ fn-outermost-021;Skipped test, it was a assert-permutation
 fn-outermost-022;PRSC Error: Failed to parse query 'fn:deep-equal( fn:outermost( //*/namespace::* ),\n                           //*/namespace::* )'
 fn-outermost-023;Value was either too large or too small for an Int32.
 fn-outermost-024;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //processing-instruction() ) ! local-name() ), (('level-0','level-00','level-000','level-01','level-010','level-02','level-020')))'
-fn-outermost-025;The given key 'URI' was not present in the dictionary.
 fn-outermost-026;Value was either too large or too small for an Int32.
 fn-outermost-027;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //comment() ) ! string()), (('0c','00c','000c','01c','010c','02c','020c')))'
-fn-outermost-028;The given key 'URI' was not present in the dictionary.
 fn-outermost-029;Value was either too large or too small for an Int32.
 fn-outermost-030;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //text() ) ! string() ), (('0t',' ',\n                         '00t',' ','000t',' ',\n                         '01t',' ','010t',' ',\n                         '02t',' ','020t',' ')))'
-fn-outermost-031;The given key 'URI' was not present in the dictionary.
 fn-outermost-032;Value was either too large or too small for an Int32.
 fn-outermost-033;PRSC Error: Failed to parse query 'fn:outermost( //* ) ! local-name(.) = ('root')'
-fn-outermost-034;The given key 'URI' was not present in the dictionary.
+fn-outermost-034;ExceptOp AST to Expression not yet implemented
 fn-outermost-035;Value was either too large or too small for an Int32.
-fn-outermost-036;The given key 'URI' was not present in the dictionary.
+fn-outermost-036;ExceptOp AST to Expression not yet implemented
 fn-outermost-037;Value was either too large or too small for an Int32.
-fn-outermost-038;The given key 'URI' was not present in the dictionary.
+fn-outermost-038;ExceptOp AST to Expression not yet implemented
 fn-outermost-039;Value was either too large or too small for an Int32.
-fn-outermost-040;The given key 'URI' was not present in the dictionary.
+fn-outermost-040;ExceptOp AST to Expression not yet implemented
 fn-outermost-041;Value was either too large or too small for an Int32.
-fn-outermost-042;The given key 'URI' was not present in the dictionary.
+fn-outermost-042;ExceptOp AST to Expression not yet implemented
 fn-outermost-043;Value was either too large or too small for an Int32.
-fn-outermost-044;The given key 'URI' was not present in the dictionary.
+fn-outermost-044;ExceptOp AST to Expression not yet implemented
 fn-outermost-045;Value was either too large or too small for an Int32.
-fn-outermost-046;The given key 'URI' was not present in the dictionary.
+fn-outermost-046;ExceptOp AST to Expression not yet implemented
 fn-outermost-047;Value was either too large or too small for an Int32.
-fn-outermost-048;The given key 'URI' was not present in the dictionary.
+fn-outermost-048;ExceptOp AST to Expression not yet implemented
 fn-outermost-049;Value was either too large or too small for an Int32.
-fn-outermost-050;The given key 'URI' was not present in the dictionary.
+fn-outermost-050;ExceptOp AST to Expression not yet implemented
 fn-outermost-051;Value was either too large or too small for an Int32.
-fn-outermost-052;The given key 'URI' was not present in the dictionary.
+fn-outermost-052;ExceptOp AST to Expression not yet implemented
 fn-outermost-053;Value was either too large or too small for an Int32.
-fn-outermost-054;The given key 'URI' was not present in the dictionary.
-fn-outermost-055;The given key 'URI' was not present in the dictionary.
-fn-outermost-056;The given key 'URI' was not present in the dictionary.
-fn-outermost-057;The given key 'URI' was not present in the dictionary.
+fn-outermost-054;ExceptOp AST to Expression not yet implemented
+fn-outermost-055;Use of XQuery FLWOR expressions in XPath is no allowed
+fn-outermost-056;Use of XQuery FLWOR expressions in XPath is no allowed
 fn-outermost-058;ExceptOp AST to Expression not yet implemented
 fn-parse-json-001;PRSC Error: Failed to parse query 'deep-equal((parse-json("{}")), (map{}))'
 fn-parse-json-002;PRSC Error: Failed to parse query 'deep-equal((parse-json('{"abc":12}', map{'liberal':false()})), (map{"abc":12e0}))'
@@ -8041,7 +7972,7 @@ fn-prefix-from-qname-19;The function fn:prefix-from-QName with arity 1 is not re
 fn-prefix-from-qname-2;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:prefix-from-QName with arity 1 is not registered.
 fn-prefix-from-qname-20;The function fn:prefix-from-QName with arity 1 is not registered.
 fn-prefix-from-qname-21;The function fn:prefix-from-QName with arity 1 is not registered.
-fn-prefix-from-qname-22;The given key 'URI' was not present in the dictionary.
+fn-prefix-from-qname-22;The function fn:prefix-from-QName with arity 1 is not registered.
 fn-prefix-from-qname-23;The function fn:prefix-from-QName with arity 1 is not registered.
 fn-prefix-from-qname-3;The function fn:prefix-from-QName with arity 1 is not registered.
 fn-prefix-from-qname-4;The function fn:prefix-from-QName with arity 1 is not registered.
@@ -8392,15 +8323,15 @@ fn-string-1;Expected XPathException with code XPDY0002, but got SingletonSequenc
 fn-string-2;Value was either too large or too small for an Int32.
 fn-string-22;SingletonSequence.Map not implemented
 fn-string-23;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string(string#1)'
-fn-string-24;The given key 'URI' was not present in the dictionary.
-fn-string-25;The given key 'URI' was not present in the dictionary.
-fn-string-26;The given key 'URI' was not present in the dictionary.
+fn-string-24;Expected XPath string((//*:Open)[1]) to resolve to 2000-03-21:07:41:34-05:00
+fn-string-25;Expected XPath string((//*:Start)[1]/@*) to resolve to USD
+fn-string-26;Expected XPath string((//@xml:*)[1]) to resolve to en
 fn-string-27;PRSC Error: Failed to parse query 'string((//namespace::*[.='http://www.w3.org/1999/xlink'])[1])'
-fn-string-28;The given key 'URI' was not present in the dictionary.
-fn-string-29;The given key 'URI' was not present in the dictionary.
+fn-string-28;Expected XPath string((//processing-instruction())[1]) to resolve to href="none"
+fn-string-29;Expected XPath normalize-space(string((//*:Price)[1])) to resolve to "3.00 10.00 5"
 fn-string-3;Expected XPathException with code XPDY0002, but got SingletonSequence.Map not implemented
-fn-string-30;The given key 'URI' was not present in the dictionary.
-fn-string-31;The given key 'URI' was not present in the dictionary.
+fn-string-30;Could not resolve namespace for prefix  using in a for expression
+fn-string-31;Expected XPath string((//text())[normalize-space(.)][1]) to resolve to "2000-03-21:07:41:34-05:00"
 fn-string-32;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string(map{1:2})'
 fn-string-33;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string([1])'
 fn-string-34;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string([[1, 2], [3, 4]])'
@@ -8434,7 +8365,7 @@ fn-string-join-5;Can't parse <Value>[type: XsInt, value: 1] into an int.
 fn-string-join-6;Can't parse <Value>[type: XsInt, value: 1] into an int.
 fn-string-join-7;Can't parse <Value>[type: XsInt, value: 1] into an int.
 fn-string-length-18;Expected XPathException with code XPDY0002, but got Casting AbstractValue(DocumentNode) to StringValue
-fn-string-length-19;Expected XPathException with code XPTY0004, but got The given key 'URI' was not present in the dictionary.
+fn-string-length-19;Expected XPathException with code XPTY0004, but got Object reference not set to an instance of an object.
 fn-string-length-2;Object reference not set to an instance of an object.
 fn-string-length-20;Expected XPath string-length("𐀂") to resolve to 1
 fn-string-length-21;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string-length(string-length#1)'
@@ -8940,8 +8871,6 @@ fn-true-21;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 fn-true-22;PRSC Error: Failed to parse query 'let $t := true#0 return 3[$t()] = 3'
 fn-union-node-args-002;SingletonSequence.Map not implemented
 fn-union-node-args-003;Could not resolve namespace for prefix  using in a for expression
-fn-union-node-args-012;The given key 'URI' was not present in the dictionary.
-fn-union-node-args-013;The given key 'URI' was not present in the dictionary.
 fn-union-node-args-014;Expected executing the XPath "() | ()" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath () | () to resolve to 
 fn-union-node-args-018;Expected XPath (/atomic:root/atomic:duration/text()) | (/atomic:root/atomic:duration/text()) to resolve to P1Y2M3DT10H30M
 fn-union-node-args-019;Expected XPath (/atomic:root/atomic:date/text()) | (/atomic:root/atomic:date/text()) to resolve to 2000-01-01+05:00
@@ -8951,7 +8880,7 @@ fn-union-node-args-022;Expected XPath (/atomic:root/atomic:idrefs/text()) | (/at
 fn-union-node-args-023;Not implemented: ForClause is not implemented yet.
 fn-unordered-101;The function unordered with arity 1 is not registered.
 fn-unordered-102;The function unordered with arity 1 is not registered.
-fn-unordered-103;The given key 'URI' was not present in the dictionary.
+fn-unordered-103;The function unordered with arity 1 is not registered.
 fn-unordered-104;Not implemented: ForClause is not implemented yet.
 fn-unordered-105;The function unordered with arity 1 is not registered.
 fn-unordered-106;Not implemented: ForClause is not implemented yet.
@@ -9828,7 +9757,7 @@ following-15;ExceptOp AST to Expression not yet implemented
 following-16;Expected XPath (/works[1]/employee[12]/following::employee) and fn:true() to resolve to true
 following-19;Expected XPath (/works[1]/employee[12]/following::employee) or fn:false() to resolve to true
 following-21;PRSC Error: Failed to parse query ' = 0'
-following-22;The given key 'URI' was not present in the dictionary.
+following-22;Expected XPath exists(//employee[@name="John Doe 10"]/following::text()[.='Monday']) to resolve to true
 following-3;IsOp AST to Expression not yet implemented
 following-4;IsOp AST to Expression not yet implemented
 following-5;PRSC Error: Failed to parse query ''
@@ -9874,7 +9803,7 @@ ForExpr001;Not implemented: ForClause is not implemented yet.
 ForExpr002;Expected error code: XPST0008. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 ForExpr003;PRSC Error: Failed to parse query ''
 ForExpr004;PRSC Error: Failed to parse query ''
-ForExpr005;The given key 'URI' was not present in the dictionary.
+ForExpr005;Not implemented: ForClause is not implemented yet.
 ForExpr006;PRSC Error: Failed to parse query ''
 ForExpr007;Not implemented: ForClause is not implemented yet.
 ForExpr008;Use of XQuery FLWOR expressions in XPath is no allowed
@@ -9910,7 +9839,7 @@ ForExprType016;Not implemented: ForClause is not implemented yet.
 ForExprType017;Expected XPathException with code XPTY0004, but got Not implemented: ForClause is not implemented yet.
 ForExprType018;Not implemented: ForClause is not implemented yet.
 ForExprType019;Not implemented: ForClause is not implemented yet.
-ForExprType020;PRSC Error: Failed to parse query 'for $fileName as item() in data( (//Folder)[1]/File/FileName ) return $fileName'
+ForExprType020;Not implemented: ForClause is not implemented yet.
 ForExprType021;Not implemented: ForClause is not implemented yet.
 ForExprType022;PRSC Error: Failed to parse query '\n        declare default element namespace "http://www.example.com/typedecl"; \n        for $test as attribute(*) in ( /root/InterleaveType2/@integer, /root/InterleaveType2/@decimal ) \n        return data( $test )\n      '
 ForExprType023;PRSC Error: Failed to parse query '\n        declare default element namespace "http://www.example.com/typedecl"; \n        for $test as attribute(integer) in ( /root/InterleaveType2/@integer ) return data( $test )\n      '
@@ -10663,13 +10592,13 @@ functx-fn-adjust-time-to-timezone-all;The function adjust-time-to-timezone with 
 functx-fn-avg-1;HandleNumericOperator: Different numeric types
 functx-fn-avg-2;HandleNumericOperator: Different numeric types
 functx-fn-avg-3;Type casting to XsYearMonthDuration has not been implemented yet.
-functx-fn-avg-4;The given key 'URI' was not present in the dictionary.
+functx-fn-avg-4;Could not resolve namespace for prefix  using in a for expression
 functx-fn-avg-5;Could not resolve namespace for prefix  using in a for expression
-functx-fn-avg-all;The given key 'URI' was not present in the dictionary.
-functx-fn-base-uri-1;The given key 'URI' was not present in the dictionary.
-functx-fn-base-uri-2;The given key 'URI' was not present in the dictionary.
-functx-fn-base-uri-3;The given key 'URI' was not present in the dictionary.
-functx-fn-base-uri-all;The given key 'URI' was not present in the dictionary.
+functx-fn-avg-all;Could not resolve namespace for prefix  using in a for expression
+functx-fn-base-uri-1;Could not resolve namespace for prefix  using in a for expression
+functx-fn-base-uri-2;Could not resolve namespace for prefix  using in a for expression
+functx-fn-base-uri-3;Could not resolve namespace for prefix  using in a for expression
+functx-fn-base-uri-all;Could not resolve namespace for prefix  using in a for expression
 functx-fn-boolean-1;Could not resolve namespace for prefix  using in a for expression
 functx-fn-boolean-2;Could not resolve namespace for prefix  using in a for expression
 functx-fn-boolean-3;Could not resolve namespace for prefix  using in a for expression
@@ -10700,18 +10629,18 @@ functx-fn-concat-4;PRSC Error: Failed to parse query ''
 functx-fn-concat-all;PRSC Error: Failed to parse query ''
 functx-fn-contains-all;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 functx-fn-count-1;Could not resolve namespace for prefix  using in a for expression
-functx-fn-count-2;The given key 'URI' was not present in the dictionary.
-functx-fn-count-3;The given key 'URI' was not present in the dictionary.
+functx-fn-count-2;Could not resolve namespace for prefix  using in a for expression
+functx-fn-count-3;Could not resolve namespace for prefix  using in a for expression
 functx-fn-count-4;Could not resolve namespace for prefix  using in a for expression
 functx-fn-count-5;Could not resolve namespace for prefix  using in a for expression
-functx-fn-count-all;The given key 'URI' was not present in the dictionary.
-functx-fn-data-1;The given key 'URI' was not present in the dictionary.
-functx-fn-data-2;The given key 'URI' was not present in the dictionary.
-functx-fn-data-3;The given key 'URI' was not present in the dictionary.
-functx-fn-data-4;The given key 'URI' was not present in the dictionary.
-functx-fn-data-5;The given key 'URI' was not present in the dictionary.
-functx-fn-data-6;The given key 'URI' was not present in the dictionary.
-functx-fn-data-all;The given key 'URI' was not present in the dictionary.
+functx-fn-count-all;Could not resolve namespace for prefix  using in a for expression
+functx-fn-data-1;Could not resolve namespace for prefix  using in a for expression
+functx-fn-data-2;Could not resolve namespace for prefix  using in a for expression
+functx-fn-data-3;Could not resolve namespace for prefix  using in a for expression
+functx-fn-data-4;Could not resolve namespace for prefix  using in a for expression
+functx-fn-data-5;Could not resolve namespace for prefix  using in a for expression
+functx-fn-data-6;Could not resolve namespace for prefix  using in a for expression
+functx-fn-data-all;Could not resolve namespace for prefix  using in a for expression
 functx-fn-dateTime-1;The function dateTime with arity 2 is not registered.
 functx-fn-day-from-date-1;The function day-from-date with arity 1 is not registered.
 functx-fn-day-from-dateTime-1;The function day-from-dateTime with arity 1 is not registered.
@@ -10832,13 +10761,13 @@ functx-fn-matches-all;Could not resolve namespace for prefix  using in a for exp
 functx-fn-max-1;Could not resolve namespace for prefix  using in a for expression
 functx-fn-max-2;Could not resolve namespace for prefix  using in a for expression
 functx-fn-max-3;Could not resolve namespace for prefix  using in a for expression
-functx-fn-max-4;The given key 'URI' was not present in the dictionary.
-functx-fn-max-all;The given key 'URI' was not present in the dictionary.
+functx-fn-max-4;Could not resolve namespace for prefix  using in a for expression
+functx-fn-max-all;Could not resolve namespace for prefix  using in a for expression
 functx-fn-min-1;Could not resolve namespace for prefix  using in a for expression
 functx-fn-min-2;Could not resolve namespace for prefix  using in a for expression
-functx-fn-min-3;The given key 'URI' was not present in the dictionary.
-functx-fn-min-4;The given key 'URI' was not present in the dictionary.
-functx-fn-min-all;The given key 'URI' was not present in the dictionary.
+functx-fn-min-3;Could not resolve namespace for prefix  using in a for expression
+functx-fn-min-4;Could not resolve namespace for prefix  using in a for expression
+functx-fn-min-all;Could not resolve namespace for prefix  using in a for expression
 functx-fn-minutes-from-dateTime-1;The function minutes-from-dateTime with arity 1 is not registered.
 functx-fn-minutes-from-duration-1;The function minutes-from-duration with arity 1 is not registered.
 functx-fn-minutes-from-duration-2;The function minutes-from-duration with arity 1 is not registered.
@@ -10892,16 +10821,16 @@ functx-fn-normalize-space-all;PRSC Error: Failed to parse query ''
 functx-fn-normalize-unicode-1;The function normalize-unicode with arity 1 is not registered.
 functx-fn-normalize-unicode-2;The function normalize-unicode with arity 2 is not registered.
 functx-fn-normalize-unicode-all;The function normalize-unicode with arity 2 is not registered.
-functx-fn-not-2;The given key 'URI' was not present in the dictionary.
+functx-fn-not-2;Expected XPath (not((/) //product)) to resolve to false
 functx-fn-not-7;PRSC Error: Failed to parse query ''
 functx-fn-not-all;PRSC Error: Failed to parse query ''
-functx-fn-number-1;The given key 'URI' was not present in the dictionary.
-functx-fn-number-2;The given key 'URI' was not present in the dictionary.
+functx-fn-number-1;Could not resolve namespace for prefix  using in a for expression
+functx-fn-number-2;Could not resolve namespace for prefix  using in a for expression
 functx-fn-number-3;Could not resolve namespace for prefix  using in a for expression
 functx-fn-number-4;Could not resolve namespace for prefix  using in a for expression
 functx-fn-number-5;Could not resolve namespace for prefix  using in a for expression
-functx-fn-number-6;The given key 'URI' was not present in the dictionary.
-functx-fn-number-all;The given key 'URI' was not present in the dictionary.
+functx-fn-number-6;Could not resolve namespace for prefix  using in a for expression
+functx-fn-number-all;Could not resolve namespace for prefix  using in a for expression
 functx-fn-one-or-more-1;The function one-or-more with arity 1 is not registered.
 functx-fn-one-or-more-2;The function one-or-more with arity 1 is not registered.
 functx-fn-one-or-more-all;The function one-or-more with arity 1 is not registered.
@@ -10996,12 +10925,12 @@ functx-fn-substring-after-all;Expected XPath (substring-after('query', 'u'), sub
 functx-fn-substring-all;Atomic Value for XsDecimal is not implemented yet.
 functx-fn-substring-before-all;Expected XPath (substring-before('query', 'r'), substring-before('query', 'ery'), substring-before('queryquery', 'ery'), substring-before('query', 'query'), substring-before('query', 'x'), substring-before('query', ''), substring-before('query', ())) to resolve to que qu qu    
 functx-fn-sum-1;Could not resolve namespace for prefix  using in a for expression
-functx-fn-sum-2;The given key 'URI' was not present in the dictionary.
+functx-fn-sum-2;Could not resolve namespace for prefix  using in a for expression
 functx-fn-sum-3;Could not resolve namespace for prefix  using in a for expression
 functx-fn-sum-4;Could not resolve namespace for prefix  using in a for expression
 functx-fn-sum-5;Could not resolve namespace for prefix  using in a for expression
 functx-fn-sum-6;Could not resolve namespace for prefix  using in a for expression
-functx-fn-sum-all;The given key 'URI' was not present in the dictionary.
+functx-fn-sum-all;Could not resolve namespace for prefix  using in a for expression
 functx-fn-timezone-from-date-1;The function timezone-from-date with arity 1 is not registered.
 functx-fn-timezone-from-date-2;The function timezone-from-date with arity 1 is not registered.
 functx-fn-timezone-from-date-all;The function timezone-from-date with arity 1 is not registered.
@@ -12200,23 +12129,23 @@ generalexpression98;The given key 'staff' was not present in the dictionary.
 generalexpression99;The given key 'staff' was not present in the dictionary.
 generate-id-000;PRSC Error: Failed to parse query '(generate-id(())) instance of $xs:string'
 generate-id-001;Could not resolve namespace for prefix  using in a for expression
-generate-id-002;The given key 'URI' was not present in the dictionary.
+generate-id-002;Could not resolve namespace for prefix  using in a for expression
 generate-id-003;Could not resolve namespace for prefix  using in a for expression
-generate-id-004;The given key 'URI' was not present in the dictionary.
-generate-id-005;The given key 'URI' was not present in the dictionary.
-generate-id-006;The given key 'URI' was not present in the dictionary.
+generate-id-004;Could not resolve namespace for prefix  using in a for expression
+generate-id-005;Could not resolve namespace for prefix  using in a for expression
+generate-id-006;Could not resolve namespace for prefix  using in a for expression
 generate-id-007;PRSC Error: Failed to parse query 'let $result := (generate-id((//namespace::*)[1])) return matches($result, '^[A-Za-z][A-Za-z0-9]*$')'
 generate-id-008;The function generate-id with arity 0 is not registered.
 generate-id-009;The function generate-id with arity 0 is not registered.
-generate-id-010;The given key 'URI' was not present in the dictionary.
+generate-id-010;Could not resolve namespace for prefix  using in a for expression
 generate-id-011;PRSC Error: Failed to parse query 'let $nodes := //*/(@* | namespace::*) \n            return count($nodes) eq count(distinct-values($nodes/generate-id()))'
 generate-id-012;Could not resolve namespace for prefix  using in a for expression
-generate-id-013;The given key 'URI' was not present in the dictionary.
+generate-id-013;Could not resolve namespace for prefix  using in a for expression
 generate-id-014;PRSC Error: Failed to parse query 'let $result := (\n        import module namespace copy="http://www.w3.org/QT3/copy";\n        generate-id(copy:copy(/*))\n      ) return matches($result, '^[A-Za-z][A-Za-z0-9]*$')'
 generate-id-015;PRSC Error: Failed to parse query 'let $result := (\n        import module namespace copy="http://www.w3.org/QT3/copy";\n        generate-id(copy:copy((//@*)[1]))\n      ) return matches($result, '^[A-Za-z][A-Za-z0-9]*$')'
 generate-id-016;PRSC Error: Failed to parse query '\n        import module namespace copy="http://www.w3.org/QT3/copy";\n        generate-id(copy:copy(/*)) eq generate-id(/*)\n      '
 generate-id-017;PRSC Error: Failed to parse query '\n        import module namespace copy="http://www.w3.org/QT3/copy";\n        let $att := (//@*)[1] return generate-id(copy:copy($att)) eq generate-id($att)\n      '
-generate-id-018;The given key 'URI' was not present in the dictionary.
+generate-id-018;The function generate-id with arity 1 is not registered.
 generate-id-019;PRSC Error: Failed to parse query 'let $nodes := (/ | //*/(.|@*|comment()|processing-instruction()|text())) \n         return every $id in $nodes/generate-id() satisfies matches($id, '^[A-Za-z][A-Za-z0-9]*$')'
 generate-id-020;PRSC Error: Failed to parse query ''
 generate-id-021;PRSC Error: Failed to parse query ''
@@ -12226,7 +12155,7 @@ generate-id-901;Expected error code: XPDY0002. Found error code: XPST0003 with e
 generate-id-902;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'let $f := function($x as item()) {generate-id($x)} return $f(3)'
 generate-id-903;Expected XPathException with code XPTY0004, but got Not implemented: ForClause is not implemented yet.
 generate-id-904;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'let $f := function($x as item()) {""} return generate-id($f)'
-generate-id-905;Expected XPathException with code XPTY0004, but got The given key 'URI' was not present in the dictionary.
+generate-id-905;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function generate-id with arity 1 is not registered.
 greaterthaneqonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
 greaterthanonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
 head-001;The function head with arity 1 is not registered.
@@ -15345,16 +15274,11 @@ K-SeqExprCastable-6a;Expected error code: XQST0052. Found error code: XPST0003 w
 K-SeqExprCastable-7;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''string' castable as xs:anyAtomicType'
 K-SeqExprCastable-8;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '"notation is abstract" castable as xs:NOTATION?'
 K-SeqExprCastable-9;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '() castable as xs:NOTATION?'
-K-SeqExprInstanceOf-1;PRSC Error: Failed to parse query '1 instance of item()'
 K-SeqExprInstanceOf-12;Can't parse 1.1 into an int.
 K-SeqExprInstanceOf-13;Can't parse 1.1 into an int.
 K-SeqExprInstanceOf-14;Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprInstanceOf-15;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprInstanceOf-2;PRSC Error: Failed to parse query '1 instance of item()'
-K-SeqExprInstanceOf-21;PRSC Error: Failed to parse query '(1, 2, 3, 4, 5) instance of item()+'
 K-SeqExprInstanceOf-23;Can't parse 1.1 into an int.
-K-SeqExprInstanceOf-28;The given key 'URI' was not present in the dictionary.
-K-SeqExprInstanceOf-33;The given key 'URI' was not present in the dictionary.
 K-SeqExprInstanceOf-37;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-38;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-39;VoidSequenceType AST to Expression not yet implemented
@@ -15362,8 +15286,6 @@ K-SeqExprInstanceOf-40;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-41;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-42;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-48;Can't parse 1.1 into an int.
-K-SeqExprInstanceOf-52;Expected error code: XPST0051. Found error code: XPST0081 with error message: Invalid prefix for input "{input}"
-K-SeqExprInstanceOf-53;Expected error code: XPST0051. Found error code: XPST0081 with error message: Invalid prefix for input "{input}"
 K-SeqExprInstanceOf-56;Expected executing the XPath "error() instance of xs:integer" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
 K-SeqExprInstanceOf-57;Expected executing the XPath "error() instance of xs:integer*" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
 K-SeqExprInstanceOf-58;Expected executing the XPath "error() instance of empty-sequence()" to resolve to one of the expected results, but got System.NotImplementedException: VoidSequenceType AST to Expression not yet implemented
@@ -15772,7 +15694,6 @@ K-WhereExpr-7;Use of XQuery FLWOR expressions in XPath is no allowed
 K-WhereExpr-8;Use of XQuery FLWOR expressions in XPath is no allowed
 K-WhereExpr-9;Use of XQuery FLWOR expressions in XPath is no allowed
 K-XQueryComment-12;Not implemented: ForClause is not implemented yet.
-K-XQueryComment-5;PRSC Error: Failed to parse query '(:*******************************************************:)\n(: Test: K-XQueryComment-5                               :)\n(: Written by: Frans Englich                             :)\n(: Date: 2007-11-22T11:31:22+01:00                       :)\n(: Purpose: A test whose essence is: `5 instance (: strange place for a comment :) of item()`. :)\n(:*******************************************************:)\n5 instance (: strange place for a comment :) of item()'
 K-YearFromDateFunc-3;The function year-from-date with arity 1 is not registered.
 K-YearFromDateFunc-4;The function year-from-date with arity 1 is not registered.
 K-YearFromDateFunc-5;The function year-from-date with arity 1 is not registered.
@@ -16134,7 +16055,7 @@ K2-ConcatFunc-3;Expected error code: XPTY0004. Query succeeded with result: 123c
 K2-CondExpr-1;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 K2-CondExpr-2;PRSC Error: Failed to parse query ''
 K2-CondExpr-3;PRSC Error: Failed to parse query 'declare default function namespace "http://www.example.com/"; declare function unordered() { 1 }; unordered() = 1'
-K2-CondExpr-4;The given key 'URI' was not present in the dictionary.
+K2-CondExpr-4;Expected XPath if(//(employee[location = "Denver"]/ancestor::*)) then 1 else 3 to resolve to 1
 K2-ConDocNode-10;PRSC Error: Failed to parse query ''
 K2-ConDocNode-11;PRSC Error: Failed to parse query ''
 K2-ConDocNode-12;PRSC Error: Failed to parse query ''
@@ -17859,11 +17780,11 @@ K2-SeqExprInstanceOf-98;PRSC Error: Failed to parse query 'node-name(text {""}) 
 K2-SeqExprInstanceOf-99;PRSC Error: Failed to parse query ''
 K2-SeqIDFunc-1;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function id with arity 2 is not registered.
 K2-SeqIDFunc-10;Not implemented: ForClause is not implemented yet.
-K2-SeqIDFunc-11;The given key 'URI' was not present in the dictionary.
-K2-SeqIDFunc-12;The given key 'URI' was not present in the dictionary.
-K2-SeqIDFunc-13;The given key 'URI' was not present in the dictionary.
+K2-SeqIDFunc-11;The function id with arity 2 is not registered.
+K2-SeqIDFunc-12;The function id with arity 2 is not registered.
+K2-SeqIDFunc-13;The function fn:id with arity 1 is not registered.
 K2-SeqIDFunc-14;Not implemented: ForClause is not implemented yet.
-K2-SeqIDFunc-15;The given key 'URI' was not present in the dictionary.
+K2-SeqIDFunc-15;The function fn:id with arity 1 is not registered.
 K2-SeqIDFunc-2;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsInt, value: 2] into an int.
 K2-SeqIDFunc-3;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsInt, value: 2] into an int.
 K2-SeqIDFunc-4;Expected error code: FODC0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        import module namespace copy="http://www.w3.org/QT3/copy";\n        id("id", copy:copy((//comment())[1]))\n      '
@@ -17909,7 +17830,7 @@ K2-SeqIntersect-37;PRSC Error: Failed to parse query ''
 K2-SeqIntersect-38;PRSC Error: Failed to parse query ''
 K2-SeqIntersect-39;IntersectOp AST to Expression not yet implemented
 K2-SeqIntersect-4;PRSC Error: Failed to parse query ''
-K2-SeqIntersect-40;The given key 'URI' was not present in the dictionary.
+K2-SeqIntersect-40;IntersectOp AST to Expression not yet implemented
 K2-SeqIntersect-41;PRSC Error: Failed to parse query ''
 K2-SeqIntersect-42;PRSC Error: Failed to parse query '\n         declare function local:function ($c as node()) { $c intersect $c }; \n         empty(local:function(document{()}))\n      '
 K2-SeqIntersect-43;Expected XPathException with code XPTY0004, but got IntersectOp AST to Expression not yet implemented
@@ -18011,8 +17932,8 @@ K2-SeqUnion-4;PRSC Error: Failed to parse query ''
 K2-SeqUnion-40;PRSC Error: Failed to parse query ''
 K2-SeqUnion-41;PRSC Error: Failed to parse query ''
 K2-SeqUnion-42;PRSC Error: Failed to parse query ''
-K2-SeqUnion-43;The given key 'URI' was not present in the dictionary.
-K2-SeqUnion-44;The given key 'URI' was not present in the dictionary.
+K2-SeqUnion-43;Expected XPath boolean(//employee[location = "Denver"] union //employee[last()]) to resolve to true
+K2-SeqUnion-44;Expected XPath boolean(//employee[location = "Denver"] | //employee[last()]) to resolve to true
 K2-SeqUnion-45;PRSC Error: Failed to parse query ''
 K2-SeqUnion-6;PRSC Error: Failed to parse query ''
 K2-SeqUnion-7;PRSC Error: Failed to parse query ''
@@ -18082,8 +18003,8 @@ K3-NodeNameFunc-1;Expected XPathException with code XPTY0004, but got Can't pars
 K3-NodeNameFunc-2;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( (<a/>, <b/>))'
 K3-NodeNameFunc-3;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( (<a/>, "mystring"))'
 K3-NodeNameFunc-4;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( node-name(<a/>))'
-last-1;The given key 'URI' was not present in the dictionary.
-last-10;The given key 'URI' was not present in the dictionary.
+last-1;Not implemented: ForClause is not implemented yet.
+last-10;Not implemented: ForClause is not implemented yet.
 last-11;Not implemented: ForClause is not implemented yet.
 last-12;Not implemented: ForClause is not implemented yet.
 last-13;Not implemented: ForClause is not implemented yet.
@@ -18106,7 +18027,7 @@ last-5;Not implemented: ForClause is not implemented yet.
 last-6;PRSC Error: Failed to parse query ''
 last-7;IsOp AST to Expression not yet implemented
 last-8;Not implemented: ForClause is not implemented yet.
-last-9;The given key 'URI' was not present in the dictionary.
+last-9;Not implemented: ForClause is not implemented yet.
 lessthaneqonanyuri-1;PRSC Error: Failed to parse query ''
 lessthanonanyuri-1;PRSC Error: Failed to parse query ''
 LetExpr001;Could not resolve namespace for prefix  using in a for expression
@@ -18205,8 +18126,8 @@ LocalNameFromQNameFunc006;The function fn:local-name-from-QName with arity 1 is 
 LocalNameFromQNameFunc007;The function fn:local-name-from-QName with arity 1 is not registered.
 LocalNameFromQNameFunc009;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:local-name-from-QName with arity 1 is not registered.
 LocalNameFromQNameFunc010;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:local-name-from-QName with arity 1 is not registered.
-LocalNameFromQNameFunc015;Expected XPathException with code XPTY0004, but got The given key 'URI' was not present in the dictionary.
-LocalNameFromQNameFunc015a;Expected XPathException with code XPTY0117, but got The given key 'URI' was not present in the dictionary.
+LocalNameFromQNameFunc015;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:local-name-from-QName with arity 1 is not registered.
+LocalNameFromQNameFunc015a;Expected error code: XPTY0117. Found error code: XPST0017 with error message: The function fn:local-name-from-QName with arity 1 is not registered.
 LocalNameFromQNameFunc016;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:local-name-from-QName with arity 1 is not registered.
 LocalNameFromQNameFunc017;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:local-name-from-QName with arity 1 is not registered.
 LocalNameFromQNameFunc018;The function fn:local-name-from-QName with arity 1 is not registered.
@@ -18709,8 +18630,8 @@ NamespaceURIFromQNameFunc006;The function fn:namespace-uri-from-QName with arity
 NamespaceURIFromQNameFunc007;The function fn:namespace-uri-from-QName with arity 1 is not registered.
 NamespaceURIFromQNameFunc009;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:namespace-uri-from-QName with arity 1 is not registered.
 NamespaceURIFromQNameFunc010;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:namespace-uri-from-QName with arity 1 is not registered.
-NamespaceURIFromQNameFunc015;Expected XPathException with code XPTY0004, but got The given key 'URI' was not present in the dictionary.
-NamespaceURIFromQNameFunc015a;Expected XPathException with code XPTY0117, but got The given key 'URI' was not present in the dictionary.
+NamespaceURIFromQNameFunc015;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:namespace-uri-from-QName with arity 1 is not registered.
+NamespaceURIFromQNameFunc015a;Expected error code: XPTY0117. Found error code: XPST0017 with error message: The function fn:namespace-uri-from-QName with arity 1 is not registered.
 NamespaceURIFromQNameFunc016;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:namespace-uri-from-QName with arity 1 is not registered.
 NamespaceURIFromQNameFunc017;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:namespace-uri-from-QName with arity 1 is not registered.
 NamespaceURIFromQNameFunc018;The function fn:namespace-uri-from-QName with arity 1 is not registered.
@@ -18967,7 +18888,6 @@ op-concatenate-mix-args-015;Atomic Value for XsDecimal is not implemented yet.
 op-concatenate-mix-args-016;Atomic Value for XsDecimal is not implemented yet.
 op-concatenate-mix-args-018;Expected XPath (1,2,2),(1,2,3),(123,""),(),("") to (deep equally) resolve to 1, 2, 2, 1, 2, 3, 123, "", ""
 op-concatenate-mix-args-019;Could not resolve namespace for prefix  using in a for expression
-op-concatenate-mix-args-020;The given key 'URI' was not present in the dictionary.
 op-concatflt2args-1;Expected XPath (xs:float("-3.4028235E38") || xs:float("-3.4028235E38")) to resolve to -3.4028235E38-3.4028235E38
 op-concatflt2args-2;Expected XPath (xs:float("0") || xs:float("-3.4028235E38")) to resolve to 0-3.4028235E38
 op-concatflt2args-3;Expected XPath (xs:float("3.4028235E38") || xs:float("-3.4028235E38")) to resolve to 3.4028235E38-3.4028235E38
@@ -20674,14 +20594,14 @@ Parenexpr-19;Could not resolve namespace for prefix  using in a for expression
 Parenexpr-20;PRSC Error: Failed to parse query ''
 parts-queries-results-q1;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 path002;Expected XPath fn:path(/*) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]
-path003;The given key 'URI' was not present in the dictionary.
-path004;The given key 'URI' was not present in the dictionary.
-path005;The given key 'URI' was not present in the dictionary.
-path006;The given key 'URI' was not present in the dictionary.
-path007;The given key 'URI' was not present in the dictionary.
-path008;The given key 'URI' was not present in the dictionary.
-path009;The given key 'URI' was not present in the dictionary.
-path010;The given key 'URI' was not present in the dictionary.
+path003;Expected XPath fn:path((//*:all-of)[1]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}result[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}all-of[1]
+path004;Expected XPath fn:path(//*[@name="fn-absintg1args-1"]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[4]
+path005;Expected XPath fn:path((//@idref)[1]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}link[1]/@idref
+path006;Expected XPath fn:path((//*:source)[3]/@xml:id) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}environment[3]/Q{http://www.w3.org/2010/09/qt-fots-catalog}source[1]/@Q{http://www.w3.org/XML/1998/namespace}id
+path007;Expected XPath fn:path((//comment())[2]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[2]/Q{http://www.w3.org/2010/09/qt-fots-catalog}description[1]/comment()[1]
+path008;Expected XPath fn:path(//text()[.='2147483647'][1]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[3]/Q{http://www.w3.org/2010/09/qt-fots-catalog}result[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}all-of[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}assert-eq[1]/text()[1]
+path009;Expected XPath fn:path(//processing-instruction()[1]) to resolve to /processing-instruction(xml-stylesheet)[1]
+path010;Expected XPath fn:path(//p) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{}p[1]
 path011;PRSC Error: Failed to parse query 'fn:path((//namespace::xml)[1])'
 path012;PRSC Error: Failed to parse query 'fn:path((//namespace::xml)[1])'
 path013;PRSC Error: Failed to parse query 'fn:path((//namespace::*[name()=''])[1])'
@@ -20761,42 +20681,20 @@ preceding-sibling-7;PRSC Error: Failed to parse query ''
 preceding-sibling-8;NodeAfterOp AST to Expression not yet implemented
 preceding-sibling-9;NodeAfterOp AST to Expression not yet implemented
 preceding-sibling-attr;PRSC Error: Failed to parse query ''
-predicates-1;The given key 'URI' was not present in the dictionary.
 predicates-11;PRSC Error: Failed to parse query '(/root/float[xs:float(.) = xs:float(1267.43233E12)])'
 predicates-12;PRSC Error: Failed to parse query '(/root/double[xs:double(.) = 1267.43233E12])'
-predicates-18;The given key 'URI' was not present in the dictionary.
-predicates-19;The given key 'URI' was not present in the dictionary.
-predicates-2;Expected executing the XPath "fn:count((//integer[fn:false()]))" to resolve to one of the expected results, but got System.Collections.Generic.KeyNotFoundException: The given key 'URI' was not present in the dictionary.
-predicates-20;The given key 'URI' was not present in the dictionary.
-predicates-21;The given key 'URI' was not present in the dictionary.
-predicates-22;The given key 'URI' was not present in the dictionary.
-predicates-23;The given key 'URI' was not present in the dictionary.
-predicates-24;The given key 'URI' was not present in the dictionary.
 predicates-25;PRSC Error: Failed to parse query ''
 predicates-26;PRSC Error: Failed to parse query ''
-predicates-27;The given key 'URI' was not present in the dictionary.
-predicates-28;The given key 'URI' was not present in the dictionary.
 predicates-29;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-predicates-3;The given key 'URI' was not present in the dictionary.
 predicates-30;Not implemented: ForClause is not implemented yet.
 predicates-31;Not implemented: ForClause is not implemented yet.
 predicates-32;PRSC Error: Failed to parse query '\n        declare variable $i := ("x", 1);\n        declare variable $j := $i[position() ne 1];\n        $i[$j]      \n       = "x"'
 predicates-33;Expected XPath count(/works/employee[(xs:integer(hours) gt 40) = xs:untypedAtomic("true"||substring(string(current-date()), 200))]) to resolve to 3
 predicates-34;PRSC Error: Failed to parse query 'deep-equal(((/works/employee[(xs:integer(hours) gt 40) = xs:untypedAtomic("true"||substring(string(current-date()), 200))]) ! (empnum || pnum)), ("E1P3", "E2P2", "E4P5"))'
 predicates-35;PRSC Error: Failed to parse query 'deep-equal(((/works/employee[(xs:integer(hours) eq 40, empnum, number(hours) - 39) = xs:untypedAtomic("1"||substring(string(current-date()), 200))]) ! (empnum || pnum)), ("E1P1", "E2P1", "E4P4"))'
-predicates-4;The given key 'URI' was not present in the dictionary.
-predicates-5;The given key 'URI' was not present in the dictionary.
-predicates-6;Expected executing the XPath "fn:count((//integer[fn:false() and fn:false()]))" to resolve to one of the expected results, but got System.Collections.Generic.KeyNotFoundException: The given key 'URI' was not present in the dictionary.
-predicates-7;Expected executing the XPath "fn:count((//integer[fn:false() or fn:false()]))" to resolve to one of the expected results, but got System.Collections.Generic.KeyNotFoundException: The given key 'URI' was not present in the dictionary.
-predicatesns-1;The given key 'URI' was not present in the dictionary.
+predicatesns-1;Expected XPath fn:count((//integer[fn:true()])) to resolve to 1
 predicatesns-11;PRSC Error: Failed to parse query '(/root/float[xs:float(.) = xs:float(1267.43233E12)])'
 predicatesns-12;PRSC Error: Failed to parse query '(/root/double[xs:double(.) = 1267.43233E12])'
-predicatesns-2;Expected executing the XPath "fn:count((//integer[fn:false()]))" to resolve to one of the expected results, but got System.Collections.Generic.KeyNotFoundException: The given key 'URI' was not present in the dictionary.
-predicatesns-3;The given key 'URI' was not present in the dictionary.
-predicatesns-4;The given key 'URI' was not present in the dictionary.
-predicatesns-5;The given key 'URI' was not present in the dictionary.
-predicatesns-6;Expected executing the XPath "fn:count((//integer[fn:false() and fn:false()]))" to resolve to one of the expected results, but got System.Collections.Generic.KeyNotFoundException: The given key 'URI' was not present in the dictionary.
-predicatesns-7;Expected executing the XPath "fn:count((//integer[fn:false() or fn:false()]))" to resolve to one of the expected results, but got System.Collections.Generic.KeyNotFoundException: The given key 'URI' was not present in the dictionary.
 prolog-version-1-v3;PRSC Error: Failed to parse query 'xquery version "3.0" encoding "utf-8"; 1,2'
 prolog-version-1;PRSC Error: Failed to parse query 'xquery version "1.0" encoding "utf-8"; 1,2'
 prolog-version-3-v3;PRSC Error: Failed to parse query 'xquery version "3.0" encoding "US-ASCII"; 1,2'
@@ -22049,7 +21947,7 @@ ReturnExpr005;Not implemented: ForClause is not implemented yet.
 ReturnExpr006;Not implemented: ForClause is not implemented yet.
 ReturnExpr007;Not implemented: ForClause is not implemented yet.
 ReturnExpr008;Not implemented: ForClause is not implemented yet.
-ReturnExpr009;The given key 'URI' was not present in the dictionary.
+ReturnExpr009;Not implemented: ForClause is not implemented yet.
 ReturnExpr010;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 ReturnExpr011;Not implemented: ForClause is not implemented yet.
 ReturnExpr014;Expected XPathException with code XPST0008, but got Not implemented: ForClause is not implemented yet.
@@ -22060,8 +21958,8 @@ ReturnExpr018;Not implemented: ForClause is not implemented yet.
 ReturnExpr020;Not implemented: ForClause is not implemented yet.
 reverse-001;The function fn:reverse with arity 1 is not registered.
 reverse-002;The function fn:reverse with arity 1 is not registered.
-reverse-003;The given key 'URI' was not present in the dictionary.
-seq-queries-results-q1;The given key 'URI' was not present in the dictionary.
+reverse-003;The function reverse with arity 1 is not registered.
+seq-queries-results-q1;Not implemented: ForClause is not implemented yet.
 seq-queries-results-q2;PRSC Error: Failed to parse query ''
 seq-queries-results-q3;PRSC Error: Failed to parse query ''
 seq-queries-results-q4;PRSC Error: Failed to parse query ''
@@ -22083,8 +21981,7 @@ sequenceexpressionhc2;Expected XPath (1,(2,3),4,5) to (deep equally) resolve to 
 sequenceexpressionhc4;Casting AbstractValue(XsInt) to UntypedAtomicValue
 sequenceexpressionhc6;Casting AbstractValue(XsInt) to UntypedAtomicValue
 sequenceexpressionhc7;The function fn:reverse with arity 1 is not registered.
-sequenceexpressionhc8;The given key 'URI' was not present in the dictionary.
-sequenceexpressionhc9;The given key 'URI' was not present in the dictionary.
+sequenceexpressionhc9;The given key 'staff' was not present in the dictionary.
 sgml-queries-results-q1;PRSC Error: Failed to parse query ''
 sgml-queries-results-q10;PRSC Error: Failed to parse query ''
 sgml-queries-results-q2;PRSC Error: Failed to parse query ''
@@ -22271,9 +22168,9 @@ unabbreviatedSyntax-30;Not implemented: ForClause is not implemented yet.
 unabbreviatedSyntax-31;Not implemented: ForClause is not implemented yet.
 unabbreviatedSyntax-32;Not implemented: ForClause is not implemented yet.
 unabbreviatedSyntax-33;Not implemented: ForClause is not implemented yet.
-unabbreviatedSyntax-4;The given key 'URI' was not present in the dictionary.
-unabbreviatedSyntax-5;The given key 'URI' was not present in the dictionary.
-unabbreviatedSyntax-8;The given key 'URI' was not present in the dictionary.
+unabbreviatedSyntax-4;Not implemented: ForClause is not implemented yet.
+unabbreviatedSyntax-5;Not implemented: ForClause is not implemented yet.
+unabbreviatedSyntax-8;Not implemented: ForClause is not implemented yet.
 unabbreviatedSyntax-9;Not implemented: ForClause is not implemented yet.
 UnaryLookup-001;PRSC Error: Failed to parse query 'deep-equal(((['a', 'b'], ['c', 'd'])[?1 eq 'c']), (['c', 'd']))'
 UnaryLookup-002;PRSC Error: Failed to parse query 'deep-equal((let $i := 1 return (['a', 'b'], ['c', 'd'])[?($i) eq 'c']), (['c', 'd']))'
@@ -22328,7 +22225,7 @@ UseCaseR31-001;Could not resolve namespace for prefix  using in a for expression
 UseCaseR31-002;PRSC Error: Failed to parse query 'let $result := () return $result?("highest paid employee") = "Charles Madigen"'
 UseCaseR31-003;Could not resolve namespace for prefix  using in a for expression
 UseCaseR31-004;PRSC Error: Failed to parse query 'let $result := () return $result?first?("highest earners") = "Charles Madigen"'
-UseCaseR31-009;The given key 'URI' was not present in the dictionary.
+UseCaseR31-009;Could not resolve namespace for prefix  using in a for expression
 UseCaseR31-012;PRSC Error: Failed to parse query ''
 UseCaseR31-013;PRSC Error: Failed to parse query ''
 UseCaseR31-014;PRSC Error: Failed to parse query ''
@@ -22339,7 +22236,7 @@ UseCaseR31-023;PRSC Error: Failed to parse query ''
 UseCaseR31-026;PRSC Error: Failed to parse query ''
 UseCaseR31-028;PRSC Error: Failed to parse query 'deep-equal((), ([map{"CA":[map{"clothes":map{"socks":510}},map{"kitchen":map{"broiler":20,"toaster":150}}]},map{"MA":[map{"clothes":map{"shirt":10}},map{"kitchen":map{"toaster":50,"blender":250}}]}]))'
 UseCaseR31-030;PRSC Error: Failed to parse query 'let $result := () return array:get($result,1)?authors = "Myasuda"'
-UseCaseR31-031;The given key 'URI' was not present in the dictionary.
+UseCaseR31-031;Could not resolve namespace for prefix  using in a for expression
 UseCaseR31-032;PRSC Error: Failed to parse query ''
 UseCaseR31-034-err;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 user-defined-1;PRSC Error: Failed to parse query '\n        import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        let $value := myType:sizeType(1) return ($value eq 1)'
@@ -22361,7 +22258,7 @@ value-comp-eq-int-7;Expected XPath 40 eq xs:double(/works/employee[1]/hours) to 
 value-comparison-1;Type casting to XsAnyUri has not been implemented yet.
 value-comparison-10;Expected executing the XPath "map{} eq ()" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '(map{} eq ()) => empty()'
 value-comparison-11;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'map{1:1} eq 1'
-value-comparison-12;The given key 'URI' was not present in the dictionary.
+value-comparison-12;Expected XPath //test:comparable[1]/test:int eq //test:comparable[2]/test:int to resolve to true
 value-comparison-13;PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) eq myType:integer-or-nothing(5)'
 value-comparison-14;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) eq myType:integer-or-nothing("")'
 value-comparison-2;Type casting to XsAnyUri has not been implemented yet.
@@ -22730,7 +22627,6 @@ xquery31keywords3;PRSC Error: Failed to parse query ''
 xquery31keywords4;PRSC Error: Failed to parse query ''
 xquery31keywords5;PRSC Error: Failed to parse query ''
 XQueryComment001;PRSC Error: Failed to parse query ''
-XQueryComment002;The given key 'URI' was not present in the dictionary.
 XQueryComment003;PRSC Error: Failed to parse query ''
 XQueryComment004;PRSC Error: Failed to parse query ''
 XQueryComment005;PRSC Error: Failed to parse query ''

@@ -409,8 +409,6 @@ public class XPathParser
 
         AtomicOrUnionType = Map(nameParser.EqName, x => x.GetAst(AstNodeName.AtomicType));
 
-        ItemType = Or(KindTest, AtomicOrUnionType);
-
         OccurenceIndicator = Or(Token("?"), Token("*"), Token("+"));
 
         SequenceType = Or(
@@ -424,6 +422,12 @@ public class XPathParser
                             ? new[] { new Ast(AstNodeName.OccurrenceIndicator) { TextContent = occurrence } }
                             : Array.Empty<Ast>())
                         .ToArray())
+        );
+
+        ItemType = Or(
+            KindTest,
+            Map(Alias(AstNodeName.AnyItemType, "item()"), name => new Ast(name)),
+            AtomicOrUnionType
         );
 
         TypeDeclaration = Map(

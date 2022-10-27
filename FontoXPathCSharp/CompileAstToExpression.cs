@@ -77,10 +77,11 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
     {
         return ast.Name switch
         {
-            AstNodeName.NameTest => new NameTest<TNode>(new QName(ast.TextContent)),
-            AstNodeName.AnyKindTest => CompileTypeTest(ast),
+            AstNodeName.NameTest => CompileNameTest(ast),
+            AstNodeName.AnyKindTest => CompileAnyKindTest(),
             AstNodeName.AtomicType => CompileTypeTest(ast),
             AstNodeName.AttributeTest => CompileAttributeTest(ast),
+            AstNodeName.AnyItemType => CompileAnyItemTest(),
             AstNodeName.ElementTest => CompileElementTest(ast),
             AstNodeName.CommentTest => CompileCommentTest(),
             AstNodeName.PiTest => CompilePiTest(ast),
@@ -91,6 +92,21 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         };
     }
 
+    private static AbstractTestExpression<TNode> CompileNameTest(Ast ast)
+    {
+        return new NameTest<TNode>(ast.GetQName());
+    }
+
+    private static AbstractTestExpression<TNode> CompileAnyKindTest()
+    {
+        return new TypeTest<TNode>(new QName("node()", null, ""));
+    }
+
+    private static AbstractTestExpression<TNode> CompileAnyItemTest()
+    {
+        return new TypeTest<TNode>(new QName("item()", null, ""));
+    }
+    
     private static AbstractTestExpression<TNode> CompileCommentTest()
     {
         return new KindTest<TNode>(NodeType.Comment);
