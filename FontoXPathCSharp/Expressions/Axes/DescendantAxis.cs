@@ -24,7 +24,7 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
         var testBucket = descendantExpression.GetBucket();
         var onlyElementDescendants = testBucket != null &&
                                      (testBucket.StartsWith(BucketConstants.NamePrefix) ||
-                                      testBucket == BucketConstants.Type1);
+                                      testBucket == BucketConstants.Type1) || testBucket == BucketConstants.Type1OrType2;
         _descendantBucket = onlyElementDescendants ? BucketConstants.Type1 : null;
     }
 
@@ -56,7 +56,10 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
 
         return hint =>
         {
-            if (descendantIteratorStack.Count > 0 && (hint & IterationHint.SkipDescendants) != 0)
+            if (descendantIteratorStack.Count > 0 &&
+                (hint & IterationHint.SkipDescendants) != 0)
+                // The next iterator on the stack will iterate over the last value's children, skip
+                // it to skip the entire subtree
                 descendantIteratorStack.RemoveAt(0);
 
             if (descendantIteratorStack.Count == 0)
@@ -82,12 +85,20 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
         var domFacade = executionParameters!.DomFacade;
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
 
-        var iterator = CreateInclusiveDescendantGenerator(contextItem.Value, domFacade, _descendantBucket);
+        var iterator = CreateInclusiveDescendantGenerator(
+            contextItem.Value,
+            domFacade,
+            _descendantBucket
+        );
         if (!_inclusive)
             iterator(IterationHint.None);
 
         var descendantSequence = SequenceFactory.CreateFromIterator(iterator);
         return descendantSequence.Filter((item, _, _) =>
-            _descendantExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
+            _descendantExpression.EvaluateToBoolean(
+                dynamicContext,
+                item,
+                executionParameters)
+        );
     }
 }
