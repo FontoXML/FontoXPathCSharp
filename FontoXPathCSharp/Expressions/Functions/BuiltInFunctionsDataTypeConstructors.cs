@@ -3,9 +3,9 @@ using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Functions;
+namespace FontoXPathCSharp.Expressions.Functions;
 
-public class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
+public static class BuiltInFunctionsDataTypeConstructors<TNode> where TNode : notnull
 {
     private static readonly FunctionSignature<ISequence, TNode> FnXsQName = (_, _, staticContext, args) =>
     {

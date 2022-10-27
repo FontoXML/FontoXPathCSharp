@@ -1,7 +1,7 @@
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
-namespace FontoXPathCSharp.Functions;
+namespace FontoXPathCSharp.Expressions.Functions;
 
 public static class BuiltInFunctions<TNode> where TNode : notnull
 {

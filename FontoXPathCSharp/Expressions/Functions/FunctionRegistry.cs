@@ -3,7 +3,7 @@ using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 
-namespace FontoXPathCSharp.Functions;
+namespace FontoXPathCSharp.Expressions.Functions;
 
 public static class FunctionRegistry<TNode> where TNode : notnull
 {

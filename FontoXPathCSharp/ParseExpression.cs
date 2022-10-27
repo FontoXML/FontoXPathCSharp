@@ -15,7 +15,8 @@ public static class ParseExpression
 
         return XPathParser.Parse(xPathString, options) switch
         {
-            Err<Ast> err => throw new Exception(
+            Err<Ast> err => throw new XPathException(
+                "XPST0003",
                 $"PRSC Error: Failed to parse query '{ReformatXPathString(xPathString)}'\n\n" +
                 $"Expected: {string.Join('\n', err.Expected.Distinct())}"),
             Ok<Ast> ok => ok.Unwrap(),

@@ -1,5 +1,5 @@
 using FontoXPathCSharp.Expressions;
-using FontoXPathCSharp.Functions;
+using FontoXPathCSharp.Expressions.Functions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 

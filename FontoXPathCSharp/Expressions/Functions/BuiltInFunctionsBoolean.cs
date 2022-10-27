@@ -1,10 +1,9 @@
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Functions;
+namespace FontoXPathCSharp.Expressions.Functions;
 
 public static class BuiltInFunctionsBoolean<TNode> where TNode : notnull
 {
