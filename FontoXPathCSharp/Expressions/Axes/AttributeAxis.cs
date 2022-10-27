@@ -13,7 +13,12 @@ public class AttributeAxis<TNode> : AbstractExpression<TNode> where TNode : notn
     public AttributeAxis(AbstractTestExpression<TNode> attributeTestExpression, string? filterBucket) : base(
         new Specificity(new Dictionary<SpecificityKind, int> { { SpecificityKind.Attribute, 1 } }),
         new AbstractExpression<TNode>[] { attributeTestExpression },
-        new OptimizationOptions(false))
+        new OptimizationOptions(
+            false, 
+            true, 
+            ResultOrdering.Unsorted, 
+            true)
+        )
     {
         _attributeTestExpression = attributeTestExpression;
         _filterBucket = BucketUtils.IntersectBuckets(_attributeTestExpression.GetBucket(), filterBucket);

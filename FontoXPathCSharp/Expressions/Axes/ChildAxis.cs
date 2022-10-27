@@ -13,7 +13,12 @@ public class ChildAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
     public ChildAxis(AbstractTestExpression<TNode> childExpression, string? filterBucket) : base(
         childExpression.Specificity,
         new AbstractExpression<TNode>[] { childExpression },
-        new OptimizationOptions(false))
+        new OptimizationOptions(
+            false, 
+            true, 
+            ResultOrdering.Sorted, 
+            true)
+        )
     {
         _childExpression = childExpression;
         _filterBucket = BucketUtils.IntersectBuckets(filterBucket, childExpression.GetBucket());

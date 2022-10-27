@@ -13,7 +13,12 @@ public class PrecedingAxis<TNode> : AbstractExpression<TNode> where TNode : notn
     public PrecedingAxis(AbstractTestExpression<TNode> testExpression) : base(
         testExpression.Specificity,
         new AbstractExpression<TNode>[] { testExpression },
-        new OptimizationOptions(false))
+        new OptimizationOptions(
+            false,
+            true,
+            ResultOrdering.ReverseSorted,
+            false)
+        )
     {
         _testExpression = testExpression;
         var testBucket = testExpression.GetBucket();

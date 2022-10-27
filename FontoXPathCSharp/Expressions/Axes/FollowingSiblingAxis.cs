@@ -13,7 +13,12 @@ public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode> where TNode
     public FollowingSiblingAxis(AbstractTestExpression<TNode> siblingExpression, string? filterBucket) : base(
         siblingExpression.Specificity,
         new AbstractExpression<TNode>[] { siblingExpression },
-        new OptimizationOptions(false))
+        new OptimizationOptions(
+            false, 
+            true, 
+            ResultOrdering.Sorted, 
+            false)
+        )
     {
         _siblingExpression = siblingExpression;
         _filterBucket = BucketUtils.IntersectBuckets(siblingExpression.GetBucket(), filterBucket);

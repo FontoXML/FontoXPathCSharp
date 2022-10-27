@@ -13,7 +13,12 @@ public class FollowingAxis<TNode> : AbstractExpression<TNode> where TNode : notn
     public FollowingAxis(AbstractTestExpression<TNode> testExpression) : base(
         testExpression.Specificity,
         new AbstractExpression<TNode>[] { testExpression },
-        new OptimizationOptions(false))
+        new OptimizationOptions(
+            false,
+            true,
+            ResultOrdering.Sorted,
+            false)
+        )
     {
         _testExpression = testExpression;
         var testBucket = testExpression.GetBucket();

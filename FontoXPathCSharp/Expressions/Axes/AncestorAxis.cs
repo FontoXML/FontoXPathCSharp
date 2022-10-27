@@ -14,7 +14,12 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode> where TNode : notnu
     public AncestorAxis(AbstractTestExpression<TNode> ancestorExpression, bool inclusive) : base(
         ancestorExpression.Specificity,
         new AbstractExpression<TNode>[] { ancestorExpression },
-        new OptimizationOptions(false)
+        new OptimizationOptions(
+            false, 
+            false, 
+            ResultOrdering.ReverseSorted, 
+            false
+            )
     )
     {
         _ancestorExpression = ancestorExpression;

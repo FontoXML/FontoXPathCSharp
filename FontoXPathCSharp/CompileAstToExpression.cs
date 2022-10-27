@@ -238,8 +238,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
 
     private static AbstractExpression<TNode> CompileLookup(Ast ast, CompilationOptions options)
     {
-        var keyExpression = ast.GetFirstChild();
-        if (keyExpression == null) throw new Exception("Lookup did not contain a key expression.");
+        var keyExpression = ast.GetFirstChild()!;
         return keyExpression.Name switch
         {
             AstNodeName.NcName => new Literal<TNode>(keyExpression.TextContent,

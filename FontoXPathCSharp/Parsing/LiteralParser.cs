@@ -57,7 +57,6 @@ public class LiteralParser
 
     public readonly ParseFunc<Ast> LocationPathAbbreviation =
         Map(Token("//"), _ =>
-            // TODO: convert descendant-or-self to enum
             new Ast(AstNodeName.StepExpr, new Ast(AstNodeName.XPathAxis)
                 {
                     TextContent = "descendant-or-self"
