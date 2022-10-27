@@ -32,7 +32,7 @@ public class TestLoggingFixture : IDisposable
         TestingUtils.WriteOccurenceToCsv(_nonParseErrors.Values, "debug/mostCommonNonParseErrors.csv", ';');
         TestingUtils.WriteOccurenceToCsv(_failedTestsWithErrors.Values, "debug/mostCommonErrors.csv", ';');
     }
-
+    
     public void ProcessError<TNode>(
         Exception ex, 
         string testName, 
@@ -45,6 +45,8 @@ public class TestLoggingFixture : IDisposable
             .Split(Environment.NewLine)
             .First();
         
+        var query = arguments.TestQuery;
+
         if (ex is NullReferenceException) _nullPointerExceptions[testName] = ex.ToString();
         if (ex is InvalidCastException) _castingErrors[testName] = ex.ToString();
 

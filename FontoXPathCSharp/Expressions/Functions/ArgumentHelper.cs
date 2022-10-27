@@ -1,7 +1,7 @@
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value.Types;
 
-namespace FontoXPathCSharp.Functions;
+namespace FontoXPathCSharp.Expressions.Functions;
 
 public class ArgumentHelper
 {

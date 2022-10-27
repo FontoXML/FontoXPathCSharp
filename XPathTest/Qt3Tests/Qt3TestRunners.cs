@@ -57,7 +57,8 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
                 testCase,
                 arguments.Language,
                 arguments.DomFacade,
-                nodeUtils);
+                nodeUtils
+            );
         }
         catch (Exception ex)
         {

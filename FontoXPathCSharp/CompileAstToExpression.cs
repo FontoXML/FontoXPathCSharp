@@ -40,6 +40,14 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         return new NameTest<TNode>(attributeName.GetFirstChild(AstNodeName.QName)!.GetQName(), NodeType.Attribute);
     }
 
+    private static AbstractTestExpression<TNode> CompilePiTest(Ast ast)
+    {
+        var piTarget = ast.GetFirstChild(AstNodeName.PiTarget);
+        return piTarget != null
+            ? new PiTest<TNode>(piTarget.TextContent)
+            : new KindTest<TNode>(NodeType.ProcessingInstruction);
+    }
+
     private static AbstractTestExpression<TNode> CompileDocumentTest()
     {
         return new KindTest<TNode>(NodeType.Document);
@@ -76,6 +84,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.AnyItemType => CompileAnyItemTest(),
             AstNodeName.ElementTest => CompileElementTest(ast),
             AstNodeName.CommentTest => CompileCommentTest(),
+            AstNodeName.PiTest => CompilePiTest(ast),
             AstNodeName.Wildcard => CompileWildcard(ast),
             AstNodeName.TextTest => CompileTextTest(),
             AstNodeName.DocumentTest => CompileDocumentTest(),

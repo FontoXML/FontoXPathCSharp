@@ -1,9 +1,9 @@
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 
-namespace FontoXPathCSharp.Functions;
+namespace FontoXPathCSharp.Expressions.Functions;
 
-public class BuiltInFunctionsArraysGet<TNode> where TNode : notnull
+public static class BuiltInFunctionsArraysGet<TNode> where TNode : notnull
 {
     public static ISequence ArrayGet(
         ISequence arraySequence,

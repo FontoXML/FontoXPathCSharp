@@ -1,14 +1,13 @@
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
-using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Functions;
+namespace FontoXPathCSharp.Expressions.Functions;
 
-public class BuiltInFunctionsSequencesDeepEqual<TNode> where TNode : notnull
+public static class BuiltInFunctionsSequencesDeepEqual<TNode> where TNode : notnull
 {
     public static Iterator<BooleanValue> SequenceDeepEqual(
         DynamicContext dynamicContext,
