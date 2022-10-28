@@ -1116,10 +1116,12 @@ public class XPathParser
 
     private ParseFunc<Ast> Expr()
     {
-        return BinaryOperator(ExprSingle, Alias(AstNodeName.SequenceExpr, ","), (lhs, rhs) =>
-            rhs.Length == 0
-                ? lhs
-                : new Ast(AstNodeName.SequenceExpr, rhs.Select(x => x.Item2).ToArray()));
+        return BinaryOperator(ExprSingle,
+            Alias(AstNodeName.SequenceExpr, ","),
+            (lhs, rhs) =>
+                rhs.Length == 0
+                    ? lhs
+                    : new Ast(AstNodeName.SequenceExpr, new[] { lhs }.Concat(rhs.Select(x => x.Item2))));
     }
 
     private ParseFunc<Ast> WrapInStackTrace(ParseFunc<Ast> parser)
