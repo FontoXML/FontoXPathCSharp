@@ -7,7 +7,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
-public class SortedSequenceUtils<TNode> where TNode : notnull
+public static class SortedSequenceUtils<TNode> where TNode : notnull
 {
     private static bool AreNodesEqual(NodeValue<TNode> node1, NodeValue<TNode> node2)
     {
@@ -34,6 +34,7 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
             hint =>
             {
                 if (currentSequence.IsDone) return IteratorResult<AbstractValue>.Done();
+                
                 currentIterator ??= currentSequence.Value?.GetValue();
 
                 IteratorResult<AbstractValue> value;
@@ -60,21 +61,19 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
         var allIterators = new List<MappedIterator>();
         // Because the sequences are sorted locally, but unsorted globally, we first need to sort all the iterators.
         // For that, we need to know all of them
-        var loadSequences = () =>
+        void LoadSequences()
         {
             var val = sequences(IterationHint.None);
             while (!val.IsDone)
             {
                 var iterator = val.Value!.GetValue();
-                var mappedIterator = new MappedIterator(
-                    iterator(IterationHint.None),
-                    hint => iterator(hint)
-                );
+                var mappedIterator = new MappedIterator(iterator(IterationHint.None), hint => iterator(hint));
                 if (!mappedIterator.Current.IsDone) allIterators.Add(mappedIterator);
                 val = sequences(IterationHint.None);
             }
-        };
-        loadSequences();
+        }
+
+        LoadSequences();
 
         AbstractValue? previousNode = null;
 
@@ -86,9 +85,8 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
                 {
                     allSequencesAreSorted = true;
 
-                    if (
-                            allIterators.All(iterator =>
-                                iterator.Current.Value!.GetValueType().IsSubtypeOf(ValueType.Node)
+                    if (allIterators.All(iterator => 
+                            iterator.Current.Value!.GetValueType().IsSubtypeOf(ValueType.Node)
                             )
                         )
                         // Sort the iterators initially. We know these iterators return locally sorted items, but we do not know the inter-ordering of these items.
@@ -106,9 +104,8 @@ public class SortedSequenceUtils<TNode> where TNode : notnull
                 {
                     if (allIterators.Count == 0) return IteratorResult<AbstractValue>.Done();
 
-                    var consumedIterator = allIterators[0];
+                    var consumedIterator = allIterators.First();
                     allIterators.RemoveAt(0);
-
                     consumedValue = consumedIterator.Current;
                     consumedIterator.Current = consumedIterator.Next(IterationHint.None);
                     if (!consumedValue.Value!.GetValueType().IsSubtypeOf(ValueType.Node))

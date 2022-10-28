@@ -1,3 +1,4 @@
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
@@ -34,9 +35,9 @@ public class ChildAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
     {
         var domFacade = executionParameters!.DomFacade;
         var contextNode = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext?.ContextItem);
-        var nodeType = contextNode.GetValueType();
+        var nodeType = domFacade.GetNodeType(contextNode);
 
-        if (nodeType != ValueType.Element && nodeType != ValueType.DocumentNode) return SequenceFactory.CreateEmpty();
+        if (nodeType != NodeType.Element && nodeType != NodeType.Document) return SequenceFactory.CreateEmpty();
 
         var node = default(TNode);
         var isDone = false;
@@ -47,7 +48,7 @@ public class ChildAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
             {
                 if (node == null)
                 {
-                    node = domFacade.GetFirstChild(contextNode.Value, _filterBucket);
+                    node = domFacade.GetFirstChild(contextNode, _filterBucket);
                     if (node == null)
                     {
                         isDone = true;

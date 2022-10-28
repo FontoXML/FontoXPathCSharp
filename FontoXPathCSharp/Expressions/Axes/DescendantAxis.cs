@@ -34,13 +34,41 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
         _descendantBucket = onlyElementDescendants ? BucketConstants.Type1 : null;
     }
 
+    public override ISequence Evaluate(
+        DynamicContext? dynamicContext,
+        ExecutionParameters<TNode>? executionParameters)
+    {
+        var domFacade = executionParameters!.DomFacade;
+        var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
+
+        var iterator = CreateInclusiveDescendantGenerator(
+            contextItem,
+            domFacade,
+            _descendantBucket
+        );
+        if (!_inclusive) iterator(IterationHint.None);
+
+        var descendantSequence = SequenceFactory.CreateFromIterator(iterator);
+        var initialLength = descendantSequence.GetLength();
+        
+        var returnValue = descendantSequence.Filter((item, _, _) =>
+            _descendantExpression.EvaluateToBoolean(
+                dynamicContext,
+                item,
+                executionParameters)
+        );
+
+        var length = returnValue.GetLength();
+
+        return returnValue;
+    }
+    
     private static Iterator<TNode> CreateChildGenerator(TNode node, IDomFacade<TNode> domFacade, string? bucket)
     {
         var nodeType = domFacade.GetNodeType(node);
         if (nodeType != NodeType.Element && nodeType != NodeType.Document)
             return IteratorUtils.EmptyIterator<TNode>();
-
-
+        
         var childNode = domFacade.GetFirstChild(node, bucket);
         return _ =>
         {
@@ -66,15 +94,13 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
                 // it to skip the entire subtree
                 descendantIteratorStack.RemoveAt(0);
 
-            if (descendantIteratorStack.Count == 0)
-                return IteratorResult<AbstractValue>.Done();
+            if (descendantIteratorStack.Count == 0) return IteratorResult<AbstractValue>.Done();
 
             var value = descendantIteratorStack.First()(IterationHint.None);
             while (value.IsDone)
             {
                 descendantIteratorStack.RemoveAt(0);
-                if (descendantIteratorStack.Count == 0)
-                    return IteratorResult<AbstractValue>.Done();
+                if (descendantIteratorStack.Count == 0) return IteratorResult<AbstractValue>.Done();
 
                 value = descendantIteratorStack.First()(IterationHint.None);
             }
@@ -82,28 +108,5 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
             descendantIteratorStack.Insert(0, CreateChildGenerator(value.Value!, domFacade, bucket));
             return IteratorResult<AbstractValue>.Ready(new NodeValue<TNode>(value.Value!, domFacade));
         };
-    }
-
-    public override ISequence Evaluate(
-        DynamicContext? dynamicContext,
-        ExecutionParameters<TNode>? executionParameters)
-    {
-        var domFacade = executionParameters!.DomFacade;
-        var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
-
-        var iterator = CreateInclusiveDescendantGenerator(
-            contextItem.Value,
-            domFacade,
-            _descendantBucket
-        );
-        if (!_inclusive) iterator(IterationHint.None);
-
-        var descendantSequence = SequenceFactory.CreateFromIterator(iterator);
-        return descendantSequence.Filter((item, _, _) =>
-            _descendantExpression.EvaluateToBoolean(
-                dynamicContext,
-                item,
-                executionParameters)
-        );
     }
 }

@@ -43,7 +43,7 @@ public class PrecedingSiblingAxis<TNode> : AbstractExpression<TNode> where TNode
         var domFacade = executionParameters!.DomFacade;
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 
-        return SequenceFactory.CreateFromIterator(CreateSiblingIterator(domFacade, contextItem.Value, _filterBucket))
+        return SequenceFactory.CreateFromIterator(CreateSiblingIterator(domFacade, contextItem, _filterBucket))
             .Filter((item, _, _) =>
                 _siblingExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
     }

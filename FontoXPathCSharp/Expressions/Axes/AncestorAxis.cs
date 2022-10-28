@@ -55,8 +55,8 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode> where TNode : notnu
                 GenerateAncestors(
                     domFacade,
                     _inclusive
-                        ? contextItem.Value
-                        : domFacade.GetParentNode(contextItem.Value, ancestorAxisBucket)
+                        ? contextItem
+                        : domFacade.GetParentNode(contextItem, ancestorAxisBucket)
                 )
             )
             .Filter(

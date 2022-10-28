@@ -1,3 +1,4 @@
+using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions.Util;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
@@ -30,11 +31,11 @@ public class AttributeAxis<TNode> : AbstractExpression<TNode> where TNode : notn
 
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 
-        if (contextItem.GetValueType() != ValueType.Element) return SequenceFactory.CreateEmpty();
+        if (domFacade.GetNodeType(contextItem) != NodeType.Element) return SequenceFactory.CreateEmpty();
 
         //TODO: LINQ this stuff properly
         var matchingAttributes = new List<NodeValue<TNode>>();
-        foreach (var attr in domFacade.GetAllAttributes(contextItem.Value, _filterBucket))
+        foreach (var attr in domFacade.GetAllAttributes(contextItem, _filterBucket))
         {
             if (domFacade.GetNamespaceUri(attr) == BuiltInNamespaceUris.XmlnsNamespaceUri.GetUri())
                 continue;

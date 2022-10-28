@@ -133,6 +133,6 @@ public class TestingUtils
         if (!TestFileSystem.FileExists(filename)) return;
         var fileLines = TestFileSystem.ReadFile(filename).Split(Environment.NewLine).ToList();
         fileLines.Sort();
-        TestFileSystem.WriteFile(filename, string.Join(Environment.NewLine,fileLines));
+        TestFileSystem.WriteFile(filename, string.Join(Environment.NewLine, fileLines));
     }
 }

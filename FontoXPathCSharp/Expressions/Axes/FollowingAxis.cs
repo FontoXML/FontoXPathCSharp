@@ -83,7 +83,7 @@ public class FollowingAxis<TNode> : AbstractExpression<TNode> where TNode : notn
         var domFacade = executionParameters!.DomFacade;
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 
-        return SequenceFactory.CreateFromIterator(CreateFollowingGenerator(domFacade, contextItem.Value, _bucket))
+        return SequenceFactory.CreateFromIterator(CreateFollowingGenerator(domFacade, contextItem, _bucket))
             .Filter(
                 (item, _, _) =>
                     _testExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));

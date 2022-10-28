@@ -27,7 +27,7 @@ public class ParentAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
     {
         var domFacade = executionParameters!.DomFacade;
         var contextNode = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
-        var parentNode = domFacade.GetParentNode(contextNode.Value, _filterBucket);
+        var parentNode = domFacade.GetParentNode(contextNode, _filterBucket);
 
         if (parentNode == null) return SequenceFactory.CreateEmpty();
 

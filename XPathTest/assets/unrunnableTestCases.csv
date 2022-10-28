@@ -20,7 +20,6 @@ abbreviatedSyntax-6;Not implemented: ForClause is not implemented yet.
 abbreviatedSyntax-7;Not implemented: ForClause is not implemented yet.
 abbreviatedSyntax-8;Expected XPath /works/employee[5]/hours[2] to resolve to 30
 abbreviatedSyntax-9;Not implemented: ForClause is not implemented yet.
-ancestor-1;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
 ancestor-10;NodeAfterOp AST to Expression not yet implemented
 ancestor-13;IntersectOp AST to Expression not yet implemented
 ancestor-14;ExceptOp AST to Expression not yet implemented
@@ -35,7 +34,6 @@ ancestor-6;PRSC Error: Failed to parse query ''
 ancestor-7;PRSC Error: Failed to parse query ''
 ancestor-8;NodeAfterOp AST to Expression not yet implemented
 ancestor-9;NodeAfterOp AST to Expression not yet implemented
-ancestorself-1;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
 ancestorself-10;NodeAfterOp AST to Expression not yet implemented
 ancestorself-11;Can't parse <Value>[type: XsInt, value: 0] into an int.
 ancestorself-12;Can't parse <Value>[type: XsInt, value: 0] into an int.
@@ -9749,7 +9747,6 @@ fold-right-102;PRSC Error: Failed to parse query 'declare function local:fold-ri
 fold-right-103;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right((true(), false(), false()), false(),function($a, $b) { $a or $b })'
 fold-right-104;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right((true(), false(), false()), false(),function($a, $b) { $a and $b })'
 fold-right-105;PRSC Error: Failed to parse query 'deep-equal((declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          let $f := function($a, $b){($b, $a)} return local:fold-right(1 to 5, (), $f)), (5,4,3,2,1))'
-following-1;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
 following-10;NodeAfterOp AST to Expression not yet implemented
 following-13;IntersectOp AST to Expression not yet implemented
 following-14;ExceptOp AST to Expression not yet implemented
@@ -9766,7 +9763,6 @@ following-7;PRSC Error: Failed to parse query ''
 following-8;NodeAfterOp AST to Expression not yet implemented
 following-9;NodeAfterOp AST to Expression not yet implemented
 following-sibling-attr;PRSC Error: Failed to parse query ''
-followingsibling-1;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
 followingsibling-10;NodeAfterOp AST to Expression not yet implemented
 followingsibling-13;IntersectOp AST to Expression not yet implemented
 followingsibling-14;ExceptOp AST to Expression not yet implemented
@@ -15903,10 +15899,8 @@ K2-Axes-44;Expected executing the XPath "(1, /)[1]" to resolve to one of the exp
 K2-Axes-47;PRSC Error: Failed to parse query ''
 K2-Axes-48;PRSC Error: Failed to parse query ''
 K2-Axes-49;PRSC Error: Failed to parse query ''
-K2-Axes-50;Expected XPathException with code XPTY0019, but got Can't parse <Value>[type: XsInt, value: 3] into an int.
 K2-Axes-51;Expected error code: XPTY0019. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-Axes-52;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
-K2-Axes-53;Expected error code: XPTY0019. Query succeeded with result: a string a string
 K2-Axes-57;PRSC Error: Failed to parse query ''
 K2-Axes-58;PRSC Error: Failed to parse query ''
 K2-Axes-59;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
@@ -20648,7 +20642,6 @@ position-6;Not implemented: ForClause is not implemented yet.
 position-7;Not implemented: ForClause is not implemented yet.
 position-8;Not implemented: ForClause is not implemented yet.
 position-9;Not implemented: ForClause is not implemented yet.
-preceding-1;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
 preceding-10;NodeAfterOp AST to Expression not yet implemented
 preceding-13;IntersectOp AST to Expression not yet implemented
 preceding-14;ExceptOp AST to Expression not yet implemented
@@ -20665,7 +20658,6 @@ preceding-6;PRSC Error: Failed to parse query ''
 preceding-7;PRSC Error: Failed to parse query ''
 preceding-8;NodeAfterOp AST to Expression not yet implemented
 preceding-9;NodeAfterOp AST to Expression not yet implemented
-preceding-sibling-1;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
 preceding-sibling-10;NodeAfterOp AST to Expression not yet implemented
 preceding-sibling-13;IntersectOp AST to Expression not yet implemented
 preceding-sibling-14;ExceptOp AST to Expression not yet implemented
@@ -22001,12 +21993,6 @@ SquareArray-009;PRSC Error: Failed to parse query 'deep-equal((declare function 
 SquareArray-010;Expected error code: FOAY0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '[1](4294967297)'
 ST-Data001;Expected error code: FOTY0012. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        import schema namespace mc ="http://www.w3.org/XQueryTest/mixedcontent"; \n        let $node as element(*, mc:mixedType) := /* \n        return data($node)'
 static-context-1;Expected error code: XPST0008. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-statictypingaxis-1;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
-statictypingaxis-2;Expected XPathException with code XPTY0019, but got Casting AbstractValue(XsInt) to NodeValue`1
-statictypingaxis-3;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
-statictypingaxis-4;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
-statictypingaxis-5;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
-statictypingaxis-6;Expected error code: XPTY0019. Found error code: XPTY0020 with error message: Axes can only be applied to nodes.
 step-expr-si-1;Expected executing the XPath "
 step-expr-si-2;PRSC Error: Failed to parse query '\n        import schema default element namespace "http://www.example.com/XQueryTest/extendedTypes"; \n        for $extended as element(*, restrictedType) in //element(*, restrictedType) \n        let $baseElement as element()+ := $extended/node() \n        return $baseElement'
 step-expr-si-3;PRSC Error: Failed to parse query '\n        import schema default element namespace "http://www.example.com/XQueryTest/extendedTypes"; \n        for $extended as element(*, anotherBaseType) in //element(restrictedAttribute, anotherBaseType) \n        let $baseElement as element(baseElement) := $extended/baseElement \n        return $baseElement'
