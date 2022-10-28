@@ -50,7 +50,7 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
 
         var descendantSequence = SequenceFactory.CreateFromIterator(iterator);
         var initialLength = descendantSequence.GetLength();
-        
+
         var returnValue = descendantSequence.Filter((item, _, _) =>
             _descendantExpression.EvaluateToBoolean(
                 dynamicContext,
@@ -62,13 +62,13 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
 
         return returnValue;
     }
-    
+
     private static Iterator<TNode> CreateChildGenerator(TNode node, IDomFacade<TNode> domFacade, string? bucket)
     {
         var nodeType = domFacade.GetNodeType(node);
         if (nodeType != NodeType.Element && nodeType != NodeType.Document)
             return IteratorUtils.EmptyIterator<TNode>();
-        
+
         var childNode = domFacade.GetFirstChild(node, bucket);
         return _ =>
         {

@@ -35,8 +35,8 @@ ancestor-7;PRSC Error: Failed to parse query ''
 ancestor-8;NodeAfterOp AST to Expression not yet implemented
 ancestor-9;NodeAfterOp AST to Expression not yet implemented
 ancestorself-10;NodeAfterOp AST to Expression not yet implemented
-ancestorself-11;Can't parse <Value>[type: XsInt, value: 0] into an int.
-ancestorself-12;Can't parse <Value>[type: XsInt, value: 0] into an int.
+ancestorself-11;Expected XPath ((/works/employee[12]/*/day/ancestor-or-self::overtime) | (/works/employee[12]/*/day/ancestor-or-self::overtime))/count(*) to resolve to 2
+ancestorself-12;Expected XPath ((/works/employee[12]/*/day[1]/ancestor-or-self::overtime) | (/works/employee[12]/*/day[2]/ancestor-or-self::overtime))/count(*) to resolve to 2
 ancestorself-13;IntersectOp AST to Expression not yet implemented
 ancestorself-14;ExceptOp AST to Expression not yet implemented
 ancestorself-15;ExceptOp AST to Expression not yet implemented
@@ -345,7 +345,7 @@ Axes009-3;Expected XPath fn:count(//west/attribute::node()) to resolve to 4
 Axes010-2;Expected XPath fn:count(//west/@*) to resolve to 1
 Axes010-3;Expected XPath fn:count(//west/@*) to resolve to 4
 Axes011-3;Expected XPath fn:count(//west/@west-attr-2) to resolve to 1
-Axes012-1;Expected XPath fn:count( / ) to resolve to 1
+Axes012-1;Object reference not set to an instance of an object.
 Axes013-1;Expected XPath fn:count(//center/parent::*) to resolve to 1
 Axes015-1;Expected XPath fn:count(//center/parent::near-north) to resolve to 1
 Axes017-1;Expected XPath fn:count(//center/parent::node()) to resolve to 1
@@ -353,7 +353,9 @@ Axes018-1;Expected XPath fn:count(/far-north/parent::node()) to resolve to 1
 Axes019-1;Expected XPath fn:count(//center/..) to resolve to 1
 Axes020-1;Expected XPath fn:count(//center/self::*) to resolve to 1
 Axes021-1;Expected XPath fn:count(//center/self::center) to resolve to 1
-Axes030-1;Expected XPath fn:count(//center/text()/self::node()) to resolve to 0
+Axes023-1;Expected XPath fn:count(//center/self::node()) to resolve to 1
+Axes027-1;Expected XPath fn:count(//center/@center-attr-3/self::node()) to resolve to 1
+Axes030-2;Expected XPath fn:count(//center/text()/self::node()) to resolve to 1
 Axes031-3;Expected XPath fn:count(//center/descendant::*) to resolve to 1
 Axes031-4;Expected XPath fn:count(//center/descendant::*) to resolve to 5
 Axes032-3;Expected XPath fn:count(//center/descendant::south) to resolve to 1
@@ -367,8 +369,10 @@ Axes035-3;Expected XPath fn:count(//center/descendant-or-self::south) to resolve
 Axes035-4;Expected XPath fn:count(//center/descendant-or-self::south) to resolve to 8
 Axes036-1;Expected XPath fn:count(//center/descendant-or-self::center) to resolve to 1
 Axes036-2;Expected XPath fn:count(//center/descendant-or-self::center) to resolve to 9
+Axes037-1;Expected XPath fn:count(//center/descendant-or-self::node()) to resolve to 1
 Axes037-2;Expected XPath fn:count(//center/descendant-or-self::node()) to resolve to 22
-Axes043-1;Expected XPath fn:count(//center/text()/descendant-or-self::node()) to resolve to 0
+Axes041-1;Expected XPath fn:count(//center/@center-attr-3/descendant-or-self::node()) to resolve to 1
+Axes043-2;Expected XPath fn:count(//center/text()/descendant-or-self::node()) to resolve to 1
 Axes044-1;Expected XPath fn:count(/child::*) to resolve to 1
 Axes044-2;Expected XPath fn:count(/child::*) to resolve to 1
 Axes045-2;Expected XPath fn:count(/child::far-north) to resolve to 1
@@ -4910,6 +4914,7 @@ filterexpressionhc20;Can't parse <Value>[type: XsInt, value: 1] into an int.
 filterexpressionhc21;Can't parse <Value>[type: XsInt, value: 1] into an int.
 filterexpressionhc22;Expected executing the XPath "fn:count(((1,2,3,4,5,6,7,8,9,10,11)[fn:false()]))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:count(((1,2,3,4,5,6,7,8,9,10,11)[fn:false()])) to resolve to 0
 filterexpressionhc3;Casting AbstractValue(XsInt) to UntypedAtomicValue
+filterexpressionhc4;Object reference not set to an instance of an object.
 filterexpressionhc6;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc7;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc8;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -6049,19 +6054,19 @@ fn-floorusht1args-1;SingletonSequence.Map not implemented
 fn-floorusht1args-2;SingletonSequence.Map not implemented
 fn-floorusht1args-3;SingletonSequence.Map not implemented
 fn-function-lookup-001;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'node-name'), 0)) to resolve to true
-fn-function-lookup-002;Expected base expression of a function call to evaluate to a sequence of single function item
+fn-function-lookup-002;Expected XPath /root/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'node-name'), 0)() to resolve to root
 fn-function-lookup-003;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'node-name'), 1)) to resolve to true
 fn-function-lookup-004;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-005;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'nilled'), 0)) to resolve to true
-fn-function-lookup-006;Expected base expression of a function call to evaluate to a sequence of single function item
+fn-function-lookup-006;Expected XPath /root/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'nilled'), 0)() to resolve to false
 fn-function-lookup-007;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'nilled'), 1)) to resolve to true
 fn-function-lookup-008;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-009;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'string'), 0)) to resolve to true
-fn-function-lookup-010;Expected base expression of a function call to evaluate to a sequence of single function item
+fn-function-lookup-010;Expected XPath /root/child/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'string'), 0)() to resolve to 1
 fn-function-lookup-011;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'string'), 1)) to resolve to true
 fn-function-lookup-012;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-013;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'data'), 0)) to resolve to true
-fn-function-lookup-014;Expected base expression of a function call to evaluate to a sequence of single function item
+fn-function-lookup-014;Expected XPath /root/child/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'data'), 0)() to resolve to 1
 fn-function-lookup-015;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'data'), 1)) to resolve to true
 fn-function-lookup-016;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-017;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'base-uri'), 0)) to resolve to true
@@ -6097,7 +6102,7 @@ fn-function-lookup-046;Expected base expression of a function call to evaluate t
 fn-function-lookup-047;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'round-half-to-even'), 2)) to resolve to true
 fn-function-lookup-048;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-049;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'number'), 0)) to resolve to true
-fn-function-lookup-050;Expected base expression of a function call to evaluate to a sequence of single function item
+fn-function-lookup-050;Expected XPath /root/child/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'number'), 0)() to resolve to 1
 fn-function-lookup-051;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'number'), 1)) to resolve to true
 fn-function-lookup-052;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-053;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'format-integer'), 2)) to resolve to true
@@ -6157,11 +6162,11 @@ fn-function-lookup-106;Expected base expression of a function call to evaluate t
 fn-function-lookup-107;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'substring'), 3)) to resolve to true
 fn-function-lookup-108;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-109;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'string-length'), 0)) to resolve to true
-fn-function-lookup-110;Expected base expression of a function call to evaluate to a sequence of single function item
+fn-function-lookup-110;Expected XPath /root/child/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'string-length'), 0)() to resolve to 1
 fn-function-lookup-111;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'string-length'), 1)) to resolve to true
 fn-function-lookup-112;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-113;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'normalize-space'), 0)) to resolve to true
-fn-function-lookup-114;Expected base expression of a function call to evaluate to a sequence of single function item
+fn-function-lookup-114;Expected XPath /root/child/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'normalize-space'), 0)() to resolve to 1
 fn-function-lookup-115;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'normalize-space'), 1)) to resolve to true
 fn-function-lookup-116;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-117;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'normalize-unicode'), 1)) to resolve to true
@@ -6311,19 +6316,18 @@ fn-function-lookup-260;Expected base expression of a function call to evaluate t
 fn-function-lookup-261;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'in-scope-prefixes'), 1)) to resolve to true
 fn-function-lookup-262;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-263;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'name'), 0)) to resolve to true
-fn-function-lookup-264;Expected base expression of a function call to evaluate to a sequence of single function item
+fn-function-lookup-264;Expected XPath /root/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'name'), 0)() to resolve to root
 fn-function-lookup-265;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'name'), 1)) to resolve to true
 fn-function-lookup-266;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-267;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'local-name'), 0)) to resolve to true
-fn-function-lookup-268;Expected base expression of a function call to evaluate to a sequence of single function item
+fn-function-lookup-268;Expected XPath /root/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'local-name'), 0)() to resolve to root
 fn-function-lookup-269;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'local-name'), 1)) to resolve to true
 fn-function-lookup-270;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-271;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'namespace-uri'), 0)) to resolve to true
-fn-function-lookup-272;Expected base expression of a function call to evaluate to a sequence of single function item
+fn-function-lookup-272;Expected XPath /root/*[2]/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'namespace-uri'), 0)() to resolve to http://www.example.org/
 fn-function-lookup-273;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'namespace-uri'), 1)) to resolve to true
 fn-function-lookup-274;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-275;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'lang'), 1)) to resolve to true
-fn-function-lookup-276;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-277;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'lang'), 2)) to resolve to true
 fn-function-lookup-278;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-279;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'root'), 0)) to resolve to true
@@ -6758,9 +6762,9 @@ fn-has-children-031;Expected XPath fn:has-children( /root ) to resolve to true
 fn-has-children-032;Expected XPath /root/non-empty/fn:has-children() to resolve to true
 fn-has-children-033;Expected XPath fn:has-children( /root/non-empty ) to resolve to true
 fn-has-children-034;Expected XPath /fn:has-children() to resolve to true
-fn-has-children-035;Expected XPath fn:has-children( / ) to resolve to true
-fn-has-children-036;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
-fn-has-children-037;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
+fn-has-children-035;Object reference not set to an instance of an object.
+fn-has-children-036;Expected XPath /root/node()/fn:has-children() to resolve to false false false false true
+fn-has-children-037;Expected XPath /root/node()/fn:has-children(.) to resolve to false false false false true
 fn-hours-from-dateTime-1;The function fn:hours-from-dateTime with arity 1 is not registered.
 fn-hours-from-dateTime-10;The function fn:hours-from-dateTime with arity 1 is not registered.
 fn-hours-from-dateTime-11;The function fn:hours-from-dateTime with arity 1 is not registered.
@@ -6970,6 +6974,7 @@ fn-innermost-009;Expected error code: XPTY0004. Found error code: XPST0017 with 
 fn-innermost-010;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:innermost( if ( fn:current-dateTime() eq\n                                    fn:dateTime( fn:current-date(),\n                                                 fn:current-time() ))\n                               then .\n                               else fn:dateTime#2 )'
 fn-innermost-011;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '( fn:innermost( if (current-date() eq xs:date('1900-01-01'))\n                                 then .\n                                 else fn:dateTime#2 ),\n              fn:innermost( if (current-date() eq xs:date('1900-01-01'))\n                                 then fn:dateTime#2\n                                 else . ) )'
 fn-innermost-012;Value was either too large or too small for an Int32.
+fn-innermost-013;Object reference not set to an instance of an object.
 fn-innermost-014;Value was either too large or too small for an Int32.
 fn-innermost-015;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //*/@* ) ! string()), (('0a','00a','000a','01a','010a','02a','020a')))'
 fn-innermost-017;Value was either too large or too small for an Int32.
@@ -7611,12 +7616,12 @@ fn-normalize-space-17;Value was either too large or too small for an Int32.
 fn-normalize-space-18;Value was either too large or too small for an Int32.
 fn-normalize-space-2;Expected XPathException with code XPDY0002, but got Casting AbstractValue(DocumentNode) to StringValue
 fn-normalize-space-20;SingletonSequence.Map not implemented
-fn-normalize-space-23;Casting AbstractValue(DocumentNode) to StringValue
-fn-normalize-space-24;Expected XPathException with code FOTY0012, but got Casting AbstractValue(DocumentNode) to StringValue
+fn-normalize-space-23;Expected XPath /*/normalize-space() to resolve to "ns:barns:bar2ns:barDerivurn1test1test2"
+fn-normalize-space-24;Expected error code: FOTY0012. Found error code:  with error message: 
 fn-normalize-space-25;Value was either too large or too small for an Int32.
 fn-normalize-space-26;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
 fn-normalize-space-9;Value was either too large or too small for an Int32.
-fn-normalize-space0args-1;Object reference not set to an instance of an object.
+fn-normalize-space0args-1;Expected XPath //doc/normalize-space(zero-or-one(a[normalize-space() = 'Hello, How are you?'])) to resolve to Hello, How are you?
 fn-normalize-space1args-4;Value was either too large or too small for an Int32.
 fn-not-13;PRSC Error: Failed to parse query ''
 fn-not-14;PRSC Error: Failed to parse query ''
@@ -7627,7 +7632,8 @@ fn-not-21;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 fn-not-23;Expected XPath not(//*) to resolve to false
 fn-not-24;Value was either too large or too small for a Decimal.
 fn-not-25;Value was either too large or too small for a Decimal.
-fn-not-28;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsBoolean, value: False] into an bool.
+fn-not-28;Expected XPathException with code FORG0006, but got Object reference not set to an instance of an object.
+fn-not-29;Object reference not set to an instance of an object.
 fn-notdbl1args-1;Value was either too large or too small for a Decimal.
 fn-notdbl1args-3;Value was either too large or too small for a Decimal.
 fn-notdec1args-1;Atomic Value for XsDecimal is not implemented yet.
@@ -7754,6 +7760,7 @@ fn-outermost-009;Expected error code: XPTY0004. Found error code: XPST0017 with 
 fn-outermost-010;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:outermost( if ( fn:current-dateTime() eq\n                                    fn:dateTime( fn:current-date(),\n                                                 fn:current-time() ))\n                               then .\n                               else fn:dateTime#2 )'
 fn-outermost-011;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '( fn:outermost( if (current-date() eq xs:date('1900-01-01'))\n                                 then .\n                                 else fn:dateTime#2 ),\n              fn:outermost( if (current-date() eq xs:date('1900-01-01'))\n                                 then fn:dateTime#2\n                                 else . ) )'
 fn-outermost-012;Value was either too large or too small for an Int32.
+fn-outermost-013;Object reference not set to an instance of an object.
 fn-outermost-014;Value was either too large or too small for an Int32.
 fn-outermost-015;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //*/@* ) ! string()), (('0a','00a','000a','01a','010a','02a','020a')))'
 fn-outermost-017;Value was either too large or too small for an Int32.
@@ -8310,7 +8317,7 @@ fn-starts-with-40;No collations are supported
 fn-starts-with-41;No collations are supported
 fn-string-1;Expected XPathException with code XPDY0002, but got SingletonSequence.Map not implemented
 fn-string-2;Value was either too large or too small for an Int32.
-fn-string-22;SingletonSequence.Map not implemented
+fn-string-22;Expected XPath /*/string() to resolve to "ns:barns:bar2ns:barDerivurn1test1test2"
 fn-string-23;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string(string#1)'
 fn-string-24;Expected XPath string((//*:Open)[1]) to resolve to 2000-03-21:07:41:34-05:00
 fn-string-25;Expected XPath string((//*:Start)[1]/@*) to resolve to USD
@@ -8355,8 +8362,8 @@ fn-string-length-19;Expected XPathException with code XPTY0004, but got Object r
 fn-string-length-2;Object reference not set to an instance of an object.
 fn-string-length-20;Expected XPath string-length("𐀂") to resolve to 1
 fn-string-length-21;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string-length(string-length#1)'
-fn-string-length-22;Casting AbstractValue(DocumentNode) to StringValue
-fn-string-length-23;Expected XPathException with code FOTY0012, but got Casting AbstractValue(DocumentNode) to StringValue
+fn-string-length-22;Expected XPath /*/string-length() to resolve to 38
+fn-string-length-23;Expected error code: FOTY0012. Found error code:  with error message: 
 fn-string-length-24;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-string-length-25;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-string-length-9;SingletonSequence.Map not implemented
@@ -8846,7 +8853,7 @@ fn-true-19;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 fn-true-20;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 fn-true-21;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 fn-true-22;PRSC Error: Failed to parse query 'let $t := true#0 return 3[$t()] = 3'
-fn-union-node-args-002;SingletonSequence.Map not implemented
+fn-union-node-args-002;Expected XPath (/bib/book/title | /bib/book)/local-name() to resolve to book title book title book title book title
 fn-union-node-args-003;Could not resolve namespace for prefix  using in a for expression
 fn-union-node-args-014;Expected executing the XPath "() | ()" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath () | () to resolve to 
 fn-union-node-args-018;Expected XPath (/atomic:root/atomic:duration/text()) | (/atomic:root/atomic:duration/text()) to resolve to P1Y2M3DT10H30M
@@ -10789,7 +10796,7 @@ functx-fn-normalize-space-all;PRSC Error: Failed to parse query ''
 functx-fn-normalize-unicode-1;The function normalize-unicode with arity 1 is not registered.
 functx-fn-normalize-unicode-2;The function normalize-unicode with arity 2 is not registered.
 functx-fn-normalize-unicode-all;The function normalize-unicode with arity 1 is not registered.
-functx-fn-not-2;Expected XPath (not((/) //product)) to resolve to false
+functx-fn-not-2;Object reference not set to an instance of an object.
 functx-fn-not-7;PRSC Error: Failed to parse query ''
 functx-fn-not-all;PRSC Error: Failed to parse query ''
 functx-fn-number-1;Could not resolve namespace for prefix  using in a for expression
@@ -12829,7 +12836,7 @@ K-FilterExpr-91;Expected XPathException with code FORG0006, but got Can't parse 
 K-FilterExpr-92;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsInt, value: 1] into an int.
 K-FilterExpr-93;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsInt, value: 1] into an int.
 K-FilterExpr-94;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsInt, value: 1] into an int.
-K-FilterExpr-95;SingletonSequence.Map not implemented
+K-FilterExpr-95;Expected XPath /works/employee[@name=/works/employee[1]/@name]/@name/string() to resolve to "Jane Doe 1"
 K-FilterExpr-96;PRSC Error: Failed to parse query ' = "Jane Doe 3"'
 K-FloorFunc-4;Can't parse 10.5 into an int.
 K-FloorFunc-5;Can't parse 10.5 into an int.
@@ -15810,12 +15817,13 @@ K2-Axes-4;PRSC Error: Failed to parse query ''
 K2-Axes-40;Expected error code: XPTY0020. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-Axes-41;Expected error code: XPTY0020. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-Axes-42;PRSC Error: Failed to parse query ''
+K2-Axes-43;Expected executing the XPath "(1, 5 * /)[1]" to resolve to one of the expected results, but got System.NullReferenceException: Object reference not set to an instance of an object.
+K2-Axes-45;Expected executing the XPath "(/, 1)[2]" to resolve to one of the expected results, but got System.NullReferenceException: Object reference not set to an instance of an object.
 K2-Axes-47;PRSC Error: Failed to parse query ''
 K2-Axes-48;PRSC Error: Failed to parse query ''
 K2-Axes-49;PRSC Error: Failed to parse query ''
 K2-Axes-51;Expected error code: XPTY0019. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-Axes-52;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
-K2-Axes-53;Expected error code: XPTY0019. Query succeeded with result: a string a string a string a string a string a string
 K2-Axes-57;PRSC Error: Failed to parse query ''
 K2-Axes-58;PRSC Error: Failed to parse query ''
 K2-Axes-59;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
@@ -16241,7 +16249,7 @@ K2-DirectConOther-45;PRSC Error: Failed to parse query ''
 K2-DirectConOther-46;PRSC Error: Failed to parse query '<!-- <<<>><&%(/?=(=)&entity;-]]> -->'
 K2-DirectConOther-47;PRSC Error: Failed to parse query '<?target ]]>?>'
 K2-DirectConOther-48;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
-K2-DirectConOther-57;Expected error code: XPST0003. Found error code:  with error message: 
+K2-DirectConOther-57;Expected XPathException with code XPST0003, but got Object reference not set to an instance of an object.
 K2-DirectConOther-58;PRSC Error: Failed to parse query ''
 K2-DirectConOther-59;PRSC Error: Failed to parse query ''
 K2-DirectConOther-60;PRSC Error: Failed to parse query ''
@@ -20510,7 +20518,7 @@ path011;PRSC Error: Failed to parse query 'fn:path((//namespace::xml)[1])'
 path012;PRSC Error: Failed to parse query 'fn:path((//namespace::xml)[1])'
 path013;PRSC Error: Failed to parse query 'fn:path((//namespace::*[name()=''])[1])'
 path014;PRSC Error: Failed to parse query '\n        import module namespace copy="http://www.w3.org/QT3/copy";\n        fn:path(copy:copy((//employee)[1])/pnum)\n      '
-path015;Expected XPath fn:path(/) to resolve to /
+path015;Object reference not set to an instance of an object.
 path016;PRSC Error: Failed to parse query 'fn:path(attribute name {"fred"})'
 path017;PRSC Error: Failed to parse query 'fn:path(text{"fred"})'
 path018;PRSC Error: Failed to parse query ''

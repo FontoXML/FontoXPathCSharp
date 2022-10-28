@@ -44,15 +44,20 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
             else resultContainsNonNodes = true;
 
         if (resultContainsNonNodes && resultContainsNodes)
-            throw new XPathException("XPTY0018", "The path operator should either return nodes or non-nodes. " +
-                                                 "Mixed sequences are not allowed."
+            throw new XPathException(
+                "XPTY0018",
+                "The path operator should either return nodes or non-nodes. Mixed sequences are not allowed."
             );
 
         if (resultContainsNodes)
+        {
+            var nodesList = result.Cast<NodeValue<TNode>>().ToList();
             return DocumentOrderUtils<TNode>
-                .SortNodeValues(domFacade, result.Cast<NodeValue<TNode>>().ToList())
+                .SortNodeValues(domFacade, nodesList)
                 .Cast<AbstractValue>()
                 .ToArray();
+        }
+
         return result;
     }
 
@@ -60,12 +65,11 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         var sequenceHasPeerProperty = true;
-        var index = 0;
-        var result = _stepExpressions.Aggregate(
-            SequenceFactory.CreateEmpty(),
-            (intermediateResultNodesSequence, selector) =>
+        var result = _stepExpressions.Reduce(
+            (ISequence?)null,
+            (intermediateResultNodesSequence, selector, index) =>
             {
-                var childContextIterator = intermediateResultNodesSequence.IsEmpty()
+                var childContextIterator = intermediateResultNodesSequence == null
                     ? IteratorUtils.SingleValueIterator(dynamicContext!)
                     : dynamicContext?.CreateSequenceIterator(intermediateResultNodesSequence);
 
@@ -92,7 +96,11 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
                             );
 
                     return IteratorResult<ISequence>.Ready(
-                        selector.EvaluateMaybeStatically(childContext.Value, executionParameters));
+                        selector.EvaluateMaybeStatically(
+                            childContext.Value,
+                            executionParameters
+                        )
+                    );
                 };
 
                 ISequence? sortedResultSequence = null;
@@ -159,7 +167,6 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
                     }
 
                 sequenceHasPeerProperty = sequenceHasPeerProperty && selector.Peer;
-                index++;
                 return sortedResultSequence!;
             }
         );

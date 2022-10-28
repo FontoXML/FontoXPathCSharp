@@ -34,9 +34,16 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
     private readonly Options<TNode> _options =
         new(_ => "http://www.w3.org/2010/09/qt-fots-catalog");
 
-    private HashSet<string> _shouldRunTestByName = new();
+    private readonly HashSet<string> _testWhitelist = new()
+    {
+        // "Axes001-2",
+        // "Axes001-3"
+        // "Axes002-3",
+        // "Axes002-4",
+        // "Axes033-2"
+    };
 
-    // private readonly List<object[]> _testCases = new();
+    private HashSet<string> _shouldRunTestByName = new();
 
     private HashSet<string> _unrunnableTestCasesByName = new();
 
@@ -97,7 +104,8 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
             var testCasesReturn = testCaseNodes.Aggregate(new List<object[]>(), (testCases, testCase) =>
             {
                 var testName = GetTestName(testCase);
-                if (_unrunnableTestCasesByName.Contains(testName)) return testCases;
+                if (_unrunnableTestCasesByName.Contains(testName)
+                    || (_testWhitelist.Count != 0 && !_testWhitelist.Contains(testName))) return testCases;
 
                 try
                 {
@@ -109,6 +117,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
                         _options,
                         _nodeUtils
                     );
+
                     testCases.Add(new object[]
                         { testName, testSetName!, description, testCase, arguments, _nodeUtils });
                 }
