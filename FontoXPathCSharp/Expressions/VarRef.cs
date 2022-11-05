@@ -23,24 +23,27 @@ public class VarRef<TNode> : AbstractExpression<TNode> where TNode : notnull
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
-        var variableBinding = dynamicContext?.VariableBindings[_variableBindingName!];
+        Func<ISequence>? variableBinding = null;
+        if (_variableBindingName != null && dynamicContext!.VariableBindings.ContainsKey(_variableBindingName!))
+            variableBinding = dynamicContext.VariableBindings[_variableBindingName!];
 
         // Make dynamic variables take precedence
         if (variableBinding == null)
         {
-            if (_staticallyBoundVariableValue != null)
-                return _staticallyBoundVariableValue(dynamicContext!, executionParameters!);
-            throw new XPathException(
-                "XQDY0054", $"The variable {_qualifiedName.LocalName} is declared but not in scope."
-            );
+            return _staticallyBoundVariableValue != null
+                ? _staticallyBoundVariableValue(dynamicContext!, executionParameters!)
+                : throw new XPathException(
+                    "XQDY0054",
+                    $"The variable '{_qualifiedName.LocalName}' is declared but not in scope."
+                );
         }
 
-        return dynamicContext!.VariableBindings[_variableBindingName!]();
+        return variableBinding();
     }
 
     public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
     {
-        if (_qualifiedName.NamespaceUri == null && _qualifiedName.Prefix != null)
+        if (string.IsNullOrEmpty(_qualifiedName.NamespaceUri) && !string.IsNullOrEmpty(_qualifiedName.Prefix))
             _qualifiedName.NamespaceUri = staticContext.ResolveNamespace(_qualifiedName.Prefix);
 
         _variableBindingName = staticContext.LookupVariable(
@@ -49,7 +52,10 @@ public class VarRef<TNode> : AbstractExpression<TNode> where TNode : notnull
         );
 
         if (_variableBindingName == null)
-            throw new XPathException("XPST0008", $"The variable {_qualifiedName.LocalName} is not in scope.");
+            throw new XPathException(
+                "XPST0008", 
+                $"The variable '{_qualifiedName.LocalName}' is not in scope."
+                );
 
         var staticallyBoundVariableBinding = staticContext.GetVariableDeclaration(
             _variableBindingName

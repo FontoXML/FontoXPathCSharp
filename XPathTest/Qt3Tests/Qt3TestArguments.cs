@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
+using XPathTest.Caches;
 
 namespace XPathTest.Qt3Tests;
 
@@ -71,25 +71,12 @@ public class Qt3TestArguments<TNode> where TNode : notnull
             domFacade,
             options
         );
-        var environmentNodes =
-            Evaluate.EvaluateXPathToNodes(
-                "./environment",
-                testCase,
-                domFacade,
-                options
-            );
-        var environmentNode = environmentNodes.Any()
-            ? Evaluate.EvaluateXPathToFirstNode(
-                $"/test-set/environment[@name = \"{refString}\"]",
-                testCase,
-                domFacade,
-                options)
-            : Evaluate.EvaluateXPathToFirstNode(
-                "./environment",
-                testCase,
-                domFacade,
-                options);
 
+        var environmentNode = Evaluate.EvaluateXPathToFirstNode(
+            "let $ref := ./environment/@ref return if ($ref) then /test-set/environment[@name = $ref] else ./environment",
+            testCase,
+            domFacade,
+            options);
 
         var (contextNode, resolver, variablesInScope) =
             environmentNode != null
@@ -100,10 +87,13 @@ public class Qt3TestArguments<TNode> where TNode : notnull
                     nodeUtils,
                     options
                 )
-                : new Qt3TestEnvironment<TNode>(
-                    nodeUtils.CreateDocument(),
-                    _ => null,
-                    new Dictionary<string, object>()
+                : EnvironmentsByNameCache<TNode>.Instance.GetResource(
+                    Evaluate.EvaluateXPathToString(
+                        "(./environment/@ref, 'empty')[1]",
+                        testCase,
+                        domFacade,
+                        options
+                    )
                 );
 
         // var (contextNode, resolver, variablesInScope) = (environmentNode != null
