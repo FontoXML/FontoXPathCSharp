@@ -1,45 +1,49 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using FontoXPathCSharp;
+using FontoXPathCSharp.DomFacade;
+using FontoXPathCSharp.Types;
 using XPathTest.Qt3Tests;
 
 namespace XPathTest.Caches;
 
 public class EnvironmentsByNameCache<TNode> : ResourceCache<string, Qt3TestEnvironment<TNode>> where TNode : notnull
 {
-    private INodeUtils<TNode>? _nodeUtils;
-
     public static EnvironmentsByNameCache<TNode> Instance { get; } = new();
 
     protected override Qt3TestEnvironment<TNode> Load(string key)
     {
-        return new Qt3TestEnvironment<TNode>(
-            _nodeUtils!.CreateDocument(),
-            _ => null,
-            new Dictionary<string, object>()
-        );
-        // throw new NotImplementedException("Loading Environments from a Cache is not implemented yet.");
+        Console.WriteLine(
+            $"Environment '{key}' was not found in environment cache, loading empty environment instead.");
+        return _cache["empty"];
     }
 
-    public void LoadDefaultEnvironments(TNode catalog, INodeUtils<TNode> nodeUtils)
+    public void LoadDefaultEnvironments(TNode catalog, IDomFacade<TNode> domFacade, INodeUtils<TNode> nodeUtils,
+        Options<TNode> catalogOptions)
     {
-        _nodeUtils = nodeUtils;
-        throw new NotImplementedException("Loading Default Environments not implemented yet.");
-        // TODO: Implementing default environments loading.
-        // var result = Evaluate.EvaluateXPathToNodes("/catalog/environment",
-        //         catalog,
-        //         null,
-        //         new Dictionary<string, AbstractValue>(),
-        //         new Options())
-        //     .Aggregate(
-        //         new Dictionary<string, XmlNode> {["empty"] = new XmlDocument()},
-        //         (envByName, environmentNode) =>
-        //         {
-        //             var name = Evaluate.EvaluateXPathToString("@name", environmentNode, null,
-        //                 new Dictionary<string, AbstractValue>(),
-        //                 new Options());
-        //
-        //             envByName[name] = CreateEnvironment("", environmentNode);
-        //             return envByName;
-        //         });
+        Console.WriteLine("Initializing default environment cache.");
+
+        _cache = Evaluate.EvaluateXPathToNodes("/catalog/environment", catalog, domFacade, catalogOptions).Aggregate(
+            new Dictionary<string, Qt3TestEnvironment<TNode>>
+            {
+                {
+                    "empty",
+                    new Qt3TestEnvironment<TNode>(
+                        nodeUtils.CreateDocument(),
+                        _ => null,
+                        new Dictionary<string, object>()
+                    )
+                }
+            },
+            (envByName, environmentNode) =>
+            {
+                envByName[Evaluate.EvaluateXPathToString("@name", environmentNode, domFacade, catalogOptions)!]
+                    = new Qt3TestEnvironment<TNode>("", environmentNode, domFacade, nodeUtils, catalogOptions);
+                return envByName;
+            }
+        );
+
+        Console.WriteLine($"Finished loading default environments, loaded {_cache.Count} environments.");
     }
 }

@@ -31,9 +31,7 @@ public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notn
 
                     return (TReturn)(object)string.Join(' ',
                         allValues.Select(v =>
-                            TypeCasting.CastToType((AtomicValue)v, ValueType.XsString)
-                                .GetAs<StringValue>()
-                                .Value));
+                            TypeCasting.CastToType((AtomicValue)v, ValueType.XsString).GetAs<StringValue>().Value));
                 }
             },
             // Strings
@@ -87,6 +85,17 @@ public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notn
                         .Select(v => ((NodeValue<TNode>)v).Value);
                 }
             },
+            // Any
+            {
+                typeof(object), () =>
+                {
+                    var allValues = rawResults.GetAllValues();
+                    return (TReturn)allValues.Select(value =>
+                        TransformXPathValueToObject(value, executionParameters)
+                    );
+                }
+            },
+
             // Array TODO: Find a better type to use here.
             {
                 typeof(IEnumerable<object>), () =>
@@ -111,7 +120,55 @@ public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notn
         return typeActions.Run(typeof(TReturn));
     }
 
-    private static Iterator<AbstractValue[]> TransformArrayToArray(
+    private static object TransformXPathValueToObject(AbstractValue value,
+        ExecutionParameters<TNode> executionParameters)
+    {
+        if (value.GetValueType().IsSubtypeOf(ValueType.Map))
+        {
+            return TransformMapToDictionary(value as MapValue, executionParameters);
+        }
+
+        if (value.GetValueType().IsSubtypeOf(ValueType.Array))
+        {
+            return TransformArrayToArray(value as ArrayValue<TNode>, executionParameters);
+        }
+
+        if (value.GetValueType().IsSubtypeOf(ValueType.XsQName))
+        {
+            var qualifiedName = value.GetAs<QNameValue>().Value;
+            return $"Q{qualifiedName.NamespaceUri ?? ""}{qualifiedName.LocalName}";
+        }
+
+        return value.GetValueType() switch
+        {
+            ValueType.XsDate
+                or ValueType.XsTime
+                or ValueType.XsDateTime
+                or ValueType.XsGYearMonth
+                or ValueType.XsGYear
+                or ValueType.XsGMonthDay
+                or ValueType.XsGMonth
+                or ValueType.XsGDay => throw new NotImplementedException(
+                    "XdmReturnValue cannot convert date-like types to an object yet."),
+            ValueType.Attribute
+                or ValueType.Node
+                or ValueType.Element
+                or ValueType.DocumentNode
+                or ValueType.Text
+                or ValueType.ProcessingInstruction
+                or ValueType.Comment => throw new NotImplementedException(
+                    "XdmReturnValue cannot convert XML-related types to an object yet."),
+            _ => value.GetAs<AtomicValue>().GetValue()
+        };
+    }
+
+    private static Dictionary<string, object> TransformMapToDictionary(MapValue? value,
+        ExecutionParameters<TNode> executionParameters)
+    {
+        throw new NotImplementedException("TransformMapToDictionary not implemented yet.");
+    }
+
+    private static object[] TransformArrayToArray(
         ArrayValue<TNode>? first,
         ExecutionParameters<TNode> executionParameters)
     {

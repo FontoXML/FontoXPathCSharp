@@ -205,6 +205,38 @@ public class Evaluate
         );
     }
 
+    public static object? EvaluateXPathToAny<TSelector, TNode>(
+        TSelector selector,
+        TNode contextItem,
+        IDomFacade<TNode> domFacade,
+        Options<TNode> options,
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
+    {
+        return EvaluateXPath<object, TSelector, TNode>(
+            selector,
+            ParameterUtils.VerifyContextNode(contextItem, domFacade),
+            domFacade,
+            options,
+            variables
+        );
+    }
+    
+    public static object? EvaluateXPathToAny<TSelector, TNode>(
+        TSelector selector,
+        object? contextItem,
+        IDomFacade<TNode> domFacade,
+        Options<TNode> options,
+        Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
+    {
+        return EvaluateXPath<object, TSelector, TNode>(
+            selector,
+            ParameterUtils.ConvertToAbstractValue(contextItem),
+            domFacade,
+            options,
+            variables
+        );
+    }
+
     public static TReturn? EvaluateXPath<TReturn, TSelector, TNode>(
         TSelector selector,
         AbstractValue? contextItem,

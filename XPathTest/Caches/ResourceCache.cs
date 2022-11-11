@@ -4,7 +4,7 @@ namespace XPathTest.Caches;
 
 public abstract class ResourceCache<TKey, TRes> where TKey : notnull
 {
-    private readonly Dictionary<TKey, TRes> _cache = new();
+    protected Dictionary<TKey, TRes> _cache = new();
 
     protected abstract TRes? Load(TKey key);
 
