@@ -34,7 +34,7 @@ public static class SortedSequenceUtils<TNode> where TNode : notnull
             hint =>
             {
                 if (currentSequence.IsDone) return IteratorResult<AbstractValue>.Done();
-                
+
                 currentIterator ??= currentSequence.Value?.GetValue();
 
                 IteratorResult<AbstractValue> value;
@@ -59,6 +59,7 @@ public static class SortedSequenceUtils<TNode> where TNode : notnull
     public static ISequence MergeSortedSequences(DomFacade<TNode> domFacade, Iterator<ISequence> sequences)
     {
         var allIterators = new List<MappedIterator>();
+
         // Because the sequences are sorted locally, but unsorted globally, we first need to sort all the iterators.
         // For that, we need to know all of them
         void LoadSequences()
@@ -85,10 +86,10 @@ public static class SortedSequenceUtils<TNode> where TNode : notnull
                 {
                     allSequencesAreSorted = true;
 
-                    if (allIterators.All(iterator => 
+                    if (allIterators.All(iterator =>
                             iterator.Current.Value!.GetValueType().IsSubtypeOf(ValueType.Node)
-                            )
                         )
+                       )
                         // Sort the iterators initially. We know these iterators return locally sorted items, but we do not know the inter-ordering of these items.
                         allIterators.Sort((iteratorA, iteratorB) =>
                             DocumentOrderUtils<TNode>.CompareNodePositions(

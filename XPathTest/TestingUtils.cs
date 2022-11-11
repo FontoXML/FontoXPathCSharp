@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using XPathTest.Caches;
 
@@ -125,8 +126,13 @@ public class TestingUtils
 
     public static string? LoadQt3TestFileToString(string filename)
     {
-        return DocumentsByPathCache.Instance.GetResource($"qt3tests/{PreprocessFilename(filename)}");
+        return DocumentsByPathCache.Instance.GetResource(Path.Combine("qt3tests", filename));
     }
+
+    // public static string? LoadQt3TestFileToString(string filename)
+    // {
+    //     return DocumentsByPathCache.Instance.GetResource($"qt3tests/{PreprocessFilename(filename)}");
+    // }
 
     public static void SortFileLines(string filename)
     {

@@ -139,14 +139,14 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode> wher
         if (knownNamespaceUri != null) return knownNamespaceUri;
 
         _executionContextWasRequired = true;
-        
+
         var uri = _namespaceResolver(prefix);
 
         if (!_referredNamespaceByName.ContainsKey(prefix) && uri != null)
             _referredNamespaceByName.Add(prefix, (uri, prefix));
 
         if (uri == null && prefix == null) return null;
-        
+
         return uri;
     }
 }

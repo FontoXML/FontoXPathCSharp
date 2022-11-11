@@ -4,7 +4,6 @@ using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Types;
-using XPathTest.Caches;
 
 namespace XPathTest.Qt3Tests;
 
@@ -87,14 +86,18 @@ public class Qt3TestArguments<TNode> where TNode : notnull
                     nodeUtils,
                     options
                 )
-                : EnvironmentsByNameCache<TNode>.Instance.GetResource(
-                    Evaluate.EvaluateXPathToString(
-                        "(./environment/@ref, 'empty')[1]",
-                        testCase,
-                        domFacade,
-                        options
-                    )
-                );
+                : new Qt3TestEnvironment<TNode>(
+                    nodeUtils.CreateDocument(),
+                    _ => null,
+                    new Dictionary<string, object>());
+        // : EnvironmentsByNameCache<TNode>.Instance.GetResource(
+        //     Evaluate.EvaluateXPathToString(
+        //         "(./environment/@ref, 'empty')[1]",
+        //         testCase,
+        //         domFacade,
+        //         options
+        //     )
+        // );
 
         // var (contextNode, resolver, variablesInScope) = (environmentNode != null
         //     ? CreateEnvironment(baseUrl, environmentNode, domFacade, nodeUtils, options)

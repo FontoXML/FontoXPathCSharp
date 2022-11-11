@@ -51,7 +51,7 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
     {
         if (a.GetValueType() != b.GetValueType())
             throw new NotImplementedException(
-                "HandleNumericOperator: Different numeric types");
+                $"HandleNumericOperator: Different numeric types: {a.GetValueType()} and {b.GetValueType()}");
 
         return a.GetValueType() switch
         {

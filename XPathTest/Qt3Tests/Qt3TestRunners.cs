@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using System.Xml.Linq;
 using Xunit;
 
 namespace XPathTest.Qt3Tests;
@@ -28,18 +27,18 @@ public class Qt3TestRunners : IClassFixture<TestLoggingFixture>
         RunTest(name, testSetName, description, testCase, arguments, nodeUtils);
     }
 
-    [Theory(Timeout = 60000, DisplayName = "Qt3 Tests: LINQ XML API")]
-    [ClassData(typeof(Qt3TestDataXObject))]
-    public void RunQt3TestXObject(
-        string name,
-        string testSetName,
-        string description,
-        XObject testCase,
-        Qt3TestArguments<XObject> arguments,
-        INodeUtils<XObject> nodeUtils)
-    {
-        RunTest(name, testSetName, description, testCase, arguments, nodeUtils);
-    }
+    // [Theory(Timeout = 60000, DisplayName = "Qt3 Tests: LINQ XML API")]
+    // [ClassData(typeof(Qt3TestDataXObject))]
+    // public void RunQt3TestXObject(
+    //     string name,
+    //     string testSetName,
+    //     string description,
+    //     XObject testCase,
+    //     Qt3TestArguments<XObject> arguments,
+    //     INodeUtils<XObject> nodeUtils)
+    // {
+    //     RunTest(name, testSetName, description, testCase, arguments, nodeUtils);
+    // }
 
     private void RunTest<TNode>(
         string name,

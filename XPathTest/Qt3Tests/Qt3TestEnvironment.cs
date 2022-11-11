@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
@@ -27,22 +28,30 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
                 environmentNode,
                 domFacade,
                 options)
-            .Select(variable => new KeyValuePair<string, object>(
-                Evaluate.EvaluateXPathToString(
-                    "@role",
+            .Select(variable =>
+            {
+                var filePath = Evaluate.EvaluateXPathToString(
+                    "@file",
                     variable,
                     domFacade,
-                    options)?[1..] ?? string.Empty,
-                TestingUtils.LoadQt3TestFileToString(
-                    (baseUrl != null ? baseUrl + "/" : "") + Evaluate.EvaluateXPathToString(
-                        "@file",
+                    options)!;
+                return new KeyValuePair<string, object>(
+                    Evaluate.EvaluateXPathToString(
+                        "@role",
                         variable,
                         domFacade,
-                        options)
-                ) ?? string.Empty))
+                        options)?[1..] ?? string.Empty,
+                    TestingUtils.LoadQt3TestFileToString(
+                        baseUrl != null ? Path.Combine(baseUrl, filePath) : filePath
+                    ) ?? string.Empty);
+            })
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => x.Value);
-        var contextNode = !string.IsNullOrEmpty(fileName) ? nodeUtils.LoadFileToXmlNode(fileName) : default;
+
+        // Console.WriteLine($"FILE NAME:{fileName} BASE URL {baseUrl}");
+        var contextNode = !string.IsNullOrEmpty(fileName)
+            ? nodeUtils.LoadFileToXmlNode(baseUrl != null ? Path.Combine(baseUrl, fileName) : fileName)
+            : default;
 
         // TODO: ehh... no idea what is going on with that nested EvaluateXPath that's in the original.
         // Evaluate.EvaluateXPathToNodes("param", environmentNode).ToList().ForEach(paramNode => {

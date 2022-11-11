@@ -29,14 +29,12 @@ public class VarRef<TNode> : AbstractExpression<TNode> where TNode : notnull
 
         // Make dynamic variables take precedence
         if (variableBinding == null)
-        {
             return _staticallyBoundVariableValue != null
                 ? _staticallyBoundVariableValue(dynamicContext!, executionParameters!)
                 : throw new XPathException(
                     "XQDY0054",
                     $"The variable '{_qualifiedName.LocalName}' is declared but not in scope."
                 );
-        }
 
         return variableBinding();
     }
@@ -53,9 +51,9 @@ public class VarRef<TNode> : AbstractExpression<TNode> where TNode : notnull
 
         if (_variableBindingName == null)
             throw new XPathException(
-                "XPST0008", 
+                "XPST0008",
                 $"The variable '{_qualifiedName.LocalName}' is not in scope."
-                );
+            );
 
         var staticallyBoundVariableBinding = staticContext.GetVariableDeclaration(
             _variableBindingName

@@ -81,10 +81,10 @@ public class TestAxis
 
     private static readonly XmlDocument Tree1XmlDocument;
     private static readonly XDocument Tree1XObjectDocument;
-    
+
     private static readonly XmlDocument TreeCompassXmlDocument;
     private static readonly XDocument TreeCompassXObjectDocument;
-    
+
     static TestAxis()
     {
         XmlNodeDocument = new XmlDocument();
@@ -93,11 +93,11 @@ public class TestAxis
 
         XObjectDocument = XDocument.Parse(TestXml);
         XObjectDomFacade = new XObjectDomFacade();
-        
+
         Tree1XmlDocument = new XmlDocument();
         Tree1XmlDocument.LoadXml(Tree1ChildXml);
         Tree1XObjectDocument = XDocument.Parse(Tree1ChildXml);
-        
+
         TreeCompassXmlDocument = new XmlDocument();
         TreeCompassXmlDocument.LoadXml(TreeCompassXml);
         TreeCompassXObjectDocument = XDocument.Parse(TreeCompassXml);
@@ -183,19 +183,19 @@ public class TestAxis
             XmlNodeDomFacade,
             new Options<XmlNode>(_ => null)
         );
-        
+
         Assert.Equal(1, res);
-        
+
         res = Evaluate.EvaluateXPathToInt(
             selector,
             Tree1XObjectDocument,
             XObjectDomFacade,
             new Options<XObject>(_ => null)
         );
-        
+
         Assert.Equal(1, res);
     }
-    
+
     [Fact]
     public void TestDescendantAxis3()
     {
@@ -207,22 +207,37 @@ public class TestAxis
             XmlNodeDomFacade,
             new Options<XmlNode>(_ => null)
         );
-        
+
         Assert.Equal(21, res);
     }
-    
-    [Fact]
-    public void TestQt3TestVarRefExternal()
-    {
-        var selector = "let $x := 'n0' return /far-north/north[@mark=$x]";
 
-        var res = Evaluate.EvaluateXPathToNodes(
-            selector,
-            TreeCompassXmlDocument,
-            XmlNodeDomFacade,
-            new Options<XmlNode>(_ => "")
-        );
+    // [Fact]
+    // public void TestQt3TestVarRefExternal()
+    // {
+    //     var selector = "let $x := 'n0' return /far-north/north[$x=fn:last()]";
+    //
+    //     var res = Evaluate.EvaluateXPathToNodes(
+    //         selector,
+    //         TreeCompassXmlDocument,
+    //         XmlNodeDomFacade,
+    //         new Options<XmlNode>(_ => null)
+    //     );
+    //
+    //     Assert.Single(res);
+    // }
 
-        Assert.Single(res);
-    }
+    // [Fact]
+    // public void TestQt3TestVarRefQName()
+    // {
+    //     var selector = "let $x := 1 return $x";
+    //
+    //     var res = Evaluate.EvaluateXPathToInt(
+    //         selector,
+    //         TreeCompassXmlDocument,
+    //         XmlNodeDomFacade,
+    //         new Options<XmlNode>(_ => null)
+    //     );
+    //
+    //     Assert.Equal(1, res);
+    // }
 }

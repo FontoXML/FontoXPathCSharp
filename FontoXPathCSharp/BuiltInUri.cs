@@ -52,8 +52,8 @@ public static class StaticallyKnownNamespaceUtils
 
     public static string? GetStaticallyKnownNamespaceByPrefix(string? prefix)
     {
-        return !string.IsNullOrEmpty(prefix) && PrefixUriLookup.ContainsKey(prefix) 
-            ? PrefixUriLookup[prefix] 
+        return !string.IsNullOrEmpty(prefix) && PrefixUriLookup.ContainsKey(prefix)
+            ? PrefixUriLookup[prefix]
             : null;
     }
 
