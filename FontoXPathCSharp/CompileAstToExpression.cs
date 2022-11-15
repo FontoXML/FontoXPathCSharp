@@ -233,7 +233,26 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         // Directly use expressions which are not path expression
         if (!requireSorting && steps.Length == 1) return steps[0];
 
-        return new PathExpression<TNode>(steps.ToArray(), requireSorting);
+        if (isAbsolute == null &&
+            steps.Length == 1 &&
+            steps.First().ExpectedResultOrder == ResultOrdering.Sorted)
+        {
+            return steps[0];
+        }
+
+        if (isAbsolute != null && steps.Length == 0)
+        {
+            return new AbsolutePathExpression<TNode>(null);
+        }
+
+        var pathExpression = new PathExpression<TNode>(steps.ToArray(), requireSorting);
+
+        if (isAbsolute != null)
+        {
+            return new AbsolutePathExpression<TNode>(pathExpression);
+        }
+        
+        return pathExpression;
     }
 
     private static AbstractExpression<TNode> CompileLookup(Ast ast, CompilationOptions options)
