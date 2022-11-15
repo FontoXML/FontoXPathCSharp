@@ -83,6 +83,11 @@ public class XObjectDomFacade : IDomFacade<XObject>
         return null;
     }
 
+    public XObject? GetDocument(XObject node)
+    {
+        return IsDocument(node) ? node : node.Document;
+    }
+
     public string GetLocalName(XObject node)
     {
         return node.NodeType switch

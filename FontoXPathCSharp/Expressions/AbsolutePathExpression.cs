@@ -30,16 +30,12 @@ public class AbsolutePathExpression<TNode> : AbstractExpression<TNode> where TNo
         var node = dynamicContext.ContextItem.GetAs<NodeValue<TNode>>().Value;
         var domFacade = executionParameters!.DomFacade;
 
-        var documentNode = node;
-        while (!domFacade.IsDocument(documentNode))
-        {
-            documentNode = domFacade.GetParentNode(documentNode);
-            if (documentNode == null)
-                throw new XPathException(
-                    "XPDY0050",
-                    "The root node of the context node is not a document node."
-                );
-        }
+        var documentNode = domFacade.GetDocument(node);
+        if (documentNode == null)
+            throw new XPathException(
+                "XPDY0050",
+                "The root node of the context node is not a document node."
+            );
 
         var contextSequence = SequenceFactory.CreateFromValue(new NodeValue<TNode>(documentNode, domFacade));
 
