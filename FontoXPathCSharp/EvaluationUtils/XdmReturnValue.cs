@@ -124,14 +124,10 @@ public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notn
         ExecutionParameters<TNode> executionParameters)
     {
         if (value.GetValueType().IsSubtypeOf(ValueType.Map))
-        {
             return TransformMapToDictionary(value as MapValue, executionParameters);
-        }
 
         if (value.GetValueType().IsSubtypeOf(ValueType.Array))
-        {
             return TransformArrayToArray(value as ArrayValue<TNode>, executionParameters);
-        }
 
         if (value.GetValueType().IsSubtypeOf(ValueType.XsQName))
         {

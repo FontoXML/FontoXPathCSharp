@@ -220,7 +220,7 @@ public class Evaluate
             variables
         );
     }
-    
+
     public static object? EvaluateXPathToAny<TSelector, TNode>(
         TSelector selector,
         object? contextItem,

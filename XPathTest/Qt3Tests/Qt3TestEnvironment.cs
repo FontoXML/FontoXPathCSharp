@@ -22,7 +22,7 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
             environmentNode,
             domFacade,
             options);
-        
+
         var variables = Evaluate.EvaluateXPathToNodes(
                 "source[@role!='.']",
                 environmentNode,
@@ -48,13 +48,12 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => x.Value);
 
-        
-        
+
         // Console.WriteLine($"FILE NAME:{fileName} BASE URL {baseUrl}");
         var contextNode = !string.IsNullOrEmpty(fileName)
             ? nodeUtils.LoadFileToXmlNode(baseUrl != null ? Path.Combine(baseUrl, fileName) : fileName)
-            : default;
-        
+            : nodeUtils.CreateDocument();
+
         // Evaluate.EvaluateXPathToNodes("param", environmentNode, domFacade, options).ToList().ForEach(paramNode =>
         // {
         //     var name = Evaluate.EvaluateXPathToString("@name", paramNode, domFacade, options);

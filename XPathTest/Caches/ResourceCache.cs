@@ -8,7 +8,7 @@ public abstract class ResourceCache<TKey, TRes> where TKey : notnull
 
     protected abstract TRes? Load(TKey key);
 
-    public TRes? GetResource(TKey key)
+    public virtual TRes? GetResource(TKey key)
     {
         if (_cache.ContainsKey(key)) return _cache[key];
         var loaded = Load(key);

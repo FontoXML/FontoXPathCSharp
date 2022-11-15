@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using FontoXPathCSharp;
@@ -44,7 +43,12 @@ public class Qt3TestArguments<TNode> where TNode : notnull
         if (Evaluate.EvaluateXPathToBoolean("./test/@file", testCase, domFacade, options))
         {
             if (TestFileSystem.FileExists(filepath))
-                testQuery = TestingUtils.LoadQt3TestFileToString(filepath);
+                testQuery = TestingUtils.LoadQt3TestFileToString(Evaluate.EvaluateXPathToString(
+                        $"{baseUrl} || '/' || test/@file",
+                        testCase,
+                        domFacade,
+                        options) ?? ""
+                );
             else
                 throw new FileNotFoundException($"Could not load file {filepath}");
         }
@@ -52,9 +56,21 @@ public class Qt3TestArguments<TNode> where TNode : notnull
         {
             testQuery = Evaluate.EvaluateXPathToString("./test", testCase, domFacade, options)!;
         }
-        
-        //TODO: Retrieve the language from the test case.
+
         var language = FontoXPathCSharp.Types.Language.LanguageId.Xpath31Language;
+
+        //TODO: Uncomment when below query is supported.
+        // var languageString = Evaluate.EvaluateXPathToString(
+        //     "if (((dependency)[@type = 'spec']/@value)!tokenize(.) = ('XQ10+', 'XQ30+', 'XQ31+', 'XQ31')) " +
+        //     "then 'XQuery3.1' else if (((dependency)[@type = 'spec']/@value)!tokenize(.) = ('XP20', 'XP20+', 'XP30', 'XP30+')) " +
+        //     "then 'XPath3.1' else if (((../dependency)[@type = 'spec']/@value)!tokenize(.) = ('XQ10+', 'XQ30+', 'XQ31+', 'XQ31')) " +
+        //     "then 'XQuery3.1' else 'XPath3.1'",
+        //     testCase,
+        //     domFacade,
+        //     options
+        // );
+        // var language = FontoXPathCSharp.Types.Language.StringToLanguageId(languageString);
+
 
         //TODO: Retrieve namespaces from the test case.
         var namespaces = new Dictionary<string, string>();
@@ -62,33 +78,20 @@ public class Qt3TestArguments<TNode> where TNode : notnull
         var localNamespaceResolver = namespaces.Count != 0
             ? new NamespaceResolver(prefix => namespaces[prefix!])
             : null;
-        
-        // var environmentRef = Evaluate.EvaluateXPathToString("./environment/@ref", testCase, domFacade, options);
-        // var environmentNode = environmentRef != null 
-        //     ? Evaluate.EvaluateXPathToFirstNode($"/test-set/environment[@name = ${environmentRef}]", testCase, domFacade, options)
-        //     : Evaluate.EvaluateXPathToFirstNode("./environment", testCase, domFacade, options);
 
         var environmentNode = Evaluate.EvaluateXPathToFirstNode(
             "let $ref := ./environment/@ref return if ($ref) then /test-set/environment[@name = $ref] else ./environment",
             testCase,
             domFacade,
             options);
-        
-        Console.WriteLine($"Environment Node is{(environmentNode != null ? " not " : " ")}null, Result: {(environmentNode != null ? domFacade.GetData(environmentNode!) : "")}");
 
         var env = environmentNode != null
-            ? new Qt3TestEnvironment<TNode>(
-                baseUrl,
-                environmentNode,
-                domFacade,
-                nodeUtils,
-                options
-            )
+            ? new Qt3TestEnvironment<TNode>(baseUrl, environmentNode, domFacade, nodeUtils, options)
             : EnvironmentsByNameCache<TNode>.Instance.GetResource(
-                Evaluate.EvaluateXPathToString("./environment/@ref", testCase, domFacade, options) ?? "empty"
-            )!;
+                Evaluate.EvaluateXPathToString("./environment/@ref", testCase, domFacade, options) ?? "empty")!;
 
-        var contextNode = env.ContextNode;
+        // if(environmentNode == null && (environmentRef ?? "empty") == "empty") Console.WriteLine("Environment ContextNode: " + env.ContextNode);
+
         var resolver = env.NamespaceResolver;
 
         NamespaceResolver namespaceResolver = localNamespaceResolver != null
@@ -96,7 +99,7 @@ public class Qt3TestArguments<TNode> where TNode : notnull
             : prefix => resolver(prefix!);
 
         BaseUrl = Path.GetDirectoryName(filepath) ?? string.Empty;
-        ContextNode = contextNode;
+        ContextNode = env.ContextNode;
         DomFacade = domFacade;
         TestQuery = testQuery!;
         Language = language;

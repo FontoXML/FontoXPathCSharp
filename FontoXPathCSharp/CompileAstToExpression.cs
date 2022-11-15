@@ -236,22 +236,14 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         if (isAbsolute == null &&
             steps.Length == 1 &&
             steps.First().ExpectedResultOrder == ResultOrdering.Sorted)
-        {
             return steps[0];
-        }
 
-        if (isAbsolute != null && steps.Length == 0)
-        {
-            return new AbsolutePathExpression<TNode>(null);
-        }
+        if (isAbsolute != null && steps.Length == 0) return new AbsolutePathExpression<TNode>(null);
 
         var pathExpression = new PathExpression<TNode>(steps.ToArray(), requireSorting);
 
-        if (isAbsolute != null)
-        {
-            return new AbsolutePathExpression<TNode>(pathExpression);
-        }
-        
+        if (isAbsolute != null) return new AbsolutePathExpression<TNode>(pathExpression);
+
         return pathExpression;
     }
 

@@ -117,7 +117,7 @@ public class TestingUtils
             var parts = filename.Split('/');
 
             filename = string.Join('/', parts
-                .Take(Array.IndexOf(parts, ".."))
+                .Take(Array.IndexOf(parts, "..") - 1)
                 .Concat(parts.Skip(Array.IndexOf(parts, "..") + 1)));
         }
 

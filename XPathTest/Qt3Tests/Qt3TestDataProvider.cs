@@ -84,7 +84,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 
         var testCatalog = _nodeUtils.LoadFileToXmlNode("catalog.xml")!;
         EnvironmentsByNameCache<TNode>.Instance.LoadDefaultEnvironments(testCatalog, _domFacade, _nodeUtils, _options);
-        
+
         var allTestSets = GetAllTestSets(testCatalog).SelectMany<string, object[]>(testSetFileName =>
         {
             var testSetData = _nodeUtils.LoadFileToXmlNode(testSetFileName)!;
