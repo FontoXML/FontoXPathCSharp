@@ -405,7 +405,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         // We have to check if there are any intermediate clauses before compiling them.
         if (clauses.Count > 1)
             if (!options.AllowXQuery)
-                throw new XPathException("XPST0003", "Use of XQuery FLWOR expressions in XPath is no allowed");
+                throw new XPathException("XPST0003", "Use of XQuery FLWOR expressions in XPath is not allowed");
 
         // TODO: Turn this back into a ReduceRight.
         clauses.Reverse();
@@ -416,13 +416,11 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             {
                 return flworExpressionClause.Name switch
                 {
-                    AstNodeName.ForClause => throw new Exception(
-                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
-                    // return forClause(
-                    //     flworExpressionClause,
-                    //     compilationOptions,
-                    //     returnOfPreviousExpression
-                    // );
+                    AstNodeName.ForClause => ForClause(
+                        flworExpressionClause,
+                        options,
+                        returnOfPreviousExpression
+                    ),
                     AstNodeName.LetClause => LetClause(flworExpressionClause, options,
                         returnOfPreviousExpression),
                     AstNodeName.WhereClause => throw new Exception(
@@ -450,6 +448,33 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
                 };
             }
         );
+    }
+
+    private static AbstractExpression<TNode> ForClause(
+        Ast expressionClause,
+        CompilationOptions options,
+        AbstractExpression<TNode> returnClauseExpression)
+    {
+        var forClauseItems = expressionClause.GetChildren(AstNodeName.All).ToArray();
+        var returnExpr = returnClauseExpression;
+
+        for (var i = forClauseItems.Length - 1; i >= 0; --i)
+        {
+            var forClauseItem = forClauseItems[i];
+            var expression = forClauseItem.FollowPath(AstNodeName.ForExpr, AstNodeName.All);
+            var positionalVariableBinding = forClauseItem.GetFirstChild(
+                AstNodeName.PositionalVariableBinding
+            );
+
+            returnExpr = new ForExpression<TNode>(
+                forClauseItem.FollowPath(AstNodeName.TypedVariableBinding, AstNodeName.VarName)?.GetQName(),
+                CompileAst(expression, DisallowUpdating(options)),
+                positionalVariableBinding?.GetQName(),
+                returnExpr
+            );
+        }
+
+        return returnExpr;
     }
 
     private static AbstractExpression<TNode> LetClause(
