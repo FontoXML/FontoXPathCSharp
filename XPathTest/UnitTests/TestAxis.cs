@@ -209,35 +209,14 @@ public class TestAxis
         );
 
         Assert.Equal(21, res);
+
+        res = Evaluate.EvaluateXPathToInt(
+            selector,
+            TreeCompassXObjectDocument,
+            XObjectDomFacade,
+            new Options<XObject>(_ => null)
+        );
+
+        Assert.Equal(21, res);
     }
-
-    // [Fact]
-    // public void TestQt3TestVarRefExternal()
-    // {
-    //     var selector = "let $x := 'n0' return /far-north/north[$x=fn:last()]";
-    //
-    //     var res = Evaluate.EvaluateXPathToNodes(
-    //         selector,
-    //         TreeCompassXmlDocument,
-    //         XmlNodeDomFacade,
-    //         new Options<XmlNode>(_ => null)
-    //     );
-    //
-    //     Assert.Single(res);
-    // }
-
-    // [Fact]
-    // public void TestQt3TestVarRefQName()
-    // {
-    //     var selector = "let $x := 1 return $x";
-    //
-    //     var res = Evaluate.EvaluateXPathToInt(
-    //         selector,
-    //         TreeCompassXmlDocument,
-    //         XmlNodeDomFacade,
-    //         new Options<XmlNode>(_ => null)
-    //     );
-    //
-    //     Assert.Equal(1, res);
-    // }
 }

@@ -14,7 +14,7 @@ public class EnvironmentsByNameCache<TNode> : ResourceCache<string, Qt3TestEnvir
 
     public override Qt3TestEnvironment<TNode>? GetResource(string? key)
     {
-        return key == null ? _cache["empty"] : base.GetResource(key);
+        return key == null ? Cache["empty"] : base.GetResource(key);
     }
 
     protected override Qt3TestEnvironment<TNode> Load(string key)
@@ -22,7 +22,7 @@ public class EnvironmentsByNameCache<TNode> : ResourceCache<string, Qt3TestEnvir
         // If the environment was not added in during initial loading, it is not part of the cache.
         Console.WriteLine(
             $"Environment '{key}' was not found in environment cache, loading empty environment instead.");
-        return _cache["empty"];
+        return Cache["empty"];
     }
 
     public void LoadDefaultEnvironments(TNode catalog, IDomFacade<TNode> domFacade, INodeUtils<TNode> nodeUtils,
@@ -30,7 +30,7 @@ public class EnvironmentsByNameCache<TNode> : ResourceCache<string, Qt3TestEnvir
     {
         Console.WriteLine("Initializing default environment cache.");
 
-        _cache = Evaluate.EvaluateXPathToNodes("/catalog/environment", catalog, domFacade, catalogOptions).Aggregate(
+        Cache = Evaluate.EvaluateXPathToNodes("/catalog/environment", catalog, domFacade, catalogOptions).Aggregate(
             new Dictionary<string, Qt3TestEnvironment<TNode>>(),
             (envByName, environmentNode) =>
             {
@@ -40,6 +40,6 @@ public class EnvironmentsByNameCache<TNode> : ResourceCache<string, Qt3TestEnvir
             }
         );
 
-        Console.WriteLine($"Finished loading default environments, loaded {_cache.Count} environments.");
+        Console.WriteLine($"Finished loading default environments, loaded {Cache.Count} environments.");
     }
 }

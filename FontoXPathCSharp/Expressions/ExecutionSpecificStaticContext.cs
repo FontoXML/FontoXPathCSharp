@@ -142,7 +142,7 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode> wher
 
         var uri = _namespaceResolver(prefix);
 
-        if (!_referredNamespaceByName.ContainsKey(prefix) && uri != null)
+        if (prefix != null && !_referredNamespaceByName.ContainsKey(prefix) && uri != null)
             _referredNamespaceByName.Add(prefix, (uri, prefix));
 
         if (uri == null && prefix == null) return null;

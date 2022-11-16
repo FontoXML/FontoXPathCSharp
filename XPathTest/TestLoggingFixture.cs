@@ -47,7 +47,7 @@ public class TestLoggingFixture : IDisposable
             .Split(Environment.NewLine)
             .First();
 
-        var query = arguments.TestQuery;
+        // var query = arguments.TestQuery;
 
         if (ex is NullReferenceException) _nullPointerExceptions[testName] = ex.ToString();
         if (ex is InvalidCastException) _castingErrors[testName] = ex.ToString();

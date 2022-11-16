@@ -32,8 +32,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 
     private readonly INodeUtils<TNode> _nodeUtils;
 
-    private readonly Options<TNode> _options =
-        new(_ => "http://www.w3.org/2010/09/qt-fots-catalog");
+    private readonly Options<TNode> _options = new(_ => "http://www.w3.org/2010/09/qt-fots-catalog");
 
     private readonly HashSet<string> _testWhitelist = new()
     {
@@ -48,7 +47,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 
     private HashSet<string> _unrunnableTestCasesByName = new();
 
-    public Qt3TestDataProvider(IDomFacade<TNode> domFacade, INodeUtils<TNode> nodeUtils)
+    protected Qt3TestDataProvider(IDomFacade<TNode> domFacade, INodeUtils<TNode> nodeUtils)
     {
         _domFacade = domFacade;
         _nodeUtils = nodeUtils;
