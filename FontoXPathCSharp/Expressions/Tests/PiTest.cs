@@ -20,10 +20,8 @@ public class PiTest<TNode> : AbstractTestExpression<TNode> where TNode : notnull
         ExecutionParameters<TNode>? executionParameters)
     {
         // Assume singleton
-        var isMatchingProcessingInstruction =
-            node.GetValueType().IsSubtypeOf(ValueType.ProcessingInstruction) &&
-            executionParameters!.DomFacade.GetTarget(node.GetAs<NodeValue<TNode>>().Value) == _target;
-        return isMatchingProcessingInstruction;
+        return node.GetValueType().IsSubtypeOf(ValueType.ProcessingInstruction) &&
+               executionParameters!.DomFacade.GetTarget(node.GetAs<NodeValue<TNode>>().Value) == _target;
     }
 
     public override string GetBucket()

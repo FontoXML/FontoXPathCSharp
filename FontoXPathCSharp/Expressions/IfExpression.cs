@@ -13,9 +13,11 @@ public class IfExpression<TNode> : PossiblyUpdatingExpression<TNode> where TNode
         new[] { ifExpr, thenExpr, elseExpr },
         new OptimizationOptions(
             ifExpr.CanBeStaticallyEvaluated && thenExpr.CanBeStaticallyEvaluated && elseExpr.CanBeStaticallyEvaluated,
-            resultOrder: thenExpr.ExpectedResultOrder == elseExpr.ExpectedResultOrder
+            thenExpr.Peer == elseExpr.Peer && thenExpr.Peer,
+            thenExpr.ExpectedResultOrder == elseExpr.ExpectedResultOrder
                 ? thenExpr.ExpectedResultOrder
-                : ResultOrdering.Unsorted)
+                : ResultOrdering.Unsorted,
+            thenExpr.Subtree == elseExpr.Subtree && thenExpr.Subtree)
     )
     {
         _ifExpr = ifExpr;

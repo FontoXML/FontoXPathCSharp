@@ -15,7 +15,8 @@ public static class BuiltInFunctions<TNode> where TNode : notnull
             .Concat(BuiltInFunctionsDataTypeConstructors<TNode>.Declarations)
             .Concat(BuiltInFunctionsNumeric<TNode>.Declarations)
             .Concat(BuiltInFunctionsMath<TNode>.Declarations)
-            .Concat(BuiltInFunctionsOperators<TNode>.Declarations).ToArray();
+            .Concat(BuiltInFunctionsOperators<TNode>.Declarations)
+            .Concat(BuiltInFunctionsContext<TNode>.Declarations).ToArray();
 
 
     public static FunctionSignature<ISequence, TNode> ContextItemAsFirstArgument(

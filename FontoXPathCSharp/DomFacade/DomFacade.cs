@@ -57,6 +57,11 @@ public class DomFacade<TNode> : IDomFacade<TNode>
         return _domFacade.GetPreviousSibling(node, bucket);
     }
 
+    public TNode? GetDocument(TNode node)
+    {
+        return _domFacade.GetDocument(node);
+    }
+
     public string GetLocalName(TNode node)
     {
         return _domFacade.GetLocalName(node);

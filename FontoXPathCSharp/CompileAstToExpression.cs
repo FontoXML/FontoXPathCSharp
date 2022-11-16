@@ -200,7 +200,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
                     "attribute" => new AttributeAxis<TNode>(testExpression, intersectingBucket),
                     "ancestor" => new AncestorAxis<TNode>(testExpression, false),
                     "ancestor-or-self" => new AncestorAxis<TNode>(testExpression, true),
-                    "descendant" => new DescendantAxis<TNode>(testExpression, false),
+                    "descendant" => new DescendantAxis<TNode>(testExpression),
                     "descendant-or-self" => new DescendantAxis<TNode>(testExpression, true),
                     "following" => new FollowingAxis<TNode>(testExpression),
                     "preceding" => new PrecedingAxis<TNode>(testExpression),
@@ -234,13 +234,23 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         // Directly use expressions which are not path expression
         if (!requireSorting && steps.Length == 1) return steps[0];
 
-        return new PathExpression<TNode>(steps.ToArray(), requireSorting);
+        if (isAbsolute == null &&
+            steps.Length == 1 &&
+            steps.First().ExpectedResultOrder == ResultOrdering.Sorted)
+            return steps[0];
+
+        if (isAbsolute != null && steps.Length == 0) return new AbsolutePathExpression<TNode>(null);
+
+        var pathExpression = new PathExpression<TNode>(steps.ToArray(), requireSorting);
+
+        if (isAbsolute != null) return new AbsolutePathExpression<TNode>(pathExpression);
+
+        return pathExpression;
     }
 
     private static AbstractExpression<TNode> CompileLookup(Ast ast, CompilationOptions options)
     {
-        var keyExpression = ast.GetFirstChild();
-        if (keyExpression == null) throw new Exception("Lookup did not contain a key expression.");
+        var keyExpression = ast.GetFirstChild()!;
         return keyExpression.Name switch
         {
             AstNodeName.NcName => new Literal<TNode>(keyExpression.TextContent,

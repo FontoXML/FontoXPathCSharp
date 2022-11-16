@@ -14,7 +14,11 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode> where TNode : notnu
     public AncestorAxis(AbstractTestExpression<TNode> ancestorExpression, bool inclusive) : base(
         ancestorExpression.Specificity,
         new AbstractExpression<TNode>[] { ancestorExpression },
-        new OptimizationOptions(false)
+        new OptimizationOptions(
+            false,
+            false,
+            ResultOrdering.ReverseSorted
+        )
     )
     {
         _ancestorExpression = ancestorExpression;
@@ -51,8 +55,8 @@ public class AncestorAxis<TNode> : AbstractExpression<TNode> where TNode : notnu
                 GenerateAncestors(
                     domFacade,
                     _inclusive
-                        ? contextItem.Value
-                        : domFacade.GetParentNode(contextItem.Value, ancestorAxisBucket)
+                        ? contextItem
+                        : domFacade.GetParentNode(contextItem, ancestorAxisBucket)
                 )
             )
             .Filter(

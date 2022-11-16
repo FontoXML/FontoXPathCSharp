@@ -25,8 +25,8 @@ public class IteratorResult<T>
 [Flags]
 public enum IterationHint
 {
-    None,
-    SkipDescendants
+    None = 0,
+    SkipDescendants = 1 << 0
 }
 
 public delegate IteratorResult<T> Iterator<T>(IterationHint hint);

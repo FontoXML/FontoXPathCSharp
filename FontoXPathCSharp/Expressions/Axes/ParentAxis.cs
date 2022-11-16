@@ -12,7 +12,12 @@ public class ParentAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
     public ParentAxis(AbstractTestExpression<TNode> parentExpression, string? filterBucket) : base(
         parentExpression.Specificity,
         new AbstractExpression<TNode>[] { parentExpression },
-        new OptimizationOptions(false))
+        new OptimizationOptions(
+            false,
+            true,
+            ResultOrdering.ReverseSorted,
+            true)
+    )
     {
         _parentExpression = parentExpression;
         _filterBucket = BucketUtils.IntersectBuckets(filterBucket, parentExpression.GetBucket());
@@ -22,7 +27,7 @@ public class ParentAxis<TNode> : AbstractExpression<TNode> where TNode : notnull
     {
         var domFacade = executionParameters!.DomFacade;
         var contextNode = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem);
-        var parentNode = domFacade.GetParentNode(contextNode.Value, _filterBucket);
+        var parentNode = domFacade.GetParentNode(contextNode, _filterBucket);
 
         if (parentNode == null) return SequenceFactory.CreateEmpty();
 

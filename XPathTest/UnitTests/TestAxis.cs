@@ -23,12 +23,67 @@ public class TestAxis
   </tips>
 </xml>";
 
+    private const string Tree1ChildXml = @"<?xml version='1.0' encoding='UTF-8'?>
+    <far-north>
+    <north>
+    <near-north>
+    <far-west/>
+    <west mark='w0'/>
+        <near-west/>
+    <center mark='c0'><the1child/></center>
+    <near-east/>
+    <east mark='e0'>Text in east</east>
+    <far-east/>
+    </near-north>
+    </north>
+    </far-north>
+    ";
+
+    private const string TreeCompassXml = @"<?xml version='1.0' encoding='UTF-8'?>
+    <far-north> text-1A
+        <!-- Comment-2 --> text-1B
+        <?a-pi pi-1?> text-1C
+        <north mark='n0'> text-2A
+        <!-- Comment-3 --> text-2B
+        <?a-pi pi-2?> text-2C
+        <near-north> text-3A
+        <far-west/> text-3B
+        <west mark='w0' west-attr-1='w1' west-attr-2='w2' west-attr-3='w3'/> text-3C
+        <near-west/> text-3D
+    <!-- Comment-4 --> text-3E
+    <?a-pi pi-3?> text-3F
+    <center mark='c0' center-attr-1='c1' center-attr-2='c2' center-attr-3='c3'> text-4A
+        <near-south-west/> text-4B
+        <!--Comment-5--> text-4C
+        <?a-pi pi-4?> text-4D
+    <near-south> text-5A
+        <!--Comment-6--> text-5B
+        <?a-pi pi-5?> text-5C
+        <south mark='s0' south-attr-1='s1' south-attr-2='s2'> text-6A
+        <far-south/> text-6B
+        </south> text-5D
+    </near-south> text-4E
+    <south-east mark='se'/> text-4F
+                     </center> text-3G
+        <near-east/> text-3H
+        <east mark='e0'>Text in east</east> text-3I
+        <far-east/> text-3J
+        </near-north> text-2D
+    </north> text-1D
+    </far-north>
+    ";
+
     private static readonly XmlDocument XmlNodeDocument;
     private static readonly XmlNodeDomFacade XmlNodeDomFacade;
 
     private static readonly XDocument XObjectDocument;
     private static readonly XObjectDomFacade XObjectDomFacade;
 
+    private static readonly XmlDocument Tree1XmlDocument;
+    private static readonly XDocument Tree1XObjectDocument;
+
+    private static readonly XmlDocument TreeCompassXmlDocument;
+    private static readonly XDocument TreeCompassXObjectDocument;
 
     static TestAxis()
     {
@@ -38,6 +93,14 @@ public class TestAxis
 
         XObjectDocument = XDocument.Parse(TestXml);
         XObjectDomFacade = new XObjectDomFacade();
+
+        Tree1XmlDocument = new XmlDocument();
+        Tree1XmlDocument.LoadXml(Tree1ChildXml);
+        Tree1XObjectDocument = XDocument.Parse(Tree1ChildXml);
+
+        TreeCompassXmlDocument = new XmlDocument();
+        TreeCompassXmlDocument.LoadXml(TreeCompassXml);
+        TreeCompassXObjectDocument = XDocument.Parse(TreeCompassXml);
     }
 
     private static IEnumerable<XmlNode> XmlNodeEvalQueryNodes(string query)
@@ -107,5 +170,53 @@ public class TestAxis
     {
         Assert.Equal(2, XObjectEvalQueryNodes(@"/xml/tips/tup/preceding-sibling::tip").Count());
         Assert.Equal(2, XmlNodeEvalQueryNodes(@"/xml/tips/tup/preceding-sibling::tip").Count());
+    }
+
+    [Fact]
+    public void TestDescendantAxis2()
+    {
+        var selector = "fn:count(//center/child::*)";
+
+        var res = Evaluate.EvaluateXPathToInt(
+            selector,
+            Tree1XmlDocument,
+            XmlNodeDomFacade,
+            new Options<XmlNode>(_ => null)
+        );
+
+        Assert.Equal(1, res);
+
+        res = Evaluate.EvaluateXPathToInt(
+            selector,
+            Tree1XObjectDocument,
+            XObjectDomFacade,
+            new Options<XObject>(_ => null)
+        );
+
+        Assert.Equal(1, res);
+    }
+
+    [Fact]
+    public void TestDescendantAxis3()
+    {
+        var selector = "fn:count(//center/descendant::node())";
+
+        var res = Evaluate.EvaluateXPathToInt(
+            selector,
+            TreeCompassXmlDocument,
+            XmlNodeDomFacade,
+            new Options<XmlNode>(_ => null)
+        );
+
+        Assert.Equal(21, res);
+
+        res = Evaluate.EvaluateXPathToInt(
+            selector,
+            TreeCompassXObjectDocument,
+            XObjectDomFacade,
+            new Options<XObject>(_ => null)
+        );
+
+        Assert.Equal(21, res);
     }
 }

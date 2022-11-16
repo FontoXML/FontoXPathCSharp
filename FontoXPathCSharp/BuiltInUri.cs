@@ -52,7 +52,9 @@ public static class StaticallyKnownNamespaceUtils
 
     public static string? GetStaticallyKnownNamespaceByPrefix(string? prefix)
     {
-        return prefix != null && PrefixUriLookup.ContainsKey(prefix) ? PrefixUriLookup[prefix] : null;
+        return !string.IsNullOrEmpty(prefix) && PrefixUriLookup.ContainsKey(prefix)
+            ? PrefixUriLookup[prefix]
+            : null;
     }
 
     public static void RegisterStaticallyKnownNamespace(string prefix, string? namespaceUri)

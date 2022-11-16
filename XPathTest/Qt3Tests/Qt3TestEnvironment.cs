@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
@@ -17,40 +18,53 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
         Options<TNode> options)
     {
         var fileName = Evaluate.EvaluateXPathToString(
-            "source[@role=\".\"]/@file",
+            "source[@role='.']/@file",
             environmentNode,
             domFacade,
             options);
 
         var variables = Evaluate.EvaluateXPathToNodes(
-                "source[@role!=\".\"]",
+                "source[@role!='.']",
                 environmentNode,
                 domFacade,
                 options)
-            .Select(variable => new KeyValuePair<string, object>(
-                Evaluate.EvaluateXPathToString(
-                    "@role",
+            .Select(variable =>
+            {
+                var filePath = Evaluate.EvaluateXPathToString(
+                    "@file",
                     variable,
                     domFacade,
-                    options)?[1..] ?? string.Empty,
-                TestingUtils.LoadQt3TestFileToString(
-                    (baseUrl != null ? baseUrl + "/" : "") + Evaluate.EvaluateXPathToString(
-                        "@file",
+                    options)!;
+                return new KeyValuePair<string, object>(
+                    Evaluate.EvaluateXPathToString(
+                        "@role",
                         variable,
                         domFacade,
-                        options)
-                ) ?? string.Empty))
+                        options)?[1..] ?? string.Empty,
+                    TestingUtils.LoadQt3TestFileToString(
+                        baseUrl != null ? Path.Combine(baseUrl, filePath) : filePath
+                    ) ?? string.Empty);
+            })
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => x.Value);
-        var contextNode = !string.IsNullOrEmpty(fileName) ? nodeUtils.LoadFileToXmlNode(fileName) : default;
 
-        // TODO: ehh... no idea what is going on with that nested EvaluateXPath that's in the original.
-        // Evaluate.EvaluateXPathToNodes("param", environmentNode).ToList().ForEach(paramNode => {
-        //     variables[Evaluate.EvaluateXPathToString("@name", paramNode)] = Evaluate.EvaluateXPath<>()evaluateXPath(
-        //         Evaluate.EvaluateXPathToString("@select", paramNode)
-        //     );
-        //     // tslint:disable-next-line: no-console
-        //     console.log(variables);
+
+        // Console.WriteLine($"FILE NAME:{fileName} BASE URL {baseUrl}");
+        var contextNode = !string.IsNullOrEmpty(fileName)
+            ? nodeUtils.LoadFileToXmlNode(baseUrl != null ? Path.Combine(baseUrl, fileName) : fileName)
+            : nodeUtils.CreateDocument();
+
+        // Evaluate.EvaluateXPathToNodes("param", environmentNode, domFacade, options).ToList().ForEach(paramNode =>
+        // {
+        //     var name = Evaluate.EvaluateXPathToString("@name", paramNode, domFacade, options);
+        //     if (name != null)
+        //     {
+        //         variables[name] = Evaluate.EvaluateXPathToString(
+        //             Evaluate.EvaluateXPathToAny("@select", paramNode, domFacade, options)!, paramNode, domFacade, options
+        //         )!;
+        //         // tslint:disable-next-line: no-console
+        //         Console.WriteLine(variables);
+        //     }
         // });
 
         // TODO: Integrate namespace resolver here.

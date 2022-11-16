@@ -79,6 +79,11 @@ public class XmlNodeDomFacade : IDomFacade<XmlNode>
         return null;
     }
 
+    public XmlNode? GetDocument(XmlNode node)
+    {
+        return IsDocument(node) ? node : node.OwnerDocument;
+    }
+
     public string GetLocalName(XmlNode node)
     {
         return node.LocalName;

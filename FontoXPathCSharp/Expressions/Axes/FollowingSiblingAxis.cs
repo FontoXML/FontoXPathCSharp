@@ -13,7 +13,11 @@ public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode> where TNode
     public FollowingSiblingAxis(AbstractTestExpression<TNode> siblingExpression, string? filterBucket) : base(
         siblingExpression.Specificity,
         new AbstractExpression<TNode>[] { siblingExpression },
-        new OptimizationOptions(false))
+        new OptimizationOptions(
+            false,
+            true,
+            ResultOrdering.Sorted)
+    )
     {
         _siblingExpression = siblingExpression;
         _filterBucket = BucketUtils.IntersectBuckets(siblingExpression.GetBucket(), filterBucket);
@@ -39,7 +43,7 @@ public class FollowingSiblingAxis<TNode> : AbstractExpression<TNode> where TNode
         var domFacade = executionParameters!.DomFacade;
         var contextItem = ContextNodeUtils<TNode>.ValidateContextNode(dynamicContext!.ContextItem!);
 
-        return SequenceFactory.CreateFromIterator(CreateSiblingIterator(domFacade, contextItem.Value, _filterBucket))
+        return SequenceFactory.CreateFromIterator(CreateSiblingIterator(domFacade, contextItem, _filterBucket))
             .Filter((item, _, _) =>
                 _siblingExpression.EvaluateToBoolean(dynamicContext, item, executionParameters));
     }

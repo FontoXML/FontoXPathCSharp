@@ -57,8 +57,7 @@ public class TestMisc
         );
     }
 
-
-    [Fact(Skip = "Deduplication and sorting is not implemented yet")]
+    [Fact]
     public void TestPathOrder()
     {
         var document = new XmlDocument();
@@ -68,7 +67,7 @@ public class TestMisc
             .Select(node => node.Name)
             .ToArray();
         var expected = new[] { "a", "b", "c" };
-        Assert.Equal(res, expected);
+        Assert.Equal(expected, res);
     }
 
     [Fact]

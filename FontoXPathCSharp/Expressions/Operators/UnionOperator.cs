@@ -17,7 +17,9 @@ public class UnionOperator<TNode> : AbstractExpression<TNode> where TNode : notn
                 : selector.Specificity
         ),
         childExpressions,
-        new OptimizationOptions(childExpressions.All(e => e.CanBeStaticallyEvaluated)))
+        new OptimizationOptions(
+            childExpressions.All(e => e.CanBeStaticallyEvaluated)
+        ))
     {
         _subExpressions = childExpressions;
     }
@@ -25,7 +27,25 @@ public class UnionOperator<TNode> : AbstractExpression<TNode> where TNode : notn
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
         if (_subExpressions.All(e => e.ExpectedResultOrder == ResultOrdering.Sorted))
-            throw new NotImplementedException("Returning sorted sequence unions not implemented yet");
+        {
+            var i = 0;
+            // Every sequence is locally sorted: we can merge them. This saves a lot of unneeded
+            // sorting for sequences that are already naturally sorted.
+            return SortedSequenceUtils<TNode>.MergeSortedSequences(executionParameters!.DomFacade,
+                _ =>
+                {
+                    if (i >= _subExpressions.Length) return IteratorResult<ISequence>.Done();
+                    return IteratorResult<ISequence>.Ready(
+                        _subExpressions[i++].EvaluateMaybeStatically(
+                            dynamicContext,
+                            executionParameters
+                        )
+                    );
+                }).Map((value, _, _) => !value.GetValueType().IsSubtypeOf(ValueType.Node)
+                ? throw new XPathException("XPTY0004", "The sequences to union are not of type node()*")
+                : value);
+        }
+
         return SequenceUtils.ConcatSequences(
             _subExpressions.Select(e =>
                 e.EvaluateMaybeStatically(dynamicContext, executionParameters)

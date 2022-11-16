@@ -9,6 +9,7 @@ public interface INodeUtils<TNode>
     public TNode? LoadFileToXmlNode(string filename);
 
     public void LoadModule(TNode testCase, string baseUrl);
+
     TNode CreateDocument();
 
     TNode? CreateDocumentFragment(TNode document);

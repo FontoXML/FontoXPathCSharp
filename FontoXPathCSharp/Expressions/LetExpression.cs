@@ -48,7 +48,8 @@ public class LetExpression<TNode> : FlworExpression<TNode> where TNode : notnull
                     new Dictionary<string, Func<ISequence>>
                     {
                         {
-                            _variableBinding!, ISequence.CreateDoublyIterableSequence(
+                            _variableBinding!,
+                            ISequence.CreateDoublyIterableSequence(
                                 _bindingSequence.EvaluateMaybeStatically(
                                     currentDynamicContext,
                                     executionParameters
@@ -62,7 +63,7 @@ public class LetExpression<TNode> : FlworExpression<TNode> where TNode : notnull
 
     public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
     {
-        if (_rangeVariable.Prefix != null)
+        if (!string.IsNullOrEmpty(_rangeVariable.Prefix))
         {
             _rangeVariable.NamespaceUri = staticContext.ResolveNamespace(_rangeVariable.Prefix);
 
@@ -82,6 +83,9 @@ public class LetExpression<TNode> : FlworExpression<TNode> where TNode : notnull
         IsUpdating = ReturnExpression.IsUpdating;
 
         if (_bindingSequence.IsUpdating)
-            throw new XPathException("XUST0001", "Can not execute an updating expression in a non-updating context.");
+            throw new XPathException(
+                "XUST0001",
+                "Can not execute an updating expression in a non-updating context."
+            );
     }
 }

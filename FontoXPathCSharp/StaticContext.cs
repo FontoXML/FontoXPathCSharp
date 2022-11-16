@@ -137,7 +137,7 @@ public class StaticContext<TNode> : AbstractContext<TNode> where TNode : notnull
     public override string? ResolveNamespace(string? prefix, bool useExternalResolver = true)
     {
         var uri = LookupInOverrides(_registeredNamespaceUriByPrefix, prefix ?? "");
-        return uri ?? _parentContext?.ResolveNamespace(prefix, useExternalResolver);
+        return uri ?? _parentContext?.ResolveNamespace(prefix ?? "", useExternalResolver);
     }
 
     public void RegisterNamespace(string prefix, string namespaceUri)

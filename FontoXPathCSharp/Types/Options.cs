@@ -18,7 +18,18 @@ public static class Language
         XqueryUpdate31Language
     }
 
-    private static string GetLanguageName(LanguageId lang)
+    public static LanguageId StringToLanguageId(string langName)
+    {
+        return langName switch
+        {
+            "XPath3.1" => LanguageId.Xpath31Language,
+            "XQuery3.1" => LanguageId.Xquery31Language,
+            "XQueryUpdate3.1" => LanguageId.XqueryUpdate31Language,
+            _ => throw new Exception($"Invalid language ID '{langName}'")
+        };
+    }
+
+    public static string GetLanguageName(LanguageId lang)
     {
         return lang switch
         {

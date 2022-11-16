@@ -13,10 +13,10 @@ public class BuiltinDeclarationType<TNode> where TNode : notnull
     public readonly SequenceType ReturnType;
 
     public BuiltinDeclarationType(
-        ParameterType[] argumentTypes, 
+        ParameterType[] argumentTypes,
         FunctionSignature<ISequence, TNode> callFunction,
-        string localName, 
-        string namespaceUri, 
+        string localName,
+        string namespaceUri,
         SequenceType returnType)
     {
         ArgumentTypes = argumentTypes;
