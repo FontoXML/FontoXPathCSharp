@@ -1330,21 +1330,21 @@ CastAs003;Expected XPath xs:untypedAtomic("true") cast as xs:untypedAtomic to re
 CastAs004;Expected XPath xs:untypedAtomic("INF") cast as xs:string to resolve to INF
 CastAs005;Expected XPath xs:untypedAtomic("0.0E0") cast as xs:string to resolve to 0.0E0
 CastAs006;Expected XPath xs:untypedAtomic("true") cast as xs:string to resolve to true
-CastAs007;Input string was not in a correct format.
-CastAs008;Input string was not in a correct format.
-CastAs009;Input string was not in a correct format.
-CastAs010;Input string was not in a correct format.
-CastAs011;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-CastAs012;Input string was not in a correct format.
-CastAs013;Input string was not in a correct format.
-CastAs014;Input string was not in a correct format.
-CastAs015;Input string was not in a correct format.
-CastAs016;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-CastAs017;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-CastAs018;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-CastAs019;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-CastAs020;Input string was not in a correct format.
-CastAs021;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+CastAs007;The input string '<Value>[type: XsString, value: -0.0E0]' was not in a correct format.
+CastAs008;The input string '<Value>[type: XsString, value: NaN]' was not in a correct format.
+CastAs009;The input string '<Value>[type: XsString, value: 1e-5]' was not in a correct format.
+CastAs010;The input string '<Value>[type: XsString, value: -10000000]' was not in a correct format.
+CastAs011;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: true]' was not in a correct format.
+CastAs012;The input string '<Value>[type: XsString, value: -0.0E0]' was not in a correct format.
+CastAs013;The input string '<Value>[type: XsString, value: NaN]' was not in a correct format.
+CastAs014;The input string '<Value>[type: XsString, value: 1e-5]' was not in a correct format.
+CastAs015;The input string '<Value>[type: XsString, value: -10000000]' was not in a correct format.
+CastAs016;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: true]' was not in a correct format.
+CastAs017;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: -0.0E0]' was not in a correct format.
+CastAs018;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: NaN]' was not in a correct format.
+CastAs019;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: 1e-5]' was not in a correct format.
+CastAs020;The input string '<Value>[type: XsString, value: 5.5432]' was not in a correct format.
+CastAs021;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: true]' was not in a correct format.
 CastAs022;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsString, value: -0.0E0] into an int.
 CastAs023;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsString, value: NaN] into an int.
 CastAs024;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsString, value: 1e-5] into an int.
@@ -1413,16 +1413,16 @@ CastAs089;HandleNumericOperator: Different numeric types: XsFloat and XsInt
 CastAs090;Expected XPath xs:string("NaN") cast as xs:float to resolve to NaN
 CastAs091;Expected XPath xs:string("1e-5") cast as xs:float to resolve to 0.00001
 CastAs092;Expected XPath xs:string("-10000000") cast as xs:float to resolve to -1.0E7
-CastAs093;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+CastAs093;Expected XPathException with code FORG0001, but got The input string 'true' was not in a correct format.
 CastAs094;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 CastAs095;Expected XPath xs:string("NaN") cast as xs:double to resolve to NaN
 CastAs096;Expected XPath xs:string("1e-5") cast as xs:double to resolve to 0.00001
 CastAs097;Expected XPath xs:string("-10000000") cast as xs:double to resolve to -1.0E7
-CastAs098;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+CastAs098;Expected XPathException with code FORG0001, but got The input string 'true' was not in a correct format.
 CastAs099;Expected XPathException with code FORG0001, but got Atomic Value for XsDecimal is not implemented yet.
 CastAs101;Expected XPathException with code FORG0001, but got Atomic Value for XsDecimal is not implemented yet.
 CastAs102;Atomic Value for XsDecimal is not implemented yet.
-CastAs103;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+CastAs103;Expected XPathException with code FORG0001, but got The input string 'true' was not in a correct format.
 CastAs104;Expected XPathException with code FORG0001, but got Can't parse -0.0E0 into an int.
 CastAs105;Expected XPathException with code FORG0001, but got Can't parse NaN into an int.
 CastAs106;Expected XPathException with code FORG0001, but got Can't parse 1e-5 into an int.
@@ -3511,7 +3511,7 @@ cbcl-round-half-to-even-009;Can't parse 12345.6 into an int.
 cbcl-round-half-to-even-010;Casting not supported from given type to xs:decimal or any of its derived types.
 cbcl-round-half-to-even-011;Casting not supported from given type to xs:decimal or any of its derived types.
 cbcl-round-half-to-even-012;Can't parse 3.567812 into an int.
-cbcl-round-half-to-even-014;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+cbcl-round-half-to-even-014;Expected XPathException with code XPTY0004, but got The input string 'two' was not in a correct format.
 cbcl-seconds-from-duration-001;The function fn:seconds-from-duration with arity 1 is not registered.
 cbcl-selfAxis-001;PRSC Error: Failed to parse query ''
 cbcl-set-from-optional-item-001;PRSC Error: Failed to parse query ''
@@ -4822,8 +4822,8 @@ fn-abs-more-args-021;SingletonSequence.Map not implemented
 fn-abs-more-args-022;SingletonSequence.Map not implemented
 fn-abs-more-args-023;Atomic Value for XsUnsignedLong is not implemented yet.
 fn-abs-more-args-024;SingletonSequence.Map not implemented
-fn-abs-more-args-025;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-fn-abs-more-args-026;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+fn-abs-more-args-025;Expected XPathException with code FORG0001, but got The input string '-INF' was not in a correct format.
+fn-abs-more-args-026;Expected XPathException with code FORG0001, but got The input string 'INF' was not in a correct format.
 fn-abs-more-args-029;Expected XPathException with code FORG0001, but got Can't parse -INF into an int.
 fn-abs-more-args-030;Expected XPathException with code FORG0001, but got Can't parse INF into an int.
 fn-abs-more-args-031;Expected XPathException with code FORG0001, but got Can't parse -NaN into an int.
@@ -7538,7 +7538,7 @@ fn-notulng1args-2;Can't parse 130747108607674654 into an int.
 fn-notulng1args-3;Can't parse 184467440737095516 into an int.
 fn-number-1;Expected XPath fn:number(()) to resolve to NaN
 fn-number-10;PRSC Error: Failed to parse query '(number(xs:untypedAtomic("1000"))) instance of $xs:double'
-fn-number-2;Input string was not in a correct format.
+fn-number-2;The input string 'A String' was not in a correct format.
 fn-number-3;Expected XPathException with code XPDY0002, but got PerformFunctionConversion is not implemented yet.
 fn-number-4;Expected error code: XPDY0002. Query succeeded with result: ∞
 fn-number-5;PRSC Error: Failed to parse query '(number(true())) instance of $xs:double'
@@ -10663,7 +10663,7 @@ functx-fn-not-7;PRSC Error: Failed to parse query ''
 functx-fn-not-all;PRSC Error: Failed to parse query ''
 functx-fn-number-1;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/price)) to resolve to 29.99
 functx-fn-number-2;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/@currency)) to resolve to NaN
-functx-fn-number-4;Input string was not in a correct format.
+functx-fn-number-4;The input string 'ABC' was not in a correct format.
 functx-fn-number-5;Expected XPath let $priceDoc := (/) return (number( () )) to resolve to NaN
 functx-fn-number-6;PerformFunctionConversion is not implemented yet.
 functx-fn-number-all;Can't parse 29.99 into an int.
@@ -12853,11 +12853,11 @@ K-gDayEQ-6;Type casting to XsGDay has not been implemented yet.
 K-gDayEQ-7;Type casting to XsGDay has not been implemented yet.
 K-gDayEQ-8;Type casting to XsGDay has not been implemented yet.
 K-GenCompEq-10;Expected executing the XPath "not((xs:untypedAtomic("1"), xs:untypedAtomic("2")) = (xs:untypedAtomic("2.0"), 3.0))" to resolve to one of the expected results, but got System.Exception: Can't parse 3.0 into an int.
-K-GenCompEq-11;Input string was not in a correct format.
-K-GenCompEq-12;Input string was not in a correct format.
-K-GenCompEq-13;Input string was not in a correct format.
-K-GenCompEq-14;Input string was not in a correct format.
-K-GenCompEq-15;Input string was not in a correct format.
+K-GenCompEq-11;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
+K-GenCompEq-12;The input string '<Value>[type: XsString, value: 2]' was not in a correct format.
+K-GenCompEq-13;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
+K-GenCompEq-14;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
+K-GenCompEq-15;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
 K-GenCompEq-16;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-GenCompEq-17;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-GenCompEq-18;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
@@ -12882,13 +12882,13 @@ K-GenCompEq-47;Expected XPathException with code XPTY0004, but got HandleNumeric
 K-GenCompEq-48;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsInt and XsString
 K-GenCompEq-49;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsBoolean and XsInt
 K-GenCompEq-50;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsInt and XsBoolean
-K-GenCompEq-51;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K-GenCompEq-51;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: three]' was not in a correct format.
 K-GenCompEq-52;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsBoolean
 K-GenCompEq-53;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsBoolean and XsString
 K-GenCompEq-54;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompEq-55;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompEq-56;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
-K-GenCompEq-57;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K-GenCompEq-57;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: three]' was not in a correct format.
 K-GenCompEq-58;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompEq-59;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompEq-9;Expected executing the XPath "(xs:untypedAtomic("1"), xs:untypedAtomic("2")) = (xs:untypedAtomic("2.0"), 2.0)" to resolve to one of the expected results, but got System.Exception: Can't parse 2.0 into an int.
@@ -12932,8 +12932,8 @@ K-GenCompLTEQ-5;PRSC Error: Failed to parse query ''
 K-GenCompLTEQ-6;PRSC Error: Failed to parse query ''
 K-GenCompLTEQ-7;PRSC Error: Failed to parse query ''
 K-GenCompLTEQ-8;PRSC Error: Failed to parse query ''
-K-GenCompNE-11;Input string was not in a correct format.
-K-GenCompNE-12;Input string was not in a correct format.
+K-GenCompNE-11;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
+K-GenCompNE-12;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
 K-GenCompNE-13;The function timezone-from-time with arity 1 is not registered.
 K-GenCompNE-18;Expected XPath not("a string" != xs:untypedAtomic("a string")) to resolve to true
 K-GenCompNE-19;Expected XPath not(xs:untypedAtomic("a string") != "a string") to resolve to true
@@ -12941,8 +12941,8 @@ K-GenCompNE-20;Casting not supported from given type to xs:boolean or any of its
 K-GenCompNE-21;Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompNE-22;Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompNE-23;Casting not supported from given type to xs:boolean or any of its derived types.
-K-GenCompNE-31;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-GenCompNE-32;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K-GenCompNE-31;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: three]' was not in a correct format.
+K-GenCompNE-32;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: three]' was not in a correct format.
 K-GenCompNE-33;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsInt
 K-GenCompNE-34;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsInt and XsString
 K-GenCompNE-35;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
@@ -12952,8 +12952,8 @@ K-GenCompNE-38;Expected XPathException with code XPTY0004, but got HandleNumeric
 K-GenCompNE-39;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompNE-40;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompNE-41;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-K-GenCompNE-8;Input string was not in a correct format.
-K-GenCompNE-9;Input string was not in a correct format.
+K-GenCompNE-8;The input string '<Value>[type: XsString, value: 2]' was not in a correct format.
+K-GenCompNE-9;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
 K-gMonthDayEQ-1;Type casting to XsGMonthDay has not been implemented yet.
 K-gMonthDayEQ-2;Type casting to XsGMonthDay has not been implemented yet.
 K-gMonthDayEQ-3;Type casting to XsGMonthDay has not been implemented yet.
@@ -13138,8 +13138,8 @@ K-NodeNumberFunc-13;Type casting to XsAnyUri has not been implemented yet.
 K-NodeNumberFunc-14;SingletonSequence.Map not implemented
 K-NodeNumberFunc-15;Type casting to XsGYear has not been implemented yet.
 K-NodeNumberFunc-2;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-K-NodeNumberFunc-3;Input string was not in a correct format.
-K-NodeNumberFunc-4;Input string was not in a correct format.
+K-NodeNumberFunc-3;The input string 'results in NaN' was not in a correct format.
+K-NodeNumberFunc-4;The input string 'results in NaN' was not in a correct format.
 K-NodeNumberFunc-6;Can't parse 1.1 into an int.
 K-NodeRootFunc-2;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsInt, value: 1] into an int.
 K-NodeRootFunc-3;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
@@ -13177,7 +13177,7 @@ K-NumericAdd-36;Expected error code: FOER0000. Found error code: XPST0017 with e
 K-NumericAdd-4;Can't parse 1.1 into an int.
 K-NumericAdd-41;Expected executing the XPath "error() + 3" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-NumericAdd-42;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
-K-NumericAdd-45;Input string was not in a correct format.
+K-NumericAdd-45;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-NumericAdd-46;Can't parse 3.0 into an int.
 K-NumericAdd-5;Can't parse 1.1 into an int.
 K-NumericAdd-51;Expected executing the XPath "(remove((1, "two"), 2) + 1) eq 2" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
@@ -13188,9 +13188,9 @@ K-NumericAdd-55;Expected executing the XPath "(remove((xs:untypedAtomic("1"), "t
 K-NumericAdd-56;Expected executing the XPath "2 eq (1 + remove((xs:untypedAtomic("1"), "two"), 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-57;Expected executing the XPath "(remove((1, "two"), 2) + xs:untypedAtomic("1")) eq 2" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-58;Expected executing the XPath "2 eq (xs:untypedAtomic("1") + remove((1, "two"), 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericAdd-59;Input string was not in a correct format.
+K-NumericAdd-59;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-NumericAdd-6;Can't parse 1.1 into an int.
-K-NumericAdd-60;Input string was not in a correct format.
+K-NumericAdd-60;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-NumericAdd-61;Expected executing the XPath "(remove((5, 1e0), 2) + 1) eq 6" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-62;Expected executing the XPath "(1 + remove((5, 1e0), 2)) eq 6" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-63;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
@@ -13216,8 +13216,8 @@ K-NumericDivide-23;Expected XPath (xs:integer(6) div xs:float(2)) instance of xs
 K-NumericDivide-25;Atomic Value for XsDecimal is not implemented yet.
 K-NumericDivide-26;Atomic Value for XsDecimal is not implemented yet.
 K-NumericDivide-3;Atomic Value for XsDecimal is not implemented yet.
-K-NumericDivide-34;Input string was not in a correct format.
-K-NumericDivide-35;Input string was not in a correct format.
+K-NumericDivide-34;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-NumericDivide-35;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-NumericDivide-37;Expected XPathException with code XPST0003, but got Atomic Value for XsDecimal is not implemented yet.
 K-NumericDivide-4;HandleNumericOperator: Different numeric types: XsFloat and XsInt
 K-NumericDivide-5;Can't parse 2.5 into an int.
@@ -13239,8 +13239,8 @@ K-NumericEqual-41;The function remove with arity 2 is not registered.
 K-NumericEqual-42;The function timezone-from-time with arity 1 is not registered.
 K-NumericEqual-43;The function timezone-from-time with arity 1 is not registered.
 K-NumericEqual-44;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsString, value: 3] into an int.
-K-NumericEqual-45;Input string was not in a correct format.
-K-NumericEqual-46;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K-NumericEqual-45;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
+K-NumericEqual-46;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: three]' was not in a correct format.
 K-NumericEqual-6;Can't parse 1.1 into an int.
 K-NumericEqual-7;Can't parse 1.1 into an int.
 K-NumericEqual-8;Can't parse 1.1 into an int.
@@ -13281,11 +13281,11 @@ K-NumericIntegerDivide-4;Atomic Value for XsDecimal is not implemented yet.
 K-NumericIntegerDivide-41;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 K-NumericIntegerDivide-42;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 K-NumericIntegerDivide-43;Expected XPathException with code XPST0003, but got Can't parse <Value>[type: XsInt, value: 3] into an int.
-K-NumericIntegerDivide-48;Input string was not in a correct format.
-K-NumericIntegerDivide-49;Input string was not in a correct format.
+K-NumericIntegerDivide-48;The input string '<Value>[type: XsString, value: 9]' was not in a correct format.
+K-NumericIntegerDivide-49;The input string '<Value>[type: XsString, value: 5]' was not in a correct format.
 K-NumericIntegerDivide-5;Atomic Value for XsDecimal is not implemented yet.
-K-NumericIntegerDivide-50;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-NumericIntegerDivide-51;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K-NumericIntegerDivide-50;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: nine]' was not in a correct format.
+K-NumericIntegerDivide-51;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: five]' was not in a correct format.
 K-NumericIntegerDivide-6;Atomic Value for XsDecimal is not implemented yet.
 K-NumericIntegerDivide-7;Atomic Value for XsDecimal is not implemented yet.
 K-NumericLT-10;HandleNumericOperator: Different numeric types: XsFloat and XsInt
@@ -13312,7 +13312,7 @@ K-NumericMod-2;Atomic Value for XsDecimal is not implemented yet.
 K-NumericMod-20;PRSC Error: Failed to parse query '1.23E2 mod 0.6E1 eq 3.0E0'
 K-NumericMod-22;Expected XPathException with code XPST0003, but got Can't parse <Value>[type: XsInt, value: 1] into an int.
 K-NumericMod-25;Expected XPathException with code XPTY0004, but got Can't parse 1.1 into an int.
-K-NumericMod-26;Input string was not in a correct format.
+K-NumericMod-26;The input string '<Value>[type: XsString, value: 5]' was not in a correct format.
 K-NumericMod-27;Atomic Value for XsDecimal is not implemented yet.
 K-NumericMod-4;Atomic Value for XsDecimal is not implemented yet.
 K-NumericMod-5;Atomic Value for XsDecimal is not implemented yet.
@@ -13348,10 +13348,10 @@ K-NumericSubtract-21;Value was either too large or too small for a Decimal.
 K-NumericSubtract-22;Value was either too large or too small for a Decimal.
 K-NumericSubtract-23;Value was either too large or too small for a Decimal.
 K-NumericSubtract-24;Value was either too large or too small for a Decimal.
-K-NumericSubtract-27;Input string was not in a correct format.
-K-NumericSubtract-28;Input string was not in a correct format.
-K-NumericSubtract-32;Input string was not in a correct format.
-K-NumericSubtract-33;Input string was not in a correct format.
+K-NumericSubtract-27;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-NumericSubtract-28;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-NumericSubtract-32;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-NumericSubtract-33;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-NumericSubtract-34;Can't parse 1.1 into an int.
 K-NumericSubtract-35;Can't parse 1.1 into an int.
 K-NumericSubtract-36;Expected executing the XPath "1 eq (remove((current-time(), 1), 1) - 0)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
@@ -13538,7 +13538,7 @@ K-ReplaceFunc-6;Expected error code: FORX0004. Query succeeded with result: this
 K-ReplaceFunc-7;Expected error code: FORX0004. Query succeeded with result: thisIsInvalid$
 K-ReplaceFunc-8;Expected error code: FORX0004. Query succeeded with result: thisIsInvalid\ put
 K-ReplaceFunc-9;Expected error code: FORX0004. Query succeeded with result: thisIsInvalid$ put
-K-RoundEvenFunc-5;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-RoundEvenFunc-5;Expected XPathException with code XPTY0004, but got The input string 'a string' was not in a correct format.
 K-RoundFunc-2;Expected XPathException with code XPST0017, but got Can't parse <Value>[type: XsInt, value: 1] into an int.
 K-RoundFunc-4;Atomic Value for XsDecimal is not implemented yet.
 K-RoundFunc-5;Can't parse 1.1 into an int.
@@ -13571,11 +13571,11 @@ K-SeqAVGFunc-22;SingletonSequence.Map not implemented
 K-SeqAVGFunc-23;Value was either too large or too small for an Int32.
 K-SeqAVGFunc-24;SingletonSequence.Map not implemented
 K-SeqAVGFunc-25;Value was either too large or too small for an Int32.
-K-SeqAVGFunc-26;Input string was not in a correct format.
-K-SeqAVGFunc-27;Input string was not in a correct format.
-K-SeqAVGFunc-28;Input string was not in a correct format.
-K-SeqAVGFunc-29;Input string was not in a correct format.
-K-SeqAVGFunc-30;Input string was not in a correct format.
+K-SeqAVGFunc-26;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqAVGFunc-27;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqAVGFunc-28;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqAVGFunc-29;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqAVGFunc-30;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-SeqAVGFunc-32;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqAVGFunc-33;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqAVGFunc-35;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsInt, value: 3] into an int.
@@ -14462,8 +14462,8 @@ K-SeqExprCast-435;PRSC Error: Failed to parse query 'xs:string("an arbitrary str
 K-SeqExprCast-436;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:string("an arbitrary string") castable as xs:NOTATION)'
 K-SeqExprCast-439;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-44;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprCast-441;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqExprCast-442;Input string was not in a correct format.
+K-SeqExprCast-441;Expected XPathException with code FORG0001, but got The input string '' was not in a correct format.
+K-SeqExprCast-442;The input string '<Value>[type: XsString, value: 3.4e5]' was not in a correct format.
 K-SeqExprCast-444;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-445;PRSC Error: Failed to parse query 'xs:float("3.4e5") castable as xs:untypedAtomic'
 K-SeqExprCast-447;PRSC Error: Failed to parse query 'xs:float("3.4e5") castable as xs:string'
@@ -14505,9 +14505,9 @@ K-SeqExprCast-482;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-483;PRSC Error: Failed to parse query 'not(xs:float("3.4e5") castable as xs:QName)'
 K-SeqExprCast-484;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:float("3.4e5") castable as xs:NOTATION)'
 K-SeqExprCast-487;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-489;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K-SeqExprCast-489;Expected XPathException with code FORG0001, but got The input string '' was not in a correct format.
 K-SeqExprCast-49;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-K-SeqExprCast-490;Input string was not in a correct format.
+K-SeqExprCast-490;The input string '<Value>[type: XsString, value: 3.3e3]' was not in a correct format.
 K-SeqExprCast-492;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-493;PRSC Error: Failed to parse query 'xs:double("3.3e3") castable as xs:untypedAtomic'
 K-SeqExprCast-495;PRSC Error: Failed to parse query 'xs:double("3.3e3") castable as xs:string'
@@ -14551,8 +14551,8 @@ K-SeqExprCast-531;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") cast
 K-SeqExprCast-532;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:NOTATION)'
 K-SeqExprCast-535;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-536;Atomic Value for XsDecimal is not implemented yet.
-K-SeqExprCast-537;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqExprCast-538;Input string was not in a correct format.
+K-SeqExprCast-537;Expected XPathException with code FORG0001, but got The input string '' was not in a correct format.
+K-SeqExprCast-538;The input string '<Value>[type: XsString, value: 10.01]' was not in a correct format.
 K-SeqExprCast-539;Atomic Value for XsDecimal is not implemented yet.
 K-SeqExprCast-54;Atomic Value for XsName is not implemented yet.
 K-SeqExprCast-540;Atomic Value for XsDecimal is not implemented yet.
@@ -15122,33 +15122,33 @@ K-SeqInsertBeforeFunc-6;The function insert-before with arity 3 is not registere
 K-SeqInsertBeforeFunc-7;The function insert-before with arity 3 is not registered.
 K-SeqInsertBeforeFunc-8;The function insert-before with arity 3 is not registered.
 K-SeqInsertBeforeFunc-9;The function insert-before with arity 3 is not registered.
-K-SeqMAXFunc-10;Input string was not in a correct format.
-K-SeqMAXFunc-11;Input string was not in a correct format.
-K-SeqMAXFunc-12;Input string was not in a correct format.
-K-SeqMAXFunc-13;Input string was not in a correct format.
+K-SeqMAXFunc-10;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMAXFunc-11;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMAXFunc-12;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMAXFunc-13;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-SeqMAXFunc-14;Atomic Value for XsDecimal is not implemented yet.
-K-SeqMAXFunc-15;Input string was not in a correct format.
-K-SeqMAXFunc-16;Input string was not in a correct format.
-K-SeqMAXFunc-17;Input string was not in a correct format.
-K-SeqMAXFunc-18;Input string was not in a correct format.
+K-SeqMAXFunc-15;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMAXFunc-16;The input string '<Value>[type: XsString, value: NaN]' was not in a correct format.
+K-SeqMAXFunc-17;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMAXFunc-18;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-SeqMAXFunc-19;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMAXFunc-21;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMAXFunc-22;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
-K-SeqMAXFunc-23;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqMAXFunc-24;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K-SeqMAXFunc-23;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: one]' was not in a correct format.
+K-SeqMAXFunc-24;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: one]' was not in a correct format.
 K-SeqMAXFunc-25;SingletonSequence.Map not implemented
 K-SeqMAXFunc-26;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMAXFunc-27;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMAXFunc-28;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMAXFunc-29;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMAXFunc-30;Casting AbstractValue(XsInt) to DoubleValue
-K-SeqMAXFunc-31;Input string was not in a correct format.
-K-SeqMAXFunc-32;Input string was not in a correct format.
+K-SeqMAXFunc-31;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMAXFunc-32;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-SeqMAXFunc-33;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMAXFunc-34;SingletonSequence.Map not implemented
-K-SeqMAXFunc-35;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqMAXFunc-36;Expected XPathException with code FORG0006, but got Input string was not in a correct format.
-K-SeqMAXFunc-37;Expected XPathException with code FORG0006, but got Input string was not in a correct format.
+K-SeqMAXFunc-35;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: three]' was not in a correct format.
+K-SeqMAXFunc-36;Expected XPathException with code FORG0006, but got The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMAXFunc-37;Expected XPathException with code FORG0006, but got The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-SeqMAXFunc-38;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsQName) to DoubleValue
 K-SeqMAXFunc-39;Type casting to XsAnyUri has not been implemented yet.
 K-SeqMAXFunc-4;Casting AbstractValue(XsInt) to DoubleValue
@@ -15176,34 +15176,34 @@ K-SeqMAXFunc-59;Casting AbstractValue(XsString) to DoubleValue
 K-SeqMAXFunc-6;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMAXFunc-7;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMAXFunc-8;Can't parse 5.0 into an int.
-K-SeqMAXFunc-9;Input string was not in a correct format.
-K-SeqMINFunc-10;Input string was not in a correct format.
-K-SeqMINFunc-11;Input string was not in a correct format.
-K-SeqMINFunc-12;Input string was not in a correct format.
-K-SeqMINFunc-13;Input string was not in a correct format.
+K-SeqMAXFunc-9;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMINFunc-10;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMINFunc-11;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
+K-SeqMINFunc-12;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
+K-SeqMINFunc-13;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
 K-SeqMINFunc-14;Atomic Value for XsDecimal is not implemented yet.
-K-SeqMINFunc-15;Input string was not in a correct format.
-K-SeqMINFunc-16;Input string was not in a correct format.
-K-SeqMINFunc-17;Input string was not in a correct format.
-K-SeqMINFunc-18;Input string was not in a correct format.
+K-SeqMINFunc-15;The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
+K-SeqMINFunc-16;The input string '<Value>[type: XsString, value: NaN]' was not in a correct format.
+K-SeqMINFunc-17;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMINFunc-18;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-SeqMINFunc-19;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMINFunc-21;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMINFunc-22;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
-K-SeqMINFunc-23;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqMINFunc-24;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K-SeqMINFunc-23;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: one]' was not in a correct format.
+K-SeqMINFunc-24;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: one]' was not in a correct format.
 K-SeqMINFunc-25;SingletonSequence.Map not implemented
 K-SeqMINFunc-26;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMINFunc-27;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMINFunc-28;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMINFunc-29;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMINFunc-30;Casting AbstractValue(XsInt) to DoubleValue
-K-SeqMINFunc-31;Input string was not in a correct format.
-K-SeqMINFunc-32;Input string was not in a correct format.
+K-SeqMINFunc-31;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMINFunc-32;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-SeqMINFunc-33;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMINFunc-34;SingletonSequence.Map not implemented
-K-SeqMINFunc-35;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqMINFunc-36;Expected XPathException with code FORG0006, but got Input string was not in a correct format.
-K-SeqMINFunc-37;Expected XPathException with code FORG0006, but got Input string was not in a correct format.
+K-SeqMINFunc-35;Expected XPathException with code FORG0001, but got The input string '<Value>[type: XsString, value: three]' was not in a correct format.
+K-SeqMINFunc-36;Expected XPathException with code FORG0006, but got The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-SeqMINFunc-37;Expected XPathException with code FORG0006, but got The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-SeqMINFunc-38;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsQName) to DoubleValue
 K-SeqMINFunc-39;Type casting to XsAnyUri has not been implemented yet.
 K-SeqMINFunc-4;Casting AbstractValue(XsInt) to DoubleValue
@@ -15223,7 +15223,7 @@ K-SeqMINFunc-51;PRSC Error: Failed to parse query 'min((xs:float(0.0E0), xs:floa
 K-SeqMINFunc-6;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMINFunc-7;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMINFunc-8;Can't parse 5.0 into an int.
-K-SeqMINFunc-9;Input string was not in a correct format.
+K-SeqMINFunc-9;The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-SeqOneOrMoreFunc-3;The function one-or-more with arity 1 is not registered.
 K-SeqOneOrMoreFunc-4;The function one-or-more with arity 1 is not registered.
 K-SeqOneOrMoreFunc-5;The function one-or-more with arity 1 is not registered.
@@ -15420,18 +15420,18 @@ K-ValCompTypeChecking-11;Expected XPathException with code XPTY0004, but got Can
 K-ValCompTypeChecking-12;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 K-ValCompTypeChecking-16;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsString, value: 1] into an int.
 K-ValCompTypeChecking-17;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsString, value: 1] into an int.
-K-ValCompTypeChecking-18;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
-K-ValCompTypeChecking-19;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-ValCompTypeChecking-18;Expected XPathException with code XPTY0004, but got The input string '<Value>[type: XsString, value: 0]' was not in a correct format.
+K-ValCompTypeChecking-19;Expected XPathException with code XPTY0004, but got The input string '<Value>[type: XsString, value: 0]' was not in a correct format.
 K-ValCompTypeChecking-2;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsBoolean, value: False] into an bool.
-K-ValCompTypeChecking-20;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
-K-ValCompTypeChecking-21;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-ValCompTypeChecking-20;Expected XPathException with code XPTY0004, but got The input string '<Value>[type: XsString, value: 0]' was not in a correct format.
+K-ValCompTypeChecking-21;Expected XPathException with code XPTY0004, but got The input string '<Value>[type: XsString, value: 1]' was not in a correct format.
 K-ValCompTypeChecking-22;Expected XPathException with code XPTY0004, but got Atomic Value for XsDecimal is not implemented yet.
 K-ValCompTypeChecking-23;Expected XPathException with code XPTY0004, but got Atomic Value for XsDecimal is not implemented yet.
 K-ValCompTypeChecking-24;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsString, value: 4] into an int.
 K-ValCompTypeChecking-25;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsString, value: 4] into an int.
 K-ValCompTypeChecking-26;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsString, value: 3] into an int.
-K-ValCompTypeChecking-27;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
-K-ValCompTypeChecking-28;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-ValCompTypeChecking-27;Expected XPathException with code XPTY0004, but got The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
+K-ValCompTypeChecking-28;Expected XPathException with code XPTY0004, but got The input string '<Value>[type: XsString, value: 3]' was not in a correct format.
 K-ValCompTypeChecking-29;Expected XPathException with code XPTY0004, but got Can't parse 3.1 into an int.
 K-ValCompTypeChecking-3;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 K-ValCompTypeChecking-30;Expected XPath xs:untypedAtomic("a string") eq "a string" to resolve to true
@@ -15678,8 +15678,8 @@ K2-Axes-4;PRSC Error: Failed to parse query ''
 K2-Axes-40;Expected error code: XPTY0020. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-Axes-41;Expected error code: XPTY0020. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-Axes-42;PRSC Error: Failed to parse query ''
-K2-Axes-43;Expected executing the XPath "(1, 5 * /)[1]" to resolve to one of the expected results, but got System.FormatException: Input string was not in a correct format.
-K2-Axes-45;Expected executing the XPath "(/, 1)[2]" to resolve to one of the expected results, but got System.FormatException: Input string was not in a correct format.
+K2-Axes-43;Expected executing the XPath "(1, 5 * /)[1]" to resolve to one of the expected results, but got System.FormatException: The input string '' was not in a correct format.
+K2-Axes-45;Expected executing the XPath "(/, 1)[2]" to resolve to one of the expected results, but got System.FormatException: The input string '' was not in a correct format.
 K2-Axes-47;PRSC Error: Failed to parse query ''
 K2-Axes-48;PRSC Error: Failed to parse query ''
 K2-Axes-49;PRSC Error: Failed to parse query ''
@@ -17160,33 +17160,33 @@ K2-SeqExprCast-21;Can't parse 999999999999999999 into an int.
 K2-SeqExprCast-210;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
 K2-SeqExprCast-213;Atomic Value for XsPositiveInteger is not implemented yet.
 K2-SeqExprCast-214;Expected XPath xs:double(xs:int("-1873914410")) to resolve to -1.87391441E9
-K2-SeqExprCast-215;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-216;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-217;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-218;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-219;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K2-SeqExprCast-215;Expected XPathException with code FORG0001, but got The input string 'Inf' was not in a correct format.
+K2-SeqExprCast-216;Expected XPathException with code FORG0001, but got The input string 'Inf' was not in a correct format.
+K2-SeqExprCast-217;Expected XPathException with code FORG0001, but got The input string '-Inf' was not in a correct format.
+K2-SeqExprCast-218;Expected XPathException with code FORG0001, but got The input string '-Inf' was not in a correct format.
+K2-SeqExprCast-219;Expected XPathException with code FORG0001, but got The input string '+Inf' was not in a correct format.
 K2-SeqExprCast-22;Expected executing the XPath "xs:unsignedLong("18446744073709551615")" to resolve to one of the expected results, but got System.Exception: Can't parse 18446744073709551615 into an int.
-K2-SeqExprCast-220;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K2-SeqExprCast-220;Expected XPathException with code FORG0001, but got The input string '+Inf' was not in a correct format.
 K2-SeqExprCast-221;Expected XPath xs:float(" NaN ") to resolve to NaN
 K2-SeqExprCast-222;Expected XPath xs:double(" NaN ") to resolve to NaN
 K2-SeqExprCast-223;Expected XPath xs:float(" INF ") to resolve to INF
 K2-SeqExprCast-224;Expected XPath xs:double(" INF ") to resolve to INF
-K2-SeqExprCast-227;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-228;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-229;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K2-SeqExprCast-227;Expected XPathException with code FORG0001, but got The input string '- INF' was not in a correct format.
+K2-SeqExprCast-228;Expected XPathException with code FORG0001, but got The input string '- INF' was not in a correct format.
+K2-SeqExprCast-229;Expected XPathException with code FORG0001, but got The input string '+ INF' was not in a correct format.
 K2-SeqExprCast-23;Can't parse 4294967295 into an int.
-K2-SeqExprCast-230;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K2-SeqExprCast-230;Expected XPathException with code FORG0001, but got The input string '+ INF' was not in a correct format.
 K2-SeqExprCast-231;Expected error code: FORG0001. Query succeeded with result: ∞
 K2-SeqExprCast-231a;Expected XPath xs:double("+INF") to resolve to INF
 K2-SeqExprCast-232;Expected error code: FORG0001. Query succeeded with result: ∞
 K2-SeqExprCast-232a;Expected XPath xs:float("+INF") to resolve to INF
-K2-SeqExprCast-233;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-234;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-235;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-237;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-238;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-239;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-240;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K2-SeqExprCast-233;Expected XPathException with code FORG0001, but got The input string 'Inf' was not in a correct format.
+K2-SeqExprCast-234;Expected XPathException with code FORG0001, but got The input string '-Inf' was not in a correct format.
+K2-SeqExprCast-235;Expected XPathException with code FORG0001, but got The input string '+Inf' was not in a correct format.
+K2-SeqExprCast-237;Expected XPathException with code FORG0001, but got The input string '- INF' was not in a correct format.
+K2-SeqExprCast-238;Expected XPathException with code FORG0001, but got The input string '+ INF' was not in a correct format.
+K2-SeqExprCast-239;Expected XPathException with code FORG0001, but got The input string '+INF' was not in a correct format.
+K2-SeqExprCast-240;Expected XPathException with code FORG0001, but got The input string 'INF' was not in a correct format.
 K2-SeqExprCast-243;Expected error code: FOCA0002. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:decimal or any of its derived types.
 K2-SeqExprCast-247;Expected error code: FOCA0002. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:decimal or any of its derived types.
 K2-SeqExprCast-25;Atomic Value for XsUnsignedByte is not implemented yet.
@@ -17358,11 +17358,11 @@ K2-SeqExprCast-478;Type casting to XsGYearMonth has not been implemented yet.
 K2-SeqExprCast-479;PRSC Error: Failed to parse query ''
 K2-SeqExprCast-48;Atomic Value for XsUnsignedByte is not implemented yet.
 K2-SeqExprCast-480;Type casting to XsDateTime has not been implemented yet.
-K2-SeqExprCast-481;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-482;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-483;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-484;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-485;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K2-SeqExprCast-481;Expected XPathException with code FORG0001, but got The input string 'inf' was not in a correct format.
+K2-SeqExprCast-482;Expected XPathException with code FORG0001, but got The input string 'inF' was not in a correct format.
+K2-SeqExprCast-483;Expected XPathException with code FORG0001, but got The input string '-inF' was not in a correct format.
+K2-SeqExprCast-484;Expected XPathException with code FORG0001, but got The input string 'inF' was not in a correct format.
+K2-SeqExprCast-485;Expected XPathException with code FORG0001, but got The input string '-inF' was not in a correct format.
 K2-SeqExprCast-488;Expected XPathException with code FORG0001, but got Haven't implemented Qnames from: localName:p
 K2-SeqExprCast-489;Expected XPathException with code FORG0001, but got Type casting to XsBase64Binary has not been implemented yet.
 K2-SeqExprCast-49;Expected XPathException with code FORG0001, but got Atomic Value for XsPositiveInteger is not implemented yet.
@@ -17385,23 +17385,23 @@ K2-SeqExprCast-503;Expected XPathException with code FORG0001, but got Type cast
 K2-SeqExprCast-504;Atomic Value for XsNcName is not implemented yet.
 K2-SeqExprCast-505;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
 K2-SeqExprCast-506;Expected XPathException with code FORG0001, but got Type casting to XsGMonth has not been implemented yet.
-K2-SeqExprCast-507;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-508;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-509;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K2-SeqExprCast-507;Expected XPathException with code FORG0001, but got The input string 'inF' was not in a correct format.
+K2-SeqExprCast-508;Expected XPathException with code FORG0001, but got The input string 'inF' was not in a correct format.
+K2-SeqExprCast-509;Expected XPathException with code FORG0001, but got The input string 'inF' was not in a correct format.
 K2-SeqExprCast-51;Expected XPathException with code FORG0001, but got Atomic Value for XsNegativeInteger is not implemented yet.
-K2-SeqExprCast-510;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-511;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-512;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-513;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-514;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-515;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-516;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-517;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-518;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-519;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K2-SeqExprCast-510;Expected XPathException with code FORG0001, but got The input string 'inf' was not in a correct format.
+K2-SeqExprCast-511;Expected XPathException with code FORG0001, but got The input string 'inf' was not in a correct format.
+K2-SeqExprCast-512;Expected XPathException with code FORG0001, but got The input string 'inf' was not in a correct format.
+K2-SeqExprCast-513;Expected XPathException with code FORG0001, but got The input string 'InF' was not in a correct format.
+K2-SeqExprCast-514;Expected XPathException with code FORG0001, but got The input string 'InF' was not in a correct format.
+K2-SeqExprCast-515;Expected XPathException with code FORG0001, but got The input string 'InF' was not in a correct format.
+K2-SeqExprCast-516;Expected XPathException with code FORG0001, but got The input string '-InF' was not in a correct format.
+K2-SeqExprCast-517;Expected XPathException with code FORG0001, but got The input string '-InF' was not in a correct format.
+K2-SeqExprCast-518;Expected XPathException with code FORG0001, but got The input string '-InF' was not in a correct format.
+K2-SeqExprCast-519;Expected XPathException with code FORG0001, but got The input string '+InF' was not in a correct format.
 K2-SeqExprCast-52;Atomic Value for XsUnsignedLong is not implemented yet.
-K2-SeqExprCast-520;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-521;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+K2-SeqExprCast-520;Expected XPathException with code FORG0001, but got The input string '+InF' was not in a correct format.
+K2-SeqExprCast-521;Expected XPathException with code FORG0001, but got The input string '+InF' was not in a correct format.
 K2-SeqExprCast-53;Atomic Value for XsUnsignedInt is not implemented yet.
 K2-SeqExprCast-55;Atomic Value for XsUnsignedByte is not implemented yet.
 K2-SeqExprCast-56;Expected XPathException with code FORG0001, but got Atomic Value for XsPositiveInteger is not implemented yet.
