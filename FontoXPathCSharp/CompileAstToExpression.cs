@@ -6,6 +6,7 @@ using FontoXPathCSharp.Expressions.Operators;
 using FontoXPathCSharp.Expressions.Operators.Compares;
 using FontoXPathCSharp.Expressions.Tests;
 using FontoXPathCSharp.Expressions.Util;
+using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -106,7 +107,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
     {
         return new TypeTest<TNode>(new QName("item()", null, ""));
     }
-    
+
     private static AbstractTestExpression<TNode> CompileCommentTest()
     {
         return new KindTest<TNode>(NodeType.Comment);
@@ -166,27 +167,27 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             {
                 hasAxisStep = true;
                 var test = step.GetFirstChild(
-                    AstNodeName.AttributeTest, 
-                    AstNodeName.AnyElementTest, 
+                    AstNodeName.AttributeTest,
+                    AstNodeName.AnyElementTest,
                     AstNodeName.PiTest,
-                    AstNodeName.DocumentTest, 
-                    AstNodeName.ElementTest, 
+                    AstNodeName.DocumentTest,
+                    AstNodeName.ElementTest,
                     AstNodeName.CommentTest,
                     AstNodeName.NamespaceTest,
-                    AstNodeName.AnyKindTest, 
-                    AstNodeName.TextTest, 
+                    AstNodeName.AnyKindTest,
+                    AstNodeName.TextTest,
                     AstNodeName.AnyFunctionTest,
-                    AstNodeName.TypedFunctionTest, 
-                    AstNodeName.SchemaAttributeTest, 
+                    AstNodeName.TypedFunctionTest,
+                    AstNodeName.SchemaAttributeTest,
                     AstNodeName.AtomicType,
-                    AstNodeName.AnyItemType, 
-                    AstNodeName.ParenthesizedItemType, 
+                    AstNodeName.AnyItemType,
+                    AstNodeName.ParenthesizedItemType,
                     AstNodeName.TypedMapTest,
-                    AstNodeName.TypedArrayTest, 
-                    AstNodeName.NameTest, 
+                    AstNodeName.TypedArrayTest,
+                    AstNodeName.NameTest,
                     AstNodeName.Wildcard
                 );
-                
+
                 if (test == null) throw new Exception("No test found in path expression axis");
 
                 var testExpression = CompileTestExpression(test);
@@ -421,28 +422,25 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
                         options,
                         returnOfPreviousExpression
                     ),
-                    AstNodeName.LetClause => LetClause(flworExpressionClause, options,
-                        returnOfPreviousExpression),
-                    AstNodeName.WhereClause => throw new Exception(
-                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
-                    // return whereClause(
-                    //     flworExpressionClause,
-                    //     compilationOptions,
-                    //     returnOfPreviousExpression
-                    // );
-                    AstNodeName.WindowClause => throw new Exception(
-                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
-                    AstNodeName.GroupByClause => throw new Exception(
-                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
-                    AstNodeName.OrderByClause => throw new Exception(
-                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
-                    // return orderByClause(
-                    //     flworExpressionClause,
-                    //     compilationOptions,
-                    //     returnOfPreviousExpression
-                    // );
-                    AstNodeName.CountClause => throw new Exception(
-                        $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
+                    AstNodeName.LetClause => LetClause(
+                        flworExpressionClause,
+                        options,
+                        returnOfPreviousExpression
+                    ),
+                    AstNodeName.WhereClause => WhereClause(
+                        flworExpressionClause,
+                        options,
+                        returnOfPreviousExpression
+                    ),
+                    AstNodeName.OrderByClause => OrderByClause(
+                        flworExpressionClause,
+                        options,
+                        returnOfPreviousExpression
+                    ),
+                    AstNodeName.CountClause
+                        or AstNodeName.WindowClause
+                        or AstNodeName.GroupByClause => throw new Exception(
+                            $"Not implemented: {flworExpressionClause.Name} is not implemented yet."),
                     _ => throw new Exception(
                         $"Not implemented: {flworExpressionClause.Name} is not supported in a flwor expression")
                 };
@@ -497,6 +495,31 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         }
 
         return returnExpr;
+    }
+    
+    private static AbstractExpression<TNode> WhereClause(
+        Ast expressionClause, 
+        CompilationOptions options,
+        AbstractExpression<TNode> returnClauseExpression)
+    {
+        var whereClauseItems = expressionClause.GetChildren(AstNodeName.All).ToArray();
+        var returnExpr = returnClauseExpression;
+
+        for (var i = whereClauseItems.Length - 1; i >= 0; --i) {
+            var whereClauseItem = whereClauseItems[i];
+            returnExpr = new WhereExpression<TNode>(CompileAst(whereClauseItem, options), returnExpr);
+        }
+
+        return returnExpr;
+    }
+
+
+    private static AbstractExpression<TNode> OrderByClause(
+        Ast expressionClause, 
+        CompilationOptions options,
+        AbstractExpression<TNode> returnClauseExpression)
+    {
+        throw new NotImplementedException("OrderByClause is not implemented yet.");
     }
 
     private static AbstractExpression<TNode> CompileInstanceOfExpr(Ast ast, CompilationOptions options)
