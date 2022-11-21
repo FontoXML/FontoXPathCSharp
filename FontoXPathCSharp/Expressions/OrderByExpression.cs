@@ -33,11 +33,11 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
         if (_orderSpecs.Length > 1)
             throw new NotImplementedException("More than one order spec is not supported for the order by clause.");
 
-        var dynamicContexts = new List<DynamicContext>();
+        var dynamicContexts = new List<DynamicContext?>();
 
         var hasValues = false;
-        var values = new List<AbstractValue?>();
-        var indices = new List<int>();
+        List<AbstractValue?> values;
+        List<int> indices;
 
         Iterator<AbstractValue>? returnValueIterator = null;
 
@@ -64,7 +64,9 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
                     ).ToArray();
 
                     // Atomize
-                    // Atomization is applied to the result of the expression in each orderspec. If the result of atomization is neither a single atomic value nor an empty sequence, a type error is raised [err:XPTY0004].
+                    // Atomization is applied to the result of the expression in each order spec.
+                    // If the result of atomization is neither a single atomic value nor an empty sequence
+                    // a type error is raised [err:XPTY0004].
                     var atomizedSequences = evaluatedOrderSpecs.Select(
                         evaluatedOrderSpec => Atomize.AtomizeSequence(evaluatedOrderSpec, executionParameters)
                     ).ToArray();
@@ -78,7 +80,7 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
                     values = atomizedSequences.Select(seq => seq.FirstOrDefault()).ToList();
 
                     // Casting values
-                    // If the value of an orderspec has the dynamic type xs:untypedAtomic, it is cast to the type xs:string.
+                    // If the value of an order spec has the dynamic type xs:untypedAtomic, it is cast to the type xs:string.
                     values = values.Select(value =>
                     {
                         if (value == null) return value;
@@ -103,7 +105,7 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
                         if (values == null)
                             throw new XPathException(
                                 "XPTY0004",
-                                "Could not cast values"
+                                "Could not cast values to a common primitive type."
                             );
                     }
 
@@ -121,17 +123,17 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
 
                             if (secondItemIndex == numberOfValues) continue;
 
-                            var W = values[indices[firstItemIndex]];
-                            var V = values[indices[secondItemIndex]];
+                            var w = values[indices[firstItemIndex]];
+                            var v = values[indices[secondItemIndex]];
 
-                            if (V == null && W == null) continue;
+                            if (v == null && w == null) continue;
 
                             if (orderSpec.IsEmptyLeast)
                             {
                                 // W is empty and thus is already in the right spot
-                                if (W == null) continue;
+                                if (w == null) continue;
 
-                                if (V == null)
+                                if (v == null)
                                 {
                                     // V is an empty sequence, thus swap indices in index array
                                     (indices[firstItemIndex], indices[secondItemIndex]) = (indices[secondItemIndex],
@@ -140,8 +142,8 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
                                     continue;
                                 }
 
-                                if (float.IsNaN(V.GetAs<FloatValue>().Value) &&
-                                    !float.IsNaN(W.GetAs<FloatValue>().Value))
+                                if (float.IsNaN(v.GetAs<FloatValue>().Value) &&
+                                    !float.IsNaN(w.GetAs<FloatValue>().Value))
                                 {
                                     // V is NaN, thus swap indices in index array
                                     (indices[firstItemIndex], indices[secondItemIndex]) = (indices[secondItemIndex],
@@ -152,17 +154,17 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
                             else
                             {
                                 // V is already empty and thus is in the right spot
-                                if (V == null) continue;
+                                if (v == null) continue;
 
-                                if (W == null)
+                                if (w == null)
                                 {
                                     (indices[firstItemIndex], indices[secondItemIndex]) = (indices[secondItemIndex],
                                         indices[firstItemIndex]);
                                     continue;
                                 }
 
-                                if (float.IsNaN(W.GetAs<FloatValue>().Value) &&
-                                    !float.IsNaN(V.GetAs<FloatValue>().Value))
+                                if (float.IsNaN(w.GetAs<FloatValue>().Value) &&
+                                    !float.IsNaN(v.GetAs<FloatValue>().Value))
                                 {
                                     (indices[firstItemIndex], indices[secondItemIndex]) = (indices[secondItemIndex],
                                         indices[firstItemIndex]);
@@ -170,16 +172,16 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
                                 }
                             }
 
-                            if (ValueCompare<TNode>.PerformValueCompare(CompareType.GreaterThan, W, V, dynamicContext))
+                            if (ValueCompare<TNode>.PerformValueCompare(CompareType.GreaterThan, w, v, dynamicContext))
                                 (indices[firstItemIndex], indices[secondItemIndex]) =
                                     (indices[secondItemIndex], indices[firstItemIndex]);
                             // Else done
                         }
                     }
 
-                    // For the purpose of determining their relative position in the ordering sequence, the greater-than relationship between two orderspec values W and V is defined as follows:
+                    // For the purpose of determining their relative position in the ordering sequence, the greater-than relationship between two order spec values W and V is defined as follows:
 
-                    // When the orderspec specifies empty least, the following rules are applied in order:
+                    // When the order spec specifies empty least, the following rules are applied in order:
                     // 1. If V is an empty sequence and W is not an empty sequence, then W greater-than V is true.
                     // 2. If V is NaN and W is neither NaN nor an empty sequence, then W greater-than V is true.
                     // 3. If a specific collation C is specified, and V and W are both of type xs:string or are convertible to xs:string by subtype substitution and/or type promotion, then:
@@ -187,7 +189,7 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
                     // 5. If none of the above rules apply, then:
                     // 6. If W gt V is true, then W greater-than V is true; otherwise W greater-than V is false.
 
-                    // When the orderspec specifies empty greatest, the following rules are applied in order:
+                    // When the  order spec specifies empty greatest, the following rules are applied in order:
                     // 1. If W is an empty sequence and V is not an empty sequence, then W greater-than V is true.
                     // 2. If W is NaN and V is neither NaN nor an empty sequence, then W greater-than V is true.
                     // 3. If a specific collation C is specified, and V and W are both of type xs:string or are convertible to xs:string by subtype substitution and/or type promotion, then:
@@ -195,7 +197,7 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
                     // 5. If none of the above rules apply, then:
                     // 6. If W gt V is true, then W greater-than V is true; otherwise W greater-than V is false.
 
-                    // When the orderspec specifies neither empty least nor empty greatest, the default order for empty sequences in the static context determines whether the rules for empty least or empty greatest are used.
+                    // When the order spec specifies neither empty least nor empty greatest, the default order for empty sequences in the static context determines whether the rules for empty least or empty greatest are used.
 
                     var currentIndex = orderSpec.IsAscending ? 0 : values.Count - 1;
 
@@ -208,12 +210,12 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
                             {
                                 if (currentIndex >= values.Count) return IteratorResult<DynamicContext>.Done();
 
-                                return IteratorResult<DynamicContext>.Ready(dynamicContexts[indices[currentIndex++]]);
+                                return IteratorResult<DynamicContext>.Ready(dynamicContexts[indices[currentIndex++]]!);
                             }
 
                             if (currentIndex < 0) return IteratorResult<DynamicContext>.Done();
 
-                            return IteratorResult<DynamicContext>.Ready(dynamicContexts[indices[currentIndex--]]);
+                            return IteratorResult<DynamicContext>.Ready(dynamicContexts[indices[currentIndex--]]!);
                         });
 
                     returnValueIterator = returnValue.GetValue();

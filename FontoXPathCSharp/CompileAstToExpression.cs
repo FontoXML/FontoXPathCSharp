@@ -468,7 +468,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         for (var i = forClauseItems.Length - 1; i >= 0; --i)
         {
             var forClauseItem = forClauseItems[i];
-            var expression = forClauseItem.FollowPath(AstNodeName.ForExpr, AstNodeName.All);
+            var expression = forClauseItem.FollowPath(AstNodeName.ForExpr, AstNodeName.All)!;
             var positionalVariableBinding = forClauseItem.GetFirstChild(
                 AstNodeName.PositionalVariableBinding
             );
