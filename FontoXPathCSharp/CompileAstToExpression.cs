@@ -6,7 +6,6 @@ using FontoXPathCSharp.Expressions.Operators;
 using FontoXPathCSharp.Expressions.Operators.Compares;
 using FontoXPathCSharp.Expressions.Tests;
 using FontoXPathCSharp.Expressions.Util;
-using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -469,15 +468,15 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         for (var i = forClauseItems.Length - 1; i >= 0; --i)
         {
             var forClauseItem = forClauseItems[i];
-            var expression = forClauseItem.FollowPath(AstNodeName.ForExpr, AstNodeName.All);
+            var expression = forClauseItem.FollowPath(AstNodeName.ForExpr, AstNodeName.All)!;
             var positionalVariableBinding = forClauseItem.GetFirstChild(
                 AstNodeName.PositionalVariableBinding
             );
 
             returnExpr = new ForExpression<TNode>(
-                forClauseItem.FollowPath(AstNodeName.TypedVariableBinding, AstNodeName.VarName)?.GetQName(),
+                forClauseItem.FollowPath(AstNodeName.TypedVariableBinding, AstNodeName.VarName)?.GetQName()!,
                 CompileAst(expression, DisallowUpdating(options)),
-                positionalVariableBinding?.GetQName(),
+                positionalVariableBinding?.GetQName()!,
                 returnExpr
             );
         }
@@ -506,16 +505,17 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
 
         return returnExpr;
     }
-    
+
     private static AbstractExpression<TNode> WhereClause(
-        Ast expressionClause, 
+        Ast expressionClause,
         CompilationOptions options,
         AbstractExpression<TNode> returnClauseExpression)
     {
         var whereClauseItems = expressionClause.GetChildren(AstNodeName.All).ToArray();
         var returnExpr = returnClauseExpression;
 
-        for (var i = whereClauseItems.Length - 1; i >= 0; --i) {
+        for (var i = whereClauseItems.Length - 1; i >= 0; --i)
+        {
             var whereClauseItem = whereClauseItems[i];
             returnExpr = new WhereExpression<TNode>(CompileAst(whereClauseItem, options), returnExpr);
         }
@@ -525,11 +525,31 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
 
 
     private static AbstractExpression<TNode> OrderByClause(
-        Ast expressionClause, 
+        Ast expressionClause,
         CompilationOptions options,
         AbstractExpression<TNode> returnClauseExpression)
     {
-        throw new NotImplementedException("OrderByClause is not implemented yet.");
+        var orderBySpecs = expressionClause.GetChildren(AstNodeName.All);
+        return new OrderByExpression<TNode>(
+            orderBySpecs
+                .Where(spec => spec.Name != AstNodeName.Stable)
+                .Select(spec =>
+                {
+                    var orderModifier = spec.GetFirstChild(AstNodeName.OrderModifier);
+                    var kind = orderModifier?.GetFirstChild(AstNodeName.OrderingKind);
+                    var mode = orderModifier?.GetFirstChild(AstNodeName.EmptyOrderingMode);
+
+                    var isAscending = kind == null || kind.TextContent == "ascending";
+                    var isEmptyLeast = mode == null || mode.TextContent == "empty least";
+
+                    return new OrderSpecs<TNode>(
+                        CompileAst(spec.FollowPath(AstNodeName.All)!, options),
+                        isAscending,
+                        isEmptyLeast
+                    );
+                }).ToArray(),
+            returnClauseExpression
+        );
     }
 
     private static AbstractExpression<TNode> CompileInstanceOfExpr(Ast ast, CompilationOptions options)
