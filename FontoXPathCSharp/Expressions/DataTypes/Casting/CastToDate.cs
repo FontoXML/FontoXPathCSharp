@@ -21,7 +21,7 @@ public static class CastToDate
         if (type.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateDateValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!)));
+                    CreateDateValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!, ValueType.XsDate)));
 
         return _ => new ErrorResult<AtomicValue>(
             "Casting not supported from given type to xs:date or any of its derived types.",

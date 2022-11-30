@@ -16,12 +16,14 @@ public static class CastToDateTime
     {
         if (type.IsSubtypeOf(ValueType.XsDateTime))
             return value =>
-                new SuccessResult<AtomicValue>(CreateDateTimeValue(((DateTimeValue)value).ConvertToType(ValueType.XsDateTime)));
+                new SuccessResult<AtomicValue>(
+                    CreateDateTimeValue(((DateTimeValue)value).ConvertToType(ValueType.XsDateTime)));
 
         if (type.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateDateTimeValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!)));
+                    CreateDateTimeValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!,
+                        ValueType.XsDateTime)));
 
         return _ => new ErrorResult<AtomicValue>(
             "Casting not supported from given type to xs:dateTime or any of its derived types.",

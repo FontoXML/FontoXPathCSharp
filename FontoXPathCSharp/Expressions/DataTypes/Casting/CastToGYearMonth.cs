@@ -22,7 +22,8 @@ public static class CastToGYearMonth
         if (type.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateGYearMonthValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!)));
+                    CreateGYearMonthValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!,
+                        ValueType.XsGYearMonth)));
 
         return _ => new ErrorResult<AtomicValue>(
             "Casting not supported from given type to xs:gYearMonth or any of its derived types.",
