@@ -124,7 +124,7 @@ public class TestMisc
     [Fact]
     public void TestDate()
     {
-        var selector = "xs:date('2010-11-15') cast as xs:string";
+        var selector = "xs:date('2010-11-15Z') cast as xs:string";
         
         var res = Evaluate.EvaluateXPathToString(
             selector,
@@ -133,7 +133,7 @@ public class TestMisc
             XmlNodeOptions
         );
 
-        Assert.Equal("2010-11-15", res);
+        Assert.Equal("2010-11-15Z", res);
     }
     
     [Fact]

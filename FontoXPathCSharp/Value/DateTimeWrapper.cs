@@ -1,4 +1,3 @@
-using System.Xml;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
@@ -17,9 +16,10 @@ public class DateTimeWrapper
         int seconds,
         float secondFraction,
         TimeSpan? timezone,
+        bool hasTimezone,
         ValueType type)
     {
-        _hasTimezone = timezone != null;
+        _hasTimezone = hasTimezone && timezone != null;
         _dateTime = new DateTimeOffset(
             years,
             months,
@@ -50,13 +50,16 @@ public class DateTimeWrapper
     public bool IsPositive => GetYear >= 0;
     public TimeSpan GetTimezone => _dateTime.Offset;
 
+    public bool HasTimezone => _hasTimezone;
+
     public ValueType GetValueType { get; }
 
     public override string ToString()
     {
         return GetValueType switch
         {
-            ValueType.XsDateTime => XmlConvert.ToString(_dateTime),
+            ValueType.XsDateTime =>
+                $"{ConvertYearToString(GetYear)}-{ConvertToTwoCharString(GetMonth)}-{ConvertToTwoCharString(GetDay)}T{ConvertToTwoCharString(GetHours)}:{ConvertToTwoCharString(GetMinutes)}:{ConvertSecondsToString(GetSeconds + GetSecondFraction)}{TimezoneToString(GetTimezone)}",
             ValueType.XsDate =>
                 $"{ConvertYearToString(GetYear)}-{ConvertToTwoCharString(GetMonth)}-{ConvertToTwoCharString(GetDay)}{TimezoneToString(GetTimezone)}",
             ValueType.XsTime =>

@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System.Xml;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
@@ -26,9 +27,10 @@ public class DateTimeValue : AtomicValue
         int seconds,
         float secondFraction,
         TimeSpan? timezone,
+        bool hasTimezone,
         ValueType type) : base(type)
     {
-        _dateTime = new DateTimeWrapper(years, months, days, hours, minutes, seconds, secondFraction, timezone, type);
+        _dateTime = new DateTimeWrapper(years, months, days, hours, minutes, seconds, secondFraction, timezone, hasTimezone, type);
     }
 
 
@@ -42,6 +44,7 @@ public class DateTimeValue : AtomicValue
     public float GetSecondFraction => _dateTime.GetSecondFraction;
     public bool IsPositive => _dateTime.IsPositive;
     public TimeSpan GetTimezone => _dateTime.GetTimezone;
+    public bool HasTimezone => _dateTime.HasTimezone;
 
     public override object GetValue()
     {
@@ -76,6 +79,7 @@ public class DateTimeValue : AtomicValue
                     0,
                     0,
                     GetTimezone,
+                    HasTimezone,
                     ValueType.XsGDay
                 );
             case ValueType.XsGMonth:
@@ -88,6 +92,7 @@ public class DateTimeValue : AtomicValue
                     0,
                     0,
                     GetTimezone,
+                    HasTimezone,
                     ValueType.XsGMonth
                 );
             case ValueType.XsGYear:
@@ -100,6 +105,7 @@ public class DateTimeValue : AtomicValue
                     0,
                     0,
                     GetTimezone,
+                    HasTimezone,
                     ValueType.XsGYear
                 );
             case ValueType.XsGMonthDay:
@@ -112,6 +118,7 @@ public class DateTimeValue : AtomicValue
                     0,
                     0,
                     GetTimezone,
+                    HasTimezone,
                     ValueType.XsGMonthDay
                 );
             case ValueType.XsGYearMonth:
@@ -124,6 +131,7 @@ public class DateTimeValue : AtomicValue
                     0,
                     0,
                     GetTimezone,
+                    HasTimezone,
                     ValueType.XsGYearMonth
                 );
             case ValueType.XsTime:
@@ -136,6 +144,7 @@ public class DateTimeValue : AtomicValue
                     GetSeconds,
                     GetSecondFraction,
                     GetTimezone,
+                    HasTimezone,
                     ValueType.XsTime
                 );
             case ValueType.XsDate:
@@ -148,6 +157,7 @@ public class DateTimeValue : AtomicValue
                     0,
                     0,
                     GetTimezone,
+                    HasTimezone,
                     ValueType.XsDate
                 );
             case ValueType.XsDateTime:
@@ -161,6 +171,7 @@ public class DateTimeValue : AtomicValue
                     GetSeconds,
                     GetSecondFraction,
                     GetTimezone,
+                    HasTimezone,
                     ValueType.XsDateTime
                 );
         }
@@ -169,8 +180,15 @@ public class DateTimeValue : AtomicValue
 
     public static DateTimeValue FromString(string dateTimeString, ValueType type)
     {
+        //TODO: Figure out why this insists on adding your own timezone.
         var dateTime = XmlConvert.ToDateTimeOffset(dateTimeString);
-        var hasTimezone = dateTimeString.Contains('+') || dateTimeString.Contains('-');
+        
+        var matches = Regex.Match(
+                dateTimeString,
+                @"^(?:(-?\d{4,}))?(?:--?(\d\d))?(?:-{1,3}(\d\d))?(T)?(?:(\d\d):(\d\d):(\d\d))?(\.\d+)?(Z|(?:[+-]\d\d:\d\d))?$")
+            .Groups;
+        var hasTimezone = matches[9].Success;
+        
         return new DateTimeValue(new DateTimeWrapper(dateTime, hasTimezone, type));
     }
 

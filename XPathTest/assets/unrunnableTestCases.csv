@@ -1434,7 +1434,6 @@ CastAs116;Expected XPathException with code FORG0001, but got Type casting to Xs
 CastAs117;Type casting to XsDayTimeDuration has not been implemented yet.
 CastAs118;Type casting to XsDayTimeDuration has not been implemented yet.
 CastAs119;Expected XPathException with code FORG0001, but got Type casting to XsDayTimeDuration has not been implemented yet.
-CastAs120;Expected XPath xs:string("1999-05-31T13:20:00") cast as xs:dateTime to resolve to 1999-05-31T13:20:00
 CastAs121;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs123;Expected XPathException with code FORG0001, but got The string 'true' is not a valid AllXsd value.
 CastAs124;Type casting to XsTime has not been implemented yet.
@@ -1442,22 +1441,13 @@ CastAs125;Type casting to XsTime has not been implemented yet.
 CastAs126;Type casting to XsTime has not been implemented yet.
 CastAs127;Expected XPathException with code FORG0001, but got Type casting to XsTime has not been implemented yet.
 CastAs129;The string '-0012-12-03-05:00' is not a valid AllXsd value.
-CastAs130;Expected XPath xs:string("1999-05-31Z") cast as xs:date to resolve to 1999-05-31Z
 CastAs131;Expected XPathException with code FORG0001, but got The string 'true' is not a valid AllXsd value.
 CastAs133;The string '-0012-12-05:00' is not a valid AllXsd value.
-CastAs134;Expected XPath xs:string("1999-05Z") cast as xs:gYearMonth to resolve to 1999-05Z
 CastAs135;Expected XPathException with code FORG0001, but got The string 'true' is not a valid AllXsd value.
 CastAs137;The string '-0012-05:00' is not a valid AllXsd value.
-CastAs138;Expected XPath xs:string("1999Z") cast as xs:gYear to resolve to 1999Z
 CastAs139;Expected XPathException with code FORG0001, but got The string 'true' is not a valid AllXsd value.
-CastAs141;Expected XPath xs:string("--05-31+14:00") cast as xs:gMonthDay to resolve to --05-31+14:00
-CastAs142;Expected XPath xs:string("--05-31Z") cast as xs:gMonthDay to resolve to --05-31Z
 CastAs143;Expected XPathException with code FORG0001, but got The string 'true' is not a valid AllXsd value.
-CastAs145;Expected XPath xs:string("---03-05:00") cast as xs:gDay to resolve to ---03-05:00
-CastAs146;Expected XPath xs:string("---31Z") cast as xs:gDay to resolve to ---31Z
 CastAs147;Expected XPathException with code FORG0001, but got The string 'true' is not a valid AllXsd value.
-CastAs149;Expected XPath xs:string("--12-05:00") cast as xs:gMonth to resolve to --12-05:00
-CastAs150;Expected XPath xs:string("--05Z") cast as xs:gMonth to resolve to --05Z
 CastAs151;Expected XPathException with code FORG0001, but got The string 'true' is not a valid AllXsd value.
 CastAs152;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
 CastAs155;Type casting to XsBase64Binary has not been implemented yet.
@@ -1617,14 +1607,11 @@ CastAs348;Expected XPathException with code XPTY0004, but got Type casting to Xs
 CastAs349;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
 CastAs350;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
 CastAs351;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
-CastAs352;Expected XPath xs:dateTime("1999-05-31T13:20:00") cast as xs:untypedAtomic to resolve to 1999-05-31T13:20:00
 CastAs353;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
-CastAs354;Expected XPath xs:dateTime("1999-05-31T13:20:00") cast as xs:string to resolve to 1999-05-31T13:20:00
 CastAs355;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs360;Expected XPathException with code XPTY0004, but got Type casting to XsDuration has not been implemented yet.
 CastAs361;Expected XPathException with code XPTY0004, but got Type casting to XsYearMonthDuration has not been implemented yet.
 CastAs362;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
-CastAs363;Expected XPath xs:dateTime("1999-05-31T13:20:00") cast as xs:dateTime to resolve to 1999-05-31T13:20:00
 CastAs364;Type casting to XsTime has not been implemented yet.
 CastAs365;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs367;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
@@ -1667,7 +1654,6 @@ CastAs415;Expected XPathException with code XPTY0004, but got Type casting to Xs
 CastAs416;Casting not supported from given type to xs:dateTime or any of its derived types.
 CastAs417;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 CastAs419;Expected executing the XPath "xs:date("-0012-12-03-05:00") cast as xs:date" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FODT0001, but got The string '-0012-12-03-05:00' is not a valid AllXsd value.
-CastAs420;Expected XPath xs:date("1999-05-31Z") cast as xs:date to resolve to 1999-05-31Z
 CastAs421;Casting not supported from given type to xs:gYearMonth or any of its derived types.
 CastAs422;Casting not supported from given type to xs:gYear or any of its derived types.
 CastAs423;Expected executing the XPath "xs:date("-0012-12-03-05:00") cast as xs:gYear" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FODT0001, but got The string '-0012-12-03-05:00' is not a valid AllXsd value.
@@ -1686,7 +1672,6 @@ CastAs443;Expected XPathException with code XPTY0004, but got Type casting to Xs
 CastAs444;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
 CastAs446;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 CastAs449;The string '-0012-12-05:00' is not a valid AllXsd value.
-CastAs450;Expected XPath xs:gYearMonth("1999-05Z") cast as xs:gYearMonth to resolve to 1999-05Z
 CastAs456;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs457;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 CastAs458;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
@@ -1694,7 +1679,6 @@ CastAs465;Expected XPathException with code XPTY0004, but got Type casting to Xs
 CastAs466;Expected XPathException with code XPTY0004, but got Type casting to XsYearMonthDuration has not been implemented yet.
 CastAs468;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 CastAs472;The string '-0012-05:00' is not a valid AllXsd value.
-CastAs473;Expected XPath xs:gYear("1999Z") cast as xs:gYear to resolve to 1999Z
 CastAs478;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs479;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 CastAs480;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
@@ -1702,8 +1686,6 @@ CastAs487;Expected XPathException with code XPTY0004, but got Type casting to Xs
 CastAs488;Expected XPathException with code XPTY0004, but got Type casting to XsYearMonthDuration has not been implemented yet.
 CastAs489;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
 CastAs491;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
-CastAs496;Expected XPath xs:gMonthDay("--12-03-05:00") cast as xs:gMonthDay to resolve to --12-03-05:00
-CastAs497;Expected XPath xs:gMonthDay("--05-31Z") cast as xs:gMonthDay to resolve to --05-31Z
 CastAs501;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs502;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 CastAs503;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
@@ -1711,8 +1693,6 @@ CastAs510;Expected XPathException with code XPTY0004, but got Type casting to Xs
 CastAs511;Expected XPathException with code XPTY0004, but got Type casting to XsYearMonthDuration has not been implemented yet.
 CastAs512;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
 CastAs514;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
-CastAs520;Expected XPath xs:gDay("---03-05:00") cast as xs:gDay to resolve to ---03-05:00
-CastAs521;Expected XPath xs:gDay("---31Z") cast as xs:gDay to resolve to ---31Z
 CastAs524;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs525;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 CastAs526;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
@@ -1720,8 +1700,6 @@ CastAs533;Expected XPathException with code XPTY0004, but got Type casting to Xs
 CastAs534;Expected XPathException with code XPTY0004, but got Type casting to XsYearMonthDuration has not been implemented yet.
 CastAs535;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
 CastAs537;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
-CastAs544;Expected XPath xs:gMonth("--12-05:00") cast as xs:gMonth to resolve to --12-05:00
-CastAs545;Expected XPath xs:gMonth("--05Z") cast as xs:gMonth to resolve to --05Z
 CastAs547;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs548;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 CastAs549;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
@@ -1845,12 +1823,6 @@ CastAs675a;Expected error code: XPTY0117. Found error code: XPST0003 with error 
 CastAs677;Atomic Value for XsNormalizedString is not implemented yet.
 CastAs678;Atomic Value for XsToken is not implemented yet.
 CastAs680;Type casting to XsTime has not been implemented yet.
-CastAs681;Expected XPath xs:date('2017-07-19-00:30') to resolve to 2017-07-19-00:30
-CastAs682;Expected XPath xs:gYear('2017-00:30') to resolve to 2017-00:30
-CastAs683;Expected XPath xs:gYearMonth('2017-07-00:30') to resolve to 2017-07-00:30
-CastAs684;Expected XPath xs:gMonth('--07-00:30') to resolve to --07-00:30
-CastAs685;Expected XPath xs:gMonthDay('--07-12-00:30') to resolve to --07-12-00:30
-CastAs686;Expected XPath xs:gDay('---12-00:30') to resolve to ---12-00:30
 CastAs687;Can't parse 12345678901234567.3 into an int.
 CastAsNamespaceSensitiveType-1;Expected error code: XPTY0117. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 CastAsNamespaceSensitiveType-10;PRSC Error: Failed to parse query ''
@@ -1886,7 +1858,6 @@ casthc25;Can't parse 12678967543233 into an int.
 casthc26;Can't parse 12678967543233 into an int.
 casthc27;Can't parse 12678967543233 into an int.
 casthc30;Type casting to XsTime has not been implemented yet.
-casthc31;Expected XPath xs:dateTime("1999-05-31T13:20:00-05:00") cast as xs:date to resolve to 1999-05-31-05:00
 casthc33;Casting not supported from given type to xs:dateTime or any of its derived types.
 casthc35;Type casting to XsTime has not been implemented yet.
 casthc36;Type casting to XsTime has not been implemented yet.
@@ -4099,7 +4070,6 @@ constSeq-15;Atomic Value for XsDecimal is not implemented yet.
 constSeq-16;Type casting to XsAnyUri has not been implemented yet.
 constSeq-17;Can't parse 1.1 into an int.
 constSeq-18;PRSC Error: Failed to parse query 'deep-equal(( (xs:double(1.2E2), 2.2E2, 3.3E2)), (120, 220, 330))'
-constSeq-20;Expected XPath  (xs:date("2004-12-25Z"),xs:date("2004-12-26Z")) to resolve to 2004-12-25Z 2004-12-26Z
 constSeq-22;Type casting to XsTime has not been implemented yet.
 constSeq-4;Atomic Value for XsDecimal is not implemented yet.
 context-item-1;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'let $f := function() { fn:boolean(.) } return $f()'
@@ -13984,14 +13954,11 @@ K-SeqExprCast-223;Expected XPathException with code FORG0001, but got The string
 K-SeqExprCast-224;Expected XPathException with code FORG0001, but got The string '1111 Z' is not a valid AllXsd value.
 K-SeqExprCast-225;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
 K-SeqExprCast-226;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
-K-SeqExprCast-227;Expected error code: FORG0001. Query succeeded with result: 1956
-K-SeqExprCast-228;Expected error code: FORG0001. Query succeeded with result: 1956
+K-SeqExprCast-227;Expected error code: FORG0001. Query succeeded with result: 1956+11:00
+K-SeqExprCast-228;Expected error code: FORG0001. Query succeeded with result: 1956-11:00
 K-SeqExprCast-229;Expected XPathException with code FORG0001, but got The string '02004' is not a valid AllXsd value.
 K-SeqExprCast-23;Atomic Value for XsDecimal is not implemented yet.
 K-SeqExprCast-230;Expected error code: FORG0001. Query succeeded with result: 1956
-K-SeqExprCast-231;Expected XPath xs:string(xs:gYear("1999-00:00")) eq "1999Z" to resolve to true
-K-SeqExprCast-232;Expected XPath xs:string(xs:gYear("1999+00:00")) eq "1999Z" to resolve to true
-K-SeqExprCast-233;Expected XPath xs:string(xs:gYear("1999Z")) eq "1999Z" to resolve to true
 K-SeqExprCast-234;Expected XPathException with code FORG0001, but got The string '10' is not a valid AllXsd value.
 K-SeqExprCast-235;Expected XPathException with code FORG0001, but got The string '-01' is not a valid AllXsd value.
 K-SeqExprCast-236;Expected XPathException with code FORG0001, but got The string '---321' is not a valid AllXsd value.
@@ -14009,12 +13976,9 @@ K-SeqExprCast-247;Expected XPathException with code FORG0001, but got The string
 K-SeqExprCast-248;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
 K-SeqExprCast-249;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
 K-SeqExprCast-25;Can't parse <Value>[type: XsInt, value: 0] into an int.
-K-SeqExprCast-250;Expected error code: FORG0001. Query succeeded with result: ---08
-K-SeqExprCast-251;Expected error code: FORG0001. Query succeeded with result: ---08
+K-SeqExprCast-250;Expected error code: FORG0001. Query succeeded with result: ---08+11:00
+K-SeqExprCast-251;Expected error code: FORG0001. Query succeeded with result: ---08-11:00
 K-SeqExprCast-252;Expected XPathException with code FORG0001, but got The string '---08-10' is not a valid AllXsd value.
-K-SeqExprCast-253;Expected XPath xs:string(xs:gDay("---01-00:00")) eq "---01Z" to resolve to true
-K-SeqExprCast-254;Expected XPath xs:string(xs:gDay("---01+00:00")) eq "---01Z" to resolve to true
-K-SeqExprCast-255;Expected XPath xs:string(xs:gDay("---01Z")) eq "---01Z" to resolve to true
 K-SeqExprCast-256;Expected XPathException with code FORG0001, but got The string '-01' is not a valid AllXsd value.
 K-SeqExprCast-257;Expected error code: FORG0001. Query succeeded with result: --01
 K-SeqExprCast-258;Expected XPathException with code FORG0001, but got The string '+--01' is not a valid AllXsd value.
@@ -14024,13 +13988,10 @@ K-SeqExprCast-261;Expected XPathException with code FORG0001, but got The string
 K-SeqExprCast-262;Expected XPathException with code FORG0001, but got The string '--00' is not a valid AllXsd value.
 K-SeqExprCast-263;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
 K-SeqExprCast-264;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
-K-SeqExprCast-265;Expected error code: FORG0001. Query succeeded with result: --08
-K-SeqExprCast-266;Expected error code: FORG0001. Query succeeded with result: --08
+K-SeqExprCast-265;Expected error code: FORG0001. Query succeeded with result: --08+11:00
+K-SeqExprCast-266;Expected error code: FORG0001. Query succeeded with result: --08-11:00
 K-SeqExprCast-267;Expected error code: FORG0001. Query succeeded with result: --08
-K-SeqExprCast-268;Expected XPath xs:string(xs:gMonth("--01-00:00")) eq "--01Z" to resolve to true
-K-SeqExprCast-269;Expected XPath xs:string(xs:gMonth("--01+00:00")) eq "--01Z" to resolve to true
 K-SeqExprCast-27;Atomic Value for XsDecimal is not implemented yet.
-K-SeqExprCast-270;Expected XPath xs:string(xs:gMonth("--01Z")) eq "--01Z" to resolve to true
 K-SeqExprCast-271;Expected XPathException with code FORG0001, but got The string '--1999-12' is not a valid AllXsd value.
 K-SeqExprCast-272;Expected XPathException with code FORG0001, but got The string '+1999-12' is not a valid AllXsd value.
 K-SeqExprCast-273;Expected XPathException with code FORG0001, but got The string '1999-12-' is not a valid AllXsd value.
@@ -14042,11 +14003,8 @@ K-SeqExprCast-278;Expected error code: FORG0001. Query succeeded with result: 19
 K-SeqExprCast-279;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
 K-SeqExprCast-28;Can't parse 0.0 into an int.
 K-SeqExprCast-280;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
-K-SeqExprCast-281;Expected error code: FORG0001. Query succeeded with result: 1999-01
-K-SeqExprCast-282;Expected error code: FORG0001. Query succeeded with result: 1999-01
-K-SeqExprCast-283;Expected XPath xs:string(xs:gYearMonth("1999-01-00:00")) eq "1999-01Z" to resolve to true
-K-SeqExprCast-284;Expected XPath xs:string(xs:gYearMonth("1999-01+00:00")) eq "1999-01Z" to resolve to true
-K-SeqExprCast-285;Expected XPath xs:string(xs:gYearMonth("1999-01Z")) eq "1999-01Z" to resolve to true
+K-SeqExprCast-281;Expected error code: FORG0001. Query succeeded with result: 1999-01+11:00
+K-SeqExprCast-282;Expected error code: FORG0001. Query succeeded with result: 1999-01-11:00
 K-SeqExprCast-286;Expected XPathException with code FORG0001, but got The string '-01-12' is not a valid AllXsd value.
 K-SeqExprCast-287;Expected XPathException with code FORG0001, but got The string '+--01-12' is not a valid AllXsd value.
 K-SeqExprCast-288;Expected XPathException with code FORG0001, but got The string '01-12-' is not a valid AllXsd value.
@@ -14063,11 +14021,8 @@ K-SeqExprCast-298;Expected XPathException with code FORG0001, but got The string
 K-SeqExprCast-299;Expected XPathException with code FORG0001, but got The string '--11-31' is not a valid AllXsd value.
 K-SeqExprCast-300;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
 K-SeqExprCast-301;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
-K-SeqExprCast-302;Expected error code: FORG0001. Query succeeded with result: --01-01
-K-SeqExprCast-303;Expected error code: FORG0001. Query succeeded with result: --01-01
-K-SeqExprCast-304;Expected XPath xs:string(xs:gMonthDay("--01-01-00:00")) eq "--01-01Z" to resolve to true
-K-SeqExprCast-305;Expected XPath xs:string(xs:gMonthDay("--01-01+00:00")) eq "--01-01Z" to resolve to true
-K-SeqExprCast-306;Expected XPath xs:string(xs:gMonthDay("--01-01Z")) eq "--01-01Z" to resolve to true
+K-SeqExprCast-302;Expected error code: FORG0001. Query succeeded with result: --01-01+11:00
+K-SeqExprCast-303;Expected error code: FORG0001. Query succeeded with result: --01-01-11:00
 K-SeqExprCast-307;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
 K-SeqExprCast-308;Expected XPathException with code FORG0001, but got The string '+2004-08-01T12:44:05' is not a valid AllXsd value.
 K-SeqExprCast-309;Expected XPathException with code FORG0001, but got The string '02004-08-01T12:44:05' is not a valid AllXsd value.
@@ -14103,13 +14058,6 @@ K-SeqExprCast-337;Specified argument was out of the range of valid values. (Para
 K-SeqExprCast-338;Type casting to XsTime has not been implemented yet.
 K-SeqExprCast-339;Type casting to XsTime has not been implemented yet.
 K-SeqExprCast-34;Expected XPath xs:boolean(xs:double("NaN")) eq false() to resolve to true
-K-SeqExprCast-342;Expected XPath xs:string(xs:dateTime("2002-02-15T21:01:23.000")) eq "2002-02-15T21:01:23" to resolve to true
-K-SeqExprCast-343;Expected XPath xs:string(xs:dateTime("2002-02-15T21:01:23.100")) eq "2002-02-15T21:01:23.1" to resolve to true
-K-SeqExprCast-344;Expected XPath xs:string(xs:dateTime("2002-02-15T21:01:23.001")) eq "2002-02-15T21:01:23.001" to resolve to true
-K-SeqExprCast-345;Expected XPath xs:string(xs:dateTime("2002-02-15T21:01:23.010")) eq "2002-02-15T21:01:23.01" to resolve to true
-K-SeqExprCast-346;Expected XPath xs:string(xs:dateTime("2002-02-15T21:01:23.435")) eq "2002-02-15T21:01:23.435" to resolve to true
-K-SeqExprCast-347;Expected XPath xs:string(xs:dateTime("2002-02-15T21:01:23.11")) eq "2002-02-15T21:01:23.11" to resolve to true
-K-SeqExprCast-348;Expected XPath xs:string(xs:dateTime("2002-02-15T21:01:23.110")) eq "2002-02-15T21:01:23.11" to resolve to true
 K-SeqExprCast-349;SingletonSequence.Map not implemented
 K-SeqExprCast-35;Expected XPath xs:boolean(xs:float("NaN")) eq false() to resolve to true
 K-SeqExprCast-350;The string '2004-03-31T24:00:00' is not a valid AllXsd value.
@@ -14151,8 +14099,8 @@ K-SeqExprCast-382;Expected XPathException with code FORG0001, but got The string
 K-SeqExprCast-383;Expected error code: FORG0001. Query succeeded with result: 2002-02-15
 K-SeqExprCast-384;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
 K-SeqExprCast-385;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
-K-SeqExprCast-386;Expected error code: FORG0001. Query succeeded with result: 1999-12-01
-K-SeqExprCast-387;Expected error code: FORG0001. Query succeeded with result: 1999-12-01
+K-SeqExprCast-386;Expected error code: FORG0001. Query succeeded with result: 1999-12-01+11:00
+K-SeqExprCast-387;Expected error code: FORG0001. Query succeeded with result: 1999-12-01-11:00
 K-SeqExprCast-388;Expected XPathException with code FORG0001, but got The string '1999-12-01-03' is not a valid AllXsd value.
 K-SeqExprCast-389;Casting not supported from given type to xs:gYear or any of its derived types.
 K-SeqExprCast-39;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
@@ -14169,8 +14117,6 @@ K-SeqExprCast-399;Casting not supported from given type to xs:dateTime or any of
 K-SeqExprCast-4;Expected error code: XPST0051. Found error code: XPST0080 with error message: Casting to xs:anyAtomicType, xs:anySimpleType or xs:NOTATION is not permitted.
 K-SeqExprCast-40;Can't parse <Value>[type: XsBoolean, value: False] into an bool.
 K-SeqExprCast-400;Casting not supported from given type to xs:dateTime or any of its derived types.
-K-SeqExprCast-401;Expected XPath xs:string(xs:date("1999-12-01-00:00")) eq "1999-12-01Z" to resolve to true
-K-SeqExprCast-402;Expected XPath xs:string(xs:date("1999-12-01+00:00")) eq "1999-12-01Z" to resolve to true
 K-SeqExprCast-413;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-414;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-415;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
@@ -17035,7 +16981,7 @@ K2-SeqExprCast-472;Expected XPathException with code FORG0001, but got The strin
 K2-SeqExprCast-473;Expected XPathException with code FORG0001, but got The string '111 -11-11' is not a valid AllXsd value.
 K2-SeqExprCast-474;Expected XPathException with code FORG0001, but got The string '1111-1 -11' is not a valid AllXsd value.
 K2-SeqExprCast-475;Expected XPathException with code FORG0001, but got The string '1111-11-1' is not a valid AllXsd value.
-K2-SeqExprCast-476;Expected error code: FORG0001. Query succeeded with result: 2002-11-23T00:00:00+01:00
+K2-SeqExprCast-476;Expected error code: FORG0001. Query succeeded with result: 2002-11-23T00:00:00
 K2-SeqExprCast-479;PRSC Error: Failed to parse query ''
 K2-SeqExprCast-48;Atomic Value for XsUnsignedByte is not implemented yet.
 K2-SeqExprCast-480;Type casting to XsTime has not been implemented yet.
@@ -17499,7 +17445,6 @@ letexprwith-19;Atomic Value for XsDecimal is not implemented yet.
 letexprwith-21;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 letexprwith-24;PRSC Error: Failed to parse query 'let $var as xs:string := typeswitch(fn:true()) case $i as xs:boolean return "Test Passed" default return "Test failed" return $var'
 letexprwith-4;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-letexprwith-8;Expected XPath let $var as xs:date := xs:date("1999-05-31Z") return $var to resolve to 1999-05-31Z
 letexprwith-9;Type casting to XsTime has not been implemented yet.
 liam-contains-001;No collations are supported
 liam-contains-002;No collations are supported
@@ -19630,7 +19575,7 @@ op-subtract-dates-yielding-DTD-4;SubtractOp not available for types XsDate and X
 op-subtract-dates-yielding-DTD-5;SubtractOp not available for types XsDate and XsDate
 op-subtract-dates-yielding-DTD-6;SubtractOp not available for types XsDate and XsDate
 op-subtract-dates-yielding-DTD-7;SubtractOp not available for types XsDate and XsDate
-op-subtract-dates-yielding-DTD-8;The UTC time represented when the offset is applied must be between year 0 and 10,000. (Parameter 'offset')
+op-subtract-dates-yielding-DTD-8;SubtractOp not available for types XsDate and XsDate
 op-subtract-dates-yielding-DTD-9;SubtractOp not available for types XsDate and XsDate
 op-subtract-dateTimes-yielding-DTD-1;SubtractOp not available for types XsDateTime and XsDateTime
 op-subtract-dateTimes-yielding-DTD-10;SubtractOp not available for types XsDateTime and XsDateTime
