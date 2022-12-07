@@ -7,8 +7,8 @@ public class ForExpression<TNode> : FlworExpression<TNode> where TNode : notnull
 {
     private readonly AbstractExpression<TNode> _clauseExpression;
     private readonly QName? _positionalVariableBinding;
-    private string? _positionalVariableBindingKey;
     private readonly QName _rangeVariable;
+    private string? _positionalVariableBindingKey;
 
     private string? _variableBindingKey;
 
