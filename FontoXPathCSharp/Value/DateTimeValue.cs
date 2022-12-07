@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using System.Xml;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
@@ -6,11 +5,16 @@ namespace FontoXPathCSharp.Value;
 
 public class DateTimeValue : AtomicValue
 {
-    private readonly DateTimeOffset _dateTime;
+    private readonly DateTimeWrapper _dateTime;
 
-    public DateTimeValue(DateTimeOffset dateTime, ValueType type) : base(type)
+    public DateTimeValue(DateTimeWrapper dateTime) : base(dateTime.GetValueType)
     {
         _dateTime = dateTime;
+    }
+
+    public DateTimeValue(DateTimeValue dateTimeValue) : base(dateTimeValue.GetValueType())
+    {
+        _dateTime = dateTimeValue._dateTime;
     }
 
     public DateTimeValue(
@@ -24,30 +28,20 @@ public class DateTimeValue : AtomicValue
         TimeSpan? timezone,
         ValueType type) : base(type)
     {
-        _dateTime = new DateTimeOffset(
-            years,
-            months,
-            days,
-            hours,
-            minutes,
-            seconds,
-            (int)(secondFraction * 1000),
-            timezone ?? TimeSpan.Zero
-        );
+        _dateTime = new DateTimeWrapper(years, months, days, hours, minutes, seconds, secondFraction, timezone, type);
     }
-    
-    
 
-    public int GetDay => _dateTime.Day;
-    public int GetSeconds => _dateTime.Second;
-    public int GetHours => _dateTime.Hour;
-    public int GetMinutes => _dateTime.Minute;
-    public int GetMonth => _dateTime.Month;
-    public int GetYear => _dateTime.Year;
 
-    public float GetSecondFraction => _dateTime.Millisecond / 1000f;
-    public bool IsPositive => _dateTime.Year >= 0;
-    public TimeSpan GetTimezone => _dateTime.Offset;
+    public int GetDay => _dateTime.GetDay;
+    public int GetSeconds => _dateTime.GetSeconds;
+    public int GetHours => _dateTime.GetHours;
+    public int GetMinutes => _dateTime.GetMinutes;
+    public int GetMonth => _dateTime.GetMonth;
+    public int GetYear => _dateTime.GetYear;
+
+    public float GetSecondFraction => _dateTime.GetSecondFraction;
+    public bool IsPositive => _dateTime.IsPositive;
+    public TimeSpan GetTimezone => _dateTime.GetTimezone;
 
     public override object GetValue()
     {
@@ -56,51 +50,7 @@ public class DateTimeValue : AtomicValue
 
     public override string ToString()
     {
-        return Type switch
-        {
-            ValueType.XsDateTime => ConvertYearToString(GetYear) +
-                                    '-' +
-                                    ConvertToTwoCharString(GetMonth) +
-                                    '-' +
-                                    ConvertToTwoCharString(GetDay) +
-                                    'T' +
-                                    ConvertToTwoCharString(GetHours) +
-                                    ':' +
-                                    ConvertToTwoCharString(GetMinutes) +
-                                    ':' +
-                                    ConvertSecondsToString(GetSeconds),
-            // + TimezoneToString(_timeZone),
-            ValueType.XsDate => throw new NotImplementedException(),
-            ValueType.XsTime => throw new NotImplementedException(),
-            ValueType.XsGDay => throw new NotImplementedException(),
-            ValueType.XsGMonth => throw new NotImplementedException(),
-            ValueType.XsGMonthDay => throw new NotImplementedException(),
-            ValueType.XsGYear => throw new NotImplementedException(),
-            ValueType.XsGYearMonth => throw new NotImplementedException(),
-            _ => throw new Exception("Unexpected subType")
-        };
-    }
-
-    private static string ConvertYearToString(int year)
-    {
-        var yearString = year + "";
-        var isNegative = yearString.StartsWith('-');
-        if (isNegative) yearString = yearString[1..];
-        return (isNegative ? "-" : "") + yearString.PadLeft(4, '0');
-    }
-
-    private static string ConvertToTwoCharString(int value)
-    {
-        var valueString = value + "";
-        return valueString.PadLeft(2, '0');
-    }
-
-    private static string ConvertSecondsToString(int seconds)
-    {
-        var secondsString = seconds + "";
-        if (secondsString.Split('.')[0].Length == 1)
-            secondsString = secondsString.PadLeft(secondsString.Length + 1, '0');
-        return secondsString;
+        return _dateTime.ToString();
     }
 
 
@@ -220,18 +170,18 @@ public class DateTimeValue : AtomicValue
     public static DateTimeValue FromString(string dateTimeString, ValueType type)
     {
         var dateTime = XmlConvert.ToDateTimeOffset(dateTimeString);
-        return new DateTimeValue(dateTime, type);
+        var hasTimezone = dateTimeString.Contains('+') || dateTimeString.Contains('-');
+        return new DateTimeValue(new DateTimeWrapper(dateTime, hasTimezone, type));
     }
 
-    private static int? ParseMatchGroup(Group match)
+    public static DateTimeValue? CreateDateTime(object value, ValueType type)
     {
-        return match.Success ? Convert.ToInt32(match.Value, 10) : null;
-    }
-
-    public static DateTimeValue CreateDateTime(object value, ValueType type)
-    {
-        if (value is DateTimeOffset) return new DateTimeValue((DateTimeOffset)value, type);
-        if (value is string) return FromString((string)value, type);
-        return null;
+        return value switch
+        {
+            DateTimeWrapper dateTime => new DateTimeValue(dateTime),
+            DateTimeValue dateTimeValue => new DateTimeValue(dateTimeValue),
+            string s => FromString(s, type),
+            _ => null
+        };
     }
 }

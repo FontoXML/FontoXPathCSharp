@@ -120,4 +120,34 @@ public class TestMisc
 
         Assert.True(res == 3, "Expression should evaluate to 3 (XmlNode)");
     }
+
+    [Fact]
+    public void TestDate()
+    {
+        var selector = "xs:date('2010-11-15') cast as xs:string";
+        
+        var res = Evaluate.EvaluateXPathToString(
+            selector,
+            XmlNodeEmptyContext,
+            XmlNodeDomFacade,
+            XmlNodeOptions
+        );
+
+        Assert.Equal("2010-11-15", res);
+    }
+    
+    [Fact]
+    public void TestGMonth()
+    {
+        var selector = "xs:string('--05Z') cast as xs:gMonth";
+        
+        var res = Evaluate.EvaluateXPathToString(
+            selector,
+            XmlNodeEmptyContext,
+            XmlNodeDomFacade,
+            XmlNodeOptions
+        );
+
+        Assert.Equal("--05Z", res);
+    }
 }
