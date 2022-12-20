@@ -51,7 +51,9 @@ public class GeneralCompare<TNode> : AbstractExpression<TNode> where TNode : not
         return (firstTargetType, secondTargetType);
     }
 
-    private static ISequence PerformGeneralCompare(CompareType type, ISequence firstSequence,
+    private static ISequence PerformGeneralCompare(
+        CompareType type, 
+        ISequence firstSequence,
         ISequence secondSequence,
         DynamicContext dynamicContext)
     {

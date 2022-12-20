@@ -1,6 +1,7 @@
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.InternalValues;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
@@ -66,6 +67,11 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
         };
     }
 
+    private static bool HandleDuration(CompareType type, AbstractValue first, AbstractValue second)
+    {
+        return Compare(type, first.GetAs<DurationValue>().Value, first.GetAs<DurationValue>().Value);
+    }
+
     public static bool PerformValueCompare(
         CompareType type,
         AbstractValue first,
@@ -98,8 +104,8 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
 
         bool AreBothSubtypeOf(params ValueType[] types)
         {
-            return types.Select(x => firstType.IsSubtypeOf(x)).Any() &&
-                   types.Select(x => secondType.IsSubtypeOf(x)).Any();
+            return types.Any(x => firstType.IsSubtypeOf(x)) &&
+                   types.Any(x => secondType.IsSubtypeOf(x));
         }
 
         if (
@@ -113,25 +119,23 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
         )
             return HandleNumericOperator(type, first, second);
 
-        if (AreBothSubtypeOf(ValueType.XsYearMonthDuration))
-            throw new NotImplementedException("YearMonthDuration comparison");
-
-        if (AreBothSubtypeOf(ValueType.XsDayTimeDuration))
-            throw new NotImplementedException("DayTimeDuration comparison");
-
-        if (AreBothSubtypeOf(ValueType.XsDuration)) throw new NotImplementedException("Duration comparison");
+        if (AreBothSubtypeOf(ValueType.XsYearMonthDuration) ||
+            AreBothSubtypeOf(ValueType.XsDayTimeDuration) ||
+            AreBothSubtypeOf(ValueType.XsDuration))
+            return HandleDuration(type, first, second);
 
         if (AreBothSubtypeOf(ValueType.XsDateTime) ||
             AreBothSubtypeOf(ValueType.XsDate) ||
             AreBothSubtypeOf(ValueType.XsTime))
-            throw new NotImplementedException("DateTime, Date, and Time comparison");
+            throw new NotImplementedException("DateTime, Date, and Time comparison not implemented yet");
 
         if (AreBothSubtypeOf(ValueType.XsGYearMonth) ||
             AreBothSubtypeOf(ValueType.XsGYear) ||
             AreBothSubtypeOf(ValueType.XsGMonthDay) ||
             AreBothSubtypeOf(ValueType.XsGMonth) ||
             AreBothSubtypeOf(ValueType.XsGDay))
-            throw new NotImplementedException("GYearMonth, GYear, GMonthDay, GMonth, and GDay comparison");
+            throw new NotImplementedException(
+                "GYearMonth, GYear, GMonthDay, GMonth, and GDay comparison not implemented yet");
 
         throw new XPathException("XPTY0004", type + " not available for " + firstType + " and " + secondType);
     }

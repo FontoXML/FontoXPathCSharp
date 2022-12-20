@@ -2,7 +2,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value.InternalValues;
 
-public class Duration : IComparable<Duration>
+public class Duration : IComparable<Duration>, IComparable
 {
     private static readonly int[,] MonthsToMinMaxValues =
     {
@@ -48,6 +48,12 @@ public class Duration : IComparable<Duration>
     public int Years => RawMonths / 12;
 
     public bool IsPositive => RawMilliSeconds >= 0 && RawMonths >= 0;
+
+
+    public int CompareTo(object? obj)
+    {
+        return obj is Duration duration ? CompareTo(duration) : 1;
+    }
 
     public int CompareTo(Duration? other)
     {
