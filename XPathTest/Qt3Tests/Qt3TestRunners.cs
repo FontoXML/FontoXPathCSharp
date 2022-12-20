@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using System.Xml.Linq;
 using Xunit;
 
 namespace XPathTest.Qt3Tests;

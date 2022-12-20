@@ -125,7 +125,7 @@ public class TestMisc
     public void TestDate()
     {
         var selector = "xs:date('2010-11-15Z') cast as xs:string";
-        
+
         var res = Evaluate.EvaluateXPathToString(
             selector,
             XmlNodeEmptyContext,
@@ -135,12 +135,12 @@ public class TestMisc
 
         Assert.Equal("2010-11-15Z", res);
     }
-    
+
     [Fact]
     public void TestGMonth()
     {
         var selector = "xs:string('--05Z') cast as xs:gMonth";
-        
+
         var res = Evaluate.EvaluateXPathToString(
             selector,
             XmlNodeEmptyContext,

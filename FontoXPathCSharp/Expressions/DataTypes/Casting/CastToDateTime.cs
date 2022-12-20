@@ -22,7 +22,7 @@ public static class CastToDateTime
         if (type.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateDateTimeValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!,
+                    CreateDateTimeValue(DateTimeValue.FromString(value.GetValue().ToString()!,
                         ValueType.XsDateTime)));
 
         return _ => new ErrorResult<AtomicValue>(
