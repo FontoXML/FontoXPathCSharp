@@ -49,10 +49,7 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
         createArgumentSequences = createArgumentSequences.Skip(1).ToArray();
 
         var sequence = createFunctionReferenceSequence(dynamicContext!);
-        if (!sequence.IsSingleton())
-            throw new XPathException(
-                "XPTY0004",
-                "Expected base expression of a function call to evaluate to a sequence of single function item");
+        if (!sequence.IsSingleton()) throw Xpty0004;
 
         return sequence.MapAll(item =>
         {
