@@ -1418,14 +1418,14 @@ CastAs105;Expected XPathException with code FORG0001, but got Can't parse NaN in
 CastAs106;Expected XPathException with code FORG0001, but got Can't parse 1e-5 into an int.
 CastAs107;Expected XPathException with code FORG0001, but got Can't parse -1.1234 into an int.
 CastAs108;Expected XPathException with code FORG0001, but got Can't parse true into an int.
-CastAs109;String '' was not recognized as a valid Boolean.
-CastAs110;String '-' was not recognized as a valid Boolean.
-CastAs112;Expected XPathException with code FORG0001, but got String '-' was not recognized as a valid Boolean.
-CastAs113;String '' was not recognized as a valid Boolean.
-CastAs114;String '-' was not recognized as a valid Boolean.
-CastAs116;Expected XPathException with code FORG0001, but got String '-' was not recognized as a valid Boolean.
-CastAs117;String '' was not recognized as a valid Boolean.
-CastAs118;String '-' was not recognized as a valid Boolean.
+CastAs109;Cannot turn PT0S into a XsDuration
+CastAs110;Input string was not in a correct format.
+CastAs112;Expected XPathException with code FORG0001, but got Cannot turn -P0M into a XsYearMonthDuration
+CastAs113;Cannot turn P0M into a XsYearMonthDuration
+CastAs114;Cannot turn -P0M into a XsYearMonthDuration
+CastAs116;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
+CastAs117;Cannot turn PT0S into a XsDayTimeDuration
+CastAs118;Cannot turn -P into a XsDayTimeDuration
 CastAs121;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs123;Expected XPathException with code FORG0001, but got The string 'true' is not a valid AllXsd value.
 CastAs124;Type casting to XsTime has not been implemented yet.
@@ -1517,81 +1517,81 @@ CastAs266;Expected XPathException with code XPTY0004, but got Type casting to Xs
 CastAs274;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs275;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 CastAs276;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs277;String '' was not recognized as a valid Boolean.
-CastAs278;String '' was not recognized as a valid Boolean.
-CastAs279;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs280;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs281;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs282;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs283;String '' was not recognized as a valid Boolean.
-CastAs284;String '' was not recognized as a valid Boolean.
-CastAs285;String '' was not recognized as a valid Boolean.
-CastAs286;String '' was not recognized as a valid Boolean.
-CastAs287;String '' was not recognized as a valid Boolean.
-CastAs288;String '' was not recognized as a valid Boolean.
-CastAs289;String '' was not recognized as a valid Boolean.
-CastAs290;String '' was not recognized as a valid Boolean.
-CastAs291;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs292;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs293;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs294;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs295;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs296;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs297;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs298;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs299;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs300;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs301;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs302;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs303;String '' was not recognized as a valid Boolean.
-CastAs304;String '' was not recognized as a valid Boolean.
-CastAs305;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs306;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs307;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs308;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs309;String '' was not recognized as a valid Boolean.
-CastAs310;String '' was not recognized as a valid Boolean.
-CastAs311;String '-' was not recognized as a valid Boolean.
-CastAs312;String '' was not recognized as a valid Boolean.
-CastAs313;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs314;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs315;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs316;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs317;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs318;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs319;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs320;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs321;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs322;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs323;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs324;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs325;String '' was not recognized as a valid Boolean.
-CastAs326;String '-' was not recognized as a valid Boolean.
-CastAs327;String '' was not recognized as a valid Boolean.
-CastAs328;String '-' was not recognized as a valid Boolean.
-CastAs329;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs330;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs331;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs332;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs333;String '' was not recognized as a valid Boolean.
-CastAs334;String '' was not recognized as a valid Boolean.
-CastAs335;String '-' was not recognized as a valid Boolean.
-CastAs336;String '' was not recognized as a valid Boolean.
-CastAs337;String '' was not recognized as a valid Boolean.
-CastAs338;String '' was not recognized as a valid Boolean.
-CastAs339;String '-' was not recognized as a valid Boolean.
-CastAs340;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs341;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs342;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs343;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs344;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs345;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs346;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs347;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs348;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs349;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs350;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-CastAs351;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+CastAs277;Cannot turn PT0S into a XsDuration
+CastAs278;Cannot turn PT0S into a XsDuration
+CastAs279;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs280;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs281;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs282;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs283;Cannot turn PT0S into a XsDuration
+CastAs284;Cannot turn P into a XsDuration
+CastAs285;Cannot turn PT0S into a XsDuration
+CastAs286;Cannot turn P into a XsDuration
+CastAs287;Cannot turn PT into a XsDuration
+CastAs288;Cannot turn PT0S into a XsDuration
+CastAs289;Cannot turn P into a XsDuration
+CastAs290;Cannot turn PT into a XsDuration
+CastAs291;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs292;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs293;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs294;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs295;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs296;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs297;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs298;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs299;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs300;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs301;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs302;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+CastAs303;Cannot turn P0M into a XsYearMonthDuration
+CastAs304;Cannot turn P0M into a XsYearMonthDuration
+CastAs305;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs306;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs307;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs308;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs309;Cannot turn P0M into a XsYearMonthDuration
+CastAs310;Cannot turn P0M into a XsYearMonthDuration
+CastAs311;Cannot turn -P0M into a XsYearMonthDuration
+CastAs312;Cannot turn P0M into a XsYearMonthDuration
+CastAs313;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs314;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs315;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs316;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs317;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs318;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs319;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs320;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs321;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs322;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs323;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs324;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+CastAs325;Cannot turn PT0S into a XsDayTimeDuration
+CastAs326;Cannot turn -P into a XsDayTimeDuration
+CastAs327;Cannot turn PT0S into a XsDayTimeDuration
+CastAs328;Cannot turn -P into a XsDayTimeDuration
+CastAs329;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs330;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs331;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs332;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs333;Cannot turn PT0S into a XsDayTimeDuration
+CastAs334;Cannot turn PT into a XsDayTimeDuration
+CastAs335;Cannot turn -P into a XsDayTimeDuration
+CastAs336;Cannot turn PT0S into a XsDayTimeDuration
+CastAs337;Cannot turn PT0S into a XsDayTimeDuration
+CastAs338;Cannot turn PT into a XsDayTimeDuration
+CastAs339;Cannot turn -P into a XsDayTimeDuration
+CastAs340;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs341;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs342;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs343;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs344;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs345;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs346;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs347;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs348;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs349;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs350;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs351;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 CastAs353;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs355;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs364;Type casting to XsTime has not been implemented yet.
@@ -1904,12 +1904,12 @@ cbcl-anyURI-012;PRSC Error: Failed to parse query ''
 cbcl-anyURI-012b;Type casting to XsAnyUri has not been implemented yet.
 cbcl-anyURI-013;Type casting to XsAnyUri has not been implemented yet.
 cbcl-avg-001;Expected executing the XPath "fn:avg((xs:decimal("79000000000000000000000000000"),
-cbcl-avg-002;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-cbcl-avg-003;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-cbcl-avg-004;String '' was not recognized as a valid Boolean.
-cbcl-avg-005;Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
-cbcl-avg-006;String '' was not recognized as a valid Boolean.
-cbcl-avg-007;Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
+cbcl-avg-002;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+cbcl-avg-003;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+cbcl-avg-004;Cannot turn PT0S into a XsDayTimeDuration
+cbcl-avg-005;Expected XPathException with code FORG0006, but got Cannot turn PT0S into a XsDayTimeDuration
+cbcl-avg-006;Cannot turn P0M into a XsYearMonthDuration
+cbcl-avg-007;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
 cbcl-avg-008;PRSC Error: Failed to parse query 'typeswitch (fn:avg((xs:float(1), xs:double(2), xs:float(3)))) case $x as xs:double return $x default return "FAIL"'
 cbcl-avg-010;Expected executing the XPath "avg((xs:double("NaN"), current-date() - xs:date("1997-01-01") ))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FORG0006. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
 cbcl-avg-011;The function day-from-date with arity 1 is not registered.
@@ -1963,15 +1963,15 @@ cbcl-cast-dateTime-001;Expected XPathException with code FODT0001, but got The s
 cbcl-cast-dateTime-002;Expected XPathException with code FODT0001, but got The string '25252734927766555-07-29T00:00:00Z' is not a valid AllXsd value.
 cbcl-cast-dateTime-003;Expected XPathException with code FODT0001, but got The string '18446744073709551616-05-15T16:15:00' is not a valid AllXsd value.
 cbcl-cast-dateTime-004;Expected executing the XPath ""18446744073709551616-QQ-15T16:15:00" cast as xs:dateTime" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0001, but got The string '18446744073709551616-QQ-15T16:15:00' is not a valid AllXsd value.
-cbcl-cast-dayTimeDuration-001;Expected executing the XPath ""P11768614336404564651D" cast as xs:dayTimeDuration" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-cbcl-cast-dayTimeDuration-002;Expected XPathException with code FODT0002, but got String '-' was not recognized as a valid Boolean.
+cbcl-cast-dayTimeDuration-001;Expected executing the XPath ""P11768614336404564651D" cast as xs:dayTimeDuration" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+cbcl-cast-dayTimeDuration-002;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
 cbcl-cast-decimal-001;Expected executing the XPath "1.7976931348623157E+308 cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '1.7976931348623157E+308 cast as xs:decimal'
 cbcl-cast-decimal-002;Expected executing the XPath "-1.7976931348623157E+308 cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '-1.7976931348623157E+308 cast as xs:decimal'
 cbcl-cast-decimal-003;Expected executing the XPath "xs:float('3.402823e38') cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: FOCA0002 with error message: Can not cast <Value>[type: XsFloat, value: ∞] to xs:decimal
 cbcl-cast-decimal-004;Expected executing the XPath "xs:float('-3.402823e38') cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: FOCA0002 with error message: Can not cast <Value>[type: XsFloat, value: -∞] to xs:decimal
 cbcl-cast-derived-001;PRSC Error: Failed to parse query '\n        import schema namespace derivedType="http://www.w3.org/XQueryTest/derivedTypes";\n        16 cast as derivedType:integer, \n        16 cast as derivedType:double, \n        16 cast as derivedType:decimal, \n        16 cast as derivedType:float, \n        "aaaaaaaaaaaa" cast as derivedType:base64Binary, \n        "aaaaaaaaaa" cast as derivedType:hexBinary, \n        "http://news.bbc.co.uk/" cast as derivedType:anyURI, \n        true() cast as derivedType:boolean, \n        xs:dateTime("2001-01-01T09:00:00") cast as derivedType:dateTime, \n        xs:time("10:00:00") cast as derivedType:time, \n        "valid value 1" cast as derivedType:string, \n        "value1" cast as derivedType:QName, \n        "derivedType:value1" cast as derivedType:NOTATION,\n         "---01" cast as derivedType:gDay, \n         "--12-25" cast as derivedType:gMonthDay, \n         "--12" cast as derivedType:gMonth, \n         "2004" cast as derivedType:gYear, \n         "2004-02" cast as derivedType:gYearMonth, \n         "P1D" cast as derivedType:duration, \n         "1" cast as derivedType:positiveInteger, \n         "-1" cast as derivedType:nonPositiveInteger, \n         "1" cast as derivedType:nonNegativeInteger, \n         "-1" cast as derivedType:negativeInteger, \n         "1" cast as derivedType:long, \n         "1" cast as derivedType:short, \n         "1" cast as derivedType:unsignedByte, \n         "1" cast as derivedType:byte, \n         "1" cast as derivedType:unsignedInt, \n         "1" cast as derivedType:unsignedLong, \n         "1" cast as derivedType:unsignedShort\n      '
-cbcl-cast-duration-001;Expected XPathException with code FODT0002, but got String '-' was not recognized as a valid Boolean.
-cbcl-cast-duration-002;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
+cbcl-cast-duration-001;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+cbcl-cast-duration-002;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
 cbcl-cast-entity-001;Atomic Value for XsNcName is not implemented yet.
 cbcl-cast-entity-002;Expected error code: FORG0001. Found error code: XPST0017 with error message: The function fn:current-time with arity 0 is not registered.
 cbcl-cast-gYear-001;Expected XPathException with code FODT0001, but got The string '99999999999999999999999999999' is not a valid AllXsd value.
@@ -2044,8 +2044,8 @@ cbcl-cast-unsignedShort-002;Expected XPathException with code FORG0001, but got 
 cbcl-cast-unsignedShort-003;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsInt, value: 65536] into an int.
 cbcl-cast-unsignedShort-004;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsInt, value: -1] into an int.
 cbcl-cast-unsignedShort-005;Can't parse <Value>[type: XsInt, value: 0] into an int.
-cbcl-cast-yearMonthDuration-001;Expected XPathException with code FODT0002, but got String '-' was not recognized as a valid Boolean.
-cbcl-cast-yearMonthDuration-002;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
+cbcl-cast-yearMonthDuration-001;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+cbcl-cast-yearMonthDuration-002;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
 cbcl-castable-byte-001;PRSC Error: Failed to parse query '128 castable as xs:byte'
 cbcl-castable-byte-002;PRSC Error: Failed to parse query '-129 castable as xs:byte'
 cbcl-castable-byte-003;PRSC Error: Failed to parse query '"128" castable as xs:byte'
@@ -2694,14 +2694,14 @@ cbcl-div-015;PRSC Error: Failed to parse query 'declare function local:f($x) { i
 cbcl-div-016;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:f($x) { if ($x) then xs:duration("P1M") else xs:dayTimeDuration("P1D") }; local:f(true()) div 2'
 cbcl-divide-dayTimeDuration-001;Expected error code: FODT0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:dayTimeDuration($days as xs:integer) as xs:dayTimeDuration { xs:dayTimeDuration(concat("P", $days, "D")) }; local:dayTimeDuration(2) div 0'
 cbcl-divide-dayTimeDuration-002;PRSC Error: Failed to parse query 'declare function local:dayTimeDuration($days as xs:integer) as xs:dayTimeDuration { xs:dayTimeDuration(concat("P", $days, "D")) }; local:dayTimeDuration(2) div 1'
-cbcl-divide-dayTimeDuration-003;Expected executing the XPath "xs:dayTimeDuration("P9223372036854775807D") div 0.5" to resolve to one of the expected results, but got System.FormatException: String '' was not recognized as a valid Boolean.
-cbcl-divide-dayTimeDuration-by-dayTimeDuration-001;Expected executing the XPath "xs:dayTimeDuration("P9223372036854775807D") div xs:dayTimeDuration("P0D")" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOAR0001, but got String '' was not recognized as a valid Boolean.
-cbcl-divide-dayTimeDuration-by-dayTimeDuration-002;Expected executing the XPath "xs:dayTimeDuration("P9223372036854775807D") div xs:dayTimeDuration("P0DT0H0M0.000000001S")" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOAR0002, but got String '' was not recognized as a valid Boolean.
-cbcl-divide-dayTimeDuration-by-dayTimeDuration-003;Expected executing the XPath "xs:dayTimeDuration("P9223372036854775806D") div xs:dayTimeDuration("P4611686018427387903D")" to resolve to one of the expected results, but got System.FormatException: String '' was not recognized as a valid Boolean.
+cbcl-divide-dayTimeDuration-003;Expected executing the XPath "xs:dayTimeDuration("P9223372036854775807D") div 0.5" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for an Int32.
+cbcl-divide-dayTimeDuration-by-dayTimeDuration-001;Expected executing the XPath "xs:dayTimeDuration("P9223372036854775807D") div xs:dayTimeDuration("P0D")" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOAR0001, but got Value was either too large or too small for an Int32.
+cbcl-divide-dayTimeDuration-by-dayTimeDuration-002;Expected executing the XPath "xs:dayTimeDuration("P9223372036854775807D") div xs:dayTimeDuration("P0DT0H0M0.000000001S")" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOAR0002, but got Value was either too large or too small for an Int32.
+cbcl-divide-dayTimeDuration-by-dayTimeDuration-003;Expected executing the XPath "xs:dayTimeDuration("P9223372036854775806D") div xs:dayTimeDuration("P4611686018427387903D")" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for an Int32.
 cbcl-divide-yearMonthDuration-001;Expected error code: FODT0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        local:yearMonthDuration(2) div 0'
 cbcl-divide-yearMonthDuration-002;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        local:yearMonthDuration(2) div 1'
 cbcl-divide-yearMonthDuration-003;Expected error code: FODT0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        local:yearMonthDuration(768614336404564650) div 0.5'
-cbcl-divide-yearMonthDuration-by-yearMonthDuration-001;Expected XPathException with code FOAR0001, but got String '' was not recognized as a valid Boolean.
+cbcl-divide-yearMonthDuration-by-yearMonthDuration-001;Expected XPathException with code FOAR0001, but got Cannot turn P0M into a XsYearMonthDuration
 cbcl-duration-equal-001;PRSC Error: Failed to parse query 'declare function local:duration($days as xs:integer, $hours as xs:integer) { xs:duration(concat('P', $days, 'DT', $hours, 'H')) }; not(local:duration(1, 1) eq xs:dayTimeDuration("P0D"))'
 cbcl-duration-equal-002;PRSC Error: Failed to parse query 'declare function local:duration($days as xs:integer, $hours as xs:integer) { xs:duration(concat('P', $days, 'DT', $hours, 'H')) }; not(local:duration(1, 1) ne xs:dayTimeDuration("P0D"))'
 cbcl-duration-equal-003;PRSC Error: Failed to parse query 'declare function local:duration($duration as xs:duration, $null as xs:boolean) { if ($null) then () else $duration }; exists(local:duration(xs:duration("P1DT1H"), fn:true()) eq xs:duration("P1DT1H"))'
@@ -3082,10 +3082,10 @@ cbcl-multiply-dayTimeDuration-005;PRSC Error: Failed to parse query 'declare fun
 cbcl-multiply-dayTimeDuration-006;Expected error code: FOCA0005. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:dayTimeDuration($days as xs:integer) as xs:dayTimeDuration { xs:dayTimeDuration(concat("P", $days, "D")) }; xs:double("NaN") * local:dayTimeDuration(2)'
 cbcl-multiply-yearMonthDuration-001;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        local:yearMonthDuration(2) * 0'
 cbcl-multiply-yearMonthDuration-002;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        local:yearMonthDuration(2) * 1'
-cbcl-multiply-yearMonthDuration-003;Expected XPathException with code FOCA0005, but got String '' was not recognized as a valid Boolean.
+cbcl-multiply-yearMonthDuration-003;Expected XPathException with code FOCA0005, but got Cannot turn P0M into a XsYearMonthDuration
 cbcl-multiply-yearMonthDuration-004;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        0 * local:yearMonthDuration(2)'
 cbcl-multiply-yearMonthDuration-005;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        1 * local:yearMonthDuration(2)'
-cbcl-multiply-yearMonthDuration-006;Expected XPathException with code FOCA0005, but got String '' was not recognized as a valid Boolean.
+cbcl-multiply-yearMonthDuration-006;Expected XPathException with code FOCA0005, but got Cannot turn P0M into a XsYearMonthDuration
 cbcl-node-after-001;PRSC Error: Failed to parse query ''
 cbcl-node-after-002;PRSC Error: Failed to parse query ''
 cbcl-node-before-001;PRSC Error: Failed to parse query ''
@@ -4720,15 +4720,15 @@ fn-absusht1args-1;SingletonSequence.Map not implemented
 fn-absusht1args-2;SingletonSequence.Map not implemented
 fn-absusht1args-3;SingletonSequence.Map not implemented
 fn-avg-10;PRSC Error: Failed to parse query 'avg([1,2,3,4,5]) = 3'
-fn-avg-3;String '' was not recognized as a valid Boolean.
+fn-avg-3;Cannot turn PT into a XsDayTimeDuration
 fn-avg-4;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-avg-5;String '' was not recognized as a valid Boolean.
+fn-avg-5;Cannot turn P0M into a XsYearMonthDuration
 fn-avg-6;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-avg-7;Expected executing the XPath "avg((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
-fn-avg-8;Expected executing the XPath "avg(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
-fn-avg-9;Expected executing the XPath "avg(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
+fn-avg-7;Expected executing the XPath "avg((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
+fn-avg-8;Expected executing the XPath "avg(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn PT into a XsDuration
+fn-avg-9;Expected executing the XPath "avg(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn PT into a XsDuration
 fn-avg-mix-args-001;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-fn-avg-mix-args-002;String '' was not recognized as a valid Boolean.
+fn-avg-mix-args-002;Cannot turn P0M into a XsYearMonthDuration
 fn-avg-mix-args-004;Value was either too large or too small for an Int32.
 fn-avg-mix-args-005;Value was either too large or too small for an Int32.
 fn-avg-mix-args-006;HandleNumericOperator: Different numeric types: XsDouble and XsInt
@@ -4753,7 +4753,7 @@ fn-avg-mix-args-024;Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-025;Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-026;Expected XPath fn:avg(( (xs:double("1.34"), xs:float("INF")))) to resolve to INF
 fn-avg-mix-args-027;Expected XPath fn:avg(( (xs:double("INF"), 2, 3))) to resolve to INF
-fn-avg-mix-args-028;Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
+fn-avg-mix-args-028;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
 fn-avg-mix-args-034;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
 fn-avg-mix-args-036;Expected XPathException with code FORG0006, but got Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-037;Expected XPathException with code FORG0006, but got Can't parse 830993497117024304 into an int.
@@ -6841,12 +6841,12 @@ fn-max-18;Atomic Value for XsToken is not implemented yet.
 fn-max-19;PRSC Error: Failed to parse query 'max([1,2,3,4,5]) = 5'
 fn-max-2;PRSC Error: Failed to parse query 'fn:max((xs:integer(5000000000),xs:double(3e0))) = 5.0E9'
 fn-max-3;Atomic Value for XsLong is not implemented yet.
-fn-max-4;String '' was not recognized as a valid Boolean.
+fn-max-4;Cannot turn PT into a XsDayTimeDuration
 fn-max-5;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-max-6;String '' was not recognized as a valid Boolean.
+fn-max-6;Cannot turn P0M into a XsYearMonthDuration
 fn-max-7;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-max-8;Expected executing the XPath "max((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
-fn-max-9;Expected executing the XPath "max(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
+fn-max-8;Expected executing the XPath "max((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
+fn-max-9;Expected executing the XPath "max(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn PT into a XsDuration
 fn-maxdbl1args-1;PRSC Error: Failed to parse query 'fn:max((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
 fn-maxdbl1args-2;Casting AbstractValue(XsDouble) to FloatValue
 fn-maxdbl1args-3;PRSC Error: Failed to parse query 'fn:max((xs:double("1.7976931348623157E308"))) = 1.7976931348623157E308'
@@ -6964,12 +6964,12 @@ fn-min-18;Atomic Value for XsToken is not implemented yet.
 fn-min-19;PRSC Error: Failed to parse query 'min([1,2,3,4,5]) = 1'
 fn-min-2;PRSC Error: Failed to parse query 'fn:min((xs:integer(5000000),xs:double(3e8))) = 5.0E6'
 fn-min-3;Atomic Value for XsLong is not implemented yet.
-fn-min-4;String '' was not recognized as a valid Boolean.
+fn-min-4;Cannot turn PT into a XsDayTimeDuration
 fn-min-5;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-min-6;String '' was not recognized as a valid Boolean.
+fn-min-6;Cannot turn P0M into a XsYearMonthDuration
 fn-min-7;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-min-8;Expected executing the XPath "min((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
-fn-min-9;Expected executing the XPath "min(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
+fn-min-8;Expected executing the XPath "min((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
+fn-min-9;Expected executing the XPath "min(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn PT into a XsDuration
 fn-mindbl1args-1;PRSC Error: Failed to parse query 'fn:min((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
 fn-mindbl1args-2;Casting AbstractValue(XsDouble) to FloatValue
 fn-mindbl1args-3;PRSC Error: Failed to parse query 'fn:min((xs:double("1.7976931348623157E308"))) = 1.7976931348623157E308'
@@ -7995,7 +7995,7 @@ fn-string-38;Expected error code: FOTY0014. Found error code: XPST0003 with erro
 fn-string-4;Value was either too large or too small for an Int32.
 fn-string-5;Type casting to XsTime has not been implemented yet.
 fn-string-6;The function dateTime with arity 2 is not registered.
-fn-string-7;String '' was not recognized as a valid Boolean.
+fn-string-7;Cannot turn PT into a XsDuration
 fn-string-8;SingletonSequence.Map not implemented
 fn-string-9;Value was either too large or too small for an Int32.
 fn-string-join-10;Can't parse <Value>[type: XsInt, value: 1] into an int.
@@ -8773,7 +8773,7 @@ fo-test-fn-analyze-string-002;The function fn:analyze-string with arity 2 is not
 fo-test-fn-analyze-string-003;The function fn:analyze-string with arity 2 is not registered.
 fo-test-fn-apply-001;PRSC Error: Failed to parse query 'deep-equal((\n        fn:apply(fn:concat#3, ["a", "b", "c"])\n      ), ("abc"))'
 fo-test-fn-avg-001;Can't parse 4.0 into an int.
-fo-test-fn-avg-002;String '' was not recognized as a valid Boolean.
+fo-test-fn-avg-002;Cannot turn P0M into a XsYearMonthDuration
 fo-test-fn-avg-004;Value was either too large or too small for an Int32.
 fo-test-fn-avg-005;Value was either too large or too small for an Int32.
 fo-test-fn-boolean-001;A wrong argument type was specified in a function call.
@@ -9282,7 +9282,7 @@ FOAR0001_5;Expected XPathException with code FOAR0001, but got Can't parse 1.0 i
 FOAR0001_6;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
 FOAR0001_7;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
 FOAR0001_8;Expected XPathException with code FOAR0001, but got Can't parse 1.0 into an int.
-FOAR0001_9;Expected XPathException with code FOAR0001, but got String '' was not recognized as a valid Boolean.
+FOAR0001_9;Expected XPathException with code FOAR0001, but got Cannot turn P0M into a XsYearMonthDuration
 FOAR0002_1;Expected executing the XPath "2e308" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOAR0002. Query succeeded with result: ∞
 FOAR0002_3;Expected XPathException with code FOAR0002, but got Attempted to divide by zero.
 FOAR0002-5;Expected executing the XPath "xs:dayTimeDuration('P5999999999999999999DT00H00M01S') div
@@ -9296,10 +9296,10 @@ FOCA0002_7;Expected error code: FOCA0002. Found error code: XPST0003 with error 
 FOCA0002_8;Expected error code: FOCA0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 FOCA0002_9;Expected error code: FOCA0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 FOCA0003_1;Expected executing the XPath "xs:integer(xs:double(1e308))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0003, but got Value was either too large or too small for an Int32.
-FOCA0005_1;Expected XPathException with code FOCA0005, but got String '' was not recognized as a valid Boolean.
-FOCA0005_2;Expected XPathException with code FOCA0005, but got String '' was not recognized as a valid Boolean.
-FOCA0005_3;Expected XPathException with code FOCA0005, but got String '' was not recognized as a valid Boolean.
-FOCA0005_4;Expected XPathException with code FOCA0005, but got String '' was not recognized as a valid Boolean.
+FOCA0005_1;Expected XPathException with code FOCA0005, but got Cannot turn PT0S into a XsDayTimeDuration
+FOCA0005_2;Expected XPathException with code FOCA0005, but got Cannot turn PT0S into a XsDayTimeDuration
+FOCA0005_3;Expected XPathException with code FOCA0005, but got Cannot turn PT0S into a XsDayTimeDuration
+FOCA0005_4;Expected XPathException with code FOCA0005, but got Cannot turn PT0S into a XsDayTimeDuration
 FOCH0001;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
 FOCH0002_10;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-before with arity 3 is not registered.
 FOCH0002_3;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function distinct-values with arity 2 is not registered.
@@ -9328,14 +9328,14 @@ FODT0001-6;Expected XPathException with code FODT0001, but got The string '25252
 FODT0001-7;Expected XPathException with code FODT0001, but got The string '25252734927766555-07-28T23:59:59-14:00' is not a valid AllXsd value.
 FODT0001-8;Expected XPathException with code FODT0001, but got The string '25252734927766555-07-28-14:00' is not a valid AllXsd value.
 FODT0001-9;Expected XPathException with code FODT0001, but got The string '25252734927766555-07-28T23:59:59-14:00' is not a valid AllXsd value.
-FODT0002-1;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-FODT0002-2;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-FODT0002-3;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-FODT0002-4;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-FODT0002-6;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-FODT0002-7;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-FODT0002-8;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-FODT0002-9;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
+FODT0002-1;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+FODT0002-2;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+FODT0002-3;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+FODT0002-4;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+FODT0002-6;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+FODT0002-7;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+FODT0002-8;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
+FODT0002-9;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
 FODT0003-1;Expected error code: FODT0003. Found error code: XPST0017 with error message: The function adjust-date-to-timezone with arity 2 is not registered.
 FODT0003-2;Expected error code: FODT0003. Found error code: XPST0017 with error message: The function adjust-date-to-timezone with arity 2 is not registered.
 FOER0000;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
@@ -9487,7 +9487,7 @@ ForExprType027;PRSC Error: Failed to parse query 'import schema default element 
 ForExprType028;Atomic Value for XsByte is not implemented yet.
 ForExprType029;Atomic Value for XsNonPositiveInteger is not implemented yet.
 ForExprType030;Atomic Value for XsLanguage is not implemented yet.
-ForExprType031;String '' was not recognized as a valid Boolean.
+ForExprType031;Cannot turn PT into a XsDuration
 ForExprType032;Type casting to XsBase64Binary has not been implemented yet.
 ForExprType033;Atomic Value for XsUnsignedByte is not implemented yet.
 ForExprType034;Can't parse 0.3 into an int.
@@ -9535,9 +9535,9 @@ FORG0002;Expected error code: FORG0002. Found error code: XPST0003 with error me
 FORG0004;Expected error code: FORG0004. Found error code: XPST0017 with error message: The function one-or-more with arity 1 is not registered.
 FORG0005;Expected error code: FORG0005. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
 FORG0006_01;Expected executing the XPath "fn:boolean( xs:date('2007-01-01') )" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got FORG0006
-FORG0006_02;Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
-FORG0006_03;Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
-FORG0006_04;Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
+FORG0006_02;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
+FORG0006_03;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
+FORG0006_04;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
 FORG0006_05;Expected error code: FORG0006. Found error code: XPST0017 with error message: The function fn:sum with arity 1 is not registered.
 forg0008-1;Expected error code: FORG0008. Found error code: XPST0017 with error message: The function fn:dateTime with arity 2 is not registered.
 FORG0008;Expected error code: FORG0008. Found error code: XPST0017 with error message: The function dateTime with arity 2 is not registered.
@@ -10228,10 +10228,10 @@ functx-fn-adjust-time-to-timezone-4;The function adjust-time-to-timezone with ar
 functx-fn-adjust-time-to-timezone-all;The function adjust-time-to-timezone with arity 2 is not registered.
 functx-fn-avg-1;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 functx-fn-avg-2;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-functx-fn-avg-3;String '' was not recognized as a valid Boolean.
+functx-fn-avg-3;Cannot turn P0M into a XsYearMonthDuration
 functx-fn-avg-4;Items passed to fn:avg are not all numeric.
 functx-fn-avg-5;Expected XPath let $ordDoc := (/) return (avg( () )) to resolve to 
-functx-fn-avg-all;String '' was not recognized as a valid Boolean.
+functx-fn-avg-all;Cannot turn P0M into a XsYearMonthDuration
 functx-fn-base-uri-1;The function base-uri with arity 1 is not registered.
 functx-fn-base-uri-2;The function base-uri with arity 1 is not registered.
 functx-fn-base-uri-3;The function base-uri with arity 1 is not registered.
@@ -11236,10 +11236,10 @@ GenCompEq-22;PRSC Error: Failed to parse query ''
 GenCompEq-23;PRSC Error: Failed to parse query '\n        declare variable $p external := (1 to 10, xs:untypedAtomic('860302'), 83); \n        $p = (35 to 65, xs:untypedAtomic('082'), xs:untypedAtomic('0010'))'
 GenCompEq-26;PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) = myType:integer-or-nothing(5)'
 GenCompEq-27;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) = myType:integer-or-nothing("")'
-GenCompEq-3;String '' was not recognized as a valid Boolean.
-GenCompEq-4;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-GenCompEq-5;String '' was not recognized as a valid Boolean.
-GenCompEq-6;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
+GenCompEq-3;Input string was not in a correct format.
+GenCompEq-4;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
+GenCompEq-5;Cannot turn P0M into a XsYearMonthDuration
+GenCompEq-6;Expected XPathException with code FORG0001, but got Cannot turn P0M into a XsYearMonthDuration
 GenCompEq-7;PRSC Error: Failed to parse query '[3, 4, 5] = 4'
 GenCompEq-8;PRSC Error: Failed to parse query '[[3, 4], 5] = [4, [5, 6]]'
 GenCompEq-9;PRSC Error: Failed to parse query '[3, 4, 5] = []'
@@ -12252,7 +12252,7 @@ K-DateTimeLT-4;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
 K-DateTimeLT-5;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
 K-DateTimeLT-6;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
 K-dateTimesSubtract-1;The string '1999-07-19T08:23:12,765' is not a valid AllXsd value.
-K-dateTimesSubtract-6;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-dateTimesSubtract-6;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
 K-DayFromDateFunc-3;The function day-from-date with arity 1 is not registered.
 K-DayFromDateFunc-4;The function day-from-date with arity 1 is not registered.
 K-DayFromDateFunc-5;The function day-from-date with arity 1 is not registered.
@@ -12264,128 +12264,128 @@ K-DaysFromDurationFunc-4;The function days-from-duration with arity 1 is not reg
 K-DaysFromDurationFunc-5;The function days-from-duration with arity 1 is not registered.
 K-DaysFromDurationFunc-6;The function days-from-duration with arity 1 is not registered.
 K-DaysFromDurationFunc-7;The function days-from-duration with arity 1 is not registered.
-K-DayTimeDurationAdd-1;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationAdd-2;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationAdd-3;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-1;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-10;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-11;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-12;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-13;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-14;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-15;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-16;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-2;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-3;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-4;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-5;Expected XPathException with code FOCA0005, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-6;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-7;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-8;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivide-9;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationDivideDTD-1;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationEQ-1;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationEQ-2;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationEQ-3;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationEQ-4;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationEQ-5;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationEQ-6;String '-' was not recognized as a valid Boolean.
-K-DayTimeDurationEQ-7;String '-' was not recognized as a valid Boolean.
-K-DayTimeDurationEQ-8;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationGT-1;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationGT-2;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationGT-3;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationGT-4;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationGT-5;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationGT-6;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationLT-1;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationLT-2;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationLT-3;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationLT-4;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationLT-5;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationLT-6;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationMultiply-1;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationMultiply-10;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationMultiply-2;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationMultiply-3;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationMultiply-4;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationMultiply-5;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationMultiply-6;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationMultiply-7;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationMultiply-8;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationMultiply-9;Expected XPathException with code FOCA0005, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationSubtract-1;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationSubtract-2;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationSubtract-3;String '' was not recognized as a valid Boolean.
-K-DayTimeDurationSubtract-4;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationSubtract-5;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationSubtract-6;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationSubtract-7;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationSubtract-8;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DayTimeDurationSubtract-9;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-DayTimeDurationAdd-1;Input string was not in a correct format.
+K-DayTimeDurationAdd-2;Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationAdd-3;Input string was not in a correct format.
+K-DayTimeDurationDivide-1;Input string was not in a correct format.
+K-DayTimeDurationDivide-10;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationDivide-11;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationDivide-12;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DayTimeDurationDivide-13;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
+K-DayTimeDurationDivide-14;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DayTimeDurationDivide-15;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationDivide-16;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
+K-DayTimeDurationDivide-2;Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationDivide-3;Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationDivide-4;Expected XPathException with code FODT0002, but got Input string was not in a correct format.
+K-DayTimeDurationDivide-5;Expected XPathException with code FOCA0005, but got Input string was not in a correct format.
+K-DayTimeDurationDivide-6;Expected XPathException with code FODT0002, but got Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationDivide-7;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
+K-DayTimeDurationDivide-8;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
+K-DayTimeDurationDivide-9;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DayTimeDurationDivideDTD-1;Cannot turn P into a XsDayTimeDuration
+K-DayTimeDurationEQ-1;Input string was not in a correct format.
+K-DayTimeDurationEQ-2;Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationEQ-3;Input string was not in a correct format.
+K-DayTimeDurationEQ-4;Input string was not in a correct format.
+K-DayTimeDurationEQ-5;Input string was not in a correct format.
+K-DayTimeDurationEQ-6;Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationEQ-7;Cannot turn -PT0S into a XsDayTimeDuration
+K-DayTimeDurationEQ-8;Input string was not in a correct format.
+K-DayTimeDurationGT-1;Input string was not in a correct format.
+K-DayTimeDurationGT-2;Input string was not in a correct format.
+K-DayTimeDurationGT-3;Input string was not in a correct format.
+K-DayTimeDurationGT-4;Input string was not in a correct format.
+K-DayTimeDurationGT-5;Input string was not in a correct format.
+K-DayTimeDurationGT-6;Input string was not in a correct format.
+K-DayTimeDurationLT-1;Input string was not in a correct format.
+K-DayTimeDurationLT-2;Input string was not in a correct format.
+K-DayTimeDurationLT-3;Input string was not in a correct format.
+K-DayTimeDurationLT-4;Input string was not in a correct format.
+K-DayTimeDurationLT-5;Input string was not in a correct format.
+K-DayTimeDurationLT-6;Input string was not in a correct format.
+K-DayTimeDurationMultiply-1;Input string was not in a correct format.
+K-DayTimeDurationMultiply-10;Input string was not in a correct format.
+K-DayTimeDurationMultiply-2;Input string was not in a correct format.
+K-DayTimeDurationMultiply-3;Input string was not in a correct format.
+K-DayTimeDurationMultiply-4;Input string was not in a correct format.
+K-DayTimeDurationMultiply-5;Input string was not in a correct format.
+K-DayTimeDurationMultiply-6;Input string was not in a correct format.
+K-DayTimeDurationMultiply-7;Expected XPathException with code FODT0002, but got Input string was not in a correct format.
+K-DayTimeDurationMultiply-8;Expected XPathException with code FODT0002, but got Input string was not in a correct format.
+K-DayTimeDurationMultiply-9;Expected XPathException with code FOCA0005, but got Input string was not in a correct format.
+K-DayTimeDurationSubtract-1;Input string was not in a correct format.
+K-DayTimeDurationSubtract-2;Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationSubtract-3;Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationSubtract-4;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationSubtract-5;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DayTimeDurationSubtract-6;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
+K-DayTimeDurationSubtract-7;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DayTimeDurationSubtract-8;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationSubtract-9;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
 K-DefaultOrderingProlog-1;PRSC Error: Failed to parse query 'declare(::)ordering ordered; 1 eq 1'
 K-DefaultOrderingProlog-2;PRSC Error: Failed to parse query 'declare(::)ordering unordered; 1 eq 1'
 K-DefaultOrderingProlog-3;Expected error code: XQST0065. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare(::)ordering unordered; declare(::)ordering ordered; 1 eq 1'
-K-DurationEQ-1;String '' was not recognized as a valid Boolean.
-K-DurationEQ-10;String '-' was not recognized as a valid Boolean.
-K-DurationEQ-11;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-12;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-13;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-14;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-15;String '' was not recognized as a valid Boolean.
-K-DurationEQ-16;String '' was not recognized as a valid Boolean.
-K-DurationEQ-17;String '' was not recognized as a valid Boolean.
-K-DurationEQ-18;String '' was not recognized as a valid Boolean.
-K-DurationEQ-19;String '' was not recognized as a valid Boolean.
-K-DurationEQ-2;String '' was not recognized as a valid Boolean.
-K-DurationEQ-20;String '' was not recognized as a valid Boolean.
-K-DurationEQ-21;String '' was not recognized as a valid Boolean.
-K-DurationEQ-22;String '' was not recognized as a valid Boolean.
-K-DurationEQ-23;String '' was not recognized as a valid Boolean.
-K-DurationEQ-24;String '' was not recognized as a valid Boolean.
-K-DurationEQ-25;String '' was not recognized as a valid Boolean.
-K-DurationEQ-26;String '' was not recognized as a valid Boolean.
-K-DurationEQ-27;String '' was not recognized as a valid Boolean.
-K-DurationEQ-28;String '' was not recognized as a valid Boolean.
-K-DurationEQ-29;String '' was not recognized as a valid Boolean.
-K-DurationEQ-3;String '' was not recognized as a valid Boolean.
-K-DurationEQ-30;String '' was not recognized as a valid Boolean.
-K-DurationEQ-31;String '' was not recognized as a valid Boolean.
-K-DurationEQ-32;String '' was not recognized as a valid Boolean.
-K-DurationEQ-33;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-34;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-35;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-36;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-37;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-38;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-39;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-4;String '' was not recognized as a valid Boolean.
-K-DurationEQ-40;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-41;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-42;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-43;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-44;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-45;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-46;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-47;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-48;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-49;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-5;String '' was not recognized as a valid Boolean.
-K-DurationEQ-50;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-51;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-52;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-53;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-54;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-55;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-56;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-57;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-58;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-59;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-6;String '' was not recognized as a valid Boolean.
-K-DurationEQ-60;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-DurationEQ-7;String '' was not recognized as a valid Boolean.
-K-DurationEQ-8;String '' was not recognized as a valid Boolean.
-K-DurationEQ-9;String '-' was not recognized as a valid Boolean.
+K-DurationEQ-1;Input string was not in a correct format.
+K-DurationEQ-10;Cannot turn -PT0S into a XsDuration
+K-DurationEQ-11;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-12;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-13;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-14;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-15;Cannot turn PT into a XsDuration
+K-DurationEQ-16;Cannot turn PT into a XsDayTimeDuration
+K-DurationEQ-17;Cannot turn P into a XsYearMonthDuration
+K-DurationEQ-18;Cannot turn PT into a XsDuration
+K-DurationEQ-19;Cannot turn P into a XsYearMonthDuration
+K-DurationEQ-2;Cannot turn PT into a XsDuration
+K-DurationEQ-20;Cannot turn PT into a XsDayTimeDuration
+K-DurationEQ-21;Cannot turn P into a XsDuration
+K-DurationEQ-22;Cannot turn PT0S into a XsDayTimeDuration
+K-DurationEQ-23;Cannot turn PT0S into a XsDuration
+K-DurationEQ-24;Cannot turn PT0S into a XsDayTimeDuration
+K-DurationEQ-25;Cannot turn P into a XsYearMonthDuration
+K-DurationEQ-26;Cannot turn PT into a XsDayTimeDuration
+K-DurationEQ-27;Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-28;Cannot turn PT into a XsDuration
+K-DurationEQ-29;Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-3;Input string was not in a correct format.
+K-DurationEQ-30;Cannot turn PT into a XsDuration
+K-DurationEQ-31;Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-32;Cannot turn PT into a XsDayTimeDuration
+K-DurationEQ-33;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-34;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-35;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-36;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-37;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-38;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-39;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-4;Input string was not in a correct format.
+K-DurationEQ-40;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-41;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-42;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-43;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-44;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-45;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-46;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-47;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-48;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-49;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-5;Input string was not in a correct format.
+K-DurationEQ-50;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-51;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-52;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-53;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-54;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-55;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-56;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-57;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-58;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-59;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-6;Cannot turn PT into a XsDuration
+K-DurationEQ-60;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-7;Cannot turn PT into a XsDuration
+K-DurationEQ-8;Cannot turn PT into a XsDuration
+K-DurationEQ-9;Cannot turn PT into a XsDuration
 K-EmptyOrderProlog-1;PRSC Error: Failed to parse query 'declare(::)default order empty(::)greatest; 1 eq 1'
 K-EmptyOrderProlog-2;PRSC Error: Failed to parse query 'declare(::)default order empty(::)least; 1 eq 1'
 K-EmptyOrderProlog-3;Expected error code: XQST0069. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare(::)default order empty(::)greatest; declare(::)default order empty(::)least; 1 eq 1'
@@ -13310,8 +13310,8 @@ K-SeqAVGFunc-32;Expected XPathException with code FORG0006, but got Type casting
 K-SeqAVGFunc-33;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqAVGFunc-35;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsInt, value: 3] into an int.
 K-SeqAVGFunc-36;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsInt, value: 1] into an int.
-K-SeqAVGFunc-38;Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
-K-SeqAVGFunc-39;String '' was not recognized as a valid Boolean.
+K-SeqAVGFunc-38;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
+K-SeqAVGFunc-39;Cannot turn P0M into a XsYearMonthDuration
 K-SeqAVGFunc-4;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 K-SeqAVGFunc-41;Value was either too large or too small for an Int32.
 K-SeqAVGFunc-42;Value was either too large or too small for an Int32.
@@ -13825,60 +13825,60 @@ K-SeqExprCast-1488;Expected error code: XPST0017. Found error code: XPST0003 wit
 K-SeqExprCast-1489;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:anyURI)'
 K-SeqExprCast-1490;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:QName)'
 K-SeqExprCast-1491;Expected executing the XPath "not(xs:NOTATION("prefix:local") castable as xs:NOTATION)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:NOTATION)'
-K-SeqExprCast-150;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-151;Expected XPathException with code FORG0001, but got String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-152;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-154;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-155;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-156;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-157;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-158;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-159;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-160;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-161;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-162;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-163;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-164;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-165;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-166;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-167;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-168;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-172;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-173;Expected XPathException with code FORG0001, but got String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-174;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-175;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-176;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-177;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-179;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-180;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-181;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-182;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-183;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-184;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-185;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-186;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-187;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-188;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-189;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-190;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-191;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-192;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-193;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-197;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-198;Expected XPathException with code FORG0001, but got String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-199;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-200;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-202;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-203;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-204;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-205;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-206;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-207;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-208;String '' was not recognized as a valid Boolean.
-K-SeqExprCast-209;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-150;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDuration
+K-SeqExprCast-151;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDuration
+K-SeqExprCast-152;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDuration
+K-SeqExprCast-154;Cannot turn PT0S into a XsDuration
+K-SeqExprCast-155;Cannot turn -P into a XsDuration
+K-SeqExprCast-156;Input string was not in a correct format.
+K-SeqExprCast-157;Cannot turn -P into a XsDuration
+K-SeqExprCast-158;Input string was not in a correct format.
+K-SeqExprCast-159;Cannot turn PT into a XsDuration
+K-SeqExprCast-160;Cannot turn PT into a XsDuration
+K-SeqExprCast-161;Cannot turn PT into a XsDuration
+K-SeqExprCast-162;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-163;Input string was not in a correct format.
+K-SeqExprCast-164;Cannot turn PT into a XsDuration
+K-SeqExprCast-165;Input string was not in a correct format.
+K-SeqExprCast-166;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-167;Input string was not in a correct format.
+K-SeqExprCast-168;Cannot turn -P0M into a XsYearMonthDuration
+K-SeqExprCast-172;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
+K-SeqExprCast-173;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
+K-SeqExprCast-174;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
+K-SeqExprCast-175;Input string was not in a correct format.
+K-SeqExprCast-176;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
+K-SeqExprCast-177;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
+K-SeqExprCast-179;Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-180;Cannot turn -PT0S into a XsDayTimeDuration
+K-SeqExprCast-181;Cannot turn -P into a XsDayTimeDuration
+K-SeqExprCast-182;Input string was not in a correct format.
+K-SeqExprCast-183;Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-184;Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-185;Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-186;Input string was not in a correct format.
+K-SeqExprCast-187;Input string was not in a correct format.
+K-SeqExprCast-188;Cannot turn PT into a XsDayTimeDuration
+K-SeqExprCast-189;Input string was not in a correct format.
+K-SeqExprCast-190;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-191;Input string was not in a correct format.
+K-SeqExprCast-192;Cannot turn -P0M into a XsYearMonthDuration
+K-SeqExprCast-193;Cannot turn PT into a XsDayTimeDuration
+K-SeqExprCast-197;Expected XPathException with code FORG0001, but got Cannot turn P into a XsYearMonthDuration
+K-SeqExprCast-198;Expected XPathException with code FORG0001, but got Cannot turn P into a XsYearMonthDuration
+K-SeqExprCast-199;Expected XPathException with code FORG0001, but got Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-200;Expected XPathException with code FORG0001, but got Cannot turn P into a XsYearMonthDuration
+K-SeqExprCast-202;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-203;Cannot turn -P0M into a XsYearMonthDuration
+K-SeqExprCast-204;Cannot turn P into a XsYearMonthDuration
+K-SeqExprCast-205;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-206;Cannot turn -P0M into a XsYearMonthDuration
+K-SeqExprCast-207;Cannot turn P into a XsYearMonthDuration
+K-SeqExprCast-208;Input string was not in a correct format.
+K-SeqExprCast-209;Input string was not in a correct format.
 K-SeqExprCast-21;Can't parse <Value>[type: XsInt, value: 1] into an int.
-K-SeqExprCast-210;String '-' was not recognized as a valid Boolean.
-K-SeqExprCast-211;String '-' was not recognized as a valid Boolean.
+K-SeqExprCast-210;Input string was not in a correct format.
+K-SeqExprCast-211;Input string was not in a correct format.
 K-SeqExprCast-213;Expected XPathException with code FORG0001, but got The string '1' is not a valid AllXsd value.
 K-SeqExprCast-214;Expected XPathException with code FORG0001, but got The string '12' is not a valid AllXsd value.
 K-SeqExprCast-215;Expected XPathException with code FORG0001, but got The string '867' is not a valid AllXsd value.
@@ -14244,162 +14244,162 @@ K-SeqExprCast-634;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-635;PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:QName)'
 K-SeqExprCast-636;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:NOTATION)'
 K-SeqExprCast-639;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-640;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-640;Cannot turn PT0S into a XsDuration
 K-SeqExprCast-642;Can not cast <Value>[type: XsString, value: <Value>[type: XsString, value: P1Y2M3DT10H30M]] to xs:duration
-K-SeqExprCast-643;Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-644;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-643;Expected XPathException with code FORG0006, but got Cannot turn PT0S into a XsDuration
+K-SeqExprCast-644;Cannot turn PT0S into a XsDuration
 K-SeqExprCast-645;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:untypedAtomic'
-K-SeqExprCast-646;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-646;Cannot turn PT0S into a XsDuration
 K-SeqExprCast-647;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:string'
-K-SeqExprCast-648;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-648;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-649;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:float)'
-K-SeqExprCast-650;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-650;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-651;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:double)'
-K-SeqExprCast-652;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-652;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-653;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:decimal)'
-K-SeqExprCast-654;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-654;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-655;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:integer)'
-K-SeqExprCast-656;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-656;Cannot turn PT0S into a XsDuration
 K-SeqExprCast-657;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:duration'
-K-SeqExprCast-658;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-658;Cannot turn PT0S into a XsDuration
 K-SeqExprCast-659;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:yearMonthDuration'
-K-SeqExprCast-660;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-660;Cannot turn PT0S into a XsDuration
 K-SeqExprCast-661;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:dayTimeDuration'
-K-SeqExprCast-662;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-662;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-663;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:dateTime)'
-K-SeqExprCast-664;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-664;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-665;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:time)'
-K-SeqExprCast-666;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-666;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-667;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:date)'
-K-SeqExprCast-668;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-668;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-669;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:gYearMonth)'
-K-SeqExprCast-670;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-670;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-671;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:gYear)'
-K-SeqExprCast-672;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-672;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-673;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:gMonthDay)'
-K-SeqExprCast-674;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-674;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-675;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:gDay)'
-K-SeqExprCast-676;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-676;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-677;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:gMonth)'
-K-SeqExprCast-678;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-678;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-679;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:boolean)'
 K-SeqExprCast-68;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
-K-SeqExprCast-680;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-680;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-681;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:base64Binary)'
-K-SeqExprCast-682;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-682;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-683;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:hexBinary)'
-K-SeqExprCast-684;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-684;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-685;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:anyURI)'
-K-SeqExprCast-686;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-686;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-687;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:QName)'
 K-SeqExprCast-688;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:NOTATION)'
 K-SeqExprCast-69;Expected executing the XPath ". cast as xs:QName" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-691;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-692;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-692;Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-694;Cannot cast <Value>[type: XsString, value: <Value>[type: XsString, value: P1Y12M]] to xs:yearMonthDuration
-K-SeqExprCast-695;Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-696;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-695;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-696;Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-697;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:untypedAtomic'
-K-SeqExprCast-698;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-698;Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-699;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:string'
 K-SeqExprCast-70;Atomic Value for XsName is not implemented yet.
-K-SeqExprCast-700;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-700;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-701;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:float)'
-K-SeqExprCast-702;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-702;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-703;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:double)'
-K-SeqExprCast-704;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-704;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-705;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:decimal)'
-K-SeqExprCast-706;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-706;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-707;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:integer)'
-K-SeqExprCast-708;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-708;Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-709;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:duration'
-K-SeqExprCast-710;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-710;Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-711;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:yearMonthDuration'
-K-SeqExprCast-712;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-712;Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-713;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:dayTimeDuration'
-K-SeqExprCast-714;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-714;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-715;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:dateTime)'
-K-SeqExprCast-716;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-716;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-717;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:time)'
-K-SeqExprCast-718;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-718;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-719;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:date)'
 K-SeqExprCast-71a;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-71b;Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-72;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprCast-720;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-720;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-721;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gYearMonth)'
-K-SeqExprCast-722;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-722;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-723;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gYear)'
-K-SeqExprCast-724;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-724;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-725;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gMonthDay)'
-K-SeqExprCast-726;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-726;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-727;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gDay)'
-K-SeqExprCast-728;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-728;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-729;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gMonth)'
 K-SeqExprCast-73;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprCast-730;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-730;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-731;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:boolean)'
-K-SeqExprCast-732;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-732;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-733;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:base64Binary)'
-K-SeqExprCast-734;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-734;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-735;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:hexBinary)'
-K-SeqExprCast-736;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-736;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-737;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:anyURI)'
-K-SeqExprCast-738;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-738;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-739;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:QName)'
 K-SeqExprCast-74;Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-740;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:NOTATION)'
 K-SeqExprCast-743;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-744;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-744;Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-746;Cannot cast <Value>[type: XsString, value: <Value>[type: XsString, value: P3DT2H]] to xs:dayTimeDuration
-K-SeqExprCast-747;Expected XPathException with code FORG0006, but got String '' was not recognized as a valid Boolean.
-K-SeqExprCast-748;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-747;Expected XPathException with code FORG0006, but got Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-748;Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-749;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:untypedAtomic'
 K-SeqExprCast-75;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-K-SeqExprCast-750;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-750;Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-751;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:string'
-K-SeqExprCast-752;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-752;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-753;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:float)'
-K-SeqExprCast-754;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-754;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-755;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:double)'
-K-SeqExprCast-756;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-756;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-757;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:decimal)'
-K-SeqExprCast-758;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-758;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-759;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:integer)'
 K-SeqExprCast-76;Can't parse 3.1 into an int.
-K-SeqExprCast-760;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-760;Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-761;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:duration'
-K-SeqExprCast-762;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-762;Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-763;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:yearMonthDuration'
-K-SeqExprCast-764;String '' was not recognized as a valid Boolean.
+K-SeqExprCast-764;Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-765;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:dayTimeDuration'
-K-SeqExprCast-766;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-766;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-767;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:dateTime)'
-K-SeqExprCast-768;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-768;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-769;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:time)'
-K-SeqExprCast-770;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-770;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-771;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:date)'
-K-SeqExprCast-772;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-772;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-773;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:gYearMonth)'
-K-SeqExprCast-774;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-774;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-775;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:gYear)'
-K-SeqExprCast-776;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-776;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-777;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:gMonthDay)'
-K-SeqExprCast-778;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-778;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-779;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:gDay)'
 K-SeqExprCast-78;Expected XPath xs:string(xs:double("INF")) eq "INF" to resolve to true
-K-SeqExprCast-780;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-780;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-781;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:gMonth)'
-K-SeqExprCast-782;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-782;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-783;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:boolean)'
-K-SeqExprCast-784;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-784;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-785;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:base64Binary)'
-K-SeqExprCast-786;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-786;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-787;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:hexBinary)'
-K-SeqExprCast-788;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-788;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-789;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:anyURI)'
 K-SeqExprCast-79;Expected XPath xs:string(xs:double("-INF")) eq "-INF" to resolve to true
-K-SeqExprCast-790;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-SeqExprCast-790;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-791;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:QName)'
 K-SeqExprCast-792;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:NOTATION)'
 K-SeqExprCast-795;The function subsequence with arity 3 is not registered.
@@ -14943,8 +14943,8 @@ K-SubstringFunc-8;Atomic Value for XsDecimal is not implemented yet.
 K-SubstringFunc-9;Atomic Value for XsDecimal is not implemented yet.
 K-TimeSubtract-1;Type casting to XsTime has not been implemented yet.
 K-TimeSubtract-2;Type casting to XsTime has not been implemented yet.
-K-TimeSubtract-3;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-TimeSubtract-4;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-TimeSubtract-3;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
+K-TimeSubtract-4;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
 K-TimeSubtract-5;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-TimeSubtract-6;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-TimeSubtract-7;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
@@ -15036,57 +15036,57 @@ K-YearFromDateFunc-5;The function year-from-date with arity 1 is not registered.
 K-YearFromDateTimeFunc-3;The function year-from-dateTime with arity 1 is not registered.
 K-YearFromDateTimeFunc-4;The function year-from-dateTime with arity 1 is not registered.
 K-YearFromDateTimeFunc-5;The function year-from-dateTime with arity 1 is not registered.
-K-YearMonthDurationAdd-1;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationAdd-2;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationAdd-3;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationDivide-1;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationDivide-2;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationDivide-3;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationDivide-4;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationDivide-5;Expected XPathException with code FOCA0005, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationDivide-6;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationDivideYMD-1;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationEQ-1;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationEQ-2;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationEQ-3;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationEQ-4;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationEQ-5;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationEQ-6;String '-' was not recognized as a valid Boolean.
-K-YearMonthDurationEQ-7;String '-' was not recognized as a valid Boolean.
-K-YearMonthDurationGT-1;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationGT-2;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationGT-3;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationGT-4;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationGT-5;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationGT-6;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationLT-1;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationLT-2;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationLT-3;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationLT-4;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationLT-5;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationLT-6;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-1;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-10;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-11;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-12;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-13;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-2;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-3;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-4;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-5;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-6;Expected XPathException with code FODT0002, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-7;Expected XPathException with code FOCA0005, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-8;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationMultiply-9;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationSubtract-1;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationSubtract-2;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationSubtract-3;String '' was not recognized as a valid Boolean.
-K-YearMonthDurationSubtract-4;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationSubtract-5;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationSubtract-6;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationSubtract-7;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationSubtract-8;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
-K-YearMonthDurationSubtract-9;Expected XPathException with code XPTY0004, but got String '' was not recognized as a valid Boolean.
+K-YearMonthDurationAdd-1;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationAdd-2;Cannot turn P into a XsYearMonthDuration
+K-YearMonthDurationAdd-3;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationDivide-1;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationDivide-2;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationDivide-3;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationDivide-4;Expected XPathException with code FODT0002, but got Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationDivide-5;Expected XPathException with code FOCA0005, but got Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationDivide-6;Expected XPathException with code FODT0002, but got Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationDivideYMD-1;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationEQ-1;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationEQ-2;Cannot turn P into a XsYearMonthDuration
+K-YearMonthDurationEQ-3;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationEQ-4;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationEQ-5;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationEQ-6;Cannot turn -P0M into a XsYearMonthDuration
+K-YearMonthDurationEQ-7;Cannot turn -P0M into a XsYearMonthDuration
+K-YearMonthDurationGT-1;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationGT-2;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationGT-3;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationGT-4;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationGT-5;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationGT-6;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationLT-1;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationLT-2;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationLT-3;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationLT-4;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationLT-5;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationLT-6;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationMultiply-1;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationMultiply-10;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
+K-YearMonthDurationMultiply-11;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationMultiply-12;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationMultiply-13;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
+K-YearMonthDurationMultiply-2;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationMultiply-3;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationMultiply-4;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationMultiply-5;Expected XPathException with code FODT0002, but got Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationMultiply-6;Expected XPathException with code FODT0002, but got Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationMultiply-7;Expected XPathException with code FOCA0005, but got Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationMultiply-8;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
+K-YearMonthDurationMultiply-9;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
+K-YearMonthDurationSubtract-1;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationSubtract-2;Cannot turn P into a XsYearMonthDuration
+K-YearMonthDurationSubtract-3;Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationSubtract-4;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
+K-YearMonthDurationSubtract-5;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationSubtract-6;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
+K-YearMonthDurationSubtract-7;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-YearMonthDurationSubtract-8;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
+K-YearMonthDurationSubtract-9;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
 K-YearsFromDurationFunc-3;The function years-from-duration with arity 1 is not registered.
 K-YearsFromDurationFunc-4;The function years-from-duration with arity 1 is not registered.
 K-YearsFromDurationFunc-5;The function years-from-duration with arity 1 is not registered.
@@ -16932,9 +16932,9 @@ K2-SeqExprCast-499;Expected error code: FORG0001. Found error code: XPST0017 wit
 K2-SeqExprCast-5;Can't parse 9223372036854775807 into an int.
 K2-SeqExprCast-50;Atomic Value for XsPositiveInteger is not implemented yet.
 K2-SeqExprCast-500;Expected error code: FORG0001. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
-K2-SeqExprCast-501;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-K2-SeqExprCast-502;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
-K2-SeqExprCast-503;Expected XPathException with code FORG0001, but got String '' was not recognized as a valid Boolean.
+K2-SeqExprCast-501;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDuration
+K2-SeqExprCast-502;Expected XPathException with code FORG0001, but got Cannot turn PT0S into a XsDayTimeDuration
+K2-SeqExprCast-503;Expected XPathException with code FORG0001, but got Cannot turn P0M into a XsYearMonthDuration
 K2-SeqExprCast-504;Atomic Value for XsNcName is not implemented yet.
 K2-SeqExprCast-505;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
 K2-SeqExprCast-506;Expected error code: FORG0001. Query succeeded with result: --02
@@ -18112,48 +18112,48 @@ nscons-043;Expected error code: XPTY0004. Found error code: XPST0003 with error 
 nscons-044;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 numeric-greater-than-101;Can't parse 2345.6 into an int.
 numeric-greater-than-102;Can't parse 2345.6 into an int.
-op-add-dayTimeDurations-1;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-10;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-11;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-12;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-13;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-14;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-15;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-16;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-2;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-3;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-4;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-5;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-6;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-7;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-8;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations-9;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations2args-1;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations2args-2;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations2args-3;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations2args-4;String '' was not recognized as a valid Boolean.
-op-add-dayTimeDurations2args-5;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-1;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-10;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-11;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-12;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-13;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-14;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-15;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-16;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-2;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-3;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-4;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-5;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-6;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-7;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-8;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations-9;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations2args-1;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations2args-2;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations2args-3;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations2args-4;String '' was not recognized as a valid Boolean.
-op-add-yearMonthDurations2args-5;String '' was not recognized as a valid Boolean.
+op-add-dayTimeDurations-1;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-10;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-11;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-12;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-13;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-14;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-15;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-16;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-2;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-3;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-4;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-5;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-6;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-7;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-8;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations-9;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations2args-1;Cannot turn PT into a XsDayTimeDuration
+op-add-dayTimeDurations2args-2;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations2args-3;Cannot turn PT0S into a XsDayTimeDuration
+op-add-dayTimeDurations2args-4;Cannot turn PT into a XsDayTimeDuration
+op-add-dayTimeDurations2args-5;Cannot turn PT into a XsDayTimeDuration
+op-add-yearMonthDurations-1;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-10;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-11;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-12;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-13;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-14;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-15;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-16;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-2;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-3;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-4;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-5;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-6;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-7;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-8;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations-9;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations2args-1;Cannot turn P into a XsYearMonthDuration
+op-add-yearMonthDurations2args-2;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations2args-3;Cannot turn P0M into a XsYearMonthDuration
+op-add-yearMonthDurations2args-4;Cannot turn P into a XsYearMonthDuration
+op-add-yearMonthDurations2args-5;Cannot turn P into a XsYearMonthDuration
 op-base64Binary-equal2args-1;Type casting to XsBase64Binary has not been implemented yet.
 op-base64Binary-equal2args-10;Type casting to XsBase64Binary has not been implemented yet.
 op-base64Binary-equal2args-2;Type casting to XsBase64Binary has not been implemented yet.
@@ -18363,181 +18363,181 @@ op-dateTime-less-than2args-6;Specified argument was out of the range of valid va
 op-dateTime-less-than2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 op-dateTime-less-than2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 op-dateTime-less-than2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dayTimeDuration-equal2args-1;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-10;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-11;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-12;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-13;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-14;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-15;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-16;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-17;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-18;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-19;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-2;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-20;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-3;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-4;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-5;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-6;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-7;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-8;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-equal2args-9;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-10;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-11;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-12;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-13;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-14;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-3;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-4;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-5;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-6;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-7;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-8;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than-9;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than2args-1;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than2args-10;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than2args-2;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than2args-3;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than2args-4;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than2args-5;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than2args-6;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than2args-7;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than2args-8;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-greater-than2args-9;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-10;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-11;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-12;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-13;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-14;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-3;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-4;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-5;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-6;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-7;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-8;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than-9;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than2args-1;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than2args-10;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than2args-2;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than2args-3;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than2args-4;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than2args-5;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than2args-6;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than2args-7;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than2args-8;String '' was not recognized as a valid Boolean.
-op-dayTimeDuration-less-than2args-9;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-10;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-11;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-12;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-13;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-14;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-15;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-16;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-2;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-3;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-4;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-5;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-6;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-7;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-8;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-9;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dayTimeDuration2args-1;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dayTimeDuration2args-2;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dayTimeDuration2args-3;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dayTimeDuration2args-4;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dayTimeDuration2args-5;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-1;Expected executing the XPath "fn:round-half-to-even((xs:dayTimeDuration("P2DT53M11S") div xs:dayTimeDuration("P1DT10H")),15)" to resolve to one of the expected results, but got System.FormatException: String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-10;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-11;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-12;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-13;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-14;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-15;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-16;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-2;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-3;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-4;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-5;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-6;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-7;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-8;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration-by-dTD-9;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration2args-1;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration2args-2;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration2args-3;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration2args-4;String '' was not recognized as a valid Boolean.
-op-divide-dayTimeDuration2args-5;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-1;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-10;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-11;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-12;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-13;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-14;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-15;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-16;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-17;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-2;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-3;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-4;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-5;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-6;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-7;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-8;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-9;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yearMonthDuration2args-1;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yearMonthDuration2args-2;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yearMonthDuration2args-3;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yearMonthDuration2args-4;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yearMonthDuration2args-5;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-1;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-10;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-11;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-12;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-13;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-14;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-15;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-16;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-2;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-3;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-4;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-5;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-6;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-7;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-8;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration-by-yMD-9;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration2args-1;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration2args-2;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration2args-3;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration2args-4;String '' was not recognized as a valid Boolean.
-op-divide-yearMonthDuration2args-5;String '' was not recognized as a valid Boolean.
-op-duration-equal-1;String '' was not recognized as a valid Boolean.
-op-duration-equal-10;String '' was not recognized as a valid Boolean.
-op-duration-equal-11;String '' was not recognized as a valid Boolean.
-op-duration-equal-12;String '' was not recognized as a valid Boolean.
-op-duration-equal-13;String '' was not recognized as a valid Boolean.
-op-duration-equal-14;String '' was not recognized as a valid Boolean.
-op-duration-equal-15;String '' was not recognized as a valid Boolean.
-op-duration-equal-16;String '' was not recognized as a valid Boolean.
-op-duration-equal-17;String '' was not recognized as a valid Boolean.
-op-duration-equal-18;String '' was not recognized as a valid Boolean.
-op-duration-equal-19;String '' was not recognized as a valid Boolean.
-op-duration-equal-2;String '' was not recognized as a valid Boolean.
-op-duration-equal-20;String '' was not recognized as a valid Boolean.
-op-duration-equal-21;String '' was not recognized as a valid Boolean.
-op-duration-equal-22;String '' was not recognized as a valid Boolean.
-op-duration-equal-23;String '' was not recognized as a valid Boolean.
-op-duration-equal-24;String '' was not recognized as a valid Boolean.
-op-duration-equal-25;String '' was not recognized as a valid Boolean.
-op-duration-equal-26;String '' was not recognized as a valid Boolean.
-op-duration-equal-27;String '' was not recognized as a valid Boolean.
-op-duration-equal-3;String '' was not recognized as a valid Boolean.
-op-duration-equal-4;String '' was not recognized as a valid Boolean.
-op-duration-equal-5;String '' was not recognized as a valid Boolean.
-op-duration-equal-6;String '' was not recognized as a valid Boolean.
-op-duration-equal-7;String '' was not recognized as a valid Boolean.
-op-duration-equal-8;String '' was not recognized as a valid Boolean.
-op-duration-equal-9;String '' was not recognized as a valid Boolean.
+op-dayTimeDuration-equal2args-1;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-10;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-11;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-12;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-13;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-14;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-15;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-16;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-17;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-18;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-19;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-2;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-20;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-3;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-4;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-5;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-6;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-7;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-8;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-equal2args-9;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-10;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-11;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-12;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-13;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-14;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-3;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-4;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-5;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-6;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-7;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-8;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than-9;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than2args-1;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-greater-than2args-10;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-greater-than2args-2;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than2args-3;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than2args-4;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-greater-than2args-5;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-greater-than2args-6;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-greater-than2args-7;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than2args-8;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-greater-than2args-9;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-less-than-10;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than-11;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than-12;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than-13;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than-14;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than-3;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than-4;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than-5;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than-6;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than-7;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than-8;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than-9;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than2args-1;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-less-than2args-10;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-less-than2args-2;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than2args-3;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than2args-4;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-less-than2args-5;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-less-than2args-6;Cannot turn PT into a XsDayTimeDuration
+op-dayTimeDuration-less-than2args-7;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than2args-8;Cannot turn PT0S into a XsDayTimeDuration
+op-dayTimeDuration-less-than2args-9;Cannot turn PT into a XsDayTimeDuration
+op-divide-dayTimeDuration-10;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-11;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-12;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-13;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-14;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-15;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-16;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-2;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-3;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-4;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-5;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-6;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-7;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-8;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-9;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dayTimeDuration2args-1;Cannot turn PT into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dayTimeDuration2args-2;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dayTimeDuration2args-3;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dayTimeDuration2args-4;Cannot turn PT into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dayTimeDuration2args-5;Cannot turn PT into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-1;Expected executing the XPath "fn:round-half-to-even((xs:dayTimeDuration("P2DT53M11S") div xs:dayTimeDuration("P1DT10H")),15)" to resolve to one of the expected results, but got System.NotImplementedException: Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-10;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-11;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-12;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-13;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-14;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-15;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-16;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-2;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-3;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-4;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-5;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-6;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-7;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-8;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-9;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration2args-1;Cannot turn PT into a XsDayTimeDuration
+op-divide-dayTimeDuration2args-2;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration2args-3;Cannot turn PT0S into a XsDayTimeDuration
+op-divide-dayTimeDuration2args-4;Cannot turn PT into a XsDayTimeDuration
+op-divide-dayTimeDuration2args-5;Cannot turn PT into a XsDayTimeDuration
+op-divide-yearMonthDuration-1;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-10;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-11;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-12;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-13;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-14;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-15;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-16;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-17;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-2;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-3;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-4;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-5;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-6;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-7;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-8;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-9;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yearMonthDuration2args-1;Cannot turn P into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yearMonthDuration2args-2;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yearMonthDuration2args-3;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yearMonthDuration2args-4;Cannot turn P into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yearMonthDuration2args-5;Cannot turn P into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-1;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-10;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-11;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-12;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-13;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-14;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-15;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-16;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-2;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-3;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-4;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-5;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-6;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-7;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-8;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-9;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration2args-1;Cannot turn P into a XsYearMonthDuration
+op-divide-yearMonthDuration2args-2;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration2args-3;Cannot turn P0M into a XsYearMonthDuration
+op-divide-yearMonthDuration2args-4;Cannot turn P into a XsYearMonthDuration
+op-divide-yearMonthDuration2args-5;Cannot turn P into a XsYearMonthDuration
+op-duration-equal-1;Cannot turn PT into a XsDuration
+op-duration-equal-10;Cannot turn PT into a XsDuration
+op-duration-equal-11;Cannot turn PT into a XsDuration
+op-duration-equal-12;Cannot turn PT into a XsDuration
+op-duration-equal-13;Cannot turn PT into a XsDuration
+op-duration-equal-14;Cannot turn PT into a XsDuration
+op-duration-equal-15;Cannot turn PT into a XsDuration
+op-duration-equal-16;Cannot turn PT into a XsDuration
+op-duration-equal-17;Cannot turn PT into a XsDuration
+op-duration-equal-18;Cannot turn PT into a XsDuration
+op-duration-equal-19;Cannot turn PT into a XsDuration
+op-duration-equal-2;Cannot turn PT into a XsDuration
+op-duration-equal-20;Cannot turn PT into a XsDuration
+op-duration-equal-21;Cannot turn PT into a XsDuration
+op-duration-equal-22;Cannot turn PT into a XsDuration
+op-duration-equal-23;Cannot turn PT into a XsDuration
+op-duration-equal-24;Cannot turn PT into a XsDuration
+op-duration-equal-25;Cannot turn PT into a XsDuration
+op-duration-equal-26;Cannot turn P into a XsYearMonthDuration
+op-duration-equal-27;Cannot turn P0M into a XsYearMonthDuration
+op-duration-equal-3;Cannot turn PT into a XsDuration
+op-duration-equal-4;Cannot turn PT into a XsDuration
+op-duration-equal-5;Cannot turn PT into a XsDuration
+op-duration-equal-6;Cannot turn PT into a XsDuration
+op-duration-equal-7;Cannot turn PT into a XsDuration
+op-duration-equal-8;Cannot turn PT into a XsDuration
+op-duration-equal-9;Cannot turn PT into a XsDuration
 op-gDay-equal-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
 op-gDay-equal-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
 op-gDay-equal-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
@@ -18869,54 +18869,54 @@ op-logical-or-156;Atomic Value for XsUnsignedByte is not implemented yet.
 op-logical-or-157;Atomic Value for XsUnsignedByte is not implemented yet.
 op-logical-or-158;Atomic Value for XsUnsignedByte is not implemented yet.
 op-logical-or-159;Atomic Value for XsUnsignedByte is not implemented yet.
-op-multiply-dayTimeDuration-1;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-10;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-11;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-12;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-13;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-14;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-15;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-16;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-17;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-18;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-2;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-3;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-4;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-5;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-6;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-7;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-8;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration-9;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration2args-1;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration2args-2;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration2args-3;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration2args-4;String '' was not recognized as a valid Boolean.
-op-multiply-dayTimeDuration2args-5;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-1;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-10;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-11;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-12;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-13;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-14;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-15;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-16;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-17;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-18;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-19;Expected XPathException with code FOCA0005, but got String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-2;String '' was not recognized as a valid Boolean.
+op-multiply-dayTimeDuration-1;Cannot turn P into a XsDayTimeDuration
+op-multiply-dayTimeDuration-10;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-11;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-12;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-13;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-14;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-15;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-16;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-17;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-18;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-2;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-3;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-4;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-5;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-6;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-7;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-8;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration-9;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration2args-1;Cannot turn PT into a XsDayTimeDuration
+op-multiply-dayTimeDuration2args-2;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration2args-3;Cannot turn PT0S into a XsDayTimeDuration
+op-multiply-dayTimeDuration2args-4;Cannot turn PT into a XsDayTimeDuration
+op-multiply-dayTimeDuration2args-5;Cannot turn PT into a XsDayTimeDuration
+op-multiply-yearMonthDuration-1;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-10;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-11;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-12;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-13;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-14;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-15;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-16;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-17;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-18;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-19;Expected XPathException with code FOCA0005, but got Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-2;Cannot turn P0M into a XsYearMonthDuration
 op-multiply-yearMonthDuration-20;Can't parse 3.9 into an int.
-op-multiply-yearMonthDuration-3;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-4;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-5;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-6;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-7;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-8;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration-9;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration2args-1;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration2args-2;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration2args-3;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration2args-4;String '' was not recognized as a valid Boolean.
-op-multiply-yearMonthDuration2args-5;String '' was not recognized as a valid Boolean.
+op-multiply-yearMonthDuration-3;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-4;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-5;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-6;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-7;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-8;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration-9;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration2args-1;Cannot turn P into a XsYearMonthDuration
+op-multiply-yearMonthDuration2args-2;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration2args-3;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-yearMonthDuration2args-4;Cannot turn P into a XsYearMonthDuration
+op-multiply-yearMonthDuration2args-5;Cannot turn P into a XsYearMonthDuration
 op-numeric-add-1;Use of XQuery FLWOR expressions in XPath is not allowed
 op-numeric-add-10;PRSC Error: Failed to parse query '(\n         declare namespace atomic="http://www.w3.org/XQueryTest";\n         /*/atomic:decimal + xs:untypedAtomic('123')\n      ) instance of $xs:double'
 op-numeric-add-11;PRSC Error: Failed to parse query '(\n         declare namespace atomic="http://www.w3.org/XQueryTest";\n         /*/atomic:float + xs:untypedAtomic('123')\n      ) instance of $xs:double'
@@ -19537,27 +19537,27 @@ op-subtract-dateTimes-yielding-DTD-6;SubtractOp not available for types XsDateTi
 op-subtract-dateTimes-yielding-DTD-7;SubtractOp not available for types XsDateTime and XsDateTime
 op-subtract-dateTimes-yielding-DTD-8;SubtractOp not available for types XsDateTime and XsDateTime
 op-subtract-dateTimes-yielding-DTD-9;SubtractOp not available for types XsDateTime and XsDateTime
-op-subtract-dayTimeDurations-1;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-10;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-11;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-12;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-13;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-14;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-15;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-16;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-2;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-3;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-4;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-5;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-6;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-7;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-8;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations-9;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations2args-1;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations2args-2;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations2args-3;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations2args-4;String '' was not recognized as a valid Boolean.
-op-subtract-dayTimeDurations2args-5;String '' was not recognized as a valid Boolean.
+op-subtract-dayTimeDurations-1;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-10;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-11;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-12;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-13;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-14;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-15;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-16;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-2;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-3;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-4;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-5;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-6;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-7;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-8;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations-9;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations2args-1;Cannot turn PT into a XsDayTimeDuration
+op-subtract-dayTimeDurations2args-2;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations2args-3;Cannot turn PT0S into a XsDayTimeDuration
+op-subtract-dayTimeDurations2args-4;Cannot turn PT into a XsDayTimeDuration
+op-subtract-dayTimeDurations2args-5;Cannot turn PT into a XsDayTimeDuration
 op-subtract-times-1;Type casting to XsTime has not been implemented yet.
 op-subtract-times-10;Type casting to XsTime has not been implemented yet.
 op-subtract-times-11;Type casting to XsTime has not been implemented yet.
@@ -19579,91 +19579,91 @@ op-subtract-times2args-2;Type casting to XsTime has not been implemented yet.
 op-subtract-times2args-3;Type casting to XsTime has not been implemented yet.
 op-subtract-times2args-4;Type casting to XsTime has not been implemented yet.
 op-subtract-times2args-5;Type casting to XsTime has not been implemented yet.
-op-subtract-yearMonthDurations-1;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-10;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-11;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-12;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-13;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-14;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-15;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-16;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-2;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-3;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-4;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-5;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-6;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-7;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-8;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations-9;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations2args-1;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations2args-2;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations2args-3;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations2args-4;String '' was not recognized as a valid Boolean.
-op-subtract-yearMonthDurations2args-5;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-1;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-10;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-11;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-12;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-13;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-14;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-15;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-16;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-17;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-18;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-19;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-2;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-20;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-3;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-4;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-5;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-6;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-7;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-8;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-equal2args-9;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-10;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-11;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-12;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-13;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-14;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-3;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-4;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-5;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-6;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-7;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-8;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than-9;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than2args-1;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than2args-10;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than2args-2;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than2args-3;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than2args-4;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than2args-5;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than2args-6;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than2args-7;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than2args-8;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-greater-than2args-9;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than-10;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than-11;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than-12;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than-13;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than-14;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than-3;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than-4;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than-5;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than-6;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than-8;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than-9;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than2args-1;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than2args-10;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than2args-2;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than2args-3;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than2args-4;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than2args-5;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than2args-6;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than2args-8;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than2args-9;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-than2argsNew-7;String '' was not recognized as a valid Boolean.
-op-yearMonthDuration-less-thanNew-7;String '' was not recognized as a valid Boolean.
+op-subtract-yearMonthDurations-1;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-10;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-11;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-12;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-13;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-14;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-15;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-16;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-2;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-3;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-4;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-5;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-6;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-7;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-8;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-9;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations2args-1;Cannot turn P into a XsYearMonthDuration
+op-subtract-yearMonthDurations2args-2;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations2args-3;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations2args-4;Cannot turn P into a XsYearMonthDuration
+op-subtract-yearMonthDurations2args-5;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-1;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-10;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-11;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-12;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-13;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-14;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-15;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-16;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-17;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-18;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-19;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-2;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-20;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-3;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-4;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-5;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-6;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-7;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-8;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-equal2args-9;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-10;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-11;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-12;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-13;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-14;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-3;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-4;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-5;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-6;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-7;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-8;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than-9;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than2args-1;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-greater-than2args-10;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-greater-than2args-2;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than2args-3;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than2args-4;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-greater-than2args-5;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-greater-than2args-6;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-greater-than2args-7;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than2args-8;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-greater-than2args-9;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-less-than-10;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than-11;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than-12;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than-13;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than-14;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than-3;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than-4;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than-5;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than-6;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than-8;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than-9;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than2args-1;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-less-than2args-10;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-less-than2args-2;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than2args-3;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than2args-4;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-less-than2args-5;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-less-than2args-6;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-less-than2args-8;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-than2args-9;Cannot turn P into a XsYearMonthDuration
+op-yearMonthDuration-less-than2argsNew-7;Cannot turn P0M into a XsYearMonthDuration
+op-yearMonthDuration-less-thanNew-7;Cannot turn P0M into a XsYearMonthDuration
 orderBy1;PRSC Error: Failed to parse query ''
 orderBy10;PRSC Error: Failed to parse query ''
 orderBy11;PRSC Error: Failed to parse query ''

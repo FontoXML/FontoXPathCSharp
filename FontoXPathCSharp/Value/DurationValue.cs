@@ -92,11 +92,11 @@ public class DurationValue : AtomicValue, IComparable<DurationValue>
 
         if (!match.Success) return null;
 
-        var matchGroups = match.Groups;
-
-        var isPositive = bool.Parse(matchGroups[1].Value);
-        var years = matchGroups[2].Success ? int.Parse(matchGroups[2].Value) : 0;
-        var months = matchGroups[3].Success ? int.Parse(matchGroups[3].Value) : 0;
+        var matches = match.Groups;
+        
+        var isPositive = matches[1].Value != "-";
+        var years = matches[2].Success ? int.Parse(matches[2].Value[..^1]) : 0;
+        var months = matches[3].Success ? int.Parse(matches[3].Value[..^1]) : 0;
 
         return YearMonthDurationFromParts(years, months, isPositive);
     }
@@ -128,11 +128,11 @@ public class DurationValue : AtomicValue, IComparable<DurationValue>
 
         var matches = match.Groups;
 
-        var isPositive = bool.Parse(matches[1].Value);
-        var days = matches[4].Success ? int.Parse(matches[4].Value) : 0;
-        var hours = matches[5].Success ? int.Parse(matches[5].Value) : 0;
-        var minutes = matches[6].Success ? int.Parse(matches[6].Value) : 0;
-        var seconds = matches[7].Success ? int.Parse(matches[7].Value) : 0;
+        var isPositive = matches[1].Value != "-";
+        var days = matches[4].Success ? int.Parse(matches[4].Value[..^1]) : 0;
+        var hours = matches[5].Success ? int.Parse(matches[5].Value[..^1]) : 0;
+        var minutes = matches[6].Success ? int.Parse(matches[6].Value[..^1]) : 0;
+        var seconds = matches[7].Success ? int.Parse(matches[7].Value[..^1]) : 0;
         var secondFraction = matches[8].Success ? (int)(float.Parse(matches[8].Value) * 1000) : 0;
 
         return DayTimeDurationFromParts(days, hours, minutes, seconds, secondFraction, isPositive);
