@@ -25,7 +25,7 @@ public class CastToDuration
         if (from.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>
             {
-                var parsedDuration = DurationValue.FromString(value.GetValue().ToString());
+                var parsedDuration = DurationValue.FromString(value.GetValue().ToString(), ValueType.XsDuration);
                 return parsedDuration != null
                     ? new SuccessResult<AtomicValue>(CreateDurationValue(parsedDuration))
                     : new ErrorResult<AtomicValue>(

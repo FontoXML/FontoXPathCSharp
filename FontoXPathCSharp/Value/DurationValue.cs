@@ -52,23 +52,27 @@ public class DurationValue : AtomicValue, IComparable<DurationValue>
         return HashCode.Combine(base.GetHashCode(), Value);
     }
 
-    public static DurationValue? FromString(string? durationString)
+    public static DurationValue? FromString(string? durationString, ValueType type)
     {
         if (durationString == null) return null;
-        var dtd = DayTimeDurationFromString(durationString);
-        var ymd = YearMonthDurationFromString(durationString);
 
-        if (ymd != null && dtd != null)
-            return new DurationValue(
-                new Duration(
+        switch (type)
+        {
+            case ValueType.XsDuration:
+                var dtd = DayTimeDurationFromString(durationString);
+                var ymd = YearMonthDurationFromString(durationString);
+                return new DurationValue(new Duration(
                     dtd.Value.RawMilliSeconds,
                     ymd.Value.RawMonths,
-                    ValueType.XsDuration
+                    type
                 ));
-
-        if (ymd != null && dtd == null) return ymd;
-        if (ymd == null && dtd != null) return dtd;
-        return null;
+            case ValueType.XsYearMonthDuration:
+                return YearMonthDurationFromString(durationString);
+            case ValueType.XsDayTimeDuration:
+                return DayTimeDurationFromString(durationString);
+            default:
+                return null;
+        }
     }
 
     public static DurationValue YearMonthDurationFromParts(
@@ -86,14 +90,14 @@ public class DurationValue : AtomicValue, IComparable<DurationValue>
     public static DurationValue? YearMonthDurationFromString(string? yearMonthDurationString)
     {
         if (yearMonthDurationString == null) return null;
-        
+
         var regex = @"^(-)?P(\d+Y)?(\d+M)?(\d+D)?(?:T(\d+H)?(\d+M)?(\d+(\.\d*)?S)?)?$";
         var match = Regex.Match(yearMonthDurationString, regex);
 
         if (!match.Success) return null;
 
         var matches = match.Groups;
-        
+
         var isPositive = matches[1].Value != "-";
         var years = matches[2].Success ? int.Parse(matches[2].Value[..^1]) : 0;
         var months = matches[3].Success ? int.Parse(matches[3].Value[..^1]) : 0;
@@ -120,7 +124,7 @@ public class DurationValue : AtomicValue, IComparable<DurationValue>
     public static DurationValue? DayTimeDurationFromString(string? dayTimeDurationString)
     {
         if (dayTimeDurationString == null) return null;
-        
+
         var regex = @"^(-)?P(\d+Y)?(\d+M)?(\d+D)?(?:T(\d+H)?(\d+M)?(\d+(\.\d*)?S)?)?$";
         var match = Regex.Match(dayTimeDurationString, regex);
 
@@ -151,6 +155,7 @@ public class DurationValue : AtomicValue, IComparable<DurationValue>
             null => null,
             Duration duration => new DurationValue(duration, type),
             DurationValue durationValue => new DurationValue(durationValue.Value, type),
+            string durationString => FromString(durationString, type),
             _ => throw new NotImplementedException($"Cannot turn {value} into a {type.ToString()}")
         };
     }

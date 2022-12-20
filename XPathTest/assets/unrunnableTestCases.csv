@@ -1345,8 +1345,9 @@ CastAs023;Expected XPathException with code FORG0001, but got Can't parse <Value
 CastAs024;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsString, value: 1e-5] into an int.
 CastAs025;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsString, value: -1.1234] into an int.
 CastAs026;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsString, value: true] into an int.
-CastAs027;Can not cast <Value>[type: XsString, value: <Value>[type: XsString, value: P1Y2M3DT10H30M23S]] to xs:duration
-CastAs028;Can not cast <Value>[type: XsString, value: <Value>[type: XsString, value: -P1Y1M1DT1H1M1.123S]] to xs:duration
+CastAs027;Object reference not set to an instance of an object.
+CastAs028;Object reference not set to an instance of an object.
+CastAs029;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
 CastAs031;Cannot cast <Value>[type: XsString, value: <Value>[type: XsString, value: P24M]] to xs:yearMonthDuration
 CastAs032;Cannot cast <Value>[type: XsString, value: <Value>[type: XsString, value: -P21M]] to xs:yearMonthDuration
 CastAs035;Cannot cast <Value>[type: XsString, value: <Value>[type: XsString, value: P3DT10H30M]] to xs:dayTimeDuration
@@ -1418,14 +1419,15 @@ CastAs105;Expected XPathException with code FORG0001, but got Can't parse NaN in
 CastAs106;Expected XPathException with code FORG0001, but got Can't parse 1e-5 into an int.
 CastAs107;Expected XPathException with code FORG0001, but got Can't parse -1.1234 into an int.
 CastAs108;Expected XPathException with code FORG0001, but got Can't parse true into an int.
-CastAs109;Cannot turn PT0S into a XsDuration
+CastAs109;Expected XPath xs:string("P1Y2M3DT10H30M23S") cast as xs:duration to resolve to P1Y2M3DT10H30M23S
 CastAs110;Input string was not in a correct format.
-CastAs112;Expected XPathException with code FORG0001, but got Cannot turn -P0M into a XsYearMonthDuration
-CastAs113;Cannot turn P0M into a XsYearMonthDuration
-CastAs114;Cannot turn -P0M into a XsYearMonthDuration
+CastAs111;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
+CastAs112;Expected error code: FORG0001. Query succeeded with result: P
+CastAs113;Expected XPath xs:string("P24M") cast as xs:yearMonthDuration to resolve to P2Y
+CastAs114;Expected XPath xs:string("-P21M") cast as xs:yearMonthDuration to resolve to -P1Y9M
 CastAs116;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-CastAs117;Cannot turn PT0S into a XsDayTimeDuration
-CastAs118;Cannot turn -P into a XsDayTimeDuration
+CastAs117;Expected XPath xs:string("P3DT10H30M") cast as xs:dayTimeDuration to resolve to P3DT10H30M
+CastAs118;Expected XPath xs:string("-PT100M") cast as xs:dayTimeDuration to resolve to -PT1H40M
 CastAs121;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs123;Expected XPathException with code FORG0001, but got The string 'true' is not a valid AllXsd value.
 CastAs124;Type casting to XsTime has not been implemented yet.
@@ -1517,81 +1519,45 @@ CastAs266;Expected XPathException with code XPTY0004, but got Type casting to Xs
 CastAs274;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs275;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 CastAs276;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs277;Cannot turn PT0S into a XsDuration
-CastAs278;Cannot turn PT0S into a XsDuration
-CastAs279;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs280;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs281;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs282;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs283;Cannot turn PT0S into a XsDuration
-CastAs284;Cannot turn P into a XsDuration
-CastAs285;Cannot turn PT0S into a XsDuration
-CastAs286;Cannot turn P into a XsDuration
-CastAs287;Cannot turn PT into a XsDuration
-CastAs288;Cannot turn PT0S into a XsDuration
-CastAs289;Cannot turn P into a XsDuration
-CastAs290;Cannot turn PT into a XsDuration
-CastAs291;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs292;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs293;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs294;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs295;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs296;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs297;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs298;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs299;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs300;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs301;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs302;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
-CastAs303;Cannot turn P0M into a XsYearMonthDuration
-CastAs304;Cannot turn P0M into a XsYearMonthDuration
-CastAs305;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs306;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs307;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs308;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs309;Cannot turn P0M into a XsYearMonthDuration
-CastAs310;Cannot turn P0M into a XsYearMonthDuration
-CastAs311;Cannot turn -P0M into a XsYearMonthDuration
-CastAs312;Cannot turn P0M into a XsYearMonthDuration
-CastAs313;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs314;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs315;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs316;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs317;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs318;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs319;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs320;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs321;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs322;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs323;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs324;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-CastAs325;Cannot turn PT0S into a XsDayTimeDuration
-CastAs326;Cannot turn -P into a XsDayTimeDuration
-CastAs327;Cannot turn PT0S into a XsDayTimeDuration
-CastAs328;Cannot turn -P into a XsDayTimeDuration
-CastAs329;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs330;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs331;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs332;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs333;Cannot turn PT0S into a XsDayTimeDuration
-CastAs334;Cannot turn PT into a XsDayTimeDuration
-CastAs335;Cannot turn -P into a XsDayTimeDuration
-CastAs336;Cannot turn PT0S into a XsDayTimeDuration
-CastAs337;Cannot turn PT0S into a XsDayTimeDuration
-CastAs338;Cannot turn PT into a XsDayTimeDuration
-CastAs339;Cannot turn -P into a XsDayTimeDuration
-CastAs340;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs341;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs342;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs343;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs344;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs345;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs346;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs347;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs348;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs349;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs350;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
-CastAs351;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+CastAs277;Expected XPath xs:duration("P1Y2M3DT10H30M23S") cast as xs:untypedAtomic to resolve to P1Y2M3DT10H30M23S
+CastAs278;Expected XPath xs:duration("P1Y2M3DT10H30M23S") cast as xs:string to resolve to P1Y2M3DT10H30M23S
+CastAs283;Expected XPath xs:duration("P1Y2M3DT10H30M23S") cast as xs:duration to resolve to P1Y2M3DT10H30M23S
+CastAs284;Expected XPath xs:duration("PT10H") cast as xs:duration to resolve to PT10H
+CastAs285;Expected XPath xs:duration("P1Y2M3DT10H30M23S") cast as xs:yearMonthDuration to resolve to P1Y2M
+CastAs286;Expected XPath xs:duration("PT10H") cast as xs:yearMonthDuration to resolve to P0M
+CastAs287;Expected XPath xs:duration("P24M") cast as xs:yearMonthDuration to resolve to P2Y
+CastAs288;Expected XPath xs:duration("P1Y2M3DT10H30M23S") cast as xs:dayTimeDuration to resolve to P3DT10H30M23S
+CastAs289;Expected XPath xs:duration("PT10H") cast as xs:dayTimeDuration to resolve to PT10H
+CastAs290;Expected XPath xs:duration("P24M") cast as xs:dayTimeDuration to resolve to PT0S
+CastAs292;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
+CastAs300;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
+CastAs301;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
+CastAs302;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
+CastAs303;Expected XPath xs:yearMonthDuration("P1Y2M") cast as xs:untypedAtomic to resolve to P1Y2M
+CastAs304;Expected XPath xs:yearMonthDuration("P1Y2M") cast as xs:string to resolve to P1Y2M
+CastAs309;Expected XPath xs:yearMonthDuration("P1Y2M") cast as xs:duration to resolve to P1Y2M
+CastAs310;Expected XPath xs:yearMonthDuration("P1Y2M") cast as xs:yearMonthDuration to resolve to P1Y2M
+CastAs311;Expected XPath xs:yearMonthDuration("-P21M") cast as xs:yearMonthDuration to resolve to -P1Y9M
+CastAs312;Input string was not in a correct format.
+CastAs314;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
+CastAs322;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
+CastAs323;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
+CastAs324;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
+CastAs325;Expected XPath xs:dayTimeDuration("P3DT10H30M") cast as xs:untypedAtomic to resolve to P3DT10H30M
+CastAs326;Expected XPath xs:dayTimeDuration("-PT100M") cast as xs:untypedAtomic to resolve to -PT1H40M
+CastAs327;Expected XPath xs:dayTimeDuration("P3DT10H30M") cast as xs:string to resolve to P3DT10H30M
+CastAs328;Expected XPath xs:dayTimeDuration("-PT100M") cast as xs:string to resolve to -PT1H40M
+CastAs333;Expected XPath xs:dayTimeDuration("P3DT10H30M") cast as xs:duration to resolve to P3DT10H30M
+CastAs334;Expected XPath xs:dayTimeDuration("PT24H") cast as xs:duration to resolve to P1D
+CastAs335;Expected XPath xs:dayTimeDuration("-PT100M") cast as xs:duration to resolve to -PT1H40M
+CastAs336;Expected XPath xs:dayTimeDuration("P3DT10H30M") cast as xs:yearMonthDuration to resolve to P0M
+CastAs337;Expected XPath xs:dayTimeDuration("P3DT10H30M") cast as xs:dayTimeDuration to resolve to P3DT10H30M
+CastAs338;Expected XPath xs:dayTimeDuration("P14D") cast as xs:dayTimeDuration to resolve to P14D
+CastAs339;Expected XPath xs:dayTimeDuration("-PT100M") cast as xs:dayTimeDuration to resolve to -PT1H40M
+CastAs341;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
+CastAs349;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
+CastAs350;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
+CastAs351;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs353;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs355;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs364;Type casting to XsTime has not been implemented yet.
@@ -1906,10 +1872,8 @@ cbcl-anyURI-013;Type casting to XsAnyUri has not been implemented yet.
 cbcl-avg-001;Expected executing the XPath "fn:avg((xs:decimal("79000000000000000000000000000"),
 cbcl-avg-002;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
 cbcl-avg-003;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
-cbcl-avg-004;Cannot turn PT0S into a XsDayTimeDuration
-cbcl-avg-005;Expected XPathException with code FORG0006, but got Cannot turn PT0S into a XsDayTimeDuration
-cbcl-avg-006;Cannot turn P0M into a XsYearMonthDuration
-cbcl-avg-007;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
+cbcl-avg-004;Items passed to fn:avg are not all numeric.
+cbcl-avg-006;Items passed to fn:avg are not all numeric.
 cbcl-avg-008;PRSC Error: Failed to parse query 'typeswitch (fn:avg((xs:float(1), xs:double(2), xs:float(3)))) case $x as xs:double return $x default return "FAIL"'
 cbcl-avg-010;Expected executing the XPath "avg((xs:double("NaN"), current-date() - xs:date("1997-01-01") ))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FORG0006. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
 cbcl-avg-011;The function day-from-date with arity 1 is not registered.
@@ -2701,7 +2665,7 @@ cbcl-divide-dayTimeDuration-by-dayTimeDuration-003;Expected executing the XPath 
 cbcl-divide-yearMonthDuration-001;Expected error code: FODT0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        local:yearMonthDuration(2) div 0'
 cbcl-divide-yearMonthDuration-002;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        local:yearMonthDuration(2) div 1'
 cbcl-divide-yearMonthDuration-003;Expected error code: FODT0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        local:yearMonthDuration(768614336404564650) div 0.5'
-cbcl-divide-yearMonthDuration-by-yearMonthDuration-001;Expected XPathException with code FOAR0001, but got Cannot turn P0M into a XsYearMonthDuration
+cbcl-divide-yearMonthDuration-by-yearMonthDuration-001;Expected error code: FOAR0001. Found error code: XPTY0004 with error message: DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
 cbcl-duration-equal-001;PRSC Error: Failed to parse query 'declare function local:duration($days as xs:integer, $hours as xs:integer) { xs:duration(concat('P', $days, 'DT', $hours, 'H')) }; not(local:duration(1, 1) eq xs:dayTimeDuration("P0D"))'
 cbcl-duration-equal-002;PRSC Error: Failed to parse query 'declare function local:duration($days as xs:integer, $hours as xs:integer) { xs:duration(concat('P', $days, 'DT', $hours, 'H')) }; not(local:duration(1, 1) ne xs:dayTimeDuration("P0D"))'
 cbcl-duration-equal-003;PRSC Error: Failed to parse query 'declare function local:duration($duration as xs:duration, $null as xs:boolean) { if ($null) then () else $duration }; exists(local:duration(xs:duration("P1DT1H"), fn:true()) eq xs:duration("P1DT1H"))'
@@ -3082,10 +3046,10 @@ cbcl-multiply-dayTimeDuration-005;PRSC Error: Failed to parse query 'declare fun
 cbcl-multiply-dayTimeDuration-006;Expected error code: FOCA0005. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:dayTimeDuration($days as xs:integer) as xs:dayTimeDuration { xs:dayTimeDuration(concat("P", $days, "D")) }; xs:double("NaN") * local:dayTimeDuration(2)'
 cbcl-multiply-yearMonthDuration-001;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        local:yearMonthDuration(2) * 0'
 cbcl-multiply-yearMonthDuration-002;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        local:yearMonthDuration(2) * 1'
-cbcl-multiply-yearMonthDuration-003;Expected XPathException with code FOCA0005, but got Cannot turn P0M into a XsYearMonthDuration
+cbcl-multiply-yearMonthDuration-003;Expected error code: FOCA0005. Found error code: XPTY0004 with error message: MultiplyOp not available for types XsYearMonthDuration and XsDouble
 cbcl-multiply-yearMonthDuration-004;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        0 * local:yearMonthDuration(2)'
 cbcl-multiply-yearMonthDuration-005;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer) as xs:yearMonthDuration { xs:yearMonthDuration(concat("P", $years, "Y")) };\n        1 * local:yearMonthDuration(2)'
-cbcl-multiply-yearMonthDuration-006;Expected XPathException with code FOCA0005, but got Cannot turn P0M into a XsYearMonthDuration
+cbcl-multiply-yearMonthDuration-006;Expected error code: FOCA0005. Found error code: XPTY0004 with error message: MultiplyOp not available for types XsDouble and XsYearMonthDuration
 cbcl-node-after-001;PRSC Error: Failed to parse query ''
 cbcl-node-after-002;PRSC Error: Failed to parse query ''
 cbcl-node-before-001;PRSC Error: Failed to parse query ''
@@ -4720,15 +4684,12 @@ fn-absusht1args-1;SingletonSequence.Map not implemented
 fn-absusht1args-2;SingletonSequence.Map not implemented
 fn-absusht1args-3;SingletonSequence.Map not implemented
 fn-avg-10;PRSC Error: Failed to parse query 'avg([1,2,3,4,5]) = 3'
-fn-avg-3;Cannot turn PT into a XsDayTimeDuration
+fn-avg-3;Items passed to fn:avg are not all numeric.
 fn-avg-4;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-avg-5;Cannot turn P0M into a XsYearMonthDuration
+fn-avg-5;Items passed to fn:avg are not all numeric.
 fn-avg-6;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-avg-7;Expected executing the XPath "avg((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
-fn-avg-8;Expected executing the XPath "avg(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn PT into a XsDuration
-fn-avg-9;Expected executing the XPath "avg(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn PT into a XsDuration
 fn-avg-mix-args-001;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-fn-avg-mix-args-002;Cannot turn P0M into a XsYearMonthDuration
+fn-avg-mix-args-002;Items passed to fn:avg are not all numeric.
 fn-avg-mix-args-004;Value was either too large or too small for an Int32.
 fn-avg-mix-args-005;Value was either too large or too small for an Int32.
 fn-avg-mix-args-006;HandleNumericOperator: Different numeric types: XsDouble and XsInt
@@ -4753,7 +4714,6 @@ fn-avg-mix-args-024;Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-025;Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-026;Expected XPath fn:avg(( (xs:double("1.34"), xs:float("INF")))) to resolve to INF
 fn-avg-mix-args-027;Expected XPath fn:avg(( (xs:double("INF"), 2, 3))) to resolve to INF
-fn-avg-mix-args-028;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
 fn-avg-mix-args-034;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
 fn-avg-mix-args-036;Expected XPathException with code FORG0006, but got Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-037;Expected XPathException with code FORG0006, but got Can't parse 830993497117024304 into an int.
@@ -6841,12 +6801,12 @@ fn-max-18;Atomic Value for XsToken is not implemented yet.
 fn-max-19;PRSC Error: Failed to parse query 'max([1,2,3,4,5]) = 5'
 fn-max-2;PRSC Error: Failed to parse query 'fn:max((xs:integer(5000000000),xs:double(3e0))) = 5.0E9'
 fn-max-3;Atomic Value for XsLong is not implemented yet.
-fn-max-4;Cannot turn PT into a XsDayTimeDuration
+fn-max-4;Casting AbstractValue(XsDayTimeDuration) to DoubleValue
 fn-max-5;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-max-6;Cannot turn P0M into a XsYearMonthDuration
+fn-max-6;Casting AbstractValue(XsYearMonthDuration) to DoubleValue
 fn-max-7;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-max-8;Expected executing the XPath "max((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
-fn-max-9;Expected executing the XPath "max(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn PT into a XsDuration
+fn-max-8;Expected executing the XPath "max((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Casting AbstractValue(XsYearMonthDuration) to DoubleValue
+fn-max-9;Expected executing the XPath "max(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Casting AbstractValue(XsDuration) to DoubleValue
 fn-maxdbl1args-1;PRSC Error: Failed to parse query 'fn:max((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
 fn-maxdbl1args-2;Casting AbstractValue(XsDouble) to FloatValue
 fn-maxdbl1args-3;PRSC Error: Failed to parse query 'fn:max((xs:double("1.7976931348623157E308"))) = 1.7976931348623157E308'
@@ -6964,12 +6924,12 @@ fn-min-18;Atomic Value for XsToken is not implemented yet.
 fn-min-19;PRSC Error: Failed to parse query 'min([1,2,3,4,5]) = 1'
 fn-min-2;PRSC Error: Failed to parse query 'fn:min((xs:integer(5000000),xs:double(3e8))) = 5.0E6'
 fn-min-3;Atomic Value for XsLong is not implemented yet.
-fn-min-4;Cannot turn PT into a XsDayTimeDuration
+fn-min-4;Casting AbstractValue(XsDayTimeDuration) to DoubleValue
 fn-min-5;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-min-6;Cannot turn P0M into a XsYearMonthDuration
+fn-min-6;Casting AbstractValue(XsYearMonthDuration) to DoubleValue
 fn-min-7;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-min-8;Expected executing the XPath "min((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
-fn-min-9;Expected executing the XPath "min(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Cannot turn PT into a XsDuration
+fn-min-8;Expected executing the XPath "min((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Casting AbstractValue(XsYearMonthDuration) to DoubleValue
+fn-min-9;Expected executing the XPath "min(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Casting AbstractValue(XsDuration) to DoubleValue
 fn-mindbl1args-1;PRSC Error: Failed to parse query 'fn:min((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
 fn-mindbl1args-2;Casting AbstractValue(XsDouble) to FloatValue
 fn-mindbl1args-3;PRSC Error: Failed to parse query 'fn:min((xs:double("1.7976931348623157E308"))) = 1.7976931348623157E308'
@@ -7995,7 +7955,7 @@ fn-string-38;Expected error code: FOTY0014. Found error code: XPST0003 with erro
 fn-string-4;Value was either too large or too small for an Int32.
 fn-string-5;Type casting to XsTime has not been implemented yet.
 fn-string-6;The function dateTime with arity 2 is not registered.
-fn-string-7;Cannot turn PT into a XsDuration
+fn-string-7;SingletonSequence.Map not implemented
 fn-string-8;SingletonSequence.Map not implemented
 fn-string-9;Value was either too large or too small for an Int32.
 fn-string-join-10;Can't parse <Value>[type: XsInt, value: 1] into an int.
@@ -8773,7 +8733,7 @@ fo-test-fn-analyze-string-002;The function fn:analyze-string with arity 2 is not
 fo-test-fn-analyze-string-003;The function fn:analyze-string with arity 2 is not registered.
 fo-test-fn-apply-001;PRSC Error: Failed to parse query 'deep-equal((\n        fn:apply(fn:concat#3, ["a", "b", "c"])\n      ), ("abc"))'
 fo-test-fn-avg-001;Can't parse 4.0 into an int.
-fo-test-fn-avg-002;Cannot turn P0M into a XsYearMonthDuration
+fo-test-fn-avg-002;Items passed to fn:avg are not all numeric.
 fo-test-fn-avg-004;Value was either too large or too small for an Int32.
 fo-test-fn-avg-005;Value was either too large or too small for an Int32.
 fo-test-fn-boolean-001;A wrong argument type was specified in a function call.
@@ -9282,7 +9242,7 @@ FOAR0001_5;Expected XPathException with code FOAR0001, but got Can't parse 1.0 i
 FOAR0001_6;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
 FOAR0001_7;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
 FOAR0001_8;Expected XPathException with code FOAR0001, but got Can't parse 1.0 into an int.
-FOAR0001_9;Expected XPathException with code FOAR0001, but got Cannot turn P0M into a XsYearMonthDuration
+FOAR0001_9;Expected error code: FOAR0001. Found error code: XPTY0004 with error message: DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
 FOAR0002_1;Expected executing the XPath "2e308" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOAR0002. Query succeeded with result: ∞
 FOAR0002_3;Expected XPathException with code FOAR0002, but got Attempted to divide by zero.
 FOAR0002-5;Expected executing the XPath "xs:dayTimeDuration('P5999999999999999999DT00H00M01S') div
@@ -9296,10 +9256,10 @@ FOCA0002_7;Expected error code: FOCA0002. Found error code: XPST0003 with error 
 FOCA0002_8;Expected error code: FOCA0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 FOCA0002_9;Expected error code: FOCA0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 FOCA0003_1;Expected executing the XPath "xs:integer(xs:double(1e308))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0003, but got Value was either too large or too small for an Int32.
-FOCA0005_1;Expected XPathException with code FOCA0005, but got Cannot turn PT0S into a XsDayTimeDuration
-FOCA0005_2;Expected XPathException with code FOCA0005, but got Cannot turn PT0S into a XsDayTimeDuration
-FOCA0005_3;Expected XPathException with code FOCA0005, but got Cannot turn PT0S into a XsDayTimeDuration
-FOCA0005_4;Expected XPathException with code FOCA0005, but got Cannot turn PT0S into a XsDayTimeDuration
+FOCA0005_1;Expected error code: FOCA0005. Found error code: XPTY0004 with error message: DivOp not available for types XsDayTimeDuration and XsDouble
+FOCA0005_2;Expected error code: FOCA0005. Found error code: XPTY0004 with error message: MultiplyOp not available for types XsDayTimeDuration and XsDouble
+FOCA0005_3;Expected error code: FOCA0005. Found error code: XPTY0004 with error message: DivOp not available for types XsDayTimeDuration and XsDouble
+FOCA0005_4;Expected error code: FOCA0005. Found error code: XPTY0004 with error message: MultiplyOp not available for types XsDayTimeDuration and XsDouble
 FOCH0001;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
 FOCH0002_10;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-before with arity 3 is not registered.
 FOCH0002_3;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function distinct-values with arity 2 is not registered.
@@ -9487,7 +9447,7 @@ ForExprType027;PRSC Error: Failed to parse query 'import schema default element 
 ForExprType028;Atomic Value for XsByte is not implemented yet.
 ForExprType029;Atomic Value for XsNonPositiveInteger is not implemented yet.
 ForExprType030;Atomic Value for XsLanguage is not implemented yet.
-ForExprType031;Cannot turn PT into a XsDuration
+ForExprType031;Type casting to XsTime has not been implemented yet.
 ForExprType032;Type casting to XsBase64Binary has not been implemented yet.
 ForExprType033;Atomic Value for XsUnsignedByte is not implemented yet.
 ForExprType034;Can't parse 0.3 into an int.
@@ -9535,9 +9495,8 @@ FORG0002;Expected error code: FORG0002. Found error code: XPST0003 with error me
 FORG0004;Expected error code: FORG0004. Found error code: XPST0017 with error message: The function one-or-more with arity 1 is not registered.
 FORG0005;Expected error code: FORG0005. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
 FORG0006_01;Expected executing the XPath "fn:boolean( xs:date('2007-01-01') )" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got FORG0006
-FORG0006_02;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
-FORG0006_03;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
-FORG0006_04;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
+FORG0006_03;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsYearMonthDuration) to DoubleValue
+FORG0006_04;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsYearMonthDuration) to DoubleValue
 FORG0006_05;Expected error code: FORG0006. Found error code: XPST0017 with error message: The function fn:sum with arity 1 is not registered.
 forg0008-1;Expected error code: FORG0008. Found error code: XPST0017 with error message: The function fn:dateTime with arity 2 is not registered.
 FORG0008;Expected error code: FORG0008. Found error code: XPST0017 with error message: The function dateTime with arity 2 is not registered.
@@ -10228,10 +10187,10 @@ functx-fn-adjust-time-to-timezone-4;The function adjust-time-to-timezone with ar
 functx-fn-adjust-time-to-timezone-all;The function adjust-time-to-timezone with arity 2 is not registered.
 functx-fn-avg-1;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 functx-fn-avg-2;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-functx-fn-avg-3;Cannot turn P0M into a XsYearMonthDuration
+functx-fn-avg-3;Items passed to fn:avg are not all numeric.
 functx-fn-avg-4;Items passed to fn:avg are not all numeric.
 functx-fn-avg-5;Expected XPath let $ordDoc := (/) return (avg( () )) to resolve to 
-functx-fn-avg-all;Cannot turn P0M into a XsYearMonthDuration
+functx-fn-avg-all;Can't parse 1.1666666666666667 into an int.
 functx-fn-base-uri-1;The function base-uri with arity 1 is not registered.
 functx-fn-base-uri-2;The function base-uri with arity 1 is not registered.
 functx-fn-base-uri-3;The function base-uri with arity 1 is not registered.
@@ -11237,9 +11196,7 @@ GenCompEq-23;PRSC Error: Failed to parse query '\n        declare variable $p ex
 GenCompEq-26;PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) = myType:integer-or-nothing(5)'
 GenCompEq-27;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) = myType:integer-or-nothing("")'
 GenCompEq-3;Input string was not in a correct format.
-GenCompEq-4;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
-GenCompEq-5;Cannot turn P0M into a XsYearMonthDuration
-GenCompEq-6;Expected XPathException with code FORG0001, but got Cannot turn P0M into a XsYearMonthDuration
+GenCompEq-5;Cannot cast <Value>[type: XsString, value: <Value>[type: XsString, value: P1999Y10M]] to xs:yearMonthDuration
 GenCompEq-7;PRSC Error: Failed to parse query '[3, 4, 5] = 4'
 GenCompEq-8;PRSC Error: Failed to parse query '[[3, 4], 5] = [4, [5, 6]]'
 GenCompEq-9;PRSC Error: Failed to parse query '[3, 4, 5] = []'
@@ -12252,7 +12209,6 @@ K-DateTimeLT-4;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
 K-DateTimeLT-5;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
 K-DateTimeLT-6;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
 K-dateTimesSubtract-1;The string '1999-07-19T08:23:12,765' is not a valid AllXsd value.
-K-dateTimesSubtract-6;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
 K-DayFromDateFunc-3;The function day-from-date with arity 1 is not registered.
 K-DayFromDateFunc-4;The function day-from-date with arity 1 is not registered.
 K-DayFromDateFunc-5;The function day-from-date with arity 1 is not registered.
@@ -12265,32 +12221,22 @@ K-DaysFromDurationFunc-5;The function days-from-duration with arity 1 is not reg
 K-DaysFromDurationFunc-6;The function days-from-duration with arity 1 is not registered.
 K-DaysFromDurationFunc-7;The function days-from-duration with arity 1 is not registered.
 K-DayTimeDurationAdd-1;Input string was not in a correct format.
-K-DayTimeDurationAdd-2;Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationAdd-2;Input string was not in a correct format.
 K-DayTimeDurationAdd-3;Input string was not in a correct format.
 K-DayTimeDurationDivide-1;Input string was not in a correct format.
-K-DayTimeDurationDivide-10;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
-K-DayTimeDurationDivide-11;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
-K-DayTimeDurationDivide-12;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DayTimeDurationDivide-13;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
-K-DayTimeDurationDivide-14;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DayTimeDurationDivide-15;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
-K-DayTimeDurationDivide-16;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
-K-DayTimeDurationDivide-2;Cannot turn PT into a XsDayTimeDuration
-K-DayTimeDurationDivide-3;Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationDivide-2;DivOp not available for types XsDayTimeDuration and XsDouble
+K-DayTimeDurationDivide-3;DivOp not available for types XsDayTimeDuration and XsDouble
 K-DayTimeDurationDivide-4;Expected XPathException with code FODT0002, but got Input string was not in a correct format.
 K-DayTimeDurationDivide-5;Expected XPathException with code FOCA0005, but got Input string was not in a correct format.
-K-DayTimeDurationDivide-6;Expected XPathException with code FODT0002, but got Cannot turn PT into a XsDayTimeDuration
-K-DayTimeDurationDivide-7;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
-K-DayTimeDurationDivide-8;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
-K-DayTimeDurationDivide-9;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DayTimeDurationDivideDTD-1;Cannot turn P into a XsDayTimeDuration
+K-DayTimeDurationDivide-6;Expected error code: FODT0002. Found error code: XPTY0004 with error message: DivOp not available for types XsDayTimeDuration and XsDouble
+K-DayTimeDurationDivideDTD-1;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
 K-DayTimeDurationEQ-1;Input string was not in a correct format.
-K-DayTimeDurationEQ-2;Cannot turn PT into a XsDayTimeDuration
+K-DayTimeDurationEQ-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
 K-DayTimeDurationEQ-3;Input string was not in a correct format.
 K-DayTimeDurationEQ-4;Input string was not in a correct format.
 K-DayTimeDurationEQ-5;Input string was not in a correct format.
-K-DayTimeDurationEQ-6;Cannot turn PT into a XsDayTimeDuration
-K-DayTimeDurationEQ-7;Cannot turn -PT0S into a XsDayTimeDuration
+K-DayTimeDurationEQ-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+K-DayTimeDurationEQ-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
 K-DayTimeDurationEQ-8;Input string was not in a correct format.
 K-DayTimeDurationGT-1;Input string was not in a correct format.
 K-DayTimeDurationGT-2;Input string was not in a correct format.
@@ -12315,43 +12261,37 @@ K-DayTimeDurationMultiply-7;Expected XPathException with code FODT0002, but got 
 K-DayTimeDurationMultiply-8;Expected XPathException with code FODT0002, but got Input string was not in a correct format.
 K-DayTimeDurationMultiply-9;Expected XPathException with code FOCA0005, but got Input string was not in a correct format.
 K-DayTimeDurationSubtract-1;Input string was not in a correct format.
-K-DayTimeDurationSubtract-2;Cannot turn PT into a XsDayTimeDuration
-K-DayTimeDurationSubtract-3;Cannot turn PT into a XsDayTimeDuration
-K-DayTimeDurationSubtract-4;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
-K-DayTimeDurationSubtract-5;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DayTimeDurationSubtract-6;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
-K-DayTimeDurationSubtract-7;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DayTimeDurationSubtract-8;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
-K-DayTimeDurationSubtract-9;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
+K-DayTimeDurationSubtract-2;Input string was not in a correct format.
+K-DayTimeDurationSubtract-3;Input string was not in a correct format.
 K-DefaultOrderingProlog-1;PRSC Error: Failed to parse query 'declare(::)ordering ordered; 1 eq 1'
 K-DefaultOrderingProlog-2;PRSC Error: Failed to parse query 'declare(::)ordering unordered; 1 eq 1'
 K-DefaultOrderingProlog-3;Expected error code: XQST0065. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare(::)ordering unordered; declare(::)ordering ordered; 1 eq 1'
 K-DurationEQ-1;Input string was not in a correct format.
-K-DurationEQ-10;Cannot turn -PT0S into a XsDuration
+K-DurationEQ-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
 K-DurationEQ-11;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-12;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-13;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-14;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
-K-DurationEQ-15;Cannot turn PT into a XsDuration
-K-DurationEQ-16;Cannot turn PT into a XsDayTimeDuration
-K-DurationEQ-17;Cannot turn P into a XsYearMonthDuration
-K-DurationEQ-18;Cannot turn PT into a XsDuration
-K-DurationEQ-19;Cannot turn P into a XsYearMonthDuration
-K-DurationEQ-2;Cannot turn PT into a XsDuration
-K-DurationEQ-20;Cannot turn PT into a XsDayTimeDuration
-K-DurationEQ-21;Cannot turn P into a XsDuration
-K-DurationEQ-22;Cannot turn PT0S into a XsDayTimeDuration
-K-DurationEQ-23;Cannot turn PT0S into a XsDuration
-K-DurationEQ-24;Cannot turn PT0S into a XsDayTimeDuration
-K-DurationEQ-25;Cannot turn P into a XsYearMonthDuration
-K-DurationEQ-26;Cannot turn PT into a XsDayTimeDuration
-K-DurationEQ-27;Cannot turn P0M into a XsYearMonthDuration
-K-DurationEQ-28;Cannot turn PT into a XsDuration
-K-DurationEQ-29;Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-15;HandleNumericOperator: Different numeric types: XsDuration and XsDayTimeDuration
+K-DurationEQ-16;HandleNumericOperator: Different numeric types: XsDayTimeDuration and XsDuration
+K-DurationEQ-17;HandleNumericOperator: Different numeric types: XsYearMonthDuration and XsDuration
+K-DurationEQ-18;HandleNumericOperator: Different numeric types: XsDuration and XsYearMonthDuration
+K-DurationEQ-19;HandleNumericOperator: Different numeric types: XsYearMonthDuration and XsDayTimeDuration
+K-DurationEQ-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+K-DurationEQ-20;HandleNumericOperator: Different numeric types: XsDayTimeDuration and XsYearMonthDuration
+K-DurationEQ-21;HandleNumericOperator: Different numeric types: XsDuration and XsDayTimeDuration
+K-DurationEQ-22;HandleNumericOperator: Different numeric types: XsDayTimeDuration and XsDuration
+K-DurationEQ-23;HandleNumericOperator: Different numeric types: XsDuration and XsDayTimeDuration
+K-DurationEQ-24;HandleNumericOperator: Different numeric types: XsDayTimeDuration and XsDuration
+K-DurationEQ-25;HandleNumericOperator: Different numeric types: XsYearMonthDuration and XsDayTimeDuration
+K-DurationEQ-26;HandleNumericOperator: Different numeric types: XsDayTimeDuration and XsYearMonthDuration
+K-DurationEQ-27;HandleNumericOperator: Different numeric types: XsYearMonthDuration and XsDuration
+K-DurationEQ-28;HandleNumericOperator: Different numeric types: XsDuration and XsYearMonthDuration
+K-DurationEQ-29;HandleNumericOperator: Different numeric types: XsYearMonthDuration and XsDuration
 K-DurationEQ-3;Input string was not in a correct format.
-K-DurationEQ-30;Cannot turn PT into a XsDuration
-K-DurationEQ-31;Cannot turn P0M into a XsYearMonthDuration
-K-DurationEQ-32;Cannot turn PT into a XsDayTimeDuration
+K-DurationEQ-30;HandleNumericOperator: Different numeric types: XsDuration and XsYearMonthDuration
+K-DurationEQ-31;HandleNumericOperator: Different numeric types: XsYearMonthDuration and XsDayTimeDuration
+K-DurationEQ-32;HandleNumericOperator: Different numeric types: XsDayTimeDuration and XsYearMonthDuration
 K-DurationEQ-33;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-34;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-35;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
@@ -12361,31 +12301,31 @@ K-DurationEQ-38;Expected XPathException with code XPTY0004, but got Input string
 K-DurationEQ-39;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-4;Input string was not in a correct format.
 K-DurationEQ-40;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
-K-DurationEQ-41;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DurationEQ-42;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DurationEQ-43;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DurationEQ-44;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-41;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-42;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-43;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-44;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-45;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-46;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-47;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-48;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
-K-DurationEQ-49;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-49;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-5;Input string was not in a correct format.
-K-DurationEQ-50;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DurationEQ-51;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DurationEQ-52;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DurationEQ-53;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DurationEQ-54;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DurationEQ-55;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-DurationEQ-56;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-DurationEQ-50;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-51;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-52;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-53;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-54;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-55;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-DurationEQ-56;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-57;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-58;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-DurationEQ-59;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
-K-DurationEQ-6;Cannot turn PT into a XsDuration
+K-DurationEQ-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
 K-DurationEQ-60;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
-K-DurationEQ-7;Cannot turn PT into a XsDuration
-K-DurationEQ-8;Cannot turn PT into a XsDuration
-K-DurationEQ-9;Cannot turn PT into a XsDuration
+K-DurationEQ-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+K-DurationEQ-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+K-DurationEQ-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
 K-EmptyOrderProlog-1;PRSC Error: Failed to parse query 'declare(::)default order empty(::)greatest; 1 eq 1'
 K-EmptyOrderProlog-2;PRSC Error: Failed to parse query 'declare(::)default order empty(::)least; 1 eq 1'
 K-EmptyOrderProlog-3;Expected error code: XQST0069. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare(::)default order empty(::)greatest; declare(::)default order empty(::)least; 1 eq 1'
@@ -13310,8 +13250,7 @@ K-SeqAVGFunc-32;Expected XPathException with code FORG0006, but got Type casting
 K-SeqAVGFunc-33;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqAVGFunc-35;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsInt, value: 3] into an int.
 K-SeqAVGFunc-36;Expected XPathException with code FORG0006, but got Can't parse <Value>[type: XsInt, value: 1] into an int.
-K-SeqAVGFunc-38;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
-K-SeqAVGFunc-39;Cannot turn P0M into a XsYearMonthDuration
+K-SeqAVGFunc-39;Items passed to fn:avg are not all numeric.
 K-SeqAVGFunc-4;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 K-SeqAVGFunc-41;Value was either too large or too small for an Int32.
 K-SeqAVGFunc-42;Value was either too large or too small for an Int32.
@@ -13803,6 +13742,7 @@ K-SeqExprCast-1464;PRSC Error: Failed to parse query 'not(xs:QName("ncname") cas
 K-SeqExprCast-1465;PRSC Error: Failed to parse query 'xs:QName("ncname") castable as xs:QName'
 K-SeqExprCast-1466;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:QName("ncname") castable as xs:NOTATION)'
 K-SeqExprCast-1469;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:untypedAtomic)'
+K-SeqExprCast-147;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
 K-SeqExprCast-1470;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:string)'
 K-SeqExprCast-1471;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:float)'
 K-SeqExprCast-1472;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:double)'
@@ -13813,6 +13753,7 @@ K-SeqExprCast-1476;Expected error code: XPST0017. Found error code: XPST0003 wit
 K-SeqExprCast-1477;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:dayTimeDuration)'
 K-SeqExprCast-1478;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:dateTime)'
 K-SeqExprCast-1479;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:time)'
+K-SeqExprCast-148;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
 K-SeqExprCast-1480;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:date)'
 K-SeqExprCast-1481;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:gYearMonth)'
 K-SeqExprCast-1482;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:gYear)'
@@ -13823,57 +13764,59 @@ K-SeqExprCast-1486;Expected error code: XPST0017. Found error code: XPST0003 wit
 K-SeqExprCast-1487;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:base64Binary)'
 K-SeqExprCast-1488;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:hexBinary)'
 K-SeqExprCast-1489;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:anyURI)'
+K-SeqExprCast-149;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
 K-SeqExprCast-1490;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:QName)'
 K-SeqExprCast-1491;Expected executing the XPath "not(xs:NOTATION("prefix:local") castable as xs:NOTATION)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:NOTATION)'
-K-SeqExprCast-150;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDuration
-K-SeqExprCast-151;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDuration
-K-SeqExprCast-152;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDuration
-K-SeqExprCast-154;Cannot turn PT0S into a XsDuration
-K-SeqExprCast-155;Cannot turn -P into a XsDuration
+K-SeqExprCast-150;Expected error code: FORG0001. Query succeeded with result: PT
+K-SeqExprCast-151;Expected error code: FORG0001. Query succeeded with result: PT
+K-SeqExprCast-152;Expected error code: FORG0001. Query succeeded with result: PT
+K-SeqExprCast-153;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
+K-SeqExprCast-154;Expected XPath xs:string(xs:duration("P0010Y0010M0010DT0010H0010M0010S")) eq "P10Y10M10DT10H10M10S" to resolve to true
+K-SeqExprCast-155;Expected XPath xs:string(xs:duration("-P0010DT0010H0010M0010S")) eq "-P10DT10H10M10S" to resolve to true
 K-SeqExprCast-156;Input string was not in a correct format.
-K-SeqExprCast-157;Cannot turn -P into a XsDuration
+K-SeqExprCast-157;Expected XPath xs:string(xs:duration("-PT8H23M0S")) eq "-PT8H23M" to resolve to true
 K-SeqExprCast-158;Input string was not in a correct format.
-K-SeqExprCast-159;Cannot turn PT into a XsDuration
-K-SeqExprCast-160;Cannot turn PT into a XsDuration
-K-SeqExprCast-161;Cannot turn PT into a XsDuration
-K-SeqExprCast-162;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-159;Expected XPath xs:string(xs:duration("P365D")) eq "P365D" to resolve to true
+K-SeqExprCast-160;Expected XPath xs:string(xs:duration("P12M")) eq "P1Y" to resolve to true
+K-SeqExprCast-161;Expected XPath xs:string(xs:duration("P31D")) eq "P31D" to resolve to true
+K-SeqExprCast-162;Expected XPath xs:string(xs:yearMonthDuration("P3Y0M")) eq "P3Y" to resolve to true
 K-SeqExprCast-163;Input string was not in a correct format.
-K-SeqExprCast-164;Cannot turn PT into a XsDuration
+K-SeqExprCast-164;Expected XPath xs:string(xs:duration("-PT0S")) eq "PT0S" to resolve to true
 K-SeqExprCast-165;Input string was not in a correct format.
-K-SeqExprCast-166;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-166;Expected XPath xs:string(xs:duration(xs:yearMonthDuration("P543Y456M"))) eq "P581Y" to resolve to true
 K-SeqExprCast-167;Input string was not in a correct format.
-K-SeqExprCast-168;Cannot turn -P0M into a XsYearMonthDuration
-K-SeqExprCast-172;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
-K-SeqExprCast-173;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
-K-SeqExprCast-174;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
+K-SeqExprCast-168;Expected XPath xs:string(xs:duration(xs:yearMonthDuration("-P543Y456M"))) eq "-P581Y" to resolve to true
+K-SeqExprCast-172;Expected error code: FORG0001. Query succeeded with result: PT
+K-SeqExprCast-173;Expected error code: FORG0001. Query succeeded with result: PT
+K-SeqExprCast-174;Expected error code: FORG0001. Query succeeded with result: PT
 K-SeqExprCast-175;Input string was not in a correct format.
-K-SeqExprCast-176;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
-K-SeqExprCast-177;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDayTimeDuration
-K-SeqExprCast-179;Cannot turn PT0S into a XsDayTimeDuration
-K-SeqExprCast-180;Cannot turn -PT0S into a XsDayTimeDuration
-K-SeqExprCast-181;Cannot turn -P into a XsDayTimeDuration
+K-SeqExprCast-176;Expected error code: FORG0001. Query succeeded with result: PT
+K-SeqExprCast-177;Expected error code: FORG0001. Query succeeded with result: PT
+K-SeqExprCast-179;Expected XPath xs:string(xs:dayTimeDuration("P0010DT0010H0010M0010S")) eq "P10DT10H10M10S" to resolve to true
+K-SeqExprCast-180;Expected XPath xs:string(xs:dayTimeDuration("-P0010DT0010H0010M0010S")) eq "-P10DT10H10M10S" to resolve to true
+K-SeqExprCast-181;Expected XPath xs:string(xs:dayTimeDuration("-PT8H23M0S")) eq "-PT8H23M" to resolve to true
 K-SeqExprCast-182;Input string was not in a correct format.
-K-SeqExprCast-183;Cannot turn PT0S into a XsDayTimeDuration
-K-SeqExprCast-184;Cannot turn PT0S into a XsDayTimeDuration
-K-SeqExprCast-185;Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-183;Expected XPath xs:string(xs:dayTimeDuration("P9876DT1M")) eq "P9876DT1M" to resolve to true
+K-SeqExprCast-184;Expected XPath xs:string(xs:dayTimeDuration("PT9876H1M")) eq "P411DT12H1M" to resolve to true
+K-SeqExprCast-185;Expected XPath xs:string(xs:dayTimeDuration("PT6000M")) eq "P4DT4H" to resolve to true
 K-SeqExprCast-186;Input string was not in a correct format.
 K-SeqExprCast-187;Input string was not in a correct format.
-K-SeqExprCast-188;Cannot turn PT into a XsDayTimeDuration
+K-SeqExprCast-188;Expected XPath xs:string(xs:dayTimeDuration("-PT0S")) eq "PT0S" to resolve to true
 K-SeqExprCast-189;Input string was not in a correct format.
-K-SeqExprCast-190;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-190;Input string was not in a correct format.
 K-SeqExprCast-191;Input string was not in a correct format.
-K-SeqExprCast-192;Cannot turn -P0M into a XsYearMonthDuration
-K-SeqExprCast-193;Cannot turn PT into a XsDayTimeDuration
-K-SeqExprCast-197;Expected XPathException with code FORG0001, but got Cannot turn P into a XsYearMonthDuration
-K-SeqExprCast-198;Expected XPathException with code FORG0001, but got Cannot turn P into a XsYearMonthDuration
-K-SeqExprCast-199;Expected XPathException with code FORG0001, but got Cannot turn P0M into a XsYearMonthDuration
-K-SeqExprCast-200;Expected XPathException with code FORG0001, but got Cannot turn P into a XsYearMonthDuration
-K-SeqExprCast-202;Cannot turn P0M into a XsYearMonthDuration
-K-SeqExprCast-203;Cannot turn -P0M into a XsYearMonthDuration
-K-SeqExprCast-204;Cannot turn P into a XsYearMonthDuration
-K-SeqExprCast-205;Cannot turn P0M into a XsYearMonthDuration
-K-SeqExprCast-206;Cannot turn -P0M into a XsYearMonthDuration
-K-SeqExprCast-207;Cannot turn P into a XsYearMonthDuration
+K-SeqExprCast-192;Input string was not in a correct format.
+K-SeqExprCast-193;Expected XPath xs:string(xs:dayTimeDuration("P3D")) eq "P3D" to resolve to true
+K-SeqExprCast-197;Expected error code: FORG0001. Query succeeded with result: P
+K-SeqExprCast-198;Expected error code: FORG0001. Query succeeded with result: P
+K-SeqExprCast-199;Expected error code: FORG0001. Query succeeded with result: P
+K-SeqExprCast-200;Expected error code: FORG0001. Query succeeded with result: P
+K-SeqExprCast-202;Expected XPath xs:string(xs:yearMonthDuration("P0010Y0010M")) eq "P10Y10M" to resolve to true
+K-SeqExprCast-203;Expected XPath xs:string(xs:yearMonthDuration("-P0010Y0010M")) eq "-P10Y10M" to resolve to true
+K-SeqExprCast-204;Expected XPath xs:string(xs:yearMonthDuration("P0Y0M")) eq "P0M" to resolve to true
+K-SeqExprCast-205;Expected XPath xs:string(xs:yearMonthDuration("P2Y323M")) eq "P28Y11M" to resolve to true
+K-SeqExprCast-206;Expected XPath xs:string(xs:yearMonthDuration("-P543Y456M")) eq "-P581Y" to resolve to true
+K-SeqExprCast-207;Expected XPath xs:string(xs:yearMonthDuration("-P0M")) eq "P0M" to resolve to true
 K-SeqExprCast-208;Input string was not in a correct format.
 K-SeqExprCast-209;Input string was not in a correct format.
 K-SeqExprCast-21;Can't parse <Value>[type: XsInt, value: 1] into an int.
@@ -14244,162 +14187,124 @@ K-SeqExprCast-634;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-635;PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:QName)'
 K-SeqExprCast-636;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:NOTATION)'
 K-SeqExprCast-639;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-640;Cannot turn PT0S into a XsDuration
-K-SeqExprCast-642;Can not cast <Value>[type: XsString, value: <Value>[type: XsString, value: P1Y2M3DT10H30M]] to xs:duration
-K-SeqExprCast-643;Expected XPathException with code FORG0006, but got Cannot turn PT0S into a XsDuration
-K-SeqExprCast-644;Cannot turn PT0S into a XsDuration
+K-SeqExprCast-640;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+K-SeqExprCast-641;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
+K-SeqExprCast-642;Object reference not set to an instance of an object.
+K-SeqExprCast-643;Expected XPathException with code FORG0006, but got FORG0006
+K-SeqExprCast-644;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-645;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:untypedAtomic'
-K-SeqExprCast-646;Cannot turn PT0S into a XsDuration
 K-SeqExprCast-647;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:string'
-K-SeqExprCast-648;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-649;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:float)'
-K-SeqExprCast-650;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-651;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:double)'
-K-SeqExprCast-652;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-653;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:decimal)'
-K-SeqExprCast-654;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-655;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:integer)'
-K-SeqExprCast-656;Cannot turn PT0S into a XsDuration
+K-SeqExprCast-656;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
 K-SeqExprCast-657;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:duration'
-K-SeqExprCast-658;Cannot turn PT0S into a XsDuration
+K-SeqExprCast-658;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
 K-SeqExprCast-659;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:yearMonthDuration'
-K-SeqExprCast-660;Cannot turn PT0S into a XsDuration
+K-SeqExprCast-660;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
 K-SeqExprCast-661;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:dayTimeDuration'
-K-SeqExprCast-662;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-663;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:dateTime)'
-K-SeqExprCast-664;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+K-SeqExprCast-664;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-SeqExprCast-665;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:time)'
-K-SeqExprCast-666;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-667;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:date)'
-K-SeqExprCast-668;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-669;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:gYearMonth)'
-K-SeqExprCast-670;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-671;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:gYear)'
-K-SeqExprCast-672;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-673;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:gMonthDay)'
-K-SeqExprCast-674;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-675;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:gDay)'
-K-SeqExprCast-676;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-677;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:gMonth)'
-K-SeqExprCast-678;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
 K-SeqExprCast-679;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:boolean)'
 K-SeqExprCast-68;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
-K-SeqExprCast-680;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+K-SeqExprCast-680;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-681;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:base64Binary)'
-K-SeqExprCast-682;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+K-SeqExprCast-682;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-683;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:hexBinary)'
-K-SeqExprCast-684;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+K-SeqExprCast-684;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-685;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:anyURI)'
-K-SeqExprCast-686;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDuration
+K-SeqExprCast-686;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-687;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:QName)'
 K-SeqExprCast-688;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:NOTATION)'
 K-SeqExprCast-69;Expected executing the XPath ". cast as xs:QName" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-691;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-692;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-692;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
 K-SeqExprCast-694;Cannot cast <Value>[type: XsString, value: <Value>[type: XsString, value: P1Y12M]] to xs:yearMonthDuration
-K-SeqExprCast-695;Expected XPathException with code FORG0006, but got Cannot turn P0M into a XsYearMonthDuration
-K-SeqExprCast-696;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-695;Expected XPathException with code FORG0006, but got FORG0006
+K-SeqExprCast-696;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-697;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:untypedAtomic'
-K-SeqExprCast-698;Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-699;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:string'
 K-SeqExprCast-70;Atomic Value for XsName is not implemented yet.
-K-SeqExprCast-700;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-701;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:float)'
-K-SeqExprCast-702;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-703;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:double)'
-K-SeqExprCast-704;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-705;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:decimal)'
-K-SeqExprCast-706;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-707;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:integer)'
-K-SeqExprCast-708;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-708;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
 K-SeqExprCast-709;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:duration'
-K-SeqExprCast-710;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-710;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
 K-SeqExprCast-711;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:yearMonthDuration'
-K-SeqExprCast-712;Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-712;Input string was not in a correct format.
 K-SeqExprCast-713;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:dayTimeDuration'
-K-SeqExprCast-714;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-715;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:dateTime)'
-K-SeqExprCast-716;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-716;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-SeqExprCast-717;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:time)'
-K-SeqExprCast-718;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-719;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:date)'
 K-SeqExprCast-71a;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-71b;Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-72;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprCast-720;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-721;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gYearMonth)'
-K-SeqExprCast-722;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-723;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gYear)'
-K-SeqExprCast-724;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-725;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gMonthDay)'
-K-SeqExprCast-726;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-727;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gDay)'
-K-SeqExprCast-728;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-729;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gMonth)'
 K-SeqExprCast-73;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprCast-730;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
 K-SeqExprCast-731;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:boolean)'
-K-SeqExprCast-732;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-732;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-733;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:base64Binary)'
-K-SeqExprCast-734;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-734;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-735;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:hexBinary)'
-K-SeqExprCast-736;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-736;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-737;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:anyURI)'
-K-SeqExprCast-738;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
+K-SeqExprCast-738;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-739;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:QName)'
 K-SeqExprCast-74;Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-740;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:NOTATION)'
 K-SeqExprCast-743;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-744;Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-744;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
 K-SeqExprCast-746;Cannot cast <Value>[type: XsString, value: <Value>[type: XsString, value: P3DT2H]] to xs:dayTimeDuration
-K-SeqExprCast-747;Expected XPathException with code FORG0006, but got Cannot turn PT0S into a XsDayTimeDuration
-K-SeqExprCast-748;Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-747;Expected XPathException with code FORG0006, but got FORG0006
+K-SeqExprCast-748;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-749;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:untypedAtomic'
 K-SeqExprCast-75;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-K-SeqExprCast-750;Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-751;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:string'
-K-SeqExprCast-752;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-753;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:float)'
-K-SeqExprCast-754;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-755;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:double)'
-K-SeqExprCast-756;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-757;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:decimal)'
-K-SeqExprCast-758;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-759;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:integer)'
 K-SeqExprCast-76;Can't parse 3.1 into an int.
-K-SeqExprCast-760;Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-760;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
 K-SeqExprCast-761;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:duration'
-K-SeqExprCast-762;Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-762;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
 K-SeqExprCast-763;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:yearMonthDuration'
-K-SeqExprCast-764;Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-764;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
 K-SeqExprCast-765;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:dayTimeDuration'
-K-SeqExprCast-766;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-767;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:dateTime)'
-K-SeqExprCast-768;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-768;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-SeqExprCast-769;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:time)'
-K-SeqExprCast-770;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-771;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:date)'
-K-SeqExprCast-772;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-773;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:gYearMonth)'
-K-SeqExprCast-774;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-775;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:gYear)'
-K-SeqExprCast-776;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-777;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:gMonthDay)'
-K-SeqExprCast-778;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-779;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:gDay)'
 K-SeqExprCast-78;Expected XPath xs:string(xs:double("INF")) eq "INF" to resolve to true
-K-SeqExprCast-780;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-781;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:gMonth)'
-K-SeqExprCast-782;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
 K-SeqExprCast-783;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:boolean)'
-K-SeqExprCast-784;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-784;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-785;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:base64Binary)'
-K-SeqExprCast-786;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-786;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-787;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:hexBinary)'
-K-SeqExprCast-788;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-788;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-789;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:anyURI)'
 K-SeqExprCast-79;Expected XPath xs:string(xs:double("-INF")) eq "-INF" to resolve to true
-K-SeqExprCast-790;Expected XPathException with code XPTY0004, but got Cannot turn PT0S into a XsDayTimeDuration
+K-SeqExprCast-790;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-791;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:QName)'
 K-SeqExprCast-792;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:NOTATION)'
 K-SeqExprCast-795;The function subsequence with arity 3 is not registered.
@@ -14943,8 +14848,7 @@ K-SubstringFunc-8;Atomic Value for XsDecimal is not implemented yet.
 K-SubstringFunc-9;Atomic Value for XsDecimal is not implemented yet.
 K-TimeSubtract-1;Type casting to XsTime has not been implemented yet.
 K-TimeSubtract-2;Type casting to XsTime has not been implemented yet.
-K-TimeSubtract-3;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
-K-TimeSubtract-4;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
+K-TimeSubtract-3;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-TimeSubtract-5;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-TimeSubtract-6;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-TimeSubtract-7;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
@@ -15036,57 +14940,45 @@ K-YearFromDateFunc-5;The function year-from-date with arity 1 is not registered.
 K-YearFromDateTimeFunc-3;The function year-from-dateTime with arity 1 is not registered.
 K-YearFromDateTimeFunc-4;The function year-from-dateTime with arity 1 is not registered.
 K-YearFromDateTimeFunc-5;The function year-from-dateTime with arity 1 is not registered.
-K-YearMonthDurationAdd-1;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationAdd-2;Cannot turn P into a XsYearMonthDuration
-K-YearMonthDurationAdd-3;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationDivide-1;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationDivide-2;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationDivide-3;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationDivide-4;Expected XPathException with code FODT0002, but got Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationDivide-5;Expected XPathException with code FOCA0005, but got Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationDivide-6;Expected XPathException with code FODT0002, but got Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationDivideYMD-1;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationEQ-1;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationEQ-2;Cannot turn P into a XsYearMonthDuration
-K-YearMonthDurationEQ-3;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationEQ-4;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationEQ-5;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationEQ-6;Cannot turn -P0M into a XsYearMonthDuration
-K-YearMonthDurationEQ-7;Cannot turn -P0M into a XsYearMonthDuration
-K-YearMonthDurationGT-1;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationGT-2;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationGT-3;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationGT-4;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationGT-5;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationGT-6;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationLT-1;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationLT-2;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationLT-3;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationLT-4;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationLT-5;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationLT-6;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationMultiply-1;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationMultiply-10;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
-K-YearMonthDurationMultiply-11;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationMultiply-12;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationMultiply-13;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
-K-YearMonthDurationMultiply-2;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationMultiply-3;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationMultiply-4;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationMultiply-5;Expected XPathException with code FODT0002, but got Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationMultiply-6;Expected XPathException with code FODT0002, but got Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationMultiply-7;Expected XPathException with code FOCA0005, but got Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationMultiply-8;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
-K-YearMonthDurationMultiply-9;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
-K-YearMonthDurationSubtract-1;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationSubtract-2;Cannot turn P into a XsYearMonthDuration
-K-YearMonthDurationSubtract-3;Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationSubtract-4;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
-K-YearMonthDurationSubtract-5;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationSubtract-6;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
-K-YearMonthDurationSubtract-7;Expected XPathException with code XPTY0004, but got Cannot turn P0M into a XsYearMonthDuration
-K-YearMonthDurationSubtract-8;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDayTimeDuration
-K-YearMonthDurationSubtract-9;Expected XPathException with code XPTY0004, but got Cannot turn PT into a XsDuration
+K-YearMonthDurationAdd-1;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+K-YearMonthDurationAdd-2;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+K-YearMonthDurationAdd-3;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+K-YearMonthDurationDivide-1;DivOp not available for types XsYearMonthDuration and XsInt
+K-YearMonthDurationDivide-2;DivOp not available for types XsYearMonthDuration and XsDouble
+K-YearMonthDurationDivide-3;DivOp not available for types XsYearMonthDuration and XsDouble
+K-YearMonthDurationDivide-4;Expected error code: FODT0002. Found error code: XPTY0004 with error message: DivOp not available for types XsYearMonthDuration and XsInt
+K-YearMonthDurationDivide-5;Expected error code: FOCA0005. Found error code: XPTY0004 with error message: DivOp not available for types XsYearMonthDuration and XsDouble
+K-YearMonthDurationDivide-6;Expected error code: FODT0002. Found error code: XPTY0004 with error message: DivOp not available for types XsYearMonthDuration and XsDouble
+K-YearMonthDurationDivideYMD-1;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+K-YearMonthDurationEQ-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationEQ-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationEQ-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationEQ-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationEQ-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationEQ-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationEQ-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationGT-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationGT-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationGT-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationGT-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationGT-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationGT-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationLT-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationLT-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationLT-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationLT-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationLT-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationLT-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+K-YearMonthDurationMultiply-1;MultiplyOp not available for types XsYearMonthDuration and XsInt
+K-YearMonthDurationMultiply-2;MultiplyOp not available for types XsInt and XsYearMonthDuration
+K-YearMonthDurationMultiply-3;MultiplyOp not available for types XsInt and XsYearMonthDuration
+K-YearMonthDurationMultiply-4;MultiplyOp not available for types XsYearMonthDuration and XsInt
+K-YearMonthDurationMultiply-5;Expected error code: FODT0002. Found error code: XPTY0004 with error message: MultiplyOp not available for types XsYearMonthDuration and XsDouble
+K-YearMonthDurationMultiply-6;Expected error code: FODT0002. Found error code: XPTY0004 with error message: MultiplyOp not available for types XsYearMonthDuration and XsDouble
+K-YearMonthDurationMultiply-7;Expected error code: FOCA0005. Found error code: XPTY0004 with error message: MultiplyOp not available for types XsYearMonthDuration and XsDouble
+K-YearMonthDurationSubtract-1;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+K-YearMonthDurationSubtract-2;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+K-YearMonthDurationSubtract-3;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
 K-YearsFromDurationFunc-3;The function years-from-duration with arity 1 is not registered.
 K-YearsFromDurationFunc-4;The function years-from-duration with arity 1 is not registered.
 K-YearsFromDurationFunc-5;The function years-from-duration with arity 1 is not registered.
@@ -16932,9 +16824,9 @@ K2-SeqExprCast-499;Expected error code: FORG0001. Found error code: XPST0017 wit
 K2-SeqExprCast-5;Can't parse 9223372036854775807 into an int.
 K2-SeqExprCast-50;Atomic Value for XsPositiveInteger is not implemented yet.
 K2-SeqExprCast-500;Expected error code: FORG0001. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
-K2-SeqExprCast-501;Expected XPathException with code FORG0001, but got Cannot turn PT into a XsDuration
-K2-SeqExprCast-502;Expected XPathException with code FORG0001, but got Cannot turn PT0S into a XsDayTimeDuration
-K2-SeqExprCast-503;Expected XPathException with code FORG0001, but got Cannot turn P0M into a XsYearMonthDuration
+K2-SeqExprCast-501;Expected XPathException with code FORG0001, but got Atomic Value for XsLanguage is not implemented yet.
+K2-SeqExprCast-502;Expected XPathException with code FORG0001, but got Atomic Value for XsLanguage is not implemented yet.
+K2-SeqExprCast-503;Expected XPathException with code FORG0001, but got Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-504;Atomic Value for XsNcName is not implemented yet.
 K2-SeqExprCast-505;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
 K2-SeqExprCast-506;Expected error code: FORG0001. Query succeeded with result: --02
@@ -18112,48 +18004,48 @@ nscons-043;Expected error code: XPTY0004. Found error code: XPST0003 with error 
 nscons-044;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 numeric-greater-than-101;Can't parse 2345.6 into an int.
 numeric-greater-than-102;Can't parse 2345.6 into an int.
-op-add-dayTimeDurations-1;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-10;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-11;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-12;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-13;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-14;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-15;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-16;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-2;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-3;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-4;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-5;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-6;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-7;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-8;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations-9;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations2args-1;Cannot turn PT into a XsDayTimeDuration
-op-add-dayTimeDurations2args-2;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations2args-3;Cannot turn PT0S into a XsDayTimeDuration
-op-add-dayTimeDurations2args-4;Cannot turn PT into a XsDayTimeDuration
-op-add-dayTimeDurations2args-5;Cannot turn PT into a XsDayTimeDuration
-op-add-yearMonthDurations-1;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-10;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-11;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-12;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-13;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-14;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-15;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-16;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-2;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-3;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-4;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-5;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-6;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-7;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-8;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations-9;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations2args-1;Cannot turn P into a XsYearMonthDuration
-op-add-yearMonthDurations2args-2;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations2args-3;Cannot turn P0M into a XsYearMonthDuration
-op-add-yearMonthDurations2args-4;Cannot turn P into a XsYearMonthDuration
-op-add-yearMonthDurations2args-5;Cannot turn P into a XsYearMonthDuration
+op-add-dayTimeDurations-1;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-10;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-11;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-12;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-13;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-14;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-15;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-16;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-2;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-3;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-4;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-5;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-6;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-7;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-8;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations-9;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations2args-1;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations2args-2;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations2args-3;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations2args-4;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-dayTimeDurations2args-5;AddOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-add-yearMonthDurations-1;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-10;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-11;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-12;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-13;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-14;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-15;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-16;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-2;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-3;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-4;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-5;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-6;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-7;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-8;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations-9;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations2args-1;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations2args-2;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations2args-3;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations2args-4;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-add-yearMonthDurations2args-5;AddOp not available for types XsYearMonthDuration and XsYearMonthDuration
 op-base64Binary-equal2args-1;Type casting to XsBase64Binary has not been implemented yet.
 op-base64Binary-equal2args-10;Type casting to XsBase64Binary has not been implemented yet.
 op-base64Binary-equal2args-2;Type casting to XsBase64Binary has not been implemented yet.
@@ -18363,181 +18255,181 @@ op-dateTime-less-than2args-6;Specified argument was out of the range of valid va
 op-dateTime-less-than2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 op-dateTime-less-than2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 op-dateTime-less-than2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dayTimeDuration-equal2args-1;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-10;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-11;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-12;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-13;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-14;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-15;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-16;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-17;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-18;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-19;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-2;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-20;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-3;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-4;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-5;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-6;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-7;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-8;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-equal2args-9;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-10;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-11;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-12;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-13;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-14;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-3;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-4;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-5;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-6;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-7;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-8;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than-9;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than2args-1;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-greater-than2args-10;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-greater-than2args-2;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than2args-3;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than2args-4;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-greater-than2args-5;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-greater-than2args-6;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-greater-than2args-7;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than2args-8;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-greater-than2args-9;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-less-than-10;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than-11;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than-12;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than-13;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than-14;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than-3;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than-4;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than-5;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than-6;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than-7;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than-8;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than-9;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than2args-1;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-less-than2args-10;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-less-than2args-2;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than2args-3;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than2args-4;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-less-than2args-5;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-less-than2args-6;Cannot turn PT into a XsDayTimeDuration
-op-dayTimeDuration-less-than2args-7;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than2args-8;Cannot turn PT0S into a XsDayTimeDuration
-op-dayTimeDuration-less-than2args-9;Cannot turn PT into a XsDayTimeDuration
-op-divide-dayTimeDuration-10;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-11;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-12;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-13;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-14;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-15;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-16;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-2;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-3;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-4;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-5;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-6;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-7;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-8;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-9;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dayTimeDuration2args-1;Cannot turn PT into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dayTimeDuration2args-2;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dayTimeDuration2args-3;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dayTimeDuration2args-4;Cannot turn PT into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dayTimeDuration2args-5;Cannot turn PT into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-1;Expected executing the XPath "fn:round-half-to-even((xs:dayTimeDuration("P2DT53M11S") div xs:dayTimeDuration("P1DT10H")),15)" to resolve to one of the expected results, but got System.NotImplementedException: Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-10;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-11;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-12;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-13;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-14;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-15;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-16;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-2;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-3;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-4;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-5;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-6;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-7;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-8;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration-by-dTD-9;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration2args-1;Cannot turn PT into a XsDayTimeDuration
-op-divide-dayTimeDuration2args-2;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration2args-3;Cannot turn PT0S into a XsDayTimeDuration
-op-divide-dayTimeDuration2args-4;Cannot turn PT into a XsDayTimeDuration
-op-divide-dayTimeDuration2args-5;Cannot turn PT into a XsDayTimeDuration
-op-divide-yearMonthDuration-1;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-10;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-11;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-12;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-13;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-14;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-15;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-16;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-17;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-2;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-3;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-4;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-5;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-6;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-7;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-8;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-9;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yearMonthDuration2args-1;Cannot turn P into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yearMonthDuration2args-2;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yearMonthDuration2args-3;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yearMonthDuration2args-4;Cannot turn P into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yearMonthDuration2args-5;Cannot turn P into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-1;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-10;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-11;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-12;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-13;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-14;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-15;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-16;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-2;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-3;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-4;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-5;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-6;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-7;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-8;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration-by-yMD-9;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration2args-1;Cannot turn P into a XsYearMonthDuration
-op-divide-yearMonthDuration2args-2;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration2args-3;Cannot turn P0M into a XsYearMonthDuration
-op-divide-yearMonthDuration2args-4;Cannot turn P into a XsYearMonthDuration
-op-divide-yearMonthDuration2args-5;Cannot turn P into a XsYearMonthDuration
-op-duration-equal-1;Cannot turn PT into a XsDuration
-op-duration-equal-10;Cannot turn PT into a XsDuration
-op-duration-equal-11;Cannot turn PT into a XsDuration
-op-duration-equal-12;Cannot turn PT into a XsDuration
-op-duration-equal-13;Cannot turn PT into a XsDuration
-op-duration-equal-14;Cannot turn PT into a XsDuration
-op-duration-equal-15;Cannot turn PT into a XsDuration
-op-duration-equal-16;Cannot turn PT into a XsDuration
-op-duration-equal-17;Cannot turn PT into a XsDuration
-op-duration-equal-18;Cannot turn PT into a XsDuration
-op-duration-equal-19;Cannot turn PT into a XsDuration
-op-duration-equal-2;Cannot turn PT into a XsDuration
-op-duration-equal-20;Cannot turn PT into a XsDuration
-op-duration-equal-21;Cannot turn PT into a XsDuration
-op-duration-equal-22;Cannot turn PT into a XsDuration
-op-duration-equal-23;Cannot turn PT into a XsDuration
-op-duration-equal-24;Cannot turn PT into a XsDuration
-op-duration-equal-25;Cannot turn PT into a XsDuration
-op-duration-equal-26;Cannot turn P into a XsYearMonthDuration
-op-duration-equal-27;Cannot turn P0M into a XsYearMonthDuration
-op-duration-equal-3;Cannot turn PT into a XsDuration
-op-duration-equal-4;Cannot turn PT into a XsDuration
-op-duration-equal-5;Cannot turn PT into a XsDuration
-op-duration-equal-6;Cannot turn PT into a XsDuration
-op-duration-equal-7;Cannot turn PT into a XsDuration
-op-duration-equal-8;Cannot turn PT into a XsDuration
-op-duration-equal-9;Cannot turn PT into a XsDuration
+op-dayTimeDuration-equal2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-15;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-16;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-17;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-18;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-19;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-20;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-equal2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-greater-than2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-dayTimeDuration-less-than2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDayTimeDuration not implemented yet.')
+op-divide-dayTimeDuration-10;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-11;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-12;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-13;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-14;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-15;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-16;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-2;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-3;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-4;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-5;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-6;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-7;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-8;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-9;Can't parse 2.0 into an int.
+op-divide-dayTimeDuration-by-dayTimeDuration2args-1;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dayTimeDuration2args-2;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dayTimeDuration2args-3;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dayTimeDuration2args-4;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dayTimeDuration2args-5;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-1;Expected executing the XPath "fn:round-half-to-even((xs:dayTimeDuration("P2DT53M11S") div xs:dayTimeDuration("P1DT10H")),15)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-10;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-11;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-12;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-13;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-14;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-15;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-16;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-2;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-3;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-4;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-5;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-6;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-7;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-8;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration-by-dTD-9;DivOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-divide-dayTimeDuration2args-1;DivOp not available for types XsDayTimeDuration and XsDouble
+op-divide-dayTimeDuration2args-2;DivOp not available for types XsDayTimeDuration and XsDouble
+op-divide-dayTimeDuration2args-3;DivOp not available for types XsDayTimeDuration and XsDouble
+op-divide-dayTimeDuration2args-4;DivOp not available for types XsDayTimeDuration and XsDouble
+op-divide-dayTimeDuration2args-5;DivOp not available for types XsDayTimeDuration and XsDouble
+op-divide-yearMonthDuration-1;Can't parse 1.5 into an int.
+op-divide-yearMonthDuration-10;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-11;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-12;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-13;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-14;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-15;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-16;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-17;DivOp not available for types XsYearMonthDuration and XsInt
+op-divide-yearMonthDuration-2;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-3;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-4;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-5;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-6;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-7;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-8;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-9;Can't parse 2.0 into an int.
+op-divide-yearMonthDuration-by-yearMonthDuration2args-1;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yearMonthDuration2args-2;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yearMonthDuration2args-3;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yearMonthDuration2args-4;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yearMonthDuration2args-5;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-1;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-10;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-11;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-12;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-13;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-14;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-15;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-16;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-2;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-3;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-4;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-5;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-6;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-7;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-8;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration-by-yMD-9;DivOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-divide-yearMonthDuration2args-1;DivOp not available for types XsYearMonthDuration and XsDouble
+op-divide-yearMonthDuration2args-2;DivOp not available for types XsYearMonthDuration and XsDouble
+op-divide-yearMonthDuration2args-3;DivOp not available for types XsYearMonthDuration and XsDouble
+op-divide-yearMonthDuration2args-4;DivOp not available for types XsYearMonthDuration and XsDouble
+op-divide-yearMonthDuration2args-5;DivOp not available for types XsYearMonthDuration and XsDouble
+op-duration-equal-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-15;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-16;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-17;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-18;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-19;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-20;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-21;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-22;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-23;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-24;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-25;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-26;HandleNumericOperator: Different numeric types: XsYearMonthDuration and XsDayTimeDuration
+op-duration-equal-27;HandleNumericOperator: Different numeric types: XsYearMonthDuration and XsDayTimeDuration
+op-duration-equal-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
+op-duration-equal-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDuration not implemented yet.')
 op-gDay-equal-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
 op-gDay-equal-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
 op-gDay-equal-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
@@ -18869,54 +18761,54 @@ op-logical-or-156;Atomic Value for XsUnsignedByte is not implemented yet.
 op-logical-or-157;Atomic Value for XsUnsignedByte is not implemented yet.
 op-logical-or-158;Atomic Value for XsUnsignedByte is not implemented yet.
 op-logical-or-159;Atomic Value for XsUnsignedByte is not implemented yet.
-op-multiply-dayTimeDuration-1;Cannot turn P into a XsDayTimeDuration
-op-multiply-dayTimeDuration-10;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-11;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-12;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-13;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-14;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-15;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-16;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-17;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-18;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-2;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-3;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-4;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-5;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-6;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-7;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-8;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration-9;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration2args-1;Cannot turn PT into a XsDayTimeDuration
-op-multiply-dayTimeDuration2args-2;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration2args-3;Cannot turn PT0S into a XsDayTimeDuration
-op-multiply-dayTimeDuration2args-4;Cannot turn PT into a XsDayTimeDuration
-op-multiply-dayTimeDuration2args-5;Cannot turn PT into a XsDayTimeDuration
-op-multiply-yearMonthDuration-1;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-10;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-11;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-12;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-13;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-14;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-15;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-16;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-17;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-18;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-19;Expected XPathException with code FOCA0005, but got Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-2;Cannot turn P0M into a XsYearMonthDuration
+op-multiply-dayTimeDuration-1;Can't parse 2.1 into an int.
+op-multiply-dayTimeDuration-10;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-11;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-12;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-13;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-14;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-15;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-16;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-17;MultiplyOp not available for types XsDayTimeDuration and XsInt
+op-multiply-dayTimeDuration-18;MultiplyOp not available for types XsDayTimeDuration and XsInt
+op-multiply-dayTimeDuration-2;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-3;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-4;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-5;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-6;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-7;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-8;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration-9;Can't parse 2.0 into an int.
+op-multiply-dayTimeDuration2args-1;MultiplyOp not available for types XsDayTimeDuration and XsDouble
+op-multiply-dayTimeDuration2args-2;MultiplyOp not available for types XsDayTimeDuration and XsDouble
+op-multiply-dayTimeDuration2args-3;MultiplyOp not available for types XsDayTimeDuration and XsDouble
+op-multiply-dayTimeDuration2args-4;MultiplyOp not available for types XsDayTimeDuration and XsDouble
+op-multiply-dayTimeDuration2args-5;MultiplyOp not available for types XsDayTimeDuration and XsDouble
+op-multiply-yearMonthDuration-1;Can't parse 2.3 into an int.
+op-multiply-yearMonthDuration-10;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-11;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-12;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-13;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-14;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-15;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-16;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-multiply-yearMonthDuration-17;MultiplyOp not available for types XsYearMonthDuration and XsInt
+op-multiply-yearMonthDuration-18;MultiplyOp not available for types XsYearMonthDuration and XsInt
+op-multiply-yearMonthDuration-19;Expected error code: FOCA0005. Found error code: XPTY0004 with error message: MultiplyOp not available for types XsYearMonthDuration and XsDouble
+op-multiply-yearMonthDuration-2;Can't parse 2.0 into an int.
 op-multiply-yearMonthDuration-20;Can't parse 3.9 into an int.
-op-multiply-yearMonthDuration-3;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-4;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-5;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-6;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-7;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-8;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration-9;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration2args-1;Cannot turn P into a XsYearMonthDuration
-op-multiply-yearMonthDuration2args-2;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration2args-3;Cannot turn P0M into a XsYearMonthDuration
-op-multiply-yearMonthDuration2args-4;Cannot turn P into a XsYearMonthDuration
-op-multiply-yearMonthDuration2args-5;Cannot turn P into a XsYearMonthDuration
+op-multiply-yearMonthDuration-3;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-4;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-5;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-6;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-7;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-8;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration-9;Can't parse 2.0 into an int.
+op-multiply-yearMonthDuration2args-1;MultiplyOp not available for types XsYearMonthDuration and XsDouble
+op-multiply-yearMonthDuration2args-2;MultiplyOp not available for types XsYearMonthDuration and XsDouble
+op-multiply-yearMonthDuration2args-3;MultiplyOp not available for types XsYearMonthDuration and XsDouble
+op-multiply-yearMonthDuration2args-4;MultiplyOp not available for types XsYearMonthDuration and XsDouble
+op-multiply-yearMonthDuration2args-5;MultiplyOp not available for types XsYearMonthDuration and XsDouble
 op-numeric-add-1;Use of XQuery FLWOR expressions in XPath is not allowed
 op-numeric-add-10;PRSC Error: Failed to parse query '(\n         declare namespace atomic="http://www.w3.org/XQueryTest";\n         /*/atomic:decimal + xs:untypedAtomic('123')\n      ) instance of $xs:double'
 op-numeric-add-11;PRSC Error: Failed to parse query '(\n         declare namespace atomic="http://www.w3.org/XQueryTest";\n         /*/atomic:float + xs:untypedAtomic('123')\n      ) instance of $xs:double'
@@ -19537,27 +19429,27 @@ op-subtract-dateTimes-yielding-DTD-6;SubtractOp not available for types XsDateTi
 op-subtract-dateTimes-yielding-DTD-7;SubtractOp not available for types XsDateTime and XsDateTime
 op-subtract-dateTimes-yielding-DTD-8;SubtractOp not available for types XsDateTime and XsDateTime
 op-subtract-dateTimes-yielding-DTD-9;SubtractOp not available for types XsDateTime and XsDateTime
-op-subtract-dayTimeDurations-1;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-10;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-11;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-12;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-13;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-14;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-15;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-16;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-2;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-3;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-4;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-5;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-6;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-7;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-8;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations-9;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations2args-1;Cannot turn PT into a XsDayTimeDuration
-op-subtract-dayTimeDurations2args-2;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations2args-3;Cannot turn PT0S into a XsDayTimeDuration
-op-subtract-dayTimeDurations2args-4;Cannot turn PT into a XsDayTimeDuration
-op-subtract-dayTimeDurations2args-5;Cannot turn PT into a XsDayTimeDuration
+op-subtract-dayTimeDurations-1;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-10;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-11;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-12;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-13;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-14;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-15;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-16;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-2;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-3;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-4;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-5;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-6;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-7;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-8;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations-9;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations2args-1;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations2args-2;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations2args-3;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations2args-4;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
+op-subtract-dayTimeDurations2args-5;SubtractOp not available for types XsDayTimeDuration and XsDayTimeDuration
 op-subtract-times-1;Type casting to XsTime has not been implemented yet.
 op-subtract-times-10;Type casting to XsTime has not been implemented yet.
 op-subtract-times-11;Type casting to XsTime has not been implemented yet.
@@ -19579,91 +19471,91 @@ op-subtract-times2args-2;Type casting to XsTime has not been implemented yet.
 op-subtract-times2args-3;Type casting to XsTime has not been implemented yet.
 op-subtract-times2args-4;Type casting to XsTime has not been implemented yet.
 op-subtract-times2args-5;Type casting to XsTime has not been implemented yet.
-op-subtract-yearMonthDurations-1;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-10;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-11;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-12;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-13;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-14;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-15;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-16;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-2;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-3;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-4;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-5;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-6;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-7;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-8;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations-9;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations2args-1;Cannot turn P into a XsYearMonthDuration
-op-subtract-yearMonthDurations2args-2;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations2args-3;Cannot turn P0M into a XsYearMonthDuration
-op-subtract-yearMonthDurations2args-4;Cannot turn P into a XsYearMonthDuration
-op-subtract-yearMonthDurations2args-5;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-1;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-10;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-11;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-12;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-13;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-14;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-15;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-16;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-17;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-18;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-19;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-2;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-20;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-3;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-4;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-5;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-6;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-7;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-8;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-equal2args-9;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-10;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-11;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-12;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-13;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-14;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-3;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-4;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-5;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-6;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-7;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-8;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than-9;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than2args-1;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-greater-than2args-10;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-greater-than2args-2;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than2args-3;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than2args-4;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-greater-than2args-5;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-greater-than2args-6;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-greater-than2args-7;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than2args-8;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-greater-than2args-9;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-less-than-10;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than-11;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than-12;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than-13;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than-14;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than-3;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than-4;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than-5;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than-6;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than-8;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than-9;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than2args-1;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-less-than2args-10;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-less-than2args-2;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than2args-3;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than2args-4;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-less-than2args-5;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-less-than2args-6;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-less-than2args-8;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-than2args-9;Cannot turn P into a XsYearMonthDuration
-op-yearMonthDuration-less-than2argsNew-7;Cannot turn P0M into a XsYearMonthDuration
-op-yearMonthDuration-less-thanNew-7;Cannot turn P0M into a XsYearMonthDuration
+op-subtract-yearMonthDurations-1;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-10;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-11;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-12;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-13;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-14;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-15;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-16;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-2;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-3;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-4;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-5;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-6;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-7;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-8;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations-9;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations2args-1;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations2args-2;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations2args-3;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations2args-4;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-subtract-yearMonthDurations2args-5;SubtractOp not available for types XsYearMonthDuration and XsYearMonthDuration
+op-yearMonthDuration-equal2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-15;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-16;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-17;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-18;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-19;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-20;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-equal2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-greater-than2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-than2argsNew-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
+op-yearMonthDuration-less-thanNew-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsYearMonthDuration not implemented yet.')
 orderBy1;PRSC Error: Failed to parse query ''
 orderBy10;PRSC Error: Failed to parse query ''
 orderBy11;PRSC Error: Failed to parse query ''
