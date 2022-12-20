@@ -1463,6 +1463,7 @@ CastAs164;Type casting to XsAnyUri has not been implemented yet.
 CastAs166;Expected XPath xs:float("-INF") cast as xs:untypedAtomic to resolve to -INF
 CastAs168;Expected XPath xs:float("NaN") cast as xs:string to resolve to NaN
 CastAs169;Expected executing the XPath "xs:float("5.4321E-100") cast as xs:float" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsFloat and XsInt
+CastAs170;Expected XPath xs:float("-1.75e-3") cast as xs:float to resolve to -0.00175
 CastAs171;Expected XPath xs:float("INF") cast as xs:float to resolve to INF
 CastAs172;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 CastAs173;Expected XPath xs:float("-INF") cast as xs:double to resolve to -INF
@@ -1484,6 +1485,7 @@ CastAs202;Expected XPath xs:double("INF") cast as xs:string to resolve to INF
 CastAs203;HandleNumericOperator: Different numeric types: XsFloat and XsInt
 CastAs204;Expected executing the XPath "xs:double("5.4321E-1001") cast as xs:float" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsFloat and XsInt
 CastAs205;HandleNumericOperator: Different numeric types: XsFloat and XsInt
+CastAs206;Expected XPath xs:double("-1.75e-3") cast as xs:float to resolve to -0.00175
 CastAs207;Expected XPath xs:double("NaN") cast as xs:float to resolve to NaN
 CastAs208;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 CastAs209;Expected XPath xs:double("INF") cast as xs:double to resolve to INF
@@ -1820,6 +1822,7 @@ CastAs674;Expected error code: XPTY0004. Found error code: XPST0003 with error m
 CastAs674a;PRSC Error: Failed to parse query ''
 CastAs675;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 CastAs675a;Expected error code: XPTY0117. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
+CastAs676;Expected executing the XPath "xs:dateTime("9999-12-31T23:59:59.9999999") cast as xs:string" to resolve to one of the expected results, but got System.FormatException: The string '9999-12-31T23:59:59,999' is not a valid AllXsd value.
 CastAs677;Atomic Value for XsNormalizedString is not implemented yet.
 CastAs678;Atomic Value for XsToken is not implemented yet.
 CastAs680;Type casting to XsTime has not been implemented yet.
@@ -2004,8 +2007,8 @@ cbcl-cast-dayTimeDuration-001;Expected executing the XPath ""P117686143364045646
 cbcl-cast-dayTimeDuration-002;Expected XPathException with code FODT0002, but got Type casting to XsDayTimeDuration has not been implemented yet.
 cbcl-cast-decimal-001;Expected executing the XPath "1.7976931348623157E+308 cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '1.7976931348623157E+308 cast as xs:decimal'
 cbcl-cast-decimal-002;Expected executing the XPath "-1.7976931348623157E+308 cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '-1.7976931348623157E+308 cast as xs:decimal'
-cbcl-cast-decimal-003;Expected executing the XPath "xs:float('3.402823e38') cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0001, but got Atomic Value for XsDecimal is not implemented yet.
-cbcl-cast-decimal-004;Expected executing the XPath "xs:float('-3.402823e38') cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0001, but got Atomic Value for XsDecimal is not implemented yet.
+cbcl-cast-decimal-003;Expected executing the XPath "xs:float('3.402823e38') cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: FOCA0002 with error message: Can not cast <Value>[type: XsFloat, value: ∞] to xs:decimal
+cbcl-cast-decimal-004;Expected executing the XPath "xs:float('-3.402823e38') cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: FOCA0002 with error message: Can not cast <Value>[type: XsFloat, value: -∞] to xs:decimal
 cbcl-cast-derived-001;PRSC Error: Failed to parse query '\n        import schema namespace derivedType="http://www.w3.org/XQueryTest/derivedTypes";\n        16 cast as derivedType:integer, \n        16 cast as derivedType:double, \n        16 cast as derivedType:decimal, \n        16 cast as derivedType:float, \n        "aaaaaaaaaaaa" cast as derivedType:base64Binary, \n        "aaaaaaaaaa" cast as derivedType:hexBinary, \n        "http://news.bbc.co.uk/" cast as derivedType:anyURI, \n        true() cast as derivedType:boolean, \n        xs:dateTime("2001-01-01T09:00:00") cast as derivedType:dateTime, \n        xs:time("10:00:00") cast as derivedType:time, \n        "valid value 1" cast as derivedType:string, \n        "value1" cast as derivedType:QName, \n        "derivedType:value1" cast as derivedType:NOTATION,\n         "---01" cast as derivedType:gDay, \n         "--12-25" cast as derivedType:gMonthDay, \n         "--12" cast as derivedType:gMonth, \n         "2004" cast as derivedType:gYear, \n         "2004-02" cast as derivedType:gYearMonth, \n         "P1D" cast as derivedType:duration, \n         "1" cast as derivedType:positiveInteger, \n         "-1" cast as derivedType:nonPositiveInteger, \n         "1" cast as derivedType:nonNegativeInteger, \n         "-1" cast as derivedType:negativeInteger, \n         "1" cast as derivedType:long, \n         "1" cast as derivedType:short, \n         "1" cast as derivedType:unsignedByte, \n         "1" cast as derivedType:byte, \n         "1" cast as derivedType:unsignedInt, \n         "1" cast as derivedType:unsignedLong, \n         "1" cast as derivedType:unsignedShort\n      '
 cbcl-cast-duration-001;Expected XPathException with code FODT0002, but got Type casting to XsDuration has not been implemented yet.
 cbcl-cast-duration-002;Expected XPathException with code FODT0002, but got Type casting to XsDuration has not been implemented yet.
@@ -2029,8 +2032,8 @@ cbcl-cast-int-003;Expected XPathException with code FORG0001, but got Can't pars
 cbcl-cast-int-004;Expected XPathException with code FORG0001, but got Can't parse -2147483649 into an int.
 cbcl-cast-integer-001;Expected executing the XPath "1.7976931348623157E+308 cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0003. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '1.7976931348623157E+308 cast as xs:integer'
 cbcl-cast-integer-002;Expected executing the XPath "-1.7976931348623157E+308 cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0003. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '-1.7976931348623157E+308 cast as xs:integer'
-cbcl-cast-integer-003;Expected executing the XPath "xs:float('3.402823e38') cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0003, but got Value was either too large or too small for an Int32.
-cbcl-cast-integer-004;Expected executing the XPath "xs:float('-3.402823e38') cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0003, but got Value was either too large or too small for an Int32.
+cbcl-cast-integer-003;Expected executing the XPath "xs:float('3.402823e38') cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0003. Found error code: FOCA0002 with error message: can not cast <Value>[type: XsFloat, value: ∞] to xs:integer
+cbcl-cast-integer-004;Expected executing the XPath "xs:float('-3.402823e38') cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0003. Found error code: FOCA0002 with error message: can not cast <Value>[type: XsFloat, value: -∞] to xs:integer
 cbcl-cast-language-001;Atomic Value for XsLanguage is not implemented yet.
 cbcl-cast-long-001;Expected executing the XPath "xs:long(9223372036854775808)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0001, but got Can't parse 9223372036854775808 into an int.
 cbcl-cast-long-002;Expected executing the XPath "xs:long(-9223372036854775809)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0001, but got Can't parse 9223372036854775809 into an int.
@@ -2577,15 +2580,7 @@ cbcl-data-006;PRSC Error: Failed to parse query '\n      	import schema namespac
 cbcl-data-007;PRSC Error: Failed to parse query '\n      	import schema namespace cd="http://www.cbcl.co.uk/XQueryTest/complexData"; \n      	let $x := validate strict {.} \n      	return count(data($x//cd:listOfUnion)[. instance of xs:integer])'
 cbcl-date-eq-001;Expected executing the XPath "xs:date("-25252734927766555-06-07+02:00") = xs:date("25252734927766555-07-28")" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FODT0001, but got The string '-25252734927766555-06-07+02:00' is not a valid AllXsd value.
 cbcl-date-equal-001;PRSC Error: Failed to parse query 'declare function local:two-digit($number as xs:integer) { let $string := string($number) return if (string-length($string) lt 2) then concat('0', $string) else $string }; declare function local:date($year as xs:integer, $month as xs:integer, $day as xs:integer) { let $m := local:two-digit($month), $d := local:two-digit($day) return xs:date(concat($year, '-', $m, '-', $d)) }; not(local:date(2008, 05, 12) eq xs:date("1972-12-15"))'
-cbcl-date-equal-002;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-equal-003;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-equal-004;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-equal-005;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
 cbcl-date-equal-006;PRSC Error: Failed to parse query 'declare function local:two-digit($number as xs:integer) { let $string := string($number) return if (string-length($string) lt 2) then concat('0', $string) else $string }; declare function local:date($year as xs:integer, $month as xs:integer, $day as xs:integer) { let $m := local:two-digit($month), $d := local:two-digit($day) return xs:date(concat($year, '-', $m, '-', $d)) }; not(local:date(2008, 05, 12) ne xs:date("1972-12-15"))'
-cbcl-date-equal-007;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-equal-008;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-equal-009;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-equal-010;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
 cbcl-date-equal-011;PRSC Error: Failed to parse query 'declare function local:date($date as xs:date, $null as xs:boolean) { if ($null) then () else $date }; exists(local:date(xs:date("1972-12-15"), fn:true()) eq xs:date("1972-12-15"))'
 cbcl-date-equal-012;PRSC Error: Failed to parse query 'declare function local:date($date as xs:date, $null as xs:boolean) { if ($null) then () else $date }; local:date(xs:date("1972-12-15"), fn:false()) eq xs:date("1972-12-15")'
 cbcl-date-equal-013;PRSC Error: Failed to parse query 'declare function local:date($date as xs:date, $null as xs:boolean) { if ($null) then () else $date }; exists(local:date(xs:date("1972-12-15"), fn:true()) ne xs:date("1972-12-15"))'
@@ -2594,15 +2589,7 @@ cbcl-date-equal-015;PRSC Error: Failed to parse query 'declare function local:da
 cbcl-date-equal-016;PRSC Error: Failed to parse query 'declare function local:date($date as xs:string, $timezone as xs:string) { xs:date( concat($date, $timezone) ) }; adjust-date-to-timezone(local:date("1972-12-14", "-12:00")) ne adjust-date-to-timezone(xs:date("1972-12-15+12:00"))'
 cbcl-date-ge-001;Expected executing the XPath "xs:date("25252734927766555-07-28") >= xs:date("-25252734927766555-06-07+02:00")" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FODT0001, but got The string '25252734927766555-07-28' is not a valid AllXsd value.
 cbcl-date-greater-equal-001;PRSC Error: Failed to parse query '\n      	declare function local:two-digit($number as xs:integer) { let $string := string($number) return if (string-length($string) lt 2) then concat('0', $string) else $string }; declare function local:date($year as xs:integer, $month as xs:integer, $day as xs:integer) { let $m := local:two-digit($month), $d := local:two-digit($day) return xs:date(concat($year, '-', $m, '-', $d)) }; \n      	not(local:date(2008, 05, 12) lt xs:date("1972-12-15"))\n      '
-cbcl-date-greater-equal-002;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-greater-equal-003;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-greater-equal-004;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-greater-equal-005;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
 cbcl-date-greater-equal-006;PRSC Error: Failed to parse query '\n      	declare function local:two-digit($number as xs:integer) { let $string := string($number) return if (string-length($string) lt 2) then concat('0', $string) else $string }; \n      	declare function local:date($year as xs:integer, $month as xs:integer, $day as xs:integer) { let $m := local:two-digit($month), $d := local:two-digit($day) return xs:date(concat($year, '-', $m, '-', $d)) }; \n      	not(local:date(2008, 05, 12) ge xs:date("1972-12-15"))\n      '
-cbcl-date-greater-equal-007;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-greater-equal-008;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-greater-equal-009;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-greater-equal-010;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
 cbcl-date-greater-than-011;PRSC Error: Failed to parse query '\n      	declare function local:date($date as xs:date, $null as xs:boolean) { if ($null) then () else $date }; \n      	exists(local:date(xs:date("1972-12-15"), fn:true()) gt xs:date("1972-12-15"))\n      '
 cbcl-date-greater-than-012;PRSC Error: Failed to parse query '\n      	declare function local:date($date as xs:date, $null as xs:boolean) { if ($null) then () else $date }; \n      	local:date(xs:date("1972-12-15"), fn:false()) gt xs:date("1972-12-15")\n      '
 cbcl-date-greater-than-013;PRSC Error: Failed to parse query '\n      	declare function local:date($date as xs:date, $null as xs:boolean) { if ($null) then () else $date }; \n      	exists(local:date(xs:date("1972-12-15"), fn:true()) le xs:date("1972-12-15"))\n      '
@@ -2612,15 +2599,7 @@ cbcl-date-greater-than-016;PRSC Error: Failed to parse query '\n      	declare f
 cbcl-date-gt-001;Expected executing the XPath "xs:date("25252734927766555-07-28") > xs:date("-25252734927766555-06-07+02:00")" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FODT0001, but got The string '25252734927766555-07-28' is not a valid AllXsd value.
 cbcl-date-le-001;Expected executing the XPath "" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FODT0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 cbcl-date-less-than-001;PRSC Error: Failed to parse query '\n      	declare function local:two-digit($number as xs:integer) { \n      		let $string := string($number) return if (string-length($string) lt 2) then concat('0', $string) else $string \n      	}; \n      	declare function local:date($year as xs:integer, $month as xs:integer, $day as xs:integer) { \n      		let $m := local:two-digit($month), $d := local:two-digit($day) return xs:date(concat($year, '-', $m, '-', $d)) \n      	}; \n      	not(local:date(2008, 05, 12) lt xs:date("1972-12-15"))\n      '
-cbcl-date-less-than-002;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-less-than-003;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-less-than-004;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-less-than-005;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
 cbcl-date-less-than-006;PRSC Error: Failed to parse query '\n      	declare function local:two-digit($number as xs:integer) { let $string := string($number) return if (string-length($string) lt 2) then concat('0', $string) else $string }; \n      	declare function local:date($year as xs:integer, $month as xs:integer, $day as xs:integer) { let $m := local:two-digit($month), $d := local:two-digit($day) return xs:date(concat($year, '-', $m, '-', $d)) }; \n      	not(local:date(2008, 05, 12) le xs:date("1972-12-15"))\n      '
-cbcl-date-less-than-007;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-less-than-008;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-less-than-009;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-cbcl-date-less-than-010;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
 cbcl-date-less-than-011;PRSC Error: Failed to parse query '\n      	declare function local:date($date as xs:date, $null as xs:boolean) { if ($null) then () else $date }; \n      	exists(local:date(xs:date("1972-12-15"), fn:true()) lt xs:date("1972-12-15"))\n      '
 cbcl-date-less-than-012;PRSC Error: Failed to parse query '\n      	declare function local:date($date as xs:date, $null as xs:boolean) { if ($null) then () else $date }; \n      	local:date(xs:date("1972-12-15"), fn:false()) lt xs:date("1972-12-15")\n      '
 cbcl-date-less-than-013;PRSC Error: Failed to parse query '\n      	declare function local:date($date as xs:date, $null as xs:boolean) { if ($null) then () else $date }; \n      	exists(local:date(xs:date("1972-12-15"), fn:true()) ge xs:date("1972-12-15"))\n      '
@@ -2632,33 +2611,15 @@ cbcl-date-ne-001;Expected executing the XPath "xs:date("25252734927766555-07-28"
 cbcl-dateTime-001;The function fn:index-of with arity 2 is not registered.
 cbcl-dateTime-002;Expected error code: FORG0008. Found error code: XPST0017 with error message: The function fn:index-of with arity 2 is not registered.
 cbcl-dateTime-equal-001;PRSC Error: Failed to parse query '\n      	declare function local:two-digit($number as xs:integer) { \n      		let $string := string($number) \n      		return if (string-length($string) lt 2) then concat('0', $string) else $string \n      	}; \n      	declare function local:dateTime($year as xs:integer, $month as xs:integer, $day as xs:integer) { \n      		let $m := local:two-digit($month), $d := local:two-digit($day) \n      		return xs:dateTime(concat($year, '-', $m, '-', $d, "T12:00:00")) \n      	}; \n      	not(local:dateTime(2008, 05, 12) eq xs:dateTime("1972-12-15T12:00:00"))'
-cbcl-dateTime-equal-002;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-equal-003;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-equal-004;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-equal-005;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 cbcl-dateTime-equal-006;PRSC Error: Failed to parse query '\n      	declare function local:two-digit($number as xs:integer) { \n      		let $string := string($number) \n      		return if (string-length($string) lt 2) then concat('0', $string) else $string \n      	}; \n      	declare function local:dateTime($year as xs:integer, $month as xs:integer, $day as xs:integer) { \n      		let $m := local:two-digit($month), $d := local:two-digit($day) \n      		return xs:dateTime(concat($year, '-', $m, '-', $d, "T12:00:00")) \n      	}; \n      	not(local:dateTime(2008, 05, 12) ne xs:dateTime("1972-12-15T12:00:00"))'
-cbcl-dateTime-equal-007;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-equal-008;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-equal-009;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-equal-010;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 cbcl-dateTime-equal-011;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:dateTime, $null as xs:boolean) { if ($null) then () else $dateTime }; exists(local:dateTime(xs:dateTime("1972-12-15T12:00:00"), fn:true()) eq xs:dateTime("1972-12-15T12:00:00"))'
 cbcl-dateTime-equal-012;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:dateTime, $null as xs:boolean) { if ($null) then () else $dateTime }; local:dateTime(xs:dateTime("1972-12-15T12:00:00"), fn:false()) eq xs:dateTime("1972-12-15T12:00:00")'
 cbcl-dateTime-equal-013;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:dateTime, $null as xs:boolean) { if ($null) then () else $dateTime }; exists(local:dateTime(xs:dateTime("1972-12-15T12:00:00"), fn:true()) ne xs:dateTime("1972-12-15T12:00:00"))'
 cbcl-dateTime-equal-014;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:dateTime, $null as xs:boolean) { if ($null) then () else $dateTime }; local:dateTime(xs:dateTime("1972-12-15T12:00:00"), fn:false()) ne xs:dateTime("1972-12-15T12:00:00")'
 cbcl-dateTime-equal-015;PRSC Error: Failed to parse query '\n      	declare function local:dateTime($dateTime as xs:string, $timezone as xs:string) { \n      		xs:dateTime( concat($dateTime, $timezone) ) \n      	}; \n      	adjust-dateTime-to-timezone(local:dateTime("1972-12-14T00:00:00", "-12:00")) eq \n      	adjust-dateTime-to-timezone(xs:dateTime("1972-12-15T00:00:00+12:00"))\n      '
 cbcl-dateTime-equal-016;PRSC Error: Failed to parse query '\n      	declare function local:dateTime($dateTime as xs:string, $timezone as xs:string) { \n      		xs:dateTime( concat($dateTime, $timezone) ) \n      	}; \n      	adjust-dateTime-to-timezone(local:dateTime("1972-12-14T00:00:00", "-12:00")) ne \n      	adjust-dateTime-to-timezone(xs:dateTime("1972-12-15T00:00:00+12:00"))\n      '
-cbcl-dateTime-equal-017;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-equal-018;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 cbcl-dateTime-greater-than-001;PRSC Error: Failed to parse query 'declare function local:two-digit($number as xs:integer) { let $string := string($number) return if (string-length($string) lt 2) then concat('0', $string) else $string }; declare function local:dateTime($year as xs:integer, $month as xs:integer, $day as xs:integer) { let $m := local:two-digit($month), $d := local:two-digit($day) return xs:dateTime(concat($year, '-', $m, '-', $d, "T12:00:00")) }; not(local:dateTime(2008, 05, 12) gt xs:dateTime("1972-12-15T12:00:00"))'
-cbcl-dateTime-greater-than-002;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-greater-than-003;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-greater-than-004;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-greater-than-005;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 cbcl-dateTime-greater-than-006;PRSC Error: Failed to parse query 'declare function local:two-digit($number as xs:integer) { let $string := string($number) return if (string-length($string) lt 2) then concat('0', $string) else $string }; declare function local:dateTime($year as xs:integer, $month as xs:integer, $day as xs:integer) { let $m := local:two-digit($month), $d := local:two-digit($day) return xs:dateTime(concat($year, '-', $m, '-', $d, "T12:00:00")) }; not(local:dateTime(2008, 05, 12) ge xs:dateTime("1972-12-15T12:00:00"))'
-cbcl-dateTime-greater-than-007;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-greater-than-008;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-greater-than-009;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-greater-than-010;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 cbcl-dateTime-greater-than-011;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:dateTime, $null as xs:boolean) { if ($null) then () else $dateTime }; exists(local:dateTime(xs:dateTime("1972-12-15T12:00:00"), fn:true()) gt xs:dateTime("1972-12-15T12:00:00"))'
 cbcl-dateTime-greater-than-012;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:dateTime, $null as xs:boolean) { if ($null) then () else $dateTime }; local:dateTime(xs:dateTime("1972-12-15T12:00:00"), fn:false()) gt xs:dateTime("1972-12-15T12:00:00")'
 cbcl-dateTime-greater-than-013;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:dateTime, $null as xs:boolean) { if ($null) then () else $dateTime }; exists(local:dateTime(xs:dateTime("1972-12-15T12:00:00"), fn:true()) le xs:dateTime("1972-12-15T12:00:00"))'
@@ -2666,15 +2627,7 @@ cbcl-dateTime-greater-than-014;PRSC Error: Failed to parse query 'declare functi
 cbcl-dateTime-greater-than-015;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:string, $timezone as xs:string) { xs:dateTime( concat($dateTime, $timezone) ) }; adjust-dateTime-to-timezone(local:dateTime("1972-12-14T00:00:00", "-12:00")) gt adjust-dateTime-to-timezone(xs:dateTime("1972-12-15T00:00:00+12:00"))'
 cbcl-dateTime-greater-than-016;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:string, $timezone as xs:string) { xs:dateTime( concat($dateTime, $timezone) ) }; adjust-dateTime-to-timezone(local:dateTime("1972-12-14T00:00:00", "-12:00")) ge adjust-dateTime-to-timezone(xs:dateTime("1972-12-15T00:00:00+12:00"))'
 cbcl-dateTime-less-than-001;PRSC Error: Failed to parse query 'declare function local:two-digit($number as xs:integer) { let $string := string($number) return if (string-length($string) lt 2) then concat('0', $string) else $string }; declare function local:dateTime($year as xs:integer, $month as xs:integer, $day as xs:integer) { let $m := local:two-digit($month), $d := local:two-digit($day) return xs:dateTime(concat($year, '-', $m, '-', $d, "T12:00:00")) }; not(local:dateTime(2008, 05, 12) lt xs:dateTime("1972-12-15T12:00:00"))'
-cbcl-dateTime-less-than-002;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-less-than-003;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-less-than-004;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-less-than-005;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 cbcl-dateTime-less-than-006;PRSC Error: Failed to parse query 'declare function local:two-digit($number as xs:integer) { let $string := string($number) return if (string-length($string) lt 2) then concat('0', $string) else $string }; declare function local:dateTime($year as xs:integer, $month as xs:integer, $day as xs:integer) { let $m := local:two-digit($month), $d := local:two-digit($day) return xs:dateTime(concat($year, '-', $m, '-', $d, "T12:00:00")) }; not(local:dateTime(2008, 05, 12) le xs:dateTime("1972-12-15T12:00:00"))'
-cbcl-dateTime-less-than-007;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-less-than-008;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-less-than-009;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-cbcl-dateTime-less-than-010;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 cbcl-dateTime-less-than-011;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:dateTime, $null as xs:boolean) { if ($null) then () else $dateTime }; exists(local:dateTime(xs:dateTime("1972-12-15T12:00:00"), fn:true()) lt xs:dateTime("1972-12-15T12:00:00"))'
 cbcl-dateTime-less-than-012;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:dateTime, $null as xs:boolean) { if ($null) then () else $dateTime }; local:dateTime(xs:dateTime("1972-12-15T12:00:00"), fn:false()) lt xs:dateTime("1972-12-15T12:00:00")'
 cbcl-dateTime-less-than-013;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:dateTime, $null as xs:boolean) { if ($null) then () else $dateTime }; exists(local:dateTime(xs:dateTime("1972-12-15T12:00:00"), fn:true()) ge xs:dateTime("1972-12-15T12:00:00"))'
@@ -2858,10 +2811,6 @@ cbcl-gDay-equal-011;PRSC Error: Failed to parse query 'declare function local:gD
 cbcl-gDay-equal-012;PRSC Error: Failed to parse query 'declare function local:gDay($gDay as xs:gDay, $null as xs:boolean) { if ($null) then () else $gDay }; local:gDay(xs:gDay("---31"), fn:false()) eq xs:gDay("---31")'
 cbcl-gDay-equal-013;PRSC Error: Failed to parse query 'declare function local:gDay($gDay as xs:gDay, $null as xs:boolean) { if ($null) then () else $gDay }; exists(local:gDay(xs:gDay("---31"), fn:true()) ne xs:gDay("---31"))'
 cbcl-gDay-equal-014;PRSC Error: Failed to parse query 'declare function local:gDay($gDay as xs:gDay, $null as xs:boolean) { if ($null) then () else $gDay }; local:gDay(xs:gDay("---31"), fn:false()) ne xs:gDay("---31")'
-cbcl-gDay-equal-015;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-cbcl-gDay-equal-016;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-cbcl-gDay-equal-017;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-cbcl-gDay-equal-018;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
 cbcl-gDay-equal-019;The function implicit-timezone with arity 0 is not registered.
 cbcl-gDay-equal-020;The function implicit-timezone with arity 0 is not registered.
 cbcl-gMonth-equal-001;PRSC Error: Failed to parse query 'declare function local:gMonth($month as xs:integer) { if ($month lt 10) then xs:gMonth(concat("--0", $month)) else xs:gMonth(concat("--", $month)) }; not(local:gMonth(1) eq xs:gMonth("--06"))'
@@ -2892,10 +2841,6 @@ cbcl-gMonthDay-equal-011;PRSC Error: Failed to parse query 'declare function loc
 cbcl-gMonthDay-equal-012;PRSC Error: Failed to parse query 'declare function local:gMonthDay($gMonthDay as xs:gMonthDay, $null as xs:boolean) { if ($null) then () else $gMonthDay }; local:gMonthDay(xs:gMonthDay("--12-31"), fn:false()) eq xs:gMonthDay("--12-31")'
 cbcl-gMonthDay-equal-013;PRSC Error: Failed to parse query 'declare function local:gMonthDay($gMonthDay as xs:gMonthDay, $null as xs:boolean) { if ($null) then () else $gMonthDay }; exists(local:gMonthDay(xs:gMonthDay("--12-31"), fn:true()) ne xs:gMonthDay("--12-31"))'
 cbcl-gMonthDay-equal-014;PRSC Error: Failed to parse query 'declare function local:gMonthDay($gMonthDay as xs:gMonthDay, $null as xs:boolean) { if ($null) then () else $gMonthDay }; local:gMonthDay(xs:gMonthDay("--12-31"), fn:false()) ne xs:gMonthDay("--12-31")'
-cbcl-gMonthDay-equal-015;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-cbcl-gMonthDay-equal-016;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-cbcl-gMonthDay-equal-017;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-cbcl-gMonthDay-equal-018;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
 cbcl-gMonthDay-equal-019;The function implicit-timezone with arity 0 is not registered.
 cbcl-gMonthDay-equal-020;The function implicit-timezone with arity 0 is not registered.
 cbcl-group-by-key-001;PRSC Error: Failed to parse query ''
@@ -4834,7 +4779,9 @@ fn-avgflt1args-1;Value was either too large or too small for an Int32.
 fn-avgflt1args-3;Value was either too large or too small for an Int32.
 fn-avgflt2args-1;Expected executing the XPath "fn:avg((xs:float("-3.4028235E38"),xs:float("-3.4028235E38")))" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for an Int32.
 fn-avgflt2args-2;Value was either too large or too small for an Int32.
+fn-avgflt2args-3;Value was either too large or too small for an Int32.
 fn-avgflt2args-4;Value was either too large or too small for an Int32.
+fn-avgflt2args-5;Value was either too large or too small for an Int32.
 fn-avgint1args-1;Can't parse 2147483648 into an int.
 fn-avgint1args-2;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 fn-avgint1args-3;HandleNumericOperator: Different numeric types: XsDouble and XsInt
@@ -7824,7 +7771,7 @@ fn-round-half-to-even-39;Casting not supported from given type to xs:decimal or 
 fn-round-half-to-even-4;PRSC Error: Failed to parse query 'round-half-to-even(1.000005e0, 2) = 1'
 fn-round-half-to-even-40;Casting not supported from given type to xs:decimal or any of its derived types.
 fn-round-half-to-even-41;Casting not supported from given type to xs:decimal or any of its derived types.
-fn-round-half-to-even-5;Atomic Value for XsDecimal is not implemented yet.
+fn-round-half-to-even-5;HandleNumericOperator: Different numeric types: XsFloat and XsInt
 fn-round-half-to-even-6;Can't parse 4561.234567 into an int.
 fn-round-half-to-even-7;PRSC Error: Failed to parse query 'round-half-to-even(4561.000005e0, -2) = 4600'
 fn-round-half-to-even-8;Atomic Value for XsDecimal is not implemented yet.
@@ -9484,7 +9431,7 @@ ForExpr009;Expected XPathException with code XPST0008, but got The given key 'a'
 ForExpr010;PRSC Error: Failed to parse query ''
 ForExpr011;PRSC Error: Failed to parse query ''
 ForExpr012;SingletonSequence.Map not implemented
-ForExpr013;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/ForClause/ForExpr-013.out'.
+ForExpr013;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/ForClause/ForExpr-013.out'.
 ForExpr015;Expected XPath for $folder in //Folder return for $file in $folder/File return string( $file/FileName[1] ) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100
 ForExpr016;Expected results and parsedFragment children to match
 ForExpr021;Can't parse <Value>[type: XsInt, value: 1] into an int.
@@ -10485,6 +10432,7 @@ functx-fn-not-7;PRSC Error: Failed to parse query ''
 functx-fn-not-all;PRSC Error: Failed to parse query ''
 functx-fn-number-1;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/price)) to resolve to 29.99
 functx-fn-number-2;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/@currency)) to resolve to NaN
+functx-fn-number-3;Expected XPath let $priceDoc := (/) return (number('29.99')) to resolve to 29.99
 functx-fn-number-4;Input string was not in a correct format.
 functx-fn-number-5;Expected XPath let $priceDoc := (/) return (number( () )) to resolve to NaN
 functx-fn-number-6;PerformFunctionConversion is not implemented yet.
@@ -12204,41 +12152,10 @@ K-ContextPositionFunc-7;The function remove with arity 2 is not registered.
 K-ContextPositionFunc-8;The function remove with arity 2 is not registered.
 K-ContextPositionFunc-9;The function remove with arity 2 is not registered.
 K-DataFunc-1;Expected error code: XPST0017. Query succeeded with result: 
-K-DateEQ-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateEQ-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateEQ-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateEQ-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateEQ-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateEQ-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateEQ-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateEQ-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateGT-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateGT-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateGT-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateGT-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateGT-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateGT-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateLT-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateLT-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateLT-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateLT-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateLT-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-DateLT-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
 K-DatesSubtract-1;SubtractOp not available for types XsDate and XsDate
 K-DatesSubtract-2;SubtractOp not available for types XsDate and XsDate
-K-DateTimeEQ-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeEQ-10;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDateTime and XsDate
-K-DateTimeEQ-11;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDateTime and XsDate
-K-DateTimeEQ-12;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDateTime and XsDate
-K-DateTimeEQ-13;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDateTime and XsDate
-K-DateTimeEQ-14;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDateTime and XsDate
-K-DateTimeEQ-15;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDate and XsDateTime
-K-DateTimeEQ-16;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDate and XsDateTime
-K-DateTimeEQ-17;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDate and XsDateTime
-K-DateTimeEQ-18;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDate and XsDateTime
-K-DateTimeEQ-19;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDate and XsDateTime
-K-DateTimeEQ-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeEQ-20;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDate and XsDateTime
+K-DateTimeEQ-1;The string '2004-08-12T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeEQ-2;The string '2004-08-12T23:01:4,12' is not a valid AllXsd value.
 K-DateTimeEQ-21;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-22;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-23;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
@@ -12248,16 +12165,15 @@ K-DateTimeEQ-26;Expected XPathException with code XPTY0004, but got Type casting
 K-DateTimeEQ-27;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-28;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-29;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
-K-DateTimeEQ-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
+K-DateTimeEQ-3;The string '2004-08-12T23:01:5,12' is not a valid AllXsd value.
 K-DateTimeEQ-30;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-31;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-32;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
-K-DateTimeEQ-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeEQ-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeEQ-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeEQ-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeEQ-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeEQ-9;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsDateTime and XsDate
+K-DateTimeEQ-4;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeEQ-5;The string '1999-12-04T16:00:12,345Z' is not a valid AllXsd value.
+K-DateTimeEQ-6;The string '1999-12-04T16:00:12,345Z' is not a valid AllXsd value.
+K-DateTimeEQ-7;The string '1999-12-04T16:00:12,345Z' is not a valid AllXsd value.
+K-DateTimeEQ-8;The string '1999-12-04T16:00:12,345Z' is not a valid AllXsd value.
 K-DateTimeFunc-10;The function dateTime with arity 2 is not registered.
 K-DateTimeFunc-11;The function dateTime with arity 2 is not registered.
 K-DateTimeFunc-12;The function dateTime with arity 2 is not registered.
@@ -12273,19 +12189,19 @@ K-DateTimeFunc-6;Expected error code: FORG0008. Found error code: XPST0017 with 
 K-DateTimeFunc-7;Expected error code: FORG0008. Found error code: XPST0017 with error message: The function dateTime with arity 2 is not registered.
 K-DateTimeFunc-8;The function dateTime with arity 2 is not registered.
 K-DateTimeFunc-9;The function dateTime with arity 2 is not registered.
-K-DateTimeGT-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeGT-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeGT-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeGT-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeGT-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeGT-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeLT-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeLT-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeLT-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeLT-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeLT-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-DateTimeLT-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-K-dateTimesSubtract-1;SubtractOp not available for types XsDateTime and XsDateTime
+K-DateTimeGT-1;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeGT-2;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeGT-3;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeGT-4;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeGT-5;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeGT-6;The string '2004-07-11T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeLT-1;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeLT-2;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeLT-3;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeLT-4;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeLT-5;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
+K-DateTimeLT-6;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
+K-dateTimesSubtract-1;The string '1999-07-19T08:23:12,765' is not a valid AllXsd value.
 K-dateTimesSubtract-6;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
 K-DayFromDateFunc-3;The function day-from-date with arity 1 is not registered.
 K-DayFromDateFunc-4;The function day-from-date with arity 1 is not registered.
@@ -12609,14 +12525,6 @@ K-FunctionProlog-65;Expected executing the XPath "
 K-FunctionProlog-66;Expected executing the XPath "
 K-FunctionProlog-67;PRSC Error: Failed to parse query 'declare default function namespace "http://www.w3.org/2005/xquery-local-functions";\n        declare function local:is() as xs:integer { 1 };\n        is() eq 1'
 K-FunctionProlog-68;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction($usedArg) { $usedArg };\n        local:myFunction(1 + "a string")'
-K-gDayEQ-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-K-gDayEQ-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-K-gDayEQ-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-K-gDayEQ-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-K-gDayEQ-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-K-gDayEQ-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-K-gDayEQ-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-K-gDayEQ-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
 K-GenCompEq-10;Expected executing the XPath "not((xs:untypedAtomic("1"), xs:untypedAtomic("2")) = (xs:untypedAtomic("2.0"), 3.0))" to resolve to one of the expected results, but got System.Exception: Can't parse 3.0 into an int.
 K-GenCompEq-11;Input string was not in a correct format.
 K-GenCompEq-12;Input string was not in a correct format.
@@ -12643,13 +12551,7 @@ K-GenCompEq-43;Casting not supported from given type to xs:boolean or any of its
 K-GenCompEq-44;Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompEq-45;Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompEq-46;Casting not supported from given type to xs:boolean or any of its derived types.
-K-GenCompEq-47;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsInt
-K-GenCompEq-48;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsInt and XsString
-K-GenCompEq-49;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsBoolean and XsInt
-K-GenCompEq-50;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsInt and XsBoolean
 K-GenCompEq-51;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-GenCompEq-52;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsBoolean
-K-GenCompEq-53;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsBoolean and XsString
 K-GenCompEq-54;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompEq-55;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompEq-56;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
@@ -12708,49 +12610,12 @@ K-GenCompNE-22;Casting not supported from given type to xs:boolean or any of its
 K-GenCompNE-23;Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompNE-31;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-GenCompNE-32;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-GenCompNE-33;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsInt
-K-GenCompNE-34;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsInt and XsString
 K-GenCompNE-35;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
-K-GenCompNE-36;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsInt and XsString
-K-GenCompNE-37;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsBoolean
-K-GenCompNE-38;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsBoolean and XsString
 K-GenCompNE-39;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompNE-40;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompNE-41;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompNE-8;Input string was not in a correct format.
 K-GenCompNE-9;Input string was not in a correct format.
-K-gMonthDayEQ-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-K-gMonthDayEQ-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-K-gMonthDayEQ-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-K-gMonthDayEQ-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-K-gMonthDayEQ-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-K-gMonthDayEQ-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-K-gMonthDayEQ-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-K-gMonthDayEQ-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-K-gMonthEQ-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-K-gMonthEQ-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-K-gMonthEQ-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-K-gMonthEQ-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-K-gMonthEQ-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-K-gMonthEQ-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-K-gMonthEQ-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-K-gMonthEQ-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-K-gYearEQ-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-K-gYearEQ-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-K-gYearEQ-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-K-gYearEQ-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-K-gYearEQ-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-K-gYearEQ-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-K-gYearEQ-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-K-gYearEQ-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-K-gYearMonthEQ-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-K-gYearMonthEQ-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-K-gYearMonthEQ-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-K-gYearMonthEQ-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-K-gYearMonthEQ-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-K-gYearMonthEQ-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-K-gYearMonthEQ-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-K-gYearMonthEQ-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
 K-HexBinaryEQ-1;Type casting to XsHexBinary has not been implemented yet.
 K-HexBinaryEQ-2;Type casting to XsHexBinary has not been implemented yet.
 K-HexBinaryEQ-3;Type casting to XsHexBinary has not been implemented yet.
@@ -13141,7 +13006,6 @@ K-QNameEQ-10;Expected XPathException with code XPTY0004, but got PerformValueCom
 K-QNameEQ-2;PerformValueCompare: Handle QName
 K-QNameEQ-3;PerformValueCompare: Handle QName
 K-QNameEQ-4;PerformValueCompare: Handle QName
-K-QNameEQ-5;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsQName and XsInt
 K-QNameEQ-6;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-QNameEQ-7;Expected XPathException with code XPTY0004, but got PerformValueCompare: Handle QName
 K-QNameEQ-8;Expected XPathException with code XPTY0004, but got PerformValueCompare: Handle QName
@@ -13420,7 +13284,6 @@ K-SeqExistsFunc-9;The function reverse with arity 1 is not registered.
 K-SeqExprCast-100;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1000;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:NOTATION)'
 K-SeqExprCast-1003;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-1004;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
 K-SeqExprCast-1005;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-1006;The string '<Value>[type: XsString, value: 1999]' is not a valid AllXsd value.
 K-SeqExprCast-1007;Expected XPathException with code FORG0006, but got FORG0006
@@ -13445,7 +13308,6 @@ K-SeqExprCast-1029;PRSC Error: Failed to parse query 'not(xs:gYear("1999") casta
 K-SeqExprCast-103;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1031;PRSC Error: Failed to parse query 'not(xs:gYear("1999") castable as xs:date)'
 K-SeqExprCast-1033;PRSC Error: Failed to parse query 'not(xs:gYear("1999") castable as xs:gYearMonth)'
-K-SeqExprCast-1034;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
 K-SeqExprCast-1035;PRSC Error: Failed to parse query 'xs:gYear("1999") castable as xs:gYear'
 K-SeqExprCast-1037;PRSC Error: Failed to parse query 'not(xs:gYear("1999") castable as xs:gMonthDay)'
 K-SeqExprCast-1039;PRSC Error: Failed to parse query 'not(xs:gYear("1999") castable as xs:gDay)'
@@ -13463,7 +13325,6 @@ K-SeqExprCast-1050;Expected XPathException with code XPTY0004, but got Type cast
 K-SeqExprCast-1051;PRSC Error: Failed to parse query 'not(xs:gYear("1999") castable as xs:QName)'
 K-SeqExprCast-1052;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:gYear("1999") castable as xs:NOTATION)'
 K-SeqExprCast-1055;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-1056;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
 K-SeqExprCast-1057;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-1058;The string '<Value>[type: XsString, value: --11-13]' is not a valid AllXsd value.
 K-SeqExprCast-1059;Expected XPathException with code FORG0006, but got FORG0006
@@ -13489,7 +13350,6 @@ K-SeqExprCast-1081;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13"
 K-SeqExprCast-1083;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:date)'
 K-SeqExprCast-1085;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:gYearMonth)'
 K-SeqExprCast-1087;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:gYear)'
-K-SeqExprCast-1088;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
 K-SeqExprCast-1089;PRSC Error: Failed to parse query 'xs:gMonthDay("--11-13") castable as xs:gMonthDay'
 K-SeqExprCast-109;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1091;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:gDay)'
@@ -13506,7 +13366,6 @@ K-SeqExprCast-1102;Expected XPathException with code XPTY0004, but got Type cast
 K-SeqExprCast-1103;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:QName)'
 K-SeqExprCast-1104;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:NOTATION)'
 K-SeqExprCast-1107;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-1108;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
 K-SeqExprCast-1109;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-111;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1110;The string '<Value>[type: XsString, value: ---03]' is not a valid AllXsd value.
@@ -13534,7 +13393,6 @@ K-SeqExprCast-1137;PRSC Error: Failed to parse query 'not(xs:gDay("---03") casta
 K-SeqExprCast-1139;PRSC Error: Failed to parse query 'not(xs:gDay("---03") castable as xs:gYear)'
 K-SeqExprCast-114;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1141;PRSC Error: Failed to parse query 'not(xs:gDay("---03") castable as xs:gMonthDay)'
-K-SeqExprCast-1142;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
 K-SeqExprCast-1143;PRSC Error: Failed to parse query 'xs:gDay("---03") castable as xs:gDay'
 K-SeqExprCast-1145;PRSC Error: Failed to parse query 'not(xs:gDay("---03") castable as xs:gMonth)'
 K-SeqExprCast-1147;PRSC Error: Failed to parse query 'not(xs:gDay("---03") castable as xs:boolean)'
@@ -13550,7 +13408,6 @@ K-SeqExprCast-1155;PRSC Error: Failed to parse query 'not(xs:gDay("---03") casta
 K-SeqExprCast-1156;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:gDay("---03") castable as xs:NOTATION)'
 K-SeqExprCast-1159;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-116;Expected XPathException with code FORG0001, but got Type casting to XsBase64Binary has not been implemented yet.
-K-SeqExprCast-1160;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
 K-SeqExprCast-1161;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-1162;The string '<Value>[type: XsString, value: --11]' is not a valid AllXsd value.
 K-SeqExprCast-1163;Expected XPathException with code FORG0006, but got FORG0006
@@ -13578,7 +13435,6 @@ K-SeqExprCast-119;Expected XPathException with code FORG0001, but got Type casti
 K-SeqExprCast-1191;PRSC Error: Failed to parse query 'not(xs:gMonth("--11") castable as xs:gYear)'
 K-SeqExprCast-1193;PRSC Error: Failed to parse query 'not(xs:gMonth("--11") castable as xs:gMonthDay)'
 K-SeqExprCast-1195;PRSC Error: Failed to parse query 'not(xs:gMonth("--11") castable as xs:gDay)'
-K-SeqExprCast-1196;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
 K-SeqExprCast-1197;PRSC Error: Failed to parse query 'xs:gMonth("--11") castable as xs:gMonth'
 K-SeqExprCast-1199;PRSC Error: Failed to parse query 'not(xs:gMonth("--11") castable as xs:boolean)'
 K-SeqExprCast-120;Expected XPathException with code FORG0001, but got Type casting to XsBase64Binary has not been implemented yet.
@@ -14023,7 +13879,6 @@ K-SeqExprCast-300;Expected XPathException with code FORG0001, but got Offset mus
 K-SeqExprCast-301;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
 K-SeqExprCast-302;Expected error code: FORG0001. Query succeeded with result: --01-01+11:00
 K-SeqExprCast-303;Expected error code: FORG0001. Query succeeded with result: --01-01-11:00
-K-SeqExprCast-307;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
 K-SeqExprCast-308;Expected XPathException with code FORG0001, but got The string '+2004-08-01T12:44:05' is not a valid AllXsd value.
 K-SeqExprCast-309;Expected XPathException with code FORG0001, but got The string '02004-08-01T12:44:05' is not a valid AllXsd value.
 K-SeqExprCast-310;Expected XPathException with code FORG0001, but got The string '00004-08-01T12:44:05' is not a valid AllXsd value.
@@ -14039,25 +13894,33 @@ K-SeqExprCast-319;Expected XPathException with code FORG0001, but got The string
 K-SeqExprCast-320;Expected XPathException with code FORG0001, but got The string '--2002-02-15T21:01:23' is not a valid AllXsd value.
 K-SeqExprCast-321;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
 K-SeqExprCast-322;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
-K-SeqExprCast-323;Expected error code: FORG0001. Query succeeded with result: 1999-12-01T23:59:12.432+11:00
-K-SeqExprCast-324;Expected error code: FORG0001. Query succeeded with result: 1999-12-01T23:59:12.432-11:00
+K-SeqExprCast-323;Expected XPathException with code FORG0001, but got The string '1999-12-01T23:59:12,432+11:00' is not a valid AllXsd value.
+K-SeqExprCast-324;Expected XPathException with code FORG0001, but got The string '1999-12-01T23:59:12,432-11:00' is not a valid AllXsd value.
 K-SeqExprCast-325;Expected XPathException with code FORG0001, but got The string '1999-12-01T23:59:12.999-00' is not a valid AllXsd value.
-K-SeqExprCast-326;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-K-SeqExprCast-327;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-K-SeqExprCast-328;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-K-SeqExprCast-329;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
+K-SeqExprCast-326;The string '2002-11-23T23:12:23,867Z' is not a valid AllXsd value.
+K-SeqExprCast-327;The string '2002-11-23T23:12:23,867-13:37' is not a valid AllXsd value.
+K-SeqExprCast-328;The string '2002-11-23T23:12:23,867Z' is not a valid AllXsd value.
+K-SeqExprCast-329;The string '2002-11-23T23:12:23,867-13:37' is not a valid AllXsd value.
 K-SeqExprCast-33;PRSC Error: Failed to parse query 'xs:boolean(0.0E0) eq false()'
-K-SeqExprCast-330;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-K-SeqExprCast-331;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-K-SeqExprCast-332;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-K-SeqExprCast-333;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-K-SeqExprCast-334;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-K-SeqExprCast-335;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-K-SeqExprCast-336;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-SeqExprCast-337;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-K-SeqExprCast-338;Type casting to XsTime has not been implemented yet.
-K-SeqExprCast-339;Type casting to XsTime has not been implemented yet.
+K-SeqExprCast-330;The string '2002-11-23T22:12:23,867Z' is not a valid AllXsd value.
+K-SeqExprCast-331;The string '2002-11-23T22:12:23,867-13:37' is not a valid AllXsd value.
+K-SeqExprCast-332;The string '2002-11-23T22:12:23,867Z' is not a valid AllXsd value.
+K-SeqExprCast-333;The string '2002-11-23T22:12:23,867-13:37' is not a valid AllXsd value.
+K-SeqExprCast-334;The string '2002-11-23T22:12:23,867Z' is not a valid AllXsd value.
+K-SeqExprCast-335;The string '2002-11-23T22:12:23,867-13:37' is not a valid AllXsd value.
+K-SeqExprCast-336;The string '2002-11-23T22:12:23,867Z' is not a valid AllXsd value.
+K-SeqExprCast-337;The string '2002-11-23T22:12:23,867-13:37' is not a valid AllXsd value.
+K-SeqExprCast-338;The string '2002-11-23T22:12:23,867Z' is not a valid AllXsd value.
+K-SeqExprCast-339;The string '2002-11-23T22:12:23,867-13:37' is not a valid AllXsd value.
 K-SeqExprCast-34;Expected XPath xs:boolean(xs:double("NaN")) eq false() to resolve to true
+K-SeqExprCast-340;The string '1999-12-01T23:59:12,999Z' is not a valid AllXsd value.
+K-SeqExprCast-341;The string '1999-12-01T23:59:12,432Z' is not a valid AllXsd value.
+K-SeqExprCast-343;The string '2002-02-15T21:01:23,1' is not a valid AllXsd value.
+K-SeqExprCast-344;The string '2002-02-15T21:01:23,001' is not a valid AllXsd value.
+K-SeqExprCast-345;The string '2002-02-15T21:01:23,01' is not a valid AllXsd value.
+K-SeqExprCast-346;The string '2002-02-15T21:01:23,435' is not a valid AllXsd value.
+K-SeqExprCast-347;The string '2002-02-15T21:01:23,11' is not a valid AllXsd value.
+K-SeqExprCast-348;The string '2002-02-15T21:01:23,11' is not a valid AllXsd value.
 K-SeqExprCast-349;SingletonSequence.Map not implemented
 K-SeqExprCast-35;Expected XPath xs:boolean(xs:float("NaN")) eq false() to resolve to true
 K-SeqExprCast-350;The string '2004-03-31T24:00:00' is not a valid AllXsd value.
@@ -14468,7 +14331,6 @@ K-SeqExprCast-790;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-791;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:QName)'
 K-SeqExprCast-792;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:NOTATION)'
 K-SeqExprCast-795;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-796;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 K-SeqExprCast-797;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-798;The string '<Value>[type: XsString, value: 2002-10-10T12:00:00-05:00]' is not a valid AllXsd value.
 K-SeqExprCast-799;Expected XPathException with code FORG0006, but got FORG0006
@@ -14488,22 +14350,15 @@ K-SeqExprCast-814;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-815;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:yearMonthDuration)'
 K-SeqExprCast-816;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
 K-SeqExprCast-817;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:dayTimeDuration)'
-K-SeqExprCast-818;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 K-SeqExprCast-819;PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:dateTime'
 K-SeqExprCast-820;Type casting to XsTime has not been implemented yet.
 K-SeqExprCast-821;PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:time'
-K-SeqExprCast-822;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
 K-SeqExprCast-823;PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:date'
-K-SeqExprCast-824;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
 K-SeqExprCast-825;PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:gYearMonth'
-K-SeqExprCast-826;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
 K-SeqExprCast-827;PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:gYear'
-K-SeqExprCast-828;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
 K-SeqExprCast-829;PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:gMonthDay'
 K-SeqExprCast-83;Expected XPath xs:string(xs:float("INF")) eq "INF" to resolve to true
-K-SeqExprCast-830;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
 K-SeqExprCast-831;PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:gDay'
-K-SeqExprCast-832;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
 K-SeqExprCast-833;PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:gMonth'
 K-SeqExprCast-835;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:boolean)'
 K-SeqExprCast-836;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
@@ -14572,7 +14427,6 @@ K-SeqExprCast-895;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00
 K-SeqExprCast-896;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:NOTATION)'
 K-SeqExprCast-899;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-90;Can't parse 3.1 into an int.
-K-SeqExprCast-900;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
 K-SeqExprCast-901;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-902;The string '<Value>[type: XsString, value: 2004-10-13]' is not a valid AllXsd value.
 K-SeqExprCast-903;Expected XPathException with code FORG0006, but got FORG0006
@@ -14593,7 +14447,6 @@ K-SeqExprCast-922;Casting not supported from given type to xs:dateTime or any of
 K-SeqExprCast-923;PRSC Error: Failed to parse query 'xs:date("2004-10-13") castable as xs:dateTime'
 K-SeqExprCast-924;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-SeqExprCast-925;PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:time)'
-K-SeqExprCast-926;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
 K-SeqExprCast-927;PRSC Error: Failed to parse query 'xs:date("2004-10-13") castable as xs:date'
 K-SeqExprCast-928;Casting not supported from given type to xs:gYearMonth or any of its derived types.
 K-SeqExprCast-929;PRSC Error: Failed to parse query 'xs:date("2004-10-13") castable as xs:gYearMonth'
@@ -14619,7 +14472,6 @@ K-SeqExprCast-947;PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") c
 K-SeqExprCast-948;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:NOTATION)'
 K-SeqExprCast-95;Expected XPathException with code FORG0001, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-951;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-952;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
 K-SeqExprCast-953;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-954;The string '<Value>[type: XsString, value: 1999-11]' is not a valid AllXsd value.
 K-SeqExprCast-955;Expected XPathException with code FORG0006, but got FORG0006
@@ -14643,7 +14495,6 @@ K-SeqExprCast-976;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-977;PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:time)'
 K-SeqExprCast-979;PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:date)'
 K-SeqExprCast-98;Type casting to XsHexBinary has not been implemented yet.
-K-SeqExprCast-980;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
 K-SeqExprCast-981;PRSC Error: Failed to parse query 'xs:gYearMonth("1999-11") castable as xs:gYearMonth'
 K-SeqExprCast-983;PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:gYear)'
 K-SeqExprCast-985;PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:gMonthDay)'
@@ -14867,7 +14718,6 @@ K-SeqRemoveFunc-12;The function remove with arity 2 is not registered.
 K-SeqRemoveFunc-13;Expected executing the XPath "remove(error(), 1)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOER0000. Found error code: XPST0017 with error message: The function remove with arity 2 is not registered.
 K-SeqRemoveFunc-14;Expected executing the XPath "remove((5, 1e0), 2) eq 5" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-SeqRemoveFunc-15;Expected executing the XPath "5 eq remove((5, 1e0), 2)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-16;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsBoolean and XsInt
 K-SeqRemoveFunc-17;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function remove with arity 2 is not registered.
 K-SeqRemoveFunc-18;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function remove with arity 2 is not registered.
 K-SeqRemoveFunc-19;The function remove with arity 2 is not registered.
@@ -14922,7 +14772,6 @@ K-SeqSubsequenceFunc-23;The function subsequence with arity 2 is not registered.
 K-SeqSubsequenceFunc-24;The function subsequence with arity 2 is not registered.
 K-SeqSubsequenceFunc-25;The function subsequence with arity 3 is not registered.
 K-SeqSubsequenceFunc-26;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-27;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsInt and XsString
 K-SeqSubsequenceFunc-28;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
 K-SeqSubsequenceFunc-29;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
 K-SeqSubsequenceFunc-30;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
@@ -15521,7 +15370,6 @@ K2-DataFunc-4;Expected error code: XPDY0002. Found error code: XPST0003 with err
 K2-DataFunc-5;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-DataFunc-6;Expected error code: FOTY0012. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-DateEQ-1;Type casting to XsTime has not been implemented yet.
-K2-DateTimeEQ-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 K2-DateTimeFunc-1;The function dateTime with arity 2 is not registered.
 K2-DayTimeDurationSubtract-1;The function current-time with arity 0 is not registered.
 K2-DayTimeDurationSubtract-2;The function current-dateTime with arity 0 is not registered.
@@ -17463,12 +17311,24 @@ Literals014;Can't parse .65535032 into an int.
 Literals015;Can't parse .65535032 into an int.
 Literals016;Expected XPath 65535032e2 to resolve to 6.5535032E9
 Literals017;PRSC Error: Failed to parse query '65535.032e2'
+Literals018;Can't parse .65535032e2 into an double for a DoubleValue.
+Literals019;Can't parse .65535032e2 into an double for a DoubleValue.
+Literals020;Can't parse .65535032e2 into an double for a DoubleValue.
 Literals021;PRSC Error: Failed to parse query '65535.032e-2'
+Literals022;Can't parse .65535032e-2 into an double for a DoubleValue.
+Literals023;Can't parse .65535032e-2 into an double for a DoubleValue.
+Literals024;Can't parse .65535032e-2 into an double for a DoubleValue.
 Literals025;PRSC Error: Failed to parse query '-65535.032e2'
 Literals026;PRSC Error: Failed to parse query '-65535.032e-2'
 Literals027;Expected XPath 65535032E2 to resolve to 6.5535032E9
 Literals028;PRSC Error: Failed to parse query '65535.032E2'
+Literals029;Can't parse .65535032E2 into an double for a DoubleValue.
+Literals030;Can't parse .65535032E2 into an double for a DoubleValue.
+Literals031;Can't parse .65535032E2 into an double for a DoubleValue.
 Literals032;PRSC Error: Failed to parse query '65535.032E-2'
+Literals033;Can't parse .65535032E-2 into an double for a DoubleValue.
+Literals034;Can't parse .65535032E-2 into an double for a DoubleValue.
+Literals035;Can't parse .65535032E-2 into an double for a DoubleValue.
 Literals056;PRSC Error: Failed to parse query ''
 Literals056a;PRSC Error: Failed to parse query ''
 Literals057;PRSC Error: Failed to parse query ''
@@ -18293,138 +18153,6 @@ op-concatulng2args-2;Can't parse 130747108607674654 into an int.
 op-concatulng2args-3;Can't parse 184467440737095516 into an int.
 op-concatulng2args-4;Atomic Value for XsUnsignedLong is not implemented yet.
 op-concatulng2args-5;Atomic Value for XsUnsignedLong is not implemented yet.
-op-date-equal2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-15;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-16;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-17;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-18;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-19;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-20;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-equal2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-greater-than2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-date-less-than2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDate not implemented yet.')
-op-dateTime-equal2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-15;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-16;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-17;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-18;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-19;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-20;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-equal2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-greater-than2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
-op-dateTime-less-than2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsDateTime not implemented yet.')
 op-dayTimeDuration-equal2args-1;Type casting to XsDayTimeDuration has not been implemented yet.
 op-dayTimeDuration-equal2args-10;Type casting to XsDayTimeDuration has not been implemented yet.
 op-dayTimeDuration-equal2args-11;Type casting to XsDayTimeDuration has not been implemented yet.
@@ -18600,123 +18328,6 @@ op-duration-equal-6;Type casting to XsDuration has not been implemented yet.
 op-duration-equal-7;Type casting to XsDuration has not been implemented yet.
 op-duration-equal-8;Type casting to XsDuration has not been implemented yet.
 op-duration-equal-9;Type casting to XsDuration has not been implemented yet.
-op-gDay-equal-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gDay-equal2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGDay not implemented yet.')
-op-gMonth-equal-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonth-equal2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonth not implemented yet.')
-op-gMonthDay-equal-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gMonthDay-equal2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGMonthDay not implemented yet.')
-op-gYear-equal-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equal2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equalNew-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equalNew-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equalNew-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equalNew-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equalNew-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYear-equalNew-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYear not implemented yet.')
-op-gYearMonth-equal2args-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equal2args-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equal2args-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equal2args-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equal2args-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equal2args-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equal2args-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equal2args-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equal2args-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equal2args-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-10;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-11;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-12;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-13;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-14;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-2;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-3;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-4;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-5;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-6;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-7;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-8;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
-op-gYearMonth-equalNew-9;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsGYearMonth not implemented yet.')
 op-hexBinary-equal2args-1;Type casting to XsHexBinary has not been implemented yet.
 op-hexBinary-equal2args-10;Type casting to XsHexBinary has not been implemented yet.
 op-hexBinary-equal2args-2;Type casting to XsHexBinary has not been implemented yet.
@@ -19240,6 +18851,8 @@ op-numeric-integer-dividedec2args-2;Atomic Value for XsDecimal is not implemente
 op-numeric-integer-dividedec2args-3;Atomic Value for XsDecimal is not implemented yet.
 op-numeric-integer-dividedec2args-4;Atomic Value for XsDecimal is not implemented yet.
 op-numeric-integer-dividedec2args-5;Atomic Value for XsDecimal is not implemented yet.
+op-numeric-integer-dividedouble2args-5;Expected XPath xs:double("12.78e-2") idiv xs:double("3") to resolve to 0
+op-numeric-integer-dividefloat2args-5;Expected XPath xs:float("-3.5") idiv xs:float("3") to resolve to -1
 op-numeric-integer-divideintg2args-1;Can't parse -999999999999999999 into an int.
 op-numeric-integer-divideintg2args-2;Can't parse 830993497117024304 into an int.
 op-numeric-integer-divideintg2args-3;Can't parse 999999999999999999 into an int.
@@ -21416,11 +21029,11 @@ string-constructor-028;PRSC Error: Failed to parse query '() instance of $elemen
 string-constructor-910;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 string-constructor-911;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 string-constructor-912;PRSC Error: Failed to parse query ' = "There were 1 2 3 4 5 6 7 8 9 10 green bottles"'
-string-queries-results-q1;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q1.out'.
-string-queries-results-q2;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q2.out'.
-string-queries-results-q4;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q4.out'.
-string-queries-results-q5;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q5.out'.
-sudoku;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/Demos/sudoku-result.xml'.
+string-queries-results-q1;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q1.out'.
+string-queries-results-q2;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q2.out'.
+string-queries-results-q4;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q4.out'.
+string-queries-results-q5;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q5.out'.
+sudoku;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/Demos/sudoku-result.xml'.
 surrogates01;PRSC Error: Failed to parse query ' = 7'
 surrogates01a;Expected XPath string-length("abc𝅖def") to resolve to 7
 surrogates02;PRSC Error: Failed to parse query ''
@@ -21762,25 +21375,25 @@ WhereExpr033;PRSC Error: Failed to parse query '\n         declare variable $n e
 WhereExpr034;Use of XQuery FLWOR expressions in XPath is not allowed
 WhereExpr035;Casting AbstractValue(XsInt) to UntypedAtomicValue
 XMark-Q1;PRSC Error: Failed to parse query ''
-XMark-Q10;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q10.xml'.
-XMark-Q11;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q11.xml'.
-XMark-Q12;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q12.xml'.
-XMark-Q13;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q13.xml'.
-XMark-Q14;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q14.xml'.
-XMark-Q15;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q15.xml'.
-XMark-Q16;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q16.xml'.
-XMark-Q17;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q17.xml'.
-XMark-Q18;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q18.xml'.
-XMark-Q19;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q19.xml'.
-XMark-Q2;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q2.xml'.
-XMark-Q20;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q20.xml'.
-XMark-Q3;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q3.xml'.
+XMark-Q10;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q10.xml'.
+XMark-Q11;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q11.xml'.
+XMark-Q12;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q12.xml'.
+XMark-Q13;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q13.xml'.
+XMark-Q14;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q14.xml'.
+XMark-Q15;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q15.xml'.
+XMark-Q16;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q16.xml'.
+XMark-Q17;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q17.xml'.
+XMark-Q18;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q18.xml'.
+XMark-Q19;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q19.xml'.
+XMark-Q2;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q2.xml'.
+XMark-Q20;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q20.xml'.
+XMark-Q3;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q3.xml'.
 XMark-Q4;PRSC Error: Failed to parse query ''
 XMark-Q5;PRSC Error: Failed to parse query ''
 XMark-Q6;PRSC Error: Failed to parse query ''
 XMark-Q7;PRSC Error: Failed to parse query ''
-XMark-Q8;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q8.xml'.
-XMark-Q9;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q9.xml'.
+XMark-Q8;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q8.xml'.
+XMark-Q9;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q9.xml'.
 XML10-3ed-Mixed-content;PRSC Error: Failed to parse query '<foo> a <![CDATA[cdata section]]> in mixed content. a <!-- comment --> in mixed content. a <?processing instruction?> in mixed content. </foo>'
 XML10-4ed-Excluded-char-1-new;Name cannot begin with the 'Ϳ' character, hexadecimal value 0x37F. Line 1, position 7.
 XML10-5ed-Included-char-1;PRSC Error: Failed to parse query '<foo></foo>'
@@ -21811,12 +21424,6 @@ XPTY0004_10;Expected XPathException with code XPTY0004, but got SingletonSequenc
 XPTY0004_11;Expected XPathException with code XPTY0004, but got Object reference not set to an instance of an object.
 XPTY0004_12;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:error with arity 1 is not registered.
 XPTY0004_12a;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function fn:error with arity 1 is not registered.
-XPTY0004_13;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsInt
-XPTY0004_14;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsInt
-XPTY0004_15;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsInt
-XPTY0004_16;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsInt
-XPTY0004_17;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsInt
-XPTY0004_18;Expected XPathException with code XPTY0004, but got HandleNumericOperator: Different numeric types: XsString and XsInt
 XPTY0004_19;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 XPTY0004_20;Expected XPathException with code XPTY0004, but got NodeAfterOp AST to Expression not yet implemented
 XPTY0004_21;Expected XPathException with code XPTY0004, but got IsOp AST to Expression not yet implemented

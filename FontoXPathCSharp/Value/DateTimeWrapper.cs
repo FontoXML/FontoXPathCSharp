@@ -2,7 +2,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class DateTimeWrapper
+public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
 {
     private readonly DateTimeOffset _dateTime;
     private readonly bool _hasTimezone;
@@ -54,6 +54,11 @@ public class DateTimeWrapper
 
     public ValueType GetValueType { get; }
 
+    public int CompareTo(DateTimeWrapper? other)
+    {
+        return other != null ? _dateTime.CompareTo(other._dateTime) : 1;
+    }
+
     public override string ToString()
     {
         return GetValueType switch
@@ -73,6 +78,11 @@ public class DateTimeWrapper
                 $"{ConvertYearToString(GetYear)}-{ConvertToTwoCharString(GetMonth)}{TimezoneToString(GetTimezone)}",
             _ => ""
         };
+    }
+
+    public int CompareTo(object? obj)
+    {
+        return obj is DateTimeWrapper dateTime ? CompareTo(dateTime) : 1;
     }
 
     private static string ConvertToTwoCharString(int value)
