@@ -27,6 +27,12 @@ public class Duration : IComparable<Duration>, IComparable
         DurationType = type;
     }
 
+    public Duration(TimeSpan timeSpan)
+    {
+        DurationType = ValueType.XsDayTimeDuration;
+        RawMilliSeconds = (long)timeSpan.TotalMilliseconds;
+    }
+
     public ValueType DurationType { get; }
 
     public int Days => RawSeconds / 86400;

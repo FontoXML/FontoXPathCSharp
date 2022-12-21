@@ -109,4 +109,22 @@ public class DateTime
     {
         return timezone.Hours == 0 && timezone.Minutes == 0;
     }
+
+    public static Duration operator -(DateTime a, DateTime b)
+    {
+        var result = a._dateTime - b._dateTime;
+        return new Duration(result);
+    }
+
+    public static DateTime operator +(DateTime dateTime, Duration duration)
+    {
+        var result = dateTime._dateTime + new TimeSpan(duration.RawSeconds);
+        return new DateTime(result, dateTime.HasTimezone, dateTime.GetValueType);
+    }
+
+    public static DateTime operator -(DateTime dateTime, Duration duration)
+    {
+        var result = dateTime._dateTime - new TimeSpan(duration.RawSeconds);
+        return new DateTime(result, dateTime.HasTimezone, dateTime.GetValueType);
+    }
 }
