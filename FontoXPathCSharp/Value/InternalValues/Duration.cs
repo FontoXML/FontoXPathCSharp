@@ -1,3 +1,4 @@
+using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value.InternalValues;
@@ -163,5 +164,88 @@ public class Duration : IComparable<Duration>, IComparable
         return dayPart == "" && timePart == "" ? $"{dayPart}T{timePart}" :
             dayPart == "" ? dayPart :
             timePart == "" ? $"T{timePart}" : "T0S";
+    }
+
+    public static Duration operator +(Duration a, Duration b)
+    {
+        return a.DurationType switch
+        {
+            ValueType.XsDayTimeDuration when b.DurationType == ValueType.XsDayTimeDuration => new(
+                a.RawMilliSeconds + b.RawMilliSeconds, 0, ValueType.XsDayTimeDuration),
+            ValueType.XsYearMonthDuration when b.DurationType == ValueType.XsYearMonthDuration => new(0,
+                a.RawMonths + b.RawMonths, ValueType.XsYearMonthDuration),
+            _ => new(a.RawMilliSeconds + b.RawMilliSeconds, a.RawMonths + b.RawMonths, ValueType.XsDuration)
+        };
+    }
+
+    public static Duration operator -(Duration a, Duration b)
+    {
+        return a.DurationType switch
+        {
+            ValueType.XsDayTimeDuration when b.DurationType == ValueType.XsDayTimeDuration => new(
+                a.RawMilliSeconds - b.RawMilliSeconds, 0, ValueType.XsDayTimeDuration),
+            ValueType.XsYearMonthDuration when b.DurationType == ValueType.XsYearMonthDuration => new(0,
+                a.RawMonths - b.RawMonths, ValueType.XsYearMonthDuration),
+            _ => new(a.RawMilliSeconds - b.RawMilliSeconds, a.RawMonths - b.RawMonths, ValueType.XsDuration)
+        };
+    }
+
+    public static double operator /(Duration a, Duration b)
+    {
+        return a.DurationType switch
+        {
+            ValueType.XsDayTimeDuration when b.DurationType == ValueType.XsDayTimeDuration => a.RawMilliSeconds /
+                b.RawMilliSeconds,
+            ValueType.XsYearMonthDuration when b.DurationType == ValueType.XsYearMonthDuration => a.RawMonths /
+                b.RawMonths,
+            _ => throw new Exception(
+                $"Division does not make sense between {a.DurationType.Name()} and {b.DurationType.Name()}")
+        };
+    }
+
+    public static Duration operator *(Duration a, double b)
+    {
+        if (double.IsNaN(b))
+            throw new XPathException(
+                "FOCA0005",
+                $"Cannot multiply {a.DurationType.Name()} by NaN"
+            );
+        if (!double.IsFinite(b))
+            throw new XPathException(
+                "FODT0002",
+                $"Value overflow while constructing {a.DurationType.Name()}, scalar is not finite."
+            );
+        return a.DurationType switch
+        {
+            ValueType.XsDayTimeDuration => new(
+                (long)Math.Round(a.RawMilliSeconds * b), 0, ValueType.XsDayTimeDuration),
+            ValueType.XsYearMonthDuration => new(0,
+                (int)Math.Round(a.RawMonths * b), ValueType.XsYearMonthDuration),
+            _ => new((long)Math.Round(a.RawMilliSeconds * b), (int)Math.Round(a.RawMonths * b), ValueType.XsDuration)
+        };
+    }
+
+    public static Duration operator /(Duration a, double b)
+    {
+        if (double.IsNaN(b))
+            throw new XPathException(
+                "FOCA0005",
+                $"Cannot divide {a.DurationType.Name()} by NaN"
+            );
+
+
+        if (!double.IsFinite(b))
+            throw new XPathException(
+                "FODT0002",
+                $"Value overflow while constructing {a.DurationType.Name()}, scalar is not finite."
+            );
+        return a.DurationType switch
+        {
+            ValueType.XsDayTimeDuration => new(
+                (long)Math.Round(a.RawMilliSeconds * b), 0, ValueType.XsDayTimeDuration),
+            ValueType.XsYearMonthDuration => new(0,
+                (int)Math.Round(a.RawMonths * b), ValueType.XsYearMonthDuration),
+            _ => new((long)Math.Round(a.RawMilliSeconds * b), (int)Math.Round(a.RawMonths * b), ValueType.XsDuration)
+        };
     }
 }

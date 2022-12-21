@@ -70,7 +70,7 @@ public enum ValueType
 
 internal static class ValueTypeUtils
 {
-    public static string ToString(this ValueType input)
+    public static string Name(this ValueType input)
     {
         return input switch
         {
