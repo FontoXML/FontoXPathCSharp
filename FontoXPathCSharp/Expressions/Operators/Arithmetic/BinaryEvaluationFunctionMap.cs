@@ -89,46 +89,6 @@ public class BinaryEvaluationFunctionMap
             ValueType.XsDateTime
         },
         {
-            (ValueType.XsDate, ValueType.XsYearMonthDuration, AstNodeName.AddOp),
-            ValueType.XsDate
-        },
-        {
-            (ValueType.XsDate, ValueType.XsYearMonthDuration, AstNodeName.SubtractOp),
-            ValueType.XsDate
-        },
-        {
-            (ValueType.XsDate, ValueType.XsDayTimeDuration, AstNodeName.AddOp),
-            ValueType.XsDate
-        },
-        {
-            (ValueType.XsDate, ValueType.XsDayTimeDuration, AstNodeName.SubtractOp),
-            ValueType.XsDate
-        },
-        {
-            (ValueType.XsTime, ValueType.XsDayTimeDuration, AstNodeName.AddOp),
-            ValueType.XsTime
-        },
-        {
-            (ValueType.XsTime, ValueType.XsDayTimeDuration, AstNodeName.SubtractOp),
-            ValueType.XsTime
-        },
-        {
-            (ValueType.XsDateTime, ValueType.XsYearMonthDuration, AstNodeName.AddOp),
-            ValueType.XsDateTime
-        },
-        {
-            (ValueType.XsDateTime, ValueType.XsYearMonthDuration, AstNodeName.SubtractOp),
-            ValueType.XsDateTime
-        },
-        {
-            (ValueType.XsDateTime, ValueType.XsDayTimeDuration, AstNodeName.AddOp),
-            ValueType.XsDateTime
-        },
-        {
-            (ValueType.XsDateTime, ValueType.XsDayTimeDuration, AstNodeName.SubtractOp),
-            ValueType.XsDateTime
-        },
-        {
             (ValueType.XsDate, ValueType.XsDayTimeDuration, AstNodeName.AddOp),
             ValueType.XsDate
         },
@@ -241,46 +201,6 @@ public class BinaryEvaluationFunctionMap
             {
                 (ValueType.XsTime, ValueType.XsTime, AstNodeName.SubtractOp),
                 (a, b) => (DateTime)a - (DateTime)b
-            },
-            {
-                (ValueType.XsDateTime, ValueType.XsYearMonthDuration, AstNodeName.AddOp),
-                (a, b) => (DateTime)a + (Duration)b
-            },
-            {
-                (ValueType.XsDateTime, ValueType.XsYearMonthDuration, AstNodeName.SubtractOp),
-                (a, b) => (DateTime)a - (Duration)b
-            },
-            {
-                (ValueType.XsDateTime, ValueType.XsDayTimeDuration, AstNodeName.AddOp),
-                (a, b) => (DateTime)a + (Duration)b
-            },
-            {
-                (ValueType.XsDateTime, ValueType.XsDayTimeDuration, AstNodeName.SubtractOp),
-                (a, b) => (DateTime)a - (Duration)b
-            },
-            {
-                (ValueType.XsDate, ValueType.XsYearMonthDuration, AstNodeName.AddOp),
-                (a, b) => (DateTime)a + (Duration)b
-            },
-            {
-                (ValueType.XsDate, ValueType.XsYearMonthDuration, AstNodeName.SubtractOp),
-                (a, b) => (DateTime)a - (Duration)b
-            },
-            {
-                (ValueType.XsDate, ValueType.XsDayTimeDuration, AstNodeName.AddOp),
-                (a, b) => (DateTime)a + (Duration)b
-            },
-            {
-                (ValueType.XsDate, ValueType.XsDayTimeDuration, AstNodeName.SubtractOp),
-                (a, b) => (DateTime)a - (Duration)b
-            },
-            {
-                (ValueType.XsTime, ValueType.XsDayTimeDuration, AstNodeName.AddOp),
-                (a, b) => (DateTime)a + (Duration)b
-            },
-            {
-                (ValueType.XsTime, ValueType.XsDayTimeDuration, AstNodeName.SubtractOp),
-                (a, b) => (DateTime)a - (Duration)b
             },
             {
                 (ValueType.XsDateTime, ValueType.XsYearMonthDuration, AstNodeName.AddOp),
