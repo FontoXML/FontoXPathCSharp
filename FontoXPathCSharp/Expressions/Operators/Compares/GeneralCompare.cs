@@ -52,7 +52,7 @@ public class GeneralCompare<TNode> : AbstractExpression<TNode> where TNode : not
     }
 
     private static ISequence PerformGeneralCompare(
-        CompareType type, 
+        CompareType type,
         ISequence firstSequence,
         ISequence secondSequence,
         DynamicContext dynamicContext)
