@@ -1,20 +1,13 @@
 ﻿abbreviatedSyntax-1;Expected XPath for $h in (/works/employee[4]) return $h/hours/string() to resolve to 20 40, but instead got null
-abbreviatedSyntax-10;SingletonSequence.Map not implemented
-abbreviatedSyntax-12;SingletonSequence.Map not implemented
-abbreviatedSyntax-13;SingletonSequence.Map not implemented
 abbreviatedSyntax-14;Expected XPath for $h in (/works/employee[12]/overtime) return $h/../@name to resolve to John Doe 12, but instead got null
 abbreviatedSyntax-17;Expected XPath for $h in (/works) return $h/employee[@gender="female"][5]/@name to resolve to Jane Doe 9, but instead got null
 abbreviatedSyntax-18;Expected XPath for $h in (/works) return $h/employee[5][@gender="female"]/@name to resolve to Jane Doe 5, but instead got null
 abbreviatedSyntax-2;Expected XPath for $h in (/works/employee[2]) return $h/text() to resolve to Text data from Employee[2], but instead got null
-abbreviatedSyntax-22;SingletonSequence.Map not implemented
-abbreviatedSyntax-24;SingletonSequence.Map not implemented
 abbreviatedSyntax-26;PRSC Error: Failed to parse query ''
 abbreviatedSyntax-3;Expected XPath for $h in (/works/employee[10]) return $h/@name to resolve to John Doe 10, but instead got null
 abbreviatedSyntax-5;Expected XPath for $h in (/works) return $h/employee[1]/@name to resolve to Jane Doe 1, but instead got null
 abbreviatedSyntax-6;Expected XPath for $h in (/works) return $h/employee[fn:last()]/@name to resolve to Jane Doe 13, but instead got null
-abbreviatedSyntax-7;SingletonSequence.Map not implemented
 abbreviatedSyntax-8;Expected XPath /works/employee[5]/hours[2] to resolve to 30, but instead got null
-abbreviatedSyntax-9;SingletonSequence.Map not implemented
 ancestor-10;NodeAfterOp AST to Expression not yet implemented
 ancestor-13;IntersectOp AST to Expression not yet implemented
 ancestor-14;ExceptOp AST to Expression not yet implemented
@@ -288,7 +281,7 @@ ArrowPostfix-004;PRSC Error: Failed to parse query 'deep-equal((let $f:= tokeniz
 ArrowPostfix-005;PRSC Error: Failed to parse query 'deep-equal((let $f:= tokenize#1 return "the cat sat on the mat"=>$f()=>count()), (6))'
 ArrowPostfix-006;PRSC Error: Failed to parse query 'deep-equal((let $f:= tokenize#2 return "the cat sat on the mat"=>($f)("\s+")=>count()), (6))'
 ArrowPostfix-007;The function head with arity 1 is not registered.
-ArrowPostfix-008;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
+ArrowPostfix-008;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to UntypedAtomicValue
 ArrowPostfix-011;PRSC Error: Failed to parse query 'deep-equal((let $f:= (ceiling#1, floor#1, round#1, abs#1)=>head() return 4.54=>$f()), (5))'
 ArrowPostfix-012;PRSC Error: Failed to parse query 'deep-equal((4.54=>((ceiling#1, floor#1, round#1, abs#1) => head())()), (5))'
 ArrowPostfix-013;PRSC Error: Failed to parse query 'deep-equal((4.54=>(head((ceiling#1, floor#1, round#1, abs#1)))()), (5))'
@@ -316,11 +309,7 @@ ArrowPostfix-107;PRSC Error: Failed to parse query '1 => ([2,3],[4,5][6])() = 2'
 ArrowPostfix-108;Object reference not set to an instance of an object.
 ArrowPostfix-109;PRSC Error: Failed to parse query 'let $days := map{"Mo": "Monday", "Tu": "Tuesday"} return "Tu" => $days() = "Tuesday"'
 ArrowPostfix-110;PRSC Error: Failed to parse query '"Tu" => (map{"Mo": "Monday", "Tu": "Tuesday"})() = "Tuesday"'
-Axes013-1;SingletonSequence.MapAll not implemented
-Axes015-1;SingletonSequence.MapAll not implemented
-Axes017-1;SingletonSequence.MapAll not implemented
-Axes018-1;SingletonSequence.MapAll not implemented
-Axes019-1;SingletonSequence.MapAll not implemented
+Axes018-1;Expected XPath fn:count(/far-north/parent::node()) to resolve to 1
 Axes046-1;Expected XPath fn:count(/child::node()) to resolve to 1
 Axes046-2;Expected XPath fn:count(/child::node()) to resolve to 7
 Axes049-1;Expected XPath fn:count(/node()) to resolve to 1
@@ -450,7 +439,6 @@ base64BinaryEqual-8;Type casting to XsBase64Binary has not been implemented yet.
 base64BinaryEqual-9;Type casting to XsBase64Binary has not been implemented yet.
 boolean-003;Can't parse 93.7 into an int.
 boolean-004;Expected XPathException with code FORG0006, but got Can't parse 93.7 into an int.
-boolean-009;SingletonSequence.Map not implemented
 boolean-010;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'boolean([true()])'
 boolean-010b;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:boolean([])'
 boolean-011;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'boolean(map{})'
@@ -2219,9 +2207,6 @@ cbcl-codepoints-to-string-007;Expected XPathException with code FOCH0001, but go
 cbcl-codepoints-to-string-008;Expected XPathException with code FOCH0001, but got Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-codepoints-to-string-009;Expected XPathException with code FOCH0001, but got Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-codepoints-to-string-010;Casting AbstractValue(XsInt) to UntypedAtomicValue
-cbcl-codepoints-to-string-011;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-cbcl-codepoints-to-string-012;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-cbcl-codepoints-to-string-013;SingletonSequence.MapAll not implemented
 cbcl-codepoints-to-string-015;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-codepoints-to-string-016;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-codepoints-to-string-017;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -4492,31 +4477,31 @@ filterexpressionhc7;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc8;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc9;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-abs-1;The function error with arity 0 is not registered.
-fn-abs-more-args-001;SingletonSequence.Map not implemented
-fn-abs-more-args-002;SingletonSequence.Map not implemented
-fn-abs-more-args-003;SingletonSequence.Map not implemented
+fn-abs-more-args-001;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+fn-abs-more-args-002;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+fn-abs-more-args-003;Casting AbstractValue(XsDouble) to UntypedAtomicValue
 fn-abs-more-args-004-dyn;PRSC Error: Failed to parse query 'declare variable $NaN-double external; fn:abs($NaN-double)'
-fn-abs-more-args-004;SingletonSequence.Map not implemented
-fn-abs-more-args-005;SingletonSequence.Map not implemented
+fn-abs-more-args-004;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+fn-abs-more-args-005;Casting AbstractValue(XsDouble) to UntypedAtomicValue
 fn-abs-more-args-006;Atomic Value for XsDecimal is not implemented yet.
 fn-abs-more-args-007;Atomic Value for XsDecimal is not implemented yet.
-fn-abs-more-args-008;SingletonSequence.Map not implemented
-fn-abs-more-args-009;SingletonSequence.Map not implemented
-fn-abs-more-args-010;SingletonSequence.Map not implemented
-fn-abs-more-args-011;SingletonSequence.Map not implemented
-fn-abs-more-args-012;SingletonSequence.Map not implemented
-fn-abs-more-args-013;SingletonSequence.Map not implemented
-fn-abs-more-args-014;SingletonSequence.Map not implemented
-fn-abs-more-args-015;SingletonSequence.Map not implemented
-fn-abs-more-args-016;SingletonSequence.Map not implemented
+fn-abs-more-args-008;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-abs-more-args-009;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-abs-more-args-010;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-abs-more-args-011;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-abs-more-args-012;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-abs-more-args-013;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-abs-more-args-014;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-abs-more-args-015;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-abs-more-args-016;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-abs-more-args-017;Atomic Value for XsLong is not implemented yet.
 fn-abs-more-args-018;Atomic Value for XsLong is not implemented yet.
 fn-abs-more-args-019;Atomic Value for XsNonNegativeInteger is not implemented yet.
 fn-abs-more-args-020;Atomic Value for XsNonPositiveInteger is not implemented yet.
-fn-abs-more-args-021;SingletonSequence.Map not implemented
-fn-abs-more-args-022;SingletonSequence.Map not implemented
+fn-abs-more-args-021;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-abs-more-args-022;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-abs-more-args-023;Atomic Value for XsUnsignedLong is not implemented yet.
-fn-abs-more-args-024;SingletonSequence.Map not implemented
+fn-abs-more-args-024;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-abs-more-args-025;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 fn-abs-more-args-026;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 fn-abs-more-args-029;Expected XPathException with code FORG0001, but got Can't parse -INF into an int.
@@ -4567,15 +4552,15 @@ fn-abs-more-args-073;Expected XPathException with code FORG0001, but got Can't p
 fn-abs-more-args-074;Expected XPathException with code FORG0001, but got Can't parse INF into an int.
 fn-abs-more-args-075;Expected XPathException with code FORG0001, but got Can't parse -NaN into an int.
 fn-abs-more-args-076;Expected XPathException with code FORG0001, but got Can't parse NaN into an int.
-fn-abs-more-args-077;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
-fn-abs-more-args-078;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
-fn-abs-more-args-079;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
-fn-abs-more-args-080;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
-fn-abs-more-args-081;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
-fn-abs-more-args-082;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
-fn-abs-more-args-083;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
-fn-abs-more-args-084;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
-fn-abs-more-args-085;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
+fn-abs-more-args-077;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to UntypedAtomicValue
+fn-abs-more-args-078;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to UntypedAtomicValue
+fn-abs-more-args-079;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsBoolean) to UntypedAtomicValue
+fn-abs-more-args-080;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsBoolean) to UntypedAtomicValue
+fn-abs-more-args-081;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsBoolean) to UntypedAtomicValue
+fn-abs-more-args-082;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsBoolean) to UntypedAtomicValue
+fn-abs-more-args-083;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsDate) to UntypedAtomicValue
+fn-abs-more-args-084;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsTime) to UntypedAtomicValue
+fn-abs-more-args-085;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsDateTime) to UntypedAtomicValue
 fn-abs-more-args-086;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 fn-absdbl1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-double external; fn:abs($zero-double + xs:double("-1.7976931348623157E308")) = 1.7976931348623157E308'
 fn-absdbl1args-1;PRSC Error: Failed to parse query 'fn:abs(xs:double("-1.7976931348623157E308")) = 1.7976931348623157E308'
@@ -4590,9 +4575,9 @@ fn-absflt1args-1;PRSC Error: Failed to parse query 'fn:abs(xs:float("-3.4028235E
 fn-absflt1args-2;PRSC Error: Failed to parse query 'fn:abs(xs:float("0")) = 0.0e0'
 fn-absflt1args-3;PRSC Error: Failed to parse query 'fn:abs(xs:float("3.4028235E38")) = xs:float(3.4028235E38)'
 fn-absint1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-int external; fn:abs($zero-int + xs:int("-2147483648")) = 2147483648'
-fn-absint1args-1;SingletonSequence.Map not implemented
-fn-absint1args-2;SingletonSequence.Map not implemented
-fn-absint1args-3;SingletonSequence.Map not implemented
+fn-absint1args-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-absint1args-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-absint1args-3;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-absintg1args-1;Can't parse -999999999999999999 into an int.
 fn-absintg1args-2;Can't parse 830993497117024304 into an int.
 fn-absintg1args-3;Can't parse 999999999999999999 into an int.
@@ -4611,15 +4596,15 @@ fn-absnpi1args-3;Atomic Value for XsNonPositiveInteger is not implemented yet.
 fn-abspint1args-1;Atomic Value for XsPositiveInteger is not implemented yet.
 fn-abspint1args-2;Can't parse 52704602390610033 into an int.
 fn-abspint1args-3;Can't parse 999999999999999999 into an int.
-fn-abssht1args-1;SingletonSequence.Map not implemented
-fn-abssht1args-2;SingletonSequence.Map not implemented
-fn-abssht1args-3;SingletonSequence.Map not implemented
+fn-abssht1args-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-abssht1args-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-abssht1args-3;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-absulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
 fn-absulng1args-2;Can't parse 130747108607674654 into an int.
 fn-absulng1args-3;Can't parse 184467440737095516 into an int.
-fn-absusht1args-1;SingletonSequence.Map not implemented
-fn-absusht1args-2;SingletonSequence.Map not implemented
-fn-absusht1args-3;SingletonSequence.Map not implemented
+fn-absusht1args-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-absusht1args-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-absusht1args-3;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-avg-10;PRSC Error: Failed to parse query 'avg([1,2,3,4,5]) = 3'
 fn-avg-3;Type casting to XsDayTimeDuration has not been implemented yet.
 fn-avg-4;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -4850,8 +4835,8 @@ fn-ceiling-decimal-5;Can't parse 0.1 into an int.
 fn-ceiling-decimal-6;Can't parse 12345678.567890 into an int.
 fn-ceiling-decimal-7;Can't parse 1234567891234567.2 into an int.
 fn-ceiling-double-1;PRSC Error: Failed to parse query 'ceiling(12.5e0) = 13.0e0'
-fn-ceiling-double-10;SingletonSequence.Map not implemented
-fn-ceiling-double-11;SingletonSequence.Map not implemented
+fn-ceiling-double-10;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+fn-ceiling-double-11;Casting AbstractValue(XsDouble) to UntypedAtomicValue
 fn-ceiling-double-2;PRSC Error: Failed to parse query 'ceiling(12.9e0) = 13.0e0'
 fn-ceiling-double-3;PRSC Error: Failed to parse query 'ceiling(0.000000001e0) = 1.0e0'
 fn-ceiling-double-4;PRSC Error: Failed to parse query 'ceiling(0.0e0) = 0.0e0'
@@ -4859,11 +4844,11 @@ fn-ceiling-double-5;PRSC Error: Failed to parse query 'ceiling(-0.1e0) = -0.0e0'
 fn-ceiling-double-6;PRSC Error: Failed to parse query 'ceiling(-12345678.567890e0) = -12345678e0'
 fn-ceiling-double-7;PRSC Error: Failed to parse query 'ceiling(-1234567891234567.2e0) = -1234567891234567.0e0'
 fn-ceiling-double-8-dyn;PRSC Error: Failed to parse query 'declare variable $NaN-double external; ceiling($NaN-double)'
-fn-ceiling-double-8;SingletonSequence.Map not implemented
-fn-ceiling-double-9;SingletonSequence.Map not implemented
+fn-ceiling-double-8;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+fn-ceiling-double-9;Casting AbstractValue(XsDouble) to UntypedAtomicValue
 fn-ceiling-float-1;PRSC Error: Failed to parse query 'ceiling(xs:float(12.5e0)) = 13.0e0'
-fn-ceiling-float-10;SingletonSequence.Map not implemented
-fn-ceiling-float-11;SingletonSequence.Map not implemented
+fn-ceiling-float-10;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-ceiling-float-11;Casting AbstractValue(XsFloat) to UntypedAtomicValue
 fn-ceiling-float-2;PRSC Error: Failed to parse query 'ceiling(xs:float(12.9e0)) = 13.0e0'
 fn-ceiling-float-3;PRSC Error: Failed to parse query 'ceiling(xs:float(0.000000001e0)) = 1.0e0'
 fn-ceiling-float-4;PRSC Error: Failed to parse query 'ceiling(xs:float(0.0e0)) = 0.0e0'
@@ -4871,24 +4856,24 @@ fn-ceiling-float-5;PRSC Error: Failed to parse query 'ceiling(xs:float(-0.1e0)) 
 fn-ceiling-float-6;PRSC Error: Failed to parse query 'ceiling(xs:float(-12345678.1e0)) = -12345678e0'
 fn-ceiling-float-7;PRSC Error: Failed to parse query 'ceiling(xs:float(-1234567.2e0)) = -1234567e0'
 fn-ceiling-float-8-dyn;PRSC Error: Failed to parse query 'declare variable $NaN-float external; ceiling($NaN-float)'
-fn-ceiling-float-8;SingletonSequence.Map not implemented
-fn-ceiling-float-9;SingletonSequence.Map not implemented
+fn-ceiling-float-8;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-ceiling-float-9;Casting AbstractValue(XsFloat) to UntypedAtomicValue
 fn-ceilingdbl1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-double external; fn:ceiling($zero-double + xs:double("-1.7976931348623157E308"))'
-fn-ceilingdbl1args-1;SingletonSequence.Map not implemented
-fn-ceilingdbl1args-2;SingletonSequence.Map not implemented
-fn-ceilingdbl1args-3;SingletonSequence.Map not implemented
+fn-ceilingdbl1args-1;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+fn-ceilingdbl1args-2;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+fn-ceilingdbl1args-3;Casting AbstractValue(XsDouble) to UntypedAtomicValue
 fn-ceilingdec1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-int external; fn:ceiling($zero-int + xs:decimal("-999999999999999999")) = -999999999999999999'
 fn-ceilingdec1args-1;Atomic Value for XsDecimal is not implemented yet.
 fn-ceilingdec1args-2;Atomic Value for XsDecimal is not implemented yet.
 fn-ceilingdec1args-3;Atomic Value for XsDecimal is not implemented yet.
 fn-ceilingflt1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-float external; fn:ceiling($zero-float + xs:float("-3.4028235E38"))'
-fn-ceilingflt1args-1;SingletonSequence.Map not implemented
-fn-ceilingflt1args-2;SingletonSequence.Map not implemented
-fn-ceilingflt1args-3;SingletonSequence.Map not implemented
+fn-ceilingflt1args-1;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-ceilingflt1args-2;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-ceilingflt1args-3;Casting AbstractValue(XsFloat) to UntypedAtomicValue
 fn-ceilingint1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-int external; fn:ceiling($zero-int + xs:int("-2147483648")) = -2147483648'
-fn-ceilingint1args-1;SingletonSequence.Map not implemented
-fn-ceilingint1args-2;SingletonSequence.Map not implemented
-fn-ceilingint1args-3;SingletonSequence.Map not implemented
+fn-ceilingint1args-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-ceilingint1args-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-ceilingint1args-3;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-ceilingintg1args-1;Can't parse -999999999999999999 into an int.
 fn-ceilingintg1args-2;Can't parse 830993497117024304 into an int.
 fn-ceilingintg1args-3;Can't parse 999999999999999999 into an int.
@@ -4907,32 +4892,20 @@ fn-ceilingnpi1args-3;Atomic Value for XsNonPositiveInteger is not implemented ye
 fn-ceilingpint1args-1;Atomic Value for XsPositiveInteger is not implemented yet.
 fn-ceilingpint1args-2;Can't parse 52704602390610033 into an int.
 fn-ceilingpint1args-3;Can't parse 999999999999999999 into an int.
-fn-ceilingsht1args-1;SingletonSequence.Map not implemented
-fn-ceilingsht1args-2;SingletonSequence.Map not implemented
-fn-ceilingsht1args-3;SingletonSequence.Map not implemented
+fn-ceilingsht1args-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-ceilingsht1args-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-ceilingsht1args-3;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-ceilingulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
 fn-ceilingulng1args-2;Can't parse 130747108607674654 into an int.
 fn-ceilingulng1args-3;Can't parse 184467440737095516 into an int.
-fn-ceilingusht1args-1;SingletonSequence.Map not implemented
-fn-ceilingusht1args-2;SingletonSequence.Map not implemented
-fn-ceilingusht1args-3;SingletonSequence.Map not implemented
+fn-ceilingusht1args-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-ceilingusht1args-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-ceilingusht1args-3;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-codepoint-equal-10;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to StringValue
 fn-codepoint-equal-11;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to StringValue
-fn-codepoint-equal-13;SingletonSequence.Map not implemented
-fn-codepoint-equal-14;SingletonSequence.Map not implemented
 fn-codepoint-equal-22;The function normalize-unicode with arity 2 is not registered.
-fn-codepoint-equal-8;SingletonSequence.Map not implemented
-fn-codepoint-equal-9;SingletonSequence.Map not implemented
-fn-codepoints-to-string-1;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-fn-codepoints-to-string-11;SingletonSequence.MapAll not implemented
-fn-codepoints-to-string-12;SingletonSequence.MapAll not implemented
-fn-codepoints-to-string-2;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-fn-codepoints-to-string-3;SingletonSequence.MapAll not implemented
-fn-codepoints-to-string-4;SingletonSequence.MapAll not implemented
-fn-codepoints-to-string1args-3;Expected XPathException with code XPTY0004, but got SingletonSequence.MapAll not implemented
-fn-concat-13;SingletonSequence.Map not implemented
+fn-codepoints-to-string1args-3;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to IntValue
 fn-concat-18;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:concat("abc","abc", fn:concat#3)'
-fn-concat-9;SingletonSequence.Map not implemented
 fn-concatdbl2args-1;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308-1.7976931348623157E308, but instead got -1.7976931348623157E+308-1.7976931348623157E+308
 fn-concatdbl2args-2;Expected XPath fn:concat(xs:double("0"),xs:double("-1.7976931348623157E308")) to resolve to 0-1.7976931348623157E308, but instead got 0-1.7976931348623157E+308
 fn-concatdbl2args-3;Expected XPath fn:concat(xs:double("1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308, but instead got 1.7976931348623157E+308-1.7976931348623157E+308
@@ -5520,7 +5493,7 @@ fn-existsulng1args-3;Can't parse 184467440737095516 into an int.
 fn-false-1;PRSC Error: Failed to parse query '(fn:false()) instance of $xs:boolean'
 fn-false-13;PRSC Error: Failed to parse query ''
 fn-false-14;PRSC Error: Failed to parse query ''
-fn-false-18;SingletonSequence.Map not implemented
+fn-false-18;Expected XPath fn:string(fn:false()) to resolve to "false"
 fn-false-19;Expected XPath fn:concat(xs:string(fn:false()),xs:string(fn:false())) to resolve to falsefalse, but instead got FalseFalse
 fn-false-22;PRSC Error: Failed to parse query '(let $f := false#0 return 3[$f()]) => empty()'
 fn-filter-002;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:filter#0'
@@ -5554,39 +5527,39 @@ fn-floor-decimal-5;Can't parse 0.1 into an int.
 fn-floor-decimal-6;Can't parse 12345678.567890 into an int.
 fn-floor-decimal-7;Can't parse 1234567891234567.2 into an int.
 fn-floor-double-1;PRSC Error: Failed to parse query 'floor(12.5e0) = 12.0e0'
-fn-floor-double-10;SingletonSequence.Map not implemented
-fn-floor-double-11;SingletonSequence.Map not implemented
+fn-floor-double-10;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+fn-floor-double-11;Casting AbstractValue(XsDouble) to UntypedAtomicValue
 fn-floor-double-2;PRSC Error: Failed to parse query 'floor(12.9e0) = 12.0e0'
 fn-floor-double-3;PRSC Error: Failed to parse query 'floor(0.000000001e0) = 0.0e0'
 fn-floor-double-4;PRSC Error: Failed to parse query 'floor(0.0e0) = 0.0e0'
 fn-floor-double-5;PRSC Error: Failed to parse query 'floor(-0.1e0) = -1.0e0'
 fn-floor-double-6;PRSC Error: Failed to parse query 'floor(-12345678.567890e0) = -12345679e0'
 fn-floor-double-7;PRSC Error: Failed to parse query 'floor(-1234567891234567.2e0) = -1234567891234568.0e0'
-fn-floor-double-8;SingletonSequence.Map not implemented
-fn-floor-double-9;SingletonSequence.Map not implemented
+fn-floor-double-8;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+fn-floor-double-9;Casting AbstractValue(XsDouble) to UntypedAtomicValue
 fn-floor-float-1;PRSC Error: Failed to parse query 'floor(xs:float(12.5e0)) = 12.0e0'
-fn-floor-float-10;SingletonSequence.Map not implemented
-fn-floor-float-11;SingletonSequence.Map not implemented
+fn-floor-float-10;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-floor-float-11;Casting AbstractValue(XsFloat) to UntypedAtomicValue
 fn-floor-float-2;PRSC Error: Failed to parse query 'floor(xs:float(12.9e0)) = 12.0e0'
 fn-floor-float-3;PRSC Error: Failed to parse query 'floor(xs:float(0.000000001e0)) = 0.0e0'
 fn-floor-float-4;PRSC Error: Failed to parse query 'floor(xs:float(0.0e0)) = 0.0e0'
 fn-floor-float-5;PRSC Error: Failed to parse query 'floor(xs:float(-0.1e0)) = -1.0e0'
 fn-floor-float-6;PRSC Error: Failed to parse query 'floor(xs:float(-12345678.567890e0)) = -12345679e0'
 fn-floor-float-7;PRSC Error: Failed to parse query 'floor(xs:float(-1234567.2e0)) = -1234568e0'
-fn-floor-float-8;SingletonSequence.Map not implemented
-fn-floor-float-9;SingletonSequence.Map not implemented
-fn-floordbl1args-1;SingletonSequence.Map not implemented
-fn-floordbl1args-2;SingletonSequence.Map not implemented
-fn-floordbl1args-3;SingletonSequence.Map not implemented
+fn-floor-float-8;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-floor-float-9;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-floordbl1args-1;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+fn-floordbl1args-2;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+fn-floordbl1args-3;Casting AbstractValue(XsDouble) to UntypedAtomicValue
 fn-floordec1args-1;Atomic Value for XsDecimal is not implemented yet.
 fn-floordec1args-2;Atomic Value for XsDecimal is not implemented yet.
 fn-floordec1args-3;Atomic Value for XsDecimal is not implemented yet.
-fn-floorflt1args-1;SingletonSequence.Map not implemented
-fn-floorflt1args-2;SingletonSequence.Map not implemented
-fn-floorflt1args-3;SingletonSequence.Map not implemented
-fn-floorint1args-1;SingletonSequence.Map not implemented
-fn-floorint1args-2;SingletonSequence.Map not implemented
-fn-floorint1args-3;SingletonSequence.Map not implemented
+fn-floorflt1args-1;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-floorflt1args-2;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-floorflt1args-3;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+fn-floorint1args-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-floorint1args-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-floorint1args-3;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-floorintg1args-1;Can't parse -999999999999999999 into an int.
 fn-floorintg1args-2;Can't parse 830993497117024304 into an int.
 fn-floorintg1args-3;Can't parse 999999999999999999 into an int.
@@ -5605,15 +5578,15 @@ fn-floornpi1args-3;Atomic Value for XsNonPositiveInteger is not implemented yet.
 fn-floorpint1args-1;Atomic Value for XsPositiveInteger is not implemented yet.
 fn-floorpint1args-2;Can't parse 52704602390610033 into an int.
 fn-floorpint1args-3;Can't parse 999999999999999999 into an int.
-fn-floorsht1args-1;SingletonSequence.Map not implemented
-fn-floorsht1args-2;SingletonSequence.Map not implemented
-fn-floorsht1args-3;SingletonSequence.Map not implemented
+fn-floorsht1args-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-floorsht1args-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-floorsht1args-3;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-floorulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
 fn-floorulng1args-2;Can't parse 130747108607674654 into an int.
 fn-floorulng1args-3;Can't parse 184467440737095516 into an int.
-fn-floorusht1args-1;SingletonSequence.Map not implemented
-fn-floorusht1args-2;SingletonSequence.Map not implemented
-fn-floorusht1args-3;SingletonSequence.Map not implemented
+fn-floorusht1args-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-floorusht1args-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
+fn-floorusht1args-3;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-function-lookup-001;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'node-name'), 0)) to resolve to true
 fn-function-lookup-002;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-003;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'node-name'), 1)) to resolve to true
@@ -6527,14 +6500,13 @@ fn-indexof-mix-args-021;The function fn:index-of with arity 2 is not registered.
 fn-innermost-002;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:innermost#0'
 fn-innermost-004;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:innermost#2'
 fn-innermost-005;PRSC Error: Failed to parse query 'fn:exists( fn:innermost#1 )'
-fn-innermost-006;Expected XPathException with code XPTY0004, but got SingletonSequence.MapAll not implemented
+fn-innermost-006;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Value.IntValue' to type 'FontoXPathCSharp.Value.NodeValue`1[System.Xml.XmlNode]'.
 fn-innermost-007;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:innermost( fn:dateTime#2 )'
 fn-innermost-008;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:current-dateTime with arity 0 is not registered.
 fn-innermost-009;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
 fn-innermost-010;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:innermost( if ( fn:current-dateTime() eq\n                                    fn:dateTime( fn:current-date(),\n                                                 fn:current-time() ))\n                               then .\n                               else fn:dateTime#2 )'
 fn-innermost-011;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '( fn:innermost( if (current-date() eq xs:date('1900-01-01'))\n                                 then .\n                                 else fn:dateTime#2 ),\n              fn:innermost( if (current-date() eq xs:date('1900-01-01'))\n                                 then fn:dateTime#2\n                                 else . ) )'
 fn-innermost-012;Value was either too large or too small for an Int32.
-fn-innermost-013;SingletonSequence.MapAll not implemented
 fn-innermost-014;Value was either too large or too small for an Int32.
 fn-innermost-015;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //*/@* ) ! string()), (('0a','00a','000a','01a','010a','02a','020a')))'
 fn-innermost-017;Value was either too large or too small for an Int32.
@@ -6628,29 +6600,9 @@ fn-iri-to-uri1args-5;Expected XPathException with code XPTY0004, but got Casting
 fn-local-name-from-qname-022;The function fn:local-name-from-QName with arity 1 is not registered.
 fn-local-name-from-qname-023;The function fn:local-name-from-QName with arity 1 is not registered.
 fn-local-name-from-qname-024;The function fn:local-name-from-QName with arity 1 is not registered.
-fn-lower-case-1;SingletonSequence.Map not implemented
-fn-lower-case-10;SingletonSequence.Map not implemented
-fn-lower-case-11;SingletonSequence.Map not implemented
-fn-lower-case-12;SingletonSequence.Map not implemented
-fn-lower-case-13;SingletonSequence.Map not implemented
-fn-lower-case-14;SingletonSequence.Map not implemented
-fn-lower-case-15;SingletonSequence.Map not implemented
-fn-lower-case-16;SingletonSequence.Map not implemented
-fn-lower-case-17;SingletonSequence.Map not implemented
 fn-lower-case-18;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-lower-case-19;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-lower-case-20;SingletonSequence.MapAll not implemented
-fn-lower-case-21;SingletonSequence.MapAll not implemented
-fn-lower-case-3;SingletonSequence.Map not implemented
-fn-lower-case-4;SingletonSequence.Map not implemented
-fn-lower-case-5;SingletonSequence.Map not implemented
-fn-lower-case-6;SingletonSequence.Map not implemented
-fn-lower-case-7;SingletonSequence.Map not implemented
-fn-lower-case-8;SingletonSequence.Map not implemented
-fn-lower-case-9;SingletonSequence.Map not implemented
-fn-lower-case1args-1;SingletonSequence.Map not implemented
-fn-lower-case1args-2;SingletonSequence.Map not implemented
-fn-lower-case1args-3;SingletonSequence.Map not implemented
+fn-lower-case-21;Expected XPath fn:string-to-codepoints(fn:lower-case(fn:codepoints-to-string(304))) to (deep equally) resolve to 105, 775
 fn-matches-1;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-10;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-11;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
@@ -6686,13 +6638,13 @@ fn-matches-38;Expected XPathException with code FORX0002, but got BuiltInFunctio
 fn-matches-39;Expected XPathException with code FORX0002, but got BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-4;The function fn:matches with arity 3 is not registered.
 fn-matches-40;Expected XPathException with code FORX0002, but got BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
-fn-matches-41;SingletonSequence.MapAll not implemented
+fn-matches-41;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-42;The function fn:matches with arity 3 is not registered.
-fn-matches-43;SingletonSequence.MapAll not implemented
+fn-matches-43;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-44;The function fn:matches with arity 3 is not registered.
-fn-matches-45;SingletonSequence.MapAll not implemented
+fn-matches-45;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-46;The function fn:matches with arity 3 is not registered.
-fn-matches-47;SingletonSequence.MapAll not implemented
+fn-matches-47;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-48;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-49;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-5;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
@@ -7118,12 +7070,12 @@ fn-name-20;PRSC Error: Failed to parse query ''
 fn-name-21;Expected XPath (fn:name(./works[1]/employee[1]),fn:name(./works[1]/employee[2])) to resolve to employee employee, but instead got null
 fn-name-22;Expected XPath fn:count(((fn:name(/works[1]/employee[1]),fn:name(/works[1]/employee[2])))) to resolve to 2
 fn-name-23;Expected error code: XPDY0002. Query succeeded with result: 
-fn-name-24;SingletonSequence.Map not implemented
-fn-name-25;SingletonSequence.Map not implemented
-fn-name-26;SingletonSequence.Map not implemented
+fn-name-24;Haven't implemented Qnames from: AuctionWatchList:ma
+fn-name-25;Haven't implemented Qnames from: currency:ma
+fn-name-26;Haven't implemented Qnames from: lang:xml
 fn-name-27;PRSC Error: Failed to parse query 'name((//namespace::*[.='http://www.w3.org/1999/xlink'])[1])'
-fn-name-28;SingletonSequence.Map not implemented
-fn-name-29;SingletonSequence.Map not implemented
+fn-name-28;Haven't implemented Qnames from: xml-stylesheet:
+fn-name-29;Haven't implemented Qnames from: recorded:
 fn-name-3;Expected XPath (fn:name(./works[1]/employee[1]/@name)) to resolve to name, but instead got null
 fn-name-5;Object reference not set to an instance of an object.
 fn-name-6;Expected XPath for $h in ./works[1]/employee[2] return
@@ -7171,7 +7123,6 @@ fn-normalize-space-16;Value was either too large or too small for an Int32.
 fn-normalize-space-17;Value was either too large or too small for an Int32.
 fn-normalize-space-18;Value was either too large or too small for an Int32.
 fn-normalize-space-2;Expected XPathException with code XPDY0002, but got Casting AbstractValue(DocumentNode) to StringValue
-fn-normalize-space-20;SingletonSequence.Map not implemented
 fn-normalize-space-23;Casting AbstractValue(Element) to StringValue
 fn-normalize-space-24;Expected XPathException with code FOTY0012, but got Casting AbstractValue(Element) to StringValue
 fn-normalize-space-25;Value was either too large or too small for an Int32.
@@ -7181,7 +7132,7 @@ fn-normalize-space0args-1;Casting AbstractValue(Element) to StringValue
 fn-normalize-space1args-4;Value was either too large or too small for an Int32.
 fn-not-13;PRSC Error: Failed to parse query ''
 fn-not-14;PRSC Error: Failed to parse query ''
-fn-not-18;SingletonSequence.Map not implemented
+fn-not-18;Expected XPath fn:string(fn:not("true")) to resolve to 'false'
 fn-not-19;Expected XPath fn:concat(xs:string(fn:not("true")),xs:string(fn:not("true"))) to resolve to 'falsefalse'
 fn-not-24;Value was either too large or too small for a Decimal.
 fn-not-25;Value was either too large or too small for a Decimal.
@@ -7304,14 +7255,13 @@ fn-one-or-moreusht1args-3;The function fn:one-or-more with arity 1 is not regist
 fn-outermost-002;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:outermost#0'
 fn-outermost-004;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:outermost#2'
 fn-outermost-005;PRSC Error: Failed to parse query 'fn:exists( fn:outermost#1 )'
-fn-outermost-006;Expected XPathException with code XPTY0004, but got SingletonSequence.MapAll not implemented
+fn-outermost-006;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Value.IntValue' to type 'FontoXPathCSharp.Value.NodeValue`1[System.Xml.XmlNode]'.
 fn-outermost-007;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:outermost( fn:dateTime#2 )'
 fn-outermost-008;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:current-dateTime with arity 0 is not registered.
 fn-outermost-009;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
 fn-outermost-010;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:outermost( if ( fn:current-dateTime() eq\n                                    fn:dateTime( fn:current-date(),\n                                                 fn:current-time() ))\n                               then .\n                               else fn:dateTime#2 )'
 fn-outermost-011;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '( fn:outermost( if (current-date() eq xs:date('1900-01-01'))\n                                 then .\n                                 else fn:dateTime#2 ),\n              fn:outermost( if (current-date() eq xs:date('1900-01-01'))\n                                 then fn:dateTime#2\n                                 else . ) )'
 fn-outermost-012;Value was either too large or too small for an Int32.
-fn-outermost-013;SingletonSequence.MapAll not implemented
 fn-outermost-014;Value was either too large or too small for an Int32.
 fn-outermost-015;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //*/@* ) ! string()), (('0a','00a','000a','01a','010a','02a','020a')))'
 fn-outermost-017;Value was either too large or too small for an Int32.
@@ -7554,8 +7504,8 @@ fn-replace-35;Using flags in 'replace' is not supported
 fn-replace-40;Using flags in 'replace' is not supported
 fn-replace-41;Using flags in 'replace' is not supported
 fn-replace-42;Using flags in 'replace' is not supported
-fn-replace-43;SingletonSequence.MapAll not implemented
-fn-replace-44;SingletonSequence.MapAll not implemented
+fn-replace-43;Expected XPath fn:replace(concat('Mary', codepoints-to-string(13), 'Jones'), 'Mary.Jones', 'Jacob Jones') to resolve to concat('Mary', codepoints-to-string(13), 'Jones')
+fn-replace-44;Using flags in 'replace' is not supported
 fn-replace-45;Using $0 in fn:replace to replace substrings with full matches is not supported.
 fn-replace-49;Using flags in 'replace' is not supported
 fn-replace-50;Using flags in 'replace' is not supported
@@ -7606,7 +7556,7 @@ fn-reverseulng1args-3;The function fn:reverse with arity 1 is not registered.
 fn-reverseusht1args-1;The function fn:reverse with arity 1 is not registered.
 fn-reverseusht1args-2;The function fn:reverse with arity 1 is not registered.
 fn-reverseusht1args-3;The function fn:reverse with arity 1 is not registered.
-fn-root-1;Expected XPathException with code XPDY0002, but got SingletonSequence.Map not implemented
+fn-root-1;Expected error code: XPDY0002. Query succeeded with result: 
 fn-root-10;PRSC Error: Failed to parse query 'let $var := element anElement {attribute anAttribute {"Attribute Value"}} return fn:root($var)'
 fn-root-11;PRSC Error: Failed to parse query 'fn:root(element anElement {attribute anAttribute {"Attribute Value"}})'
 fn-root-12;PRSC Error: Failed to parse query ''
@@ -7621,9 +7571,7 @@ fn-root-20;PRSC Error: Failed to parse query 'let $var := element anElement {"El
 fn-root-21;PRSC Error: Failed to parse query ' = 1'
 fn-root-22;PRSC Error: Failed to parse query ' = 1'
 fn-root-23;PRSC Error: Failed to parse query 'let $var := text {"A text node"} return fn:count(fn:namespace-uri(fn:root($var))) = 1'
-fn-root-24;Expected XPathException with code XPDY0002, but got SingletonSequence.Map not implemented
-fn-root-2a;Expected executing the XPath "1 = (1, fn:root(1[. = 1]))" to resolve to one of the expected results, but got System.NotImplementedException: SingletonSequence.Map not implemented
-fn-root-2b;Expected executing the XPath "exists(1 = fn:root(1[. = 1]))" to resolve to one of the expected results, but got System.NotImplementedException: SingletonSequence.Map not implemented
+fn-root-24;Expected error code: XPDY0002. Query succeeded with result: 
 fn-root-4;PRSC Error: Failed to parse query ''
 fn-root-5;PRSC Error: Failed to parse query ''
 fn-root-6;PRSC Error: Failed to parse query ''
@@ -7865,16 +7813,15 @@ fn-starts-with-38;No collations are supported
 fn-starts-with-39;No collations are supported
 fn-starts-with-40;No collations are supported
 fn-starts-with-41;No collations are supported
-fn-string-1;Expected XPathException with code XPDY0002, but got SingletonSequence.Map not implemented
+fn-string-1;Expected error code: XPDY0002. Query succeeded with result: 
 fn-string-2;Value was either too large or too small for an Int32.
-fn-string-22;SingletonSequence.Map not implemented
 fn-string-23;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string(string#1)'
 fn-string-24;Expected XPath string((//*:Open)[1]) to resolve to 2000-03-21:07:41:34-05:00, but instead got 2000-03-21:07:41:34-05:00 2000-03-19:17:03:00-04:00
 fn-string-25;Expected XPath string((//*:Start)[1]/@*) to resolve to USD, but instead got USD USD
 fn-string-26;Expected XPath string((//@xml:*)[1]) to resolve to en, but instead got en de
 fn-string-27;PRSC Error: Failed to parse query 'string((//namespace::*[.='http://www.w3.org/1999/xlink'])[1])'
 fn-string-29;Casting AbstractValue(XsUntypedAtomic) to StringValue
-fn-string-3;Expected XPathException with code XPDY0002, but got SingletonSequence.Map not implemented
+fn-string-3;Expected error code: XPDY0002. Query succeeded with result: 
 fn-string-32;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string(map{1:2})'
 fn-string-33;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string([1])'
 fn-string-34;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string([[1, 2], [3, 4]])'
@@ -7886,7 +7833,7 @@ fn-string-4;Value was either too large or too small for an Int32.
 fn-string-5;The string '24:00:00' is not a valid AllXsd value.
 fn-string-6;The function dateTime with arity 2 is not registered.
 fn-string-7;Type casting to XsDuration has not been implemented yet.
-fn-string-8;SingletonSequence.Map not implemented
+fn-string-8;Haven't implemented Qnames from: example:test
 fn-string-9;Value was either too large or too small for an Int32.
 fn-string-join-23;PRSC Error: Failed to parse query ''
 fn-string-join-24;PRSC Error: Failed to parse query ''
@@ -7906,23 +7853,17 @@ fn-string-length-22;Casting AbstractValue(Element) to StringValue
 fn-string-length-23;Expected XPathException with code FOTY0012, but got Casting AbstractValue(Element) to StringValue
 fn-string-length-24;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-string-length-25;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-string-length-9;SingletonSequence.Map not implemented
 fn-string-to-codepoints-10;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-fn-string-to-codepoints-7;SingletonSequence.Map not implemented
-fn-string-to-codepoints-8;SingletonSequence.Map not implemented
 fn-string-to-codepoints1args-7;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to StringValue
-fn-stringdbl1args-1;SingletonSequence.Map not implemented
-fn-stringdbl1args-2;SingletonSequence.Map not implemented
-fn-stringdbl1args-3;SingletonSequence.Map not implemented
+fn-stringdbl1args-1;Expected XPath fn:string(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308, but instead got -1.7976931348623157E+308
+fn-stringdbl1args-2;Expected XPath fn:string(xs:double("0")) to resolve to 0, but instead got -0
+fn-stringdbl1args-3;Expected XPath fn:string(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308, but instead got 1.7976931348623157E+308
 fn-stringdec1args-1;Atomic Value for XsDecimal is not implemented yet.
 fn-stringdec1args-2;Atomic Value for XsDecimal is not implemented yet.
 fn-stringdec1args-3;Atomic Value for XsDecimal is not implemented yet.
-fn-stringflt1args-1;SingletonSequence.Map not implemented
-fn-stringflt1args-2;SingletonSequence.Map not implemented
-fn-stringflt1args-3;SingletonSequence.Map not implemented
-fn-stringint1args-1;SingletonSequence.Map not implemented
-fn-stringint1args-2;SingletonSequence.Map not implemented
-fn-stringint1args-3;SingletonSequence.Map not implemented
+fn-stringflt1args-1;Expected XPath fn:string(xs:float("-3.4028235E38")) to resolve to -3.4028235E38, but instead got -3.4028235E+38
+fn-stringflt1args-2;Expected XPath fn:string(xs:float("0")) to resolve to 0, but instead got -0
+fn-stringflt1args-3;Expected XPath fn:string(xs:float("3.4028235E38")) to resolve to 3.4028235E38, but instead got 3.4028235E+38
 fn-stringintg1args-1;Can't parse -999999999999999999 into an int.
 fn-stringintg1args-2;Can't parse 830993497117024304 into an int.
 fn-stringintg1args-3;Can't parse 999999999999999999 into an int.
@@ -7941,15 +7882,9 @@ fn-stringnpi1args-3;Atomic Value for XsNonPositiveInteger is not implemented yet
 fn-stringpint1args-1;Atomic Value for XsPositiveInteger is not implemented yet.
 fn-stringpint1args-2;Can't parse 52704602390610033 into an int.
 fn-stringpint1args-3;Can't parse 999999999999999999 into an int.
-fn-stringsht1args-1;SingletonSequence.Map not implemented
-fn-stringsht1args-2;SingletonSequence.Map not implemented
-fn-stringsht1args-3;SingletonSequence.Map not implemented
 fn-stringulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
 fn-stringulng1args-2;Can't parse 130747108607674654 into an int.
 fn-stringulng1args-3;Can't parse 184467440737095516 into an int.
-fn-stringusht1args-1;SingletonSequence.Map not implemented
-fn-stringusht1args-2;SingletonSequence.Map not implemented
-fn-stringusht1args-3;SingletonSequence.Map not implemented
 fn-subsequence-mix-args-001;The function fn:subsequence with arity 3 is not registered.
 fn-subsequence-mix-args-002;The function fn:subsequence with arity 3 is not registered.
 fn-subsequence-mix-args-003;The function fn:subsequence with arity 3 is not registered.
@@ -8344,11 +8279,11 @@ fn-tokenize-30;Expected XPath fn:tokenize("abracadabraabracadabraabracadabra", "
 fn-tokenize-31;Using flags in 'tokenize' is not supported
 fn-tokenize-32;Using flags in 'tokenize' is not supported
 fn-tokenize-33;Expected XPath fn:tokenize("ABRACADABRA", "A(?:B)") to (deep equally) resolve to "", "RACAD", "RA"
-fn-tokenize-34;SingletonSequence.MapAll not implemented
-fn-tokenize-35;SingletonSequence.MapAll not implemented
-fn-tokenize-36;Expected XPathException with code FORX0003, but got SingletonSequence.MapAll not implemented
-fn-tokenize-37;Expected XPathException with code FORX0003, but got SingletonSequence.MapAll not implemented
-fn-tokenize-38;Expected XPathException with code FORX0003, but got SingletonSequence.MapAll not implemented
+fn-tokenize-34;Expected XPath fn:tokenize(concat('Mary', codepoints-to-string(13), 'Jones'), 'y.J') to resolve to concat('Mary', codepoints-to-string(13), 'Jones')
+fn-tokenize-35;Using flags in 'tokenize' is not supported
+fn-tokenize-36;Expected XPathException with code FORX0003, but got Using flags in 'tokenize' is not supported
+fn-tokenize-37;Expected XPathException with code FORX0003, but got Using flags in 'tokenize' is not supported
+fn-tokenize-38;Expected XPathException with code FORX0003, but got Using flags in 'tokenize' is not supported
 fn-tokenize-39;The function tokenize with arity 1 is not registered.
 fn-tokenize-4;Expected XPath fn:tokenize("1, 15, 24, 50", ",\s*") to resolve to 1 15 24 50, but instead got ,  ,  , 
 fn-tokenize-40;The function tokenize with arity 1 is not registered.
@@ -8367,8 +8302,6 @@ fn-tokenize-51;The function fn:tokenize with arity 1 is not registered.
 fn-tokenize-52;PRSC Error: Failed to parse query 'deep-equal(((tokenize#1, upper-case#1, lower-case#1)[1]("abc def")), ("abc", "def"))'
 fn-tokenize-6;Expected XPath  to (deep equally) resolve to "Some unparsed", "HTML <BR> text"
 fn-tokenize-9;Expected XPath string-join(fn:tokenize("abracadabra", "(ab)|(a)"), '#') to resolve to #r#c#d#r#, but instead got ab#a#a#ab#a
-fn-translate-10;SingletonSequence.Map not implemented
-fn-translate-11;SingletonSequence.Map not implemented
 fn-translate-13;Atomic Value for XsDecimal is not implemented yet.
 fn-translate-17;Index was outside the bounds of the array.
 fn-translate-18;Expected XPath translate("abcd", "xa", "𐀁y") to resolve to "ybcd"
@@ -8384,10 +8317,9 @@ fn-translate3args-7;Expected XPathException with code XPTY0004, but got Casting 
 fn-true-1;PRSC Error: Failed to parse query '(fn:true()) instance of $xs:boolean'
 fn-true-13;PRSC Error: Failed to parse query ''
 fn-true-14;PRSC Error: Failed to parse query ''
-fn-true-18;SingletonSequence.Map not implemented
+fn-true-18;Expected XPath fn:string(fn:true()) to resolve to "true"
 fn-true-19;Expected XPath fn:concat(xs:string(fn:true()),xs:string(fn:true())) to resolve to truetrue, but instead got TrueTrue
 fn-true-22;PRSC Error: Failed to parse query 'let $t := true#0 return 3[$t()] = 3'
-fn-union-node-args-002;SingletonSequence.Map not implemented
 fn-union-node-args-003;The function fn:exactly-one with arity 1 is not registered.
 fn-union-node-args-005;Expected results and parsedFragment children to match
 fn-union-node-args-006;Expected results and parsedFragment children to match
@@ -8435,30 +8367,10 @@ fn-unordered-mix-args-020;Skipped test, it was a assert-permutation
 fn-unordered-mix-args-021;Skipped test, it was a assert-permutation
 fn-unordered-mix-args-022;Skipped test, it was a assert-permutation
 fn-unordered-mix-args-023;Skipped test, it was a assert-permutation
-fn-upper-case-1;SingletonSequence.Map not implemented
-fn-upper-case-10;SingletonSequence.Map not implemented
-fn-upper-case-11;SingletonSequence.Map not implemented
-fn-upper-case-12;SingletonSequence.Map not implemented
-fn-upper-case-13;SingletonSequence.Map not implemented
-fn-upper-case-14;SingletonSequence.Map not implemented
-fn-upper-case-15;SingletonSequence.Map not implemented
-fn-upper-case-16;SingletonSequence.Map not implemented
-fn-upper-case-17;SingletonSequence.Map not implemented
 fn-upper-case-18;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-upper-case-19;Casting AbstractValue(XsInt) to UntypedAtomicValue
-fn-upper-case-20;SingletonSequence.MapAll not implemented
-fn-upper-case-21;SingletonSequence.MapAll not implemented
-fn-upper-case-22;SingletonSequence.MapAll not implemented
-fn-upper-case-3;SingletonSequence.Map not implemented
-fn-upper-case-4;SingletonSequence.Map not implemented
-fn-upper-case-5;SingletonSequence.Map not implemented
-fn-upper-case-6;SingletonSequence.Map not implemented
-fn-upper-case-7;SingletonSequence.Map not implemented
-fn-upper-case-8;SingletonSequence.Map not implemented
-fn-upper-case-9;SingletonSequence.Map not implemented
-fn-upper-case1args-1;SingletonSequence.Map not implemented
-fn-upper-case1args-2;SingletonSequence.Map not implemented
-fn-upper-case1args-3;SingletonSequence.Map not implemented
+fn-upper-case-21;Expected XPath fn:string-to-codepoints(fn:upper-case(fn:codepoints-to-string(223))) to (deep equally) resolve to 83, 83
+fn-upper-case-22;Expected XPath fn:string-to-codepoints(fn:upper-case(fn:codepoints-to-string(64279))) to (deep equally) resolve to 1348, 1341
 fn-year-from-date-1;The function fn:year-from-date with arity 1 is not registered.
 fn-year-from-date-10;The function fn:year-from-date with arity 1 is not registered.
 fn-year-from-date-11;The function fn:year-from-date with arity 1 is not registered.
@@ -8648,7 +8560,6 @@ fo-test-fn-boolean-002;A wrong argument type was specified in a function call.
 fo-test-fn-boolean-003;A wrong argument type was specified in a function call.
 fo-test-fn-ceiling-001;Can't parse 10.5 into an int.
 fo-test-fn-ceiling-002;Can't parse 10.5 into an int.
-fo-test-fn-codepoints-to-string-004;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
 fo-test-fn-collation-key-001;PRSC Error: Failed to parse query 'deep-equal((\n          let $C := 'http://www.w3.org/2013/collation/UCA?strength=primary'\n          \n           return \n\n        \n        map:merge((map{collation-key("A", $C):1}, map{collation-key("a",\n                  $C):2}), map{"duplicates":"use-last"})(collation-key("A", $C))\n      ), (2))'
 fo-test-fn-collation-key-002;PRSC Error: Failed to parse query 'deep-equal((\n          let $C := 'http://www.w3.org/2013/collation/UCA?strength=primary'\n          \n           return \n\n        \n        let $M := map{collation-key("A", $C):1, collation-key("B", $C):2}\n                  return $M(collation-key("a", $C))\n      ), (1))'
 fo-test-fn-compare-002;Expected XPath 
@@ -8795,7 +8706,6 @@ fo-test-fn-json-to-xml-003;The function json-to-xml with arity 1 is not register
 fo-test-fn-json-to-xml-004;PRSC Error: Failed to parse query '\n        json-to-xml('{"x": "\\", "y": "\u0025"}', map{'escape':\n                  true()})\n      '
 fo-test-fn-last-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fo-test-fn-local-name-from-QName-001;The function fn:local-name-from-QName with arity 1 is not registered.
-fo-test-fn-lower-case-001;SingletonSequence.Map not implemented
 fo-test-fn-matches-001;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fo-test-fn-matches-002;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fo-test-fn-matches-003;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
@@ -8891,9 +8801,7 @@ fo-test-fn-starts-with-005;No collations are supported
 fo-test-fn-starts-with-006;No collations are supported
 fo-test-fn-starts-with-007;No collations are supported
 fo-test-fn-starts-with-008;No collations are supported
-fo-test-fn-string-001;SingletonSequence.Map not implemented
-fo-test-fn-string-002;SingletonSequence.Map not implemented
-fo-test-fn-string-003;SingletonSequence.Map not implemented
+fo-test-fn-string-002;Expected XPath 
 fo-test-fn-string-004;Expected error code: XPTY0004. Query succeeded with result: 1 2 3
 fo-test-fn-string-005;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        string([[1, 2], [3, 4]])\n      '
 fo-test-fn-string-006;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        string(abs#1)\n      '
@@ -8953,7 +8861,6 @@ fo-test-fn-tokenize-006;Using flags in 'tokenize' is not supported
 fo-test-fn-translate-002;Index was outside the bounds of the array.
 fo-test-fn-translate-003;Index was outside the bounds of the array.
 fo-test-fn-unordered-001;Skipped test, it was a assert-permutation
-fo-test-fn-upper-case-001;SingletonSequence.Map not implemented
 fo-test-fn-year-from-date-001;The function fn:year-from-date with arity 1 is not registered.
 fo-test-fn-year-from-date-002;The function fn:year-from-date with arity 1 is not registered.
 fo-test-fn-year-from-date-003;The function fn:year-from-date with arity 1 is not registered.
@@ -9167,7 +9074,6 @@ FOCA0005_1;Expected XPathException with code FOCA0005, but got Type casting to X
 FOCA0005_2;Expected XPathException with code FOCA0005, but got Type casting to XsDayTimeDuration has not been implemented yet.
 FOCA0005_3;Expected XPathException with code FOCA0005, but got Type casting to XsDayTimeDuration has not been implemented yet.
 FOCA0005_4;Expected XPathException with code FOCA0005, but got Type casting to XsDayTimeDuration has not been implemented yet.
-FOCH0001;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
 FOCH0002_10;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-before with arity 3 is not registered.
 FOCH0002_3;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function distinct-values with arity 2 is not registered.
 FOCH0002_5;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function index-of with arity 3 is not registered.
@@ -9308,14 +9214,12 @@ for-each-903;Expected error code: XPTY0004. Found error code: XPST0017 with erro
 ForExpr002;Expected error code: XPST0008. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 ForExpr003;PRSC Error: Failed to parse query ''
 ForExpr004;PRSC Error: Failed to parse query ''
-ForExpr005;SingletonSequence.MapAll not implemented
 ForExpr006;PRSC Error: Failed to parse query ''
 ForExpr007;Expected results and parsedFragment children to match
 ForExpr008;Use of XQuery FLWOR expressions in XPath is not allowed
 ForExpr009;Expected XPathException with code XPST0008, but got The given key 'a' was not present in the dictionary.
 ForExpr010;PRSC Error: Failed to parse query ''
 ForExpr011;PRSC Error: Failed to parse query ''
-ForExpr012;SingletonSequence.Map not implemented
 ForExpr013;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/ForClause/ForExpr-013.out'.
 ForExpr015;Expected XPath for $folder in //Folder return for $file in $folder/File return string( $file/FileName[1] ) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100, but instead got                                                                                                     
 ForExpr016;Expected results and parsedFragment children to match
@@ -9339,7 +9243,7 @@ ForExprType014;Expected error code: XPTY0004. Found error code: XPST0003 with er
 ForExprType016;Atomic Value for XsDecimal is not implemented yet.
 ForExprType017;Expected error code: XPTY0004. Query succeeded with result: 1 2 3
 ForExprType018;Expected results and parsedFragment children to match
-ForExprType019;SingletonSequence.Map not implemented
+ForExprType019;Expected XPath for $fileName as text() in (//Folder)[1]/File/FileName/text() return string( $fileName ) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100
 ForExprType020;Expected XPath for $fileName as item() in data( (//Folder)[1]/File/FileName ) return $fileName to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100
 ForExprType022;PRSC Error: Failed to parse query '\n        declare default element namespace "http://www.example.com/typedecl"; \n        for $test as attribute(*) in ( /root/InterleaveType2/@integer, /root/InterleaveType2/@decimal ) \n        return data( $test )\n      '
 ForExprType023;PRSC Error: Failed to parse query '\n        declare default element namespace "http://www.example.com/typedecl"; \n        for $test as attribute(integer) in ( /root/InterleaveType2/@integer ) return data( $test )\n      '
@@ -10070,7 +9974,7 @@ FunctionCall-054;PRSC Error: Failed to parse query ''
 FunctionCall-055;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 functx-fn-abs-1;Can't parse 3.5 into an int.
 functx-fn-abs-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
-functx-fn-abs-3;SingletonSequence.Map not implemented
+functx-fn-abs-3;Casting AbstractValue(XsFloat) to UntypedAtomicValue
 functx-fn-abs-all;Can't parse 3.5 into an int.
 functx-fn-adjust-date-to-timezone-1;The function adjust-date-to-timezone with arity 2 is not registered.
 functx-fn-adjust-date-to-timezone-2;The function adjust-date-to-timezone with arity 2 is not registered.
@@ -10102,21 +10006,18 @@ functx-fn-boolean-6;Value was either too large or too small for a Decimal.
 functx-fn-boolean-7;Expected XPath let $ordDoc := (/) return (boolean($ordDoc/order[1])) to resolve to true
 functx-fn-boolean-9;PRSC Error: Failed to parse query ''
 functx-fn-boolean-all;PRSC Error: Failed to parse query ''
-functx-fn-ceiling-1;SingletonSequence.Map not implemented
+functx-fn-ceiling-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
 functx-fn-ceiling-2;Can't parse 5.1 into an int.
 functx-fn-ceiling-3;Can't parse 5.5 into an int.
 functx-fn-ceiling-4;Can't parse 5.5 into an int.
 functx-fn-ceiling-5;Can't parse 5.51 into an int.
 functx-fn-ceiling-6;Expected XPath (ceiling( () )) to resolve to , but instead got null
-functx-fn-ceiling-all;SingletonSequence.Map not implemented
+functx-fn-ceiling-all;Casting AbstractValue(XsInt) to UntypedAtomicValue
 functx-fn-codepoint-equal-3;Expected XPath (codepoint-equal('abc', ())) to resolve to , but instead got null
 functx-fn-codepoint-equal-all;Expected XPath (codepoint-equal('abc', 'abc'), codepoint-equal('abc', 'ab c'), codepoint-equal('abc', ())) to resolve to true false, but instead got True False
-functx-fn-codepoints-to-string-2;SingletonSequence.MapAll not implemented
-functx-fn-codepoints-to-string-all;SingletonSequence.MapAll not implemented
 functx-fn-compare-5;Expected XPath (compare('a', 'B')) to resolve to 1
-functx-fn-compare-6;SingletonSequence.Map not implemented
 functx-fn-compare-7;Expected XPath (compare('a', ())) to resolve to , but instead got null
-functx-fn-compare-all;SingletonSequence.Map not implemented
+functx-fn-compare-all;Expected XPath (compare('a', 'b'), compare('a', 'a'), compare('b', 'a'), compare('ab', 'abc'), compare('a', 'B'), compare(upper-case('a'), upper-case('B')), compare('a', ())) to resolve to -1 0 1 -1 1 -1, but instead got -1 0 1 -1 31 -1
 functx-fn-concat-4;PRSC Error: Failed to parse query ''
 functx-fn-concat-all;PRSC Error: Failed to parse query ''
 functx-fn-contains-all;Expected XPath (contains('query', 'e'), contains('query', 'ery'), contains('query', 'query'), contains('query', 'x'), contains('query', ''), contains('query', ()), contains( (), 'q')) to resolve to true true true false true true false, but instead got True True True False True True False
@@ -10170,13 +10071,13 @@ functx-fn-escape-html-uri-2;The function escape-html-uri with arity 1 is not reg
 functx-fn-escape-html-uri-all;The function escape-html-uri with arity 1 is not registered.
 functx-fn-exactly-one-1;The function exactly-one with arity 1 is not registered.
 functx-fn-exists-all;Expected XPath (exists( ('a', 'b', 'c') ), exists( '' ), exists( () ), exists( false() )) to resolve to true true false true, but instead got True True False True
-functx-fn-floor-1;SingletonSequence.Map not implemented
+functx-fn-floor-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
 functx-fn-floor-2;Can't parse 5.1 into an int.
 functx-fn-floor-3;Can't parse 5.7 into an int.
 functx-fn-floor-4;Can't parse 5.1 into an int.
 functx-fn-floor-5;Can't parse 5.7 into an int.
 functx-fn-floor-6;Expected XPath (floor( () )) to resolve to , but instead got null
-functx-fn-floor-all;SingletonSequence.Map not implemented
+functx-fn-floor-all;Casting AbstractValue(XsInt) to UntypedAtomicValue
 functx-fn-hours-from-dateTime-1;The function hours-from-dateTime with arity 1 is not registered.
 functx-fn-hours-from-dateTime-2;The function hours-from-dateTime with arity 1 is not registered.
 functx-fn-hours-from-dateTime-all;The function hours-from-dateTime with arity 1 is not registered.
@@ -10222,10 +10123,6 @@ functx-fn-local-name-from-QName-1;The function local-name-from-QName with arity 
 functx-fn-local-name-from-QName-2;The function local-name-from-QName with arity 1 is not registered.
 functx-fn-local-name-from-QName-3;The function local-name-from-QName with arity 1 is not registered.
 functx-fn-local-name-from-QName-all;The function local-name-from-QName with arity 1 is not registered.
-functx-fn-lower-case-1;SingletonSequence.Map not implemented
-functx-fn-lower-case-2;SingletonSequence.Map not implemented
-functx-fn-lower-case-3;SingletonSequence.Map not implemented
-functx-fn-lower-case-all;SingletonSequence.Map not implemented
 functx-fn-matches-1;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 functx-fn-matches-10;The function matches with arity 3 is not registered.
 functx-fn-matches-11;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
@@ -10253,7 +10150,7 @@ functx-fn-max-all;Casting AbstractValue(XsInt) to DoubleValue
 functx-fn-min-1;Can't parse 2.0 into an int.
 functx-fn-min-2;Casting AbstractValue(XsString) to DoubleValue
 functx-fn-min-3;Casting AbstractValue(XsString) to DoubleValue
-functx-fn-min-4;SingletonSequence.Map not implemented
+functx-fn-min-4;Casting AbstractValue(XsString) to DoubleValue
 functx-fn-min-all;Can't parse 2.0 into an int.
 functx-fn-minutes-from-dateTime-1;The function minutes-from-dateTime with arity 1 is not registered.
 functx-fn-minutes-from-duration-1;The function minutes-from-duration with arity 1 is not registered.
@@ -10436,11 +10333,6 @@ functx-fn-tokenize-all;Expected XPath (tokenize( 'a b c', '\s'), tokenize( 'a b 
 functx-fn-translate-3;Index was outside the bounds of the array.
 functx-fn-translate-4;Index was outside the bounds of the array.
 functx-fn-translate-all;Index was outside the bounds of the array.
-functx-fn-upper-case-1;SingletonSequence.Map not implemented
-functx-fn-upper-case-2;SingletonSequence.Map not implemented
-functx-fn-upper-case-3;SingletonSequence.Map not implemented
-functx-fn-upper-case-4;SingletonSequence.Map not implemented
-functx-fn-upper-case-all;SingletonSequence.Map not implemented
 functx-fn-year-from-date-1;The function year-from-date with arity 1 is not registered.
 functx-fn-year-from-dateTime-1;The function year-from-dateTime with arity 1 is not registered.
 functx-fn-years-from-duration-1;The function years-from-duration with arity 1 is not registered.
@@ -11869,7 +11761,7 @@ internalvar-1;PRSC Error: Failed to parse query 'declare(::)variable(::)$var(::)
 internalvar-2;PRSC Error: Failed to parse query '(::)declare(::)variable(::)$var(::):=(::)1(::);(::) 1(::)eq(::)1'
 K-ABSFunc-4;Can't parse 10.5 into an int.
 K-ABSFunc-5;Can't parse 10.5 into an int.
-K-ABSFunc-6;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
+K-ABSFunc-6;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to UntypedAtomicValue
 K-AnyURIEqual-1;Type casting to XsAnyUri has not been implemented yet.
 K-AnyURIEqual-10;Type casting to XsAnyUri has not been implemented yet.
 K-AnyURIEqual-2;Type casting to XsAnyUri has not been implemented yet.
@@ -11886,34 +11778,11 @@ K-Base64BinaryEQ-3;Type casting to XsBase64Binary has not been implemented yet.
 K-CeilingFunc-3-dyn;PRSC Error: Failed to parse query 'declare variable $empty external; empty(ceiling($empty))'
 K-CeilingFunc-4;Can't parse 10.5 into an int.
 K-CeilingFunc-5;Can't parse 10.5 into an int.
-K-CeilingFunc-6;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
-K-CodepointToStringFunc-10;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-11;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-11b;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-12;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-12b;SingletonSequence.MapAll not implemented
+K-CeilingFunc-6;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to UntypedAtomicValue
+K-CodepointToStringFunc-11b;Could not convert codepoint to string, it is outside of the valid range.
+K-CodepointToStringFunc-12b;Could not convert codepoint to string, it is outside of the valid range.
 K-CodepointToStringFunc-13;PRSC Error: Failed to parse query ''
-K-CodepointToStringFunc-14;Expected executing the XPath "string-to-codepoints(codepoints-to-string(14))" to resolve to one of the expected results, but got System.NotImplementedException: SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-15;Expected executing the XPath "string-to-codepoints(codepoints-to-string(31))" to resolve to one of the expected results, but got System.NotImplementedException: SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-16;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-17;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-18;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-19;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-20;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-21;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-22;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-23;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-24;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-25;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-26;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-27;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-28;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-29;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-5;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-7;Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-8;Expected executing the XPath "codepoints-to-string(8)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCH0001, but got SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-8a;SingletonSequence.MapAll not implemented
-K-CodepointToStringFunc-9;SingletonSequence.MapAll not implemented
+K-CodepointToStringFunc-8a;Could not convert codepoint to string, it is outside of the valid range.
 K-CombinedErrorCodes-1;Expected executing the XPath "import schema "http://example.com/NSNOTRECOGNIZED"; 1 eq 1" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQST0009. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'import schema "http://example.com/NSNOTRECOGNIZED"; 1 eq 1'
 K-CombinedErrorCodes-10;Expected executing the XPath "validate { () }" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQTY0030. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'validate { () }'
 K-CombinedErrorCodes-11;Expected executing the XPath "validate lax { 1 }" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQTY0030. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'validate lax { 1 }'
@@ -12237,7 +12106,7 @@ K-FilterExpr-95;Expected XPath /works/employee[@name=/works/employee[1]/@name]/@
 K-FilterExpr-96;PRSC Error: Failed to parse query ' = "Jane Doe 3"'
 K-FloorFunc-4;Can't parse 10.5 into an int.
 K-FloorFunc-5;Can't parse 10.5 into an int.
-K-FloorFunc-6;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
+K-FloorFunc-6;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to UntypedAtomicValue
 K-ForExprPositionalVar-1;Expected XPathException with code XPST0008, but got The given key 'p' was not present in the dictionary.
 K-ForExprPositionalVar-10;The function distinct-values with arity 1 is not registered.
 K-ForExprPositionalVar-12;The function insert-before with arity 3 is not registered.
@@ -12519,7 +12388,6 @@ K-LogicExpr-43;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-44;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-8;Type casting to XsAnyUri has not been implemented yet.
 K-LogicExpr-9;Type casting to XsAnyUri has not been implemented yet.
-K-LowerCaseFunc-4;SingletonSequence.Map not implemented
 K-MatchesFunc-1;Expected XPathException with code XPTY0004, but got Object reference not set to an instance of an object.
 K-MatchesFunc-3;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function matches with arity 3 is not registered.
 K-MatchesFunc-5;Expected error code: FORX0001. Found error code: XPST0017 with error message: The function matches with arity 3 is not registered.
@@ -12571,14 +12439,12 @@ K-NodeNameFunc-3;Object reference not set to an instance of an object.
 K-NodeNumberFunc-11;Value was either too large or too small for a Decimal.
 K-NodeNumberFunc-12;Type casting to XsAnyUri has not been implemented yet.
 K-NodeNumberFunc-13;Type casting to XsAnyUri has not been implemented yet.
-K-NodeNumberFunc-14;SingletonSequence.Map not implemented
-K-NodeNumberFunc-15;SingletonSequence.Map not implemented
+K-NodeNumberFunc-15;Expected XPath string(number(xs:gYear("2005"))) eq "NaN" to resolve to true
 K-NodeNumberFunc-2;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 K-NodeNumberFunc-3;Input string was not in a correct format.
 K-NodeNumberFunc-4;Input string was not in a correct format.
 K-NodeNumberFunc-6;Can't parse 1.1 into an int.
 K-NodeRootFunc-2;Expected error code: XPTY0004. Query succeeded with result: 1 2 3
-K-NodeRootFunc-3;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
 K-NodeSame-1;Expected executing the XPath "empty(1 is ())" to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
 K-NodeSame-2;Expected executing the XPath "empty(() is 1)" to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
 K-NodeSame-3;Expected XPathException with code XPTY0004, but got IsOp AST to Expression not yet implemented
@@ -12990,15 +12856,15 @@ K-SecondsFromTimeFunc-5;The function seconds-from-time with arity 1 is not regis
 K-SeqAVGFunc-10;Can't parse 2.0 into an int.
 K-SeqAVGFunc-11;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 K-SeqAVGFunc-13;Atomic Value for XsDecimal is not implemented yet.
-K-SeqAVGFunc-14;SingletonSequence.Map not implemented
-K-SeqAVGFunc-15;SingletonSequence.Map not implemented
-K-SeqAVGFunc-16;SingletonSequence.Map not implemented
+K-SeqAVGFunc-14;Expected XPath string(avg((3, 3, xs:double("NaN")))) eq "NaN" to resolve to true
+K-SeqAVGFunc-15;Expected XPath string(avg((3, xs:double("NaN"), 3))) eq "NaN" to resolve to true
+K-SeqAVGFunc-16;Expected XPath string(avg((xs:double("NaN"), 3, 3))) eq "NaN" to resolve to true
 K-SeqAVGFunc-19;Can't parse 3.5 into an int.
 K-SeqAVGFunc-20;Value was either too large or too small for an Int32.
-K-SeqAVGFunc-21;SingletonSequence.Map not implemented
-K-SeqAVGFunc-22;SingletonSequence.Map not implemented
+K-SeqAVGFunc-21;Expected XPath string(avg((1, 2, 3, xs:double("NaN")))) eq "NaN" to resolve to true
+K-SeqAVGFunc-22;Expected XPath string(avg((xs:double("NaN"), 1, 2, 3))) eq "NaN" to resolve to true
 K-SeqAVGFunc-23;Value was either too large or too small for an Int32.
-K-SeqAVGFunc-24;SingletonSequence.Map not implemented
+K-SeqAVGFunc-24;Expected XPath string(avg((1, 2, xs:double("NaN"), 1, 2, 3))) eq "NaN" to resolve to true
 K-SeqAVGFunc-25;Value was either too large or too small for an Int32.
 K-SeqAVGFunc-28;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 K-SeqAVGFunc-29;HandleNumericOperator: Different numeric types: XsDouble and XsInt
@@ -13685,7 +13551,6 @@ K-SeqExprCast-335;Expected XPath xs:gDay(xs:dateTime("2002-11-23T22:12:23.867-13
 K-SeqExprCast-338;Casting not supported from given type to xs:time or any of its derived types.
 K-SeqExprCast-339;Casting not supported from given type to xs:time or any of its derived types.
 K-SeqExprCast-34;Expected XPath xs:boolean(xs:double("NaN")) eq false() to resolve to true
-K-SeqExprCast-349;SingletonSequence.Map not implemented
 K-SeqExprCast-35;Expected XPath xs:boolean(xs:float("NaN")) eq false() to resolve to true
 K-SeqExprCast-350;The string '2004-03-31T24:00:00' is not a valid AllXsd value.
 K-SeqExprCast-351;Expected XPathException with code FORG0001, but got The string '24:00:00.001' is not a valid AllXsd value.
@@ -13702,7 +13567,6 @@ K-SeqExprCast-360;Expected XPathException with code FORG0001, but got Offset mus
 K-SeqExprCast-361;Expected error code: FORG0001. Query succeeded with result: 23:59:12.432+11:00
 K-SeqExprCast-362;Expected error code: FORG0001. Query succeeded with result: 23:59:12.432-11:00
 K-SeqExprCast-363;Expected XPathException with code FORG0001, but got The string 'T23:59:12.999-03' is not a valid AllXsd value.
-K-SeqExprCast-364;SingletonSequence.Map not implemented
 K-SeqExprCast-37;Expected XPath false() cast as xs:string eq "false" to resolve to true
 K-SeqExprCast-374;The string '24:00:00' is not a valid AllXsd value.
 K-SeqExprCast-375;Expected XPathException with code FORG0001, but got The string '+2004-08-01' is not a valid AllXsd value.
@@ -14334,7 +14198,7 @@ K-SeqMAXFunc-21;Expected XPathException with code FORG0006, but got Casting Abst
 K-SeqMAXFunc-22;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
 K-SeqMAXFunc-23;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqMAXFunc-24;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqMAXFunc-25;SingletonSequence.Map not implemented
+K-SeqMAXFunc-25;Expected XPath string(max((xs:double("NaN"), xs:double("NaN")))) eq "NaN" to resolve to true
 K-SeqMAXFunc-26;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMAXFunc-27;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMAXFunc-28;Casting AbstractValue(XsInt) to DoubleValue
@@ -14343,7 +14207,7 @@ K-SeqMAXFunc-30;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMAXFunc-31;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMAXFunc-32;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMAXFunc-33;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMAXFunc-34;SingletonSequence.Map not implemented
+K-SeqMAXFunc-34;Expected XPath string(max(xs:double("NaN"))) eq "NaN" to resolve to true
 K-SeqMAXFunc-35;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqMAXFunc-36;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsDouble) to FloatValue
 K-SeqMAXFunc-37;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
@@ -14389,7 +14253,7 @@ K-SeqMINFunc-21;Expected XPathException with code FORG0006, but got Casting Abst
 K-SeqMINFunc-22;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
 K-SeqMINFunc-23;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqMINFunc-24;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqMINFunc-25;SingletonSequence.Map not implemented
+K-SeqMINFunc-25;Expected XPath string(min((xs:double("NaN"), xs:double("NaN")))) eq "NaN" to resolve to true
 K-SeqMINFunc-26;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMINFunc-27;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMINFunc-28;Casting AbstractValue(XsInt) to DoubleValue
@@ -14398,7 +14262,7 @@ K-SeqMINFunc-30;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMINFunc-31;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMINFunc-32;Casting AbstractValue(XsFloat) to DoubleValue
 K-SeqMINFunc-33;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMINFunc-34;SingletonSequence.Map not implemented
+K-SeqMINFunc-34;Expected XPath string(min(xs:double("NaN"))) eq "NaN" to resolve to true
 K-SeqMINFunc-35;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqMINFunc-36;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsDouble) to FloatValue
 K-SeqMINFunc-37;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
@@ -14557,14 +14421,12 @@ K-SeqUnorderedFunc-7;The function unordered with arity 1 is not registered.
 K-SeqUnorderedFunc-8;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function unordered with arity 1 is not registered.
 K-SeqZeroOrOneFunc-7;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-StartsWithFunc-5;No collations are supported
-K-StringFunc-3;SingletonSequence.Map not implemented
 K-StringFunc-5;The function current-time with arity 0 is not registered.
 K-StringFunc-6;Expected error code: XPTY0004. Query succeeded with result: 1 2
 K-StringJoinFunc-1;Expected error code: XPST0017. Query succeeded with result: a string
 K-StringJoinFunc-7;Expected error code: XPTY0004. Query succeeded with result: a string
 K-StringLengthFunc-4;Object reference not set to an instance of an object.
 K-StringLengthFunc-6;Object reference not set to an instance of an object.
-K-StringToCodepointFunc-11;SingletonSequence.Map not implemented
 K-StringToCodepointFunc-20;Expected XPath empty(string-to-codepoints("Thérèse")[last() - 7]) to resolve to true
 K-SubstringAfterFunc-4;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-after with arity 3 is not registered.
 K-SubstringAfterFunc-5;The function substring-after with arity 3 is not registered.
@@ -14605,7 +14467,6 @@ K-TokenizeFunc-4;Expected XPathException with code FORX0001, but got Using flags
 K-TranslateFunc-10;Index was outside the bounds of the array.
 K-TranslateFunc-4;Index was outside the bounds of the array.
 K-TranslateFunc-8;Index was outside the bounds of the array.
-K-UpperCaseFunc-4;SingletonSequence.Map not implemented
 K-ValCompTypeChecking-1;Expected error code: XPTY0004. Query succeeded with result: False
 K-ValCompTypeChecking-10;Expected error code: XPTY0004. Query succeeded with result: True
 K-ValCompTypeChecking-11;Expected error code: XPTY0004. Query succeeded with result: False
@@ -14726,34 +14587,34 @@ K-YearsFromDurationFunc-5;The function years-from-duration with arity 1 is not r
 K-YearsFromDurationFunc-6;The function years-from-duration with arity 1 is not registered.
 K-YearsFromDurationFunc-7;The function years-from-duration with arity 1 is not registered.
 K2-AbbrAxes-1;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:myFunc() { .. }; local:myFunc()'
-K2-ABSFunc-1;SingletonSequence.Map not implemented
+K2-ABSFunc-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K2-ABSFunc-10;Atomic Value for XsUnsignedInt is not implemented yet.
-K2-ABSFunc-11;SingletonSequence.Map not implemented
+K2-ABSFunc-11;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K2-ABSFunc-12;Atomic Value for XsUnsignedByte is not implemented yet.
 K2-ABSFunc-13;Atomic Value for XsPositiveInteger is not implemented yet.
-K2-ABSFunc-14;SingletonSequence.Map not implemented
+K2-ABSFunc-14;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K2-ABSFunc-15;Atomic Value for XsNonPositiveInteger is not implemented yet.
 K2-ABSFunc-16;Atomic Value for XsNegativeInteger is not implemented yet.
 K2-ABSFunc-17;Atomic Value for XsLong is not implemented yet.
-K2-ABSFunc-18;SingletonSequence.Map not implemented
-K2-ABSFunc-19;SingletonSequence.Map not implemented
+K2-ABSFunc-18;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K2-ABSFunc-19;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K2-ABSFunc-2;Atomic Value for XsNonPositiveInteger is not implemented yet.
 K2-ABSFunc-20;Atomic Value for XsByte is not implemented yet.
 K2-ABSFunc-21;Atomic Value for XsNonNegativeInteger is not implemented yet.
 K2-ABSFunc-22;Atomic Value for XsUnsignedLong is not implemented yet.
 K2-ABSFunc-23;Atomic Value for XsUnsignedInt is not implemented yet.
-K2-ABSFunc-24;SingletonSequence.Map not implemented
+K2-ABSFunc-24;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K2-ABSFunc-25;Atomic Value for XsUnsignedByte is not implemented yet.
 K2-ABSFunc-26;Atomic Value for XsPositiveInteger is not implemented yet.
 K2-ABSFunc-27;Can't parse 1.1 into an int.
-K2-ABSFunc-28;SingletonSequence.Map not implemented
-K2-ABSFunc-29;SingletonSequence.Map not implemented
+K2-ABSFunc-28;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+K2-ABSFunc-29;Casting AbstractValue(XsFloat) to UntypedAtomicValue
 K2-ABSFunc-3;Atomic Value for XsNegativeInteger is not implemented yet.
-K2-ABSFunc-30;SingletonSequence.Map not implemented
+K2-ABSFunc-30;Casting AbstractValue(XsFloat) to UntypedAtomicValue
 K2-ABSFunc-31;Can't parse 1.1 into an int.
-K2-ABSFunc-32;SingletonSequence.Map not implemented
-K2-ABSFunc-33;SingletonSequence.Map not implemented
-K2-ABSFunc-34;SingletonSequence.Map not implemented
+K2-ABSFunc-32;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+K2-ABSFunc-33;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+K2-ABSFunc-34;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K2-ABSFunc-35;Expected executing the XPath "abs(xs:unsignedShort(.)) instance of xs:unsignedShort" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-36;Expected executing the XPath "abs(xs:unsignedLong(.)) instance of xs:unsignedLong" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-37;Expected executing the XPath "abs(xs:unsignedInt(.)) instance of xs:unsignedInt" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
@@ -14767,12 +14628,12 @@ K2-ABSFunc-43;Expected executing the XPath "abs(xs:long(.)) instance of xs:long"
 K2-ABSFunc-44;Expected executing the XPath "abs(xs:int(.)) instance of xs:int" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-45;Expected executing the XPath "abs(xs:short(.)) instance of xs:short" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-46;Expected executing the XPath "abs(xs:byte(.)) instance of xs:byte" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
-K2-ABSFunc-47;SingletonSequence.Map not implemented
-K2-ABSFunc-48;SingletonSequence.Map not implemented
-K2-ABSFunc-49;SingletonSequence.Map not implemented
-K2-ABSFunc-5;SingletonSequence.Map not implemented
-K2-ABSFunc-50;SingletonSequence.Map not implemented
-K2-ABSFunc-6;SingletonSequence.Map not implemented
+K2-ABSFunc-47;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+K2-ABSFunc-48;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+K2-ABSFunc-49;Casting AbstractValue(XsFloat) to UntypedAtomicValue
+K2-ABSFunc-5;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K2-ABSFunc-50;Casting AbstractValue(XsDouble) to UntypedAtomicValue
+K2-ABSFunc-6;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K2-ABSFunc-7;Atomic Value for XsByte is not implemented yet.
 K2-ABSFunc-8;Atomic Value for XsNonNegativeInteger is not implemented yet.
 K2-ABSFunc-9;Atomic Value for XsUnsignedLong is not implemented yet.
@@ -15497,7 +15358,6 @@ K2-GenCompEq-3;PRSC Error: Failed to parse query ''
 K2-GenCompEq-4;PRSC Error: Failed to parse query ''
 K2-GenCompEq-5;PRSC Error: Failed to parse query ''
 K2-GenCompEq-6;PRSC Error: Failed to parse query ''
-K2-GenCompEq-7;Expected executing the XPath "let $x := codepoints-to-string(12) return ($x = $x)" to resolve to one of the expected results, but got System.NotImplementedException: SingletonSequence.MapAll not implemented
 K2-GenCompEq-8;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 K2-GenCompLT-1;PRSC Error: Failed to parse query ''
 K2-GenCompLT-2;PRSC Error: Failed to parse query ''
@@ -16477,8 +16337,8 @@ K2-SeqExprCast-421;Expected executing the XPath "xs:anyURI("foo://")" to resolve
 K2-SeqExprCast-422;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
 K2-SeqExprCast-423;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
 K2-SeqExprCast-424;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
-K2-SeqExprCast-425;SingletonSequence.Map not implemented
-K2-SeqExprCast-426;SingletonSequence.Map not implemented
+K2-SeqExprCast-425;Haven't implemented Qnames from: localName:prefix
+K2-SeqExprCast-426;Haven't implemented Qnames from: localName:prefix
 K2-SeqExprCast-427;Type casting to XsAnyUri has not been implemented yet.
 K2-SeqExprCast-428;Expected XPathException with code FORG0001, but got Atomic Value for XsUnsignedLong is not implemented yet.
 K2-SeqExprCast-429;Expected XPathException with code FORG0001, but got The string '11:-1:11' is not a valid AllXsd value.
@@ -16961,7 +16821,7 @@ last-18;Expected XPath for $h in (/works/employee[12]) return ($h/overtime[posit
 last-2;Expected error code: XPDY0002. Query succeeded with result: 1
 last-20;Expected XPath for $h in (/works/employee[12]) return $h/overtime[position() or fn:true()]/*/string() to (deep equally) resolve to "Monday", "Tuesday"
 last-21;Expected XPath for $h in (/works/employee[12]) return $h/overtime[position() or fn:false()]/*/string() to (deep equally) resolve to "Monday", "Tuesday"
-last-22;SingletonSequence.Map not implemented
+last-22;Expected XPath for $h in (/works) return $h/employee[position() = 12]/overtime/*/string() to (deep equally) resolve to "Monday", "Tuesday"
 last-23;Casting AbstractValue(XsInt) to UntypedAtomicValue
 last-25;Value was either too large or too small for an Int32.
 last-3;Expected XPath for $h in (/works/employee[12]) return $h/overtime[last() = 1]/*/string() to (deep equally) resolve to "Monday", "Tuesday"
@@ -17775,10 +17635,8 @@ op-base64Binary-equal2args-7;Type casting to XsBase64Binary has not been impleme
 op-base64Binary-equal2args-8;Type casting to XsBase64Binary has not been implemented yet.
 op-base64Binary-equal2args-9;Type casting to XsBase64Binary has not been implemented yet.
 op-boolean-equal-17;Expected error code: XPTY0004. Query succeeded with result: True
-op-concat-13;SingletonSequence.Map not implemented
 op-concat-18;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '("abc" || "abc" ||  fn:concat#3)'
 op-concat-19;PRSC Error: Failed to parse query '(12 || 34 - 50) instance of $xs:string'
-op-concat-9;SingletonSequence.Map not implemented
 op-concatdbl2args-1;Expected XPath (xs:double("-1.7976931348623157E308")||xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308-1.7976931348623157E308, but instead got -1.7976931348623157E+308-1.7976931348623157E+308
 op-concatdbl2args-2;Expected XPath (xs:double("0")||xs:double("-1.7976931348623157E308")) to resolve to 0-1.7976931348623157E308, but instead got 0-1.7976931348623157E+308
 op-concatdbl2args-3;Expected XPath (xs:double("1.7976931348623157E308")||xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308, but instead got 1.7976931348623157E+308-1.7976931348623157E+308
@@ -19243,7 +19101,7 @@ Parenexpr-15;PRSC Error: Failed to parse query ''
 Parenexpr-16;PRSC Error: Failed to parse query ''
 Parenexpr-17;PRSC Error: Failed to parse query ''
 Parenexpr-18;PRSC Error: Failed to parse query ''
-Parenexpr-19;SingletonSequence.Map not implemented
+Parenexpr-19;Haven't implemented Qnames from: far-north:
 Parenexpr-20;PRSC Error: Failed to parse query ''
 parts-queries-results-q1;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 path002;PRSC Error: Failed to parse query '(fn:path(/*)) instance of $xs:string'
@@ -19283,7 +19141,7 @@ position-18;Expected XPath for $h in (/works/employee[12]) return ($h/overtime[p
 position-2;Expected error code: XPDY0002. Query succeeded with result: 1
 position-20;Expected XPath for $h in (/works/employee[12]) return $h/overtime[position() or fn:true()]/*/string() to (deep equally) resolve to "Monday", "Tuesday"
 position-21;Expected XPath for $h in (/works/employee[12]) return $h/overtime[position() or fn:false()]/*/string() to (deep equally) resolve to "Monday", "Tuesday"
-position-22;SingletonSequence.Map not implemented
+position-22;Expected XPath for $h in (/works) return $h/employee[position() = 12]/overtime/*/string() to (deep equally) resolve to "Monday", "Tuesday"
 position-24;Casting AbstractValue(XsInt) to UntypedAtomicValue
 position-4;Expected XPath for $h in (/works) return $h/employee[position() = last()]/string(@name) to resolve to Jane Doe 13, but instead got null
 position-5;Expected XPath for $h in (/works) return $h/employee[last() = position()]/string(@name) to resolve to Jane Doe 13, but instead got null
@@ -19718,10 +19576,10 @@ re00123;PRSC Error: Failed to parse query '(every $s in tokenize('[', ',') satis
 re00124;PRSC Error: Failed to parse query '(every $s in tokenize(']', ',') satisfies matches($s, '^(?:\])$')) and (every $s in tokenize('', ',') satisfies not(matches($s, '^(?:\])$')))'
 re00125;PRSC Error: Failed to parse query '(every $s in tokenize('', ',') satisfies matches($s, '^(?:\n\\\r\|\t\.\-\^\?\*\+\{\}\(\)\[\])$')) and (every $s in tokenize('\n\\n|	.-^?*+{}()[,\\n|	.-^?*+{}()[],\n\\n|	-^?*+{}()[]', ',') satisfies not(matches($s, '^(?:\n\\\r\|\t\.\-\^\?\*\+\{\}\(\)\[\])$')))'
 re00126;PRSC Error: Failed to parse query 'not(matches('', '^(?:\n\na\n\nb\n\n)$')) and\n         (every $s in tokenize('\n\na\n\nb;\n,\na\n\nb;\n\n,\n\na\n\nb;\n\n', ',') \n                satisfies not(matches($s, '^(?:\n\na\n\nb\n\n)$')))'
-re00127;SingletonSequence.MapAll not implemented
+re00127;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 re00127a;Expected XPath  to (deep equally) resolve to true(), true(), false(), false(), false(), false()
 re00128;PRSC Error: Failed to parse query '(every $s in tokenize('', ',') satisfies matches($s, '^(?:\t\ta\t\tb\t\t)$')) and (every $s in tokenize('		a		b	,	a		b		,		a				,		a			b		', ',') satisfies not(matches($s, '^(?:\t\ta\t\tb\t\t)$')))'
-re00129;SingletonSequence.MapAll not implemented
+re00129;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 re00129a;Expected XPath  to (deep equally) resolve to true(), false()
 re00130;PRSC Error: Failed to parse query '\n        let $d := codepoints-to-string(13) return (\n         (every $s in tokenize('\n'||$d||'a\n'||$d||'b', ',') satisfies (matches($s, '^(?:\n\ra\n\rb)$'))) and\n         (every $s in tokenize('', ',') satisfies not(matches($s, '^(?:\n\ra\n\rb)$'))))'
 re00130a;PRSC Error: Failed to parse query ''
@@ -20605,7 +20463,7 @@ ReturnExpr003;PRSC Error: Failed to parse query ''
 ReturnExpr004;Use of XQuery FLWOR expressions in XPath is not allowed
 ReturnExpr005;Expected results and parsedFragment children to match
 ReturnExpr006;Expected XPath for $file in (//Folder)[1]/File return data( $file/FileName ) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100
-ReturnExpr007;SingletonSequence.MapAll not implemented
+ReturnExpr007;Expected results and parsedFragment children to match
 ReturnExpr008;Expected XPath for $file in (//Folder)[1]/File return 1 to resolve to 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1, but instead got 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ReturnExpr009;Expected results and parsedFragment children to match
 ReturnExpr010;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
@@ -21097,7 +20955,7 @@ XPTY0004_06;Expected error code: XPTY0004. Query succeeded with result: 1 2 3
 XPTY0004_07;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'document { attribute {'foo'} {} }'
 XPTY0004_08;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 XPTY0004_09;Expected error code: XPTY0004. Found error code: XPST0003 with error message: Use of XQuery FLWOR expressions in XPath is not allowed
-XPTY0004_10;Expected XPathException with code XPTY0004, but got SingletonSequence.Map not implemented
+XPTY0004_10;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to StringValue
 XPTY0004_11;Expected XPathException with code XPTY0004, but got Object reference not set to an instance of an object.
 XPTY0004_12;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:error with arity 1 is not registered.
 XPTY0004_12a;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function fn:error with arity 1 is not registered.
@@ -21272,7 +21130,6 @@ xs-dateTimeStamp-3;Expected XPathException with code FORG0001, but got Atomic Va
 xs-dateTimeStamp-4;Expected XPathException with code FORG0001, but got Atomic Value for XsDateTimeStamp is not implemented yet.
 xs-dateTimeStamp-5;Casting not supported from given type to xs:dateTime or any of its derived types.
 xs-dateTimeStamp-6;PRSC Error: Failed to parse query 'current-date() castable as xs:dateTimeStamp'
-xs-double-001;SingletonSequence.Map not implemented
 xs-double-002;Attempted to divide by zero.
 xs-double-004;Expected error code: FORG0001. Query succeeded with result: True
 xs-double-005;PRSC Error: Failed to parse query '(xs:double("2.2250738585072012e-308")) instance of $xs:double'
@@ -21312,6 +21169,5 @@ xs-error-049;TreatExpr AST to Expression not yet implemented
 xs-error-052;PRSC Error: Failed to parse query '1 castable as xs:error'
 xs-error-053;PRSC Error: Failed to parse query '1 castable as xs:error'
 xs-error-054;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:identity($arg as xs:error)\n         {\n         $arg\n         };\n         local:identity(())\n      '
-xs-float-001;SingletonSequence.Map not implemented
 xs-float-002;Attempted to divide by zero.
 xs-float-004;Expected error code: FORG0001. Query succeeded with result: True
