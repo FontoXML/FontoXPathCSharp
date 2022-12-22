@@ -309,6 +309,7 @@ ArrowPostfix-107;PRSC Error: Failed to parse query '1 => ([2,3],[4,5][6])() = 2'
 ArrowPostfix-108;Object reference not set to an instance of an object.
 ArrowPostfix-109;PRSC Error: Failed to parse query 'let $days := map{"Mo": "Monday", "Tu": "Tuesday"} return "Tu" => $days() = "Tuesday"'
 ArrowPostfix-110;PRSC Error: Failed to parse query '"Tu" => (map{"Mo": "Monday", "Tu": "Tuesday"})() = "Tuesday"'
+Axes018-1;Expected XPath fn:count(/far-north/parent::node()) to resolve to 1
 Axes046-1;Expected XPath fn:count(/child::node()) to resolve to 1
 Axes046-2;Expected XPath fn:count(/child::node()) to resolve to 7
 Axes049-1;Expected XPath fn:count(/node()) to resolve to 1
@@ -22261,4 +22262,4 @@ xs-error-052;PRSC Error: Failed to parse query '1 castable as xs:error'
 xs-error-053;PRSC Error: Failed to parse query '1 castable as xs:error'
 xs-error-054;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:identity($arg as xs:error)\n         {\n         $arg\n         };\n         local:identity(())\n      '
 xs-float-002;Attempted to divide by zero.
-xs-float-004;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsBoolean, value: True] into an bool.Axes018-1;Expected XPath fn:count(/far-north/parent::node()) to resolve to 1
+xs-float-004;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsBoolean, value: True] into an bool.
