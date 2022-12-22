@@ -1405,12 +1405,12 @@ CastAs083;Expected XPath xs:string("INF") cast as xs:untypedAtomic to resolve to
 CastAs084;Expected XPath xs:string("0.0E0") cast as xs:untypedAtomic to resolve to 0.0E0, but instead got <Value>[type: XsString, value: 0.0E0]
 CastAs085;Expected XPath xs:string("true") cast as xs:untypedAtomic to resolve to true, but instead got <Value>[type: XsString, value: true]
 CastAs089;HandleNumericOperator: Different numeric types: XsFloat and XsInt
-CastAs090;Expected XPath xs:string("NaN") cast as xs:float to resolve to NaN, but instead got ∞
+CastAs090;Expected XPath xs:string("NaN") cast as xs:float to resolve to NaN, but instead got Infinity
 CastAs091;Expected XPath xs:string("1e-5") cast as xs:float to resolve to 0.00001, but instead got 1E-05
 CastAs092;Expected XPath xs:string("-10000000") cast as xs:float to resolve to -1.0E7, but instead got -10000000
 CastAs093;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 CastAs094;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-CastAs095;Expected XPath xs:string("NaN") cast as xs:double to resolve to NaN, but instead got ∞
+CastAs095;Expected XPath xs:string("NaN") cast as xs:double to resolve to NaN, but instead got Infinity
 CastAs096;Expected XPath xs:string("1e-5") cast as xs:double to resolve to 0.00001, but instead got 1E-05
 CastAs097;Expected XPath xs:string("-10000000") cast as xs:double to resolve to -1.0E7, but instead got -10000000
 CastAs098;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
@@ -1460,13 +1460,12 @@ CastAs161;Type casting to XsHexBinary has not been implemented yet.
 CastAs162;Type casting to XsAnyUri has not been implemented yet.
 CastAs163;Type casting to XsAnyUri has not been implemented yet.
 CastAs164;Type casting to XsAnyUri has not been implemented yet.
-CastAs166;Expected XPath xs:float("-INF") cast as xs:untypedAtomic to resolve to -INF, but instead got -∞
-CastAs168;Expected XPath xs:float("NaN") cast as xs:string to resolve to NaN, but instead got ∞
+CastAs166;Expected XPath xs:float("-INF") cast as xs:untypedAtomic to resolve to -INF, but instead got -Infinity
+CastAs168;Expected XPath xs:float("NaN") cast as xs:string to resolve to NaN, but instead got Infinity
 CastAs169;Expected executing the XPath "xs:float("5.4321E-100") cast as xs:float" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsFloat and XsInt
-CastAs170;Expected XPath xs:float("-1.75e-3") cast as xs:float to resolve to -0.00175, but instead got -0,175
-CastAs171;Expected XPath xs:float("INF") cast as xs:float to resolve to INF, but instead got ∞
+CastAs171;Expected XPath xs:float("INF") cast as xs:float to resolve to INF, but instead got Infinity
 CastAs172;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-CastAs173;Expected XPath xs:float("-INF") cast as xs:double to resolve to -INF, but instead got -∞
+CastAs173;Expected XPath xs:float("-INF") cast as xs:double to resolve to -INF, but instead got -Infinity
 CastAs174;Atomic Value for XsDecimal is not implemented yet.
 CastAs175;Atomic Value for XsDecimal is not implemented yet.
 CastAs176;Atomic Value for XsDecimal is not implemented yet.
@@ -1479,16 +1478,15 @@ CastAs195;Expected XPath xs:float("NaN") cast as xs:boolean to resolve to false
 CastAs196;Expected executing the XPath "xs:float("5.4321E-100") cast as xs:base64Binary" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs197;Expected executing the XPath "xs:float("5.4321E-100") cast as xs:hexBinary" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 CastAs198;Expected executing the XPath "xs:float("5.4321E-100") cast as xs:anyURI" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs200;Expected XPath xs:double("INF") cast as xs:untypedAtomic to resolve to INF, but instead got ∞
+CastAs200;Expected XPath xs:double("INF") cast as xs:untypedAtomic to resolve to INF, but instead got Infinity
 CastAs201;Expected XPath xs:double("1e8") cast as xs:string to resolve to 1.0E8, but instead got 100000000
-CastAs202;Expected XPath xs:double("INF") cast as xs:string to resolve to INF, but instead got ∞
+CastAs202;Expected XPath xs:double("INF") cast as xs:string to resolve to INF, but instead got Infinity
 CastAs203;HandleNumericOperator: Different numeric types: XsFloat and XsInt
 CastAs204;Expected executing the XPath "xs:double("5.4321E-1001") cast as xs:float" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsFloat and XsInt
 CastAs205;HandleNumericOperator: Different numeric types: XsFloat and XsInt
-CastAs206;Expected XPath xs:double("-1.75e-3") cast as xs:float to resolve to -0.00175, but instead got -0,175
-CastAs207;Expected XPath xs:double("NaN") cast as xs:float to resolve to NaN, but instead got ∞
+CastAs207;Expected XPath xs:double("NaN") cast as xs:float to resolve to NaN, but instead got Infinity
 CastAs208;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-CastAs209;Expected XPath xs:double("INF") cast as xs:double to resolve to INF, but instead got ∞
+CastAs209;Expected XPath xs:double("INF") cast as xs:double to resolve to INF, but instead got Infinity
 CastAs210;Casting not supported from given type to xs:decimal or any of its derived types.
 CastAs211;Casting not supported from given type to xs:decimal or any of its derived types.
 CastAs212;Casting not supported from given type to xs:decimal or any of its derived types.
@@ -1822,7 +1820,6 @@ CastAs674;Expected error code: XPTY0004. Found error code: XPST0003 with error m
 CastAs674a;PRSC Error: Failed to parse query ''
 CastAs675;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 CastAs675a;Expected error code: XPTY0117. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-CastAs676;Expected executing the XPath "xs:dateTime("9999-12-31T23:59:59.9999999") cast as xs:string" to resolve to one of the expected results, but got System.FormatException: The string '9999-12-31T23:59:59,999' is not a valid AllXsd value.
 CastAs677;Atomic Value for XsNormalizedString is not implemented yet.
 CastAs678;Atomic Value for XsToken is not implemented yet.
 CastAs680;Type casting to XsTime has not been implemented yet.
@@ -2007,8 +2004,8 @@ cbcl-cast-dayTimeDuration-001;Expected executing the XPath ""P117686143364045646
 cbcl-cast-dayTimeDuration-002;Expected XPathException with code FODT0002, but got Type casting to XsDayTimeDuration has not been implemented yet.
 cbcl-cast-decimal-001;Expected executing the XPath "1.7976931348623157E+308 cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '1.7976931348623157E+308 cast as xs:decimal'
 cbcl-cast-decimal-002;Expected executing the XPath "-1.7976931348623157E+308 cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '-1.7976931348623157E+308 cast as xs:decimal'
-cbcl-cast-decimal-003;Expected executing the XPath "xs:float('3.402823e38') cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: FOCA0002 with error message: Can not cast <Value>[type: XsFloat, value: ∞] to xs:decimal
-cbcl-cast-decimal-004;Expected executing the XPath "xs:float('-3.402823e38') cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: FOCA0002 with error message: Can not cast <Value>[type: XsFloat, value: -∞] to xs:decimal
+cbcl-cast-decimal-003;Expected executing the XPath "xs:float('3.402823e38') cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0001, but got Atomic Value for XsDecimal is not implemented yet.
+cbcl-cast-decimal-004;Expected executing the XPath "xs:float('-3.402823e38') cast as xs:decimal" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0001, but got Atomic Value for XsDecimal is not implemented yet.
 cbcl-cast-derived-001;PRSC Error: Failed to parse query '\n        import schema namespace derivedType="http://www.w3.org/XQueryTest/derivedTypes";\n        16 cast as derivedType:integer, \n        16 cast as derivedType:double, \n        16 cast as derivedType:decimal, \n        16 cast as derivedType:float, \n        "aaaaaaaaaaaa" cast as derivedType:base64Binary, \n        "aaaaaaaaaa" cast as derivedType:hexBinary, \n        "http://news.bbc.co.uk/" cast as derivedType:anyURI, \n        true() cast as derivedType:boolean, \n        xs:dateTime("2001-01-01T09:00:00") cast as derivedType:dateTime, \n        xs:time("10:00:00") cast as derivedType:time, \n        "valid value 1" cast as derivedType:string, \n        "value1" cast as derivedType:QName, \n        "derivedType:value1" cast as derivedType:NOTATION,\n         "---01" cast as derivedType:gDay, \n         "--12-25" cast as derivedType:gMonthDay, \n         "--12" cast as derivedType:gMonth, \n         "2004" cast as derivedType:gYear, \n         "2004-02" cast as derivedType:gYearMonth, \n         "P1D" cast as derivedType:duration, \n         "1" cast as derivedType:positiveInteger, \n         "-1" cast as derivedType:nonPositiveInteger, \n         "1" cast as derivedType:nonNegativeInteger, \n         "-1" cast as derivedType:negativeInteger, \n         "1" cast as derivedType:long, \n         "1" cast as derivedType:short, \n         "1" cast as derivedType:unsignedByte, \n         "1" cast as derivedType:byte, \n         "1" cast as derivedType:unsignedInt, \n         "1" cast as derivedType:unsignedLong, \n         "1" cast as derivedType:unsignedShort\n      '
 cbcl-cast-duration-001;Expected XPathException with code FODT0002, but got Type casting to XsDuration has not been implemented yet.
 cbcl-cast-duration-002;Expected XPathException with code FODT0002, but got Type casting to XsDuration has not been implemented yet.
@@ -2032,8 +2029,8 @@ cbcl-cast-int-003;Expected XPathException with code FORG0001, but got Can't pars
 cbcl-cast-int-004;Expected XPathException with code FORG0001, but got Can't parse -2147483649 into an int.
 cbcl-cast-integer-001;Expected executing the XPath "1.7976931348623157E+308 cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0003. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '1.7976931348623157E+308 cast as xs:integer'
 cbcl-cast-integer-002;Expected executing the XPath "-1.7976931348623157E+308 cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0003. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '-1.7976931348623157E+308 cast as xs:integer'
-cbcl-cast-integer-003;Expected executing the XPath "xs:float('3.402823e38') cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0003. Found error code: FOCA0002 with error message: can not cast <Value>[type: XsFloat, value: ∞] to xs:integer
-cbcl-cast-integer-004;Expected executing the XPath "xs:float('-3.402823e38') cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0003. Found error code: FOCA0002 with error message: can not cast <Value>[type: XsFloat, value: -∞] to xs:integer
+cbcl-cast-integer-003;Expected executing the XPath "xs:float('3.402823e38') cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0003, but got Value was either too large or too small for an Int32.
+cbcl-cast-integer-004;Expected executing the XPath "xs:float('-3.402823e38') cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0003, but got Value was either too large or too small for an Int32.
 cbcl-cast-language-001;Atomic Value for XsLanguage is not implemented yet.
 cbcl-cast-long-001;Expected executing the XPath "xs:long(9223372036854775808)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0001, but got Can't parse 9223372036854775808 into an int.
 cbcl-cast-long-002;Expected executing the XPath "xs:long(-9223372036854775809)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0001, but got Can't parse 9223372036854775809 into an int.
@@ -2766,7 +2763,7 @@ cbcl-first-in-sequence-009;PRSC Error: Failed to parse query 'declare function l
 cbcl-first-in-sequence-010;PRSC Error: Failed to parse query 'declare function local:generate($arg as xs:integer?) as xs:string* { if ($arg = 0) then ('a', 'b', 'c') else () }; boolean(local:generate(0)[1])'
 cbcl-first-in-sequence-011;PRSC Error: Failed to parse query 'declare function local:generate($arg as xs:integer?) as xs:string* { if ($arg = 0) then ('a', 'b', 'c') else () }; boolean(local:generate(1)[1])'
 cbcl-first-in-sequence-012;PRSC Error: Failed to parse query 'declare function local:generate($arg as xs:boolean) as xs:string+ { if ($arg) then ('a', 'b', 'c') else ('A', 'B', 'C') }; ( for $x in local:generate(true()) return 3)[1]'
-cbcl-float-002;Expected XPath xs:float(xs:double('-INF')),xs:float(xs:double('INF')) to resolve to -INF INF, but instead got -∞ ∞
+cbcl-float-002;Expected XPath xs:float(xs:double('-INF')),xs:float(xs:double('INF')) to resolve to -INF INF, but instead got -Infinity Infinity
 cbcl-fn-indexof-006;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function index-of with arity 2 is not registered.
 cbcl-fn-indexof-1;The function index-of with arity 2 is not registered.
 cbcl-fn-indexof-2;The function index-of with arity 2 is not registered.
@@ -4733,8 +4730,8 @@ fn-avg-mix-args-022;Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-023;PRSC Error: Failed to parse query 'fn:avg(( (xs:double("-0"), xs:integer("-999999999999999999") ) )) = -5.0E17'
 fn-avg-mix-args-024;Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-025;Can't parse -999999999999999999 into an int.
-fn-avg-mix-args-026;Expected XPath fn:avg(( (xs:double("1.34"), xs:float("INF")))) to resolve to INF, but instead got ∞
-fn-avg-mix-args-027;Expected XPath fn:avg(( (xs:double("INF"), 2, 3))) to resolve to INF, but instead got ∞
+fn-avg-mix-args-026;Expected XPath fn:avg(( (xs:double("1.34"), xs:float("INF")))) to resolve to INF, but instead got Infinity
+fn-avg-mix-args-027;Expected XPath fn:avg(( (xs:double("INF"), 2, 3))) to resolve to INF, but instead got Infinity
 fn-avg-mix-args-028;Expected XPathException with code FORG0006, but got Type casting to XsYearMonthDuration has not been implemented yet.
 fn-avg-mix-args-034;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
 fn-avg-mix-args-036;Expected XPathException with code FORG0006, but got Can't parse -999999999999999999 into an int.
@@ -4779,9 +4776,7 @@ fn-avgflt1args-1;Value was either too large or too small for an Int32.
 fn-avgflt1args-3;Value was either too large or too small for an Int32.
 fn-avgflt2args-1;Expected executing the XPath "fn:avg((xs:float("-3.4028235E38"),xs:float("-3.4028235E38")))" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for an Int32.
 fn-avgflt2args-2;Value was either too large or too small for an Int32.
-fn-avgflt2args-3;Value was either too large or too small for an Int32.
 fn-avgflt2args-4;Value was either too large or too small for an Int32.
-fn-avgflt2args-5;Value was either too large or too small for an Int32.
 fn-avgint1args-1;Can't parse 2147483648 into an int.
 fn-avgint1args-2;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 fn-avgint1args-3;HandleNumericOperator: Different numeric types: XsDouble and XsInt
@@ -5017,21 +5012,21 @@ fn-concat-13;SingletonSequence.Map not implemented
 fn-concat-18;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:concat("abc","abc", fn:concat#3)'
 fn-concat-8;Can't parse <Value>[type: XsInt, value: 1] into an int.
 fn-concat-9;SingletonSequence.Map not implemented
-fn-concatdbl2args-1;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308-1.7976931348623157E308, but instead got -∞-∞
-fn-concatdbl2args-2;Expected XPath fn:concat(xs:double("0"),xs:double("-1.7976931348623157E308")) to resolve to 0-1.7976931348623157E308, but instead got 0-∞
-fn-concatdbl2args-3;Expected XPath fn:concat(xs:double("1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308, but instead got ∞-∞
-fn-concatdbl2args-4;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("0")) to resolve to -1.7976931348623157E3080, but instead got -∞0
-fn-concatdbl2args-5;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("1.7976931348623157E308")) to resolve to -1.7976931348623157E3081.7976931348623157E308, but instead got -∞∞
+fn-concatdbl2args-1;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308-1.7976931348623157E308, but instead got -1.7976931348623157E+308-1.7976931348623157E+308
+fn-concatdbl2args-2;Expected XPath fn:concat(xs:double("0"),xs:double("-1.7976931348623157E308")) to resolve to 0-1.7976931348623157E308, but instead got 0-1.7976931348623157E+308
+fn-concatdbl2args-3;Expected XPath fn:concat(xs:double("1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308, but instead got 1.7976931348623157E+308-1.7976931348623157E+308
+fn-concatdbl2args-4;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("0")) to resolve to -1.7976931348623157E3080, but instead got -1.7976931348623157E+3080
+fn-concatdbl2args-5;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("1.7976931348623157E308")) to resolve to -1.7976931348623157E3081.7976931348623157E308, but instead got -1.7976931348623157E+3081.7976931348623157E+308
 fn-concatdec2args-1;Atomic Value for XsDecimal is not implemented yet.
 fn-concatdec2args-2;Atomic Value for XsDecimal is not implemented yet.
 fn-concatdec2args-3;Atomic Value for XsDecimal is not implemented yet.
 fn-concatdec2args-4;Atomic Value for XsDecimal is not implemented yet.
 fn-concatdec2args-5;Atomic Value for XsDecimal is not implemented yet.
-fn-concatflt2args-1;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("-3.4028235E38")) to resolve to -3.4028235E38-3.4028235E38, but instead got -∞-∞
-fn-concatflt2args-2;Expected XPath fn:concat(xs:float("0"),xs:float("-3.4028235E38")) to resolve to 0-3.4028235E38, but instead got 0-∞
-fn-concatflt2args-3;Expected XPath fn:concat(xs:float("3.4028235E38"),xs:float("-3.4028235E38")) to resolve to 3.4028235E38-3.4028235E38, but instead got ∞-∞
-fn-concatflt2args-4;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("0")) to resolve to -3.4028235E380, but instead got -∞0
-fn-concatflt2args-5;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("3.4028235E38")) to resolve to -3.4028235E383.4028235E38, but instead got -∞∞
+fn-concatflt2args-1;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("-3.4028235E38")) to resolve to -3.4028235E38-3.4028235E38, but instead got -3.4028235E+38-3.4028235E+38
+fn-concatflt2args-2;Expected XPath fn:concat(xs:float("0"),xs:float("-3.4028235E38")) to resolve to 0-3.4028235E38, but instead got 0-3.4028235E+38
+fn-concatflt2args-3;Expected XPath fn:concat(xs:float("3.4028235E38"),xs:float("-3.4028235E38")) to resolve to 3.4028235E38-3.4028235E38, but instead got 3.4028235E+38-3.4028235E+38
+fn-concatflt2args-4;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("0")) to resolve to -3.4028235E380, but instead got -3.4028235E+380
+fn-concatflt2args-5;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("3.4028235E38")) to resolve to -3.4028235E383.4028235E38, but instead got -3.4028235E+383.4028235E+38
 fn-concatintg2args-1;Can't parse -999999999999999999 into an int.
 fn-concatintg2args-2;Can't parse 830993497117024304 into an int.
 fn-concatintg2args-3;Can't parse 999999999999999999 into an int.
@@ -5195,15 +5190,15 @@ fn-data-5;PRSC Error: Failed to parse query 'deep-equal((data([(1,2), (3,4), (5,
 fn-data-6;PRSC Error: Failed to parse query 'deep-equal((data([[1,2], [3,4], [5,6], []])), (1,2,3,4,5,6))'
 fn-data-7;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'data([[1,2], [3,4], [5,6], [map{1:2}]])'
 fn-datacomplextype-1;Expected error code: FOTY0012. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-fn-datadbl1args-1;Expected XPath fn:data((xs:double("-1.7976931348623157E308"))) to resolve to -1.7976931348623157E308, but instead got -∞
+fn-datadbl1args-1;Expected XPath fn:data((xs:double("-1.7976931348623157E308"))) to resolve to -1.7976931348623157E308, but instead got -1.7976931348623157E+308
 fn-datadbl1args-2;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-fn-datadbl1args-3;Expected XPath fn:data((xs:double("1.7976931348623157E308"))) to resolve to 1.7976931348623157E308, but instead got ∞
+fn-datadbl1args-3;Expected XPath fn:data((xs:double("1.7976931348623157E308"))) to resolve to 1.7976931348623157E308, but instead got 1.7976931348623157E+308
 fn-datadec1args-1;Atomic Value for XsDecimal is not implemented yet.
 fn-datadec1args-2;Atomic Value for XsDecimal is not implemented yet.
 fn-datadec1args-3;Atomic Value for XsDecimal is not implemented yet.
-fn-dataflt1args-1;Expected XPath fn:data((xs:float("-3.4028235E38"))) to resolve to -3.4028235E38, but instead got -∞
+fn-dataflt1args-1;Expected XPath fn:data((xs:float("-3.4028235E38"))) to resolve to -3.4028235E38, but instead got -3.4028235E+38
 fn-dataflt1args-2;HandleNumericOperator: Different numeric types: XsFloat and XsInt
-fn-dataflt1args-3;Expected XPath fn:data((xs:float("3.4028235E38"))) to resolve to 3.4028235E38, but instead got ∞
+fn-dataflt1args-3;Expected XPath fn:data((xs:float("3.4028235E38"))) to resolve to 3.4028235E38, but instead got 3.4028235E+38
 fn-dataint1args-1;Can't parse 2147483648 into an int.
 fn-dataintg1args-1;Can't parse -999999999999999999 into an int.
 fn-dataintg1args-2;Can't parse 830993497117024304 into an int.
@@ -7307,25 +7302,25 @@ fn-notsht1args-2;Expected XPath fn:not(xs:short("-5324")) to resolve to false
 fn-notulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
 fn-notulng1args-2;Can't parse 130747108607674654 into an int.
 fn-notulng1args-3;Can't parse 184467440737095516 into an int.
-fn-number-1;Expected XPath fn:number(()) to resolve to NaN, but instead got ∞
+fn-number-1;Expected XPath fn:number(()) to resolve to NaN, but instead got Infinity
 fn-number-10;PRSC Error: Failed to parse query '(number(xs:untypedAtomic("1000"))) instance of $xs:double'
 fn-number-2;Input string was not in a correct format.
 fn-number-3;Expected XPathException with code XPDY0002, but got PerformFunctionConversion is not implemented yet.
-fn-number-4;Expected error code: XPDY0002. Query succeeded with result: ∞
+fn-number-4;Expected error code: XPDY0002. Query succeeded with result: Infinity
 fn-number-5;PRSC Error: Failed to parse query '(number(true())) instance of $xs:double'
 fn-number-6;PRSC Error: Failed to parse query '(number(false())) instance of $xs:double'
 fn-number-7;PRSC Error: Failed to parse query '(number(implicit-timezone())) instance of $xs:double'
 fn-number-8;PRSC Error: Failed to parse query '(number("  -22e0  ")) instance of $xs:double'
 fn-number-9;PRSC Error: Failed to parse query '(number("+22e0")) instance of $xs:double'
-fn-numberdbl1args-1;Expected XPath fn:number(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308, but instead got -∞
+fn-numberdbl1args-1;Expected XPath fn:number(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308, but instead got -1.7976931348623157E+308
 fn-numberdbl1args-2;Expected XPath fn:number(xs:double("0")) to resolve to 0, but instead got -0
-fn-numberdbl1args-3;Expected XPath fn:number(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308, but instead got ∞
+fn-numberdbl1args-3;Expected XPath fn:number(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308, but instead got 1.7976931348623157E+308
 fn-numberdec1args-1;Atomic Value for XsDecimal is not implemented yet.
 fn-numberdec1args-2;Atomic Value for XsDecimal is not implemented yet.
 fn-numberdec1args-3;Atomic Value for XsDecimal is not implemented yet.
 fn-numberflt1args-1;PRSC Error: Failed to parse query 'fn:number(xs:float("-3.4028235E38")) eq -3.4028234663852885E38'
 fn-numberflt1args-2;Expected XPath fn:number(xs:float("0")) to resolve to 0, but instead got -0
-fn-numberflt1args-3;Expected executing the XPath "fn:number(xs:float("3.4028235E38"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:number(xs:float("3.4028235E38")) to resolve to 3.4028234663852885E38, but instead got ∞
+fn-numberflt1args-3;Expected executing the XPath "fn:number(xs:float("3.4028235E38"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:number(xs:float("3.4028235E38")) to resolve to 3.4028234663852885E38, but instead got 3.4028234663852886E+38
 fn-numberint1args-1;Expected XPath fn:number(xs:int("-2147483648")) to resolve to -2.147483648E9, but instead got -2147483648
 fn-numberint1args-2;Expected XPath fn:number(xs:int("-1873914410")) to resolve to -1.87391441E9, but instead got -1873914410
 fn-numberint1args-3;Expected XPath fn:number(xs:int("2147483647")) to resolve to 2.147483647E9, but instead got 2147483647
@@ -7770,7 +7765,7 @@ fn-round-half-to-even-39;Casting not supported from given type to xs:decimal or 
 fn-round-half-to-even-4;PRSC Error: Failed to parse query 'round-half-to-even(1.000005e0, 2) = 1'
 fn-round-half-to-even-40;Casting not supported from given type to xs:decimal or any of its derived types.
 fn-round-half-to-even-41;Casting not supported from given type to xs:decimal or any of its derived types.
-fn-round-half-to-even-5;HandleNumericOperator: Different numeric types: XsFloat and XsInt
+fn-round-half-to-even-5;Atomic Value for XsDecimal is not implemented yet.
 fn-round-half-to-even-6;Can't parse 4561.234567 into an int.
 fn-round-half-to-even-7;PRSC Error: Failed to parse query 'round-half-to-even(4561.000005e0, -2) = 4600'
 fn-round-half-to-even-8;Atomic Value for XsDecimal is not implemented yet.
@@ -8631,15 +8626,15 @@ fn-years-from-duration-9;The function fn:years-from-duration with arity 1 is not
 fn-years-from-duration1args-1;The function fn:years-from-duration with arity 1 is not registered.
 fn-years-from-duration1args-2;The function fn:years-from-duration with arity 1 is not registered.
 fn-years-from-duration1args-3;The function fn:years-from-duration with arity 1 is not registered.
-fn-zero-or-onedbl1args-1;Expected XPath fn:zero-or-one(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308, but instead got -∞
+fn-zero-or-onedbl1args-1;Expected XPath fn:zero-or-one(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308, but instead got -1.7976931348623157E+308
 fn-zero-or-onedbl1args-2;Expected XPath fn:zero-or-one(xs:double("0")) to resolve to 0, but instead got -0
-fn-zero-or-onedbl1args-3;Expected XPath fn:zero-or-one(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308, but instead got ∞
+fn-zero-or-onedbl1args-3;Expected XPath fn:zero-or-one(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308, but instead got 1.7976931348623157E+308
 fn-zero-or-onedec1args-1;Atomic Value for XsDecimal is not implemented yet.
 fn-zero-or-onedec1args-2;Atomic Value for XsDecimal is not implemented yet.
 fn-zero-or-onedec1args-3;Atomic Value for XsDecimal is not implemented yet.
-fn-zero-or-oneflt1args-1;Expected XPath fn:zero-or-one(xs:float("-3.4028235E38")) to resolve to -3.4028235E38, but instead got -∞
+fn-zero-or-oneflt1args-1;Expected XPath fn:zero-or-one(xs:float("-3.4028235E38")) to resolve to -3.4028235E38, but instead got -3.4028235E+38
 fn-zero-or-oneflt1args-2;Expected XPath fn:zero-or-one(xs:float("0")) to resolve to 0, but instead got -0
-fn-zero-or-oneflt1args-3;Expected XPath fn:zero-or-one(xs:float("3.4028235E38")) to resolve to 3.4028235E38, but instead got ∞
+fn-zero-or-oneflt1args-3;Expected XPath fn:zero-or-one(xs:float("3.4028235E38")) to resolve to 3.4028235E38, but instead got 3.4028235E+38
 fn-zero-or-oneint1args-1;Can't parse <Value>[type: XsInt, value: -2147483648] into an int.
 fn-zero-or-oneint1args-2;Can't parse <Value>[type: XsInt, value: -1873914410] into an int.
 fn-zero-or-oneint1args-3;Can't parse <Value>[type: XsInt, value: 2147483647] into an int.
@@ -9264,7 +9259,7 @@ FOAR0001_6;Expected XPathException with code FOAR0001, but got Attempted to divi
 FOAR0001_7;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
 FOAR0001_8;Expected XPathException with code FOAR0001, but got Can't parse 1.0 into an int.
 FOAR0001_9;Expected XPathException with code FOAR0001, but got Type casting to XsYearMonthDuration has not been implemented yet.
-FOAR0002_1;Expected executing the XPath "2e308" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOAR0002. Query succeeded with result: ∞
+FOAR0002_1;Expected executing the XPath "2e308" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOAR0002. Query succeeded with result: Infinity
 FOAR0002_3;Expected XPathException with code FOAR0002, but got Attempted to divide by zero.
 FOAR0002-5;Expected executing the XPath "xs:dayTimeDuration('P5999999999999999999DT00H00M01S') div
 FOCA0001_1;Expected executing the XPath "xs:decimal(1e308)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOCA0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:decimal or any of its derived types.
@@ -10428,11 +10423,10 @@ functx-fn-normalize-unicode-2;The function normalize-unicode with arity 2 is not
 functx-fn-normalize-unicode-all;The function normalize-unicode with arity 1 is not registered.
 functx-fn-not-7;PRSC Error: Failed to parse query ''
 functx-fn-not-all;PRSC Error: Failed to parse query ''
-functx-fn-number-1;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/price)) to resolve to 29.99, but instead got ∞
-functx-fn-number-2;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/@currency)) to resolve to NaN, but instead got ∞
-functx-fn-number-3;Expected XPath let $priceDoc := (/) return (number('29.99')) to resolve to 29.99, but instead got 2999
+functx-fn-number-1;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/price)) to resolve to 29.99, but instead got Infinity
+functx-fn-number-2;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/@currency)) to resolve to NaN, but instead got Infinity
 functx-fn-number-4;Input string was not in a correct format.
-functx-fn-number-5;Expected XPath let $priceDoc := (/) return (number( () )) to resolve to NaN, but instead got ∞
+functx-fn-number-5;Expected XPath let $priceDoc := (/) return (number( () )) to resolve to NaN, but instead got Infinity
 functx-fn-number-6;PerformFunctionConversion is not implemented yet.
 functx-fn-number-all;Can't parse 29.99 into an int.
 functx-fn-one-or-more-1;The function one-or-more with arity 1 is not registered.
@@ -12152,8 +12146,6 @@ K-ContextPositionFunc-9;The function remove with arity 2 is not registered.
 K-DataFunc-1;Expected error code: XPST0017. Query succeeded with result: 
 K-DatesSubtract-1;SubtractOp not available for types XsDate and XsDate
 K-DatesSubtract-2;SubtractOp not available for types XsDate and XsDate
-K-DateTimeEQ-1;The string '2004-08-12T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeEQ-2;The string '2004-08-12T23:01:4,12' is not a valid AllXsd value.
 K-DateTimeEQ-21;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-22;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-23;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
@@ -12163,15 +12155,9 @@ K-DateTimeEQ-26;Expected XPathException with code XPTY0004, but got Type casting
 K-DateTimeEQ-27;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-28;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-29;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
-K-DateTimeEQ-3;The string '2004-08-12T23:01:5,12' is not a valid AllXsd value.
 K-DateTimeEQ-30;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-31;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
 K-DateTimeEQ-32;Expected XPathException with code XPTY0004, but got Type casting to XsTime has not been implemented yet.
-K-DateTimeEQ-4;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeEQ-5;The string '1999-12-04T16:00:12,345Z' is not a valid AllXsd value.
-K-DateTimeEQ-6;The string '1999-12-04T16:00:12,345Z' is not a valid AllXsd value.
-K-DateTimeEQ-7;The string '1999-12-04T16:00:12,345Z' is not a valid AllXsd value.
-K-DateTimeEQ-8;The string '1999-12-04T16:00:12,345Z' is not a valid AllXsd value.
 K-DateTimeFunc-10;The function dateTime with arity 2 is not registered.
 K-DateTimeFunc-11;The function dateTime with arity 2 is not registered.
 K-DateTimeFunc-12;The function dateTime with arity 2 is not registered.
@@ -12187,19 +12173,7 @@ K-DateTimeFunc-6;Expected error code: FORG0008. Found error code: XPST0017 with 
 K-DateTimeFunc-7;Expected error code: FORG0008. Found error code: XPST0017 with error message: The function dateTime with arity 2 is not registered.
 K-DateTimeFunc-8;The function dateTime with arity 2 is not registered.
 K-DateTimeFunc-9;The function dateTime with arity 2 is not registered.
-K-DateTimeGT-1;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeGT-2;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeGT-3;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeGT-4;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeGT-5;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeGT-6;The string '2004-07-11T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeLT-1;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeLT-2;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeLT-3;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeLT-4;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeLT-5;The string '2004-07-12T23:01:4,12' is not a valid AllXsd value.
-K-DateTimeLT-6;The string '2004-07-13T23:01:4,12' is not a valid AllXsd value.
-K-dateTimesSubtract-1;The string '1999-07-19T08:23:12,765' is not a valid AllXsd value.
+K-dateTimesSubtract-1;SubtractOp not available for types XsDateTime and XsDateTime
 K-dateTimesSubtract-6;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
 K-DayFromDateFunc-3;The function day-from-date with arity 1 is not registered.
 K-DayFromDateFunc-4;The function day-from-date with arity 1 is not registered.
@@ -12989,9 +12963,9 @@ K-NumericSubtract-5;Atomic Value for XsDecimal is not implemented yet.
 K-NumericSubtract-6;Atomic Value for XsDecimal is not implemented yet.
 K-NumericSubtract-8;Atomic Value for XsDecimal is not implemented yet.
 K-NumericSubtract-9;Atomic Value for XsDecimal is not implemented yet.
-K-NumericUnaryMinus-1;Expected error code: XPTY0004. Query succeeded with result: ∞
+K-NumericUnaryMinus-1;Expected error code: XPTY0004. Query succeeded with result: Infinity
 K-NumericUnaryMinus-15;PRSC Error: Failed to parse query '-1.3!floor(.) = -1'
-K-NumericUnaryPlus-1;Expected error code: XPTY0004. Query succeeded with result: ∞
+K-NumericUnaryPlus-1;Expected error code: XPTY0004. Query succeeded with result: Infinity
 K-OrderExpr-1a;PRSC Error: Failed to parse query '(ordered{}) => empty()'
 K-OrderExpr-2a;PRSC Error: Failed to parse query '(unordered{}) => empty()'
 K-OrderExpr-3;PRSC Error: Failed to parse query 'ordered{true()}'
@@ -13887,33 +13861,19 @@ K-SeqExprCast-319;Expected XPathException with code FORG0001, but got The string
 K-SeqExprCast-320;Expected XPathException with code FORG0001, but got The string '--2002-02-15T21:01:23' is not a valid AllXsd value.
 K-SeqExprCast-321;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
 K-SeqExprCast-322;Expected XPathException with code FORG0001, but got Offset must be within plus or minus 14 hours. (Parameter 'offset')
-K-SeqExprCast-323;Expected XPathException with code FORG0001, but got The string '1999-12-01T23:59:12,432+11:00' is not a valid AllXsd value.
-K-SeqExprCast-324;Expected XPathException with code FORG0001, but got The string '1999-12-01T23:59:12,432-11:00' is not a valid AllXsd value.
+K-SeqExprCast-323;Expected error code: FORG0001. Query succeeded with result: 1999-12-01T23:59:12.432+11:00
+K-SeqExprCast-324;Expected error code: FORG0001. Query succeeded with result: 1999-12-01T23:59:12.432-11:00
 K-SeqExprCast-325;Expected XPathException with code FORG0001, but got The string '1999-12-01T23:59:12.999-00' is not a valid AllXsd value.
-K-SeqExprCast-326;The string '2002-11-23T23:12:23,867Z' is not a valid AllXsd value.
-K-SeqExprCast-327;The string '2002-11-23T23:12:23,867-13:37' is not a valid AllXsd value.
-K-SeqExprCast-328;The string '2002-11-23T23:12:23,867Z' is not a valid AllXsd value.
-K-SeqExprCast-329;The string '2002-11-23T23:12:23,867-13:37' is not a valid AllXsd value.
 K-SeqExprCast-33;PRSC Error: Failed to parse query 'xs:boolean(0.0E0) eq false()'
-K-SeqExprCast-330;The string '2002-11-23T22:12:23,867Z' is not a valid AllXsd value.
-K-SeqExprCast-331;The string '2002-11-23T22:12:23,867-13:37' is not a valid AllXsd value.
-K-SeqExprCast-332;The string '2002-11-23T22:12:23,867Z' is not a valid AllXsd value.
-K-SeqExprCast-333;The string '2002-11-23T22:12:23,867-13:37' is not a valid AllXsd value.
-K-SeqExprCast-334;The string '2002-11-23T22:12:23,867Z' is not a valid AllXsd value.
-K-SeqExprCast-335;The string '2002-11-23T22:12:23,867-13:37' is not a valid AllXsd value.
-K-SeqExprCast-336;The string '2002-11-23T22:12:23,867Z' is not a valid AllXsd value.
-K-SeqExprCast-337;The string '2002-11-23T22:12:23,867-13:37' is not a valid AllXsd value.
-K-SeqExprCast-338;The string '2002-11-23T22:12:23,867Z' is not a valid AllXsd value.
-K-SeqExprCast-339;The string '2002-11-23T22:12:23,867-13:37' is not a valid AllXsd value.
+K-SeqExprCast-330;Expected XPath xs:gMonth(xs:dateTime("2002-11-23T22:12:23.867-00:00")) eq xs:gMonth("--11Z") to resolve to true
+K-SeqExprCast-331;Expected XPath xs:gMonth(xs:dateTime("2002-11-23T22:12:23.867-13:37")) eq xs:gMonth("--11-13:37") to resolve to true
+K-SeqExprCast-332;Expected XPath xs:gMonthDay(xs:dateTime("2002-11-23T22:12:23.867-00:00")) eq xs:gMonthDay("--11-23Z") to resolve to true
+K-SeqExprCast-333;Expected XPath xs:gMonthDay(xs:dateTime("2002-11-23T22:12:23.867-13:37")) eq xs:gMonthDay("--11-23-13:37") to resolve to true
+K-SeqExprCast-334;Expected XPath xs:gDay(xs:dateTime("2002-11-23T22:12:23.867-00:00")) eq xs:gDay("---23Z") to resolve to true
+K-SeqExprCast-335;Expected XPath xs:gDay(xs:dateTime("2002-11-23T22:12:23.867-13:37")) eq xs:gDay("---23-13:37") to resolve to true
+K-SeqExprCast-338;Type casting to XsTime has not been implemented yet.
+K-SeqExprCast-339;Type casting to XsTime has not been implemented yet.
 K-SeqExprCast-34;Expected XPath xs:boolean(xs:double("NaN")) eq false() to resolve to true
-K-SeqExprCast-340;The string '1999-12-01T23:59:12,999Z' is not a valid AllXsd value.
-K-SeqExprCast-341;The string '1999-12-01T23:59:12,432Z' is not a valid AllXsd value.
-K-SeqExprCast-343;The string '2002-02-15T21:01:23,1' is not a valid AllXsd value.
-K-SeqExprCast-344;The string '2002-02-15T21:01:23,001' is not a valid AllXsd value.
-K-SeqExprCast-345;The string '2002-02-15T21:01:23,01' is not a valid AllXsd value.
-K-SeqExprCast-346;The string '2002-02-15T21:01:23,435' is not a valid AllXsd value.
-K-SeqExprCast-347;The string '2002-02-15T21:01:23,11' is not a valid AllXsd value.
-K-SeqExprCast-348;The string '2002-02-15T21:01:23,11' is not a valid AllXsd value.
 K-SeqExprCast-349;SingletonSequence.Map not implemented
 K-SeqExprCast-35;Expected XPath xs:boolean(xs:float("NaN")) eq false() to resolve to true
 K-SeqExprCast-350;The string '2004-03-31T24:00:00' is not a valid AllXsd value.
@@ -15867,8 +15827,8 @@ K2-Literals-4;Expected executing the XPath "999999999999999999999999999999999999
 K2-Literals-5;Expected executing the XPath "-999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" to resolve to one of the expected results, but got System.Exception: Can't parse 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999 into an int.
 K2-Literals-6;Expected executing the XPath "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999.1" to resolve to one of the expected results, but got System.Exception: Can't parse 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999.1 into an int.
 K2-Literals-7;Expected executing the XPath "0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001" to resolve to one of the expected results, but got System.Exception: Can't parse 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001 into an int.
-K2-Literals-8;Expected executing the XPath "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000 to resolve to INF, but instead got ∞
-K2-Literals-9;Expected executing the XPath "-999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath -999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000 to resolve to -INF, but instead got -∞
+K2-Literals-8;Expected executing the XPath "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000 to resolve to INF, but instead got Infinity
+K2-Literals-9;Expected executing the XPath "-999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath -999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000 to resolve to -INF, but instead got -Infinity
 K2-MatchesFunc-1;The function fn:matches with arity 3 is not registered.
 K2-MatchesFunc-10;Expected XPathException with code FORX0002, but got BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 K2-MatchesFunc-11;Expected XPathException with code FORX0002, but got BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
@@ -16634,19 +16594,19 @@ K2-SeqExprCast-218;Expected XPathException with code FORG0001, but got Input str
 K2-SeqExprCast-219;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-22;Expected executing the XPath "xs:unsignedLong("18446744073709551615")" to resolve to one of the expected results, but got System.Exception: Can't parse 18446744073709551615 into an int.
 K2-SeqExprCast-220;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-221;Expected XPath xs:float(" NaN ") to resolve to NaN, but instead got ∞
-K2-SeqExprCast-222;Expected XPath xs:double(" NaN ") to resolve to NaN, but instead got ∞
-K2-SeqExprCast-223;Expected XPath xs:float(" INF ") to resolve to INF, but instead got ∞
-K2-SeqExprCast-224;Expected XPath xs:double(" INF ") to resolve to INF, but instead got ∞
+K2-SeqExprCast-221;Expected XPath xs:float(" NaN ") to resolve to NaN, but instead got Infinity
+K2-SeqExprCast-222;Expected XPath xs:double(" NaN ") to resolve to NaN, but instead got Infinity
+K2-SeqExprCast-223;Expected XPath xs:float(" INF ") to resolve to INF, but instead got Infinity
+K2-SeqExprCast-224;Expected XPath xs:double(" INF ") to resolve to INF, but instead got Infinity
 K2-SeqExprCast-227;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-228;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-229;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-23;Can't parse 4294967295 into an int.
 K2-SeqExprCast-230;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-231;Expected error code: FORG0001. Query succeeded with result: ∞
-K2-SeqExprCast-231a;Expected XPath xs:double("+INF") to resolve to INF, but instead got ∞
-K2-SeqExprCast-232;Expected error code: FORG0001. Query succeeded with result: ∞
-K2-SeqExprCast-232a;Expected XPath xs:float("+INF") to resolve to INF, but instead got ∞
+K2-SeqExprCast-231;Expected error code: FORG0001. Query succeeded with result: Infinity
+K2-SeqExprCast-231a;Expected XPath xs:double("+INF") to resolve to INF, but instead got Infinity
+K2-SeqExprCast-232;Expected error code: FORG0001. Query succeeded with result: Infinity
+K2-SeqExprCast-232a;Expected XPath xs:float("+INF") to resolve to INF, but instead got Infinity
 K2-SeqExprCast-233;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-234;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-235;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
@@ -17265,7 +17225,7 @@ LetExpr002;Can't parse 92233720368547758 into an int.
 LetExpr003;Can't parse 92233720368547758 into an int.
 LetExpr004;Can't parse 92233720368547758 into an int.
 LetExpr005;Can't parse -92233720368547758 into an int.
-LetExpr006;Expected XPath let $x := xs:double("1.7976931348623157E308") return $x to resolve to 1.7976931348623157E308, but instead got ∞
+LetExpr006;Expected XPath let $x := xs:double("1.7976931348623157E308") return $x to resolve to 1.7976931348623157E308, but instead got 1.7976931348623157E+308
 LetExpr007;PRSC Error: Failed to parse query ''
 LetExpr009;PRSC Error: Failed to parse query ''
 LetExpr011;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -17301,24 +17261,12 @@ Literals014;Can't parse .65535032 into an int.
 Literals015;Can't parse .65535032 into an int.
 Literals016;Expected XPath 65535032e2 to resolve to 6.5535032E9, but instead got 6553503200
 Literals017;PRSC Error: Failed to parse query '65535.032e2'
-Literals018;Can't parse .65535032e2 into an double for a DoubleValue.
-Literals019;Can't parse .65535032e2 into an double for a DoubleValue.
-Literals020;Can't parse .65535032e2 into an double for a DoubleValue.
 Literals021;PRSC Error: Failed to parse query '65535.032e-2'
-Literals022;Can't parse .65535032e-2 into an double for a DoubleValue.
-Literals023;Can't parse .65535032e-2 into an double for a DoubleValue.
-Literals024;Can't parse .65535032e-2 into an double for a DoubleValue.
 Literals025;PRSC Error: Failed to parse query '-65535.032e2'
 Literals026;PRSC Error: Failed to parse query '-65535.032e-2'
 Literals027;Expected XPath 65535032E2 to resolve to 6.5535032E9, but instead got 6553503200
 Literals028;PRSC Error: Failed to parse query '65535.032E2'
-Literals029;Can't parse .65535032E2 into an double for a DoubleValue.
-Literals030;Can't parse .65535032E2 into an double for a DoubleValue.
-Literals031;Can't parse .65535032E2 into an double for a DoubleValue.
 Literals032;PRSC Error: Failed to parse query '65535.032E-2'
-Literals033;Can't parse .65535032E-2 into an double for a DoubleValue.
-Literals034;Can't parse .65535032E-2 into an double for a DoubleValue.
-Literals035;Can't parse .65535032E-2 into an double for a DoubleValue.
 Literals056;PRSC Error: Failed to parse query ''
 Literals056a;PRSC Error: Failed to parse query ''
 Literals057;PRSC Error: Failed to parse query ''
@@ -18082,11 +18030,11 @@ op-concat-18;Expected error code: FOTY0013. Found error code: XPST0003 with erro
 op-concat-19;PRSC Error: Failed to parse query '(12 || 34 - 50) instance of $xs:string'
 op-concat-8;Can't parse <Value>[type: XsInt, value: 1] into an int.
 op-concat-9;SingletonSequence.Map not implemented
-op-concatdbl2args-1;Expected XPath (xs:double("-1.7976931348623157E308")||xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308-1.7976931348623157E308, but instead got -∞-∞
-op-concatdbl2args-2;Expected XPath (xs:double("0")||xs:double("-1.7976931348623157E308")) to resolve to 0-1.7976931348623157E308, but instead got 0-∞
-op-concatdbl2args-3;Expected XPath (xs:double("1.7976931348623157E308")||xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308, but instead got ∞-∞
-op-concatdbl2args-4;Expected XPath (xs:double("-1.7976931348623157E308") || xs:double("0")) to resolve to -1.7976931348623157E3080, but instead got -∞0
-op-concatdbl2args-5;Expected XPath (xs:double("-1.7976931348623157E308") || xs:double("1.7976931348623157E308")) to resolve to -1.7976931348623157E3081.7976931348623157E308, but instead got -∞∞
+op-concatdbl2args-1;Expected XPath (xs:double("-1.7976931348623157E308")||xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308-1.7976931348623157E308, but instead got -1.7976931348623157E+308-1.7976931348623157E+308
+op-concatdbl2args-2;Expected XPath (xs:double("0")||xs:double("-1.7976931348623157E308")) to resolve to 0-1.7976931348623157E308, but instead got 0-1.7976931348623157E+308
+op-concatdbl2args-3;Expected XPath (xs:double("1.7976931348623157E308")||xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308, but instead got 1.7976931348623157E+308-1.7976931348623157E+308
+op-concatdbl2args-4;Expected XPath (xs:double("-1.7976931348623157E308") || xs:double("0")) to resolve to -1.7976931348623157E3080, but instead got -1.7976931348623157E+3080
+op-concatdbl2args-5;Expected XPath (xs:double("-1.7976931348623157E308") || xs:double("1.7976931348623157E308")) to resolve to -1.7976931348623157E3081.7976931348623157E308, but instead got -1.7976931348623157E+3081.7976931348623157E+308
 op-concatdec2args-1;Atomic Value for XsDecimal is not implemented yet.
 op-concatdec2args-2;Atomic Value for XsDecimal is not implemented yet.
 op-concatdec2args-3;Atomic Value for XsDecimal is not implemented yet.
@@ -18095,19 +18043,19 @@ op-concatdec2args-5;Atomic Value for XsDecimal is not implemented yet.
 op-concatenate-mix-args-005;Type casting to XsAnyUri has not been implemented yet.
 op-concatenate-mix-args-006;Type casting to XsAnyUri has not been implemented yet.
 op-concatenate-mix-args-007;Type casting to XsAnyUri has not been implemented yet.
-op-concatenate-mix-args-008;Expected XPath xs:float("1.01"), xs:float("NaN") to resolve to 1.01 NaN, but instead got 101 ∞
-op-concatenate-mix-args-009;Expected XPath xs:float("INF") , xs:double("NaN") to resolve to INF NaN, but instead got ∞ ∞
-op-concatenate-mix-args-010;Expected XPath xs:double("INF"), xs:double("-INF"), xs:float("-INF") to resolve to INF -INF -INF, but instead got ∞ -∞ -∞
+op-concatenate-mix-args-008;Expected XPath xs:float("1.01"), xs:float("NaN") to resolve to 1.01 NaN, but instead got 1.01 Infinity
+op-concatenate-mix-args-009;Expected XPath xs:float("INF") , xs:double("NaN") to resolve to INF NaN, but instead got Infinity Infinity
+op-concatenate-mix-args-010;Expected XPath xs:double("INF"), xs:double("-INF"), xs:float("-INF") to resolve to INF -INF -INF, but instead got Infinity -Infinity -Infinity
 op-concatenate-mix-args-013;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 op-concatenate-mix-args-015;Type casting to XsTime has not been implemented yet.
 op-concatenate-mix-args-016;Atomic Value for XsDecimal is not implemented yet.
 op-concatenate-mix-args-019;Can't parse 65.95 into an int.
 op-concatenate-mix-args-020;Expected results and parsedFragment children to match
-op-concatflt2args-1;Expected XPath (xs:float("-3.4028235E38") || xs:float("-3.4028235E38")) to resolve to -3.4028235E38-3.4028235E38, but instead got -∞-∞
-op-concatflt2args-2;Expected XPath (xs:float("0") || xs:float("-3.4028235E38")) to resolve to 0-3.4028235E38, but instead got 0-∞
-op-concatflt2args-3;Expected XPath (xs:float("3.4028235E38") || xs:float("-3.4028235E38")) to resolve to 3.4028235E38-3.4028235E38, but instead got ∞-∞
-op-concatflt2args-4;Expected XPath (xs:float("-3.4028235E38") || xs:float("0")) to resolve to -3.4028235E380, but instead got -∞0
-op-concatflt2args-5;Expected XPath (xs:float("-3.4028235E38") || xs:float("3.4028235E38")) to resolve to -3.4028235E383.4028235E38, but instead got -∞∞
+op-concatflt2args-1;Expected XPath (xs:float("-3.4028235E38") || xs:float("-3.4028235E38")) to resolve to -3.4028235E38-3.4028235E38, but instead got -3.4028235E+38-3.4028235E+38
+op-concatflt2args-2;Expected XPath (xs:float("0") || xs:float("-3.4028235E38")) to resolve to 0-3.4028235E38, but instead got 0-3.4028235E+38
+op-concatflt2args-3;Expected XPath (xs:float("3.4028235E38") || xs:float("-3.4028235E38")) to resolve to 3.4028235E38-3.4028235E38, but instead got 3.4028235E+38-3.4028235E+38
+op-concatflt2args-4;Expected XPath (xs:float("-3.4028235E38") || xs:float("0")) to resolve to -3.4028235E380, but instead got -3.4028235E+380
+op-concatflt2args-5;Expected XPath (xs:float("-3.4028235E38") || xs:float("3.4028235E38")) to resolve to -3.4028235E383.4028235E38, but instead got -3.4028235E+383.4028235E+38
 op-concatintg2args-1;Can't parse -999999999999999999 into an int.
 op-concatintg2args-2;Can't parse 830993497117024304 into an int.
 op-concatintg2args-3;Can't parse 999999999999999999 into an int.
@@ -18841,8 +18789,6 @@ op-numeric-integer-dividedec2args-2;Atomic Value for XsDecimal is not implemente
 op-numeric-integer-dividedec2args-3;Atomic Value for XsDecimal is not implemented yet.
 op-numeric-integer-dividedec2args-4;Atomic Value for XsDecimal is not implemented yet.
 op-numeric-integer-dividedec2args-5;Atomic Value for XsDecimal is not implemented yet.
-op-numeric-integer-dividedouble2args-5;Expected XPath xs:double("12.78e-2") idiv xs:double("3") to resolve to 0
-op-numeric-integer-dividefloat2args-5;Expected XPath xs:float("-3.5") idiv xs:float("3") to resolve to -1
 op-numeric-integer-divideintg2args-1;Can't parse -999999999999999999 into an int.
 op-numeric-integer-divideintg2args-2;Can't parse 830993497117024304 into an int.
 op-numeric-integer-divideintg2args-3;Can't parse 999999999999999999 into an int.
@@ -20925,7 +20871,7 @@ ReturnExpr011;Expected results and parsedFragment children to match
 ReturnExpr014;Expected XPathException with code XPST0008, but got The given key 'undefined' was not present in the dictionary.
 ReturnExpr015;Expected results and parsedFragment children to match
 ReturnExpr016;PRSC Error: Failed to parse query ''
-ReturnExpr017;Expected XPath for $file in (//Folder)[1]/File return ($file/Stream/StreamSize)[1] + 1 to resolve to 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1032.33, but instead got 100134 100234 100334 100434 100534 100634 100734 100834 100934 101034 101134 101234 101334 101434 101534 101634 101734 101834 101934 102034 102134 102234 102334 102434 102534 102634 102734 102834 102934 103034 103134 100134 100234 100334 100434 100534 100634 100734 100834 100934 101034 101134 101234 101334 101434 101534 101634 100134 100234 100334 100434 100534 100634 100734 100834 100934 101034 101134 101234 101334 101434 101534 101634 101734 101834 101934 102034 102134 102234 102334 102434 102534 102634 102734 102834 102934 103034 100134 100234 100334 100434 100534 100634 100734 100834 100934 101034 101134 101234 101334 101434 101534 101634 101734 101834 101934 102034 102134 102234 102334 102434
+ReturnExpr017;Expected XPath for $file in (//Folder)[1]/File return ($file/Stream/StreamSize)[1] + 1 to resolve to 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1032.33, but instead got 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1032.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33
 ReturnExpr018;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 ReturnExpr020;Expected XPath for $file in (//Folder)[1]/File return xs:string( data( $file/FileName[1] )) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got null
 reverse-001;The function fn:reverse with arity 1 is not registered.
@@ -21425,10 +21371,10 @@ XPTY0004_32;Expected error code: XPTY0004. Found error code: XPST0003 with error
 XPTY0004_33;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace foo = "http://www.example.org"; declare function foo:something($type\n         as xs:integer) { if ($type eq 1) then xs:date('2007-11-28') else 'foo' }; for $x as\n         xs:string in foo:something(1) return $x'
 XPTY0004_34;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace foo = "http://www.example.org"; declare function foo:something($type)\n         as xs:integer { $type }; foo:something('foo')'
 XPTY0004_35;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace foo = "http://www.example.org"; declare function foo:something($type\n         as xs:integer) as xs:integer { if ($type eq 1) then xs:date('2007-11-28') else $type };\n         foo:something(1)'
-XPTY0004_37;Expected error code: XPTY0004. Query succeeded with result: ∞
+XPTY0004_37;Expected error code: XPTY0004. Query succeeded with result: Infinity
 XPTY0004_38;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace foo = "http://www.example.org"; declare function foo:something($pos as\n         xs:integer) { if ($pos eq 1) then 1 else xs:date('2007-11-29') }; -foo:something(2)'
 XPTY0004_39;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace foo = "http://www.example.org"; declare function foo:something($pos as\n         xs:integer) { if ($pos eq 1) then 1 else xs:date('2007-11-29') }; +foo:something(2)'
-XPTY0004_40;Expected error code: XPTY0004. Query succeeded with result: ∞
+XPTY0004_40;Expected error code: XPTY0004. Query succeeded with result: Infinity
 XPTY0004_42;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsDate) to StringValue
 XPTY0004_45;Expected executing the XPath "concat('prefix:', 'localname') cast as xs:QName" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 XPTY0004_47;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''

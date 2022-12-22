@@ -1,3 +1,4 @@
+using System.Globalization;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions;
@@ -244,6 +245,8 @@ public class Evaluate
         Options<TNode> options,
         Dictionary<string, object>? variablesMap) where TNode : notnull where TSelector : notnull
     {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+        
         variablesMap ??= new Dictionary<string, object>();
 
         var variables = ParameterUtils.ConvertToAbstractValueVariables(variablesMap);
