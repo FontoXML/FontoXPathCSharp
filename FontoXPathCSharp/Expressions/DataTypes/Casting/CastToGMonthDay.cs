@@ -22,7 +22,7 @@ public static class CastToGMonthDay
         if (type.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateGMonthDayValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!,
+                    CreateGMonthDayValue(DateTimeValue.FromString(value.GetValue().ToString()!,
                         ValueType.XsGMonthDay)));
 
         return _ => new ErrorResult<AtomicValue>(

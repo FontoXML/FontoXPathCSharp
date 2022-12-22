@@ -22,7 +22,7 @@ public static class CastToTime
         if (type.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateTimeValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!, ValueType.XsTime)));
+                    CreateTimeValue(DateTimeValue.FromString(value.GetValue().ToString()!, ValueType.XsTime)));
 
         return _ => new ErrorResult<AtomicValue>(
             "Casting not supported from given type to xs:time or any of its derived types.",

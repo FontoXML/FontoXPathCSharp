@@ -17,12 +17,12 @@ public static class CastToDateTime
         if (type.IsSubtypeOf(ValueType.XsDateTime))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateDateTimeValue(((DateTimeValue)value).ConvertToType(ValueType.XsDateTime)));
+                    CreateDateTimeValue((value.GetAs<DateTimeValue>()).ConvertToType(ValueType.XsDateTime)));
 
         if (type.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateDateTimeValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!,
+                    CreateDateTimeValue(DateTimeValue.FromString(value.GetValue().ToString()!,
                         ValueType.XsDateTime)));
 
         return _ => new ErrorResult<AtomicValue>(

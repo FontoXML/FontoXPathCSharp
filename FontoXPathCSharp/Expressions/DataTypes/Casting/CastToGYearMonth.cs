@@ -22,7 +22,7 @@ public static class CastToGYearMonth
         if (type.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateGYearMonthValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!,
+                    CreateGYearMonthValue(DateTimeValue.FromString(value.GetValue().ToString()!,
                         ValueType.XsGYearMonth)));
 
         return _ => new ErrorResult<AtomicValue>(

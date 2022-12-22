@@ -9,13 +9,14 @@ public delegate Result<string> IntermediateStringResultFunction(AbstractValue in
 
 public static class CastToStringLikeType
 {
+    // TODO: CLEAN UP ALL THE VALUE GETTING STUFF
     public static IntermediateStringResultFunction ToStringLikeType(ValueType from)
     {
         if (from.IsSubtypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic))
-            return value => new SuccessResult<string>(value + "");
+            return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
 
         if (from.IsSubtypeOf(ValueType.XsAnyUri))
-            return value => new SuccessResult<string>(value.ToString() ?? string.Empty);
+            return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
 
         if (from.IsSubtypeOf(ValueType.XsQName))
             return value =>
@@ -27,13 +28,13 @@ public static class CastToStringLikeType
             };
 
         if (from.IsSubtypeOf(ValueType.XsNotation))
-            return value => new SuccessResult<string>(value.ToString() ?? string.Empty);
+            return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
 
         if (from.IsSubtypeOf(ValueType.XsNumeric))
         {
             if (from.IsSubtypeOfAny(ValueType.XsInteger, ValueType.XsDecimal))
                 return value =>
-                    new SuccessResult<string>(value.ToString() ?? string.Empty);
+                    new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
 
             if (from.IsSubtypeOf(ValueType.XsFloat))
                 return value =>
@@ -88,11 +89,11 @@ public static class CastToStringLikeType
                 ValueType.XsYearMonthDuration,
                 ValueType.XsDayTimeDuration,
                 ValueType.XsDuration)
-        ) return value => new SuccessResult<string>(value.ToString() ?? string.Empty);
+        ) return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
 
         if (from.IsSubtypeOfAny(ValueType.XsHexBinary))
-            return value => new SuccessResult<string>(value.ToString()?.ToUpper() ?? string.Empty);
+            return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString()?.ToUpper() ?? string.Empty);
 
-        return value => new SuccessResult<string>(value.ToString() ?? string.Empty);
+        return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
     }
 }

@@ -26,7 +26,7 @@ public abstract class AtomicValue : AbstractValue
 
     public override string ToString()
     {
-        return "<Value>[type: " + Type + ", value: " + GetValue() + "]";
+        return $"<Value>[type: {Type}, value: {GetValue()}]";
     }
 
     public override bool Equals(object? obj)

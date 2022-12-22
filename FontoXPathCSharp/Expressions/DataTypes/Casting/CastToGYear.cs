@@ -22,7 +22,7 @@ public static class CastToGYear
         if (type.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateGYearValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!, ValueType.XsGYear)));
+                    CreateGYearValue(DateTimeValue.FromString(value.GetValue().ToString()!, ValueType.XsGYear)));
 
         return _ => new ErrorResult<AtomicValue>(
             "Casting not supported from given type to xs:gYear or any of its derived types.",

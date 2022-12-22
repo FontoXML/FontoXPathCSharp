@@ -53,11 +53,6 @@ public class DateTimeValue : AtomicValue
         return Value;
     }
 
-    public override string ToString()
-    {
-        return Value.ToString();
-    }
-
 
     public DateTimeValue ConvertToType(ValueType type)
     {
