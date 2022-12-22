@@ -22,7 +22,7 @@ public class CastToGDay
         if (type.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateGDayValue(DateTimeValue.FromString(Convert.ToString(value.GetValue())!, ValueType.XsGDay)));
+                    CreateGDayValue(DateTimeValue.FromString(value.GetValue().ToString()!, ValueType.XsGDay)));
 
         return _ => new ErrorResult<AtomicValue>(
             "Casting not supported from given type to xs:gDay or any of its derived types.",

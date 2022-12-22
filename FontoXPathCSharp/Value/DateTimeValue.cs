@@ -16,7 +16,7 @@ public class DateTimeValue : AtomicValue
 
     public DateTimeValue(DateTimeValue dateTimeValue) : base(dateTimeValue.GetValueType())
     {
-        _dateTime = dateTimeValue._dateTime;
+        _dateTime = dateTimeValue.Value;
     }
 
     public DateTimeValue(
@@ -36,26 +36,23 @@ public class DateTimeValue : AtomicValue
     }
 
 
-    public int GetDay => _dateTime.GetDay;
-    public int GetSeconds => _dateTime.GetSeconds;
-    public int GetHours => _dateTime.GetHours;
-    public int GetMinutes => _dateTime.GetMinutes;
-    public int GetMonth => _dateTime.GetMonth;
-    public int GetYear => _dateTime.GetYear;
+    public int GetDay => Value.GetDay;
+    public int GetSeconds => Value.GetSeconds;
+    public int GetHours => Value.GetHours;
+    public int GetMinutes => Value.GetMinutes;
+    public int GetMonth => Value.GetMonth;
+    public int GetYear => Value.GetYear;
 
-    public float GetSecondFraction => _dateTime.GetSecondFraction;
-    public bool IsPositive => _dateTime.IsPositive;
-    public TimeSpan GetTimezone => _dateTime.GetTimezone;
-    public bool HasTimezone => _dateTime.HasTimezone;
+    public float GetSecondFraction => Value.GetSecondFraction;
+    public bool IsPositive => Value.IsPositive;
+    public TimeSpan GetTimezone => Value.GetTimezone;
+    public bool HasTimezone => Value.HasTimezone;
+
+    public DateTime Value => _dateTime;
 
     public override object GetValue()
     {
-        return _dateTime;
-    }
-
-    public override string ToString()
-    {
-        return _dateTime.ToString();
+        return Value;
     }
 
 

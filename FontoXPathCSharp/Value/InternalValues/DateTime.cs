@@ -2,9 +2,10 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value.InternalValues;
 
-public class DateTime
+public class DateTime : IComparable<DateTime>, IComparable
 {
     private readonly DateTimeOffset _dateTime;
+    private readonly bool _hasTimezone;
 
     public DateTime(
         int years,
@@ -18,7 +19,7 @@ public class DateTime
         bool hasTimezone,
         ValueType type)
     {
-        HasTimezone = hasTimezone && timezone != null;
+        _hasTimezone = hasTimezone && timezone != null;
         _dateTime = new DateTimeOffset(
             years,
             months,
@@ -34,7 +35,7 @@ public class DateTime
 
     public DateTime(DateTimeOffset dateTime, bool hasTimezone, ValueType type)
     {
-        HasTimezone = hasTimezone;
+        _hasTimezone = hasTimezone;
         _dateTime = dateTime;
         GetValueType = type;
     }
@@ -49,9 +50,19 @@ public class DateTime
     public bool IsPositive => GetYear >= 0;
     public TimeSpan GetTimezone => _dateTime.Offset;
 
-    public bool HasTimezone { get; }
+    public bool HasTimezone => _hasTimezone;
 
     public ValueType GetValueType { get; }
+
+    public int CompareTo(object? obj)
+    {
+        return obj is DateTime dateTime ? CompareTo(dateTime) : 1;
+    }
+    
+    public int CompareTo(DateTime? other)
+    {
+        return other != null ? _dateTime.CompareTo(other._dateTime) : 1;
+    }
 
     public override string ToString()
     {
@@ -76,21 +87,21 @@ public class DateTime
 
     private static string ConvertToTwoCharString(int value)
     {
-        var valueString = $"{value}";
+        var valueString = value + "";
         return valueString.PadLeft(2, '0');
     }
 
     private static string ConvertYearToString(int year)
     {
-        var yearString = $"{year}";
+        var yearString = year + "";
         var isNegative = year < 0;
         if (isNegative) yearString = yearString[1..];
-        return $"{(isNegative ? "-" : "")}{yearString.PadLeft(4, '0')}";
+        return (isNegative ? "-" : "") + yearString.PadLeft(4, '0');
     }
 
     private static string ConvertSecondsToString(float seconds)
     {
-        var secondsString = $"{seconds}";
+        var secondsString = seconds + "";
         if (secondsString.Split('.')[0].Length == 1)
             secondsString = secondsString.PadLeft(secondsString.Length + 1, '0');
         return secondsString;
@@ -98,7 +109,7 @@ public class DateTime
 
     private string TimezoneToString(TimeSpan timezone)
     {
-        if (!HasTimezone) return "";
+        if (!_hasTimezone) return "";
 
         if (IsUtc(timezone)) return "Z";
         return $"{(timezone.TotalSeconds >= 0 ? '+' : '-')}{ConvertToTwoCharString(Math.Abs(timezone.Hours))}" +
@@ -118,13 +129,13 @@ public class DateTime
 
     public static DateTime operator +(DateTime dateTime, Duration duration)
     {
-        var result = dateTime._dateTime + new TimeSpan(duration.RawSeconds);
+        var result = dateTime._dateTime + new TimeSpan(duration.RawSeconds * TimeSpan.TicksPerSecond);
         return new DateTime(result, dateTime.HasTimezone, dateTime.GetValueType);
     }
 
     public static DateTime operator -(DateTime dateTime, Duration duration)
     {
-        var result = dateTime._dateTime - new TimeSpan(duration.RawSeconds);
+        var result = dateTime._dateTime - new TimeSpan(duration.RawSeconds * TimeSpan.TicksPerSecond);
         return new DateTime(result, dateTime.HasTimezone, dateTime.GetValueType);
     }
 }

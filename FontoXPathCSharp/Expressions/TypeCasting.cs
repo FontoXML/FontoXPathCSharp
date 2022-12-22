@@ -166,6 +166,7 @@ public class TypeCasting
             ValueType.XsDuration => CastToDuration.ToDuration(from),
             ValueType.XsYearMonthDuration => CastToYearMonthDuration.ToYearMonthDuration(from),
             ValueType.XsDayTimeDuration => CastToDayTimeDuration.ToDayTimeDuration(from),
+            ValueType.XsTime => CastToTime.ToTime(from),
             ValueType.XsDateTime => CastToDateTime.ToDateTime(from),
             ValueType.XsDate => CastToDate.ToDate(from),
             ValueType.XsGYearMonth => CastToGYearMonth.ToGYearMonth(from),
