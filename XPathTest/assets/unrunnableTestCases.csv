@@ -22261,4 +22261,4 @@ xs-error-052;PRSC Error: Failed to parse query '1 castable as xs:error'
 xs-error-053;PRSC Error: Failed to parse query '1 castable as xs:error'
 xs-error-054;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:identity($arg as xs:error)\n         {\n         $arg\n         };\n         local:identity(())\n      '
 xs-float-002;Attempted to divide by zero.
-xs-float-004;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsBoolean, value: True] into an bool.
+xs-float-004;Expected XPathException with code FORG0001, but got Can't parse <Value>[type: XsBoolean, value: True] into an bool.Axes018-1;Expected XPath fn:count(/far-north/parent::node()) to resolve to 1
