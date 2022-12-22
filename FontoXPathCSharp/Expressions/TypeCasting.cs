@@ -163,6 +163,14 @@ public class TypeCasting
             ValueType.XsDecimal => CastToDecimal.ToDecimal(from),
             ValueType.XsInteger => CastToInteger.ToInteger(from),
             ValueType.XsBoolean => CastToBoolean.ToBoolean(from),
+            ValueType.XsTime => CastToTime.ToTime(from),
+            ValueType.XsDateTime => CastToDateTime.ToDateTime(from),
+            ValueType.XsDate => CastToDate.ToDate(from),
+            ValueType.XsGYearMonth => CastToGYearMonth.ToGYearMonth(from),
+            ValueType.XsGYear => CastToGYear.ToGYear(from),
+            ValueType.XsGMonthDay => CastToGMonthDay.ToGMonthDay(from),
+            ValueType.XsGDay => CastToGDay.ToGDay(from),
+            ValueType.XsGMonth => CastToGMonth.ToGMonth(from),
             _ => _ => throw new NotImplementedException($"Type casting to {to} has not been implemented yet.")
         };
     }

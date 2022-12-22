@@ -13,11 +13,13 @@ public class StringValue : AtomicValue
 
     public StringValue(object? value) : base(ValueType.XsString)
     {
-        Value = (value is string s
-            ? s
-            : value != null
-                ? value.ToString()
-                : throw new Exception("Tried to initialize an StringValue with null.")) ?? string.Empty;
+        Value = value switch
+        {
+            null => throw new Exception("Tried to initialize a xs:string with null."),
+            string s => s,
+            AtomicValue a => a.GetValue().ToString() ?? "",
+            _ => value.ToString() ?? ""
+        };
     }
 
     public override object GetValue()
