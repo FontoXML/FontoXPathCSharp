@@ -340,16 +340,17 @@ public class Qt3Assertions<TNode> where TNode : notnull
                     );
                 return (xpath, contextNode, variablesInScope, namespaceResolver) =>
                 {
+                    var result = Evaluate.EvaluateXPathToString(xpath,
+                        contextNode,
+                        domFacade,
+                        new Options<TNode>(
+                            namespaceResolver,
+                            documentWriter: nodesFactory,
+                            languageId: language),
+                        variablesInScope);
                     Assert.True(
-                        Evaluate.EvaluateXPathToString(xpath,
-                            contextNode,
-                            domFacade,
-                            new Options<TNode>(
-                                namespaceResolver,
-                                documentWriter: nodesFactory,
-                                languageId: language),
-                            variablesInScope) == expectedString,
-                        $"Expected XPath {xpath} to resolve to {expectedString}"
+                        result == expectedString,
+                        $"Expected XPath {xpath} to resolve to {expectedString}, but instead got {result ?? "null"}"
                     );
                 };
             }

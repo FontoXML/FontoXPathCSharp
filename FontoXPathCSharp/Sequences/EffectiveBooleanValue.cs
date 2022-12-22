@@ -26,6 +26,6 @@ internal static class EffectiveBooleanValue
             return Convert.ToDecimal(value.GetAs<AtomicValue>().GetValue()) > 0;
 
 
-        throw new Exception("FORG0006");
+        throw new XPathException("FORG0006", "Could not find a suitable conversion.");
     }
 }

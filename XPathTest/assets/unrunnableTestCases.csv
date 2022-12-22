@@ -1,19 +1,19 @@
-﻿abbreviatedSyntax-1;Expected XPath for $h in (/works/employee[4]) return $h/hours/string() to resolve to 20 40
+﻿abbreviatedSyntax-1;Expected XPath for $h in (/works/employee[4]) return $h/hours/string() to resolve to 20 40, but instead got null
 abbreviatedSyntax-10;SingletonSequence.Map not implemented
 abbreviatedSyntax-12;SingletonSequence.Map not implemented
 abbreviatedSyntax-13;SingletonSequence.Map not implemented
-abbreviatedSyntax-14;Expected XPath for $h in (/works/employee[12]/overtime) return $h/../@name to resolve to John Doe 12
-abbreviatedSyntax-17;Expected XPath for $h in (/works) return $h/employee[@gender="female"][5]/@name to resolve to Jane Doe 9
-abbreviatedSyntax-18;Expected XPath for $h in (/works) return $h/employee[5][@gender="female"]/@name to resolve to Jane Doe 5
-abbreviatedSyntax-2;Expected XPath for $h in (/works/employee[2]) return $h/text() to resolve to Text data from Employee[2]
+abbreviatedSyntax-14;Expected XPath for $h in (/works/employee[12]/overtime) return $h/../@name to resolve to John Doe 12, but instead got null
+abbreviatedSyntax-17;Expected XPath for $h in (/works) return $h/employee[@gender="female"][5]/@name to resolve to Jane Doe 9, but instead got null
+abbreviatedSyntax-18;Expected XPath for $h in (/works) return $h/employee[5][@gender="female"]/@name to resolve to Jane Doe 5, but instead got null
+abbreviatedSyntax-2;Expected XPath for $h in (/works/employee[2]) return $h/text() to resolve to Text data from Employee[2], but instead got null
 abbreviatedSyntax-22;SingletonSequence.Map not implemented
 abbreviatedSyntax-24;SingletonSequence.Map not implemented
 abbreviatedSyntax-26;PRSC Error: Failed to parse query ''
-abbreviatedSyntax-3;Expected XPath for $h in (/works/employee[10]) return $h/@name to resolve to John Doe 10
-abbreviatedSyntax-5;Expected XPath for $h in (/works) return $h/employee[1]/@name to resolve to Jane Doe 1
-abbreviatedSyntax-6;Expected XPath for $h in (/works) return $h/employee[fn:last()]/@name to resolve to Jane Doe 13
+abbreviatedSyntax-3;Expected XPath for $h in (/works/employee[10]) return $h/@name to resolve to John Doe 10, but instead got null
+abbreviatedSyntax-5;Expected XPath for $h in (/works) return $h/employee[1]/@name to resolve to Jane Doe 1, but instead got null
+abbreviatedSyntax-6;Expected XPath for $h in (/works) return $h/employee[fn:last()]/@name to resolve to Jane Doe 13, but instead got null
 abbreviatedSyntax-7;SingletonSequence.Map not implemented
-abbreviatedSyntax-8;Expected XPath /works/employee[5]/hours[2] to resolve to 30
+abbreviatedSyntax-8;Expected XPath /works/employee[5]/hours[2] to resolve to 30, but instead got null
 abbreviatedSyntax-9;SingletonSequence.Map not implemented
 ancestor-10;NodeAfterOp AST to Expression not yet implemented
 ancestor-13;IntersectOp AST to Expression not yet implemented
@@ -30,8 +30,8 @@ ancestor-7;PRSC Error: Failed to parse query ''
 ancestor-8;NodeAfterOp AST to Expression not yet implemented
 ancestor-9;NodeAfterOp AST to Expression not yet implemented
 ancestorself-10;NodeAfterOp AST to Expression not yet implemented
-ancestorself-11;Expected XPath ((/works/employee[12]/*/day/ancestor-or-self::overtime) | (/works/employee[12]/*/day/ancestor-or-self::overtime))/count(*) to resolve to 2
-ancestorself-12;Expected XPath ((/works/employee[12]/*/day[1]/ancestor-or-self::overtime) | (/works/employee[12]/*/day[2]/ancestor-or-self::overtime))/count(*) to resolve to 2
+ancestorself-11;Expected XPath ((/works/employee[12]/*/day/ancestor-or-self::overtime) | (/works/employee[12]/*/day/ancestor-or-self::overtime))/count(*) to resolve to 2, but instead got null
+ancestorself-12;Expected XPath ((/works/employee[12]/*/day[1]/ancestor-or-self::overtime) | (/works/employee[12]/*/day[2]/ancestor-or-self::overtime))/count(*) to resolve to 2, but instead got null
 ancestorself-13;IntersectOp AST to Expression not yet implemented
 ancestorself-14;ExceptOp AST to Expression not yet implemented
 ancestorself-15;ExceptOp AST to Expression not yet implemented
@@ -1319,12 +1319,12 @@ CastAs-UnionType-6;PRSC Error: Failed to parse query '\n         import schema n
 CastAs-UnionType-7;PRSC Error: Failed to parse query '\n         import schema namespace s="http://www.w3.org/XQueryTest/unionListDefined";\n         let $f := s:myUnionType1#1\n         return $f(123.12) \n       '
 CastAs-UnionType-8;PRSC Error: Failed to parse query '\n         import schema namespace s="http://www.w3.org/XQueryTest/unionListDefined";\n         let $f := function-lookup(QName("http://www.w3.org/XQueryTest/unionListDefined", "myUnionType1"), 1)\n         return $f(123.12) \n       '
 CastAs-UnionType-9;PRSC Error: Failed to parse query '\n         import schema namespace s="http://www.w3.org/XQueryTest/unionListDefined";\n         let $f := s:myUnionType1(?)\n         return $f(123.12) \n       '
-CastAs001;Expected XPath xs:untypedAtomic("INF") cast as xs:untypedAtomic to resolve to INF
-CastAs002;Expected XPath xs:untypedAtomic("0.0E0") cast as xs:untypedAtomic to resolve to 0.0E0
-CastAs003;Expected XPath xs:untypedAtomic("true") cast as xs:untypedAtomic to resolve to true
-CastAs004;Expected XPath xs:untypedAtomic("INF") cast as xs:string to resolve to INF
-CastAs005;Expected XPath xs:untypedAtomic("0.0E0") cast as xs:string to resolve to 0.0E0
-CastAs006;Expected XPath xs:untypedAtomic("true") cast as xs:string to resolve to true
+CastAs001;Expected XPath xs:untypedAtomic("INF") cast as xs:untypedAtomic to resolve to INF, but instead got <Value>[type: XsString, value: INF]
+CastAs002;Expected XPath xs:untypedAtomic("0.0E0") cast as xs:untypedAtomic to resolve to 0.0E0, but instead got <Value>[type: XsString, value: 0.0E0]
+CastAs003;Expected XPath xs:untypedAtomic("true") cast as xs:untypedAtomic to resolve to true, but instead got <Value>[type: XsString, value: true]
+CastAs004;Expected XPath xs:untypedAtomic("INF") cast as xs:string to resolve to INF, but instead got <Value>[type: XsString, value: INF]
+CastAs005;Expected XPath xs:untypedAtomic("0.0E0") cast as xs:string to resolve to 0.0E0, but instead got <Value>[type: XsString, value: 0.0E0]
+CastAs006;Expected XPath xs:untypedAtomic("true") cast as xs:string to resolve to true, but instead got <Value>[type: XsString, value: true]
 CastAs007;Input string was not in a correct format.
 CastAs008;Input string was not in a correct format.
 CastAs009;Input string was not in a correct format.
@@ -1401,18 +1401,18 @@ CastAs079;Type casting to XsHexBinary has not been implemented yet.
 CastAs080;Type casting to XsAnyUri has not been implemented yet.
 CastAs081;Type casting to XsAnyUri has not been implemented yet.
 CastAs082;Type casting to XsAnyUri has not been implemented yet.
-CastAs083;Expected XPath xs:string("INF") cast as xs:untypedAtomic to resolve to INF
-CastAs084;Expected XPath xs:string("0.0E0") cast as xs:untypedAtomic to resolve to 0.0E0
-CastAs085;Expected XPath xs:string("true") cast as xs:untypedAtomic to resolve to true
+CastAs083;Expected XPath xs:string("INF") cast as xs:untypedAtomic to resolve to INF, but instead got <Value>[type: XsString, value: INF]
+CastAs084;Expected XPath xs:string("0.0E0") cast as xs:untypedAtomic to resolve to 0.0E0, but instead got <Value>[type: XsString, value: 0.0E0]
+CastAs085;Expected XPath xs:string("true") cast as xs:untypedAtomic to resolve to true, but instead got <Value>[type: XsString, value: true]
 CastAs089;HandleNumericOperator: Different numeric types: XsFloat and XsInt
-CastAs090;Expected XPath xs:string("NaN") cast as xs:float to resolve to NaN
-CastAs091;Expected XPath xs:string("1e-5") cast as xs:float to resolve to 0.00001
-CastAs092;Expected XPath xs:string("-10000000") cast as xs:float to resolve to -1.0E7
+CastAs090;Expected XPath xs:string("NaN") cast as xs:float to resolve to NaN, but instead got ∞
+CastAs091;Expected XPath xs:string("1e-5") cast as xs:float to resolve to 0.00001, but instead got 1E-05
+CastAs092;Expected XPath xs:string("-10000000") cast as xs:float to resolve to -1.0E7, but instead got -10000000
 CastAs093;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 CastAs094;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-CastAs095;Expected XPath xs:string("NaN") cast as xs:double to resolve to NaN
-CastAs096;Expected XPath xs:string("1e-5") cast as xs:double to resolve to 0.00001
-CastAs097;Expected XPath xs:string("-10000000") cast as xs:double to resolve to -1.0E7
+CastAs095;Expected XPath xs:string("NaN") cast as xs:double to resolve to NaN, but instead got ∞
+CastAs096;Expected XPath xs:string("1e-5") cast as xs:double to resolve to 0.00001, but instead got 1E-05
+CastAs097;Expected XPath xs:string("-10000000") cast as xs:double to resolve to -1.0E7, but instead got -10000000
 CastAs098;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 CastAs099;Expected XPathException with code FORG0001, but got Atomic Value for XsDecimal is not implemented yet.
 CastAs101;Expected XPathException with code FORG0001, but got Atomic Value for XsDecimal is not implemented yet.
@@ -1460,13 +1460,13 @@ CastAs161;Type casting to XsHexBinary has not been implemented yet.
 CastAs162;Type casting to XsAnyUri has not been implemented yet.
 CastAs163;Type casting to XsAnyUri has not been implemented yet.
 CastAs164;Type casting to XsAnyUri has not been implemented yet.
-CastAs166;Expected XPath xs:float("-INF") cast as xs:untypedAtomic to resolve to -INF
-CastAs168;Expected XPath xs:float("NaN") cast as xs:string to resolve to NaN
+CastAs166;Expected XPath xs:float("-INF") cast as xs:untypedAtomic to resolve to -INF, but instead got -∞
+CastAs168;Expected XPath xs:float("NaN") cast as xs:string to resolve to NaN, but instead got ∞
 CastAs169;Expected executing the XPath "xs:float("5.4321E-100") cast as xs:float" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsFloat and XsInt
-CastAs170;Expected XPath xs:float("-1.75e-3") cast as xs:float to resolve to -0.00175
-CastAs171;Expected XPath xs:float("INF") cast as xs:float to resolve to INF
+CastAs170;Expected XPath xs:float("-1.75e-3") cast as xs:float to resolve to -0.00175, but instead got -0,175
+CastAs171;Expected XPath xs:float("INF") cast as xs:float to resolve to INF, but instead got ∞
 CastAs172;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-CastAs173;Expected XPath xs:float("-INF") cast as xs:double to resolve to -INF
+CastAs173;Expected XPath xs:float("-INF") cast as xs:double to resolve to -INF, but instead got -∞
 CastAs174;Atomic Value for XsDecimal is not implemented yet.
 CastAs175;Atomic Value for XsDecimal is not implemented yet.
 CastAs176;Atomic Value for XsDecimal is not implemented yet.
@@ -1479,16 +1479,16 @@ CastAs195;Expected XPath xs:float("NaN") cast as xs:boolean to resolve to false
 CastAs196;Expected executing the XPath "xs:float("5.4321E-100") cast as xs:base64Binary" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs197;Expected executing the XPath "xs:float("5.4321E-100") cast as xs:hexBinary" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 CastAs198;Expected executing the XPath "xs:float("5.4321E-100") cast as xs:anyURI" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs200;Expected XPath xs:double("INF") cast as xs:untypedAtomic to resolve to INF
-CastAs201;Expected XPath xs:double("1e8") cast as xs:string to resolve to 1.0E8
-CastAs202;Expected XPath xs:double("INF") cast as xs:string to resolve to INF
+CastAs200;Expected XPath xs:double("INF") cast as xs:untypedAtomic to resolve to INF, but instead got ∞
+CastAs201;Expected XPath xs:double("1e8") cast as xs:string to resolve to 1.0E8, but instead got 100000000
+CastAs202;Expected XPath xs:double("INF") cast as xs:string to resolve to INF, but instead got ∞
 CastAs203;HandleNumericOperator: Different numeric types: XsFloat and XsInt
 CastAs204;Expected executing the XPath "xs:double("5.4321E-1001") cast as xs:float" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsFloat and XsInt
 CastAs205;HandleNumericOperator: Different numeric types: XsFloat and XsInt
-CastAs206;Expected XPath xs:double("-1.75e-3") cast as xs:float to resolve to -0.00175
-CastAs207;Expected XPath xs:double("NaN") cast as xs:float to resolve to NaN
+CastAs206;Expected XPath xs:double("-1.75e-3") cast as xs:float to resolve to -0.00175, but instead got -0,175
+CastAs207;Expected XPath xs:double("NaN") cast as xs:float to resolve to NaN, but instead got ∞
 CastAs208;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-CastAs209;Expected XPath xs:double("INF") cast as xs:double to resolve to INF
+CastAs209;Expected XPath xs:double("INF") cast as xs:double to resolve to INF, but instead got ∞
 CastAs210;Casting not supported from given type to xs:decimal or any of its derived types.
 CastAs211;Casting not supported from given type to xs:decimal or any of its derived types.
 CastAs212;Casting not supported from given type to xs:decimal or any of its derived types.
@@ -2766,7 +2766,7 @@ cbcl-first-in-sequence-009;PRSC Error: Failed to parse query 'declare function l
 cbcl-first-in-sequence-010;PRSC Error: Failed to parse query 'declare function local:generate($arg as xs:integer?) as xs:string* { if ($arg = 0) then ('a', 'b', 'c') else () }; boolean(local:generate(0)[1])'
 cbcl-first-in-sequence-011;PRSC Error: Failed to parse query 'declare function local:generate($arg as xs:integer?) as xs:string* { if ($arg = 0) then ('a', 'b', 'c') else () }; boolean(local:generate(1)[1])'
 cbcl-first-in-sequence-012;PRSC Error: Failed to parse query 'declare function local:generate($arg as xs:boolean) as xs:string+ { if ($arg) then ('a', 'b', 'c') else ('A', 'B', 'C') }; ( for $x in local:generate(true()) return 3)[1]'
-cbcl-float-002;Expected XPath xs:float(xs:double('-INF')),xs:float(xs:double('INF')) to resolve to -INF INF
+cbcl-float-002;Expected XPath xs:float(xs:double('-INF')),xs:float(xs:double('INF')) to resolve to -INF INF, but instead got -∞ ∞
 cbcl-fn-indexof-006;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function index-of with arity 2 is not registered.
 cbcl-fn-indexof-1;The function index-of with arity 2 is not registered.
 cbcl-fn-indexof-2;The function index-of with arity 2 is not registered.
@@ -3511,8 +3511,8 @@ CondExpr004;PRSC Error: Failed to parse query ''
 CondExpr005;PRSC Error: Failed to parse query ''
 CondExpr006;PRSC Error: Failed to parse query ''
 CondExpr007;PRSC Error: Failed to parse query ''
-CondExpr008;Expected XPath if ( /Root/Customers[1]/@CustomerID = 'ALFKI' and /Root/Customers[1]/FullAddress/City = 'Berlin') then "pass" else "fail" to resolve to pass
-CondExpr009;Expected XPath if (/Root/Customers[1]/@CustomerID = 'ALFKI' or /Root/Customers[1]/FullAddress/City = 'Non-Existent') then "pass" else "fail" to resolve to pass
+CondExpr008;Expected XPath if ( /Root/Customers[1]/@CustomerID = 'ALFKI' and /Root/Customers[1]/FullAddress/City = 'Berlin') then "pass" else "fail" to resolve to pass, but instead got fail
+CondExpr009;Expected XPath if (/Root/Customers[1]/@CustomerID = 'ALFKI' or /Root/Customers[1]/FullAddress/City = 'Non-Existent') then "pass" else "fail" to resolve to pass, but instead got fail
 CondExpr016;Value was either too large or too small for an Int32.
 CondExpr017;Value was either too large or too small for an Int32.
 CondExpr018;Can't parse <Value>[type: XsInt, value: 1] into an int.
@@ -4733,8 +4733,8 @@ fn-avg-mix-args-022;Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-023;PRSC Error: Failed to parse query 'fn:avg(( (xs:double("-0"), xs:integer("-999999999999999999") ) )) = -5.0E17'
 fn-avg-mix-args-024;Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-025;Can't parse -999999999999999999 into an int.
-fn-avg-mix-args-026;Expected XPath fn:avg(( (xs:double("1.34"), xs:float("INF")))) to resolve to INF
-fn-avg-mix-args-027;Expected XPath fn:avg(( (xs:double("INF"), 2, 3))) to resolve to INF
+fn-avg-mix-args-026;Expected XPath fn:avg(( (xs:double("1.34"), xs:float("INF")))) to resolve to INF, but instead got ∞
+fn-avg-mix-args-027;Expected XPath fn:avg(( (xs:double("INF"), 2, 3))) to resolve to INF, but instead got ∞
 fn-avg-mix-args-028;Expected XPathException with code FORG0006, but got Type casting to XsYearMonthDuration has not been implemented yet.
 fn-avg-mix-args-034;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
 fn-avg-mix-args-036;Expected XPathException with code FORG0006, but got Can't parse -999999999999999999 into an int.
@@ -4862,7 +4862,6 @@ fn-avgusht2args-2;Can't parse 22316.5 into an int.
 fn-avgusht2args-3;Can't parse 32767.5 into an int.
 fn-avgusht2args-4;Can't parse 22316.5 into an int.
 fn-avgusht2args-5;Can't parse 32767.5 into an int.
-fn-boolean-050;Expected XPathException with code FORG0006, but got FORG0006
 fn-boolean-mixed-args-010;Expected XPath fn:boolean(-1) to resolve to true
 fn-boolean-mixed-args-011;Value was either too large or too small for a Decimal.
 fn-boolean-mixed-args-012;Value was either too large or too small for a Decimal.
@@ -5018,21 +5017,21 @@ fn-concat-13;SingletonSequence.Map not implemented
 fn-concat-18;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:concat("abc","abc", fn:concat#3)'
 fn-concat-8;Can't parse <Value>[type: XsInt, value: 1] into an int.
 fn-concat-9;SingletonSequence.Map not implemented
-fn-concatdbl2args-1;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308-1.7976931348623157E308
-fn-concatdbl2args-2;Expected XPath fn:concat(xs:double("0"),xs:double("-1.7976931348623157E308")) to resolve to 0-1.7976931348623157E308
-fn-concatdbl2args-3;Expected XPath fn:concat(xs:double("1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308
-fn-concatdbl2args-4;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("0")) to resolve to -1.7976931348623157E3080
-fn-concatdbl2args-5;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("1.7976931348623157E308")) to resolve to -1.7976931348623157E3081.7976931348623157E308
+fn-concatdbl2args-1;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308-1.7976931348623157E308, but instead got -∞-∞
+fn-concatdbl2args-2;Expected XPath fn:concat(xs:double("0"),xs:double("-1.7976931348623157E308")) to resolve to 0-1.7976931348623157E308, but instead got 0-∞
+fn-concatdbl2args-3;Expected XPath fn:concat(xs:double("1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308, but instead got ∞-∞
+fn-concatdbl2args-4;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("0")) to resolve to -1.7976931348623157E3080, but instead got -∞0
+fn-concatdbl2args-5;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("1.7976931348623157E308")) to resolve to -1.7976931348623157E3081.7976931348623157E308, but instead got -∞∞
 fn-concatdec2args-1;Atomic Value for XsDecimal is not implemented yet.
 fn-concatdec2args-2;Atomic Value for XsDecimal is not implemented yet.
 fn-concatdec2args-3;Atomic Value for XsDecimal is not implemented yet.
 fn-concatdec2args-4;Atomic Value for XsDecimal is not implemented yet.
 fn-concatdec2args-5;Atomic Value for XsDecimal is not implemented yet.
-fn-concatflt2args-1;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("-3.4028235E38")) to resolve to -3.4028235E38-3.4028235E38
-fn-concatflt2args-2;Expected XPath fn:concat(xs:float("0"),xs:float("-3.4028235E38")) to resolve to 0-3.4028235E38
-fn-concatflt2args-3;Expected XPath fn:concat(xs:float("3.4028235E38"),xs:float("-3.4028235E38")) to resolve to 3.4028235E38-3.4028235E38
-fn-concatflt2args-4;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("0")) to resolve to -3.4028235E380
-fn-concatflt2args-5;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("3.4028235E38")) to resolve to -3.4028235E383.4028235E38
+fn-concatflt2args-1;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("-3.4028235E38")) to resolve to -3.4028235E38-3.4028235E38, but instead got -∞-∞
+fn-concatflt2args-2;Expected XPath fn:concat(xs:float("0"),xs:float("-3.4028235E38")) to resolve to 0-3.4028235E38, but instead got 0-∞
+fn-concatflt2args-3;Expected XPath fn:concat(xs:float("3.4028235E38"),xs:float("-3.4028235E38")) to resolve to 3.4028235E38-3.4028235E38, but instead got ∞-∞
+fn-concatflt2args-4;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("0")) to resolve to -3.4028235E380, but instead got -∞0
+fn-concatflt2args-5;Expected XPath fn:concat(xs:float("-3.4028235E38"),xs:float("3.4028235E38")) to resolve to -3.4028235E383.4028235E38, but instead got -∞∞
 fn-concatintg2args-1;Can't parse -999999999999999999 into an int.
 fn-concatintg2args-2;Can't parse 830993497117024304 into an int.
 fn-concatintg2args-3;Can't parse 999999999999999999 into an int.
@@ -5196,15 +5195,15 @@ fn-data-5;PRSC Error: Failed to parse query 'deep-equal((data([(1,2), (3,4), (5,
 fn-data-6;PRSC Error: Failed to parse query 'deep-equal((data([[1,2], [3,4], [5,6], []])), (1,2,3,4,5,6))'
 fn-data-7;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'data([[1,2], [3,4], [5,6], [map{1:2}]])'
 fn-datacomplextype-1;Expected error code: FOTY0012. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-fn-datadbl1args-1;Expected XPath fn:data((xs:double("-1.7976931348623157E308"))) to resolve to -1.7976931348623157E308
+fn-datadbl1args-1;Expected XPath fn:data((xs:double("-1.7976931348623157E308"))) to resolve to -1.7976931348623157E308, but instead got -∞
 fn-datadbl1args-2;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-fn-datadbl1args-3;Expected XPath fn:data((xs:double("1.7976931348623157E308"))) to resolve to 1.7976931348623157E308
+fn-datadbl1args-3;Expected XPath fn:data((xs:double("1.7976931348623157E308"))) to resolve to 1.7976931348623157E308, but instead got ∞
 fn-datadec1args-1;Atomic Value for XsDecimal is not implemented yet.
 fn-datadec1args-2;Atomic Value for XsDecimal is not implemented yet.
 fn-datadec1args-3;Atomic Value for XsDecimal is not implemented yet.
-fn-dataflt1args-1;Expected XPath fn:data((xs:float("-3.4028235E38"))) to resolve to -3.4028235E38
+fn-dataflt1args-1;Expected XPath fn:data((xs:float("-3.4028235E38"))) to resolve to -3.4028235E38, but instead got -∞
 fn-dataflt1args-2;HandleNumericOperator: Different numeric types: XsFloat and XsInt
-fn-dataflt1args-3;Expected XPath fn:data((xs:float("3.4028235E38"))) to resolve to 3.4028235E38
+fn-dataflt1args-3;Expected XPath fn:data((xs:float("3.4028235E38"))) to resolve to 3.4028235E38, but instead got ∞
 fn-dataint1args-1;Can't parse 2147483648 into an int.
 fn-dataintg1args-1;Can't parse -999999999999999999 into an int.
 fn-dataintg1args-2;Can't parse 830993497117024304 into an int.
@@ -5442,13 +5441,13 @@ fn-emptypint1args-3;Can't parse 999999999999999999 into an int.
 fn-emptyulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
 fn-emptyulng1args-2;Can't parse 130747108607674654 into an int.
 fn-emptyulng1args-3;Can't parse 184467440737095516 into an int.
-fn-encode-for-uri-13;Expected XPath (fn:encode-for-uri("examples example")) to resolve to examples%20example
-fn-encode-for-uri-14;Expected XPath (fn:encode-for-uri("examples/example")) to resolve to examples%2Fexample
-fn-encode-for-uri-15;Expected XPath (fn:encode-for-uri("http:examples")) to resolve to http%3Aexamples
-fn-encode-for-uri-7;Expected XPath (fn:encode-for-uri("examples~example")) to resolve to examples~example
-fn-encode-for-uri1args-1;Expected XPath fn:encode-for-uri ("http://www.example.com/00/Weather/CA/Los%20Angeles#ocean") to resolve to http%3A%2F%2Fwww.example.com%2F00%2FWeather%2FCA%2FLos%2520Angeles%23ocean
-fn-encode-for-uri1args-2;Expected XPath encode-for-uri("~bébé") to resolve to ~b%C3%A9b%C3%A9
-fn-encode-for-uri1args-3;Expected XPath encode-for-uri("100% organic") to resolve to 100%25%20organic
+fn-encode-for-uri-13;Expected XPath (fn:encode-for-uri("examples example")) to resolve to examples%20example, but instead got examples+example
+fn-encode-for-uri-14;Expected XPath (fn:encode-for-uri("examples/example")) to resolve to examples%2Fexample, but instead got examples%2fexample
+fn-encode-for-uri-15;Expected XPath (fn:encode-for-uri("http:examples")) to resolve to http%3Aexamples, but instead got http%3aexamples
+fn-encode-for-uri-7;Expected XPath (fn:encode-for-uri("examples~example")) to resolve to examples~example, but instead got examples%7eexample
+fn-encode-for-uri1args-1;Expected XPath fn:encode-for-uri ("http://www.example.com/00/Weather/CA/Los%20Angeles#ocean") to resolve to http%3A%2F%2Fwww.example.com%2F00%2FWeather%2FCA%2FLos%2520Angeles%23ocean, but instead got http%3a%2f%2fwww.example.com%2f00%2fWeather%2fCA%2fLos%2520Angeles%23ocean
+fn-encode-for-uri1args-2;Expected XPath encode-for-uri("~bébé") to resolve to ~b%C3%A9b%C3%A9, but instead got %7eb%c3%a9b%c3%a9
+fn-encode-for-uri1args-3;Expected XPath encode-for-uri("100% organic") to resolve to 100%25%20organic, but instead got 100%25+organic
 fn-encode-for-uri1args-6;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to StringValue
 fn-ends-with-17;No collations are supported
 fn-ends-with-18;No collations are supported
@@ -5973,7 +5972,7 @@ fn-function-lookup-268;Expected base expression of a function call to evaluate t
 fn-function-lookup-269;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'local-name'), 1)) to resolve to true
 fn-function-lookup-270;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-271;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'namespace-uri'), 0)) to resolve to true
-fn-function-lookup-272;Expected XPath /root/*[2]/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'namespace-uri'), 0)() to resolve to http://www.example.org/
+fn-function-lookup-272;Expected XPath /root/*[2]/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'namespace-uri'), 0)() to resolve to http://www.example.org/, but instead got null
 fn-function-lookup-273;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'namespace-uri'), 1)) to resolve to true
 fn-function-lookup-274;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-275;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'lang'), 1)) to resolve to true
@@ -6707,11 +6706,11 @@ fn-intersect-node-args-020;IntersectOp AST to Expression not yet implemented
 fn-intersect-node-args-021;IntersectOp AST to Expression not yet implemented
 fn-intersect-node-args-022;IntersectOp AST to Expression not yet implemented
 fn-intersect-node-args-023;PRSC Error: Failed to parse query ''
-fn-iri-to-uri-14;Expected XPath fn:iri-to-uri("example/example") to resolve to example/example
+fn-iri-to-uri-14;Expected XPath fn:iri-to-uri("example/example") to resolve to example/example, but instead got example%2fexample
 fn-iri-to-uri-18;PRSC Error: Failed to parse query ''
-fn-iri-to-uri-26;Expected XPath fn:iri-to-uri("example example") to resolve to example%20example
-fn-iri-to-uri1args-1;Expected XPath iri-to-uri("http://www.example.com/00/Weather/CA/Los%20Angeles#ocean") to resolve to http://www.example.com/00/Weather/CA/Los%20Angeles#ocean
-fn-iri-to-uri1args-2;Expected XPath iri-to-uri("http://www.example.com/~bébé") to resolve to http://www.example.com/~b%C3%A9b%C3%A9
+fn-iri-to-uri-26;Expected XPath fn:iri-to-uri("example example") to resolve to example%20example, but instead got example+example
+fn-iri-to-uri1args-1;Expected XPath iri-to-uri("http://www.example.com/00/Weather/CA/Los%20Angeles#ocean") to resolve to http://www.example.com/00/Weather/CA/Los%20Angeles#ocean, but instead got http:%2f%2fwww.example.com%2f00%2fWeather%2fCA%2fLos%20Angeles#ocean
+fn-iri-to-uri1args-2;Expected XPath iri-to-uri("http://www.example.com/~bébé") to resolve to http://www.example.com/~b%C3%A9b%C3%A9, but instead got http:%2f%2fwww.example.com%2f~b%c3%a9b%c3%a9
 fn-iri-to-uri1args-5;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to StringValue
 fn-local-name-from-qname-022;The function fn:local-name-from-QName with arity 1 is not registered.
 fn-local-name-from-qname-023;The function fn:local-name-from-QName with arity 1 is not registered.
@@ -7192,19 +7191,19 @@ fn-months-from-duration1args-1;The function fn:months-from-duration with arity 1
 fn-months-from-duration1args-2;The function fn:months-from-duration with arity 1 is not registered.
 fn-months-from-duration1args-3;The function fn:months-from-duration with arity 1 is not registered.
 fn-name-1;Object reference not set to an instance of an object.
-fn-name-10;Expected XPath for $h in (./works/employee[2]) return fn:name($h/parent::node()) to resolve to works
+fn-name-10;Expected XPath for $h in (./works/employee[2]) return fn:name($h/parent::node()) to resolve to works, but instead got null
 fn-name-11;Expected XPath for $h in (./works/employee[2]) return fn:name($h/descendant::empnum[position() =
 fn-name-12;Expected XPath for $h in (./works/employee[2]) return fn:name($h/descendant-or-self::empnum[position()
-fn-name-13;Expected XPath for $h in (./works/employee[2]) return fn:substring(fn:name($h),2) to resolve to mployee
-fn-name-14;Expected XPath for $h in (/works/employee[2]) return fn:concat(fn:name($h),"A String") to resolve to employeeA String
-fn-name-15;Expected XPath for $h in (./works/employee[2]) return fn:name($h/self::employee) to resolve to employee
-fn-name-16;Expected executing the XPath "for $h in (./works/employee[2]) return fn:count(fn:name($h/self::div))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath for $h in (./works/employee[2]) return fn:count(fn:name($h/self::div)) to resolve to 1
-fn-name-17;Expected XPath  for $h in (/works/employee[2]/@name) return fn:name($h/parent::node()) to resolve to employee
+fn-name-13;Expected XPath for $h in (./works/employee[2]) return fn:substring(fn:name($h),2) to resolve to mployee, but instead got null
+fn-name-14;Expected XPath for $h in (/works/employee[2]) return fn:concat(fn:name($h),"A String") to resolve to employeeA String, but instead got null
+fn-name-15;Expected XPath for $h in (./works/employee[2]) return fn:name($h/self::employee) to resolve to employee, but instead got null
+fn-name-16;Expected executing the XPath "for $h in (./works/employee[2]) return fn:count(fn:name($h/self::div))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath for $h in (./works/employee[2]) return fn:count(fn:name($h/self::div)) to resolve to 1, but instead got null
+fn-name-17;Expected XPath  for $h in (/works/employee[2]/@name) return fn:name($h/parent::node()) to resolve to employee, but instead got null
 fn-name-18;Object reference not set to an instance of an object.
 fn-name-19;PRSC Error: Failed to parse query ''
-fn-name-2;Expected XPath (fn:name(./works[1]/employee[1])) to resolve to employee
+fn-name-2;Expected XPath (fn:name(./works[1]/employee[1])) to resolve to employee, but instead got null
 fn-name-20;PRSC Error: Failed to parse query ''
-fn-name-21;Expected XPath (fn:name(./works[1]/employee[1]),fn:name(./works[1]/employee[2])) to resolve to employee employee
+fn-name-21;Expected XPath (fn:name(./works[1]/employee[1]),fn:name(./works[1]/employee[2])) to resolve to employee employee, but instead got null
 fn-name-22;Expected XPath fn:count(((fn:name(/works[1]/employee[1]),fn:name(/works[1]/employee[2])))) to resolve to 2
 fn-name-23;Expected error code: XPDY0002. Query succeeded with result: 
 fn-name-24;SingletonSequence.Map not implemented
@@ -7213,12 +7212,12 @@ fn-name-26;SingletonSequence.Map not implemented
 fn-name-27;PRSC Error: Failed to parse query 'name((//namespace::*[.='http://www.w3.org/1999/xlink'])[1])'
 fn-name-28;SingletonSequence.Map not implemented
 fn-name-29;SingletonSequence.Map not implemented
-fn-name-3;Expected XPath (fn:name(./works[1]/employee[1]/@name)) to resolve to name
+fn-name-3;Expected XPath (fn:name(./works[1]/employee[1]/@name)) to resolve to name, but instead got null
 fn-name-5;Object reference not set to an instance of an object.
 fn-name-6;Expected XPath for $h in ./works[1]/employee[2] return
 fn-name-7;Expected error code: XPDY0002. Query succeeded with result: 
-fn-name-8;Expected XPath for $h in (./works/employee[2]) return fn:upper-case(fn:name($h)) to resolve to EMPLOYEE
-fn-name-9;Expected XPath for $h in (./works/employee[2]) return fn:lower-case(fn:name($h)) to resolve to employee
+fn-name-8;Expected XPath for $h in (./works/employee[2]) return fn:upper-case(fn:name($h)) to resolve to EMPLOYEE, but instead got null
+fn-name-9;Expected XPath for $h in (./works/employee[2]) return fn:lower-case(fn:name($h)) to resolve to employee, but instead got null
 fn-node-name-1;Object reference not set to an instance of an object.
 fn-node-name-10;PRSC Error: Failed to parse query 'fn:local-name-from-QName(fn:node-name(element elementName { element achild {"some text"}}))'
 fn-node-name-11;PRSC Error: Failed to parse query 'fn:local-name-from-QName(fn:node-name(attribute attributeName {""}))'
@@ -7308,7 +7307,7 @@ fn-notsht1args-2;Expected XPath fn:not(xs:short("-5324")) to resolve to false
 fn-notulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
 fn-notulng1args-2;Can't parse 130747108607674654 into an int.
 fn-notulng1args-3;Can't parse 184467440737095516 into an int.
-fn-number-1;Expected XPath fn:number(()) to resolve to NaN
+fn-number-1;Expected XPath fn:number(()) to resolve to NaN, but instead got ∞
 fn-number-10;PRSC Error: Failed to parse query '(number(xs:untypedAtomic("1000"))) instance of $xs:double'
 fn-number-2;Input string was not in a correct format.
 fn-number-3;Expected XPathException with code XPDY0002, but got PerformFunctionConversion is not implemented yet.
@@ -7318,18 +7317,18 @@ fn-number-6;PRSC Error: Failed to parse query '(number(false())) instance of $xs
 fn-number-7;PRSC Error: Failed to parse query '(number(implicit-timezone())) instance of $xs:double'
 fn-number-8;PRSC Error: Failed to parse query '(number("  -22e0  ")) instance of $xs:double'
 fn-number-9;PRSC Error: Failed to parse query '(number("+22e0")) instance of $xs:double'
-fn-numberdbl1args-1;Expected XPath fn:number(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308
-fn-numberdbl1args-2;Expected XPath fn:number(xs:double("0")) to resolve to 0
-fn-numberdbl1args-3;Expected XPath fn:number(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308
+fn-numberdbl1args-1;Expected XPath fn:number(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308, but instead got -∞
+fn-numberdbl1args-2;Expected XPath fn:number(xs:double("0")) to resolve to 0, but instead got -0
+fn-numberdbl1args-3;Expected XPath fn:number(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308, but instead got ∞
 fn-numberdec1args-1;Atomic Value for XsDecimal is not implemented yet.
 fn-numberdec1args-2;Atomic Value for XsDecimal is not implemented yet.
 fn-numberdec1args-3;Atomic Value for XsDecimal is not implemented yet.
 fn-numberflt1args-1;PRSC Error: Failed to parse query 'fn:number(xs:float("-3.4028235E38")) eq -3.4028234663852885E38'
-fn-numberflt1args-2;Expected XPath fn:number(xs:float("0")) to resolve to 0
-fn-numberflt1args-3;Expected executing the XPath "fn:number(xs:float("3.4028235E38"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:number(xs:float("3.4028235E38")) to resolve to 3.4028234663852885E38
-fn-numberint1args-1;Expected XPath fn:number(xs:int("-2147483648")) to resolve to -2.147483648E9
-fn-numberint1args-2;Expected XPath fn:number(xs:int("-1873914410")) to resolve to -1.87391441E9
-fn-numberint1args-3;Expected XPath fn:number(xs:int("2147483647")) to resolve to 2.147483647E9
+fn-numberflt1args-2;Expected XPath fn:number(xs:float("0")) to resolve to 0, but instead got -0
+fn-numberflt1args-3;Expected executing the XPath "fn:number(xs:float("3.4028235E38"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:number(xs:float("3.4028235E38")) to resolve to 3.4028234663852885E38, but instead got ∞
+fn-numberint1args-1;Expected XPath fn:number(xs:int("-2147483648")) to resolve to -2.147483648E9, but instead got -2147483648
+fn-numberint1args-2;Expected XPath fn:number(xs:int("-1873914410")) to resolve to -1.87391441E9, but instead got -1873914410
+fn-numberint1args-3;Expected XPath fn:number(xs:int("2147483647")) to resolve to 2.147483647E9, but instead got 2147483647
 fn-numberintg1args-1;Can't parse -999999999999999999 into an int.
 fn-numberintg1args-2;Can't parse 830993497117024304 into an int.
 fn-numberintg1args-3;Can't parse 999999999999999999 into an int.
@@ -7351,7 +7350,7 @@ fn-numberpint1args-3;Can't parse 999999999999999999 into an int.
 fn-numberulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
 fn-numberulng1args-2;Expected executing the XPath "fn:number(xs:unsignedLong("130747108607674654"))" to resolve to one of the expected results, but got System.Exception: Can't parse 130747108607674654 into an int.
 fn-numberulng1args-3;PRSC Error: Failed to parse query 'fn:number(xs:unsignedLong("184467440737095516")) eq 1.8446744073709551E17'
-fn-numberusht1args-1;Expected XPath fn:number(xs:unsignedShort("0")) to resolve to 0
+fn-numberusht1args-1;Expected XPath fn:number(xs:unsignedShort("0")) to resolve to 0, but instead got -0
 fn-one-or-more-1;Expected error code: FORG0004. Found error code: XPST0017 with error message: The function fn:one-or-more with arity 1 is not registered.
 fn-one-or-moredbl1args-1;The function fn:one-or-more with arity 1 is not registered.
 fn-one-or-moredbl1args-2;The function fn:one-or-more with arity 1 is not registered.
@@ -7961,9 +7960,9 @@ fn-string-1;Expected XPathException with code XPDY0002, but got SingletonSequenc
 fn-string-2;Value was either too large or too small for an Int32.
 fn-string-22;SingletonSequence.Map not implemented
 fn-string-23;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'string(string#1)'
-fn-string-24;Expected XPath string((//*:Open)[1]) to resolve to 2000-03-21:07:41:34-05:00
-fn-string-25;Expected XPath string((//*:Start)[1]/@*) to resolve to USD
-fn-string-26;Expected XPath string((//@xml:*)[1]) to resolve to en
+fn-string-24;Expected XPath string((//*:Open)[1]) to resolve to 2000-03-21:07:41:34-05:00, but instead got 2000-03-21:07:41:34-05:00 2000-03-19:17:03:00-04:00
+fn-string-25;Expected XPath string((//*:Start)[1]/@*) to resolve to USD, but instead got USD USD
+fn-string-26;Expected XPath string((//@xml:*)[1]) to resolve to en, but instead got en de
 fn-string-27;PRSC Error: Failed to parse query 'string((//namespace::*[.='http://www.w3.org/1999/xlink'])[1])'
 fn-string-29;Casting AbstractValue(XsUntypedAtomic) to StringValue
 fn-string-3;Expected XPathException with code XPDY0002, but got SingletonSequence.Map not implemented
@@ -8418,7 +8417,7 @@ fn-timezone-from-time-6;The function fn:timezone-from-time with arity 1 is not r
 fn-timezone-from-time-7;The function fn:timezone-from-time with arity 1 is not registered.
 fn-timezone-from-time-8;The function fn:timezone-from-time with arity 1 is not registered.
 fn-timezone-from-time-9;The function fn:timezone-from-time with arity 1 is not registered.
-fn-tokenize-10;Expected XPath fn:tokenize("abracadabra", "ww") to resolve to abracadabra
+fn-tokenize-10;Expected XPath fn:tokenize("abracadabra", "ww") to resolve to abracadabra, but instead got null
 fn-tokenize-11;Expected XPath fn:tokenize("abracadabra", "^a") to (deep equally) resolve to "", "bracadabra"
 fn-tokenize-12;Expected XPath fn:tokenize("abracadabra^abracadabra", "\^") to (deep equally) resolve to "abracadabra", "abracadabra"
 fn-tokenize-13;Expected XPath fn:tokenize("abracadabra?abracadabra", "\?") to (deep equally) resolve to "abracadabra", "abracadabra"
@@ -8439,7 +8438,7 @@ fn-tokenize-26;Expected XPath fn:tokenize("abracadabra	abracadabra", "\t") to (d
 fn-tokenize-27;Expected XPath fn:tokenize("abracadabra
 fn-tokenize-28;Expected XPath fn:tokenize("abracadabraabracadabra", "aa{1}") to (deep equally) resolve to "abracadabr", "bracadabra"
 fn-tokenize-29;Expected XPath fn:tokenize("abracadabraabracadabraabracadabra", "aa{1,}") to (deep equally) resolve to "abracadabr", "bracadabr", "bracadabra"
-fn-tokenize-3;Expected XPath fn:tokenize("The cat sat on the mat", "\s+") to resolve to The cat sat on the mat
+fn-tokenize-3;Expected XPath fn:tokenize("The cat sat on the mat", "\s+") to resolve to The cat sat on the mat, but instead got          
 fn-tokenize-30;Expected XPath fn:tokenize("abracadabraabracadabraabracadabra", "aa{1,2}") to (deep equally) resolve to "abracadabr", "bracadabr", "bracadabra"
 fn-tokenize-31;Using flags in 'tokenize' is not supported
 fn-tokenize-32;Using flags in 'tokenize' is not supported
@@ -8450,7 +8449,7 @@ fn-tokenize-36;Expected XPathException with code FORX0003, but got SingletonSequ
 fn-tokenize-37;Expected XPathException with code FORX0003, but got SingletonSequence.MapAll not implemented
 fn-tokenize-38;Expected XPathException with code FORX0003, but got SingletonSequence.MapAll not implemented
 fn-tokenize-39;The function tokenize with arity 1 is not registered.
-fn-tokenize-4;Expected XPath fn:tokenize("1, 15, 24, 50", ",\s*") to resolve to 1 15 24 50
+fn-tokenize-4;Expected XPath fn:tokenize("1, 15, 24, 50", ",\s*") to resolve to 1 15 24 50, but instead got ,  ,  , 
 fn-tokenize-40;The function tokenize with arity 1 is not registered.
 fn-tokenize-41;The function tokenize with arity 1 is not registered.
 fn-tokenize-42;The function tokenize with arity 1 is not registered.
@@ -8466,7 +8465,7 @@ fn-tokenize-50;The function tokenize with arity 1 is not registered.
 fn-tokenize-51;The function fn:tokenize with arity 1 is not registered.
 fn-tokenize-52;PRSC Error: Failed to parse query 'deep-equal(((tokenize#1, upper-case#1, lower-case#1)[1]("abc def")), ("abc", "def"))'
 fn-tokenize-6;Expected XPath  to (deep equally) resolve to "Some unparsed", "HTML <BR> text"
-fn-tokenize-9;Expected XPath string-join(fn:tokenize("abracadabra", "(ab)|(a)"), '#') to resolve to #r#c#d#r#
+fn-tokenize-9;Expected XPath string-join(fn:tokenize("abracadabra", "(ab)|(a)"), '#') to resolve to #r#c#d#r#, but instead got ab#a#a#ab#a
 fn-translate-10;SingletonSequence.Map not implemented
 fn-translate-11;SingletonSequence.Map not implemented
 fn-translate-12;Can't parse <Value>[type: XsInt, value: 3] into an int.
@@ -8502,12 +8501,12 @@ fn-union-node-args-010;Expected results and parsedFragment children to match
 fn-union-node-args-011;Expected results and parsedFragment children to match
 fn-union-node-args-012;Expected results and parsedFragment children to match
 fn-union-node-args-013;Expected results and parsedFragment children to match
-fn-union-node-args-014;Expected executing the XPath "() | ()" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath () | () to resolve to 
-fn-union-node-args-018;Expected XPath (/atomic:root/atomic:duration/text()) | (/atomic:root/atomic:duration/text()) to resolve to P1Y2M3DT10H30M
-fn-union-node-args-019;Expected XPath (/atomic:root/atomic:date/text()) | (/atomic:root/atomic:date/text()) to resolve to 2000-01-01+05:00
-fn-union-node-args-020;Expected XPath (/atomic:root/atomic:base64Binary/text()) | (/atomic:root/atomic:base64Binary/text()) to resolve to R0lGODlhcgGSALMAAAQCAEMmCZtuMFQxDS8b
-fn-union-node-args-021;Expected XPath (/atomic:root/atomic:QName/text()) | (/atomic:root/atomic:QName/text()) to resolve to foo:aQname
-fn-union-node-args-022;Expected XPath (/atomic:root/atomic:idrefs/text()) | (/atomic:root/atomic:idrefs/text()) to resolve to id1 id2
+fn-union-node-args-014;Expected executing the XPath "() | ()" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath () | () to resolve to , but instead got null
+fn-union-node-args-018;Expected XPath (/atomic:root/atomic:duration/text()) | (/atomic:root/atomic:duration/text()) to resolve to P1Y2M3DT10H30M, but instead got null
+fn-union-node-args-019;Expected XPath (/atomic:root/atomic:date/text()) | (/atomic:root/atomic:date/text()) to resolve to 2000-01-01+05:00, but instead got null
+fn-union-node-args-020;Expected XPath (/atomic:root/atomic:base64Binary/text()) | (/atomic:root/atomic:base64Binary/text()) to resolve to R0lGODlhcgGSALMAAAQCAEMmCZtuMFQxDS8b, but instead got null
+fn-union-node-args-021;Expected XPath (/atomic:root/atomic:QName/text()) | (/atomic:root/atomic:QName/text()) to resolve to foo:aQname, but instead got null
+fn-union-node-args-022;Expected XPath (/atomic:root/atomic:idrefs/text()) | (/atomic:root/atomic:idrefs/text()) to resolve to id1 id2, but instead got null
 fn-unordered-101;The function unordered with arity 1 is not registered.
 fn-unordered-102;The function unordered with arity 1 is not registered.
 fn-unordered-103;The function unordered with arity 1 is not registered.
@@ -8632,15 +8631,15 @@ fn-years-from-duration-9;The function fn:years-from-duration with arity 1 is not
 fn-years-from-duration1args-1;The function fn:years-from-duration with arity 1 is not registered.
 fn-years-from-duration1args-2;The function fn:years-from-duration with arity 1 is not registered.
 fn-years-from-duration1args-3;The function fn:years-from-duration with arity 1 is not registered.
-fn-zero-or-onedbl1args-1;Expected XPath fn:zero-or-one(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308
-fn-zero-or-onedbl1args-2;Expected XPath fn:zero-or-one(xs:double("0")) to resolve to 0
-fn-zero-or-onedbl1args-3;Expected XPath fn:zero-or-one(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308
+fn-zero-or-onedbl1args-1;Expected XPath fn:zero-or-one(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308, but instead got -∞
+fn-zero-or-onedbl1args-2;Expected XPath fn:zero-or-one(xs:double("0")) to resolve to 0, but instead got -0
+fn-zero-or-onedbl1args-3;Expected XPath fn:zero-or-one(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308, but instead got ∞
 fn-zero-or-onedec1args-1;Atomic Value for XsDecimal is not implemented yet.
 fn-zero-or-onedec1args-2;Atomic Value for XsDecimal is not implemented yet.
 fn-zero-or-onedec1args-3;Atomic Value for XsDecimal is not implemented yet.
-fn-zero-or-oneflt1args-1;Expected XPath fn:zero-or-one(xs:float("-3.4028235E38")) to resolve to -3.4028235E38
-fn-zero-or-oneflt1args-2;Expected XPath fn:zero-or-one(xs:float("0")) to resolve to 0
-fn-zero-or-oneflt1args-3;Expected XPath fn:zero-or-one(xs:float("3.4028235E38")) to resolve to 3.4028235E38
+fn-zero-or-oneflt1args-1;Expected XPath fn:zero-or-one(xs:float("-3.4028235E38")) to resolve to -3.4028235E38, but instead got -∞
+fn-zero-or-oneflt1args-2;Expected XPath fn:zero-or-one(xs:float("0")) to resolve to 0, but instead got -0
+fn-zero-or-oneflt1args-3;Expected XPath fn:zero-or-one(xs:float("3.4028235E38")) to resolve to 3.4028235E38, but instead got ∞
 fn-zero-or-oneint1args-1;Can't parse <Value>[type: XsInt, value: -2147483648] into an int.
 fn-zero-or-oneint1args-2;Can't parse <Value>[type: XsInt, value: -1873914410] into an int.
 fn-zero-or-oneint1args-3;Can't parse <Value>[type: XsInt, value: 2147483647] into an int.
@@ -9432,7 +9431,7 @@ ForExpr010;PRSC Error: Failed to parse query ''
 ForExpr011;PRSC Error: Failed to parse query ''
 ForExpr012;SingletonSequence.Map not implemented
 ForExpr013;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/ForClause/ForExpr-013.out'.
-ForExpr015;Expected XPath for $folder in //Folder return for $file in $folder/File return string( $file/FileName[1] ) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100
+ForExpr015;Expected XPath for $folder in //Folder return for $file in $folder/File return string( $file/FileName[1] ) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100, but instead got                                                                                                     
 ForExpr016;Expected results and parsedFragment children to match
 ForExpr021;Can't parse <Value>[type: XsInt, value: 1] into an int.
 ForExpr022;Can't parse <Value>[type: XsInt, value: 1] into an int.
@@ -9445,7 +9444,7 @@ ForExpr030;Can't parse <Value>[type: XsInt, value: 4] into an int.
 ForExpr031;Expected XPathException with code XQST0089, but got Can't parse <Value>[type: XsInt, value: 1] into an int.
 ForExpr032;PRSC Error: Failed to parse query '\n         declare variable $j external := 1;\n         for $x at $i in (2, 3)\n         where $i = $j\n         return $x\n       = 2'
 ForExprType001;Expected results and parsedFragment children to match
-ForExprType002;Expected XPath for $fileName as attribute(name,xs:untypedAtomic) in (//Folder)[1]/File/@name return data($fileName) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030
+ForExprType002;Expected XPath for $fileName as attribute(name,xs:untypedAtomic) in (//Folder)[1]/File/@name return data($fileName) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100
 ForExprType003;Expected results and parsedFragment children to match
 ForExprType004;Expected results and parsedFragment children to match
 ForExprType005;Can't parse <Value>[type: XsInt, value: 1] into an int.
@@ -9459,7 +9458,7 @@ ForExprType016;Atomic Value for XsDecimal is not implemented yet.
 ForExprType017;Expected XPathException with code XPTY0004, but got Can't parse <Value>[type: XsInt, value: 1] into an int.
 ForExprType018;Expected results and parsedFragment children to match
 ForExprType019;SingletonSequence.Map not implemented
-ForExprType020;Expected XPath for $fileName as item() in data( (//Folder)[1]/File/FileName ) return $fileName to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030
+ForExprType020;Expected XPath for $fileName as item() in data( (//Folder)[1]/File/FileName ) return $fileName to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100
 ForExprType022;PRSC Error: Failed to parse query '\n        declare default element namespace "http://www.example.com/typedecl"; \n        for $test as attribute(*) in ( /root/InterleaveType2/@integer, /root/InterleaveType2/@decimal ) \n        return data( $test )\n      '
 ForExprType023;PRSC Error: Failed to parse query '\n        declare default element namespace "http://www.example.com/typedecl"; \n        for $test as attribute(integer) in ( /root/InterleaveType2/@integer ) return data( $test )\n      '
 ForExprType024;PRSC Error: Failed to parse query '\n        declare default element namespace "http://www.example.com/typedecl"; \n        for $test as attribute(att, xs:anySimpleType) in /root/anyAtomicType/@att return data( $test )\n      '
@@ -9516,7 +9515,6 @@ FORG0001;Expected XPathException with code FORG0001, but got Can't parse INF int
 FORG0002;Expected error code: FORG0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare base-uri "http://www.w3.org/"; resolve-uri("%gg")'
 FORG0004;Expected error code: FORG0004. Found error code: XPST0017 with error message: The function one-or-more with arity 1 is not registered.
 FORG0005;Expected error code: FORG0005. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
-FORG0006_01;Expected executing the XPath "fn:boolean( xs:date('2007-01-01') )" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got FORG0006
 FORG0006_02;Expected XPathException with code FORG0006, but got Type casting to XsYearMonthDuration has not been implemented yet.
 FORG0006_03;Expected XPathException with code FORG0006, but got Type casting to XsYearMonthDuration has not been implemented yet.
 FORG0006_04;Expected XPathException with code FORG0006, but got Type casting to XsYearMonthDuration has not been implemented yet.
@@ -10212,7 +10210,7 @@ functx-fn-avg-1;HandleNumericOperator: Different numeric types: XsDouble and XsI
 functx-fn-avg-2;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 functx-fn-avg-3;Type casting to XsYearMonthDuration has not been implemented yet.
 functx-fn-avg-4;Items passed to fn:avg are not all numeric.
-functx-fn-avg-5;Expected XPath let $ordDoc := (/) return (avg( () )) to resolve to 
+functx-fn-avg-5;Expected XPath let $ordDoc := (/) return (avg( () )) to resolve to , but instead got null
 functx-fn-avg-all;Type casting to XsYearMonthDuration has not been implemented yet.
 functx-fn-base-uri-1;The function base-uri with arity 1 is not registered.
 functx-fn-base-uri-2;The function base-uri with arity 1 is not registered.
@@ -10227,27 +10225,27 @@ functx-fn-ceiling-2;Can't parse 5.1 into an int.
 functx-fn-ceiling-3;Can't parse 5.5 into an int.
 functx-fn-ceiling-4;Can't parse 5.5 into an int.
 functx-fn-ceiling-5;Can't parse 5.51 into an int.
-functx-fn-ceiling-6;Expected XPath (ceiling( () )) to resolve to 
+functx-fn-ceiling-6;Expected XPath (ceiling( () )) to resolve to , but instead got null
 functx-fn-ceiling-all;SingletonSequence.Map not implemented
-functx-fn-codepoint-equal-3;Expected XPath (codepoint-equal('abc', ())) to resolve to 
+functx-fn-codepoint-equal-3;Expected XPath (codepoint-equal('abc', ())) to resolve to , but instead got null
 functx-fn-codepoint-equal-all;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 functx-fn-codepoints-to-string-2;SingletonSequence.MapAll not implemented
 functx-fn-codepoints-to-string-all;SingletonSequence.MapAll not implemented
 functx-fn-compare-5;Expected XPath (compare('a', 'B')) to resolve to 1
 functx-fn-compare-6;SingletonSequence.Map not implemented
-functx-fn-compare-7;Expected XPath (compare('a', ())) to resolve to 
+functx-fn-compare-7;Expected XPath (compare('a', ())) to resolve to , but instead got null
 functx-fn-compare-all;SingletonSequence.Map not implemented
 functx-fn-concat-4;PRSC Error: Failed to parse query ''
 functx-fn-concat-all;PRSC Error: Failed to parse query ''
 functx-fn-contains-all;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 functx-fn-count-3;The function distinct-values with arity 1 is not registered.
 functx-fn-count-all;The function distinct-values with arity 1 is not registered.
-functx-fn-data-1;Expected XPath let $cat := (/) return (data($cat//product[1]/number)) to resolve to 557
-functx-fn-data-3;Expected XPath let $cat := (/) return (data($cat//product[1]/@dept)) to resolve to WMN
-functx-fn-data-4;Expected XPath let $cat := (/) return (data($cat//product[1]/colorChoices)) to resolve to navy black
-functx-fn-data-5;Expected XPath let $cat := (/) return (data($cat//product[1])) to resolve to 557 Fleece Pullover navy black
-functx-fn-data-6;Expected XPath let $cat := (/) return (data($cat//product[4]/desc)) to resolve to Our favorite shirt!
-functx-fn-data-all;Expected XPath let $cat := (/) return (data($cat//product[1]/number), data($cat//number), data($cat//product[1]/@dept), data($cat//product[1]/colorChoices), data($cat//product[1]), data($cat//product[4]/desc)) to resolve to 557 557 563 443 784 WMN navy black 557 Fleece Pullover navy black Our favorite shirt!
+functx-fn-data-1;Expected XPath let $cat := (/) return (data($cat//product[1]/number)) to resolve to 557, but instead got null
+functx-fn-data-3;Expected XPath let $cat := (/) return (data($cat//product[1]/@dept)) to resolve to WMN, but instead got null
+functx-fn-data-4;Expected XPath let $cat := (/) return (data($cat//product[1]/colorChoices)) to resolve to navy black, but instead got null
+functx-fn-data-5;Expected XPath let $cat := (/) return (data($cat//product[1])) to resolve to 557 Fleece Pullover navy black, but instead got null
+functx-fn-data-6;Expected XPath let $cat := (/) return (data($cat//product[4]/desc)) to resolve to Our favorite shirt!, but instead got null
+functx-fn-data-all;Expected XPath let $cat := (/) return (data($cat//product[1]/number), data($cat//number), data($cat//product[1]/@dept), data($cat//product[1]/colorChoices), data($cat//product[1]), data($cat//product[4]/desc)) to resolve to 557 557 563 443 784 WMN navy black 557 Fleece Pullover navy black Our favorite shirt!, but instead got 557 563 443 784
 functx-fn-dateTime-1;The function dateTime with arity 2 is not registered.
 functx-fn-day-from-date-1;The function day-from-date with arity 1 is not registered.
 functx-fn-day-from-dateTime-1;The function day-from-dateTime with arity 1 is not registered.
@@ -10281,9 +10279,9 @@ functx-fn-empty-5;PRSC Error: Failed to parse query ''
 functx-fn-empty-6;PRSC Error: Failed to parse query ''
 functx-fn-empty-7;PRSC Error: Failed to parse query ''
 functx-fn-empty-all;PRSC Error: Failed to parse query ''
-functx-fn-encode-for-uri-1;Expected XPath (encode-for-uri( 'Sales % Numbers.pdf')) to resolve to Sales%20%25%20Numbers.pdf
-functx-fn-encode-for-uri-2;Expected XPath (encode-for-uri( 'http://datypic.com/a%20URI#frag')) to resolve to http%3A%2F%2Fdatypic.com%2Fa%2520URI%23frag
-functx-fn-encode-for-uri-all;Expected XPath (encode-for-uri( 'Sales % Numbers.pdf'), encode-for-uri( 'http://datypic.com/a%20URI#frag')) to resolve to Sales%20%25%20Numbers.pdf http%3A%2F%2Fdatypic.com%2Fa%2520URI%23frag
+functx-fn-encode-for-uri-1;Expected XPath (encode-for-uri( 'Sales % Numbers.pdf')) to resolve to Sales%20%25%20Numbers.pdf, but instead got Sales+%25+Numbers.pdf
+functx-fn-encode-for-uri-2;Expected XPath (encode-for-uri( 'http://datypic.com/a%20URI#frag')) to resolve to http%3A%2F%2Fdatypic.com%2Fa%2520URI%23frag, but instead got http%3a%2f%2fdatypic.com%2fa%2520URI%23frag
+functx-fn-encode-for-uri-all;Expected XPath (encode-for-uri( 'Sales % Numbers.pdf'), encode-for-uri( 'http://datypic.com/a%20URI#frag')) to resolve to Sales%20%25%20Numbers.pdf http%3A%2F%2Fdatypic.com%2Fa%2520URI%23frag, but instead got Sales+%25+Numbers.pdf http%3a%2f%2fdatypic.com%2fa%2520URI%23frag
 functx-fn-ends-with-all;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 functx-fn-escape-html-uri-1;The function escape-html-uri with arity 1 is not registered.
 functx-fn-escape-html-uri-2;The function escape-html-uri with arity 1 is not registered.
@@ -10295,7 +10293,7 @@ functx-fn-floor-2;Can't parse 5.1 into an int.
 functx-fn-floor-3;Can't parse 5.7 into an int.
 functx-fn-floor-4;Can't parse 5.1 into an int.
 functx-fn-floor-5;Can't parse 5.7 into an int.
-functx-fn-floor-6;Expected XPath (floor( () )) to resolve to 
+functx-fn-floor-6;Expected XPath (floor( () )) to resolve to , but instead got null
 functx-fn-floor-all;SingletonSequence.Map not implemented
 functx-fn-hours-from-dateTime-1;The function hours-from-dateTime with arity 1 is not registered.
 functx-fn-hours-from-dateTime-2;The function hours-from-dateTime with arity 1 is not registered.
@@ -10324,7 +10322,7 @@ functx-fn-insert-before-4;The function insert-before with arity 3 is not registe
 functx-fn-insert-before-5;The function insert-before with arity 3 is not registered.
 functx-fn-insert-before-6;The function insert-before with arity 3 is not registered.
 functx-fn-insert-before-all;The function insert-before with arity 3 is not registered.
-functx-fn-iri-to-uri-1;Expected XPath (iri-to-uri( 'http://datypic.com/Sales Numbers.pdf')) to resolve to http://datypic.com/Sales%20Numbers.pdf
+functx-fn-iri-to-uri-1;Expected XPath (iri-to-uri( 'http://datypic.com/Sales Numbers.pdf')) to resolve to http://datypic.com/Sales%20Numbers.pdf, but instead got http:%2f%2fdatypic.com%2fSales+Numbers.pdf
 functx-fn-lang-1;PRSC Error: Failed to parse query ''
 functx-fn-lang-2;PRSC Error: Failed to parse query ''
 functx-fn-lang-3;PRSC Error: Failed to parse query ''
@@ -10430,11 +10428,11 @@ functx-fn-normalize-unicode-2;The function normalize-unicode with arity 2 is not
 functx-fn-normalize-unicode-all;The function normalize-unicode with arity 1 is not registered.
 functx-fn-not-7;PRSC Error: Failed to parse query ''
 functx-fn-not-all;PRSC Error: Failed to parse query ''
-functx-fn-number-1;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/price)) to resolve to 29.99
-functx-fn-number-2;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/@currency)) to resolve to NaN
-functx-fn-number-3;Expected XPath let $priceDoc := (/) return (number('29.99')) to resolve to 29.99
+functx-fn-number-1;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/price)) to resolve to 29.99, but instead got ∞
+functx-fn-number-2;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/@currency)) to resolve to NaN, but instead got ∞
+functx-fn-number-3;Expected XPath let $priceDoc := (/) return (number('29.99')) to resolve to 29.99, but instead got 2999
 functx-fn-number-4;Input string was not in a correct format.
-functx-fn-number-5;Expected XPath let $priceDoc := (/) return (number( () )) to resolve to NaN
+functx-fn-number-5;Expected XPath let $priceDoc := (/) return (number( () )) to resolve to NaN, but instead got ∞
 functx-fn-number-6;PerformFunctionConversion is not implemented yet.
 functx-fn-number-all;Can't parse 29.99 into an int.
 functx-fn-one-or-more-1;The function one-or-more with arity 1 is not registered.
@@ -10503,7 +10501,7 @@ functx-fn-string-all;PRSC Error: Failed to parse query ''
 functx-fn-string-length-6;Object reference not set to an instance of an object.
 functx-fn-string-length-all;Object reference not set to an instance of an object.
 functx-fn-string-to-codepoints-1;Can't parse <Value>[type: XsInt, value: 97] into an int.
-functx-fn-string-to-codepoints-3;Expected XPath (string-to-codepoints('')) to resolve to 
+functx-fn-string-to-codepoints-3;Expected XPath (string-to-codepoints('')) to resolve to , but instead got null
 functx-fn-string-to-codepoints-all;Can't parse <Value>[type: XsInt, value: 97] into an int.
 functx-fn-subsequence-1;The function subsequence with arity 2 is not registered.
 functx-fn-subsequence-2;The function subsequence with arity 3 is not registered.
@@ -10541,21 +10539,21 @@ functx-fn-timezone-from-time-2;The function timezone-from-time with arity 1 is n
 functx-fn-timezone-from-time-3;The function timezone-from-time with arity 1 is not registered.
 functx-fn-timezone-from-time-4;The function timezone-from-time with arity 1 is not registered.
 functx-fn-timezone-from-time-all;The function timezone-from-time with arity 1 is not registered.
-functx-fn-tokenize-1;Expected XPath (tokenize( 'a b c', '\s')) to resolve to a b c
-functx-fn-tokenize-10;Expected XPath (tokenize( (), '\s+')) to resolve to 
-functx-fn-tokenize-11;Expected XPath (tokenize( 'abc', '\s')) to resolve to abc
-functx-fn-tokenize-12;Expected XPath (tokenize( 'a,xb,xc', ',|,x')) to resolve to a xb xc
+functx-fn-tokenize-1;Expected XPath (tokenize( 'a b c', '\s')) to resolve to a b c, but instead got    
+functx-fn-tokenize-10;Expected XPath (tokenize( (), '\s+')) to resolve to , but instead got null
+functx-fn-tokenize-11;Expected XPath (tokenize( 'abc', '\s')) to resolve to abc, but instead got null
+functx-fn-tokenize-12;Expected XPath (tokenize( 'a,xb,xc', ',|,x')) to resolve to a xb xc, but instead got , ,
 functx-fn-tokenize-1a;The function tokenize with arity 1 is not registered.
 functx-fn-tokenize-1b;The function tokenize with arity 1 is not registered.
-functx-fn-tokenize-2;Expected XPath string-join(tokenize( 'a    b c', '\s'), '|') to resolve to a||||b|c
-functx-fn-tokenize-3;Expected XPath (tokenize( 'a b c', '\s+')) to resolve to a b c
-functx-fn-tokenize-4;Expected XPath (tokenize( ' b c', '\s')) to resolve to  b c
-functx-fn-tokenize-5;Expected XPath (tokenize( 'a,b,c', ',')) to resolve to a b c
-functx-fn-tokenize-6;Expected XPath (tokenize( 'a,b,,c', ',')) to resolve to a b  c
-functx-fn-tokenize-7;Expected XPath (tokenize( 'a, b, c', '[,\s]+')) to resolve to a b c
-functx-fn-tokenize-8;Expected XPath (tokenize( '2006-12-25T12:15:00', '[\-T:]')) to resolve to 2006 12 25 12 15 00
-functx-fn-tokenize-9;Expected XPath (tokenize( 'Hello, there.', '\W+')) to resolve to Hello there 
-functx-fn-tokenize-all;Expected XPath (tokenize( 'a b c', '\s'), tokenize( 'a b c', '\s'), tokenize( 'a b c', '\s+'), tokenize( ' b c', '\s'), tokenize( 'a,b,c', ','), tokenize( 'a,b,,c', ','), tokenize( 'a, b, c', '[,\s]+'), tokenize( '2006-12-25T12:15:00', '[\-T:]'), tokenize( 'Hello, there.', '\W+'), tokenize( (), '\s+'), tokenize( 'abc', '\s'), tokenize( 'a,xb,xc', ',|,x')) to resolve to a b c a b c a b c  b c a b c a b  c a b c 2006 12 25 12 15 00 Hello there  abc a xb xc
+functx-fn-tokenize-2;Expected XPath string-join(tokenize( 'a    b c', '\s'), '|') to resolve to a||||b|c, but instead got  | | | | 
+functx-fn-tokenize-3;Expected XPath (tokenize( 'a b c', '\s+')) to resolve to a b c, but instead got    
+functx-fn-tokenize-4;Expected XPath (tokenize( ' b c', '\s')) to resolve to  b c, but instead got    
+functx-fn-tokenize-5;Expected XPath (tokenize( 'a,b,c', ',')) to resolve to a b c, but instead got , ,
+functx-fn-tokenize-6;Expected XPath (tokenize( 'a,b,,c', ',')) to resolve to a b  c, but instead got , , ,
+functx-fn-tokenize-7;Expected XPath (tokenize( 'a, b, c', '[,\s]+')) to resolve to a b c, but instead got ,  , 
+functx-fn-tokenize-8;Expected XPath (tokenize( '2006-12-25T12:15:00', '[\-T:]')) to resolve to 2006 12 25 12 15 00, but instead got - - T : :
+functx-fn-tokenize-9;Expected XPath (tokenize( 'Hello, there.', '\W+')) to resolve to Hello there , but instead got ,  .
+functx-fn-tokenize-all;Expected XPath (tokenize( 'a b c', '\s'), tokenize( 'a b c', '\s'), tokenize( 'a b c', '\s+'), tokenize( ' b c', '\s'), tokenize( 'a,b,c', ','), tokenize( 'a,b,,c', ','), tokenize( 'a, b, c', '[,\s]+'), tokenize( '2006-12-25T12:15:00', '[\-T:]'), tokenize( 'Hello, there.', '\W+'), tokenize( (), '\s+'), tokenize( 'abc', '\s'), tokenize( 'a,xb,xc', ',|,x')) to resolve to a b c a b c a b c  b c a b c a b  c a b c 2006 12 25 12 15 00 Hello there  abc a xb xc, but instead got                 , , , , , ,  ,  - - T : : ,  . , ,
 functx-fn-translate-3;Index was outside the bounds of the array.
 functx-fn-translate-4;Index was outside the bounds of the array.
 functx-fn-translate-all;Index was outside the bounds of the array.
@@ -10572,7 +10570,7 @@ functx-fn-years-from-duration-3;The function years-from-duration with arity 1 is
 functx-fn-years-from-duration-4;The function years-from-duration with arity 1 is not registered.
 functx-fn-years-from-duration-5;The function years-from-duration with arity 1 is not registered.
 functx-fn-years-from-duration-all;The function years-from-duration with arity 1 is not registered.
-functx-fn-zero-or-one-1;Expected XPath (zero-or-one( () )) to resolve to 
+functx-fn-zero-or-one-1;Expected XPath (zero-or-one( () )) to resolve to , but instead got null
 functx-functx-add-attributes-1;PRSC Error: Failed to parse query ''
 functx-functx-add-attributes-2;PRSC Error: Failed to parse query ''
 functx-functx-add-attributes-3;PRSC Error: Failed to parse query ''
@@ -11996,7 +11994,7 @@ internalcontextitem-14;Can't parse <Value>[type: XsInt, value: 6] into an int.
 internalcontextitem-15;Can't parse <Value>[type: XsInt, value: 6] into an int.
 internalcontextitem-16;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 internalcontextitem-17;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
-internalcontextitem-18;Expected XPath ("ABC", "DEF","A")[fn:string-length(.) gt 2] to resolve to ABC DEF
+internalcontextitem-18;Expected XPath ("ABC", "DEF","A")[fn:string-length(.) gt 2] to resolve to ABC DEF, but instead got ABC DEF A
 internalcontextitem-19;Can't parse <Value>[type: XsInt, value: 1] into an int.
 internalcontextitem-20;Can't parse <Value>[type: XsInt, value: 1] into an int.
 internalcontextitem-3;Can't parse <Value>[type: XsInt, value: 1] into an int.
@@ -12710,7 +12708,6 @@ K-LogicExpr-41;The function timezone-from-time with arity 1 is not registered.
 K-LogicExpr-42;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-43;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-44;TreatExpr AST to Expression not yet implemented
-K-LogicExpr-45;Expected XPathException with code FORG0006, but got FORG0006
 K-LogicExpr-8;Type casting to XsAnyUri has not been implemented yet.
 K-LogicExpr-9;Type casting to XsAnyUri has not been implemented yet.
 K-LowerCaseFunc-4;SingletonSequence.Map not implemented
@@ -13286,7 +13283,6 @@ K-SeqExprCast-1000;Expected error code: XPST0080. Found error code: XPST0003 wit
 K-SeqExprCast-1003;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-1005;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-1006;The string '<Value>[type: XsString, value: 1999]' is not a valid AllXsd value.
-K-SeqExprCast-1007;Expected XPathException with code FORG0006, but got FORG0006
 K-SeqExprCast-1008;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-1009;PRSC Error: Failed to parse query 'xs:gYear("1999") castable as xs:untypedAtomic'
 K-SeqExprCast-101;Type casting to XsHexBinary has not been implemented yet.
@@ -13327,7 +13323,6 @@ K-SeqExprCast-1052;Expected error code: XPST0080. Found error code: XPST0003 wit
 K-SeqExprCast-1055;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-1057;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-1058;The string '<Value>[type: XsString, value: --11-13]' is not a valid AllXsd value.
-K-SeqExprCast-1059;Expected XPathException with code FORG0006, but got FORG0006
 K-SeqExprCast-106;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1060;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-1061;PRSC Error: Failed to parse query 'xs:gMonthDay("--11-13") castable as xs:untypedAtomic'
@@ -13369,7 +13364,6 @@ K-SeqExprCast-1107;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-1109;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-111;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1110;The string '<Value>[type: XsString, value: ---03]' is not a valid AllXsd value.
-K-SeqExprCast-1111;Expected XPathException with code FORG0006, but got FORG0006
 K-SeqExprCast-1112;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-1113;PRSC Error: Failed to parse query 'xs:gDay("---03") castable as xs:untypedAtomic'
 K-SeqExprCast-1115;PRSC Error: Failed to parse query 'xs:gDay("---03") castable as xs:string'
@@ -13410,7 +13404,6 @@ K-SeqExprCast-1159;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-116;Expected XPathException with code FORG0001, but got Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-1161;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-1162;The string '<Value>[type: XsString, value: --11]' is not a valid AllXsd value.
-K-SeqExprCast-1163;Expected XPathException with code FORG0006, but got FORG0006
 K-SeqExprCast-1164;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-1165;PRSC Error: Failed to parse query 'xs:gMonth("--11") castable as xs:untypedAtomic'
 K-SeqExprCast-1167;PRSC Error: Failed to parse query 'xs:gMonth("--11") castable as xs:string'
@@ -14333,7 +14326,6 @@ K-SeqExprCast-792;Expected error code: XPST0080. Found error code: XPST0003 with
 K-SeqExprCast-795;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-797;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-798;The string '<Value>[type: XsString, value: 2002-10-10T12:00:00-05:00]' is not a valid AllXsd value.
-K-SeqExprCast-799;Expected XPathException with code FORG0006, but got FORG0006
 K-SeqExprCast-7a;Expected error code: XQST0052. Found error code: XPST0051 with error message: The type "xs:anyType" could not be found
 K-SeqExprCast-80;HandleNumericOperator: Different numeric types: XsFloat and XsInt
 K-SeqExprCast-800;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
@@ -14429,7 +14421,6 @@ K-SeqExprCast-899;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-90;Can't parse 3.1 into an int.
 K-SeqExprCast-901;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-902;The string '<Value>[type: XsString, value: 2004-10-13]' is not a valid AllXsd value.
-K-SeqExprCast-903;Expected XPathException with code FORG0006, but got FORG0006
 K-SeqExprCast-904;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-905;PRSC Error: Failed to parse query 'xs:date("2004-10-13") castable as xs:untypedAtomic'
 K-SeqExprCast-907;PRSC Error: Failed to parse query 'xs:date("2004-10-13") castable as xs:string'
@@ -14474,7 +14465,6 @@ K-SeqExprCast-95;Expected XPathException with code FORG0001, but got Type castin
 K-SeqExprCast-951;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-953;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-954;The string '<Value>[type: XsString, value: 1999-11]' is not a valid AllXsd value.
-K-SeqExprCast-955;Expected XPathException with code FORG0006, but got FORG0006
 K-SeqExprCast-956;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-957;PRSC Error: Failed to parse query 'xs:gYearMonth("1999-11") castable as xs:untypedAtomic'
 K-SeqExprCast-959;PRSC Error: Failed to parse query 'xs:gYearMonth("1999-11") castable as xs:string'
@@ -15877,8 +15867,8 @@ K2-Literals-4;Expected executing the XPath "999999999999999999999999999999999999
 K2-Literals-5;Expected executing the XPath "-999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" to resolve to one of the expected results, but got System.Exception: Can't parse 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999 into an int.
 K2-Literals-6;Expected executing the XPath "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999.1" to resolve to one of the expected results, but got System.Exception: Can't parse 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999.1 into an int.
 K2-Literals-7;Expected executing the XPath "0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001" to resolve to one of the expected results, but got System.Exception: Can't parse 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001 into an int.
-K2-Literals-8;Expected executing the XPath "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000 to resolve to INF
-K2-Literals-9;Expected executing the XPath "-999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath -999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000 to resolve to -INF
+K2-Literals-8;Expected executing the XPath "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000 to resolve to INF, but instead got ∞
+K2-Literals-9;Expected executing the XPath "-999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath -999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000 to resolve to -INF, but instead got -∞
 K2-MatchesFunc-1;The function fn:matches with arity 3 is not registered.
 K2-MatchesFunc-10;Expected XPathException with code FORX0002, but got BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 K2-MatchesFunc-11;Expected XPathException with code FORX0002, but got BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
@@ -16302,7 +16292,7 @@ K2-RoundFunc-146;Casting not supported from given type to xs:decimal or any of i
 K2-RoundFunc-147;Atomic Value for XsDecimal is not implemented yet.
 K2-RoundFunc-148;Casting not supported from given type to xs:decimal or any of its derived types.
 K2-RoundFunc-149;Atomic Value for XsDecimal is not implemented yet.
-K2-RoundFunc-15;Expected XPath round(xs:double("0")) to resolve to 0
+K2-RoundFunc-15;Expected XPath round(xs:double("0")) to resolve to 0, but instead got -0
 K2-RoundFunc-150;Casting not supported from given type to xs:decimal or any of its derived types.
 K2-RoundFunc-151;Atomic Value for XsDecimal is not implemented yet.
 K2-RoundFunc-152;Casting not supported from given type to xs:decimal or any of its derived types.
@@ -16345,7 +16335,7 @@ K2-RoundFunc-186;Casting not supported from given type to xs:decimal or any of i
 K2-RoundFunc-187;Atomic Value for XsDecimal is not implemented yet.
 K2-RoundFunc-188;Casting not supported from given type to xs:decimal or any of its derived types.
 K2-RoundFunc-189;Atomic Value for XsDecimal is not implemented yet.
-K2-RoundFunc-19;Expected XPath round(xs:float("0")) to resolve to 0
+K2-RoundFunc-19;Expected XPath round(xs:float("0")) to resolve to 0, but instead got -0
 K2-RoundFunc-190;Casting not supported from given type to xs:decimal or any of its derived types.
 K2-RoundFunc-2;Expected executing the XPath "round(xs:unsignedLong(.)) instance of xs:unsignedLong" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-RoundFunc-21;Value was either too large or too small for a Decimal.
@@ -16372,8 +16362,8 @@ K2-RoundFunc-4;Expected executing the XPath "round(xs:unsignedByte(.)) instance 
 K2-RoundFunc-40;Casting not supported from given type to xs:decimal or any of its derived types.
 K2-RoundFunc-41;Atomic Value for XsDecimal is not implemented yet.
 K2-RoundFunc-42;Casting not supported from given type to xs:decimal or any of its derived types.
-K2-RoundFunc-43;Expected XPath fn:round(xs:float("0.00")) to resolve to 0
-K2-RoundFunc-44;Expected XPath fn:round(xs:double("0.00")) to resolve to 0
+K2-RoundFunc-43;Expected XPath fn:round(xs:float("0.00")) to resolve to 0, but instead got -0
+K2-RoundFunc-44;Expected XPath fn:round(xs:double("0.00")) to resolve to 0, but instead got -0
 K2-RoundFunc-47;Atomic Value for XsDecimal is not implemented yet.
 K2-RoundFunc-48;Casting not supported from given type to xs:decimal or any of its derived types.
 K2-RoundFunc-49;Atomic Value for XsDecimal is not implemented yet.
@@ -16636,7 +16626,7 @@ K2-SeqExprCast-209;Type casting to XsAnyUri has not been implemented yet.
 K2-SeqExprCast-21;Can't parse 999999999999999999 into an int.
 K2-SeqExprCast-210;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
 K2-SeqExprCast-213;Atomic Value for XsPositiveInteger is not implemented yet.
-K2-SeqExprCast-214;Expected XPath xs:double(xs:int("-1873914410")) to resolve to -1.87391441E9
+K2-SeqExprCast-214;Expected XPath xs:double(xs:int("-1873914410")) to resolve to -1.87391441E9, but instead got -1873914410
 K2-SeqExprCast-215;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-216;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-217;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
@@ -16644,19 +16634,19 @@ K2-SeqExprCast-218;Expected XPathException with code FORG0001, but got Input str
 K2-SeqExprCast-219;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-22;Expected executing the XPath "xs:unsignedLong("18446744073709551615")" to resolve to one of the expected results, but got System.Exception: Can't parse 18446744073709551615 into an int.
 K2-SeqExprCast-220;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-221;Expected XPath xs:float(" NaN ") to resolve to NaN
-K2-SeqExprCast-222;Expected XPath xs:double(" NaN ") to resolve to NaN
-K2-SeqExprCast-223;Expected XPath xs:float(" INF ") to resolve to INF
-K2-SeqExprCast-224;Expected XPath xs:double(" INF ") to resolve to INF
+K2-SeqExprCast-221;Expected XPath xs:float(" NaN ") to resolve to NaN, but instead got ∞
+K2-SeqExprCast-222;Expected XPath xs:double(" NaN ") to resolve to NaN, but instead got ∞
+K2-SeqExprCast-223;Expected XPath xs:float(" INF ") to resolve to INF, but instead got ∞
+K2-SeqExprCast-224;Expected XPath xs:double(" INF ") to resolve to INF, but instead got ∞
 K2-SeqExprCast-227;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-228;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-229;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-23;Can't parse 4294967295 into an int.
 K2-SeqExprCast-230;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-231;Expected error code: FORG0001. Query succeeded with result: ∞
-K2-SeqExprCast-231a;Expected XPath xs:double("+INF") to resolve to INF
+K2-SeqExprCast-231a;Expected XPath xs:double("+INF") to resolve to INF, but instead got ∞
 K2-SeqExprCast-232;Expected error code: FORG0001. Query succeeded with result: ∞
-K2-SeqExprCast-232a;Expected XPath xs:float("+INF") to resolve to INF
+K2-SeqExprCast-232a;Expected XPath xs:float("+INF") to resolve to INF, but instead got ∞
 K2-SeqExprCast-233;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-234;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-235;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
@@ -17250,9 +17240,9 @@ K3-NodeNameFunc-1;Expected XPathException with code XPTY0004, but got Can't pars
 K3-NodeNameFunc-2;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( (<a/>, <b/>))'
 K3-NodeNameFunc-3;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( (<a/>, "mystring"))'
 K3-NodeNameFunc-4;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( node-name(<a/>))'
-last-1;Expected XPath for $h in (/works) return $h//employee[last()]/string(@name) to resolve to Jane Doe 13
-last-10;Expected XPath for $h in (/works) return $h//employee[last() = 13][@name = "Jane Doe 13"]/string(@name) to resolve to Jane Doe 13
-last-11;Expected XPath for $h in (/works/employee[12]/overtime) return $h/day[not(position() = 1)] to resolve to Tuesday
+last-1;Expected XPath for $h in (/works) return $h//employee[last()]/string(@name) to resolve to Jane Doe 13, but instead got null
+last-10;Expected XPath for $h in (/works) return $h//employee[last() = 13][@name = "Jane Doe 13"]/string(@name) to resolve to Jane Doe 13, but instead got null
+last-11;Expected XPath for $h in (/works/employee[12]/overtime) return $h/day[not(position() = 1)] to resolve to Tuesday, but instead got null
 last-12;Expected XPath for $h in (/works/employee[12]/overtime) return $h/*[position() = position()]/string() to (deep equally) resolve to "Monday", "Tuesday"
 last-16;Atomic Value for XsDecimal is not implemented yet.
 last-18;Expected XPath for $h in (/works/employee[12]) return ($h/overtime[position() and fn:true()]/*/string()) to (deep equally) resolve to "Monday", "Tuesday"
@@ -17263,19 +17253,19 @@ last-22;SingletonSequence.Map not implemented
 last-23;Casting AbstractValue(XsInt) to UntypedAtomicValue
 last-25;Value was either too large or too small for an Int32.
 last-3;Expected XPath for $h in (/works/employee[12]) return $h/overtime[last() = 1]/*/string() to (deep equally) resolve to "Monday", "Tuesday"
-last-4;Expected XPath for $h in (/works) return $h/employee[position() = last()]/string(@name) to resolve to Jane Doe 13
-last-5;Expected XPath for $h in (/works) return $h/employee[last() = position()]/string(@name) to resolve to Jane Doe 13
+last-4;Expected XPath for $h in (/works) return $h/employee[position() = last()]/string(@name) to resolve to Jane Doe 13, but instead got null
+last-5;Expected XPath for $h in (/works) return $h/employee[last() = position()]/string(@name) to resolve to Jane Doe 13, but instead got null
 last-6;PRSC Error: Failed to parse query ''
 last-7;IsOp AST to Expression not yet implemented
 last-8;Expected XPath for $h in (/works/employee[12]) return $h/overtime[last() = last()]/*/string() to (deep equally) resolve to "Monday", "Tuesday"
-last-9;Expected XPath for $h in (/works) return $h//employee[@name="Jane Doe 13"][last() = 1]/string(@name) to resolve to Jane Doe 13
+last-9;Expected XPath for $h in (/works) return $h//employee[@name="Jane Doe 13"][last() = 1]/string(@name) to resolve to Jane Doe 13, but instead got null
 lessthaneqonanyuri-1;PRSC Error: Failed to parse query ''
 lessthanonanyuri-1;PRSC Error: Failed to parse query ''
 LetExpr002;Can't parse 92233720368547758 into an int.
 LetExpr003;Can't parse 92233720368547758 into an int.
 LetExpr004;Can't parse 92233720368547758 into an int.
 LetExpr005;Can't parse -92233720368547758 into an int.
-LetExpr006;Expected XPath let $x := xs:double("1.7976931348623157E308") return $x to resolve to 1.7976931348623157E308
+LetExpr006;Expected XPath let $x := xs:double("1.7976931348623157E308") return $x to resolve to 1.7976931348623157E308, but instead got ∞
 LetExpr007;PRSC Error: Failed to parse query ''
 LetExpr009;PRSC Error: Failed to parse query ''
 LetExpr011;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -17309,7 +17299,7 @@ Literals012;Can't parse 65535032.0023 into an int.
 Literals013;Can't parse .65535032 into an int.
 Literals014;Can't parse .65535032 into an int.
 Literals015;Can't parse .65535032 into an int.
-Literals016;Expected XPath 65535032e2 to resolve to 6.5535032E9
+Literals016;Expected XPath 65535032e2 to resolve to 6.5535032E9, but instead got 6553503200
 Literals017;PRSC Error: Failed to parse query '65535.032e2'
 Literals018;Can't parse .65535032e2 into an double for a DoubleValue.
 Literals019;Can't parse .65535032e2 into an double for a DoubleValue.
@@ -17320,7 +17310,7 @@ Literals023;Can't parse .65535032e-2 into an double for a DoubleValue.
 Literals024;Can't parse .65535032e-2 into an double for a DoubleValue.
 Literals025;PRSC Error: Failed to parse query '-65535.032e2'
 Literals026;PRSC Error: Failed to parse query '-65535.032e-2'
-Literals027;Expected XPath 65535032E2 to resolve to 6.5535032E9
+Literals027;Expected XPath 65535032E2 to resolve to 6.5535032E9, but instead got 6553503200
 Literals028;PRSC Error: Failed to parse query '65535.032E2'
 Literals029;Can't parse .65535032E2 into an double for a DoubleValue.
 Literals030;Can't parse .65535032E2 into an double for a DoubleValue.
@@ -17952,7 +17942,7 @@ nodeexpressionhc8;PRSC Error: Failed to parse query ''
 nodeexpressionhc9;PRSC Error: Failed to parse query ''
 NodeTest001;Expected results and parsedFragment children to match
 NodeTest002;Expected results and parsedFragment children to match
-NodeTest003;Expected XPath /*/*[1]/name() to resolve to Customers
+NodeTest003;Expected XPath /*/*[1]/name() to resolve to Customers, but instead got null
 NodeTest004;PRSC Error: Failed to parse query '(/.) instance of $document-node(element(Root))'
 NodeTest005;PRSC Error: Failed to parse query '(/*/.) instance of $element(Root)'
 NodeTest006;PRSC Error: Failed to parse query ''
@@ -18092,11 +18082,11 @@ op-concat-18;Expected error code: FOTY0013. Found error code: XPST0003 with erro
 op-concat-19;PRSC Error: Failed to parse query '(12 || 34 - 50) instance of $xs:string'
 op-concat-8;Can't parse <Value>[type: XsInt, value: 1] into an int.
 op-concat-9;SingletonSequence.Map not implemented
-op-concatdbl2args-1;Expected XPath (xs:double("-1.7976931348623157E308")||xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308-1.7976931348623157E308
-op-concatdbl2args-2;Expected XPath (xs:double("0")||xs:double("-1.7976931348623157E308")) to resolve to 0-1.7976931348623157E308
-op-concatdbl2args-3;Expected XPath (xs:double("1.7976931348623157E308")||xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308
-op-concatdbl2args-4;Expected XPath (xs:double("-1.7976931348623157E308") || xs:double("0")) to resolve to -1.7976931348623157E3080
-op-concatdbl2args-5;Expected XPath (xs:double("-1.7976931348623157E308") || xs:double("1.7976931348623157E308")) to resolve to -1.7976931348623157E3081.7976931348623157E308
+op-concatdbl2args-1;Expected XPath (xs:double("-1.7976931348623157E308")||xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308-1.7976931348623157E308, but instead got -∞-∞
+op-concatdbl2args-2;Expected XPath (xs:double("0")||xs:double("-1.7976931348623157E308")) to resolve to 0-1.7976931348623157E308, but instead got 0-∞
+op-concatdbl2args-3;Expected XPath (xs:double("1.7976931348623157E308")||xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308, but instead got ∞-∞
+op-concatdbl2args-4;Expected XPath (xs:double("-1.7976931348623157E308") || xs:double("0")) to resolve to -1.7976931348623157E3080, but instead got -∞0
+op-concatdbl2args-5;Expected XPath (xs:double("-1.7976931348623157E308") || xs:double("1.7976931348623157E308")) to resolve to -1.7976931348623157E3081.7976931348623157E308, but instead got -∞∞
 op-concatdec2args-1;Atomic Value for XsDecimal is not implemented yet.
 op-concatdec2args-2;Atomic Value for XsDecimal is not implemented yet.
 op-concatdec2args-3;Atomic Value for XsDecimal is not implemented yet.
@@ -18105,19 +18095,19 @@ op-concatdec2args-5;Atomic Value for XsDecimal is not implemented yet.
 op-concatenate-mix-args-005;Type casting to XsAnyUri has not been implemented yet.
 op-concatenate-mix-args-006;Type casting to XsAnyUri has not been implemented yet.
 op-concatenate-mix-args-007;Type casting to XsAnyUri has not been implemented yet.
-op-concatenate-mix-args-008;Expected XPath xs:float("1.01"), xs:float("NaN") to resolve to 1.01 NaN
-op-concatenate-mix-args-009;Expected XPath xs:float("INF") , xs:double("NaN") to resolve to INF NaN
-op-concatenate-mix-args-010;Expected XPath xs:double("INF"), xs:double("-INF"), xs:float("-INF") to resolve to INF -INF -INF
+op-concatenate-mix-args-008;Expected XPath xs:float("1.01"), xs:float("NaN") to resolve to 1.01 NaN, but instead got 101 ∞
+op-concatenate-mix-args-009;Expected XPath xs:float("INF") , xs:double("NaN") to resolve to INF NaN, but instead got ∞ ∞
+op-concatenate-mix-args-010;Expected XPath xs:double("INF"), xs:double("-INF"), xs:float("-INF") to resolve to INF -INF -INF, but instead got ∞ -∞ -∞
 op-concatenate-mix-args-013;Can't parse <Value>[type: XsBoolean, value: True] into an bool.
 op-concatenate-mix-args-015;Type casting to XsTime has not been implemented yet.
 op-concatenate-mix-args-016;Atomic Value for XsDecimal is not implemented yet.
 op-concatenate-mix-args-019;Can't parse 65.95 into an int.
 op-concatenate-mix-args-020;Expected results and parsedFragment children to match
-op-concatflt2args-1;Expected XPath (xs:float("-3.4028235E38") || xs:float("-3.4028235E38")) to resolve to -3.4028235E38-3.4028235E38
-op-concatflt2args-2;Expected XPath (xs:float("0") || xs:float("-3.4028235E38")) to resolve to 0-3.4028235E38
-op-concatflt2args-3;Expected XPath (xs:float("3.4028235E38") || xs:float("-3.4028235E38")) to resolve to 3.4028235E38-3.4028235E38
-op-concatflt2args-4;Expected XPath (xs:float("-3.4028235E38") || xs:float("0")) to resolve to -3.4028235E380
-op-concatflt2args-5;Expected XPath (xs:float("-3.4028235E38") || xs:float("3.4028235E38")) to resolve to -3.4028235E383.4028235E38
+op-concatflt2args-1;Expected XPath (xs:float("-3.4028235E38") || xs:float("-3.4028235E38")) to resolve to -3.4028235E38-3.4028235E38, but instead got -∞-∞
+op-concatflt2args-2;Expected XPath (xs:float("0") || xs:float("-3.4028235E38")) to resolve to 0-3.4028235E38, but instead got 0-∞
+op-concatflt2args-3;Expected XPath (xs:float("3.4028235E38") || xs:float("-3.4028235E38")) to resolve to 3.4028235E38-3.4028235E38, but instead got ∞-∞
+op-concatflt2args-4;Expected XPath (xs:float("-3.4028235E38") || xs:float("0")) to resolve to -3.4028235E380, but instead got -∞0
+op-concatflt2args-5;Expected XPath (xs:float("-3.4028235E38") || xs:float("3.4028235E38")) to resolve to -3.4028235E383.4028235E38, but instead got -∞∞
 op-concatintg2args-1;Can't parse -999999999999999999 into an int.
 op-concatintg2args-2;Can't parse 830993497117024304 into an int.
 op-concatintg2args-3;Can't parse 999999999999999999 into an int.
@@ -19572,9 +19562,9 @@ path003;PRSC Error: Failed to parse query '(fn:path((//*:all-of)[1])) instance o
 path004;PRSC Error: Failed to parse query '(fn:path(//*[@name="fn-absintg1args-1"])) instance of $xs:string'
 path005;PRSC Error: Failed to parse query '(fn:path((//@idref)[1])) instance of $xs:string'
 path006;PRSC Error: Failed to parse query '(fn:path((//*:source)[3]/@xml:id)) instance of $xs:string'
-path007;Expected XPath fn:path((//comment())[2]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[2]/Q{http://www.w3.org/2010/09/qt-fots-catalog}description[1]/comment()[1]
-path008;Expected XPath fn:path(//text()[.='2147483647'][1]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[3]/Q{http://www.w3.org/2010/09/qt-fots-catalog}result[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}all-of[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}assert-eq[1]/text()[1]
-path009;Expected XPath fn:path(//processing-instruction()[1]) to resolve to /processing-instruction(xml-stylesheet)[1]
+path007;Expected XPath fn:path((//comment())[2]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[2]/Q{http://www.w3.org/2010/09/qt-fots-catalog}description[1]/comment()[1], but instead got /comment()[1]
+path008;Expected XPath fn:path(//text()[.='2147483647'][1]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[3]/Q{http://www.w3.org/2010/09/qt-fots-catalog}result[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}all-of[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}assert-eq[1]/text()[1], but instead got null
+path009;Expected XPath fn:path(//processing-instruction()[1]) to resolve to /processing-instruction(xml-stylesheet)[1], but instead got null
 path010;PRSC Error: Failed to parse query '(fn:path(//p)) instance of $xs:string'
 path011;PRSC Error: Failed to parse query 'fn:path((//namespace::xml)[1])'
 path012;PRSC Error: Failed to parse query 'fn:path((//namespace::xml)[1])'
@@ -19597,7 +19587,7 @@ PathExpr-7p;PRSC Error: Failed to parse query ' = 0'
 PathExpr-8p;PRSC Error: Failed to parse query ' = 0'
 PathExpr-9p;PRSC Error: Failed to parse query ' = 0'
 PathExprErr-2;Expected error code: XPTY0018. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-position-11;Expected XPath for $h in (/works/employee[12]/overtime) return $h/day[not(position() = 1)]/string() to resolve to Tuesday
+position-11;Expected XPath for $h in (/works/employee[12]/overtime) return $h/day[not(position() = 1)]/string() to resolve to Tuesday, but instead got null
 position-12;Expected XPath for $h in (/works/employee[12]/overtime) return $h/*[position() = position()]/string() to (deep equally) resolve to "Monday", "Tuesday"
 position-16;Atomic Value for XsDecimal is not implemented yet.
 position-18;Expected XPath for $h in (/works/employee[12]) return ($h/overtime[position() and fn:true()]/*/string()) to (deep equally) resolve to "Monday", "Tuesday"
@@ -19606,8 +19596,8 @@ position-20;Expected XPath for $h in (/works/employee[12]) return $h/overtime[po
 position-21;Expected XPath for $h in (/works/employee[12]) return $h/overtime[position() or fn:false()]/*/string() to (deep equally) resolve to "Monday", "Tuesday"
 position-22;SingletonSequence.Map not implemented
 position-24;Casting AbstractValue(XsInt) to UntypedAtomicValue
-position-4;Expected XPath for $h in (/works) return $h/employee[position() = last()]/string(@name) to resolve to Jane Doe 13
-position-5;Expected XPath for $h in (/works) return $h/employee[last() = position()]/string(@name) to resolve to Jane Doe 13
+position-4;Expected XPath for $h in (/works) return $h/employee[position() = last()]/string(@name) to resolve to Jane Doe 13, but instead got null
+position-5;Expected XPath for $h in (/works) return $h/employee[last() = position()]/string(@name) to resolve to Jane Doe 13, but instead got null
 position-8;Expected XPath for $h in (/works/employee[12]) return $h/overtime[position() = position()]/day/string() to (deep equally) resolve to "Monday", "Tuesday"
 preceding-10;NodeAfterOp AST to Expression not yet implemented
 preceding-13;IntersectOp AST to Expression not yet implemented
@@ -20926,7 +20916,7 @@ ReturnExpr002;PRSC Error: Failed to parse query ''
 ReturnExpr003;PRSC Error: Failed to parse query ''
 ReturnExpr004;Use of XQuery FLWOR expressions in XPath is not allowed
 ReturnExpr005;Expected results and parsedFragment children to match
-ReturnExpr006;Expected XPath for $file in (//Folder)[1]/File return data( $file/FileName ) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030
+ReturnExpr006;Expected XPath for $file in (//Folder)[1]/File return data( $file/FileName ) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100
 ReturnExpr007;SingletonSequence.MapAll not implemented
 ReturnExpr008;Can't parse <Value>[type: XsInt, value: 1] into an int.
 ReturnExpr009;Expected results and parsedFragment children to match
@@ -20935,9 +20925,9 @@ ReturnExpr011;Expected results and parsedFragment children to match
 ReturnExpr014;Expected XPathException with code XPST0008, but got The given key 'undefined' was not present in the dictionary.
 ReturnExpr015;Expected results and parsedFragment children to match
 ReturnExpr016;PRSC Error: Failed to parse query ''
-ReturnExpr017;Expected XPath for $file in (//Folder)[1]/File return ($file/Stream/StreamSize)[1] + 1 to resolve to 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1032.33
+ReturnExpr017;Expected XPath for $file in (//Folder)[1]/File return ($file/Stream/StreamSize)[1] + 1 to resolve to 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1032.33, but instead got 100134 100234 100334 100434 100534 100634 100734 100834 100934 101034 101134 101234 101334 101434 101534 101634 101734 101834 101934 102034 102134 102234 102334 102434 102534 102634 102734 102834 102934 103034 103134 100134 100234 100334 100434 100534 100634 100734 100834 100934 101034 101134 101234 101334 101434 101534 101634 100134 100234 100334 100434 100534 100634 100734 100834 100934 101034 101134 101234 101334 101434 101534 101634 101734 101834 101934 102034 102134 102234 102334 102434 102534 102634 102734 102834 102934 103034 100134 100234 100334 100434 100534 100634 100734 100834 100934 101034 101134 101234 101334 101434 101534 101634 101734 101834 101934 102034 102134 102234 102334 102434
 ReturnExpr018;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-ReturnExpr020;Expected XPath for $file in (//Folder)[1]/File return xs:string( data( $file/FileName[1] )) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030
+ReturnExpr020;Expected XPath for $file in (//Folder)[1]/File return xs:string( data( $file/FileName[1] )) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got null
 reverse-001;The function fn:reverse with arity 1 is not registered.
 reverse-002;The function fn:reverse with arity 1 is not registered.
 reverse-003;The function reverse with arity 1 is not registered.
@@ -21045,7 +21035,7 @@ surrogates04a;Index was outside the bounds of the array.
 surrogates05;PRSC Error: Failed to parse query ''
 surrogates05a;Index was outside the bounds of the array.
 surrogates06;PRSC Error: Failed to parse query ''
-surrogates06a;Expected XPath translate("abc𝅖def", "def", "𝅖EF") to resolve to abc𝅖𝅖EF
+surrogates06a;Expected XPath translate("abc𝅖def", "def", "𝅖EF") to resolve to abc𝅖𝅖EF, but instead got abc𝅖𝅖E
 surrogates07;PRSC Error: Failed to parse query ''
 surrogates07a;Can't parse <Value>[type: XsInt, value: 97] into an int.
 surrogates09;PRSC Error: Failed to parse query ''
@@ -21058,7 +21048,7 @@ surrogates13a;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to b
 surrogates14;PRSC Error: Failed to parse query ''
 surrogates14a;Invalid pattern '[𝅐-𝅘𝅥]' at offset 5. [x-y] range in reverse order.
 surrogates15;PRSC Error: Failed to parse query ''
-surrogates15a;Expected XPath replace("abc𝅗def", "[^a-f]", "###") to resolve to abc###def
+surrogates15a;Expected XPath replace("abc𝅗def", "[^a-f]", "###") to resolve to abc###def, but instead got abc######def
 surrogates16;PRSC Error: Failed to parse query ' = 65'
 surrogates16a;Atomic Value for XsDecimal is not implemented yet.
 tail-001;The function tail with arity 1 is not registered.
@@ -21116,7 +21106,7 @@ typeswitchhc7;PRSC Error: Failed to parse query ''
 typeswitchhc8;PRSC Error: Failed to parse query ''
 typeswitchhc9;PRSC Error: Failed to parse query ''
 unabbreviatedSyntax-1;Expected results and parsedFragment children to match
-unabbreviatedSyntax-11;Expected XPath (for $h in (/works/employee[1]/hours) return $h/ancestor-or-self::employee)/@name to resolve to Jane Doe 1
+unabbreviatedSyntax-11;Expected XPath (for $h in (/works/employee[1]/hours) return $h/ancestor-or-self::employee)/@name to resolve to Jane Doe 1, but instead got null
 unabbreviatedSyntax-14;Expected XPath for $h in (/works[1]/employee[1]) return fn:count(($h/self::employee[1000])) to resolve to 0
 unabbreviatedSyntax-15;Expected results and parsedFragment children to match
 unabbreviatedSyntax-16;Expected results and parsedFragment children to match
@@ -21128,7 +21118,7 @@ unabbreviatedSyntax-26;Expected results and parsedFragment children to match
 unabbreviatedSyntax-27;Expected results and parsedFragment children to match
 unabbreviatedSyntax-28;Expected results and parsedFragment children to match
 unabbreviatedSyntax-29;Expected results and parsedFragment children to match
-unabbreviatedSyntax-3;Expected XPath for $h in (/works[1]/employee[2]) return $h/child::text() to resolve to Text data from Employee[2]
+unabbreviatedSyntax-3;Expected XPath for $h in (/works[1]/employee[2]) return $h/child::text() to resolve to Text data from Employee[2], but instead got null
 unabbreviatedSyntax-30;Expected results and parsedFragment children to match
 unabbreviatedSyntax-31;Expected results and parsedFragment children to match
 unabbreviatedSyntax-4;for $h in (/works/employee[1]) return $h/child::node()
