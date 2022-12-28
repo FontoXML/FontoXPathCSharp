@@ -17,7 +17,7 @@ public abstract class AbstractValue
     public T GetAs<T>() where T : AbstractValue
     {
         if (this is not T result)
-            throw new InvalidCastException("Casting AbstractValue(" + Type + ") to " + typeof(T).Name);
+            throw new InvalidCastException($"Casting AbstractValue({Type}) to {typeof(T).Name}");
         return result;
     }
 

@@ -17,14 +17,14 @@ public static class BuiltInFunctionsFunctions<TNode> where TNode : notnull
             var functionProperties = staticContext?.LookupFunction(
                 name.Value.NamespaceUri,
                 name.Value.LocalName,
-                arity.Value
+                (int)arity.Value
             );
 
             if (functionProperties == null) return SequenceFactory.CreateEmpty();
 
             var functionItem = new FunctionValue<ISequence, TNode>(
                 functionProperties.ArgumentTypes,
-                arity.Value,
+                (int)arity.Value,
                 name.Value.LocalName,
                 name.Value.NamespaceUri!,
                 functionProperties.ReturnType,

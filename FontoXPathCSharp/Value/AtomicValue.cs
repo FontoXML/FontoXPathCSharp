@@ -70,13 +70,21 @@ public abstract class AtomicValue : AbstractValue
         return type switch
         {
             ValueType.XsBoolean => new BooleanValue(value),
-            ValueType.XsInt
-                or ValueType.XsInteger
+            ValueType.XsInteger
+                or ValueType.XsPositiveInteger
+                or ValueType.XsNegativeInteger
+                or ValueType.XsNonPositiveInteger 
+                or ValueType.XsNonNegativeInteger
+                or ValueType.XsByte
+                or ValueType.XsUnsignedByte
                 or ValueType.XsShort
-                or ValueType.XsUnsignedShort =>
-                new IntValue(value),
+                or ValueType.XsUnsignedShort
+                or ValueType.XsInt
+                or ValueType.XsUnsignedInt
+                or ValueType.XsLong
+                or ValueType.XsUnsignedLong => new IntValue(value),
             ValueType.XsFloat => new FloatValue(value),
-            ValueType.XsDouble => new DoubleValue(value),
+            ValueType.XsDouble or ValueType.XsDecimal => new DoubleValue(value),
             ValueType.XsQName => new QNameValue(value),
             ValueType.XsUntypedAtomic => new UntypedAtomicValue(value!),
             ValueType.XsString => new StringValue(value),

@@ -4,9 +4,9 @@ namespace FontoXPathCSharp.Value;
 
 public class IntValue : AtomicValue
 {
-    public readonly int Value;
+    public readonly long Value;
 
-    public IntValue(int value) : base(ValueType.XsInt)
+    public IntValue(long value) : base(ValueType.XsInt)
     {
         Value = value;
     }
@@ -14,14 +14,14 @@ public class IntValue : AtomicValue
     public IntValue(object? value) : base(ValueType.XsInt)
     {
         Value = value is string s
-            ? int.TryParse(s, out var val) ? val : throw new Exception($"Can't parse {s} into an int.")
+            ? long.TryParse(s, out var val) ? val : throw new Exception($"Can't parse {s} into an integer.")
             : ConvertToInt(value);
     }
 
-    private int ConvertToInt(object? value)
+    private long ConvertToInt(object? value)
     {
         return value != null
-            ? Convert.ToInt32(value)
+            ? Convert.ToInt64(value)
             : throw new Exception("Tried to initialize an IntValue with null.");
     }
 

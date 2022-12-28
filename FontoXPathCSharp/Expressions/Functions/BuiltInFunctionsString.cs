@@ -354,7 +354,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
             var str = string.Join("", numbers
                 .Select(num =>
                 {
-                    var numericValue = num.GetAs<IntValue>().Value;
+                    var numericValue = (int)num.GetAs<IntValue>().Value;
                     return numericValue is 0x9 or 0xa or 0xd
                         or >= 0x20 and <= 0xd7ff
                         or >= 0xe000 and <= 0xfffd
