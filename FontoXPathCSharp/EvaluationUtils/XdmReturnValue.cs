@@ -44,7 +44,7 @@ public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notn
             },
             // First Integer
             {
-                typeof(int), () =>
+                typeof(long), () =>
                 {
                     var first = rawResults.First();
                     if (first == null || !first.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
@@ -65,7 +65,7 @@ public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notn
                                 $"Expected XPath {expression} to resolve to numbers"
                             );
 
-                        return v.GetAs<IntValue>();
+                        return v.GetAs<IntegerValue>();
                     });
                 }
             },

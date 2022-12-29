@@ -16,7 +16,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             if (hasPassed) return IteratorResult<AbstractValue>.Done();
 
             hasPassed = true;
-            return IteratorResult<AbstractValue>.Ready(new IntValue(args[0].GetLength()));
+            return IteratorResult<AbstractValue>.Ready(new IntegerValue(args[0].GetLength(), ValueType.XsInt));
         }, 1);
     };
 

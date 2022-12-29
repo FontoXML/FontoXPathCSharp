@@ -73,7 +73,7 @@ public abstract class AtomicValue : AbstractValue
             ValueType.XsInteger
                 or ValueType.XsPositiveInteger
                 or ValueType.XsNegativeInteger
-                or ValueType.XsNonPositiveInteger 
+                or ValueType.XsNonPositiveInteger
                 or ValueType.XsNonNegativeInteger
                 or ValueType.XsByte
                 or ValueType.XsUnsignedByte
@@ -82,9 +82,10 @@ public abstract class AtomicValue : AbstractValue
                 or ValueType.XsInt
                 or ValueType.XsUnsignedInt
                 or ValueType.XsLong
-                or ValueType.XsUnsignedLong => new IntValue(value),
-            ValueType.XsFloat => new FloatValue(value),
-            ValueType.XsDouble or ValueType.XsDecimal => new DoubleValue(value),
+                or ValueType.XsUnsignedLong => IntegerValue.CreateIntegerValue(value, type),
+            ValueType.XsFloat => FloatValue.CreateFloatValue(value),
+            ValueType.XsDouble => DoubleValue.CreateDoubleValue(value),
+            ValueType.XsDecimal => DecimalValue.CreateDecimalValue(value),
             ValueType.XsQName => new QNameValue(value),
             ValueType.XsUntypedAtomic => new UntypedAtomicValue(value!),
             ValueType.XsString => new StringValue(value),

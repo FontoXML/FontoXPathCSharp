@@ -27,11 +27,11 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
 
     private static readonly FunctionSignature<ISequence, TNode> FnStringLength = (_, _, _, args) =>
     {
-        if (args.Length == 0) return SequenceFactory.CreateFromValue(new IntValue(0));
+        if (args.Length == 0) return SequenceFactory.CreateFromValue(new IntegerValue(0, ValueType.XsInt));
 
         var stringValue = args[0].First()!.GetAs<StringValue>().Value;
 
-        return SequenceFactory.CreateFromValue(new IntValue(stringValue.Length));
+        return SequenceFactory.CreateFromValue(new IntegerValue(stringValue.Length, ValueType.XsInt));
     };
 
     private static readonly FunctionSignature<ISequence, TNode> FnNormalizeSpace = (_, _, _, args) =>
@@ -354,7 +354,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
             var str = string.Join("", numbers
                 .Select(num =>
                 {
-                    var numericValue = (int)num.GetAs<IntValue>().Value;
+                    var numericValue = (int)num.GetAs<IntegerValue>().Value;
                     return numericValue is 0x9 or 0xa or 0xd
                         or >= 0x20 and <= 0xd7ff
                         or >= 0xe000 and <= 0xfffd

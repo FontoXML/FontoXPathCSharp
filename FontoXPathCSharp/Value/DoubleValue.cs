@@ -2,7 +2,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class DoubleValue : AtomicValue
+public class DoubleValue : NumericValue
 {
     public readonly double Value;
 
@@ -11,21 +11,22 @@ public class DoubleValue : AtomicValue
         Value = value;
     }
 
-    public DoubleValue(object? value) : base(ValueType.XsDouble)
+    public static DoubleValue CreateDoubleValue(object? value)
     {
-        Value = value is string s
+        var doubleValue = value is string s
             ? double.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
             : ConvertToFloat(value);
+        return new DoubleValue(doubleValue);
     }
 
-    private double ConvertToFloat(object? value)
+    private static double ConvertToFloat(object? value)
     {
         return value != null
             ? Convert.ToDouble(value)
             : throw new Exception("Tried to initialize an DoubleValue with null.");
     }
 
-    private double StringEdgeCasesOrException(string s)
+    private static double StringEdgeCasesOrException(string s)
     {
         return s switch
         {

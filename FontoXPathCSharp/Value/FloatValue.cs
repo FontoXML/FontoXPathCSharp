@@ -2,7 +2,7 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class FloatValue : AtomicValue
+public class FloatValue : NumericValue
 {
     public readonly float Value;
 
@@ -11,14 +11,15 @@ public class FloatValue : AtomicValue
         Value = value;
     }
 
-    public FloatValue(object? value) : base(ValueType.XsFloat)
+    public static FloatValue CreateFloatValue(object? value)
     {
-        Value = value is string s
+        var floatValue = value is string s
             ? float.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
             : ConvertToFloat(value);
+        return new FloatValue(floatValue);
     }
 
-    private float ConvertToFloat(object? value)
+    private static float ConvertToFloat(object? value)
     {
         return value != null
             ? Convert.ToSingle(value)
@@ -26,7 +27,7 @@ public class FloatValue : AtomicValue
     }
 
 
-    private float StringEdgeCasesOrException(string s)
+    private static float StringEdgeCasesOrException(string s)
     {
         return s switch
         {

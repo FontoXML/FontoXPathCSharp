@@ -92,7 +92,8 @@ public static class CastToStringLikeType
         ) return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
 
         if (from.IsSubtypeOfAny(ValueType.XsHexBinary))
-            return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString()?.ToUpper() ?? string.Empty);
+            return value =>
+                new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString()?.ToUpper() ?? string.Empty);
 
         return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
     }
