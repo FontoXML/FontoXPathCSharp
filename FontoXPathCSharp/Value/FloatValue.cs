@@ -10,8 +10,8 @@ public class FloatValue : NumericValue<float>
 
     public static FloatValue CreateFloatValue(object? value)
     {
-        var floatValue = value is string s
-            ? float.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
+        var floatValue = value is string str
+            ? HandleStringParse(str)
             : ConvertToFloat(value);
 
         return new FloatValue(floatValue);
@@ -21,17 +21,27 @@ public class FloatValue : NumericValue<float>
     {
         return value != null
             ? Convert.ToSingle(value)
-            : throw new Exception("Tried to initialize an FloatValue with null.");
+            : throw new XPathException("FORG0001","Tried to initialize a FloatValue with null.");
     }
 
-
-    private static float StringEdgeCasesOrException(string s)
+    private static float HandleStringParse(string str)
     {
-        return s switch
+        try
         {
-            "INF" => float.PositiveInfinity,
-            "-INF" => float.NegativeInfinity,
-            _ => throw new Exception($"Can't parse {s} into an float for a FloatValue.")
-        };
+            return str switch
+            {
+                "INF" => float.PositiveInfinity,
+                "-INF" => float.NegativeInfinity,
+                _ => float.Parse(str)
+            };
+        }
+        catch (FormatException formatEx)
+        {
+            throw new XPathException("FORG0001", formatEx.Message);
+        }
+        catch (OverflowException overflowEx)
+        {
+            throw new XPathException("FOCA0001", overflowEx.Message);
+        }
     }
 }

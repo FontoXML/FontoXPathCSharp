@@ -10,8 +10,8 @@ public class DoubleValue : NumericValue<double>
 
     public static DoubleValue CreateDoubleValue(object? value)
     {
-        var doubleValue = value is string s
-            ? double.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
+        var doubleValue = value is string str
+            ? HandleStringParse(str)
             : ConvertToFloat(value);
 
         return new DoubleValue(doubleValue);
@@ -21,16 +21,27 @@ public class DoubleValue : NumericValue<double>
     {
         return value != null
             ? Convert.ToDouble(value)
-            : throw new Exception("Tried to initialize an DoubleValue with null.");
+            : throw new XPathException("FORG0001","Tried to initialize a DoubleValue with null.");
     }
-
-    private static double StringEdgeCasesOrException(string s)
+    
+    private static double HandleStringParse(string str)
     {
-        return s switch
+        try
         {
-            "INF" => double.PositiveInfinity,
-            "-INF" => double.NegativeInfinity,
-            _ => throw new Exception($"Can't parse {s} into an double for a DoubleValue.")
-        };
+            return str switch
+            {
+                "INF" => double.PositiveInfinity,
+                "-INF" => double.NegativeInfinity,
+                _ => double.Parse(str)
+            };
+        }
+        catch (FormatException formatEx)
+        {
+            throw new XPathException("FORG0001", formatEx.Message);
+        }
+        catch (OverflowException overflowEx)
+        {
+            throw new XPathException("FOCA0001", overflowEx.Message);
+        }
     }
 }

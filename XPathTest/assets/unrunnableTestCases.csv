@@ -273,7 +273,7 @@ array-tail-703;PRSC Error: Failed to parse query '(array:tail([5])) instance of 
 array-tail-704;Expected error code: FOAY0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'array:tail([])'
 array-tail-705;PRSC Error: Failed to parse query '(array:tail([()])) instance of $array(*)'
 array-tail-706;PRSC Error: Failed to parse query '() instance of $array(*)'
-ArrowPostfix-001;Can't parse '4.54' into an integer.
+ArrowPostfix-001;Value was either too large or too small for an Int64.
 ArrowPostfix-003;Expected XPath "the cat sat on the mat"=>tokenize("\s+")=>count() to (deep equally) resolve to 6
 ArrowPostfix-004;PRSC Error: Failed to parse query 'deep-equal((let $f:= tokenize#2 return "the cat sat on the mat"=>$f("\s+")=>count()), (6))'
 ArrowPostfix-005;PRSC Error: Failed to parse query 'deep-equal((let $f:= tokenize#1 return "the cat sat on the mat"=>$f()=>count()), (6))'
@@ -284,8 +284,8 @@ ArrowPostfix-011;PRSC Error: Failed to parse query 'deep-equal((let $f:= (ceilin
 ArrowPostfix-012;PRSC Error: Failed to parse query 'deep-equal((4.54=>((ceiling#1, floor#1, round#1, abs#1) => head())()), (5))'
 ArrowPostfix-013;PRSC Error: Failed to parse query 'deep-equal((4.54=>(head((ceiling#1, floor#1, round#1, abs#1)))()), (5))'
 ArrowPostfix-015;The function normalize-unicode with arity 1 is not registered.
-ArrowPostfix-016;Can't parse '3.2' into an integer.
-ArrowPostfix-017;Can't parse '3.2' into an integer.
+ArrowPostfix-016;Value was either too large or too small for an Int64.
+ArrowPostfix-017;Value was either too large or too small for an Int64.
 ArrowPostfix-020;PRSC Error: Failed to parse query 'deep-equal((let $m:= map{1:2, 2:4, 3:6} return 2=>$m()), (4))'
 ArrowPostfix-021;PRSC Error: Failed to parse query 'deep-equal((2=>(map{1:2, 2:4, 3:6})()), (4))'
 ArrowPostfix-022;PRSC Error: Failed to parse query 'deep-equal((let $array:= ['a','b','c','d','e'] return 3=>$array()), ('c'))'
@@ -433,8 +433,8 @@ base64BinaryEqual-6;Type casting to XsBase64Binary has not been implemented yet.
 base64BinaryEqual-7;Type casting to XsBase64Binary has not been implemented yet.
 base64BinaryEqual-8;Type casting to XsBase64Binary has not been implemented yet.
 base64BinaryEqual-9;Type casting to XsBase64Binary has not been implemented yet.
-boolean-003;Can't parse '93.7' into an integer.
-boolean-004;Expected XPathException with code FORG0006, but got Can't parse '93.7' into an integer.
+boolean-003;Value was either too large or too small for an Int64.
+boolean-004;Expected error code: FORG0006. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 boolean-010;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'boolean([true()])'
 boolean-010b;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:boolean([])'
 boolean-011;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'boolean(map{})'
@@ -1172,7 +1172,7 @@ CastableAs665;PRSC Error: Failed to parse query '\n         [5] castable as xs:i
 CastableAs666;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         map{} castable as xs:integer\n      '
 CastableAs667;PRSC Error: Failed to parse query '\n         [[], (), [[3, ()]]] castable as xs:integer\n      '
 CastableAs668;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         [[], (), [[3, map{}]]] castable as xs:integer\n      '
-CastAs-ListType-1;Can't parse '2.3' into an integer.
+CastAs-ListType-1;Value was either too large or too small for an Int64.
 CastAs-ListType-10;Expected base expression of a function call to evaluate to a sequence of single function item
 CastAs-ListType-11;ArgumentPlaceholder AST to Expression not yet implemented
 CastAs-ListType-12;Atomic Value for XsNmTokens is not implemented yet.
@@ -1255,11 +1255,7 @@ CastAs017;Expected XPathException with code FORG0001, but got Input string was n
 CastAs018;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 CastAs019;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 CastAs021;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-CastAs022;Expected XPathException with code FORG0001, but got Can't parse '-0.0E0' into an integer.
-CastAs023;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
-CastAs024;Expected XPathException with code FORG0001, but got Can't parse '1e-5' into an integer.
-CastAs025;Expected XPathException with code FORG0001, but got Can't parse '-1.1234' into an integer.
-CastAs026;Expected XPathException with code FORG0001, but got Can't parse 'true' into an integer.
+CastAs025;Expected error code: FORG0001. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 CastAs027;Type casting to XsDuration has not been implemented yet.
 CastAs028;Type casting to XsDuration has not been implemented yet.
 CastAs029;Expected XPathException with code FORG0001, but got Type casting to XsDuration has not been implemented yet.
@@ -1306,11 +1302,7 @@ CastAs099;Expected XPathException with code FORG0001, but got Input string was n
 CastAs100;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 CastAs101;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 CastAs103;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-CastAs104;Expected XPathException with code FORG0001, but got Can't parse '-0.0E0' into an integer.
-CastAs105;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
-CastAs106;Expected XPathException with code FORG0001, but got Can't parse '1e-5' into an integer.
-CastAs107;Expected XPathException with code FORG0001, but got Can't parse '-1.1234' into an integer.
-CastAs108;Expected XPathException with code FORG0001, but got Can't parse 'true' into an integer.
+CastAs107;Expected error code: FORG0001. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 CastAs109;Type casting to XsDuration has not been implemented yet.
 CastAs110;Type casting to XsDuration has not been implemented yet.
 CastAs111;Expected XPathException with code FORG0001, but got Type casting to XsDuration has not been implemented yet.
@@ -1606,7 +1598,7 @@ CastAs643;Expected XPathException with code XPTY0004, but got Type casting to Xs
 CastAs644;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs645;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs646;Type casting to XsAnyUri has not been implemented yet.
-CastAs647;Expected executing the XPath "xs:string(2.123456789123456789) cast as xs:decimal" to resolve to one of the expected results, but got System.Exception: Can't parse '2.123456789123456789' into an integer.
+CastAs647;Expected executing the XPath "xs:string(2.123456789123456789) cast as xs:decimal" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 CastAs670;Expected executing the XPath "let $d1 := '2006-07-12' cast as xs:date let $oneky := xs:yearMonthDuration('P1000Y') let $d2 := $d1 + $oneky let $d3 := $d2 + $oneky let $d4 := $d3 + $oneky let $d5 := $d4 + $oneky let $d6 := $d5 + $oneky let $d7 := $d6 + $oneky let $d8 := $d7 + $oneky let $d9 := $d8 + $oneky let $d10 := $d9 + $oneky return $d10" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'let $d1 := '2006-07-12' cast as xs:date let $oneky := xs:yearMonthDuration('P1000Y') let $d2 := $d1 + $oneky let $d3 := $d2 + $oneky let $d4 := $d3 + $oneky let $d5 := $d4 + $oneky let $d6 := $d5 + $oneky let $d7 := $d6 + $oneky let $d8 := $d7 + $oneky let $d9 := $d8 + $oneky let $d10 := $d9 + $oneky return $d10'
 CastAs671;Atomic Value for XsEntity is not implemented yet.
 CastAs673a;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
@@ -1617,7 +1609,7 @@ CastAs675;Expected error code: XPTY0004. Found error code: XPST0003 with error m
 CastAs675a;Expected error code: XPTY0117. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 CastAs677;Atomic Value for XsNormalizedString is not implemented yet.
 CastAs678;Atomic Value for XsToken is not implemented yet.
-CastAs687;Can't parse '12345678901234567.3' into an integer.
+CastAs687;Value was either too large or too small for an Int64.
 CastAsNamespaceSensitiveType-1;Expected error code: XPTY0117. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 CastAsNamespaceSensitiveType-10;PRSC Error: Failed to parse query ''
 CastAsNamespaceSensitiveType-11;Expected error code: XPTY0117. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
@@ -1638,12 +1630,12 @@ casthc12;PRSC Error: Failed to parse query 'xs:double(1267.43233E12) cast as xs:
 casthc13;PRSC Error: Failed to parse query 'xs:double(1267.43233E12) cast as xs:string'
 casthc14;PRSC Error: Failed to parse query '(xs:double(1267.43233E12) cast as xs:float) eq xs:float(1267.43233E12)'
 casthc15;PRSC Error: Failed to parse query 'xs:double(1267.43233E12) cast as xs:boolean'
-casthc16;Can't parse '12678967.543233' into an integer.
-casthc17;Can't parse '12678967.543233' into an integer.
-casthc18;Can't parse '12678967.543233' into an integer.
-casthc19;Can't parse '12678967.543233' into an integer.
-casthc20;Can't parse '12678967.543233' into an integer.
-casthc21;Can't parse '12678967.543233' into an integer.
+casthc16;Value was either too large or too small for an Int64.
+casthc17;Value was either too large or too small for an Int64.
+casthc18;Value was either too large or too small for an Int64.
+casthc19;Value was either too large or too small for an Int64.
+casthc20;Value was either too large or too small for an Int64.
+casthc21;Value was either too large or too small for an Int64.
 casthc24;Expected XPath xs:integer(12678967543233) cast as xs:double to resolve to 1.2678967543233E13, but instead got 12678967543233
 casthc30;Casting not supported from given type to xs:time or any of its derived types.
 casthc33;Casting not supported from given type to xs:dateTime or any of its derived types.
@@ -1810,10 +1802,10 @@ cbcl-cast-integer-002;Expected executing the XPath "-1.7976931348623157E+308 cas
 cbcl-cast-integer-003;Expected executing the XPath "xs:float('3.402823e38') cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0003, but got Arithmetic operation resulted in an overflow.
 cbcl-cast-integer-004;Expected executing the XPath "xs:float('-3.402823e38') cast as xs:integer" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCA0003, but got Arithmetic operation resulted in an overflow.
 cbcl-cast-language-001;Atomic Value for XsLanguage is not implemented yet.
-cbcl-cast-long-001;Expected executing the XPath "xs:long(9223372036854775808)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0001, but got Can't parse '9223372036854775808' into an integer.
-cbcl-cast-long-002;Expected executing the XPath "xs:long(-9223372036854775809)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0001, but got Can't parse '9223372036854775809' into an integer.
-cbcl-cast-long-003;Expected XPathException with code FORG0001, but got Can't parse '9223372036854775808' into an integer.
-cbcl-cast-long-004;Expected XPathException with code FORG0001, but got Can't parse '-9223372036854775809' into an integer.
+cbcl-cast-long-001;Expected executing the XPath "xs:long(9223372036854775808)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FORG0001. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
+cbcl-cast-long-002;Expected executing the XPath "xs:long(-9223372036854775809)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FORG0001. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
+cbcl-cast-long-003;Expected error code: FORG0001. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
+cbcl-cast-long-004;Expected error code: FORG0001. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 cbcl-cast-name-001;Atomic Value for XsNcName is not implemented yet.
 cbcl-cast-name-002;Expected error code: FORG0001. Found error code: XPST0017 with error message: The function fn:current-time with arity 0 is not registered.
 cbcl-cast-ncname-001;Atomic Value for XsId is not implemented yet.
@@ -1845,9 +1837,9 @@ cbcl-cast-unsignedInt-001;Expected error code: FORG0001. Query succeeded with re
 cbcl-cast-unsignedInt-002;Expected error code: FORG0001. Query succeeded with result: -1
 cbcl-cast-unsignedInt-003;Expected error code: FORG0001. Query succeeded with result: 4294967296
 cbcl-cast-unsignedInt-004;Expected error code: FORG0001. Query succeeded with result: -1
-cbcl-cast-unsignedLong-001;Expected executing the XPath "xs:unsignedLong(18446744073709551616)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0001, but got Can't parse '18446744073709551616' into an integer.
+cbcl-cast-unsignedLong-001;Expected executing the XPath "xs:unsignedLong(18446744073709551616)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FORG0001. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 cbcl-cast-unsignedLong-002;Expected error code: FORG0001. Query succeeded with result: -1
-cbcl-cast-unsignedLong-003;Expected XPathException with code FORG0001, but got Can't parse '18446744073709551616' into an integer.
+cbcl-cast-unsignedLong-003;Expected error code: FORG0001. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 cbcl-cast-unsignedLong-004;Expected error code: FORG0001. Query succeeded with result: -1
 cbcl-cast-unsignedShort-001;Expected error code: FORG0001. Query succeeded with result: 65536
 cbcl-cast-unsignedShort-002;Expected error code: FORG0001. Query succeeded with result: -1
@@ -2843,7 +2835,7 @@ cbcl-numeric-divide-011;PRSC Error: Failed to parse query '\n      	declare func
 cbcl-numeric-divide-012;Expected error code: FOAR0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	local:square(2) div 0\n      '
 cbcl-numeric-divide-013;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	local:square(7) div 1\n      '
 cbcl-numeric-divide-014;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	local:square(7) div -1\n      '
-cbcl-numeric-divide-015;Expected executing the XPath "10000000000000000000000000000.0 div 0.1 gt 0" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOAR0002, but got Can't parse '10000000000000000000000000000.0' into an integer.
+cbcl-numeric-divide-015;Expected executing the XPath "10000000000000000000000000000.0 div 0.1 gt 0" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOAR0002. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 cbcl-numeric-equal-001;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:double) as xs:double { $arg * $arg }; \n      	not( local:square(1e0) eq local:square(2e0) )'
 cbcl-numeric-equal-002;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:float) as xs:float { $arg * $arg }; \n      	not( local:square(xs:float(1e0)) eq local:square(xs:float(2e0)) )'
 cbcl-numeric-equal-003;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:decimal) as xs:decimal { $arg * $arg }; \n      	not( local:square(1.0) eq local:square(2.0) )'
@@ -2890,8 +2882,8 @@ cbcl-numeric-idivide-001;Expected executing the XPath "
 cbcl-numeric-idivide-002;Expected executing the XPath "
 cbcl-numeric-idivide-003;Expected error code: FOAR0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:float) as xs:float { $arg * $arg }; \n      	local:square(xs:float(1e30)) idiv xs:float(5e-30)'
 cbcl-numeric-idivide-004;PRSC Error: Failed to parse query '\n      	declare function local:integer($x as xs:decimal) { if ($x mod 1 eq 0) then xs:integer($x) else $x };\n      	 (local:integer(2) idiv local:integer(2)) instance of xs:integer'
-cbcl-numeric-idivide-006;Can't parse '1.5' into an integer.
-cbcl-numeric-idivide-007;Can't parse '1.5' into an integer.
+cbcl-numeric-idivide-006;Value was either too large or too small for an Int64.
+cbcl-numeric-idivide-007;Value was either too large or too small for an Int64.
 cbcl-numeric-idivide-008;Expected executing the XPath "xs:float('1e38') idiv xs:float('1e-37')" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOAR0002, but got Value was either too large or too small for a Decimal.
 cbcl-numeric-idivide-009;Expected executing the XPath "
 cbcl-numeric-less-than-001;PRSC Error: Failed to parse query 'declare function local:square($arg as xs:double) as xs:double { $arg * $arg }; not( local:square(1e0) lt local:square(2e0) )'
@@ -2953,8 +2945,8 @@ cbcl-numeric-multiply-024;PRSC Error: Failed to parse query '\n      	declare fu
 cbcl-numeric-multiply-025;Expected executing the XPath "
 cbcl-numeric-multiply-026;Expected executing the XPath "
 cbcl-numeric-multiply-027;PRSC Error: Failed to parse query '\n      	declare function local:integer($x as xs:decimal) { if ($x mod 1 eq 0) then xs:integer($x) else $x }; \n      	(local:integer(2) * local:integer(2)) instance of xs:integer'
-cbcl-numeric-subtract-001;Expected executing the XPath "-79228162514264337593543950335.0 - 1.0 lt 0.0" to resolve to one of the expected results, but got System.Exception: Can't parse '79228162514264337593543950335.0' into an integer.
-cbcl-numeric-subtract-002;Expected executing the XPath "-79228162514264337593543950335 - 1 lt 0" to resolve to one of the expected results, but got System.Exception: Can't parse '79228162514264337593543950335' into an integer.
+cbcl-numeric-subtract-001;Expected executing the XPath "-79228162514264337593543950335.0 - 1.0 lt 0.0" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+cbcl-numeric-subtract-002;Expected executing the XPath "-79228162514264337593543950335 - 1 lt 0" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 cbcl-numeric-subtract-003;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:decimal) as xs:decimal { $arg * $arg }; \n      	local:square(7.5) - 0.0'
 cbcl-numeric-subtract-004;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	local:square(7) - 0'
 cbcl-numeric-subtract-005;PRSC Error: Failed to parse query '\n      	declare function local:integer($x as xs:decimal) { if ($x mod 1 eq 0) then xs:integer($x) else $x }; \n      	(local:integer(2) - local:integer(2)) instance of xs:integer'
@@ -3021,11 +3013,11 @@ cbcl-QName-equal-001;PRSC Error: Failed to parse query '\n        declare functi
 cbcl-QName-equal-002;PRSC Error: Failed to parse query '\n        declare function local:QName-value($arg as xs:boolean) as xs:QName { if ($arg) then QName("example.com/", "p:ncname") else QName("example.com/", "q:ncname") };\n        not(local:QName-value(true()) ne local:QName-value(false()))'
 cbcl-reverse-1;Expected executing the XPath "empty(reverse( () ))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function reverse with arity 1 is not registered.
 cbcl-round-half-to-even-001;PRSC Error: Failed to parse query 'fn:round-half-to-even(3.567812E+3, 4294967296)'
-cbcl-round-half-to-even-006;Can't parse '12345.6' into an integer.
-cbcl-round-half-to-even-007;Can't parse '12345.6' into an integer.
-cbcl-round-half-to-even-008;Can't parse '12345.6' into an integer.
-cbcl-round-half-to-even-009;Can't parse '12345.6' into an integer.
-cbcl-round-half-to-even-012;Can't parse '3.567812' into an integer.
+cbcl-round-half-to-even-006;Value was either too large or too small for an Int64.
+cbcl-round-half-to-even-007;Value was either too large or too small for an Int64.
+cbcl-round-half-to-even-008;Value was either too large or too small for an Int64.
+cbcl-round-half-to-even-009;Value was either too large or too small for an Int64.
+cbcl-round-half-to-even-012;Value was either too large or too small for an Int64.
 cbcl-round-half-to-even-014;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 cbcl-seconds-from-duration-001;The function fn:seconds-from-duration with arity 1 is not registered.
 cbcl-selfAxis-001;PRSC Error: Failed to parse query ''
@@ -3747,7 +3739,7 @@ Constr-ws-tag-9;PRSC Error: Failed to parse query ''
 Constr-ws-xmlspace-1;PRSC Error: Failed to parse query ''
 Constr-ws-xmlspace-2;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 constSeq-16;Type casting to XsAnyUri has not been implemented yet.
-constSeq-17;Can't parse '1.1' into an integer.
+constSeq-17;Value was either too large or too small for an Int64.
 constSeq-18;PRSC Error: Failed to parse query 'deep-equal(( (xs:double(1.2E2), 2.2E2, 3.3E2)), (120, 220, 330))'
 context-item-1;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'let $f := function() { fn:boolean(.) } return $f()'
 contextDecl-014;PRSC Error: Failed to parse query '\n        declare variable $x := . + 5;\n        declare context item := 17;\n        $x\n       = 22'
@@ -3793,9 +3785,9 @@ contextDecl-058;PRSC Error: Failed to parse query '\n      import module namespa
 contextDecl-059;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      declare context item := 15 to 25;\n      . = 17\n    '
 contextDecl-060;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      declare context item := ();\n      . = 17\n    '
 Count002;PRSC Error: Failed to parse query ''
-Count004;Can't parse '0.5' into an integer.
-Count005;Can't parse '1.5' into an integer.
-Count010;Can't parse '0.3' into an integer.
+Count004;Value was either too large or too small for an Int64.
+Count005;Value was either too large or too small for an Int64.
+Count010;Value was either too large or too small for an Int64.
 CurlyArray-002;PRSC Error: Failed to parse query '(array{}) instance of $array(*)'
 CurlyArray-004;PRSC Error: Failed to parse query 'array:size(array{(), ('A', 'B', 'C'), 'D'}) = 4'
 CurlyArray-006;PRSC Error: Failed to parse query 'declare function local:fun() {1 to 5}; array:size(array{local:fun()}) = 5'
@@ -4329,54 +4321,14 @@ fn-abs-more-args-025;Expected XPathException with code FORG0001, but got Input s
 fn-abs-more-args-026;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 fn-abs-more-args-027;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 fn-abs-more-args-028;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-fn-abs-more-args-029;Expected XPathException with code FORG0001, but got Can't parse '-INF' into an integer.
-fn-abs-more-args-030;Expected XPathException with code FORG0001, but got Can't parse 'INF' into an integer.
-fn-abs-more-args-031;Expected XPathException with code FORG0001, but got Can't parse '-NaN' into an integer.
-fn-abs-more-args-032;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
-fn-abs-more-args-033;Expected XPathException with code FORG0001, but got Can't parse '-INF' into an integer.
-fn-abs-more-args-034;Expected XPathException with code FORG0001, but got Can't parse 'INF' into an integer.
-fn-abs-more-args-035;Expected XPathException with code FORG0001, but got Can't parse '-NaN' into an integer.
-fn-abs-more-args-036;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
-fn-abs-more-args-037;Expected XPathException with code FORG0001, but got Can't parse '-INF' into an integer.
-fn-abs-more-args-038;Expected XPathException with code FORG0001, but got Can't parse 'INF' into an integer.
-fn-abs-more-args-039;Expected XPathException with code FORG0001, but got Can't parse '-NaN' into an integer.
-fn-abs-more-args-040;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
 fn-abs-more-args-041;Expected error code: FORG0001. Query succeeded with result: 0
 fn-abs-more-args-042;Expected error code: FORG0001. Query succeeded with result: 0
 fn-abs-more-args-043;Expected error code: FORG0001. Query succeeded with result: 2
-fn-abs-more-args-044;Expected XPathException with code FORG0001, but got Can't parse '-INF' into an integer.
-fn-abs-more-args-045;Expected XPathException with code FORG0001, but got Can't parse 'INF' into an integer.
-fn-abs-more-args-046;Expected XPathException with code FORG0001, but got Can't parse '-NaN' into an integer.
-fn-abs-more-args-047;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
 fn-abs-more-args-048;Expected error code: FORG0001. Query succeeded with result: 2
-fn-abs-more-args-049;Expected XPathException with code FORG0001, but got Can't parse '-INF' into an integer.
-fn-abs-more-args-050;Expected XPathException with code FORG0001, but got Can't parse 'INF' into an integer.
-fn-abs-more-args-051;Expected XPathException with code FORG0001, but got Can't parse '-NaN' into an integer.
-fn-abs-more-args-052;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
 fn-abs-more-args-053;Expected error code: FORG0001. Query succeeded with result: 2
-fn-abs-more-args-054;Expected XPathException with code FORG0001, but got Can't parse '-INF' into an integer.
-fn-abs-more-args-055;Expected XPathException with code FORG0001, but got Can't parse 'INF' into an integer.
-fn-abs-more-args-056;Expected XPathException with code FORG0001, but got Can't parse '-NaN' into an integer.
-fn-abs-more-args-057;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
 fn-abs-more-args-058;Expected error code: FORG0001. Query succeeded with result: 0
 fn-abs-more-args-059;Expected error code: FORG0001. Query succeeded with result: 0
 fn-abs-more-args-060;Expected error code: FORG0001. Query succeeded with result: 2
-fn-abs-more-args-061;Expected XPathException with code FORG0001, but got Can't parse '-INF' into an integer.
-fn-abs-more-args-062;Expected XPathException with code FORG0001, but got Can't parse 'INF' into an integer.
-fn-abs-more-args-063;Expected XPathException with code FORG0001, but got Can't parse '-NaN' into an integer.
-fn-abs-more-args-064;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
-fn-abs-more-args-065;Expected XPathException with code FORG0001, but got Can't parse '-INF' into an integer.
-fn-abs-more-args-066;Expected XPathException with code FORG0001, but got Can't parse 'INF' into an integer.
-fn-abs-more-args-067;Expected XPathException with code FORG0001, but got Can't parse '-NaN' into an integer.
-fn-abs-more-args-068;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
-fn-abs-more-args-069;Expected XPathException with code FORG0001, but got Can't parse '-INF' into an integer.
-fn-abs-more-args-070;Expected XPathException with code FORG0001, but got Can't parse 'INF' into an integer.
-fn-abs-more-args-071;Expected XPathException with code FORG0001, but got Can't parse '-NaN' into an integer.
-fn-abs-more-args-072;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
-fn-abs-more-args-073;Expected XPathException with code FORG0001, but got Can't parse '-INF' into an integer.
-fn-abs-more-args-074;Expected XPathException with code FORG0001, but got Can't parse 'INF' into an integer.
-fn-abs-more-args-075;Expected XPathException with code FORG0001, but got Can't parse '-NaN' into an integer.
-fn-abs-more-args-076;Expected XPathException with code FORG0001, but got Can't parse 'NaN' into an integer.
 fn-abs-more-args-077;Expected error code: XPTY0004. Query succeeded with result: 1
 fn-abs-more-args-078;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 fn-abs-more-args-079;Expected error code: XPTY0004. Query succeeded with result: 1
@@ -4441,8 +4393,8 @@ fn-avg-9;Expected executing the XPath "avg(xs:duration("P1Y1M1D"))" to resolve t
 fn-avg-mix-args-002;Type casting to XsYearMonthDuration has not been implemented yet.
 fn-avg-mix-args-004;Arithmetic operation resulted in an overflow.
 fn-avg-mix-args-005;Arithmetic operation resulted in an overflow.
-fn-avg-mix-args-009;Expected executing the XPath "fn:avg( ( ( xs:decimal("-1.000000000001"), xs:integer("-100"))))" to resolve to one of the expected results, but got System.Exception: Can't parse '50.5000000000005' into an integer.
-fn-avg-mix-args-010;Can't parse '6.505' into an integer.
+fn-avg-mix-args-009;Expected executing the XPath "fn:avg( ( ( xs:decimal("-1.000000000001"), xs:integer("-100"))))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+fn-avg-mix-args-010;Value was either too large or too small for an Int64.
 fn-avg-mix-args-011;Arithmetic operation resulted in an overflow.
 fn-avg-mix-args-012;Arithmetic operation resulted in an overflow.
 fn-avg-mix-args-013;Expected XPath fn:avg(( (xs:float("0"), xs:decimal("-999999999999999999") ))) eq xs:float("-4.9999999999999999E17") to resolve to true
@@ -4450,7 +4402,7 @@ fn-avg-mix-args-014;Arithmetic operation resulted in an overflow.
 fn-avg-mix-args-015;Expected XPath fn:avg(( (xs:float("-0"), xs:decimal("-999999999999999999") ))) eq xs:float("-4.9999999999999999E17") to resolve to true
 fn-avg-mix-args-016;Arithmetic operation resulted in an overflow.
 fn-avg-mix-args-017;Arithmetic operation resulted in an overflow.
-fn-avg-mix-args-018;Can't parse '1.01' into an integer.
+fn-avg-mix-args-018;Value was either too large or too small for an Int64.
 fn-avg-mix-args-019;Arithmetic operation resulted in an overflow.
 fn-avg-mix-args-021;PRSC Error: Failed to parse query 'fn:avg(( (xs:double("0"), xs:integer("-999999999999999999") ) )) = -5.0E17'
 fn-avg-mix-args-023;PRSC Error: Failed to parse query 'fn:avg(( (xs:double("-0"), xs:integer("-999999999999999999") ) )) = -5.0E17'
@@ -4478,14 +4430,14 @@ fn-avgflt1args-3;Arithmetic operation resulted in an overflow.
 fn-avgflt2args-1;Expected executing the XPath "fn:avg((xs:float("-3.4028235E38"),xs:float("-3.4028235E38")))" to resolve to one of the expected results, but got System.OverflowException: Arithmetic operation resulted in an overflow.
 fn-avgflt2args-2;Arithmetic operation resulted in an overflow.
 fn-avgflt2args-4;Arithmetic operation resulted in an overflow.
-fn-avgint2args-3;Can't parse '0.5' into an integer.
-fn-avgint2args-5;Can't parse '0.5' into an integer.
+fn-avgint2args-3;Value was either too large or too small for an Int64.
+fn-avgint2args-5;Value was either too large or too small for an Int64.
 fn-avgintg1args-1;Expected XPath fn:avg((xs:integer("-999999999999999999"))) to resolve to -999999999999999999
 fn-avgintg1args-2;Expected XPath fn:avg((xs:integer("830993497117024304"))) to resolve to 830993497117024304
 fn-avgintg1args-3;Expected XPath fn:avg((xs:integer("999999999999999999"))) to resolve to 999999999999999999
 fn-avgintg2args-1;Expected XPath fn:avg((xs:integer("-999999999999999999"),xs:integer("-999999999999999999"))) to resolve to -999999999999999999
-fn-avgintg2args-2;Can't parse '84503251441487847.5' into an integer.
-fn-avgintg2args-4;Can't parse '84503251441487847.5' into an integer.
+fn-avgintg2args-2;Value was either too large or too small for an Int64.
+fn-avgintg2args-4;Value was either too large or too small for an Int64.
 fn-avglng1args-1;Expected XPath fn:avg((xs:long("-92233720368547758"))) to resolve to -92233720368547758
 fn-avglng1args-2;Expected XPath fn:avg((xs:long("-47175562203048468"))) to resolve to -47175562203048468
 fn-avglng1args-3;Expected XPath fn:avg((xs:long("92233720368547758"))) to resolve to 92233720368547758
@@ -4499,33 +4451,33 @@ fn-avgnint2args-2;Expected XPath fn:avg((xs:negativeInteger("-297014075999096793
 fn-avgnint2args-4;Expected XPath fn:avg((xs:negativeInteger("-999999999999999999"),xs:negativeInteger("-297014075999096793"))) to resolve to -648507037999548396
 fn-avgnni1args-2;Expected XPath fn:avg((xs:nonNegativeInteger("303884545991464527"))) to resolve to 303884545991464527
 fn-avgnni1args-3;Expected XPath fn:avg((xs:nonNegativeInteger("999999999999999999"))) to resolve to 999999999999999999
-fn-avgnni2args-2;Can't parse '151942272995732263.5' into an integer.
-fn-avgnni2args-3;Can't parse '499999999999999999.5' into an integer.
-fn-avgnni2args-4;Can't parse '151942272995732263.5' into an integer.
-fn-avgnni2args-5;Can't parse '499999999999999999.5' into an integer.
+fn-avgnni2args-2;Value was either too large or too small for an Int64.
+fn-avgnni2args-3;Value was either too large or too small for an Int64.
+fn-avgnni2args-4;Value was either too large or too small for an Int64.
+fn-avgnni2args-5;Value was either too large or too small for an Int64.
 fn-avgnpi1args-1;Expected XPath fn:avg((xs:nonPositiveInteger("-999999999999999999"))) to resolve to -999999999999999999
 fn-avgnpi1args-2;Expected XPath fn:avg((xs:nonPositiveInteger("-475688437271870490"))) to resolve to -475688437271870490
 fn-avgnpi2args-1;Expected XPath fn:avg((xs:nonPositiveInteger("-999999999999999999"),xs:nonPositiveInteger("-999999999999999999"))) to resolve to -999999999999999999
-fn-avgnpi2args-2;Can't parse '737844218635935244.5' into an integer.
-fn-avgnpi2args-3;Can't parse '499999999999999999.5' into an integer.
-fn-avgnpi2args-4;Can't parse '737844218635935244.5' into an integer.
-fn-avgnpi2args-5;Can't parse '499999999999999999.5' into an integer.
+fn-avgnpi2args-2;Value was either too large or too small for an Int64.
+fn-avgnpi2args-3;Value was either too large or too small for an Int64.
+fn-avgnpi2args-4;Value was either too large or too small for an Int64.
+fn-avgnpi2args-5;Value was either too large or too small for an Int64.
 fn-avgpint1args-2;Expected XPath fn:avg((xs:positiveInteger("52704602390610033"))) to resolve to 52704602390610033
 fn-avgpint1args-3;Expected XPath fn:avg((xs:positiveInteger("999999999999999999"))) to resolve to 999999999999999999
 fn-avgpint2args-2;Expected XPath fn:avg((xs:positiveInteger("52704602390610033"),xs:positiveInteger("1"))) to resolve to 26352301195305017
 fn-avgpint2args-4;Expected XPath fn:avg((xs:positiveInteger("1"),xs:positiveInteger("52704602390610033"))) to resolve to 26352301195305017
-fn-avgsht2args-3;Can't parse '0.5' into an integer.
-fn-avgsht2args-5;Can't parse '0.5' into an integer.
+fn-avgsht2args-3;Value was either too large or too small for an Int64.
+fn-avgsht2args-5;Value was either too large or too small for an Int64.
 fn-avgulng1args-2;Expected XPath fn:avg((xs:unsignedLong("130747108607674654"))) to resolve to 130747108607674654
 fn-avgulng1args-3;Expected XPath fn:avg((xs:unsignedLong("184467440737095516"))) to resolve to 184467440737095516
 fn-avgulng2args-2;Expected XPath fn:avg((xs:unsignedLong("130747108607674654"),xs:unsignedLong("0"))) to resolve to 65373554303837327
 fn-avgulng2args-3;Expected XPath fn:avg((xs:unsignedLong("184467440737095516"),xs:unsignedLong("0"))) to resolve to 92233720368547758
 fn-avgulng2args-4;Expected XPath fn:avg((xs:unsignedLong("0"),xs:unsignedLong("130747108607674654"))) to resolve to 65373554303837327
 fn-avgulng2args-5;Expected XPath fn:avg((xs:unsignedLong("0"),xs:unsignedLong("184467440737095516"))) to resolve to 92233720368547758
-fn-avgusht2args-2;Can't parse '22316.5' into an integer.
-fn-avgusht2args-3;Can't parse '32767.5' into an integer.
-fn-avgusht2args-4;Can't parse '22316.5' into an integer.
-fn-avgusht2args-5;Can't parse '32767.5' into an integer.
+fn-avgusht2args-2;Value was either too large or too small for an Int64.
+fn-avgusht2args-3;Value was either too large or too small for an Int64.
+fn-avgusht2args-4;Value was either too large or too small for an Int64.
+fn-avgusht2args-5;Value was either too large or too small for an Int64.
 fn-boolean-mixed-args-010;Expected XPath fn:boolean(-1) to resolve to true
 fn-boolean-mixed-args-012;Expected XPath fn:boolean(xs:float('-INF')) to resolve to true
 fn-boolean-mixed-args-016;Expected XPath fn:boolean(xs:float(-1)) to resolve to true
@@ -4558,13 +4510,13 @@ fn-booleannpi1args-2;Expected XPath fn:boolean(xs:nonPositiveInteger("-475688437
 fn-booleansht1args-1;Expected XPath fn:boolean(xs:short("-32768")) to resolve to true
 fn-booleansht1args-2;Expected XPath fn:boolean(xs:short("-5324")) to resolve to true
 fn-ceiling-1;The function error with arity 0 is not registered.
-fn-ceiling-decimal-1;Can't parse '12.5' into an integer.
-fn-ceiling-decimal-2;Can't parse '12.9' into an integer.
-fn-ceiling-decimal-3;Can't parse '0.000000001' into an integer.
+fn-ceiling-decimal-1;Value was either too large or too small for an Int64.
+fn-ceiling-decimal-2;Value was either too large or too small for an Int64.
+fn-ceiling-decimal-3;Value was either too large or too small for an Int64.
 fn-ceiling-decimal-4;PRSC Error: Failed to parse query '(ceiling(0.0)) instance of $xs:decimal'
-fn-ceiling-decimal-5;Can't parse '0.1' into an integer.
-fn-ceiling-decimal-6;Can't parse '12345678.567890' into an integer.
-fn-ceiling-decimal-7;Can't parse '1234567891234567.2' into an integer.
+fn-ceiling-decimal-5;Value was either too large or too small for an Int64.
+fn-ceiling-decimal-6;Value was either too large or too small for an Int64.
+fn-ceiling-decimal-7;Value was either too large or too small for an Int64.
 fn-ceiling-double-1;PRSC Error: Failed to parse query 'ceiling(12.5e0) = 13.0e0'
 fn-ceiling-double-10;Value was either too large or too small for a Decimal.
 fn-ceiling-double-11;PRSC Error: Failed to parse query '(ceiling(xs:double('-0'))) instance of $xs:double'
@@ -4857,9 +4809,9 @@ fn-deep-equal-maps-8;PRSC Error: Failed to parse query 'fn:deep-equal(map{xs:dou
 fn-deep-equal-maps-9;PRSC Error: Failed to parse query 'fn:deep-equal(map{12:[1,2,3]}, map{12.0:[1.0, 2.0, 3.0]})'
 fn-deep-equal-mix-args-011;Type casting to XsAnyUri has not been implemented yet.
 fn-deep-equal-mix-args-012;Type casting to XsAnyUri has not been implemented yet.
-fn-deep-equal-mix-args-017;Can't parse '1.01' into an integer.
-fn-deep-equal-mix-args-018;Can't parse '1.01' into an integer.
-fn-deep-equal-mix-args-019;Can't parse '1.01' into an integer.
+fn-deep-equal-mix-args-017;Value was either too large or too small for an Int64.
+fn-deep-equal-mix-args-018;Value was either too large or too small for an Int64.
+fn-deep-equal-mix-args-019;Value was either too large or too small for an Int64.
 fn-deep-equal-node-args-1;PRSC Error: Failed to parse query ''
 fn-deep-equal-node-args-2;PRSC Error: Failed to parse query ''
 fn-deep-equal-node-args-3;PRSC Error: Failed to parse query ''
@@ -5031,13 +4983,13 @@ fn-filter-021;Expected error code: XPTY0004. Found error code: XPST0003 with err
 fn-filter-022;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:filter( 1 to 10, function($arg) { if ($arg eq 100) then (fn:true(), fn:false()) else fn:true()})'
 fn-filter-023;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:filter( ("1", "2", "3"), function($arg as xs:integer) as xs:boolean { $arg eq 100 } )'
 fn-floor-1;The function error with arity 0 is not registered.
-fn-floor-decimal-1;Can't parse '12.5' into an integer.
-fn-floor-decimal-2;Can't parse '12.9' into an integer.
-fn-floor-decimal-3;Can't parse '0.000000001' into an integer.
+fn-floor-decimal-1;Value was either too large or too small for an Int64.
+fn-floor-decimal-2;Value was either too large or too small for an Int64.
+fn-floor-decimal-3;Value was either too large or too small for an Int64.
 fn-floor-decimal-4;PRSC Error: Failed to parse query '(floor(0.0)) instance of $xs:decimal'
-fn-floor-decimal-5;Can't parse '0.1' into an integer.
-fn-floor-decimal-6;Can't parse '12345678.567890' into an integer.
-fn-floor-decimal-7;Can't parse '1234567891234567.2' into an integer.
+fn-floor-decimal-5;Value was either too large or too small for an Int64.
+fn-floor-decimal-6;Value was either too large or too small for an Int64.
+fn-floor-decimal-7;Value was either too large or too small for an Int64.
 fn-floor-double-1;PRSC Error: Failed to parse query 'floor(12.5e0) = 12.0e0'
 fn-floor-double-10;Value was either too large or too small for a Decimal.
 fn-floor-double-11;PRSC Error: Failed to parse query '(floor(xs:double('-0'))) instance of $xs:double'
@@ -7036,41 +6988,41 @@ fn-root-7;PRSC Error: Failed to parse query ''
 fn-root-8;PRSC Error: Failed to parse query ''
 fn-root-9;PRSC Error: Failed to parse query ''
 fn-round-1;The function error with arity 0 is not registered.
-fn-round-decimal-10;Can't parse '12.567' into an integer.
-fn-round-decimal-11;Can't parse '1234.567' into an integer.
-fn-round-decimal-12;Can't parse '1.567' into an integer.
+fn-round-decimal-10;Value was either too large or too small for an Int64.
+fn-round-decimal-11;Value was either too large or too small for an Int64.
+fn-round-decimal-12;Value was either too large or too small for an Int64.
 fn-round-decimal-2;PRSC Error: Failed to parse query '(fn:round(xs:decimal("12.1"))) instance of $xs:decimal'
 fn-round-decimal-3;PRSC Error: Failed to parse query '(fn:round(xs:decimal("12.7"))) instance of $xs:decimal'
 fn-round-decimal-4;Expected XPath fn:round(xs:decimal("12.5")) to resolve to 13
 fn-round-decimal-5;PRSC Error: Failed to parse query '(fn:round(xs:decimal("-12.7"))) instance of $xs:decimal'
 fn-round-decimal-6;PRSC Error: Failed to parse query '(fn:round(xs:decimal("-12.1"))) instance of $xs:decimal'
 fn-round-decimal-7;PRSC Error: Failed to parse query '(fn:round(xs:decimal("-12.5"))) instance of $xs:decimal'
-fn-round-decimal-8;Can't parse '12.567' into an integer.
-fn-round-decimal-9;Can't parse '12.567' into an integer.
+fn-round-decimal-8;Value was either too large or too small for an Int64.
+fn-round-decimal-9;Value was either too large or too small for an Int64.
 fn-round-half-to-even-1;The function error with arity 0 is not registered.
-fn-round-half-to-even-10;Can't parse '4561.234567' into an integer.
+fn-round-half-to-even-10;Value was either too large or too small for an Int64.
 fn-round-half-to-even-11;PRSC Error: Failed to parse query 'round-half-to-even(4561.000005e0, 0) = 4561'
 fn-round-half-to-even-12;PRSC Error: Failed to parse query '(round-half-to-even(xs:float('4561.000005e0'), 0)) instance of $xs:float'
 fn-round-half-to-even-13;PRSC Error: Failed to parse query '(round-half-to-even(4561234567, 0)) instance of $xs:integer'
-fn-round-half-to-even-14;Can't parse '0.1' into an integer.
-fn-round-half-to-even-15;Can't parse '0.1' into an integer.
-fn-round-half-to-even-16;Can't parse '3.8' into an integer.
-fn-round-half-to-even-17;Can't parse '123.355' into an integer.
-fn-round-half-to-even-18;Can't parse '123.365' into an integer.
-fn-round-half-to-even-19;Can't parse '123.375' into an integer.
+fn-round-half-to-even-14;Value was either too large or too small for an Int64.
+fn-round-half-to-even-15;Value was either too large or too small for an Int64.
+fn-round-half-to-even-16;Value was either too large or too small for an Int64.
+fn-round-half-to-even-17;Value was either too large or too small for an Int64.
+fn-round-half-to-even-18;Value was either too large or too small for an Int64.
+fn-round-half-to-even-19;Value was either too large or too small for an Int64.
 fn-round-half-to-even-2;The function error with arity 0 is not registered.
-fn-round-half-to-even-20;Can't parse '123.385' into an integer.
-fn-round-half-to-even-21;Can't parse '123.355' into an integer.
-fn-round-half-to-even-22;Can't parse '123.365' into an integer.
-fn-round-half-to-even-23;Can't parse '123.375' into an integer.
-fn-round-half-to-even-24;Can't parse '123.385' into an integer.
+fn-round-half-to-even-20;Value was either too large or too small for an Int64.
+fn-round-half-to-even-21;Value was either too large or too small for an Int64.
+fn-round-half-to-even-22;Value was either too large or too small for an Int64.
+fn-round-half-to-even-23;Value was either too large or too small for an Int64.
+fn-round-half-to-even-24;Value was either too large or too small for an Int64.
 fn-round-half-to-even-24a;PRSC Error: Failed to parse query '(round-half-to-even(12350.00, -2)) instance of $xs:decimal'
 fn-round-half-to-even-25;PRSC Error: Failed to parse query '(round-half-to-even(-12350.00, -2)) instance of $xs:decimal'
 fn-round-half-to-even-26;PRSC Error: Failed to parse query '(round-half-to-even(12450.00, -2)) instance of $xs:decimal'
 fn-round-half-to-even-27;PRSC Error: Failed to parse query '(round-half-to-even(-12450.00, -2)) instance of $xs:decimal'
 fn-round-half-to-even-28;PRSC Error: Failed to parse query '(round-half-to-even(12550.00, -2)) instance of $xs:decimal'
 fn-round-half-to-even-29;PRSC Error: Failed to parse query '(round-half-to-even(-12550.00, -2)) instance of $xs:decimal'
-fn-round-half-to-even-3;Can't parse '1.234567' into an integer.
+fn-round-half-to-even-3;Value was either too large or too small for an Int64.
 fn-round-half-to-even-30;PRSC Error: Failed to parse query '(round-half-to-even(12350, -2)) instance of $xs:decimal'
 fn-round-half-to-even-31;PRSC Error: Failed to parse query '(round-half-to-even(-12350, -2)) instance of $xs:decimal'
 fn-round-half-to-even-32;PRSC Error: Failed to parse query '(round-half-to-even(12450, -2)) instance of $xs:decimal'
@@ -7085,7 +7037,7 @@ fn-round-half-to-even-4;PRSC Error: Failed to parse query 'round-half-to-even(1.
 fn-round-half-to-even-40;PRSC Error: Failed to parse query '(round-half-to-even(12550e0, -2)) instance of $xs:double'
 fn-round-half-to-even-41;PRSC Error: Failed to parse query '(round-half-to-even(-12550e0, -2)) instance of $xs:double'
 fn-round-half-to-even-5;PRSC Error: Failed to parse query '(round-half-to-even(xs:float('1.000005e0'), 2)) instance of $xs:float'
-fn-round-half-to-even-6;Can't parse '4561.234567' into an integer.
+fn-round-half-to-even-6;Value was either too large or too small for an Int64.
 fn-round-half-to-even-7;PRSC Error: Failed to parse query 'round-half-to-even(4561.000005e0, -2) = 4600'
 fn-round-half-to-even-8;PRSC Error: Failed to parse query '(round-half-to-even(xs:float('4561.000005e0'), -2)) instance of $xs:float'
 fn-round-half-to-even-9;PRSC Error: Failed to parse query '(round-half-to-even(4561234567, -2)) instance of $xs:integer'
@@ -7093,14 +7045,14 @@ fn-round-half-to-evendbl1args-1;Expected executing the XPath "fn:round-half-to-e
 fn-round-half-to-evendbl1args-3;Expected executing the XPath "fn:round-half-to-even(xs:double("1.7976931348623157E308"))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'fn:round-half-to-even(xs:double("1.7976931348623157E308")) = 1.7976931348623157E308'
 fn-round-half-to-evenflt1args-1;Expected executing the XPath "fn:round-half-to-even(xs:float("-3.4028235E38"))" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for a Decimal.
 fn-round-half-to-evenflt1args-3;Expected executing the XPath "fn:round-half-to-even(xs:float("3.4028235E38"))" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for a Decimal.
-fn-round2args-1;Can't parse '1.125' into an integer.
-fn-round2args-1f;Can't parse '1.125' into an integer.
+fn-round2args-1;Value was either too large or too small for an Int64.
+fn-round2args-1f;Value was either too large or too small for an Int64.
 fn-round2args-2;PRSC Error: Failed to parse query '(fn:round(8452, -2)) instance of $xs:decimal'
 fn-round2args-2f;PRSC Error: Failed to parse query '(fn:round(xs:float(8452), -2)) instance of $xs:float'
 fn-round2args-3;PRSC Error: Failed to parse query 'fn:round(3.1415e0, 2) = 3.14e0'
 fn-round2args-3f;PRSC Error: Failed to parse query 'fn:round(xs:float(3.1415e0), 2) = xs:float(3.14e0)'
-fn-round2args-4;Can't parse '35.425' into an integer.
-fn-round2args-4f;Can't parse '0.125' into an integer.
+fn-round2args-4;Value was either too large or too small for an Int64.
+fn-round2args-4f;Value was either too large or too small for an Int64.
 fn-round2args-5;PRSC Error: Failed to parse query 'fn:round(-0.43e0, 1) = -0.4e0'
 fn-round2args-5f;PRSC Error: Failed to parse query 'fn:round(xs:float(-0.43e0), 1) = xs:float(-0.4e0)'
 fn-rounddbl1args-1;PRSC Error: Failed to parse query 'fn:round(xs:double("-1.7976931348623157E308")) = -1.7976931348623157E308'
@@ -7282,7 +7234,7 @@ fn-substring-24;Expected XPath substring("abcd𐀁efgh", 5, 2) to resolve to "�
 fn-substring-26;Expected XPath substring("𐀁", 2, 1) to resolve to ""
 fn-substring-27;Expected XPath substring("𐀁", 0, 2) to resolve to "𐀁"
 fn-substring-29;Expected XPath substring("𐀁𐀁", 3) to resolve to ""
-fn-substring-3;Can't parse '1.5' into an integer.
+fn-substring-3;Value was either too large or too small for an Int64.
 fn-substring-31;PRSC Error: Failed to parse query 'substring("12345", -3.1e0, 5.2e0) eq "1"'
 fn-substring-5;Length cannot be less than zero. (Parameter 'length')
 fn-substring-7;Attempted to divide by zero.
@@ -7851,8 +7803,8 @@ fo-test-array-subarray-006;PRSC Error: Failed to parse query 'deep-equal((\n    
 fo-test-array-subarray-007;PRSC Error: Failed to parse query 'deep-equal((\n        array:subarray([ ], 1, 0)\n      ), ([ ]))'
 fo-test-array-tail-001;PRSC Error: Failed to parse query 'deep-equal((\n        array:tail([5, 6, 7, 8])\n      ), ([6, 7, 8]))'
 fo-test-array-tail-002;PRSC Error: Failed to parse query 'deep-equal((\n        array:tail([5])\n      ), ([ ]))'
-fo-test-fn-abs-001;Can't parse '10.5' into an integer.
-fo-test-fn-abs-002;Can't parse '10.5' into an integer.
+fo-test-fn-abs-001;Value was either too large or too small for an Int64.
+fo-test-fn-abs-002;Value was either too large or too small for an Int64.
 fo-test-fn-adjust-date-to-timezone-003;The function fn:adjust-date-to-timezone with arity 2 is not registered.
 fo-test-fn-adjust-date-to-timezone-004;The function fn:adjust-date-to-timezone with arity 2 is not registered.
 fo-test-fn-adjust-date-to-timezone-005;The function fn:adjust-date-to-timezone with arity 2 is not registered.
@@ -7880,8 +7832,8 @@ fo-test-fn-avg-005;Arithmetic operation resulted in an overflow.
 fo-test-fn-boolean-001;A wrong argument type was specified in a function call.
 fo-test-fn-boolean-002;A wrong argument type was specified in a function call.
 fo-test-fn-boolean-003;A wrong argument type was specified in a function call.
-fo-test-fn-ceiling-001;Can't parse '10.5' into an integer.
-fo-test-fn-ceiling-002;Can't parse '10.5' into an integer.
+fo-test-fn-ceiling-001;Value was either too large or too small for an Int64.
+fo-test-fn-ceiling-002;Value was either too large or too small for an Int64.
 fo-test-fn-collation-key-001;PRSC Error: Failed to parse query 'deep-equal((\n          let $C := 'http://www.w3.org/2013/collation/UCA?strength=primary'\n          \n           return \n\n        \n        map:merge((map{collation-key("A", $C):1}, map{collation-key("a",\n                  $C):2}), map{"duplicates":"use-last"})(collation-key("A", $C))\n      ), (2))'
 fo-test-fn-collation-key-002;PRSC Error: Failed to parse query 'deep-equal((\n          let $C := 'http://www.w3.org/2013/collation/UCA?strength=primary'\n          \n           return \n\n        \n        let $M := map{collation-key("A", $C):1, collation-key("B", $C):2}\n                  return $M(collation-key("a", $C))\n      ), (1))'
 fo-test-fn-compare-002;Expected XPath 
@@ -7897,8 +7849,8 @@ fo-test-fn-contains-token-002;The function fn:contains-token with arity 2 is not
 fo-test-fn-contains-token-003;The function fn:contains-token with arity 2 is not registered.
 fo-test-fn-contains-token-004;The function fn:contains-token with arity 3 is not registered.
 fo-test-fn-count-001;PRSC Error: Failed to parse query 'deep-equal((\n          let $po := \n          <PurchaseOrder> <line-item>\n         <description>Large widget</description> <price>8.95</price>\n         <quantity>5.0</quantity> </line-item> <line-item>\n         <description>Small widget</description> <price>3.99</price>\n         <quantity>2.0</quantity> </line-item> <line-item>\n         <description>Tiny widget</description> <price>1.49</price>a\n         <quantity>805</quantity> </line-item>\n         </PurchaseOrder>\n           return \n\n        \n          let $item1 := $po/line-item[1]\n          \n           return \n\n        \n          let $item2 := $po/line-item[2]\n          \n           return \n\n        \n          let $seq1 := ($item1, $item2)\n          \n           return \n\n        \n        fn:count($seq1)\n      ), (2))'
-fo-test-fn-count-003;Can't parse '98.5' into an integer.
-fo-test-fn-count-004;Can't parse '98.5' into an integer.
+fo-test-fn-count-003;Value was either too large or too small for an Int64.
+fo-test-fn-count-004;Value was either too large or too small for an Int64.
 fo-test-fn-count-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:count([])\n      ), (1))'
 fo-test-fn-count-006;PRSC Error: Failed to parse query 'deep-equal((\n        fn:count([1,2,3])\n      ), (1))'
 fo-test-fn-data-003;PRSC Error: Failed to parse query 'deep-equal((\n        data([[1,2],[3,4]])\n      ), (1, 2, 3, 4))'
@@ -7948,8 +7900,8 @@ fo-test-fn-exists-003;PRSC Error: Failed to parse query '\n        fn:exists([])
 fo-test-fn-exists-004;PRSC Error: Failed to parse query '\n        fn:exists(map{})\n      '
 fo-test-fn-filter-001;PRSC Error: Failed to parse query 'deep-equal((\n        fn:filter(1 to 10, function($a) {$a mod 2 = 0})\n      ), ((2, 4, 6, 8, 10)))'
 fo-test-fn-filter-002;ArgumentPlaceholder AST to Expression not yet implemented
-fo-test-fn-floor-001;Can't parse '10.5' into an integer.
-fo-test-fn-floor-002;Can't parse '10.5' into an integer.
+fo-test-fn-floor-001;Value was either too large or too small for an Int64.
+fo-test-fn-floor-002;Value was either too large or too small for an Int64.
 fo-test-fn-fold-left-001;PRSC Error: Failed to parse query 'deep-equal((\n        fn:fold-left(1 to 5, 0, function($a, $b) { $a + $b\n                  })\n      ), (15))'
 fo-test-fn-fold-left-002;PRSC Error: Failed to parse query 'deep-equal((\n        fn:fold-left((2,3,5,7), 1, function($a, $b) { $a * $b\n                  })\n      ), (210))'
 fo-test-fn-fold-left-003;PRSC Error: Failed to parse query '\n        fn:fold-left((true(), false(), false()), false(), function($a, $b) {\n                  $a or $b })\n      '
@@ -8098,17 +8050,17 @@ fo-test-fn-reverse-002;The function fn:reverse with arity 1 is not registered.
 fo-test-fn-reverse-003;The function fn:reverse with arity 1 is not registered.
 fo-test-fn-reverse-004;PRSC Error: Failed to parse query 'deep-equal((\n        fn:reverse([1,2,3])\n      ), ([1,2,3]))'
 fo-test-fn-reverse-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:reverse(([1,2,3],[4,5,6]))\n      ), (([4,5,6],[1,2,3])))'
-fo-test-fn-round-001;Can't parse '2.5' into an integer.
-fo-test-fn-round-002;Can't parse '2.4999' into an integer.
-fo-test-fn-round-003;Can't parse '2.5' into an integer.
-fo-test-fn-round-004;Can't parse '1.125' into an integer.
+fo-test-fn-round-001;Value was either too large or too small for an Int64.
+fo-test-fn-round-002;Value was either too large or too small for an Int64.
+fo-test-fn-round-003;Value was either too large or too small for an Int64.
+fo-test-fn-round-004;Value was either too large or too small for an Int64.
 fo-test-fn-round-006;PRSC Error: Failed to parse query 'deep-equal((\n        fn:round(3.1415e0, 2)\n      ), (3.14e0))'
-fo-test-fn-round-half-to-even-001;Can't parse '0.5' into an integer.
-fo-test-fn-round-half-to-even-002;Can't parse '1.5' into an integer.
-fo-test-fn-round-half-to-even-003;Can't parse '2.5' into an integer.
+fo-test-fn-round-half-to-even-001;Value was either too large or too small for an Int64.
+fo-test-fn-round-half-to-even-002;Value was either too large or too small for an Int64.
+fo-test-fn-round-half-to-even-003;Value was either too large or too small for an Int64.
 fo-test-fn-round-half-to-even-004;PRSC Error: Failed to parse query 'deep-equal((\n        fn:round-half-to-even(3.567812e+3, 2)\n      ), (3567.81e0))'
 fo-test-fn-round-half-to-even-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:round-half-to-even(4.7564e-3, 2)\n      ), (0.0e0))'
-fo-test-fn-round-half-to-even-006;Can't parse '35612.25' into an integer.
+fo-test-fn-round-half-to-even-006;Value was either too large or too small for an Int64.
 fo-test-fn-seconds-from-dateTime-001;The function fn:seconds-from-dateTime with arity 1 is not registered.
 fo-test-fn-seconds-from-duration-001;The function fn:seconds-from-duration with arity 1 is not registered.
 fo-test-fn-seconds-from-duration-002;The function fn:seconds-from-duration with arity 1 is not registered.
@@ -8132,7 +8084,7 @@ fo-test-fn-string-join-007;PRSC Error: Failed to parse query 'deep-equal((\n    
 fo-test-fn-string-length-002;Object reference not set to an instance of an object.
 fo-test-fn-subsequence-001;The function fn:subsequence with arity 2 is not registered.
 fo-test-fn-subsequence-002;The function fn:subsequence with arity 3 is not registered.
-fo-test-fn-substring-003;Can't parse '1.5' into an integer.
+fo-test-fn-substring-003;Value was either too large or too small for an Int64.
 fo-test-fn-substring-005;Length cannot be less than zero. (Parameter 'length')
 fo-test-fn-substring-007;Attempted to divide by zero.
 fo-test-fn-substring-008;Attempted to divide by zero.
@@ -8568,8 +8520,8 @@ ForExprType030;Atomic Value for XsLanguage is not implemented yet.
 ForExprType031;Type casting to XsDuration has not been implemented yet.
 ForExprType032;Type casting to XsBase64Binary has not been implemented yet.
 ForExprType033;Atomic Value for XsEntity is not implemented yet.
-ForExprType034;Can't parse '0.3' into an integer.
-ForExprType035;Can't parse '0.3' into an integer.
+ForExprType034;Value was either too large or too small for an Int64.
+ForExprType035;Value was either too large or too small for an Int64.
 ForExprType036;PRSC Error: Failed to parse query '\n        declare default element namespace "http://www.example.com/typedecl"; \n        for $test as element(*) in /root/InterleaveType/* return $test\n      '
 ForExprType037;PRSC Error: Failed to parse query 'import schema default element namespace "http://www.example.com/typedecl";\n            for $test as element(decimal) in /root/InterleaveType/decimal return $test'
 ForExprType038;PRSC Error: Failed to parse query 'import schema default element namespace "http://www.example.com/typedecl";\n            for $test as element(InterleaveType,InterleaveType) in /root/InterleaveType return $test'
@@ -8580,7 +8532,7 @@ ForExprType042;PRSC Error: Failed to parse query 'import schema default element 
 ForExprType043;PRSC Error: Failed to parse query 'import schema default element namespace "http://www.example.com/typedecl";\n            for $test as element(*,xs:decimal) in /root/UnionType/* return $test'
 ForExprType044;PRSC Error: Failed to parse query 'import schema default element namespace "http://www.example.com/typedecl";\n            for $test as element(ListType,xs:string) in /root/ListType return $test'
 ForExprType045;Expected error code: XPST0051. Query succeeded with result: 1 2 3
-ForExprType046;Expected XPathException with code XPTY0004, but got Can't parse '0.3' into an integer.
+ForExprType046;Expected error code: XPTY0004. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 ForExprType047;Expected XPathException with code XPST0051, but got Atomic Value for XsNmToken is not implemented yet.
 ForExprType048;PRSC Error: Failed to parse query 'import schema default element namespace "http://www.example.com/typedecl";\n            for $test as xs:anyAtomicType in data( /root/anyAtomicType/@att ) return $test'
 ForExprType049;PRSC Error: Failed to parse query 'import schema default element namespace "http://www.example.com/typedecl";\n            for $test as xs:decimal in data(/root/InterleaveType/*) return $test'
@@ -8608,7 +8560,6 @@ ForExprType070;Expected error code: XPTY0004. Found error code: XPST0003 with er
 ForExprType071;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare namespace fs="http://www.example.com/filesystem"; \n        for $test as processing-instruction("foo") in data( (//fs:Folder)[1]/fs:File/fs:FileName ) return $test\n      '
 ForExprType072;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare namespace fs="http://www.example.com/filesystem"; \n        for $test as document-node() in (//fs:Folder)[1]/fs:File/fs:FileName return $test\n      '
 ForExprType073;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare namespace fs="http://www.example.com/filesystem"; \n        for $test as document-node() in data( (//fs:Folder)[1]/fs:File/fs:FileName ) return $test\n      '
-FORG0001;Expected XPathException with code FORG0001, but got Can't parse 'INF' into an integer.
 FORG0002;Expected error code: FORG0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare base-uri "http://www.w3.org/"; resolve-uri("%gg")'
 FORG0004;Expected error code: FORG0004. Found error code: XPST0017 with error message: The function one-or-more with arity 1 is not registered.
 FORG0005;Expected error code: FORG0005. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
@@ -9283,9 +9234,9 @@ FunctionCall-052;PRSC Error: Failed to parse query ''
 FunctionCall-053;PRSC Error: Failed to parse query ''
 FunctionCall-054;PRSC Error: Failed to parse query ''
 FunctionCall-055;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-functx-fn-abs-1;Can't parse '3.5' into an integer.
+functx-fn-abs-1;Value was either too large or too small for an Int64.
 functx-fn-abs-3;Value was either too large or too small for a Decimal.
-functx-fn-abs-all;Can't parse '3.5' into an integer.
+functx-fn-abs-all;Value was either too large or too small for an Int64.
 functx-fn-adjust-date-to-timezone-1;The function adjust-date-to-timezone with arity 2 is not registered.
 functx-fn-adjust-date-to-timezone-2;The function adjust-date-to-timezone with arity 2 is not registered.
 functx-fn-adjust-date-to-timezone-3;The function adjust-date-to-timezone with arity 2 is not registered.
@@ -9313,12 +9264,12 @@ functx-fn-base-uri-all;The function base-uri with arity 1 is not registered.
 functx-fn-boolean-7;Expected XPath let $ordDoc := (/) return (boolean($ordDoc/order[1])) to resolve to true
 functx-fn-boolean-9;PRSC Error: Failed to parse query ''
 functx-fn-boolean-all;PRSC Error: Failed to parse query ''
-functx-fn-ceiling-2;Can't parse '5.1' into an integer.
-functx-fn-ceiling-3;Can't parse '5.5' into an integer.
-functx-fn-ceiling-4;Can't parse '5.5' into an integer.
-functx-fn-ceiling-5;Can't parse '5.51' into an integer.
+functx-fn-ceiling-2;Value was either too large or too small for an Int64.
+functx-fn-ceiling-3;Value was either too large or too small for an Int64.
+functx-fn-ceiling-4;Value was either too large or too small for an Int64.
+functx-fn-ceiling-5;Value was either too large or too small for an Int64.
 functx-fn-ceiling-6;Expected XPath (ceiling( () )) to resolve to , but instead got null
-functx-fn-ceiling-all;Can't parse '5.1' into an integer.
+functx-fn-ceiling-all;Value was either too large or too small for an Int64.
 functx-fn-codepoint-equal-3;Expected XPath (codepoint-equal('abc', ())) to resolve to , but instead got null
 functx-fn-codepoint-equal-all;Expected XPath (codepoint-equal('abc', 'abc'), codepoint-equal('abc', 'ab c'), codepoint-equal('abc', ())) to resolve to true false, but instead got True False
 functx-fn-compare-5;Expected XPath (compare('a', 'B')) to resolve to 1
@@ -9377,12 +9328,12 @@ functx-fn-escape-html-uri-2;The function escape-html-uri with arity 1 is not reg
 functx-fn-escape-html-uri-all;The function escape-html-uri with arity 1 is not registered.
 functx-fn-exactly-one-1;The function exactly-one with arity 1 is not registered.
 functx-fn-exists-all;Expected XPath (exists( ('a', 'b', 'c') ), exists( '' ), exists( () ), exists( false() )) to resolve to true true false true, but instead got True True False True
-functx-fn-floor-2;Can't parse '5.1' into an integer.
-functx-fn-floor-3;Can't parse '5.7' into an integer.
-functx-fn-floor-4;Can't parse '5.1' into an integer.
-functx-fn-floor-5;Can't parse '5.7' into an integer.
+functx-fn-floor-2;Value was either too large or too small for an Int64.
+functx-fn-floor-3;Value was either too large or too small for an Int64.
+functx-fn-floor-4;Value was either too large or too small for an Int64.
+functx-fn-floor-5;Value was either too large or too small for an Int64.
 functx-fn-floor-6;Expected XPath (floor( () )) to resolve to , but instead got null
-functx-fn-floor-all;Can't parse '5.1' into an integer.
+functx-fn-floor-all;Value was either too large or too small for an Int64.
 functx-fn-hours-from-dateTime-1;The function hours-from-dateTime with arity 1 is not registered.
 functx-fn-hours-from-dateTime-2;The function hours-from-dateTime with arity 1 is not registered.
 functx-fn-hours-from-dateTime-all;The function hours-from-dateTime with arity 1 is not registered.
@@ -9452,11 +9403,11 @@ functx-fn-max-2;Casting AbstractValue(XsString) to DoubleValue
 functx-fn-max-3;Casting AbstractValue(XsInt) to DoubleValue
 functx-fn-max-4;Casting AbstractValue(XsString) to DoubleValue
 functx-fn-max-all;Casting AbstractValue(XsInt) to DoubleValue
-functx-fn-min-1;Can't parse '3.5' into an integer.
+functx-fn-min-1;Value was either too large or too small for an Int64.
 functx-fn-min-2;Casting AbstractValue(XsString) to DoubleValue
 functx-fn-min-3;Casting AbstractValue(XsString) to DoubleValue
 functx-fn-min-4;Casting AbstractValue(XsString) to DoubleValue
-functx-fn-min-all;Can't parse '3.5' into an integer.
+functx-fn-min-all;Value was either too large or too small for an Int64.
 functx-fn-minutes-from-dateTime-1;The function minutes-from-dateTime with arity 1 is not registered.
 functx-fn-minutes-from-duration-1;The function minutes-from-duration with arity 1 is not registered.
 functx-fn-minutes-from-duration-2;The function minutes-from-duration with arity 1 is not registered.
@@ -9517,7 +9468,7 @@ functx-fn-number-2;Expected XPath let $priceDoc := (/) return (number( $priceDoc
 functx-fn-number-4;Input string was not in a correct format.
 functx-fn-number-5;Expected XPath let $priceDoc := (/) return (number( () )) to resolve to NaN, but instead got Infinity
 functx-fn-number-6;PerformFunctionConversion is not implemented yet.
-functx-fn-number-all;Can't parse '29.99' into an integer.
+functx-fn-number-all;Value was either too large or too small for an Int64.
 functx-fn-one-or-more-1;The function one-or-more with arity 1 is not registered.
 functx-fn-one-or-more-2;The function one-or-more with arity 1 is not registered.
 functx-fn-one-or-more-all;The function one-or-more with arity 1 is not registered.
@@ -9557,17 +9508,17 @@ functx-fn-reverse-all;The function reverse with arity 1 is not registered.
 functx-fn-root-1;PRSC Error: Failed to parse query ''
 functx-fn-root-2;PRSC Error: Failed to parse query ''
 functx-fn-root-all;PRSC Error: Failed to parse query ''
-functx-fn-round-2;Can't parse '5.1' into an integer.
-functx-fn-round-3;Can't parse '5.5' into an integer.
-functx-fn-round-4;Can't parse '5.5' into an integer.
-functx-fn-round-5;Can't parse '5.51' into an integer.
-functx-fn-round-all;Can't parse '5.1' into an integer.
-functx-fn-round-half-to-even-1;Can't parse '5.5' into an integer.
-functx-fn-round-half-to-even-2;Can't parse '6.5' into an integer.
-functx-fn-round-half-to-even-3;Can't parse '9372.253' into an integer.
-functx-fn-round-half-to-even-4;Can't parse '9372.253' into an integer.
-functx-fn-round-half-to-even-5;Can't parse '9372.253' into an integer.
-functx-fn-round-half-to-even-all;Can't parse '5.5' into an integer.
+functx-fn-round-2;Value was either too large or too small for an Int64.
+functx-fn-round-3;Value was either too large or too small for an Int64.
+functx-fn-round-4;Value was either too large or too small for an Int64.
+functx-fn-round-5;Value was either too large or too small for an Int64.
+functx-fn-round-all;Value was either too large or too small for an Int64.
+functx-fn-round-half-to-even-1;Value was either too large or too small for an Int64.
+functx-fn-round-half-to-even-2;Value was either too large or too small for an Int64.
+functx-fn-round-half-to-even-3;Value was either too large or too small for an Int64.
+functx-fn-round-half-to-even-4;Value was either too large or too small for an Int64.
+functx-fn-round-half-to-even-5;Value was either too large or too small for an Int64.
+functx-fn-round-half-to-even-all;Value was either too large or too small for an Int64.
 functx-fn-seconds-from-dateTime-1;The function seconds-from-dateTime with arity 1 is not registered.
 functx-fn-seconds-from-duration-1;The function seconds-from-duration with arity 1 is not registered.
 functx-fn-seconds-from-duration-2;The function seconds-from-duration with arity 1 is not registered.
@@ -11022,17 +10973,17 @@ instanceof74;Type casting to XsAnyUri has not been implemented yet.
 instanceof75;Type casting to XsAnyUri has not been implemented yet.
 instanceof76;Type casting to XsAnyUri has not been implemented yet.
 instanceof77;Type casting to XsAnyUri has not been implemented yet.
-instanceof89;Can't parse '12678967.543233' into an integer.
-instanceof90;Can't parse '12678967.543233' into an integer.
-instanceof91;Can't parse '12678967.543233' into an integer.
-instanceof92;Can't parse '12678967.543233' into an integer.
-instanceof93;Can't parse '12678967.543233' into an integer.
-instanceof94;Can't parse '12678967.543233' into an integer.
-instanceof95;Can't parse '12678967.543233' into an integer.
-instanceof96;Can't parse '12678967.543233' into an integer.
-instanceof97;Can't parse '12678967.543233' into an integer.
-instanceof98;Can't parse '12678967.543233' into an integer.
-instanceof99;Can't parse '12678967.543233' into an integer.
+instanceof89;Value was either too large or too small for an Int64.
+instanceof90;Value was either too large or too small for an Int64.
+instanceof91;Value was either too large or too small for an Int64.
+instanceof92;Value was either too large or too small for an Int64.
+instanceof93;Value was either too large or too small for an Int64.
+instanceof94;Value was either too large or too small for an Int64.
+instanceof95;Value was either too large or too small for an Int64.
+instanceof96;Value was either too large or too small for an Int64.
+instanceof97;Value was either too large or too small for an Int64.
+instanceof98;Value was either too large or too small for an Int64.
+instanceof99;Value was either too large or too small for an Int64.
 internalcontextitem-1;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace eg = "http://example.org"; declare function eg:noContextFunction() { . }; eg:noContextFunction()'
 internalcontextitem-14;Expected XPath (6,10,14)[(xs:integer(.) div xs:integer(3)) gt 2] to resolve to 10 14, but instead got 6 10 14
 internalcontextitem-15;Expected XPath (6,10,14)[(xs:integer(.) idiv xs:integer(3)) gt 2] to resolve to 10 14, but instead got 6 10 14
@@ -11045,8 +10996,8 @@ internalcontextitem-7;Expected XPath (fn:true(),fn:false(),fn:true())[xs:boolean
 internalcontextitem-8;Expected XPath (fn:false(),fn:true(),fn:false())[fn:not(xs:boolean(.))] to resolve to false false, but instead got False True False
 internalvar-1;PRSC Error: Failed to parse query 'declare(::)variable(::)$var(::)as(::)item((: :))*(::):=(::)1(::);(::) 1(::)eq(::)1(::)'
 internalvar-2;PRSC Error: Failed to parse query '(::)declare(::)variable(::)$var(::):=(::)1(::);(::) 1(::)eq(::)1'
-K-ABSFunc-4;Can't parse '10.5' into an integer.
-K-ABSFunc-5;Can't parse '10.5' into an integer.
+K-ABSFunc-4;Value was either too large or too small for an Int64.
+K-ABSFunc-5;Value was either too large or too small for an Int64.
 K-ABSFunc-6;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-AnyURIEqual-1;Type casting to XsAnyUri has not been implemented yet.
 K-AnyURIEqual-10;Type casting to XsAnyUri has not been implemented yet.
@@ -11062,8 +11013,8 @@ K-Base64BinaryEQ-1;Type casting to XsHexBinary has not been implemented yet.
 K-Base64BinaryEQ-2;Type casting to XsHexBinary has not been implemented yet.
 K-Base64BinaryEQ-3;Type casting to XsBase64Binary has not been implemented yet.
 K-CeilingFunc-3-dyn;PRSC Error: Failed to parse query 'declare variable $empty external; empty(ceiling($empty))'
-K-CeilingFunc-4;Can't parse '10.5' into an integer.
-K-CeilingFunc-5;Can't parse '10.5' into an integer.
+K-CeilingFunc-4;Value was either too large or too small for an Int64.
+K-CeilingFunc-5;Value was either too large or too small for an Int64.
 K-CeilingFunc-6;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-CodepointToStringFunc-11b;Could not convert codepoint to string, it is outside of the valid range.
 K-CodepointToStringFunc-12b;Could not convert codepoint to string, it is outside of the valid range.
@@ -11389,8 +11340,8 @@ K-FilterExpr-93;Expected error code: FORG0006. Query succeeded with result: 1 2 
 K-FilterExpr-94;Expected error code: FORG0006. Query succeeded with result: 1 2 3
 K-FilterExpr-95;Expected XPath /works/employee[@name=/works/employee[1]/@name]/@name/string() to resolve to "Jane Doe 1"
 K-FilterExpr-96;PRSC Error: Failed to parse query ' = "Jane Doe 3"'
-K-FloorFunc-4;Can't parse '10.5' into an integer.
-K-FloorFunc-5;Can't parse '10.5' into an integer.
+K-FloorFunc-4;Value was either too large or too small for an Int64.
+K-FloorFunc-5;Value was either too large or too small for an Int64.
 K-FloorFunc-6;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-ForExprPositionalVar-1;Expected XPathException with code XPST0008, but got The given key 'p' was not present in the dictionary.
 K-ForExprPositionalVar-10;The function distinct-values with arity 1 is not registered.
@@ -11617,15 +11568,15 @@ K-LetExprWithout-4;PRSC Error: Failed to parse query '\n        declare variable
 K-Literals-10;PRSC Error: Failed to parse query '1.3e-3 instance of xs:double'
 K-Literals-13;PRSC Error: Failed to parse query '1231.123e3 instance of xs:double'
 K-Literals-15;PRSC Error: Failed to parse query '-1231.123e3 instance of xs:double'
-K-Literals-17;Can't parse '3.3' into an integer.
+K-Literals-17;Value was either too large or too small for an Int64.
 K-Literals-18;PRSC Error: Failed to parse query '3.3e1 instance of xs:double'
-K-Literals-28;Can't parse '0.3' into an integer.
+K-Literals-28;Value was either too large or too small for an Int64.
 K-Literals-31a;PRSC Error: Failed to parse query ''
 K-Literals-46;PRSC Error: Failed to parse query ''
 K-Literals-47;PRSC Error: Failed to parse query ''
 K-Literals-47a;PRSC Error: Failed to parse query ''
 K-Literals-49;PRSC Error: Failed to parse query ''
-K-Literals-9;Can't parse '.3' into an integer.
+K-Literals-9;Value was either too large or too small for an Int64.
 K-LocalNameFromQNameFunc-3;The function local-name-from-QName with arity 1 is not registered.
 K-LocalNameFromQNameFunc-4;The function local-name-from-QName with arity 1 is not registered.
 K-LogicExpr-10;Type casting to XsAnyUri has not been implemented yet.
@@ -11644,7 +11595,7 @@ K-LogicExpr-24;The function timezone-from-time with arity 1 is not registered.
 K-LogicExpr-25;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-26;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-27;TreatExpr AST to Expression not yet implemented
-K-LogicExpr-30;Can't parse '10.3' into an integer.
+K-LogicExpr-30;Value was either too large or too small for an Int64.
 K-LogicExpr-32;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-33;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-34;Type casting to XsAnyUri has not been implemented yet.
@@ -11711,7 +11662,7 @@ K-NodeNumberFunc-13;Type casting to XsAnyUri has not been implemented yet.
 K-NodeNumberFunc-15;Expected XPath string(number(xs:gYear("2005"))) eq "NaN" to resolve to true
 K-NodeNumberFunc-3;Input string was not in a correct format.
 K-NodeNumberFunc-4;Input string was not in a correct format.
-K-NodeNumberFunc-6;Can't parse '1.1' into an integer.
+K-NodeNumberFunc-6;Value was either too large or too small for an Int64.
 K-NodeRootFunc-2;Expected error code: XPTY0004. Query succeeded with result: 1 2 3
 K-NodeSame-1;Expected executing the XPath "empty(1 is ())" to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
 K-NodeSame-2;Expected executing the XPath "empty(() is 1)" to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
@@ -11730,17 +11681,17 @@ K-NumericAdd-17;Expected XPath (xs:decimal(6) + xs:float(2)) instance of xs:floa
 K-NumericAdd-18;Expected XPath (xs:float(6) + xs:decimal(2)) instance of xs:float to resolve to true
 K-NumericAdd-19;Expected XPath (xs:float(6) + xs:integer(2)) instance of xs:float to resolve to true
 K-NumericAdd-20;Expected XPath (xs:integer(6) + xs:float(2)) instance of xs:float to resolve to true
-K-NumericAdd-3;Can't parse '6.1' into an integer.
+K-NumericAdd-3;Value was either too large or too small for an Int64.
 K-NumericAdd-31;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-NumericAdd-32;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-NumericAdd-33;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-NumericAdd-34;Expected executing the XPath "(4, error()) + 3" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-NumericAdd-35;Expected executing the XPath "3 + (4, error())" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-NumericAdd-36;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
-K-NumericAdd-4;Can't parse '1.1' into an integer.
+K-NumericAdd-4;Value was either too large or too small for an Int64.
 K-NumericAdd-41;Expected executing the XPath "error() + 3" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-NumericAdd-42;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
-K-NumericAdd-5;Can't parse '1.1' into an integer.
+K-NumericAdd-5;Value was either too large or too small for an Int64.
 K-NumericAdd-51;Expected executing the XPath "(remove((1, "two"), 2) + 1) eq 2" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-52;Expected executing the XPath "2 eq (1 + remove((1, "two"), 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-53;Expected executing the XPath "(remove((1, "two"), 2) + xs:untypedAtomic("1")) eq 2" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
@@ -11749,47 +11700,47 @@ K-NumericAdd-55;Expected executing the XPath "(remove((xs:untypedAtomic("1"), "t
 K-NumericAdd-56;Expected executing the XPath "2 eq (1 + remove((xs:untypedAtomic("1"), "two"), 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-57;Expected executing the XPath "(remove((1, "two"), 2) + xs:untypedAtomic("1")) eq 2" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-58;Expected executing the XPath "2 eq (xs:untypedAtomic("1") + remove((1, "two"), 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericAdd-6;Can't parse '1.1' into an integer.
+K-NumericAdd-6;Value was either too large or too small for an Int64.
 K-NumericAdd-61;Expected executing the XPath "(remove((5, 1e0), 2) + 1) eq 6" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-62;Expected executing the XPath "(1 + remove((5, 1e0), 2)) eq 6" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-63;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
 K-NumericAdd-64;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
 K-NumericAdd-9;Value was either too large or too small for a Decimal.
-K-NumericDivide-10;Can't parse '2.6' into an integer.
-K-NumericDivide-11;Can't parse '2.5' into an integer.
-K-NumericDivide-12;Can't parse '2.6' into an integer.
-K-NumericDivide-13;Can't parse '2.6' into an integer.
-K-NumericDivide-14;Can't parse '2.5' into an integer.
-K-NumericDivide-15;Can't parse '2.6' into an integer.
+K-NumericDivide-10;Value was either too large or too small for an Int64.
+K-NumericDivide-11;Value was either too large or too small for an Int64.
+K-NumericDivide-12;Value was either too large or too small for an Int64.
+K-NumericDivide-13;Value was either too large or too small for an Int64.
+K-NumericDivide-14;Value was either too large or too small for an Int64.
+K-NumericDivide-15;Value was either too large or too small for an Int64.
 K-NumericDivide-20;Expected XPath (xs:float(6) div xs:decimal(2)) instance of xs:float to resolve to true
 K-NumericDivide-21;Expected XPath (xs:decimal(6) div xs:float(2)) instance of xs:float to resolve to true
 K-NumericDivide-22;Expected XPath (xs:float(6) div xs:integer(2)) instance of xs:float to resolve to true
 K-NumericDivide-23;Expected XPath (xs:integer(6) div xs:float(2)) instance of xs:float to resolve to true
 K-NumericDivide-37;Expected error code: XPST0003. Query succeeded with result: 3.3333333333333333333333333333
-K-NumericDivide-5;Can't parse '2.5' into an integer.
-K-NumericDivide-6;Can't parse '2.6' into an integer.
-K-NumericDivide-7;Can't parse '2.5' into an integer.
-K-NumericDivide-8;Can't parse '2.6' into an integer.
-K-NumericDivide-9;Can't parse '2.5' into an integer.
-K-NumericEqual-10;Can't parse '1.1' into an integer.
-K-NumericEqual-11;Can't parse '2.6' into an integer.
-K-NumericEqual-12;Can't parse '1.1' into an integer.
-K-NumericEqual-13;Can't parse '1.1' into an integer.
-K-NumericEqual-14;Can't parse '1.1' into an integer.
+K-NumericDivide-5;Value was either too large or too small for an Int64.
+K-NumericDivide-6;Value was either too large or too small for an Int64.
+K-NumericDivide-7;Value was either too large or too small for an Int64.
+K-NumericDivide-8;Value was either too large or too small for an Int64.
+K-NumericDivide-9;Value was either too large or too small for an Int64.
+K-NumericEqual-10;Value was either too large or too small for an Int64.
+K-NumericEqual-11;Value was either too large or too small for an Int64.
+K-NumericEqual-12;Value was either too large or too small for an Int64.
+K-NumericEqual-13;Value was either too large or too small for an Int64.
+K-NumericEqual-14;Value was either too large or too small for an Int64.
 K-NumericEqual-16;Expected XPath xs:double("NaN") ne xs:double("NaN") to resolve to true
-K-NumericEqual-27;Can't parse '1.1' into an integer.
-K-NumericEqual-28;Can't parse '1.1' into an integer.
-K-NumericEqual-29;Can't parse '1.1' into an integer.
+K-NumericEqual-27;Value was either too large or too small for an Int64.
+K-NumericEqual-28;Value was either too large or too small for an Int64.
+K-NumericEqual-29;Value was either too large or too small for an Int64.
 K-NumericEqual-30;Expected XPath xs:float("NaN") ne xs:float("NaN") to resolve to true
 K-NumericEqual-41;The function remove with arity 2 is not registered.
 K-NumericEqual-42;The function timezone-from-time with arity 1 is not registered.
 K-NumericEqual-43;The function timezone-from-time with arity 1 is not registered.
 K-NumericEqual-44;Expected error code: XPTY0004. Query succeeded with result: True
 K-NumericEqual-46;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-NumericEqual-6;Can't parse '1.1' into an integer.
-K-NumericEqual-7;Can't parse '1.1' into an integer.
-K-NumericEqual-8;Can't parse '1.1' into an integer.
-K-NumericEqual-9;Can't parse '1.1' into an integer.
+K-NumericEqual-6;Value was either too large or too small for an Int64.
+K-NumericEqual-7;Value was either too large or too small for an Int64.
+K-NumericEqual-8;Value was either too large or too small for an Int64.
+K-NumericEqual-9;Value was either too large or too small for an Int64.
 K-NumericGT-10;Value was either too large or too small for a Decimal.
 K-NumericGT-13;Value was either too large or too small for a Decimal.
 K-NumericGT-14;Value was either too large or too small for a Decimal.
@@ -11805,12 +11756,12 @@ K-NumericGT-23;The function timezone-from-time with arity 1 is not registered.
 K-NumericGT-5;Value was either too large or too small for a Decimal.
 K-NumericGT-6;Value was either too large or too small for a Decimal.
 K-NumericGT-9;Value was either too large or too small for a Decimal.
-K-NumericIntegerDivide-24;Can't parse '3.5' into an integer.
+K-NumericIntegerDivide-24;Value was either too large or too small for an Int64.
 K-NumericIntegerDivide-26;PRSC Error: Failed to parse query '3.1E1 idiv 6 eq 5'
 K-NumericIntegerDivide-27;PRSC Error: Failed to parse query '3.1E1 idiv 7 eq 4'
-K-NumericIntegerDivide-28;Can't parse '1.1' into an integer.
-K-NumericIntegerDivide-29;Can't parse '1.1' into an integer.
-K-NumericIntegerDivide-30;Can't parse '1.1' into an integer.
+K-NumericIntegerDivide-28;Value was either too large or too small for an Int64.
+K-NumericIntegerDivide-29;Value was either too large or too small for an Int64.
+K-NumericIntegerDivide-30;Value was either too large or too small for an Int64.
 K-NumericIntegerDivide-43;Expected error code: XPST0003. Query succeeded with result: 3
 K-NumericIntegerDivide-50;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-NumericIntegerDivide-51;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
@@ -11828,10 +11779,10 @@ K-NumericLT-22;The function timezone-from-time with arity 1 is not registered.
 K-NumericLT-5;Value was either too large or too small for a Decimal.
 K-NumericLT-6;Value was either too large or too small for a Decimal.
 K-NumericLT-9;Value was either too large or too small for a Decimal.
-K-NumericMod-19;Can't parse '4.5' into an integer.
+K-NumericMod-19;Value was either too large or too small for an Int64.
 K-NumericMod-20;PRSC Error: Failed to parse query '1.23E2 mod 0.6E1 eq 3.0E0'
 K-NumericMod-22;Expected error code: XPST0003. Query succeeded with result: 1
-K-NumericMod-25;Expected XPathException with code XPTY0004, but got Can't parse '1.1' into an integer.
+K-NumericMod-25;Expected error code: XPTY0004. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 K-NumericMod-5;Expected XPath (xs:decimal(6) mod xs:float(2)) instance of xs:float to resolve to true
 K-NumericMod-6;Expected XPath (xs:float(6) mod xs:decimal(2)) instance of xs:float to resolve to true
 K-NumericMod-7;Expected XPath (xs:float(6) mod xs:integer(2)) instance of xs:float to resolve to true
@@ -11851,8 +11802,8 @@ K-NumericSubtract-21;Value was either too large or too small for a Decimal.
 K-NumericSubtract-22;Value was either too large or too small for a Decimal.
 K-NumericSubtract-23;Value was either too large or too small for a Decimal.
 K-NumericSubtract-24;Value was either too large or too small for a Decimal.
-K-NumericSubtract-34;Can't parse '1.1' into an integer.
-K-NumericSubtract-35;Can't parse '1.1' into an integer.
+K-NumericSubtract-34;Value was either too large or too small for an Int64.
+K-NumericSubtract-35;Value was either too large or too small for an Int64.
 K-NumericSubtract-36;Expected executing the XPath "1 eq (remove((current-time(), 1), 1) - 0)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericSubtract-37;Expected executing the XPath "1 eq (remove((current-time(), 1), 1) + 0)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericSubtract-38;Expected executing the XPath "1 eq (0 + remove((current-time(), 1), 1))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
@@ -12008,10 +11959,10 @@ K-RangeExpr-29;The function reverse with arity 1 is not registered.
 K-RangeExpr-30;The function reverse with arity 1 is not registered.
 K-RangeExpr-31;TreatExpr AST to Expression not yet implemented
 K-RangeExpr-32;TreatExpr AST to Expression not yet implemented
-K-RangeExpr-33;Expected XPathException with code XPTY0004, but got Can't parse '1.1' into an integer.
-K-RangeExpr-34;Expected XPathException with code XPTY0004, but got Can't parse '1.1' into an integer.
-K-RangeExpr-35;Expected XPathException with code XPTY0004, but got Can't parse '1.1' into an integer.
-K-RangeExpr-36;Expected XPathException with code XPTY0004, but got Can't parse '1.1' into an integer.
+K-RangeExpr-33;Expected error code: XPTY0004. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
+K-RangeExpr-34;Expected error code: XPTY0004. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
+K-RangeExpr-35;Expected error code: XPTY0004. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
+K-RangeExpr-36;Expected error code: XPTY0004. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 K-ReplaceFunc-1;Expected XPathException with code FORX0001, but got Using flags in 'replace' is not supported
 K-ReplaceFunc-2;Expected error code: XPTY0004. Found error code: FORX0003 with error message: the pattern  matches the zero length string
 K-ReplaceFunc-3;Expected error code: XPTY0004. Query succeeded with result: input
@@ -12022,9 +11973,9 @@ K-ReplaceFunc-8;Expected error code: FORX0004. Query succeeded with result: this
 K-ReplaceFunc-9;Expected error code: FORX0004. Query succeeded with result: thisIsInvalid$ put
 K-RoundEvenFunc-5;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
 K-RoundFunc-2;Expected error code: XPST0017. Query succeeded with result: 1
-K-RoundFunc-5;Can't parse '1.1' into an integer.
-K-RoundFunc-8;Can't parse '2.4999' into an integer.
-K-RoundFunc-9;Can't parse '2.5' into an integer.
+K-RoundFunc-5;Value was either too large or too small for an Int64.
+K-RoundFunc-8;Value was either too large or too small for an Int64.
+K-RoundFunc-9;Value was either too large or too small for an Int64.
 K-SecondsFromDateTimeFunc-3;The function seconds-from-dateTime with arity 1 is not registered.
 K-SecondsFromDateTimeFunc-4;The function seconds-from-dateTime with arity 1 is not registered.
 K-SecondsFromDateTimeFunc-5;The function seconds-from-dateTime with arity 1 is not registered.
@@ -12039,7 +11990,7 @@ K-SecondsFromTimeFunc-5;The function seconds-from-time with arity 1 is not regis
 K-SeqAVGFunc-14;Expected XPath string(avg((3, 3, xs:double("NaN")))) eq "NaN" to resolve to true
 K-SeqAVGFunc-15;Expected XPath string(avg((3, xs:double("NaN"), 3))) eq "NaN" to resolve to true
 K-SeqAVGFunc-16;Expected XPath string(avg((xs:double("NaN"), 3, 3))) eq "NaN" to resolve to true
-K-SeqAVGFunc-19;Can't parse '3.5' into an integer.
+K-SeqAVGFunc-19;Value was either too large or too small for an Int64.
 K-SeqAVGFunc-20;Arithmetic operation resulted in an overflow.
 K-SeqAVGFunc-21;Expected XPath string(avg((1, 2, 3, xs:double("NaN")))) eq "NaN" to resolve to true
 K-SeqAVGFunc-22;Expected XPath string(avg((xs:double("NaN"), 1, 2, 3))) eq "NaN" to resolve to true
@@ -12055,7 +12006,7 @@ K-SeqAVGFunc-42;Arithmetic operation resulted in an overflow.
 K-SeqAVGFunc-6;Expected XPath avg((xs:float(1), xs:integer(3), xs:float(3))) instance of xs:float to resolve to true
 K-SeqAVGFunc-7;Expected XPath avg((xs:float(1), xs:integer(3), xs:decimal(3))) instance of xs:float to resolve to true
 K-SeqBooleanFunc-16;TreatExpr AST to Expression not yet implemented
-K-SeqBooleanFunc-19;Can't parse '1.1' into an integer.
+K-SeqBooleanFunc-19;Value was either too large or too small for an Int64.
 K-SeqBooleanFunc-20;PRSC Error: Failed to parse query 'boolean(1.1e1)'
 K-SeqBooleanFunc-21;PRSC Error: Failed to parse query 'not(0.0e0)'
 K-SeqBooleanFunc-23;Expected XPath boolean(-1) to resolve to true
@@ -12885,7 +12836,6 @@ K-SeqExprCast-582;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-583;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:QName)'
 K-SeqExprCast-584;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:NOTATION)'
 K-SeqExprCast-587;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-589;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
 K-SeqExprCast-592;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-593;PRSC Error: Failed to parse query 'xs:integer("6789") castable as xs:untypedAtomic'
 K-SeqExprCast-595;PRSC Error: Failed to parse query 'xs:integer("6789") castable as xs:string'
@@ -13043,7 +12993,7 @@ K-SeqExprCast-756;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-757;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:decimal)'
 K-SeqExprCast-758;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
 K-SeqExprCast-759;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:integer)'
-K-SeqExprCast-76;Can't parse '3.1' into an integer.
+K-SeqExprCast-76;Value was either too large or too small for an Int64.
 K-SeqExprCast-760;Type casting to XsDayTimeDuration has not been implemented yet.
 K-SeqExprCast-761;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:duration'
 K-SeqExprCast-762;Type casting to XsDayTimeDuration has not been implemented yet.
@@ -13088,7 +13038,7 @@ K-SeqExprCast-803;PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:
 K-SeqExprCast-805;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:float)'
 K-SeqExprCast-807;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:double)'
 K-SeqExprCast-809;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:decimal)'
-K-SeqExprCast-81;Can't parse '3.1' into an integer.
+K-SeqExprCast-81;Value was either too large or too small for an Int64.
 K-SeqExprCast-811;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:integer)'
 K-SeqExprCast-812;Expected XPathException with code XPTY0004, but got Type casting to XsDuration has not been implemented yet.
 K-SeqExprCast-813;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:duration)'
@@ -13124,7 +13074,7 @@ K-SeqExprCast-853;PRSC Error: Failed to parse query 'xs:time("03:20:00-05:00") c
 K-SeqExprCast-855;PRSC Error: Failed to parse query 'xs:time("03:20:00-05:00") castable as xs:string'
 K-SeqExprCast-857;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:float)'
 K-SeqExprCast-859;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:double)'
-K-SeqExprCast-86;Can't parse '3.1' into an integer.
+K-SeqExprCast-86;Value was either too large or too small for an Int64.
 K-SeqExprCast-861;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:decimal)'
 K-SeqExprCast-863;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:integer)'
 K-SeqExprCast-864;Expected XPathException with code XPTY0004, but got Type casting to XsDuration has not been implemented yet.
@@ -13144,7 +13094,7 @@ K-SeqExprCast-885;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00
 K-SeqExprCast-887;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:boolean)'
 K-SeqExprCast-888;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-889;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:base64Binary)'
-K-SeqExprCast-89;Can't parse '3.1' into an integer.
+K-SeqExprCast-89;Value was either too large or too small for an Int64.
 K-SeqExprCast-890;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-891;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:hexBinary)'
 K-SeqExprCast-892;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
@@ -13153,7 +13103,7 @@ K-SeqExprCast-894;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-895;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:QName)'
 K-SeqExprCast-896;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:NOTATION)'
 K-SeqExprCast-899;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-90;Can't parse '3.1' into an integer.
+K-SeqExprCast-90;Value was either too large or too small for an Int64.
 K-SeqExprCast-901;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-904;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-905;PRSC Error: Failed to parse query 'xs:date("2004-10-13") castable as xs:untypedAtomic'
@@ -13263,19 +13213,19 @@ K-SeqExprCastable-6a;Expected error code: XQST0052. Found error code: XPST0003 w
 K-SeqExprCastable-7;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''string' castable as xs:anyAtomicType'
 K-SeqExprCastable-8;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '"notation is abstract" castable as xs:NOTATION?'
 K-SeqExprCastable-9;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '() castable as xs:NOTATION?'
-K-SeqExprInstanceOf-12;Can't parse '1.1' into an integer.
-K-SeqExprInstanceOf-13;Can't parse '1.1' into an integer.
+K-SeqExprInstanceOf-12;Value was either too large or too small for an Int64.
+K-SeqExprInstanceOf-13;Value was either too large or too small for an Int64.
 K-SeqExprInstanceOf-14;Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprInstanceOf-15;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprInstanceOf-23;Can't parse '1.1' into an integer.
+K-SeqExprInstanceOf-23;Value was either too large or too small for an Int64.
 K-SeqExprInstanceOf-37;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-38;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-39;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-40;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-41;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-42;VoidSequenceType AST to Expression not yet implemented
-K-SeqExprInstanceOf-45;Can't parse '1.1' into an integer.
-K-SeqExprInstanceOf-48;Can't parse '1.1' into an integer.
+K-SeqExprInstanceOf-45;Value was either too large or too small for an Int64.
+K-SeqExprInstanceOf-48;Value was either too large or too small for an Int64.
 K-SeqExprInstanceOf-56;Expected executing the XPath "error() instance of xs:integer" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
 K-SeqExprInstanceOf-57;Expected executing the XPath "error() instance of xs:integer*" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
 K-SeqExprInstanceOf-58;Expected executing the XPath "error() instance of empty-sequence()" to resolve to one of the expected results, but got System.NotImplementedException: VoidSequenceType AST to Expression not yet implemented
@@ -13577,7 +13527,7 @@ K-SubstringFunc-11;Attempted to divide by zero.
 K-SubstringFunc-13;Attempted to divide by zero.
 K-SubstringFunc-14;Attempted to divide by zero.
 K-SubstringFunc-15;Length cannot be less than zero. (Parameter 'length')
-K-SubstringFunc-5;Can't parse '1.5' into an integer.
+K-SubstringFunc-5;Value was either too large or too small for an Int64.
 K-TimeSubtract-1;SubtractOp not available for types XsTime and XsTime
 K-TimeSubtract-2;SubtractOp not available for types XsTime and XsTime
 K-TimeSubtract-3;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
@@ -13621,7 +13571,7 @@ K-ValCompTypeChecking-25;Expected error code: XPTY0004. Query succeeded with res
 K-ValCompTypeChecking-26;Expected error code: XPTY0004. Query succeeded with result: True
 K-ValCompTypeChecking-27;Expected error code: XPTY0004. Query succeeded with result: True
 K-ValCompTypeChecking-28;Expected error code: XPTY0004. Query succeeded with result: True
-K-ValCompTypeChecking-29;Expected XPathException with code XPTY0004, but got Can't parse '3.1' into an integer.
+K-ValCompTypeChecking-29;Expected error code: XPTY0004. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 K-ValCompTypeChecking-3;Expected error code: XPTY0004. Query succeeded with result: True
 K-ValCompTypeChecking-32;The function current-time with arity 0 is not registered.
 K-ValCompTypeChecking-33;The function current-time with arity 0 is not registered.
@@ -13723,8 +13673,8 @@ K-YearsFromDurationFunc-5;The function years-from-duration with arity 1 is not r
 K-YearsFromDurationFunc-6;The function years-from-duration with arity 1 is not registered.
 K-YearsFromDurationFunc-7;The function years-from-duration with arity 1 is not registered.
 K2-AbbrAxes-1;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:myFunc() { .. }; local:myFunc()'
-K2-ABSFunc-27;Can't parse '1.1' into an integer.
-K2-ABSFunc-31;Can't parse '1.1' into an integer.
+K2-ABSFunc-27;Value was either too large or too small for an Int64.
+K2-ABSFunc-31;Value was either too large or too small for an Int64.
 K2-ABSFunc-35;Expected executing the XPath "abs(xs:unsignedShort(.)) instance of xs:unsignedShort" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-36;Expected executing the XPath "abs(xs:unsignedLong(.)) instance of xs:unsignedLong" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-37;Expected executing the XPath "abs(xs:unsignedInt(.)) instance of xs:unsignedInt" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
@@ -14506,7 +14456,7 @@ K2-IRIToURIfunc-7;PRSC Error: Failed to parse query ''
 K2-IRIToURIfunc-8;Expected XPath iri-to-uri("
 K2-IRIToURIfunc-9;Expected XPath iri-to-uri(codepoints-to-string(32 to 294)) to resolve to %20!%22#$%&'()*+,-./0123456789:;%3C=%3E?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[%5C]%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D~%7F%C2%80%C2%81%C2%82%C2%83%C2%84%C2%85%C2%86%C2%87%C2%88%C2%89%C2%8A%C2%8B%C2%8C%C2%8D%C2%8E%C2%8F%C2%90%C2%91%C2%92%C2%93%C2%94%C2%95%C2%96%C2%97%C2%98%C2%99%C2%9A%C2%9B%C2%9C%C2%9D%C2%9E%C2%9F%C2%A0%C2%A1%C2%A2%C2%A3%C2%A4%C2%A5%C2%A6%C2%A7%C2%A8%C2%A9%C2%AA%C2%AB%C2%AC%C2%AD%C2%AE%C2%AF%C2%B0%C2%B1%C2%B2%C2%B3%C2%B4%C2%B5%C2%B6%C2%B7%C2%B8%C2%B9%C2%BA%C2%BB%C2%BC%C2%BD%C2%BE%C2%BF%C3%80%C3%81%C3%82%C3%83%C3%84%C3%85%C3%86%C3%87%C3%88%C3%89%C3%8A%C3%8B%C3%8C%C3%8D%C3%8E%C3%8F%C3%90%C3%91%C3%92%C3%93%C3%94%C3%95%C3%96%C3%97%C3%98%C3%99%C3%9A%C3%9B%C3%9C%C3%9D%C3%9E%C3%9F%C3%A0%C3%A1%C3%A2%C3%A3%C3%A4%C3%A5%C3%A6%C3%A7%C3%A8%C3%A9%C3%AA%C3%AB%C3%AC%C3%AD%C3%AE%C3%AF%C3%B0%C3%B1%C3%B2%C3%B3%C3%B4%C3%B5%C3%B6%C3%B7%C3%B8%C3%B9%C3%BA%C3%BB%C3%BC%C3%BD%C3%BE%C3%BF%C4%80%C4%81%C4%82%C4%83%C4%84%C4%85%C4%86%C4%87%C4%88%C4%89%C4%8A%C4%8B%C4%8C%C4%8D%C4%8E%C4%8F%C4%90%C4%91%C4%92%C4%93%C4%94%C4%95%C4%96%C4%97%C4%98%C4%99%C4%9A%C4%9B%C4%9C%C4%9D%C4%9E%C4%9F%C4%A0%C4%A1%C4%A2%C4%A3%C4%A4%C4%A5%C4%A6, but instead got +!%22#$%&'()*+,-.%2f0123456789:;%3c=%3e?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[%5c]%5e_%60abcdefghijklmnopqrstuvwxyz%7b%7c%7d~%7f%c2%80%c2%81%c2%82%c2%83%c2%84%c2%85%c2%86%c2%87%c2%88%c2%89%c2%8a%c2%8b%c2%8c%c2%8d%c2%8e%c2%8f%c2%90%c2%91%c2%92%c2%93%c2%94%c2%95%c2%96%c2%97%c2%98%c2%99%c2%9a%c2%9b%c2%9c%c2%9d%c2%9e%c2%9f%c2%a0%c2%a1%c2%a2%c2%a3%c2%a4%c2%a5%c2%a6%c2%a7%c2%a8%c2%a9%c2%aa%c2%ab%c2%ac%c2%ad%c2%ae%c2%af%c2%b0%c2%b1%c2%b2%c2%b3%c2%b4%c2%b5%c2%b6%c2%b7%c2%b8%c2%b9%c2%ba%c2%bb%c2%bc%c2%bd%c2%be%c2%bf%c3%80%c3%81%c3%82%c3%83%c3%84%c3%85%c3%86%c3%87%c3%88%c3%89%c3%8a%c3%8b%c3%8c%c3%8d%c3%8e%c3%8f%c3%90%c3%91%c3%92%c3%93%c3%94%c3%95%c3%96%c3%97%c3%98%c3%99%c3%9a%c3%9b%c3%9c%c3%9d%c3%9e%c3%9f%c3%a0%c3%a1%c3%a2%c3%a3%c3%a4%c3%a5%c3%a6%c3%a7%c3%a8%c3%a9%c3%aa%c3%ab%c3%ac%c3%ad%c3%ae%c3%af%c3%b0%c3%b1%c3%b2%c3%b3%c3%b4%c3%b5%c3%b6%c3%b7%c3%b8%c3%b9%c3%ba%c3%bb%c3%bc%c3%bd%c3%be%c3%bf%c4%80%c4%81%c4%82%c4%83%c4%84%c4%85%c4%86%c4%87%c4%88%c4%89%c4%8a%c4%8b%c4%8c%c4%8d%c4%8e%c4%8f%c4%90%c4%91%c4%92%c4%93%c4%94%c4%95%c4%96%c4%97%c4%98%c4%99%c4%9a%c4%9b%c4%9c%c4%9d%c4%9e%c4%9f%c4%a0%c4%a1%c4%a2%c4%a3%c4%a4%c4%a5%c4%a6
 K2-LetExprWithout-1;PRSC Error: Failed to parse query ''
-K2-LetExprWithout-10;Expected XPathException with code XPTY0004, but got Can't parse '1.1' into an integer.
+K2-LetExprWithout-10;Expected error code: XPTY0004. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 K2-LetExprWithout-11;Expected error code: XPTY0004. Query succeeded with result: 1
 K2-LetExprWithout-12;Expected error code: XPTY0004. Query succeeded with result: 1
 K2-LetExprWithout-13;Expected error code: XPTY0004. Query succeeded with result: 3
@@ -14527,7 +14477,7 @@ K2-LetExprWithout-4;Expected error code: XPDY0002. Found error code: XPST0003 wi
 K2-LetExprWithout-5;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-LetExprWithout-6;Expected executing the XPath "declare function local:myFunc($arg as node()) { let $v := aNameTest return $arg/$v }; 1" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare function local:myFunc($arg as node()) { let $v := aNameTest return $arg/$v }; 1 = 1'
 K2-LetExprWithout-7;Expected error code: XPTY0004. Query succeeded with result: 1
-K2-LetExprWithout-9;Expected XPathException with code XPTY0004, but got Can't parse '1.1' into an integer.
+K2-LetExprWithout-9;Expected error code: XPTY0004. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 K2-Literals-1;Expected error code: XQST0090. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-Literals-10;Expected executing the XPath "0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001e10" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001e10'
 K2-Literals-12;Expected XPath 0e0 to resolve to 0, but instead got -0
@@ -14536,15 +14486,15 @@ K2-Literals-17;Expected error code: XQST0090. Found error code: XPST0003 with er
 K2-Literals-18;Expected error code: XQST0090. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-Literals-19;Expected error code: XQST0090. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-Literals-3;PRSC Error: Failed to parse query ''
-K2-Literals-30;Can't parse '.5' into an integer.
+K2-Literals-30;Value was either too large or too small for an Int64.
 K2-Literals-35;Expected executing the XPath "module namespace prefix = "http://example.com"; declare function prefix:myFunction() { 1 };" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'let $result := (module namespace prefix = "http://example.com"; declare function prefix:myFunction() { 1 };) return true()'
 K2-Literals-36;Expected executing the XPath "module namespace prefix = "http://www.example.com/";" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'let $result := (module namespace prefix = "http://www.example.com/";) return true()'
 K2-Literals-37;Expected error code: XPDY0002. Found error code:  with error message: 
 K2-Literals-38;Expected error code: XPDY0002. Found error code:  with error message: 
-K2-Literals-4;Expected executing the XPath "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" to resolve to one of the expected results, but got System.Exception: Can't parse '999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999' into an integer.
-K2-Literals-5;Expected executing the XPath "-999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" to resolve to one of the expected results, but got System.Exception: Can't parse '999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999' into an integer.
-K2-Literals-6;Expected executing the XPath "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999.1" to resolve to one of the expected results, but got System.Exception: Can't parse '999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999.1' into an integer.
-K2-Literals-7;Expected executing the XPath "0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001" to resolve to one of the expected results, but got System.Exception: Can't parse '0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001' into an integer.
+K2-Literals-4;Expected executing the XPath "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+K2-Literals-5;Expected executing the XPath "-999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+K2-Literals-6;Expected executing the XPath "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999.1" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+K2-Literals-7;Expected executing the XPath "0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 K2-Literals-8;Expected executing the XPath "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000 to resolve to INF, but instead got Infinity
 K2-Literals-9;Expected executing the XPath "-999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath -999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E100000000000000000000000000000000000000000000000000000000 to resolve to -INF, but instead got -Infinity
 K2-MatchesFunc-1;The function fn:matches with arity 3 is not registered.
@@ -14719,11 +14669,11 @@ K2-NumericEqual-3;Expected error code: XPTY0004. Found error code: XPST0003 with
 K2-NumericEqual-4;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-NumericEqual-5;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '1 eq text {"1"}'
 K2-NumericEqual-6;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'text {"1"} eq 1'
-K2-NumericGT-1;Can't parse '18446744073709551615' into an integer.
-K2-NumericGT-2;Can't parse '18446744073709551615' into an integer.
+K2-NumericGT-1;Value was either too large or too small for an Int64.
+K2-NumericGT-2;Value was either too large or too small for an Int64.
 K2-NumericGT-3;Expected XPath xs:double("3") gt xs:double("NaN") to resolve to false
-K2-NumericLT-1;Can't parse '18446744073709551615' into an integer.
-K2-NumericLT-2;Can't parse '18446744073709551615' into an integer.
+K2-NumericLT-1;Value was either too large or too small for an Int64.
+K2-NumericLT-2;Value was either too large or too small for an Int64.
 K2-NumericMod-10;Value was either too large or too small for a Decimal.
 K2-NumericMod-11;Value was either too large or too small for a Decimal.
 K2-NumericMod-12;Value was either too large or too small for a Decimal.
@@ -14758,10 +14708,10 @@ K2-NumericMod-46;Value was either too large or too small for a Decimal.
 K2-NumericMod-47;Value was either too large or too small for a Decimal.
 K2-NumericMod-48;Value was either too large or too small for a Decimal.
 K2-NumericMod-49;Value was either too large or too small for a Decimal.
-K2-NumericMod-5;Expected executing the XPath "-1 mod -9223372036854775808" to resolve to one of the expected results, but got System.Exception: Can't parse '9223372036854775808' into an integer.
+K2-NumericMod-5;Expected executing the XPath "-1 mod -9223372036854775808" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 K2-NumericMod-50;Value was either too large or too small for a Decimal.
 K2-NumericMod-59;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
-K2-NumericMod-6;Can't parse '9223372036854775808.0' into an integer.
+K2-NumericMod-6;Value was either too large or too small for an Int64.
 K2-NumericMod-60;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
 K2-NumericMod-61;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
 K2-NumericMod-62;PRSC Error: Failed to parse query ''
@@ -14864,12 +14814,12 @@ K2-RoundEvenFunc-13;Value was either too large or too small for a Decimal.
 K2-RoundEvenFunc-14;Value was either too large or too small for a Decimal.
 K2-RoundEvenFunc-15;Value was either too large or too small for a Decimal.
 K2-RoundEvenFunc-16;Value was either too large or too small for a Decimal.
-K2-RoundEvenFunc-3;Can't parse '0.5' into an integer.
-K2-RoundEvenFunc-4;Can't parse '1.5' into an integer.
-K2-RoundEvenFunc-5;Can't parse '2.5' into an integer.
+K2-RoundEvenFunc-3;Value was either too large or too small for an Int64.
+K2-RoundEvenFunc-4;Value was either too large or too small for an Int64.
+K2-RoundEvenFunc-5;Value was either too large or too small for an Int64.
 K2-RoundEvenFunc-6;PRSC Error: Failed to parse query 'round-half-to-even(3.567812E+3, 2) eq 3567.81E0'
 K2-RoundEvenFunc-7;PRSC Error: Failed to parse query 'round-half-to-even(4.7564E-3, 2) eq 0.0E0'
-K2-RoundEvenFunc-8;Can't parse '35612.25' into an integer.
+K2-RoundEvenFunc-8;Value was either too large or too small for an Int64.
 K2-RoundFunc-1;Expected executing the XPath "round(xs:unsignedShort(.)) instance of xs:unsignedShort" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-RoundFunc-10;Expected executing the XPath "round(xs:int(.)) instance of xs:int" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-RoundFunc-11;Expected executing the XPath "round(xs:short(.)) instance of xs:short" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
@@ -14938,7 +14888,7 @@ K2-RoundFunc-88;Expected XPath fn:round(xs:double("0.49")) to resolve to 0, but 
 K2-RoundFunc-9;Expected executing the XPath "round(xs:long(.)) instance of xs:long" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-RoundFunc-91;Expected XPath fn:round(xs:float("0.40")) to resolve to 0, but instead got -0
 K2-RoundFunc-92;Expected XPath fn:round(xs:double("0.40")) to resolve to 0, but instead got -0
-K2-SeqAVGFunc-2;Can't parse '3.3' into an integer.
+K2-SeqAVGFunc-2;Value was either too large or too small for an Int64.
 K2-SeqDeepEqualFunc-1;The function current-time with arity 0 is not registered.
 K2-SeqDeepEqualFunc-10;PRSC Error: Failed to parse query ''
 K2-SeqDeepEqualFunc-11;PRSC Error: Failed to parse query ''
@@ -15023,12 +14973,6 @@ K2-SeqExcept-7;PRSC Error: Failed to parse query ''
 K2-SeqExcept-8;PRSC Error: Failed to parse query ''
 K2-SeqExcept-9;PRSC Error: Failed to parse query ''
 K2-SeqExprCast-1;Type casting to XsQName has not been implemented yet.
-K2-SeqExprCast-100;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
-K2-SeqExprCast-101;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
-K2-SeqExprCast-102;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
-K2-SeqExprCast-103;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
-K2-SeqExprCast-104;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
-K2-SeqExprCast-105;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
 K2-SeqExprCast-106;Expected error code: FORG0001. Query succeeded with result: -3
 K2-SeqExprCast-107;Expected error code: FORG0001. Query succeeded with result: -3
 K2-SeqExprCast-108;Expected error code: FORG0001. Query succeeded with result: 3
@@ -15041,32 +14985,6 @@ K2-SeqExprCast-114;Expected error code: FORG0001. Query succeeded with result: 3
 K2-SeqExprCast-115;Expected error code: FORG0001. Query succeeded with result: 3
 K2-SeqExprCast-116;Expected error code: FORG0001. Query succeeded with result: 3
 K2-SeqExprCast-117;Expected error code: FORG0001. Query succeeded with result: 3
-K2-SeqExprCast-118;Expected XPathException with code FORG0001, but got Can't parse '- 0' into an integer.
-K2-SeqExprCast-119;Expected XPathException with code FORG0001, but got Can't parse '+ 0' into an integer.
-K2-SeqExprCast-120;Expected XPathException with code FORG0001, but got Can't parse '- 3' into an integer.
-K2-SeqExprCast-121;Expected XPathException with code FORG0001, but got Can't parse '+ 5' into an integer.
-K2-SeqExprCast-122;Expected XPathException with code FORG0001, but got Can't parse '+ 5' into an integer.
-K2-SeqExprCast-123;Expected XPathException with code FORG0001, but got Can't parse '+ 5' into an integer.
-K2-SeqExprCast-124;Expected XPathException with code FORG0001, but got Can't parse '+ 5' into an integer.
-K2-SeqExprCast-125;Expected XPathException with code FORG0001, but got Can't parse '- 5' into an integer.
-K2-SeqExprCast-126;Expected XPathException with code FORG0001, but got Can't parse '- 5' into an integer.
-K2-SeqExprCast-127;Expected XPathException with code FORG0001, but got Can't parse '- 5' into an integer.
-K2-SeqExprCast-128;Expected XPathException with code FORG0001, but got Can't parse '- 5' into an integer.
-K2-SeqExprCast-129;Expected XPathException with code FORG0001, but got Can't parse '+ 0' into an integer.
-K2-SeqExprCast-130;Expected XPathException with code FORG0001, but got Can't parse '- 0' into an integer.
-K2-SeqExprCast-131;Expected XPathException with code FORG0001, but got Can't parse '+ 3' into an integer.
-K2-SeqExprCast-145;Expected XPathException with code FORG0001, but got Can't parse '0x0' into an integer.
-K2-SeqExprCast-146;Expected XPathException with code FORG0001, but got Can't parse '-0x1' into an integer.
-K2-SeqExprCast-147;Expected XPathException with code FORG0001, but got Can't parse '0x9223372036854775807' into an integer.
-K2-SeqExprCast-148;Expected XPathException with code FORG0001, but got Can't parse '0x2147483647' into an integer.
-K2-SeqExprCast-149;Expected XPathException with code FORG0001, but got Can't parse '-0x32768' into an integer.
-K2-SeqExprCast-150;Expected XPathException with code FORG0001, but got Can't parse '-0x128' into an integer.
-K2-SeqExprCast-151;Expected XPathException with code FORG0001, but got Can't parse '0x0' into an integer.
-K2-SeqExprCast-152;Expected XPathException with code FORG0001, but got Can't parse '0x0' into an integer.
-K2-SeqExprCast-153;Expected XPathException with code FORG0001, but got Can't parse '0x0' into an integer.
-K2-SeqExprCast-154;Expected XPathException with code FORG0001, but got Can't parse '0x0' into an integer.
-K2-SeqExprCast-155;Expected XPathException with code FORG0001, but got Can't parse '0x0' into an integer.
-K2-SeqExprCast-156;Expected XPathException with code FORG0001, but got Can't parse '0x1' into an integer.
 K2-SeqExprCast-157;Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-158;Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-159;Expected XPathException with code FORG0001, but got Atomic Value for XsLanguage is not implemented yet.
@@ -15080,7 +14998,7 @@ K2-SeqExprCast-166;Expected XPathException with code FORG0001, but got Atomic Va
 K2-SeqExprCast-167;Expected XPathException with code FORG0001, but got Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-168;Expected XPathException with code FORG0001, but got Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-169;Expected XPathException with code FORG0001, but got Atomic Value for XsLanguage is not implemented yet.
-K2-SeqExprCast-17;Expected executing the XPath "xs:long("-9223372036854775808")" to resolve to one of the expected results, but got System.Exception: Can't parse '9223372036854775808' into an integer.
+K2-SeqExprCast-17;Expected executing the XPath "xs:long("-9223372036854775808")" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 K2-SeqExprCast-170;Expected XPathException with code FORG0001, but got Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-171;Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-172;Atomic Value for XsLanguage is not implemented yet.
@@ -15127,7 +15045,7 @@ K2-SeqExprCast-216;Expected XPathException with code FORG0001, but got Input str
 K2-SeqExprCast-217;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-218;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-219;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K2-SeqExprCast-22;Expected executing the XPath "xs:unsignedLong("18446744073709551615")" to resolve to one of the expected results, but got System.Exception: Can't parse '18446744073709551615' into an integer.
+K2-SeqExprCast-22;Expected executing the XPath "xs:unsignedLong("18446744073709551615")" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 K2-SeqExprCast-220;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-221;Expected XPath xs:float(" NaN ") to resolve to NaN, but instead got Infinity
 K2-SeqExprCast-222;Expected XPath xs:double(" NaN ") to resolve to NaN, but instead got Infinity
@@ -15287,14 +15205,7 @@ K2-SeqExprCast-56;Expected error code: FORG0001. Query succeeded with result: 0
 K2-SeqExprCast-57;Expected error code: FORG0001. Query succeeded with result: -1
 K2-SeqExprCast-62;Expected error code: FORG0001. Query succeeded with result: 0
 K2-SeqExprCast-63;Expected error code: FORG0001. Query succeeded with result: 1
-K2-SeqExprCast-71;Expected XPathException with code FORG0001, but got Can't parse '--0' into an integer.
-K2-SeqExprCast-72;Expected XPathException with code FORG0001, but got Can't parse '--1' into an integer.
-K2-SeqExprCast-73;Expected XPathException with code FORG0001, but got Can't parse '--0' into an integer.
-K2-SeqExprCast-74;Expected XPathException with code FORG0001, but got Can't parse '--1' into an integer.
-K2-SeqExprCast-75;Expected XPathException with code FORG0001, but got Can't parse '++1' into an integer.
-K2-SeqExprCast-76;Expected XPathException with code FORG0001, but got Can't parse '++1' into an integer.
-K2-SeqExprCast-77;Expected XPathException with code FORG0001, but got Can't parse '++0' into an integer.
-K2-SeqExprCast-78;Expected executing the XPath "xs:long("-9223372036854775809")" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0001, but got Can't parse '-9223372036854775809' into an integer.
+K2-SeqExprCast-78;Expected executing the XPath "xs:long("-9223372036854775809")" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FORG0001. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 K2-SeqExprCast-79;Expected error code: FORG0001. Query succeeded with result: -2147483649
 K2-SeqExprCast-80;Expected error code: FORG0001. Query succeeded with result: -32769
 K2-SeqExprCast-81;Expected error code: FORG0001. Query succeeded with result: -129
@@ -15306,16 +15217,10 @@ K2-SeqExprCast-86;Expected error code: FORG0001. Query succeeded with result: -1
 K2-SeqExprCast-87;Expected error code: FORG0001. Query succeeded with result: -1
 K2-SeqExprCast-88;Expected error code: FORG0001. Query succeeded with result: 1
 K2-SeqExprCast-89;Expected error code: FORG0001. Query succeeded with result: 0
-K2-SeqExprCast-90;Expected executing the XPath "xs:long("9223372036854775808")" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0001, but got Can't parse '9223372036854775808' into an integer.
+K2-SeqExprCast-90;Expected executing the XPath "xs:long("9223372036854775808")" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FORG0001. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 K2-SeqExprCast-91;Expected error code: FORG0001. Query succeeded with result: 2147483648
 K2-SeqExprCast-92;Expected error code: FORG0001. Query succeeded with result: 32768
 K2-SeqExprCast-93;Expected error code: FORG0001. Query succeeded with result: 128
-K2-SeqExprCast-94;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
-K2-SeqExprCast-95;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
-K2-SeqExprCast-96;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
-K2-SeqExprCast-97;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
-K2-SeqExprCast-98;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
-K2-SeqExprCast-99;Expected XPathException with code FORG0001, but got Can't parse '' into an integer.
 K2-SeqExprCastable-1;PRSC Error: Failed to parse query '(QName("http://example.com/ANamespace", "ncname"), QName("http://example.com/ANamespace", "ncname2"), QName("http://example.com/ANamespace", "ncname3")) castable as xs:QName'
 K2-SeqExprCastable-2;PRSC Error: Failed to parse query '(QName("http://example.com/ANamespace", "ncname"), QName("http://example.com/ANamespace", "ncname2"), QName("http://example.com/ANamespace", "ncname3")) castable as xs:QName?'
 K2-SeqExprCastable-3;Expected executing the XPath "(1 div 0) castable as xs:string" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '(1 div 0) castable as xs:string'
@@ -15586,7 +15491,7 @@ K2-WhereExpr-1b;Use of XQuery FLWOR expressions in XPath is not allowed
 K2-XQueryComment-3;PRSC Error: Failed to parse query ''
 K2-XQueryComment-4;PRSC Error: Failed to parse query ''
 K2-XQueryComment-5;PRSC Error: Failed to parse query ''
-K3-NodeNameFunc-1;Expected XPathException with code XPTY0004, but got Can't parse '3.3' into an integer.
+K3-NodeNameFunc-1;Expected error code: XPTY0004. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 K3-NodeNameFunc-2;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( (<a/>, <b/>))'
 K3-NodeNameFunc-3;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( (<a/>, "mystring"))'
 K3-NodeNameFunc-4;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( node-name(<a/>))'
@@ -15635,10 +15540,10 @@ line-ending-Q005;Expected XPath deep-equal(string-to-codepoints('
 line-ending-Q006;Expected XPath deep-equal(string-to-codepoints(' 
 line-ending-Q007;Expected XPath deep-equal(string-to-codepoints('
 Literals005;PRSC Error: Failed to parse query ''
-Literals012;Can't parse '65535032.0023' into an integer.
-Literals013;Can't parse '.65535032' into an integer.
-Literals014;Can't parse '.65535032' into an integer.
-Literals015;Can't parse '.65535032' into an integer.
+Literals012;Value was either too large or too small for an Int64.
+Literals013;Value was either too large or too small for an Int64.
+Literals014;Value was either too large or too small for an Int64.
+Literals015;Value was either too large or too small for an Int64.
 Literals016;Expected XPath 65535032e2 to resolve to 6.5535032E9, but instead got 6553503200
 Literals017;PRSC Error: Failed to parse query '65535.032e2'
 Literals021;PRSC Error: Failed to parse query '65535.032e-2'
@@ -16350,8 +16255,8 @@ nscons-041;PRSC Error: Failed to parse query ''
 nscons-042;Expected error code: XQDY0102. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        element e { namespace {''} {'http://example.com/uri'} }\n      '
 nscons-043;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 nscons-044;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-numeric-greater-than-101;Can't parse '2345.6' into an integer.
-numeric-greater-than-102;Can't parse '2345.6' into an integer.
+numeric-greater-than-101;Value was either too large or too small for an Int64.
+numeric-greater-than-102;Value was either too large or too small for an Int64.
 op-add-dayTimeDurations-1;Type casting to XsDayTimeDuration has not been implemented yet.
 op-add-dayTimeDurations-10;Type casting to XsDayTimeDuration has not been implemented yet.
 op-add-dayTimeDurations-11;Type casting to XsDayTimeDuration has not been implemented yet.
@@ -16419,7 +16324,7 @@ op-concatenate-mix-args-008;Expected XPath xs:float("1.01"), xs:float("NaN") to 
 op-concatenate-mix-args-009;Expected XPath xs:float("INF") , xs:double("NaN") to resolve to INF NaN, but instead got Infinity Infinity
 op-concatenate-mix-args-010;Expected XPath xs:double("INF"), xs:double("-INF"), xs:float("-INF") to resolve to INF -INF -INF, but instead got Infinity -Infinity -Infinity
 op-concatenate-mix-args-013;Expected XPath xs:date("1993-03-31") , xs:boolean("true"), xs:string("abc") to resolve to 1993-03-31 true abc, but instead got 1993-03-31 True abc
-op-concatenate-mix-args-019;Can't parse '65.95' into an integer.
+op-concatenate-mix-args-019;Value was either too large or too small for an Int64.
 op-concatenate-mix-args-020;Expected results and parsedFragment children to match
 op-concatflt2args-1;Expected XPath (xs:float("-3.4028235E38") || xs:float("-3.4028235E38")) to resolve to -3.4028235E38-3.4028235E38, but instead got -3.4028235E+38-3.4028235E+38
 op-concatflt2args-2;Expected XPath (xs:float("0") || xs:float("-3.4028235E38")) to resolve to 0-3.4028235E38, but instead got 0-3.4028235E+38
@@ -16619,9 +16524,9 @@ op-logical-and-051;Expected XPath xs:double(1) and xs:double(-1) to resolve to t
 op-logical-and-059;Expected XPath xs:double('-INF') and xs:double(1) to resolve to true
 op-logical-and-061;Expected XPath xs:double('-INF') and xs:double('INF') to resolve to true
 op-logical-and-065;Expected XPath xs:decimal(1) and xs:decimal(-1) to resolve to true
-op-logical-and-066;Expected executing the XPath "xs:decimal(9.99999999999999999999999999) and xs:decimal(0)" to resolve to one of the expected results, but got System.Exception: Can't parse '9.99999999999999999999999999' into an integer.
-op-logical-and-067;Can't parse '123456789.123456789123456789' into an integer.
-op-logical-and-068;Expected executing the XPath "xs:decimal(9.99999999999999999999999999) and xs:decimal(-123456789.123456789123456789)" to resolve to one of the expected results, but got System.Exception: Can't parse '9.99999999999999999999999999' into an integer.
+op-logical-and-066;Expected executing the XPath "xs:decimal(9.99999999999999999999999999) and xs:decimal(0)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-logical-and-067;Value was either too large or too small for an Int64.
+op-logical-and-068;Expected executing the XPath "xs:decimal(9.99999999999999999999999999) and xs:decimal(-123456789.123456789123456789)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 op-logical-and-072;Expected XPath xs:integer(1) and xs:integer(-1) to resolve to true
 op-logical-and-074;Expected XPath xs:integer(-99999999999999999) and xs:integer(1) to resolve to true
 op-logical-and-075;Expected XPath xs:integer(99999999999999999) and xs:integer(-99999999999999999) to resolve to true
@@ -16655,9 +16560,9 @@ op-logical-or-050;Expected XPath xs:double(-1) or xs:double(0) to resolve to tru
 op-logical-or-058;Expected XPath xs:double('-INF') or xs:double(0) to resolve to true
 op-logical-or-060;Expected XPath xs:double('-INF') or xs:double('NaN') to resolve to true
 op-logical-or-064;Expected XPath xs:decimal(-1) or xs:decimal(0) to resolve to true
-op-logical-or-066;Expected executing the XPath "xs:decimal(9.99999999999999999999999999) or xs:decimal(0)" to resolve to one of the expected results, but got System.Exception: Can't parse '9.99999999999999999999999999' into an integer.
-op-logical-or-067;Can't parse '123456789.123456789123456789' into an integer.
-op-logical-or-068;Expected executing the XPath "xs:decimal(9.99999999999999999999999999) or xs:decimal(-123456789.123456789123456789)" to resolve to one of the expected results, but got System.Exception: Can't parse '9.99999999999999999999999999' into an integer.
+op-logical-or-066;Expected executing the XPath "xs:decimal(9.99999999999999999999999999) or xs:decimal(0)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-logical-or-067;Value was either too large or too small for an Int64.
+op-logical-or-068;Expected executing the XPath "xs:decimal(9.99999999999999999999999999) or xs:decimal(-123456789.123456789123456789)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 op-logical-or-071;Expected XPath xs:integer(-1) or xs:integer(0) to resolve to true
 op-logical-or-077;Expected XPath xs:nonPositiveInteger(0) or xs:nonPositiveInteger(-1) to resolve to true
 op-logical-or-078;Expected XPath xs:nonPositiveInteger(-1) or xs:nonPositiveInteger(0) to resolve to true
@@ -16711,7 +16616,7 @@ op-multiply-yearMonthDuration-17;Type casting to XsYearMonthDuration has not bee
 op-multiply-yearMonthDuration-18;Type casting to XsYearMonthDuration has not been implemented yet.
 op-multiply-yearMonthDuration-19;Expected XPathException with code FOCA0005, but got Type casting to XsYearMonthDuration has not been implemented yet.
 op-multiply-yearMonthDuration-2;Type casting to XsYearMonthDuration has not been implemented yet.
-op-multiply-yearMonthDuration-20;Can't parse '3.9' into an integer.
+op-multiply-yearMonthDuration-20;Value was either too large or too small for an Int64.
 op-multiply-yearMonthDuration-3;Type casting to XsYearMonthDuration has not been implemented yet.
 op-multiply-yearMonthDuration-4;Type casting to XsYearMonthDuration has not been implemented yet.
 op-multiply-yearMonthDuration-5;Type casting to XsYearMonthDuration has not been implemented yet.
@@ -16755,42 +16660,42 @@ op-numeric-addmix2args-7;PRSC Error: Failed to parse query ' = 3'
 op-numeric-addmix2args-8;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-addmix2args-9;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-divide-1;The function error with arity 0 is not registered.
-op-numeric-divide-big-01;Expected executing the XPath "(10000000000000000000000000000.0 div 0.1) cast as xs:string" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOAR0002, but got Can't parse '10000000000000000000000000000.0' into an integer.
+op-numeric-divide-big-01;Expected executing the XPath "(10000000000000000000000000000.0 div 0.1) cast as xs:string" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOAR0002. Found error code: FOCA0001 with error message: Value was either too large or too small for an Int64.
 op-numeric-dividedbl2args-1;Value was either too large or too small for a Decimal.
 op-numeric-dividedbl2args-2;Value was either too large or too small for a Decimal.
 op-numeric-dividedbl2args-3;Value was either too large or too small for a Decimal.
 op-numeric-dividedbl2args-4;Value was either too large or too small for a Decimal.
-op-numeric-dividedec2args-2;Expected executing the XPath "fn:round-half-to-even((xs:decimal("617375191608514839") div xs:decimal("-999999999999999999")),18)" to resolve to one of the expected results, but got System.Exception: Can't parse '0.61737519160851484' into an integer.
-op-numeric-dividedec2args-4;Expected executing the XPath "fn:round-half-to-even((xs:decimal("-999999999999999999") div xs:decimal("617375191608514839")),18)" to resolve to one of the expected results, but got System.Exception: Can't parse '1.619760582531006901' into an integer.
+op-numeric-dividedec2args-2;Expected executing the XPath "fn:round-half-to-even((xs:decimal("617375191608514839") div xs:decimal("-999999999999999999")),18)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-dividedec2args-4;Expected executing the XPath "fn:round-half-to-even((xs:decimal("-999999999999999999") div xs:decimal("617375191608514839")),18)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 op-numeric-divideflt2args-1;Value was either too large or too small for a Decimal.
 op-numeric-divideflt2args-2;Value was either too large or too small for a Decimal.
 op-numeric-divideflt2args-3;Value was either too large or too small for a Decimal.
 op-numeric-divideflt2args-4;Value was either too large or too small for a Decimal.
-op-numeric-divideint2args-2;Can't parse '0.8726093965' into an integer.
-op-numeric-divideint2args-3;Can't parse '0.9999999995' into an integer.
-op-numeric-divideint2args-4;Can't parse '1.145988118' into an integer.
-op-numeric-divideint2args-5;Can't parse '1.0000000005' into an integer.
-op-numeric-divideintg2args-2;Expected executing the XPath "fn:round-half-to-even((xs:integer("830993497117024304") div xs:integer("-999999999999999999")),18)" to resolve to one of the expected results, but got System.Exception: Can't parse '0.830993497117024305' into an integer.
-op-numeric-divideintg2args-4;Expected executing the XPath "fn:round-half-to-even((xs:integer("-999999999999999999") div xs:integer("830993497117024304")),18)" to resolve to one of the expected results, but got System.Exception: Can't parse '1.203378851301859738' into an integer.
-op-numeric-dividelng2args-2;Expected executing the XPath "fn:round-half-to-even((xs:long("-47175562203048468") div xs:long("-92233720368547758")),17)" to resolve to one of the expected results, but got System.Exception: Can't parse '0.51147847028770199' into an integer.
-op-numeric-dividelng2args-4;Expected executing the XPath "fn:round-half-to-even((xs:long("-92233720368547758") div xs:long("-47175562203048468")),17)" to resolve to one of the expected results, but got System.Exception: Can't parse '1.95511650654133906' into an integer.
+op-numeric-divideint2args-2;Value was either too large or too small for an Int64.
+op-numeric-divideint2args-3;Value was either too large or too small for an Int64.
+op-numeric-divideint2args-4;Value was either too large or too small for an Int64.
+op-numeric-divideint2args-5;Value was either too large or too small for an Int64.
+op-numeric-divideintg2args-2;Expected executing the XPath "fn:round-half-to-even((xs:integer("830993497117024304") div xs:integer("-999999999999999999")),18)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-divideintg2args-4;Expected executing the XPath "fn:round-half-to-even((xs:integer("-999999999999999999") div xs:integer("830993497117024304")),18)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-dividelng2args-2;Expected executing the XPath "fn:round-half-to-even((xs:long("-47175562203048468") div xs:long("-92233720368547758")),17)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-dividelng2args-4;Expected executing the XPath "fn:round-half-to-even((xs:long("-92233720368547758") div xs:long("-47175562203048468")),17)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 op-numeric-dividemix2args-4;PRSC Error: Failed to parse query ' = 0.5'
 op-numeric-dividemix2args-5;PRSC Error: Failed to parse query ' = 0.5'
 op-numeric-dividemix2args-6;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-dividemix2args-7;PRSC Error: Failed to parse query ' = 0.5'
 op-numeric-dividemix2args-8;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-dividemix2args-9;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-op-numeric-dividenint2args-2;Expected executing the XPath "fn:round-half-to-even((xs:negativeInteger("-297014075999096793") div xs:negativeInteger("-999999999999999999")),18)" to resolve to one of the expected results, but got System.Exception: Can't parse '0.297014075999096793' into an integer.
-op-numeric-dividenint2args-3;Expected executing the XPath "xs:negativeInteger("-1") div xs:negativeInteger("-999999999999999999")" to resolve to one of the expected results, but got System.Exception: Can't parse '0.000000000000000001' into an integer.
-op-numeric-dividenint2args-4;Expected executing the XPath "fn:round-half-to-even((xs:negativeInteger("-999999999999999999") div xs:negativeInteger("-297014075999096793")),18)" to resolve to one of the expected results, but got System.Exception: Can't parse '3.366843799022646172' into an integer.
-op-numeric-dividenpi2args-2;Expected executing the XPath "fn:round-half-to-even((xs:nonPositiveInteger("-475688437271870490") div xs:nonPositiveInteger("-999999999999999999")),18)" to resolve to one of the expected results, but got System.Exception: Can't parse '0.47568843727187049' into an integer.
-op-numeric-dividenpi2args-4;Expected executing the XPath "fn:round-half-to-even((xs:nonPositiveInteger("-999999999999999999") div xs:nonPositiveInteger("-475688437271870490")),18)" to resolve to one of the expected results, but got System.Exception: Can't parse '2.102216328265447024' into an integer.
-op-numeric-dividepint2args-4;Expected executing the XPath "fn:round-half-to-even((xs:positiveInteger("1") div xs:positiveInteger("52704602390610033")),17)" to resolve to one of the expected results, but got System.Exception: Can't parse '0.00000000000000002' into an integer.
-op-numeric-dividepint2args-5;Expected executing the XPath "xs:positiveInteger("1") div xs:positiveInteger("999999999999999999")" to resolve to one of the expected results, but got System.Exception: Can't parse '0.000000000000000001' into an integer.
-op-numeric-dividesht2args-2;Can't parse '0.16248' into an integer.
-op-numeric-dividesht2args-3;Expected executing the XPath "xs:short("32767") div xs:short("-32768")" to resolve to one of the expected results, but got System.Exception: Can't parse '0.999969482421875' into an integer.
-op-numeric-dividesht2args-4;Can't parse '6.15477' into an integer.
-op-numeric-dividesht2args-5;Can't parse '1.000030518509475997' into an integer.
+op-numeric-dividenint2args-2;Expected executing the XPath "fn:round-half-to-even((xs:negativeInteger("-297014075999096793") div xs:negativeInteger("-999999999999999999")),18)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-dividenint2args-3;Expected executing the XPath "xs:negativeInteger("-1") div xs:negativeInteger("-999999999999999999")" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-dividenint2args-4;Expected executing the XPath "fn:round-half-to-even((xs:negativeInteger("-999999999999999999") div xs:negativeInteger("-297014075999096793")),18)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-dividenpi2args-2;Expected executing the XPath "fn:round-half-to-even((xs:nonPositiveInteger("-475688437271870490") div xs:nonPositiveInteger("-999999999999999999")),18)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-dividenpi2args-4;Expected executing the XPath "fn:round-half-to-even((xs:nonPositiveInteger("-999999999999999999") div xs:nonPositiveInteger("-475688437271870490")),18)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-dividepint2args-4;Expected executing the XPath "fn:round-half-to-even((xs:positiveInteger("1") div xs:positiveInteger("52704602390610033")),17)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-dividepint2args-5;Expected executing the XPath "xs:positiveInteger("1") div xs:positiveInteger("999999999999999999")" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-dividesht2args-2;Value was either too large or too small for an Int64.
+op-numeric-dividesht2args-3;Expected executing the XPath "xs:short("32767") div xs:short("-32768")" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+op-numeric-dividesht2args-4;Value was either too large or too small for an Int64.
+op-numeric-dividesht2args-5;Value was either too large or too small for an Int64.
 op-numeric-integer-divide-1;Expected XPathException with code FOAR0002, but got Attempted to divide by zero.
 op-numeric-integer-dividemix2args-4;PRSC Error: Failed to parse query ' = 1'
 op-numeric-integer-dividemix2args-5;PRSC Error: Failed to parse query ' = 0'
@@ -16825,7 +16730,7 @@ op-numeric-multiplymix2args-7;PRSC Error: Failed to parse query ' = 2'
 op-numeric-multiplymix2args-8;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-multiplymix2args-9;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-subtract-1;Use of XQuery FLWOR expressions in XPath is not allowed
-op-numeric-subtract-big-01;Expected executing the XPath "(-79228162514264337593543950335.0 - 1.0) cast as xs:string" to resolve to one of the expected results, but got System.Exception: Can't parse '79228162514264337593543950335.0' into an integer.
+op-numeric-subtract-big-01;Expected executing the XPath "(-79228162514264337593543950335.0 - 1.0) cast as xs:string" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 op-numeric-subtractdbl2args-1;Value was either too large or too small for a Decimal.
 op-numeric-subtractdbl2args-2;PRSC Error: Failed to parse query 'xs:double("0") - xs:double("-1.7976931348623157E308") = 1.7976931348623157E308'
 op-numeric-subtractdbl2args-3;PRSC Error: Failed to parse query 'xs:double("0") - xs:double("-1.7976931348623157E308") = 1.7976931348623157E308'
@@ -16842,7 +16747,7 @@ op-numeric-subtractmix2args-6;Expected error code: FORG0001. Found error code: X
 op-numeric-subtractmix2args-7;PRSC Error: Failed to parse query ' = 1'
 op-numeric-subtractmix2args-8;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-subtractmix2args-9;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-op-numeric-unary-minus-1;Can't parse '2.5' into an integer.
+op-numeric-unary-minus-1;Value was either too large or too small for an Int64.
 op-numeric-unary-minusdbl1args-1;PRSC Error: Failed to parse query '-(xs:double("-1.7976931348623157E308")) = 1.7976931348623157E308'
 op-numeric-unary-minusdbl1args-3;PRSC Error: Failed to parse query '-(xs:double("1.7976931348623157E308")) = -1.7976931348623157E308'
 op-numeric-unary-minusdec1args-1;Value was either too large or too small for a Decimal.
@@ -16850,7 +16755,7 @@ op-numeric-unary-minusdec1args-2;Value was either too large or too small for a D
 op-numeric-unary-minusdec1args-3;Value was either too large or too small for a Decimal.
 op-numeric-unary-minusflt1args-1;PRSC Error: Failed to parse query '-(xs:float("-3.4028235E38")) = xs:float(3.4028235E38)'
 op-numeric-unary-minusflt1args-3;PRSC Error: Failed to parse query '-(xs:float("3.4028235E38")) = xs:float(-3.4028235E38)'
-op-numeric-unary-plus-1;Can't parse '2.5' into an integer.
+op-numeric-unary-plus-1;Value was either too large or too small for an Int64.
 op-numeric-unary-plusdbl1args-1;PRSC Error: Failed to parse query '+(xs:double("-1.7976931348623157E308")) = -1.7976931348623157E308'
 op-numeric-unary-plusdbl1args-3;PRSC Error: Failed to parse query '+(xs:double("1.7976931348623157E308")) = 1.7976931348623157E308'
 op-numeric-unary-plusflt1args-1;PRSC Error: Failed to parse query '+(xs:float("-3.4028235E38")) = xs:float(-3.4028235E38)'
@@ -17475,8 +17380,8 @@ rangeExpr-13;Casting AbstractValue(XsInt) to DoubleValue
 rangeExpr-14;Casting AbstractValue(XsInt) to DoubleValue
 rangeExpr-15;Casting AbstractValue(XsInteger) to DoubleValue
 rangeExpr-16;Casting AbstractValue(XsInteger) to DoubleValue
-rangeExpr-28;Expected executing the XPath "18446744073709551616 to 18446744073709551620" to resolve to one of the expected results, but got System.Exception: Can't parse '18446744073709551616' into an integer.
-rangeExpr-29;Expected executing the XPath "count(18446744073709551616 to 18446744073709551620)" to resolve to one of the expected results, but got System.Exception: Can't parse '18446744073709551616' into an integer.
+rangeExpr-28;Expected executing the XPath "18446744073709551616 to 18446744073709551620" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
+rangeExpr-29;Expected executing the XPath "count(18446744073709551616 to 18446744073709551620)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Value was either too large or too small for an Int64.
 rangeExpr-30;Expected executing the XPath "(28446744073709551616 to 28446744073709551620)!position()" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '(28446744073709551616 to 28446744073709551620)!position()'
 rangeExpr-31;Expected executing the XPath "((28446744073709551616 to 28446744073709551620)!last())[1]" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '((28446744073709551616 to 28446744073709551620)!last())[1] = 5'
 rangeExpr-32;Expected executing the XPath "reverse(28446744073709551616 to 28446744073709551620)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function reverse with arity 1 is not registered.
@@ -17494,11 +17399,11 @@ RangeExpr-408b;Value was either too large or too small for an Int32.
 RangeExpr-408c;Value was either too large or too small for an Int32.
 RangeExpr-408d;Value was either too large or too small for an Int32.
 RangeExpr-408e;The function reverse with arity 1 is not registered.
-RangeExpr-409;Can't parse '1000000000000000000000' into an integer.
-RangeExpr-409a;Can't parse '1000000000000000000000' into an integer.
-RangeExpr-409b;Can't parse '1000000000000000000000' into an integer.
-RangeExpr-409c;Can't parse '1000000000000000020001' into an integer.
-RangeExpr-409d;Can't parse '1000000000000000020001' into an integer.
+RangeExpr-409;Value was either too large or too small for an Int64.
+RangeExpr-409a;Value was either too large or too small for an Int64.
+RangeExpr-409b;Value was either too large or too small for an Int64.
+RangeExpr-409c;Value was either too large or too small for an Int64.
+RangeExpr-409d;Value was either too large or too small for an Int64.
 RangeExpr-409e;The function reverse with arity 1 is not registered.
 rangeExpr-41;Expected XPath (1 to 5000)[position() = 2001 to 2020] to (deep equally) resolve to 2001 to 2020
 RangeExpr-410;Value was either too large or too small for an Int32.
@@ -17507,11 +17412,11 @@ RangeExpr-410b;Value was either too large or too small for an Int32.
 RangeExpr-410c;Value was either too large or too small for an Int32.
 RangeExpr-410d;Value was either too large or too small for an Int32.
 RangeExpr-410e;The function reverse with arity 1 is not registered.
-RangeExpr-411;Can't parse '1000000000000000000003' into an integer.
-RangeExpr-411a;Can't parse '1000000000000000000003' into an integer.
-RangeExpr-411b;Can't parse '1000000000000000000003' into an integer.
-RangeExpr-411c;Can't parse '1000000000000000000000' into an integer.
-RangeExpr-411d;Can't parse '1000000000000000000000' into an integer.
+RangeExpr-411;Value was either too large or too small for an Int64.
+RangeExpr-411a;Value was either too large or too small for an Int64.
+RangeExpr-411b;Value was either too large or too small for an Int64.
+RangeExpr-411c;Value was either too large or too small for an Int64.
+RangeExpr-411d;Value was either too large or too small for an Int64.
 RangeExpr-411e;The function reverse with arity 1 is not registered.
 RangeExpr-412e;The function reverse with arity 1 is not registered.
 RangeExpr-413;The function year-from-date with arity 1 is not registered.
@@ -18597,7 +18502,7 @@ sequence-type-15;PRSC Error: Failed to parse query '("abc") castable as xs:strin
 sequence-type-16;PRSC Error: Failed to parse query '("abc","def") castable as xs:string?'
 sequence-type-17;PRSC Error: Failed to parse query '("abc") castable as xs:integer?'
 sequence-type-18;PRSC Error: Failed to parse query '("abc","def") castable as xs:integer?'
-sequence-type-3;Can't parse '1.1' into an integer.
+sequence-type-3;Value was either too large or too small for an Int64.
 sequence-type-9;PRSC Error: Failed to parse query '(2) castable as xs:integer?'
 sequenceexpressionhc7;The function fn:reverse with arity 1 is not registered.
 sequenceexpressionhc8;Expected results and parsedFragment children to match
