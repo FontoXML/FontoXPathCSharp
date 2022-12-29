@@ -3,15 +3,12 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class IntegerValue : NumericValue
+public class IntegerValue : NumericValue<long>
 {
-    public readonly long Value;
-
-    public IntegerValue(long value, ValueType type) : base(type)
+    public IntegerValue(long value, ValueType type) : base(value, type)
     {
         if (!type.IsSubtypeOf(ValueType.XsInteger))
             throw new XPathException("", "Cannot assign an integer value from a type that does not inherit xs:integer");
-        Value = value;
     }
 
     public static IntegerValue CreateIntegerValue(object? value, ValueType type)
@@ -28,10 +25,5 @@ public class IntegerValue : NumericValue
         return value != null
             ? Convert.ToInt64(value)
             : throw new Exception("Tried to initialize an IntValue with null.");
-    }
-
-    public override object GetValue()
-    {
-        return Value;
     }
 }

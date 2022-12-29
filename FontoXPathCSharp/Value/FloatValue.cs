@@ -2,13 +2,10 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class FloatValue : NumericValue
+public class FloatValue : NumericValue<float>
 {
-    public readonly float Value;
-
-    public FloatValue(float value) : base(ValueType.XsFloat)
+    public FloatValue(float value) : base(value, ValueType.XsFloat)
     {
-        Value = value;
     }
 
     public static FloatValue CreateFloatValue(object? value)
@@ -16,6 +13,7 @@ public class FloatValue : NumericValue
         var floatValue = value is string s
             ? float.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
             : ConvertToFloat(value);
+        
         return new FloatValue(floatValue);
     }
 
@@ -35,10 +33,5 @@ public class FloatValue : NumericValue
             "-INF" => float.NegativeInfinity,
             _ => throw new Exception($"Can't parse {s} into an float for a FloatValue.")
         };
-    }
-
-    public override object GetValue()
-    {
-        return Value;
     }
 }

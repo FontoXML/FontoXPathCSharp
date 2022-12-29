@@ -49,21 +49,27 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
 
     private static bool HandleNumericOperator(CompareType type, AbstractValue a, AbstractValue b)
     {
-        if (a.GetValueType() != b.GetValueType())
-            throw new NotImplementedException(
-                $"HandleNumericOperator: Different numeric types: {a.GetValueType()} and {b.GetValueType()}");
-
-        return a.GetValueType() switch
+        if (a.GetValueType() == b.GetValueType())
         {
-            ValueType.XsBoolean => Compare(type, a.GetAs<BooleanValue>().Value, b.GetAs<BooleanValue>().Value),
-            ValueType.XsInteger or ValueType.XsInt => Compare(type, a.GetAs<IntegerValue>().Value,
-                b.GetAs<IntegerValue>().Value),
-            ValueType.XsFloat => Compare(type, a.GetAs<FloatValue>().Value, b.GetAs<FloatValue>().Value),
-            ValueType.XsDouble => Compare(type, a.GetAs<DoubleValue>().Value, b.GetAs<DoubleValue>().Value),
-            ValueType.XsString => Compare(type, a.GetAs<StringValue>().Value, b.GetAs<StringValue>().Value),
-            _ => throw new ArgumentOutOfRangeException(
-                $"Comparison between operands of type {a.GetValueType()} not implemented yet.")
-        };
+            return a.GetValueType() switch
+            {
+                ValueType.XsBoolean => Compare(type, a.GetAs<BooleanValue>().Value, b.GetAs<BooleanValue>().Value),
+                ValueType.XsInteger or ValueType.XsInt => Compare(type, a.GetAs<IntegerValue>().Value,
+                    b.GetAs<IntegerValue>().Value),
+                ValueType.XsFloat => Compare(type, a.GetAs<FloatValue>().Value, b.GetAs<FloatValue>().Value),
+                ValueType.XsDouble => Compare(type, a.GetAs<DoubleValue>().Value, b.GetAs<DoubleValue>().Value),
+                ValueType.XsString => Compare(type, a.GetAs<StringValue>().Value, b.GetAs<StringValue>().Value),
+                _ => throw new ArgumentOutOfRangeException(
+                    $"Comparison between operands of type {a.GetValueType()} not implemented yet.")
+            };
+        }
+        
+        var targetType = a.GetValueType().IsSubtypeOf(b.GetValueType()) ? b.GetValueType() : a.GetValueType();
+
+        //TODO: handle cases where types are not the same (get target type, upcast both to it, and do arithmetic).
+        
+        throw new NotImplementedException(
+                $"HandleNumericOperator: Different numeric types: {a.GetValueType()} and {b.GetValueType()}");
     }
 
     public static bool PerformValueCompare(
