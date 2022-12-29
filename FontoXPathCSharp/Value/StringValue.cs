@@ -11,15 +11,17 @@ public class StringValue : AtomicValue
         Value = value;
     }
 
-    public StringValue(object? value) : base(ValueType.XsString)
+    public static StringValue CreateStringValue(object? value)
     {
-        Value = value switch
+        var stringValue = value switch
         {
             null => throw new Exception("Tried to initialize a xs:string with null."),
             string s => s,
             AtomicValue a => a.GetValue().ToString() ?? "",
             _ => value.ToString() ?? ""
         };
+        
+        return new StringValue(stringValue);
     }
 
     public override object GetValue()

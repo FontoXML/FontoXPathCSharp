@@ -10,23 +10,16 @@ public class FloatValue : NumericValue<float>
 
     public static FloatValue CreateFloatValue(object? value)
     {
-        var floatValue = value is string str
-            ? HandleStringParse(str)
-            : ConvertToFloat(value);
-
+        var floatValue = value is string str 
+            ? CreateFromString(str) 
+            : CreateFromValue(value);
+        
         return new FloatValue(floatValue);
     }
 
-    private static float ConvertToFloat(object? value)
+    private static float CreateFromString(string str)
     {
-        return value != null
-            ? Convert.ToSingle(value)
-            : throw new XPathException("FORG0001","Tried to initialize a FloatValue with null.");
-    }
-
-    private static float HandleStringParse(string str)
-    {
-        try
+        return NumericCast(str, v =>
         {
             return str switch
             {
@@ -34,14 +27,11 @@ public class FloatValue : NumericValue<float>
                 "-INF" => float.NegativeInfinity,
                 _ => float.Parse(str)
             };
-        }
-        catch (FormatException formatEx)
-        {
-            throw new XPathException("FORG0001", formatEx.Message);
-        }
-        catch (OverflowException overflowEx)
-        {
-            throw new XPathException("FOCA0001", overflowEx.Message);
-        }
+        });
+    }
+
+    private static float CreateFromValue(object? val)
+    {
+        return NumericCast(val, Convert.ToSingle);
     }
 }

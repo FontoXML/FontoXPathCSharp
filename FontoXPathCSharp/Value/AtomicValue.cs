@@ -69,11 +69,11 @@ public abstract class AtomicValue : AbstractValue
     // {
     //     
     // }
-
-    private static string PrintStackTrace(StackTrace st)
-    {
-        return string.Concat("<-", st.GetFrames().Select(f => f.GetMethod()!.Name));
-    }
+    //
+    // private static string PrintStackTrace(StackTrace st)
+    // {
+    //     return string.Concat("<-", st.GetFrames().Select(f => f.GetMethod()!.Name));
+    // }
 
     public static AtomicValue Create<T>(T value, ValueType type)
     {
@@ -82,7 +82,7 @@ public abstract class AtomicValue : AbstractValue
 
         return type switch
         {
-            ValueType.XsBoolean => new BooleanValue(value),
+            ValueType.XsBoolean => BooleanValue.CreateBooleanValue(value),
             ValueType.XsInteger
                 or ValueType.XsPositiveInteger
                 or ValueType.XsNegativeInteger
@@ -101,7 +101,7 @@ public abstract class AtomicValue : AbstractValue
             ValueType.XsDecimal => DecimalValue.CreateDecimalValue(value),
             ValueType.XsQName => new QNameValue(value),
             ValueType.XsUntypedAtomic => new UntypedAtomicValue(value!),
-            ValueType.XsString => new StringValue(value),
+            ValueType.XsString => StringValue.CreateStringValue(value),
             ValueType.XsDate
                 or ValueType.XsDateTime
                 or ValueType.XsGDay

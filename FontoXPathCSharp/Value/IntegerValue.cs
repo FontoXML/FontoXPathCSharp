@@ -15,33 +15,19 @@ public class IntegerValue : NumericValue<long>
     public static IntegerValue CreateIntegerValue(object? value, ValueType type)
     {
         var integerValue = value is string str
-            ? HandleStringParse(str)
-            : ConvertToInt(value);
+            ? CreateFromString(str)
+            : CreateFromValue(value);
 
         return new IntegerValue(integerValue, type);
     }
 
-    private static long HandleStringParse(string str)
+    private static long CreateFromString(string str)
     {
-        try
-        {
-            var style = NumberStyles.Integer | NumberStyles.AllowDecimalPoint;
-            return long.Parse(str, style);
-        }
-        catch (FormatException formatEx)
-        {
-            throw new XPathException("FORG0001", formatEx.Message);
-        }
-        catch (OverflowException overflowEx)
-        {
-            throw new XPathException("FOCA0001", overflowEx.Message);
-        }
+       return NumericCast(str, v => long.Parse(v, NumberStyles.Integer | NumberStyles.AllowDecimalPoint));
     }
 
-    private static long ConvertToInt(object? value)
+    private static long CreateFromValue(object? val)
     {
-        return value != null
-            ? Convert.ToInt64(value)
-            : throw new XPathException("FORG0001", "Tried to initialize an IntValue with null.");
+        return NumericCast(val, Convert.ToInt64);
     }
 }

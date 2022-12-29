@@ -11,22 +11,15 @@ public class DoubleValue : NumericValue<double>
     public static DoubleValue CreateDoubleValue(object? value)
     {
         var doubleValue = value is string str
-            ? HandleStringParse(str)
-            : ConvertToFloat(value);
+            ? CreateFromString(str)
+            : CreateFromValue(value);
 
         return new DoubleValue(doubleValue);
     }
 
-    private static double ConvertToFloat(object? value)
+    private static double CreateFromString(string str)
     {
-        return value != null
-            ? Convert.ToDouble(value)
-            : throw new XPathException("FORG0001","Tried to initialize a DoubleValue with null.");
-    }
-    
-    private static double HandleStringParse(string str)
-    {
-        try
+        return NumericCast(str, v =>
         {
             return str switch
             {
@@ -34,14 +27,11 @@ public class DoubleValue : NumericValue<double>
                 "-INF" => double.NegativeInfinity,
                 _ => double.Parse(str)
             };
-        }
-        catch (FormatException formatEx)
-        {
-            throw new XPathException("FORG0001", formatEx.Message);
-        }
-        catch (OverflowException overflowEx)
-        {
-            throw new XPathException("FOCA0001", overflowEx.Message);
-        }
+        });
+    }
+
+    private static double CreateFromValue(object? val)
+    {
+        return NumericCast(val, Convert.ToDouble);
     }
 }

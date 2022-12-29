@@ -10,33 +10,20 @@ public class DecimalValue : NumericValue<decimal>
 
     public static DecimalValue CreateDecimalValue(object? value)
     {
-        var decimalValue = value is string s
-            ? HandleStringParse(s)
-            : ConvertToDecimal(value);
+        var decimalValue = value is string str
+            ? CreateFromString(str)
+            : CreateFromValue(value);
 
         return new DecimalValue(decimalValue);
     }
 
-    private static decimal HandleStringParse(string str)
+    private static decimal CreateFromString(string str)
     {
-        try
-        {
-            return decimal.Parse(str);
-        }
-        catch (FormatException formatEx)
-        {
-            throw new XPathException("FORG0001", formatEx.Message);
-        }
-        catch (OverflowException overflowEx)
-        {
-            throw new XPathException("FOCA0001", overflowEx.Message);
-        }
+        return NumericCast(str, decimal.Parse);
     }
 
-    private static decimal ConvertToDecimal(object? value)
+    private static decimal CreateFromValue(object? val)
     {
-        return value != null
-            ? Convert.ToDecimal(value)
-            : throw new XPathException("FORG0001", "Tried to initialize a DecimalValue with null.");
+        return NumericCast(val, Convert.ToDecimal);
     }
 }
