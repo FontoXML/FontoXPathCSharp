@@ -50,7 +50,7 @@ public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notn
                     if (first == null || !first.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
                         return (TReturn?)(object?)0;
 
-                    return (TReturn)(object)Convert.ToInt64(first.GetAs<AtomicValue>().GetValue());
+                    return (TReturn)(object)Convert.ToDecimal(first.GetAs<AtomicValue>().GetValue());
                 }
             },
             // Integers

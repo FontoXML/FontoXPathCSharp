@@ -31,7 +31,7 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
         var sequence = sequences[0];
         return sequence.Map((onlyValue, _, _) =>
             CreateValidNumericType(onlyValue.GetValueType(),
-                Math.Abs(Convert.ToDouble(onlyValue.GetAs<UntypedAtomicValue>())))
+                Math.Abs(Convert.ToDecimal(onlyValue.GetAs<AtomicValue>().GetValue())))
         );
     };
 
@@ -40,7 +40,7 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
         var sequence = sequences[0];
         return sequence.Map((onlyValue, _, _) =>
             CreateValidNumericType(onlyValue.GetValueType(),
-                Math.Ceiling(Convert.ToDouble(onlyValue.GetAs<UntypedAtomicValue>())))
+                Math.Ceiling(Convert.ToDecimal(onlyValue.GetAs<AtomicValue>().GetValue())))
         );
     };
 
@@ -49,7 +49,7 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
         var sequence = sequences[0];
         return sequence.Map((onlyValue, _, _) =>
             CreateValidNumericType(onlyValue.GetValueType(),
-                Math.Floor(Convert.ToDouble(onlyValue.GetAs<UntypedAtomicValue>())))
+                Math.Floor(Convert.ToDecimal(onlyValue.GetAs<AtomicValue>().GetValue())))
         );
     };
 
@@ -260,7 +260,7 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
         return isNegative ? $"-{romanString}" : romanString;
     }
 
-    private static AbstractValue CreateValidNumericType(ValueType type, double transformedValue)
+    private static AbstractValue CreateValidNumericType(ValueType type, decimal transformedValue)
     {
         if (type.IsSubtypeOf(ValueType.XsInteger)) return AtomicValue.Create(transformedValue, ValueType.XsInteger);
         if (type.IsSubtypeOf(ValueType.XsFloat)) return AtomicValue.Create(transformedValue, ValueType.XsFloat);

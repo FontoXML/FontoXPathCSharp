@@ -1,3 +1,4 @@
+using System.Globalization;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
@@ -13,8 +14,11 @@ public class IntegerValue : NumericValue<long>
 
     public static IntegerValue CreateIntegerValue(object? value, ValueType type)
     {
+        var style = NumberStyles.Integer | NumberStyles.AllowDecimalPoint;
         var integerValue = value is string s
-            ? long.TryParse(s, out var val) ? val : throw new Exception($"Can't parse {s} into an integer.")
+            ? long.TryParse(s, style, null, out var val)
+                ? val
+                : throw new Exception($"Can't parse '{s}' into an integer.")
             : ConvertToInt(value);
 
         return new IntegerValue(integerValue, type);

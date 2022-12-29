@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FontoXPathCSharp.Expressions.DataTypes.Builtins;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
@@ -68,6 +69,11 @@ public abstract class AtomicValue : AbstractValue
     // {
     //     
     // }
+
+    private static string PrintStackTrace(StackTrace st)
+    {
+        return string.Concat("<-", st.GetFrames().Select(f => f.GetMethod()!.Name));
+    }
 
     public static AtomicValue Create<T>(T value, ValueType type)
     {
