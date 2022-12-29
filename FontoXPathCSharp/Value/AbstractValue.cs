@@ -14,7 +14,7 @@ public abstract class AbstractValue
         Type = type;
     }
 
-    public T GetAs<T>() where T : AbstractValue
+    public virtual T GetAs<T>() where T : AbstractValue
     {
         if (this is not T result)
             throw new InvalidCastException($"Casting AbstractValue({Type}) to {typeof(T).Name}");

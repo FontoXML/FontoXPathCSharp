@@ -13,7 +13,7 @@ public class DoubleValue : NumericValue<double>
         var doubleValue = value is string s
             ? double.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
             : ConvertToFloat(value);
-        
+
         return new DoubleValue(doubleValue);
     }
 

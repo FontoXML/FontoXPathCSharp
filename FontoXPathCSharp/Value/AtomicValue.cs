@@ -12,6 +12,13 @@ public abstract class AtomicValue : AbstractValue
     {
     }
 
+    public override T GetAs<T>()
+    {
+        return typeof(T) == typeof(UntypedAtomicValue)
+            ? (T)(object)new UntypedAtomicValue(GetValue())
+            : base.GetAs<T>();
+    }
+
     public abstract object GetValue();
 
     private bool Equals(AtomicValue other)

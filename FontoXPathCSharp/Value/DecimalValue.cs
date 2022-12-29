@@ -13,7 +13,7 @@ public class DecimalValue : NumericValue<decimal>
         var decimalValue = value is string s
             ? decimal.TryParse(s, out var val) ? val : throw new Exception($"Can't parse '{s}' into a DecimalValue.")
             : ConvertToDecimal(value);
-        
+
         return new DecimalValue(decimalValue);
     }
 

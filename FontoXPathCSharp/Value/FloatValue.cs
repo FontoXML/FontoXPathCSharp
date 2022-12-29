@@ -13,7 +13,7 @@ public class FloatValue : NumericValue<float>
         var floatValue = value is string s
             ? float.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
             : ConvertToFloat(value);
-        
+
         return new FloatValue(floatValue);
     }
 
