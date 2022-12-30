@@ -52,6 +52,49 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         );
     };
 
+    private static readonly FunctionSignature<ISequence, TNode> FnSum = (_, _, _, args) =>
+    {
+        var sequence = args[0];
+        var zero = args.Length > 1
+            ? args[1]
+            : SequenceFactory.CreateFromValue(AtomicValue.Create(0, ValueType.XsInteger));
+
+        // TODO: throw FORG0006 if the items contain both yearMonthDurations and dayTimeDurations
+        if (sequence.IsEmpty()) return zero;
+
+        var items = CastUntypedItemsToDouble(sequence.GetAllValues());
+        items = CommonTypeUtils.ConvertItemsToCommonType(items)!;
+        if (items == null)
+            throw new XPathException("FORG0006", "Incompatible types to be converted to a common type");
+
+        if (items.Any(item => !item.GetValueType().IsSubtypeOf(ValueType.XsNumeric)))
+            throw new XPathException("FORG0006", "Items passed to fn:sum are not all numeric.");
+
+        if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsInteger)))
+            return SequenceFactory.CreateFromValue(
+                AtomicValue.Create(
+                    items.Select(v => v.GetAs<IntegerValue>().Value).Sum(),
+                    ValueType.XsInteger)
+            );
+
+        if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsDouble)))
+            return SequenceFactory.CreateFromValue(
+                AtomicValue.Create(
+                    items.Select(v => v.GetAs<DoubleValue>().Value).Sum(),
+                    ValueType.XsDouble)
+            );
+
+        if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsDecimal)))
+            return SequenceFactory.CreateFromValue(
+                AtomicValue.Create(
+                    items.Select(v => v.GetAs<DecimalValue>().Value).Sum(),
+                    ValueType.XsDecimal)
+            );
+
+        var floatResult = items.Select(v => v.GetAs<FloatValue>().Value).Sum();
+        return SequenceFactory.CreateFromValue(AtomicValue.Create(floatResult, ValueType.XsFloat));
+    };
+
     private static readonly FunctionSignature<ISequence, TNode> FnAvg = (_, _, _, args) =>
     {
         var sequence = args[0];
@@ -160,6 +203,33 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             },
             FnMin,
             "min",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore)
+            },
+            (dynamicContext, executionParameters, staticContext, sequences) =>
+                FnSum(
+                    dynamicContext,
+                    executionParameters,
+                    staticContext,
+                    sequences.Concat(new[]
+                        { SequenceFactory.CreateFromValue(AtomicValue.Create(0, ValueType.XsInteger)) }).ToArray()),
+            "sum",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
+            },
+            FnSum,
+            "sum",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
         ),

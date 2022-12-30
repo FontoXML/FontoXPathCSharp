@@ -98,7 +98,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                             }
 
                             return true;
-                        }), $"Expected executing the XPath \"{xpath}\" to resolve to one of the expected results, " +
+                        }), $"Expected executing the XPath '{xpath}' to resolve to one of the expected results, " +
                             $"but got {string.Join(", ", errors.Select(e => e.ToString()))}."
                     );
                 };
