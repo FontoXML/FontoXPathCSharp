@@ -69,7 +69,9 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
                     Compare(type, a.GetAs<IntegerValue>().Value, b.GetAs<IntegerValue>().Value),
                 ValueType.XsFloat => Compare(type, a.GetAs<FloatValue>().Value, b.GetAs<FloatValue>().Value),
                 ValueType.XsDouble => Compare(type, a.GetAs<DoubleValue>().Value, b.GetAs<DoubleValue>().Value),
-                ValueType.XsString => Compare(type, a.GetAs<StringValue>().Value, b.GetAs<StringValue>().Value),
+                ValueType.XsString or ValueType.XsUntypedAtomic => Compare(type, 
+                        a.GetAs<UntypedAtomicValue>().GetValue().ToString(), 
+                        b.GetAs<UntypedAtomicValue>().GetValue().ToString()),
                 ValueType.XsDecimal => Compare(type, a.GetAs<DecimalValue>().Value, b.GetAs<DecimalValue>().Value),
                 _ => throw new ArgumentOutOfRangeException(
                     $"Comparison between operands of type {a.GetValueType()} not implemented yet.")

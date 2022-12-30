@@ -267,7 +267,7 @@ ArrowPostfix-004;PRSC Error: Failed to parse query 'deep-equal((let $f:= tokeniz
 ArrowPostfix-005;PRSC Error: Failed to parse query 'deep-equal((let $f:= tokenize#1 return "the cat sat on the mat"=>$f()=>count()), (6))'
 ArrowPostfix-006;PRSC Error: Failed to parse query 'deep-equal((let $f:= tokenize#2 return "the cat sat on the mat"=>($f)("\s+")=>count()), (6))'
 ArrowPostfix-007;The function head with arity 1 is not registered.
-ArrowPostfix-008;Expected error code: XPTY0004. Query succeeded with result: 5
+ArrowPostfix-008;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to DecimalValue
 ArrowPostfix-011;PRSC Error: Failed to parse query 'deep-equal((let $f:= (ceiling#1, floor#1, round#1, abs#1)=>head() return 4.54=>$f()), (5))'
 ArrowPostfix-012;PRSC Error: Failed to parse query 'deep-equal((4.54=>((ceiling#1, floor#1, round#1, abs#1) => head())()), (5))'
 ArrowPostfix-013;PRSC Error: Failed to parse query 'deep-equal((4.54=>(head((ceiling#1, floor#1, round#1, abs#1)))()), (5))'
@@ -2450,7 +2450,7 @@ cbcl-error-021;Expected executing the XPath "typeswitch ( fn:error() ) case xs:i
 cbcl-error-022;Expected executing the XPath "typeswitch ( fn:error() ) case xs:integer return true() default return false()" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'typeswitch ( fn:error() ) case xs:integer return true() default return false()'
 cbcl-error-023;Expected executing the XPath "empty(fn:error()[2])" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
 cbcl-error-024;Expected executing the XPath "empty(fn:error()[false()])" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
-cbcl-error-025;Expected executing the XPath "empty((1 div 0)[false()])" to resolve to one of the expected results, but got System.DivideByZeroException: Attempted to divide by zero.
+cbcl-error-025;Expected executing the XPath "empty((1 div 0)[false()])" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Decimal from Infinity.
 cbcl-error-026;Expected executing the XPath "empty( if (current-date() lt xs:date('2009-01-01')) then fn:error() else ())" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-date with arity 0 is not registered.
 cbcl-error-027;Expected executing the XPath "empty( if (current-date() lt xs:date('2009-01-01')) then () else fn:error())" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-date with arity 0 is not registered.
 cbcl-error-028;Expected executing the XPath "declare function local:item() { if (current-date() lt xs:date('2012-10-10')) then 1 else "one" }; empty( typeswitch ( local:item() ) case xs:integer return fn:error() default return ())" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare function local:item() { if (current-date() lt xs:date('2012-10-10')) then 1 else "one" }; empty( typeswitch ( local:item() ) case xs:integer return fn:error() default return ())'
@@ -2716,7 +2716,6 @@ cbcl-max-015;PRSC Error: Failed to parse query '\n      	declare function local:
 cbcl-max-016;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      	declare function local:f($x as xs:integer) { \n      		if ($x = 3) then xs:duration("P1Y") else xs:yearMonthDuration("P11M") \n      	}; \n      	max(for $x in (1,2,3) return local:f($x))\n      '
 cbcl-max-017;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      	declare function local:f($x as xs:integer) as xs:duration { \n      		if ($x = 1) then xs:duration("P1Y") else xs:yearMonthDuration("P11M") \n      	}; \n      	max(for $x in (1,2,3) return local:f($x))'
 cbcl-max-018;PRSC Error: Failed to parse query '\n      	declare function local:f($x as xs:integer) as xs:integer { $x }; \n      	max(local:f(4) to local:f(10))'
-cbcl-max-019;Casting AbstractValue(XsBoolean) to DoubleValue
 cbcl-min-001;PRSC Error: Failed to parse query '\n      	declare function local:f($x as xs:integer) { if ($x = 0) then false() else true() }; \n      	min(for $x in (1,2,3) return local:f($x))\n      '
 cbcl-min-002;PRSC Error: Failed to parse query '\n      	declare function local:f($x as xs:integer) { if ($x = 2) then false() else true() }; \n      	min(for $x in (1,2,3) return local:f($x))\n      '
 cbcl-min-003;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      	declare function local:f($x as xs:integer) { if ($x = 3) then $x else false() }; \n      	min(for $x in (1,2,3) return local:f($x))\n      '
@@ -2816,7 +2815,7 @@ cbcl-numeric-divide-011;PRSC Error: Failed to parse query '\n      	declare func
 cbcl-numeric-divide-012;Expected error code: FOAR0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	local:square(2) div 0\n      '
 cbcl-numeric-divide-013;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	local:square(7) div 1\n      '
 cbcl-numeric-divide-014;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	local:square(7) div -1\n      '
-cbcl-numeric-divide-015;Expected executing the XPath "10000000000000000000000000000.0 div 0.1 gt 0" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOAR0002, but got Value was either too large or too small for a Decimal.
+cbcl-numeric-divide-015;Expected executing the XPath "10000000000000000000000000000.0 div 0.1 gt 0" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOAR0002. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from 1E+29.
 cbcl-numeric-equal-001;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:double) as xs:double { $arg * $arg }; \n      	not( local:square(1e0) eq local:square(2e0) )'
 cbcl-numeric-equal-002;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:float) as xs:float { $arg * $arg }; \n      	not( local:square(xs:float(1e0)) eq local:square(xs:float(2e0)) )'
 cbcl-numeric-equal-003;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:decimal) as xs:decimal { $arg * $arg }; \n      	not( local:square(1.0) eq local:square(2.0) )'
@@ -4101,7 +4100,7 @@ eqname-911;Expected executing the XPath "/Q{###}SomeElement" to resolve to one o
 eqname-912;Expected executing the XPath "/Q{%gg}SomeElement" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '(/Q{%gg}SomeElement) => empty()'
 eqname-913;Expected error code: XQST0039. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         let $f := function($Q{ }a, $a) { 15 }\n         return $f(1, 2)\n      '
 errors-and-optimization-1;The function error with arity 2 is not registered.
-errors-and-optimization-2;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
+errors-and-optimization-2;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from Infinity.
 errors-and-optimization-3;PRSC Error: Failed to parse query ' = 0'
 errors-and-optimization-4;Expected error code: XPTY0004. Query succeeded with result: 3
 errors-and-optimization-5;Expected error code: XPTY0004. Query succeeded with result: False
@@ -4137,7 +4136,7 @@ externalcontextitem-17;The function exactly-one with arity 1 is not registered.
 externalcontextitem-18;The function exactly-one with arity 1 is not registered.
 externalcontextitem-19;Items passed to fn:avg are not all numeric.
 externalcontextitem-2;The function exactly-one with arity 1 is not registered.
-externalcontextitem-20;Casting AbstractValue(Element) to DoubleValue
+externalcontextitem-20;Incompatible types to be converted to a common type
 externalcontextitem-21;The function exactly-one with arity 1 is not registered.
 externalcontextitem-22;Expected results and parsedFragment children to match
 externalcontextitem-23;Expected executing the XPath "./works/employee[1]" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPDY0002. Found error code:  with error message: 
@@ -4267,18 +4266,18 @@ filterexpressionhc7;Expected XPath ((1 to 25)[. lt 10]) to resolve to 1 2 3 4 5 
 filterexpressionhc8;Expected XPath ((1 to 25)[. le 10]) to resolve to 1 2 3 4 5 6 7 8 9 10, but instead got 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
 fn-abs-1;The function error with arity 0 is not registered.
 fn-abs-more-args-001;PRSC Error: Failed to parse query '(fn:abs(xs:double("-0"))) instance of $xs:double'
-fn-abs-more-args-002;Value was either too large or too small for a Decimal.
-fn-abs-more-args-003;Value was either too large or too small for a Decimal.
+fn-abs-more-args-002;Expected XPath fn:abs(xs:double("-INF")) to resolve to INF, but instead got Infinity
+fn-abs-more-args-003;Expected XPath fn:abs(xs:double("INF")) to resolve to INF, but instead got Infinity
 fn-abs-more-args-004-dyn;PRSC Error: Failed to parse query 'declare variable $NaN-double external; fn:abs($NaN-double)'
-fn-abs-more-args-004;Value was either too large or too small for a Decimal.
-fn-abs-more-args-005;Value was either too large or too small for a Decimal.
+fn-abs-more-args-004;Expected XPath fn:abs(xs:double("NaN")) to resolve to NaN, but instead got Infinity
+fn-abs-more-args-005;Expected XPath fn:abs(xs:double("NaN")) to resolve to NaN, but instead got Infinity
 fn-abs-more-args-006;PRSC Error: Failed to parse query '(fn:abs(xs:decimal("-0"))) instance of $xs:decimal'
 fn-abs-more-args-007;PRSC Error: Failed to parse query '(fn:abs(xs:decimal("0"))) instance of $xs:decimal'
 fn-abs-more-args-008;PRSC Error: Failed to parse query '(fn:abs(xs:float("-0"))) instance of $xs:float'
-fn-abs-more-args-009;Value was either too large or too small for a Decimal.
-fn-abs-more-args-010;Value was either too large or too small for a Decimal.
-fn-abs-more-args-011;Value was either too large or too small for a Decimal.
-fn-abs-more-args-012;Value was either too large or too small for a Decimal.
+fn-abs-more-args-009;Expected XPath fn:abs(xs:float("-INF")) to resolve to INF, but instead got Infinity
+fn-abs-more-args-010;Expected XPath fn:abs(xs:float("INF")) to resolve to INF, but instead got Infinity
+fn-abs-more-args-011;Expected XPath fn:abs(xs:float("NaN")) to resolve to NaN, but instead got Infinity
+fn-abs-more-args-012;Expected XPath fn:abs(xs:float("NaN")) to resolve to NaN, but instead got Infinity
 fn-abs-more-args-013;PRSC Error: Failed to parse query '(fn:abs(xs:int("0"))) instance of $xs:integer'
 fn-abs-more-args-014;PRSC Error: Failed to parse query '(fn:abs(xs:int("-0"))) instance of $xs:integer'
 fn-abs-more-args-015;PRSC Error: Failed to parse query '(fn:abs(xs:integer("0"))) instance of $xs:integer'
@@ -4303,15 +4302,15 @@ fn-abs-more-args-053;Expected error code: FORG0001. Query succeeded with result:
 fn-abs-more-args-058;Expected error code: FORG0001. Query succeeded with result: 0
 fn-abs-more-args-059;Expected error code: FORG0001. Query succeeded with result: 0
 fn-abs-more-args-060;Expected error code: FORG0001. Query succeeded with result: 2
-fn-abs-more-args-077;Expected error code: XPTY0004. Query succeeded with result: 1
-fn-abs-more-args-078;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
-fn-abs-more-args-079;Expected error code: XPTY0004. Query succeeded with result: 1
-fn-abs-more-args-080;Expected error code: XPTY0004. Query succeeded with result: 0
-fn-abs-more-args-081;Expected error code: XPTY0004. Query succeeded with result: 1
-fn-abs-more-args-082;Expected error code: XPTY0004. Query succeeded with result: 0
-fn-abs-more-args-083;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Value.DateTimeWrapper' to type 'System.IConvertible'.
-fn-abs-more-args-084;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Value.DateTimeWrapper' to type 'System.IConvertible'.
-fn-abs-more-args-085;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Value.DateTimeWrapper' to type 'System.IConvertible'.
+fn-abs-more-args-077;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to DecimalValue
+fn-abs-more-args-078;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to DecimalValue
+fn-abs-more-args-079;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsBoolean) to DecimalValue
+fn-abs-more-args-080;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsBoolean) to DecimalValue
+fn-abs-more-args-081;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsBoolean) to DecimalValue
+fn-abs-more-args-082;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsBoolean) to DecimalValue
+fn-abs-more-args-083;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsDate) to DecimalValue
+fn-abs-more-args-084;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsTime) to DecimalValue
+fn-abs-more-args-085;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsDateTime) to DecimalValue
 fn-abs-more-args-086;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 fn-absdbl1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-double external; fn:abs($zero-double + xs:double("-1.7976931348623157E308")) = 1.7976931348623157E308'
 fn-absdbl1args-1;PRSC Error: Failed to parse query 'fn:abs(xs:double("-1.7976931348623157E308")) = 1.7976931348623157E308'
@@ -4486,9 +4485,9 @@ fn-ceiling-decimal-3;PRSC Error: Failed to parse query '(ceiling(0.000000001)) i
 fn-ceiling-decimal-4;PRSC Error: Failed to parse query '(ceiling(0.0)) instance of $xs:decimal'
 fn-ceiling-decimal-5;Value was either too large or too small for a Decimal.
 fn-ceiling-decimal-6;Value was either too large or too small for a Decimal.
-fn-ceiling-decimal-7;Value was either too large or too small for a Decimal.
+fn-ceiling-decimal-7;PRSC Error: Failed to parse query '(ceiling(-1234567891234567.2)) instance of $xs:decimal'
 fn-ceiling-double-1;PRSC Error: Failed to parse query 'ceiling(12.5e0) = 13.0e0'
-fn-ceiling-double-10;Value was either too large or too small for a Decimal.
+fn-ceiling-double-10;Expected XPath ceiling(xs:double('-INF')) to resolve to -INF, but instead got -Infinity
 fn-ceiling-double-11;PRSC Error: Failed to parse query '(ceiling(xs:double('-0'))) instance of $xs:double'
 fn-ceiling-double-2;PRSC Error: Failed to parse query 'ceiling(12.9e0) = 13.0e0'
 fn-ceiling-double-3;PRSC Error: Failed to parse query 'ceiling(0.000000001e0) = 1.0e0'
@@ -4497,10 +4496,10 @@ fn-ceiling-double-5;PRSC Error: Failed to parse query 'ceiling(-0.1e0) = -0.0e0'
 fn-ceiling-double-6;PRSC Error: Failed to parse query 'ceiling(-12345678.567890e0) = -12345678e0'
 fn-ceiling-double-7;PRSC Error: Failed to parse query 'ceiling(-1234567891234567.2e0) = -1234567891234567.0e0'
 fn-ceiling-double-8-dyn;PRSC Error: Failed to parse query 'declare variable $NaN-double external; ceiling($NaN-double)'
-fn-ceiling-double-8;Value was either too large or too small for a Decimal.
-fn-ceiling-double-9;Value was either too large or too small for a Decimal.
+fn-ceiling-double-8;Expected XPath ceiling(xs:double('NaN')) to resolve to NaN, but instead got Infinity
+fn-ceiling-double-9;Expected XPath ceiling(xs:double('INF')) to resolve to INF, but instead got Infinity
 fn-ceiling-float-1;PRSC Error: Failed to parse query 'ceiling(xs:float(12.5e0)) = 13.0e0'
-fn-ceiling-float-10;Value was either too large or too small for a Decimal.
+fn-ceiling-float-10;Expected XPath ceiling(xs:float(xs:float('-INF'))) to resolve to -INF, but instead got -Infinity
 fn-ceiling-float-11;PRSC Error: Failed to parse query '(ceiling(xs:float(xs:float('-0')))) instance of $xs:float'
 fn-ceiling-float-2;PRSC Error: Failed to parse query 'ceiling(xs:float(12.9e0)) = 13.0e0'
 fn-ceiling-float-3;PRSC Error: Failed to parse query 'ceiling(xs:float(0.000000001e0)) = 1.0e0'
@@ -4509,15 +4508,15 @@ fn-ceiling-float-5;PRSC Error: Failed to parse query 'ceiling(xs:float(-0.1e0)) 
 fn-ceiling-float-6;PRSC Error: Failed to parse query 'ceiling(xs:float(-12345678.1e0)) = -12345678e0'
 fn-ceiling-float-7;PRSC Error: Failed to parse query 'ceiling(xs:float(-1234567.2e0)) = -1234567e0'
 fn-ceiling-float-8-dyn;PRSC Error: Failed to parse query 'declare variable $NaN-float external; ceiling($NaN-float)'
-fn-ceiling-float-8;Value was either too large or too small for a Decimal.
-fn-ceiling-float-9;Value was either too large or too small for a Decimal.
+fn-ceiling-float-8;Expected XPath ceiling(xs:float(xs:float('NaN'))) to resolve to NaN, but instead got Infinity
+fn-ceiling-float-9;Expected XPath ceiling(xs:float(xs:float('INF'))) to resolve to INF, but instead got Infinity
 fn-ceilingdbl1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-double external; fn:ceiling($zero-double + xs:double("-1.7976931348623157E308"))'
-fn-ceilingdbl1args-1;Value was either too large or too small for a Decimal.
-fn-ceilingdbl1args-3;Value was either too large or too small for a Decimal.
+fn-ceilingdbl1args-1;Expected XPath fn:ceiling(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308, but instead got -1.7976931348623157E+308
+fn-ceilingdbl1args-3;Expected XPath fn:ceiling(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308, but instead got 1.7976931348623157E+308
 fn-ceilingdec1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-int external; fn:ceiling($zero-int + xs:decimal("-999999999999999999")) = -999999999999999999'
 fn-ceilingflt1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-float external; fn:ceiling($zero-float + xs:float("-3.4028235E38"))'
-fn-ceilingflt1args-1;Value was either too large or too small for a Decimal.
-fn-ceilingflt1args-3;Value was either too large or too small for a Decimal.
+fn-ceilingflt1args-1;Expected XPath fn:ceiling(xs:float("-3.4028235E38")) to resolve to -3.4028235E38, but instead got -3.4028235E+38
+fn-ceilingflt1args-3;Expected XPath fn:ceiling(xs:float("3.4028235E38")) to resolve to 3.4028235E38, but instead got 3.4028235E+38
 fn-ceilingint1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-int external; fn:ceiling($zero-int + xs:int("-2147483648")) = -2147483648'
 fn-codepoint-equal-10;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInteger) to StringValue
 fn-codepoint-equal-11;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInteger) to StringValue
@@ -4954,11 +4953,11 @@ fn-floor-decimal-1;PRSC Error: Failed to parse query '(floor(12.5)) instance of 
 fn-floor-decimal-2;PRSC Error: Failed to parse query '(floor(12.9)) instance of $xs:decimal'
 fn-floor-decimal-3;PRSC Error: Failed to parse query '(floor(0.000000001)) instance of $xs:decimal'
 fn-floor-decimal-4;PRSC Error: Failed to parse query '(floor(0.0)) instance of $xs:decimal'
-fn-floor-decimal-5;Value was either too large or too small for a Decimal.
+fn-floor-decimal-5;PRSC Error: Failed to parse query '(floor(-0.1)) instance of $xs:decimal'
 fn-floor-decimal-6;Value was either too large or too small for a Decimal.
-fn-floor-decimal-7;Value was either too large or too small for a Decimal.
+fn-floor-decimal-7;PRSC Error: Failed to parse query '(floor(-1234567891234567.2)) instance of $xs:decimal'
 fn-floor-double-1;PRSC Error: Failed to parse query 'floor(12.5e0) = 12.0e0'
-fn-floor-double-10;Value was either too large or too small for a Decimal.
+fn-floor-double-10;Expected XPath floor(xs:double('-INF')) to resolve to -INF, but instead got -Infinity
 fn-floor-double-11;PRSC Error: Failed to parse query '(floor(xs:double('-0'))) instance of $xs:double'
 fn-floor-double-2;PRSC Error: Failed to parse query 'floor(12.9e0) = 12.0e0'
 fn-floor-double-3;PRSC Error: Failed to parse query 'floor(0.000000001e0) = 0.0e0'
@@ -4966,10 +4965,10 @@ fn-floor-double-4;PRSC Error: Failed to parse query 'floor(0.0e0) = 0.0e0'
 fn-floor-double-5;PRSC Error: Failed to parse query 'floor(-0.1e0) = -1.0e0'
 fn-floor-double-6;PRSC Error: Failed to parse query 'floor(-12345678.567890e0) = -12345679e0'
 fn-floor-double-7;PRSC Error: Failed to parse query 'floor(-1234567891234567.2e0) = -1234567891234568.0e0'
-fn-floor-double-8;Value was either too large or too small for a Decimal.
-fn-floor-double-9;Value was either too large or too small for a Decimal.
+fn-floor-double-8;Expected XPath floor(xs:double('NaN')) to resolve to NaN, but instead got Infinity
+fn-floor-double-9;Expected XPath floor(xs:double('INF')) to resolve to INF, but instead got Infinity
 fn-floor-float-1;PRSC Error: Failed to parse query 'floor(xs:float(12.5e0)) = 12.0e0'
-fn-floor-float-10;Value was either too large or too small for a Decimal.
+fn-floor-float-10;Expected XPath floor(xs:float(xs:float('-INF'))) to resolve to -INF, but instead got -Infinity
 fn-floor-float-11;PRSC Error: Failed to parse query '(floor(xs:float(xs:float('-0')))) instance of $xs:float'
 fn-floor-float-2;PRSC Error: Failed to parse query 'floor(xs:float(12.9e0)) = 12.0e0'
 fn-floor-float-3;PRSC Error: Failed to parse query 'floor(xs:float(0.000000001e0)) = 0.0e0'
@@ -4977,14 +4976,14 @@ fn-floor-float-4;PRSC Error: Failed to parse query 'floor(xs:float(0.0e0)) = 0.0
 fn-floor-float-5;PRSC Error: Failed to parse query 'floor(xs:float(-0.1e0)) = -1.0e0'
 fn-floor-float-6;PRSC Error: Failed to parse query 'floor(xs:float(-12345678.567890e0)) = -12345679e0'
 fn-floor-float-7;PRSC Error: Failed to parse query 'floor(xs:float(-1234567.2e0)) = -1234568e0'
-fn-floor-float-8;Value was either too large or too small for a Decimal.
-fn-floor-float-9;Value was either too large or too small for a Decimal.
-fn-floordbl1args-1;Value was either too large or too small for a Decimal.
+fn-floor-float-8;Expected XPath floor(xs:float(xs:float('NaN'))) to resolve to NaN, but instead got Infinity
+fn-floor-float-9;Expected XPath floor(xs:float(xs:float('INF'))) to resolve to INF, but instead got Infinity
+fn-floordbl1args-1;Expected XPath fn:floor(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308, but instead got -1.7976931348623157E+308
 fn-floordbl1args-2;Expected XPath fn:floor(xs:double("0")) to resolve to 0, but instead got -0
-fn-floordbl1args-3;Value was either too large or too small for a Decimal.
-fn-floorflt1args-1;Value was either too large or too small for a Decimal.
+fn-floordbl1args-3;Expected XPath fn:floor(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308, but instead got 1.7976931348623157E+308
+fn-floorflt1args-1;Expected XPath fn:floor(xs:float("-3.4028235E38")) to resolve to -3.4028235E38, but instead got -3.4028235E+38
 fn-floorflt1args-2;Expected XPath fn:floor(xs:float("0")) to resolve to 0, but instead got -0
-fn-floorflt1args-3;Value was either too large or too small for a Decimal.
+fn-floorflt1args-3;Expected XPath fn:floor(xs:float("3.4028235E38")) to resolve to 3.4028235E38, but instead got 3.4028235E+38
 fn-function-lookup-001;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'node-name'), 0)) to resolve to true
 fn-function-lookup-002;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-003;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'node-name'), 1)) to resolve to true
@@ -6070,19 +6069,17 @@ fn-matchesErr-2;Expected XPathException with code FORX0002, but got BuiltInFunct
 fn-matchesErr-3;Expected XPathException with code FORX0002, but got BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matchesErr-4;Expected XPathException with code FORX0002, but got BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matchesErr-5;Expected XPathException with code FORX0002, but got BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
-fn-max-1;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsInteger) to DoubleValue
 fn-max-10;PRSC Error: Failed to parse query 'for $p in 1 to 4 let $x := (xs:integer(1), xs:decimal(2), xs:float(3), xs:double(4))[position() le $p] return typeswitch (max($x)) case xs:integer return "integer" case xs:decimal return "decimal" case xs:float return "float" case xs:double return "double" default return error()'
-fn-max-11;Casting AbstractValue(XsString) to DoubleValue
-fn-max-12;Casting AbstractValue(XsDate) to DoubleValue
+fn-max-11;Input string was not in a correct format.
+fn-max-12;Unable to cast object of type 'FontoXPathCSharp.Value.DateTimeWrapper' to type 'System.IConvertible'.
 fn-max-13;Atomic Value for XsNcName is not implemented yet.
-fn-max-14;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-max-15;Casting AbstractValue(XsPositiveInteger) to DoubleValue
+fn-max-14;PRSC Error: Failed to parse query '(max((xs:positiveInteger(123), xs:unsignedShort(124)))) instance of $xs:nonNegativeInteger'
+fn-max-15;PRSC Error: Failed to parse query '(max((xs:positiveInteger(123), xs:unsignedShort(124)))) instance of $xs:unsignedShort'
 fn-max-16;Type casting to XsAnyUri has not been implemented yet.
 fn-max-17;Type casting to XsAnyUri has not been implemented yet.
 fn-max-18;Atomic Value for XsToken is not implemented yet.
 fn-max-19;PRSC Error: Failed to parse query 'max([1,2,3,4,5]) = 5'
 fn-max-2;PRSC Error: Failed to parse query 'fn:max((xs:integer(5000000000),xs:double(3e0))) = 5.0E9'
-fn-max-3;Casting AbstractValue(XsLong) to DoubleValue
 fn-max-4;Type casting to XsDayTimeDuration has not been implemented yet.
 fn-max-5;Type casting to XsDayTimeDuration has not been implemented yet.
 fn-max-6;Type casting to XsYearMonthDuration has not been implemented yet.
@@ -6090,122 +6087,28 @@ fn-max-7;Type casting to XsYearMonthDuration has not been implemented yet.
 fn-max-8;Expected executing the XPath "max((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Type casting to XsYearMonthDuration has not been implemented yet.
 fn-max-9;Expected executing the XPath "max(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Type casting to XsDuration has not been implemented yet.
 fn-maxdbl1args-1;PRSC Error: Failed to parse query 'fn:max((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
-fn-maxdbl1args-2;Casting AbstractValue(XsDouble) to FloatValue
 fn-maxdbl1args-3;PRSC Error: Failed to parse query 'fn:max((xs:double("1.7976931348623157E308"))) = 1.7976931348623157E308'
 fn-maxdbl2args-1;PRSC Error: Failed to parse query 'fn:max((xs:double("-1.7976931348623157E308"),xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
-fn-maxdbl2args-2;Casting AbstractValue(XsDouble) to FloatValue
+fn-maxdbl2args-2;Value was either too large or too small for a Decimal.
 fn-maxdbl2args-3;PRSC Error: Failed to parse query 'fn:max((xs:double("1.7976931348623157E308"),xs:double("-1.7976931348623157E308"))) = 1.7976931348623157E308'
-fn-maxdbl2args-4;Casting AbstractValue(XsDouble) to FloatValue
+fn-maxdbl2args-4;Value was either too large or too small for a Decimal.
 fn-maxdbl2args-5;PRSC Error: Failed to parse query 'fn:max((xs:double("-1.7976931348623157E308"),xs:double("1.7976931348623157E308"))) = 1.7976931348623157E308'
-fn-maxdec1args-1;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-maxdec1args-2;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-maxdec1args-3;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-maxdec2args-1;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-maxdec2args-2;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-maxdec2args-3;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-maxdec2args-4;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-maxdec2args-5;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-maxflt1args-1;Casting AbstractValue(XsFloat) to DoubleValue
-fn-maxflt1args-2;Casting AbstractValue(XsFloat) to DoubleValue
-fn-maxflt1args-3;Casting AbstractValue(XsFloat) to DoubleValue
 fn-maxflt2args-1;PRSC Error: Failed to parse query 'fn:max((xs:float("-3.4028235E38"),xs:float("-3.4028235E38"))) = xs:float(-3.4028235E38)'
-fn-maxflt2args-2;Casting AbstractValue(XsFloat) to DoubleValue
+fn-maxflt2args-2;Value was either too large or too small for a Decimal.
 fn-maxflt2args-3;PRSC Error: Failed to parse query 'fn:max((xs:float("3.4028235E38"),xs:float("-3.4028235E38"))) = xs:float(3.4028235E38)'
-fn-maxflt2args-4;Casting AbstractValue(XsFloat) to DoubleValue
+fn-maxflt2args-4;Value was either too large or too small for a Decimal.
 fn-maxflt2args-5;PRSC Error: Failed to parse query 'fn:max((xs:float("-3.4028235E38"),xs:float("3.4028235E38"))) = xs:float(3.4028235E38)'
-fn-maxint1args-1;Casting AbstractValue(XsInt) to DoubleValue
-fn-maxint1args-2;Casting AbstractValue(XsInt) to DoubleValue
-fn-maxint1args-3;Casting AbstractValue(XsInt) to DoubleValue
-fn-maxint2args-1;Casting AbstractValue(XsInt) to DoubleValue
-fn-maxint2args-2;Casting AbstractValue(XsInt) to DoubleValue
-fn-maxint2args-3;Casting AbstractValue(XsInt) to DoubleValue
-fn-maxint2args-4;Casting AbstractValue(XsInt) to DoubleValue
-fn-maxint2args-5;Casting AbstractValue(XsInt) to DoubleValue
-fn-maxintg1args-1;Casting AbstractValue(XsInteger) to DoubleValue
-fn-maxintg1args-2;Casting AbstractValue(XsInteger) to DoubleValue
-fn-maxintg1args-3;Casting AbstractValue(XsInteger) to DoubleValue
-fn-maxintg2args-1;Casting AbstractValue(XsInteger) to DoubleValue
-fn-maxintg2args-2;Casting AbstractValue(XsInteger) to DoubleValue
-fn-maxintg2args-3;Casting AbstractValue(XsInteger) to DoubleValue
-fn-maxintg2args-4;Casting AbstractValue(XsInteger) to DoubleValue
-fn-maxintg2args-5;Casting AbstractValue(XsInteger) to DoubleValue
-fn-maxlng1args-1;Casting AbstractValue(XsLong) to DoubleValue
-fn-maxlng1args-2;Casting AbstractValue(XsLong) to DoubleValue
-fn-maxlng1args-3;Casting AbstractValue(XsLong) to DoubleValue
-fn-maxlng2args-1;Casting AbstractValue(XsLong) to DoubleValue
-fn-maxlng2args-2;Casting AbstractValue(XsLong) to DoubleValue
-fn-maxlng2args-3;Casting AbstractValue(XsLong) to DoubleValue
-fn-maxlng2args-4;Casting AbstractValue(XsLong) to DoubleValue
-fn-maxlng2args-5;Casting AbstractValue(XsLong) to DoubleValue
-fn-maxnint1args-1;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-maxnint1args-2;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-maxnint1args-3;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-maxnint2args-1;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-maxnint2args-2;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-maxnint2args-3;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-maxnint2args-4;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-maxnint2args-5;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-maxnni1args-1;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-maxnni1args-2;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-maxnni1args-3;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-maxnni2args-1;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-maxnni2args-2;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-maxnni2args-3;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-maxnni2args-4;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-maxnni2args-5;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-maxnpi1args-1;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-maxnpi1args-2;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-maxnpi1args-3;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-maxnpi2args-1;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-maxnpi2args-2;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-maxnpi2args-3;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-maxnpi2args-4;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-maxnpi2args-5;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-maxpint1args-1;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-maxpint1args-2;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-maxpint1args-3;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-maxpint2args-1;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-maxpint2args-2;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-maxpint2args-3;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-maxpint2args-4;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-maxpint2args-5;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-maxsht1args-1;Casting AbstractValue(XsShort) to DoubleValue
-fn-maxsht1args-2;Casting AbstractValue(XsShort) to DoubleValue
-fn-maxsht1args-3;Casting AbstractValue(XsShort) to DoubleValue
-fn-maxsht2args-1;Casting AbstractValue(XsShort) to DoubleValue
-fn-maxsht2args-2;Casting AbstractValue(XsShort) to DoubleValue
-fn-maxsht2args-3;Casting AbstractValue(XsShort) to DoubleValue
-fn-maxsht2args-4;Casting AbstractValue(XsShort) to DoubleValue
-fn-maxsht2args-5;Casting AbstractValue(XsShort) to DoubleValue
-fn-maxulng1args-1;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-maxulng1args-2;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-maxulng1args-3;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-maxulng2args-1;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-maxulng2args-2;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-maxulng2args-3;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-maxulng2args-4;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-maxulng2args-5;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-maxusht1args-1;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-maxusht1args-2;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-maxusht1args-3;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-maxusht2args-1;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-maxusht2args-2;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-maxusht2args-3;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-maxusht2args-4;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-maxusht2args-5;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-min-1;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsInteger) to DoubleValue
 fn-min-10;PRSC Error: Failed to parse query 'for $p in 1 to 4 let $x := (xs:integer(4), xs:decimal(3), xs:float(2), xs:double(1))[position() le $p] return typeswitch (min($x)) case xs:integer return "integer" case xs:decimal return "decimal" case xs:float return "float" case xs:double return "double" default return error()'
-fn-min-11;Casting AbstractValue(XsString) to DoubleValue
-fn-min-12;Casting AbstractValue(XsDate) to DoubleValue
+fn-min-11;Input string was not in a correct format.
+fn-min-12;Unable to cast object of type 'FontoXPathCSharp.Value.DateTimeWrapper' to type 'System.IConvertible'.
 fn-min-13;Atomic Value for XsNcName is not implemented yet.
-fn-min-14;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-min-15;Casting AbstractValue(XsPositiveInteger) to DoubleValue
+fn-min-14;PRSC Error: Failed to parse query '(min((xs:positiveInteger(123), xs:unsignedShort(124)))) instance of $xs:nonNegativeInteger'
+fn-min-15;PRSC Error: Failed to parse query '(min((xs:positiveInteger(123), xs:unsignedShort(124)))) instance of $xs:positiveInteger'
 fn-min-16;Type casting to XsAnyUri has not been implemented yet.
 fn-min-17;Type casting to XsAnyUri has not been implemented yet.
 fn-min-18;Atomic Value for XsToken is not implemented yet.
 fn-min-19;PRSC Error: Failed to parse query 'min([1,2,3,4,5]) = 1'
 fn-min-2;PRSC Error: Failed to parse query 'fn:min((xs:integer(5000000),xs:double(3e8))) = 5.0E6'
-fn-min-3;Casting AbstractValue(XsLong) to DoubleValue
 fn-min-4;Type casting to XsDayTimeDuration has not been implemented yet.
 fn-min-5;Type casting to XsDayTimeDuration has not been implemented yet.
 fn-min-6;Type casting to XsYearMonthDuration has not been implemented yet.
@@ -6213,109 +6116,17 @@ fn-min-7;Type casting to XsYearMonthDuration has not been implemented yet.
 fn-min-8;Expected executing the XPath "min((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Type casting to XsYearMonthDuration has not been implemented yet.
 fn-min-9;Expected executing the XPath "min(xs:duration("P1Y1M1D"))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Type casting to XsDuration has not been implemented yet.
 fn-mindbl1args-1;PRSC Error: Failed to parse query 'fn:min((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
-fn-mindbl1args-2;Casting AbstractValue(XsDouble) to FloatValue
 fn-mindbl1args-3;PRSC Error: Failed to parse query 'fn:min((xs:double("1.7976931348623157E308"))) = 1.7976931348623157E308'
 fn-mindbl2args-1;PRSC Error: Failed to parse query 'fn:min((xs:double("-1.7976931348623157E308"),xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
 fn-mindbl2args-2;PRSC Error: Failed to parse query 'fn:min((xs:double("0"),xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
 fn-mindbl2args-3;PRSC Error: Failed to parse query 'fn:min((xs:double("1.7976931348623157E308"),xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
 fn-mindbl2args-4;PRSC Error: Failed to parse query 'fn:min((xs:double("-1.7976931348623157E308"),xs:double("0"))) = -1.7976931348623157E308'
 fn-mindbl2args-5;PRSC Error: Failed to parse query 'fn:min((xs:double("-1.7976931348623157E308"),xs:double("1.7976931348623157E308"))) = -1.7976931348623157E308'
-fn-mindec1args-1;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-mindec1args-2;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-mindec1args-3;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-mindec2args-1;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-mindec2args-2;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-mindec2args-3;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-mindec2args-4;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-mindec2args-5;Casting AbstractValue(XsDecimal) to DoubleValue
-fn-minflt1args-1;Casting AbstractValue(XsFloat) to DoubleValue
-fn-minflt1args-2;Casting AbstractValue(XsFloat) to DoubleValue
-fn-minflt1args-3;Casting AbstractValue(XsFloat) to DoubleValue
-fn-minflt2args-1;Casting AbstractValue(XsFloat) to DoubleValue
-fn-minflt2args-2;Casting AbstractValue(XsFloat) to DoubleValue
-fn-minflt2args-3;Casting AbstractValue(XsFloat) to DoubleValue
-fn-minflt2args-4;Casting AbstractValue(XsFloat) to DoubleValue
-fn-minflt2args-5;Casting AbstractValue(XsFloat) to DoubleValue
-fn-minint1args-1;Casting AbstractValue(XsInt) to DoubleValue
-fn-minint1args-2;Casting AbstractValue(XsInt) to DoubleValue
-fn-minint1args-3;Casting AbstractValue(XsInt) to DoubleValue
-fn-minint2args-1;Casting AbstractValue(XsInt) to DoubleValue
-fn-minint2args-2;Casting AbstractValue(XsInt) to DoubleValue
-fn-minint2args-3;Casting AbstractValue(XsInt) to DoubleValue
-fn-minint2args-4;Casting AbstractValue(XsInt) to DoubleValue
-fn-minint2args-5;Casting AbstractValue(XsInt) to DoubleValue
-fn-minintg1args-1;Casting AbstractValue(XsInteger) to DoubleValue
-fn-minintg1args-2;Casting AbstractValue(XsInteger) to DoubleValue
-fn-minintg1args-3;Casting AbstractValue(XsInteger) to DoubleValue
-fn-minintg2args-1;Casting AbstractValue(XsInteger) to DoubleValue
-fn-minintg2args-2;Casting AbstractValue(XsInteger) to DoubleValue
-fn-minintg2args-3;Casting AbstractValue(XsInteger) to DoubleValue
-fn-minintg2args-4;Casting AbstractValue(XsInteger) to DoubleValue
-fn-minintg2args-5;Casting AbstractValue(XsInteger) to DoubleValue
-fn-minlng1args-1;Casting AbstractValue(XsLong) to DoubleValue
-fn-minlng1args-2;Casting AbstractValue(XsLong) to DoubleValue
-fn-minlng1args-3;Casting AbstractValue(XsLong) to DoubleValue
-fn-minlng2args-1;Casting AbstractValue(XsLong) to DoubleValue
-fn-minlng2args-2;Casting AbstractValue(XsLong) to DoubleValue
-fn-minlng2args-3;Casting AbstractValue(XsLong) to DoubleValue
-fn-minlng2args-4;Casting AbstractValue(XsLong) to DoubleValue
-fn-minlng2args-5;Casting AbstractValue(XsLong) to DoubleValue
-fn-minnint1args-1;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-minnint1args-2;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-minnint1args-3;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-minnint2args-1;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-minnint2args-2;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-minnint2args-3;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-minnint2args-4;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-minnint2args-5;Casting AbstractValue(XsNegativeInteger) to DoubleValue
-fn-minnni1args-1;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-minnni1args-2;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-minnni1args-3;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-minnni2args-1;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-minnni2args-2;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-minnni2args-3;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-minnni2args-4;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-minnni2args-5;Casting AbstractValue(XsNonNegativeInteger) to DoubleValue
-fn-minnpi1args-1;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-minnpi1args-2;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-minnpi1args-3;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-minnpi2args-1;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-minnpi2args-2;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-minnpi2args-3;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-minnpi2args-4;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-minnpi2args-5;Casting AbstractValue(XsNonPositiveInteger) to DoubleValue
-fn-minpint1args-1;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-minpint1args-2;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-minpint1args-3;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-minpint2args-1;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-minpint2args-2;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-minpint2args-3;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-minpint2args-4;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-minpint2args-5;Casting AbstractValue(XsPositiveInteger) to DoubleValue
-fn-minsht1args-1;Casting AbstractValue(XsShort) to DoubleValue
-fn-minsht1args-2;Casting AbstractValue(XsShort) to DoubleValue
-fn-minsht1args-3;Casting AbstractValue(XsShort) to DoubleValue
-fn-minsht2args-1;Casting AbstractValue(XsShort) to DoubleValue
-fn-minsht2args-2;Casting AbstractValue(XsShort) to DoubleValue
-fn-minsht2args-3;Casting AbstractValue(XsShort) to DoubleValue
-fn-minsht2args-4;Casting AbstractValue(XsShort) to DoubleValue
-fn-minsht2args-5;Casting AbstractValue(XsShort) to DoubleValue
-fn-minulng1args-1;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-minulng1args-2;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-minulng1args-3;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-minulng2args-1;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-minulng2args-2;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-minulng2args-3;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-minulng2args-4;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-minulng2args-5;Casting AbstractValue(XsUnsignedLong) to DoubleValue
-fn-minusht1args-1;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-minusht1args-2;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-minusht1args-3;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-minusht2args-1;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-minusht2args-2;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-minusht2args-3;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-minusht2args-4;Casting AbstractValue(XsUnsignedShort) to DoubleValue
-fn-minusht2args-5;Casting AbstractValue(XsUnsignedShort) to DoubleValue
+fn-minflt2args-1;Value was either too large or too small for a Decimal.
+fn-minflt2args-2;Value was either too large or too small for a Decimal.
+fn-minflt2args-3;Value was either too large or too small for a Decimal.
+fn-minflt2args-4;Value was either too large or too small for a Decimal.
+fn-minflt2args-5;Value was either too large or too small for a Decimal.
 fn-minutes-from-dateTime-1;The function fn:minutes-from-dateTime with arity 1 is not registered.
 fn-minutes-from-dateTime-10;The function fn:minutes-from-dateTime with arity 1 is not registered.
 fn-minutes-from-dateTime-11;The function fn:minutes-from-dateTime with arity 1 is not registered.
@@ -6965,8 +6776,8 @@ fn-round-decimal-4;Expected XPath fn:round(xs:decimal("12.5")) to resolve to 13
 fn-round-decimal-5;PRSC Error: Failed to parse query '(fn:round(xs:decimal("-12.7"))) instance of $xs:decimal'
 fn-round-decimal-6;PRSC Error: Failed to parse query '(fn:round(xs:decimal("-12.1"))) instance of $xs:decimal'
 fn-round-decimal-7;PRSC Error: Failed to parse query '(fn:round(xs:decimal("-12.5"))) instance of $xs:decimal'
-fn-round-decimal-8;Value was either too large or too small for a Decimal.
-fn-round-decimal-9;Value was either too large or too small for a Decimal.
+fn-round-decimal-8;PRSC Error: Failed to parse query '(fn:round(-12.567, 2)) instance of $xs:decimal'
+fn-round-decimal-9;PRSC Error: Failed to parse query '(fn:round(-12.567, 4)) instance of $xs:decimal'
 fn-round-half-to-even-1;The function error with arity 0 is not registered.
 fn-round-half-to-even-10;PRSC Error: Failed to parse query '(round-half-to-even(4561.234567, 0)) instance of $xs:decimal'
 fn-round-half-to-even-11;PRSC Error: Failed to parse query 'round-half-to-even(4561.000005e0, 0) = 4561'
@@ -6980,10 +6791,10 @@ fn-round-half-to-even-18;PRSC Error: Failed to parse query '(round-half-to-even(
 fn-round-half-to-even-19;PRSC Error: Failed to parse query '(round-half-to-even(123.375, 2)) instance of $xs:decimal'
 fn-round-half-to-even-2;The function error with arity 0 is not registered.
 fn-round-half-to-even-20;PRSC Error: Failed to parse query '(round-half-to-even(123.385, 2)) instance of $xs:decimal'
-fn-round-half-to-even-21;Value was either too large or too small for a Decimal.
-fn-round-half-to-even-22;Value was either too large or too small for a Decimal.
-fn-round-half-to-even-23;Value was either too large or too small for a Decimal.
-fn-round-half-to-even-24;Value was either too large or too small for a Decimal.
+fn-round-half-to-even-21;PRSC Error: Failed to parse query '(round-half-to-even(-123.355, 2)) instance of $xs:decimal'
+fn-round-half-to-even-22;PRSC Error: Failed to parse query '(round-half-to-even(-123.365, 2)) instance of $xs:decimal'
+fn-round-half-to-even-23;PRSC Error: Failed to parse query '(round-half-to-even(-123.375, 2)) instance of $xs:decimal'
+fn-round-half-to-even-24;PRSC Error: Failed to parse query '(round-half-to-even(-123.385, 2)) instance of $xs:decimal'
 fn-round-half-to-even-24a;PRSC Error: Failed to parse query '(round-half-to-even(12350.00, -2)) instance of $xs:decimal'
 fn-round-half-to-even-25;Value was either too large or too small for a Decimal.
 fn-round-half-to-even-26;PRSC Error: Failed to parse query '(round-half-to-even(12450.00, -2)) instance of $xs:decimal'
@@ -7194,8 +7005,8 @@ fn-subsequence-mix-args-022;The function fn:subsequence with arity 3 is not regi
 fn-subsequence-mix-args-023;The function fn:subsequence with arity 3 is not registered.
 fn-subsequence-mix-args-024;The function fn:subsequence with arity 3 is not registered.
 fn-substring-1;PRSC Error: Failed to parse query '(fn:substring("motor car", 6)) instance of $xs:string'
-fn-substring-10;Attempted to divide by zero.
-fn-substring-11;Attempted to divide by zero.
+fn-substring-10;Value was either too large or too small for an Int32.
+fn-substring-11;Value was either too large or too small for an Int32.
 fn-substring-22;Casting AbstractValue(Attribute) to StringValue
 fn-substring-23;Expected XPath substring("abcd𐀁efgh", 6) to resolve to "efgh"
 fn-substring-24;Expected XPath substring("abcd𐀁efgh", 5, 2) to resolve to "𐀁e"
@@ -7204,8 +7015,8 @@ fn-substring-27;Expected XPath substring("𐀁", 0, 2) to resolve to "𐀁"
 fn-substring-29;Expected XPath substring("𐀁𐀁", 3) to resolve to ""
 fn-substring-31;PRSC Error: Failed to parse query 'substring("12345", -3.1e0, 5.2e0) eq "1"'
 fn-substring-5;Length cannot be less than zero. (Parameter 'length')
-fn-substring-7;Attempted to divide by zero.
-fn-substring-8;Attempted to divide by zero.
+fn-substring-7;Value was either too large or too small for an Int32.
+fn-substring-8;Value was either too large or too small for an Int32.
 fn-substring-after-1;Arithmetic operation resulted in an overflow.
 fn-substring-after-10;Arithmetic operation resulted in an overflow.
 fn-substring-after-13;Arithmetic operation resulted in an overflow.
@@ -7773,7 +7584,7 @@ fo-test-array-subarray-006;PRSC Error: Failed to parse query 'deep-equal((\n    
 fo-test-array-subarray-007;PRSC Error: Failed to parse query 'deep-equal((\n        array:subarray([ ], 1, 0)\n      ), ([ ]))'
 fo-test-array-tail-001;PRSC Error: Failed to parse query 'deep-equal((\n        array:tail([5, 6, 7, 8])\n      ), ([6, 7, 8]))'
 fo-test-array-tail-002;PRSC Error: Failed to parse query 'deep-equal((\n        array:tail([5])\n      ), ([ ]))'
-fo-test-fn-abs-002;Value was either too large or too small for a Decimal.
+fo-test-fn-abs-002;Expected XPath 
 fo-test-fn-adjust-date-to-timezone-003;The function fn:adjust-date-to-timezone with arity 2 is not registered.
 fo-test-fn-adjust-date-to-timezone-004;The function fn:adjust-date-to-timezone with arity 2 is not registered.
 fo-test-fn-adjust-date-to-timezone-005;The function fn:adjust-date-to-timezone with arity 2 is not registered.
@@ -7801,7 +7612,7 @@ fo-test-fn-avg-005;Overflow when creating a Int64 from NaN.
 fo-test-fn-boolean-001;A wrong argument type was specified in a function call.
 fo-test-fn-boolean-002;A wrong argument type was specified in a function call.
 fo-test-fn-boolean-003;A wrong argument type was specified in a function call.
-fo-test-fn-ceiling-002;Value was either too large or too small for a Decimal.
+fo-test-fn-ceiling-002;Expected XPath 
 fo-test-fn-collation-key-001;PRSC Error: Failed to parse query 'deep-equal((\n          let $C := 'http://www.w3.org/2013/collation/UCA?strength=primary'\n          \n           return \n\n        \n        map:merge((map{collation-key("A", $C):1}, map{collation-key("a",\n                  $C):2}), map{"duplicates":"use-last"})(collation-key("A", $C))\n      ), (2))'
 fo-test-fn-collation-key-002;PRSC Error: Failed to parse query 'deep-equal((\n          let $C := 'http://www.w3.org/2013/collation/UCA?strength=primary'\n          \n           return \n\n        \n        let $M := map{collation-key("A", $C):1, collation-key("B", $C):2}\n                  return $M(collation-key("a", $C))\n      ), (1))'
 fo-test-fn-compare-002;Expected XPath 
@@ -7867,7 +7678,7 @@ fo-test-fn-exists-003;PRSC Error: Failed to parse query '\n        fn:exists([])
 fo-test-fn-exists-004;PRSC Error: Failed to parse query '\n        fn:exists(map{})\n      '
 fo-test-fn-filter-001;PRSC Error: Failed to parse query 'deep-equal((\n        fn:filter(1 to 10, function($a) {$a mod 2 = 0})\n      ), ((2, 4, 6, 8, 10)))'
 fo-test-fn-filter-002;ArgumentPlaceholder AST to Expression not yet implemented
-fo-test-fn-floor-002;Value was either too large or too small for a Decimal.
+fo-test-fn-floor-002;Expected XPath 
 fo-test-fn-fold-left-001;PRSC Error: Failed to parse query 'deep-equal((\n        fn:fold-left(1 to 5, 0, function($a, $b) { $a + $b\n                  })\n      ), (15))'
 fo-test-fn-fold-left-002;PRSC Error: Failed to parse query 'deep-equal((\n        fn:fold-left((2,3,5,7), 1, function($a, $b) { $a * $b\n                  })\n      ), (210))'
 fo-test-fn-fold-left-003;PRSC Error: Failed to parse query '\n        fn:fold-left((true(), false(), false()), false(), function($a, $b) {\n                  $a or $b })\n      '
@@ -7954,16 +7765,14 @@ fo-test-fn-matches-005;PRSC Error: Failed to parse query '\n          let $poem 
 fo-test-fn-matches-006;PRSC Error: Failed to parse query '\n          let $poem := \n          \n<poem author="Wilhelm Busch">\nKaum hat dies der Hahn gesehen,\nFängt er auch schon an zu krähen:\nKikeriki! Kikikerikih!!\nTak, tak, tak! - da kommen sie.\n</poem>\n           return \n\n        \n        fn:matches($poem, "^Kaum.*gesehen,$", "m")\n      '
 fo-test-fn-matches-007;PRSC Error: Failed to parse query '\n          let $poem := \n          \n<poem author="Wilhelm Busch">\nKaum hat dies der Hahn gesehen,\nFängt er auch schon an zu krähen:\nKikeriki! Kikikerikih!!\nTak, tak, tak! - da kommen sie.\n</poem>\n           return \n\n        \n        fn:matches($poem, "^Kaum.*gesehen,$")\n      '
 fo-test-fn-matches-008;PRSC Error: Failed to parse query '\n          let $poem := \n          \n<poem author="Wilhelm Busch">\nKaum hat dies der Hahn gesehen,\nFängt er auch schon an zu krähen:\nKikeriki! Kikikerikih!!\nTak, tak, tak! - da kommen sie.\n</poem>\n           return \n\n        \n        fn:matches($poem, "kiki", "i")\n      '
-fo-test-fn-max-001;Casting AbstractValue(XsInteger) to DoubleValue
 fo-test-fn-max-002;PRSC Error: Failed to parse query 'deep-equal((\n        fn:max([3,4,5])\n      ), (5))'
 fo-test-fn-max-003;PRSC Error: Failed to parse query 'deep-equal((\n        fn:max((xs:integer(5), xs:float(5.0), xs:double(0)))\n      ), (xs:double(5.0e0)))'
 fo-test-fn-max-004;The function fn:current-date with arity 0 is not registered.
-fo-test-fn-max-005;Casting AbstractValue(XsString) to DoubleValue
-fo-test-fn-min-001;Casting AbstractValue(XsInteger) to DoubleValue
+fo-test-fn-max-005;Input string was not in a correct format.
 fo-test-fn-min-002;PRSC Error: Failed to parse query 'deep-equal((\n        fn:min([3,4,5])\n      ), (3))'
 fo-test-fn-min-003;PRSC Error: Failed to parse query 'deep-equal((\n        fn:min((xs:integer(5), xs:float(5), xs:double(10)))\n      ), (xs:double(5.0e0)))'
 fo-test-fn-min-004;The function fn:current-date with arity 0 is not registered.
-fo-test-fn-min-005;Casting AbstractValue(XsString) to DoubleValue
+fo-test-fn-min-005;Input string was not in a correct format.
 fo-test-fn-minutes-from-dateTime-001;The function fn:minutes-from-dateTime with arity 1 is not registered.
 fo-test-fn-minutes-from-dateTime-002;The function fn:minutes-from-dateTime with arity 1 is not registered.
 fo-test-fn-minutes-from-duration-001;The function fn:minutes-from-duration with arity 1 is not registered.
@@ -8017,7 +7826,6 @@ fo-test-fn-reverse-003;The function fn:reverse with arity 1 is not registered.
 fo-test-fn-reverse-004;PRSC Error: Failed to parse query 'deep-equal((\n        fn:reverse([1,2,3])\n      ), ([1,2,3]))'
 fo-test-fn-reverse-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:reverse(([1,2,3],[4,5,6]))\n      ), (([4,5,6],[1,2,3])))'
 fo-test-fn-round-001;Expected XPath 
-fo-test-fn-round-003;Value was either too large or too small for a Decimal.
 fo-test-fn-round-004;Expected XPath 
 fo-test-fn-round-006;PRSC Error: Failed to parse query 'deep-equal((\n        fn:round(3.1415e0, 2)\n      ), (3.14e0))'
 fo-test-fn-round-half-to-even-004;PRSC Error: Failed to parse query 'deep-equal((\n        fn:round-half-to-even(3.567812e+3, 2)\n      ), (3567.81e0))'
@@ -8046,10 +7854,10 @@ fo-test-fn-string-length-002;Object reference not set to an instance of an objec
 fo-test-fn-subsequence-001;The function fn:subsequence with arity 2 is not registered.
 fo-test-fn-subsequence-002;The function fn:subsequence with arity 3 is not registered.
 fo-test-fn-substring-005;Length cannot be less than zero. (Parameter 'length')
-fo-test-fn-substring-007;Attempted to divide by zero.
-fo-test-fn-substring-008;Attempted to divide by zero.
-fo-test-fn-substring-010;Attempted to divide by zero.
-fo-test-fn-substring-011;Attempted to divide by zero.
+fo-test-fn-substring-007;Value was either too large or too small for an Int32.
+fo-test-fn-substring-008;Value was either too large or too small for an Int32.
+fo-test-fn-substring-010;Value was either too large or too small for an Int32.
+fo-test-fn-substring-011;Value was either too large or too small for an Int32.
 fo-test-fn-substring-after-004;The function fn:substring-after with arity 3 is not registered.
 fo-test-fn-substring-after-005;The function fn:substring-after with arity 3 is not registered.
 fo-test-fn-substring-after-006;The function fn:substring-after with arity 3 is not registered.
@@ -8275,16 +8083,15 @@ fo-test-math-tan-008;PRSC Error: Failed to parse query 'let $result := (\n      
 fo-test-math-tan-009;The function math:tan with arity 1 is not registered.
 fo-test-math-tan-010;The function math:tan with arity 1 is not registered.
 fo-test-math-tan-011;The function math:tan with arity 1 is not registered.
-FOAR0001_1;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
-FOAR0001_2;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
+FOAR0001_1;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from Infinity.
+FOAR0001_2;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from Infinity.
 FOAR0001_3;Expected error code: FOAR0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '1.0e0 idiv 0.0e0'
 FOAR0001_4;Expected error code: FOAR0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'xs:float(1.0e0) idiv xs:float(0.0e0)'
-FOAR0001_6;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
-FOAR0001_7;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
-FOAR0001_8;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
+FOAR0001_6;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from Infinity.
+FOAR0001_7;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Int64 from NaN.
+FOAR0001_8;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from NaN.
 FOAR0001_9;Expected XPathException with code FOAR0001, but got Type casting to XsYearMonthDuration has not been implemented yet.
 FOAR0002_1;Expected executing the XPath "2e308" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOAR0002. Query succeeded with result: Infinity
-FOAR0002_3;Expected XPathException with code FOAR0002, but got Attempted to divide by zero.
 FOAR0002-5;Expected executing the XPath "xs:dayTimeDuration('P5999999999999999999DT00H00M01S') div
 FOCA0002_2;Expected XPathException with code FOCA0002, but got Haven't implemented Qnames from: 1:
 FOCA0002_3;Expected XPathException with code FOCA0002, but got Haven't implemented Qnames from: localName:prefix
@@ -9190,8 +8997,8 @@ FunctionCall-052;PRSC Error: Failed to parse query ''
 FunctionCall-053;PRSC Error: Failed to parse query ''
 FunctionCall-054;PRSC Error: Failed to parse query ''
 FunctionCall-055;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-functx-fn-abs-3;Value was either too large or too small for a Decimal.
-functx-fn-abs-all;Value was either too large or too small for a Decimal.
+functx-fn-abs-3;Expected XPath (abs(xs:float('-INF'))) to resolve to INF, but instead got Infinity
+functx-fn-abs-all;Expected XPath (abs(3.5), abs(-4), abs(xs:float('-INF'))) to resolve to 3.5 4 INF, but instead got 3.5 4 Infinity
 functx-fn-adjust-date-to-timezone-1;The function adjust-date-to-timezone with arity 2 is not registered.
 functx-fn-adjust-date-to-timezone-2;The function adjust-date-to-timezone with arity 2 is not registered.
 functx-fn-adjust-date-to-timezone-3;The function adjust-date-to-timezone with arity 2 is not registered.
@@ -9221,7 +9028,7 @@ functx-fn-boolean-all;PRSC Error: Failed to parse query ''
 functx-fn-ceiling-4;Value was either too large or too small for a Decimal.
 functx-fn-ceiling-5;Value was either too large or too small for a Decimal.
 functx-fn-ceiling-6;Expected XPath (ceiling( () )) to resolve to , but instead got null
-functx-fn-ceiling-all;Value was either too large or too small for a Decimal.
+functx-fn-ceiling-all;Expected XPath (ceiling(5), ceiling(5.1), ceiling(5.5), ceiling(-5.5), ceiling(-5.51), ceiling( () )) to resolve to 5 6 6 -5 -5, but instead got 5 6 6 Infinity Infinity
 functx-fn-codepoint-equal-3;Expected XPath (codepoint-equal('abc', ())) to resolve to , but instead got null
 functx-fn-codepoint-equal-all;Expected XPath (codepoint-equal('abc', 'abc'), codepoint-equal('abc', 'ab c'), codepoint-equal('abc', ())) to resolve to true false, but instead got True False
 functx-fn-compare-5;Expected XPath (compare('a', 'B')) to resolve to 1
@@ -9279,7 +9086,7 @@ functx-fn-exists-all;Expected XPath (exists( ('a', 'b', 'c') ), exists( '' ), ex
 functx-fn-floor-4;Value was either too large or too small for a Decimal.
 functx-fn-floor-5;Value was either too large or too small for a Decimal.
 functx-fn-floor-6;Expected XPath (floor( () )) to resolve to , but instead got null
-functx-fn-floor-all;Value was either too large or too small for a Decimal.
+functx-fn-floor-all;Expected XPath (floor(5), floor(5.1), floor(5.7), floor(-5.1), floor(-5.7), floor( () )) to resolve to 5 5 5 -6 -6, but instead got 5 5 5 Infinity Infinity
 functx-fn-hours-from-dateTime-1;The function hours-from-dateTime with arity 1 is not registered.
 functx-fn-hours-from-dateTime-2;The function hours-from-dateTime with arity 1 is not registered.
 functx-fn-hours-from-dateTime-all;The function hours-from-dateTime with arity 1 is not registered.
@@ -9344,16 +9151,13 @@ functx-fn-matches-7;BuiltInFunctionsString.FnMatches, XSD pattern compiling need
 functx-fn-matches-8;Object reference not set to an instance of an object.
 functx-fn-matches-9;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 functx-fn-matches-all;The function matches with arity 3 is not registered.
-functx-fn-max-1;Casting AbstractValue(XsInteger) to DoubleValue
-functx-fn-max-2;Casting AbstractValue(XsString) to DoubleValue
-functx-fn-max-3;Casting AbstractValue(XsInteger) to DoubleValue
-functx-fn-max-4;Casting AbstractValue(XsString) to DoubleValue
-functx-fn-max-all;Casting AbstractValue(XsInteger) to DoubleValue
-functx-fn-min-1;Casting AbstractValue(XsDecimal) to DoubleValue
-functx-fn-min-2;Casting AbstractValue(XsString) to DoubleValue
-functx-fn-min-3;Casting AbstractValue(XsString) to DoubleValue
-functx-fn-min-4;Casting AbstractValue(XsString) to DoubleValue
-functx-fn-min-all;Casting AbstractValue(XsDecimal) to DoubleValue
+functx-fn-max-2;Input string was not in a correct format.
+functx-fn-max-4;Input string was not in a correct format.
+functx-fn-max-all;Input string was not in a correct format.
+functx-fn-min-2;Input string was not in a correct format.
+functx-fn-min-3;Input string was not in a correct format.
+functx-fn-min-4;Input string was not in a correct format.
+functx-fn-min-all;Input string was not in a correct format.
 functx-fn-minutes-from-dateTime-1;The function minutes-from-dateTime with arity 1 is not registered.
 functx-fn-minutes-from-duration-1;The function minutes-from-duration with arity 1 is not registered.
 functx-fn-minutes-from-duration-2;The function minutes-from-duration with arity 1 is not registered.
@@ -9456,7 +9260,7 @@ functx-fn-root-2;PRSC Error: Failed to parse query ''
 functx-fn-root-all;PRSC Error: Failed to parse query ''
 functx-fn-round-4;Value was either too large or too small for a Decimal.
 functx-fn-round-5;Value was either too large or too small for a Decimal.
-functx-fn-round-all;Value was either too large or too small for a Decimal.
+functx-fn-round-all;Expected XPath (round(5), round(5.1), round(5.5), round(-5.5), round(-5.51)) to resolve to 5 5 6 -5 -6, but instead got 5 5 6 Infinity Infinity
 functx-fn-seconds-from-dateTime-1;The function seconds-from-dateTime with arity 1 is not registered.
 functx-fn-seconds-from-duration-1;The function seconds-from-duration with arity 1 is not registered.
 functx-fn-seconds-from-duration-2;The function seconds-from-duration with arity 1 is not registered.
@@ -10154,7 +9958,6 @@ functx-functx-yyyymmdd-to-date-1;PRSC Error: Failed to parse query 'declare name
 functx-functx-yyyymmdd-to-date-2;PRSC Error: Failed to parse query 'declare namespace functx = "http://www.example.com/";\n                    (:~ : Converts a string with format YYYYMMDD (with any delimiters) to a date : : @author Priscilla Walmsley, Datypic : @version 1.1 : @see http://www.xqueryfunctions.com/xq/functx_yyyymmdd-to-date.html : @param $dateString the YYYYMMDD string :)\n         declare function functx:yyyymmdd-to-date ( $dateString as xs:string? ) as xs:date? { if (empty($dateString)) then () else if (not(matches($dateString, '^\D*(\d{4})\D*(\d{2})\D*(\d{2})\D*$'))) then error(xs:QName('functx:Invalid_Date_Format')) else xs:date(replace($dateString, '^\D*(\d{4})\D*(\d{2})\D*(\d{2})\D*$', '$1-$2-$3')) } ;\n                    (functx:yyyymmdd-to-date('20041215'))'
 functx-functx-yyyymmdd-to-date-3;PRSC Error: Failed to parse query 'declare namespace functx = "http://www.example.com/";\n                    (:~ : Converts a string with format YYYYMMDD (with any delimiters) to a date : : @author Priscilla Walmsley, Datypic : @version 1.1 : @see http://www.xqueryfunctions.com/xq/functx_yyyymmdd-to-date.html : @param $dateString the YYYYMMDD string :)\n         declare function functx:yyyymmdd-to-date ( $dateString as xs:string? ) as xs:date? { if (empty($dateString)) then () else if (not(matches($dateString, '^\D*(\d{4})\D*(\d{2})\D*(\d{2})\D*$'))) then error(xs:QName('functx:Invalid_Date_Format')) else xs:date(replace($dateString, '^\D*(\d{4})\D*(\d{2})\D*(\d{2})\D*$', '$1-$2-$3')) } ;\n                    (functx:yyyymmdd-to-date('2004/12/15'))'
 functx-functx-yyyymmdd-to-date-all;PRSC Error: Failed to parse query 'declare namespace functx = "http://www.example.com/";\n                    (:~ : Converts a string with format YYYYMMDD (with any delimiters) to a date : : @author Priscilla Walmsley, Datypic : @version 1.1 : @see http://www.xqueryfunctions.com/xq/functx_yyyymmdd-to-date.html : @param $dateString the YYYYMMDD string :)\n         declare function functx:yyyymmdd-to-date ( $dateString as xs:string? ) as xs:date? { if (empty($dateString)) then () else if (not(matches($dateString, '^\D*(\d{4})\D*(\d{2})\D*(\d{2})\D*$'))) then error(xs:QName('functx:Invalid_Date_Format')) else xs:date(replace($dateString, '^\D*(\d{4})\D*(\d{2})\D*(\d{2})\D*$', '$1-$2-$3')) } ;\n                    (functx:yyyymmdd-to-date('2004-12-15'), functx:yyyymmdd-to-date('20041215'), functx:yyyymmdd-to-date('2004/12/15'))'
-GenCompEq-1;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 GenCompEq-10;PRSC Error: Failed to parse query 'declare variable $p external := 276; $p = (1 to 1000)'
 GenCompEq-11;PRSC Error: Failed to parse query 'declare variable $p external := -276; (1 to 1000) = $p'
 GenCompEq-12;PRSC Error: Failed to parse query 'declare variable $p external := xs:untypedAtomic('000504e0'); $p = (1 to 1000)'
@@ -10235,14 +10038,10 @@ generalexpression168;PRSC Error: Failed to parse query ''
 generalexpression173;PRSC Error: Failed to parse query ''
 generalexpression174;PRSC Error: Failed to parse query ''
 generalexpression175;PRSC Error: Failed to parse query ''
-generalexpression176;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-generalexpression177;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression178;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression183;PRSC Error: Failed to parse query ''
 generalexpression184;PRSC Error: Failed to parse query ''
 generalexpression185;PRSC Error: Failed to parse query ''
-generalexpression186;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-generalexpression187;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression188;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression189;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression19;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
@@ -10518,15 +10317,11 @@ generalexpression47;PRSC Error: Failed to parse query ''
 generalexpression470;PRSC Error: Failed to parse query ''
 generalexpression471;PRSC Error: Failed to parse query ''
 generalexpression472;PRSC Error: Failed to parse query ''
-generalexpression473;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-generalexpression474;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression475;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression48;PRSC Error: Failed to parse query ''
 generalexpression480;PRSC Error: Failed to parse query ''
 generalexpression481;PRSC Error: Failed to parse query ''
 generalexpression482;PRSC Error: Failed to parse query ''
-generalexpression483;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-generalexpression484;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression485;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression486;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression487;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
@@ -10596,15 +10391,11 @@ generalexpression569;PRSC Error: Failed to parse query ''
 generalexpression57;PRSC Error: Failed to parse query ''
 generalexpression570;PRSC Error: Failed to parse query ''
 generalexpression571;PRSC Error: Failed to parse query ''
-generalexpression572;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-generalexpression573;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression574;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression579;PRSC Error: Failed to parse query ''
 generalexpression58;PRSC Error: Failed to parse query ''
 generalexpression580;PRSC Error: Failed to parse query ''
 generalexpression581;PRSC Error: Failed to parse query ''
-generalexpression582;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-generalexpression583;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression584;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression585;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression586;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
@@ -10632,14 +10423,10 @@ generalexpression7;PRSC Error: Failed to parse query ''
 generalexpression74;PRSC Error: Failed to parse query ''
 generalexpression75;PRSC Error: Failed to parse query ''
 generalexpression76;PRSC Error: Failed to parse query ''
-generalexpression77;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-generalexpression78;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression79;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression84;PRSC Error: Failed to parse query ''
 generalexpression85;PRSC Error: Failed to parse query ''
 generalexpression86;PRSC Error: Failed to parse query ''
-generalexpression87;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-generalexpression88;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression89;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression90;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression91;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
@@ -10902,7 +10689,7 @@ internalcontextitem-8;Expected XPath (fn:false(),fn:true(),fn:false())[fn:not(xs
 internalvar-1;PRSC Error: Failed to parse query 'declare(::)variable(::)$var(::)as(::)item((: :))*(::):=(::)1(::);(::) 1(::)eq(::)1(::)'
 internalvar-2;PRSC Error: Failed to parse query '(::)declare(::)variable(::)$var(::):=(::)1(::);(::) 1(::)eq(::)1'
 K-ABSFunc-5;Value was either too large or too small for a Decimal.
-K-ABSFunc-6;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-ABSFunc-6;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to DecimalValue
 K-AnyURIEqual-1;Type casting to XsAnyUri has not been implemented yet.
 K-AnyURIEqual-10;Type casting to XsAnyUri has not been implemented yet.
 K-AnyURIEqual-2;Type casting to XsAnyUri has not been implemented yet.
@@ -10918,7 +10705,7 @@ K-Base64BinaryEQ-2;Type casting to XsHexBinary has not been implemented yet.
 K-Base64BinaryEQ-3;Type casting to XsBase64Binary has not been implemented yet.
 K-CeilingFunc-3-dyn;PRSC Error: Failed to parse query 'declare variable $empty external; empty(ceiling($empty))'
 K-CeilingFunc-5;Value was either too large or too small for a Decimal.
-K-CeilingFunc-6;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-CeilingFunc-6;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to DecimalValue
 K-CodepointToStringFunc-11b;Could not convert codepoint to string, it is outside of the valid range.
 K-CodepointToStringFunc-12b;Could not convert codepoint to string, it is outside of the valid range.
 K-CodepointToStringFunc-13;PRSC Error: Failed to parse query ''
@@ -11243,7 +11030,7 @@ K-FilterExpr-93;Expected error code: FORG0006. Query succeeded with result: 1 2 
 K-FilterExpr-94;Expected error code: FORG0006. Query succeeded with result: 1 2 3
 K-FilterExpr-96;PRSC Error: Failed to parse query ' = "Jane Doe 3"'
 K-FloorFunc-5;Value was either too large or too small for a Decimal.
-K-FloorFunc-6;Expected XPathException with code XPTY0004, but got Input string was not in a correct format.
+K-FloorFunc-6;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to DecimalValue
 K-ForExprPositionalVar-1;Expected XPathException with code XPST0008, but got The given key 'p' was not present in the dictionary.
 K-ForExprPositionalVar-10;The function distinct-values with arity 1 is not registered.
 K-ForExprPositionalVar-12;The function insert-before with arity 3 is not registered.
@@ -11356,7 +11143,6 @@ K-FunctionProlog-65;Expected executing the XPath "
 K-FunctionProlog-66;Expected executing the XPath "
 K-FunctionProlog-67;PRSC Error: Failed to parse query 'declare default function namespace "http://www.w3.org/2005/xquery-local-functions";\n        declare function local:is() as xs:integer { 1 };\n        is() eq 1'
 K-FunctionProlog-68;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction($usedArg) { $usedArg };\n        local:myFunction(1 + "a string")'
-K-GenCompEq-10;Expected executing the XPath "not((xs:untypedAtomic("1"), xs:untypedAtomic("2")) = (xs:untypedAtomic("2.0"), 3.0))" to resolve to one of the expected results, but got System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-GenCompEq-16;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-GenCompEq-17;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-GenCompEq-18;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
@@ -11378,7 +11164,6 @@ K-GenCompEq-56;Expected error code: FORG0001. Found error code: XPTY0004 with er
 K-GenCompEq-57;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-GenCompEq-58;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompEq-59;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-K-GenCompEq-9;Expected executing the XPath "(xs:untypedAtomic("1"), xs:untypedAtomic("2")) = (xs:untypedAtomic("2.0"), 2.0)" to resolve to one of the expected results, but got System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-GenCompGT-16;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompGT-17;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompGT-18;The function timezone-from-time with arity 1 is not registered.
@@ -11570,9 +11355,9 @@ K-NormalizeSpaceFunc-9;Expected executing the XPath "normalize-space(normalize-s
 K-NotFunc-10;TreatExpr AST to Expression not yet implemented
 K-NotFunc-8;Type casting to XsAnyUri has not been implemented yet.
 K-NotFunc-9;Type casting to XsAnyUri has not been implemented yet.
-K-NumericAdd-10;Value was either too large or too small for a Decimal.
-K-NumericAdd-11;Value was either too large or too small for a Decimal.
-K-NumericAdd-12;Value was either too large or too small for a Decimal.
+K-NumericAdd-10;Expected XPath string(xs:double("NaN") + 3) eq "NaN" to resolve to true
+K-NumericAdd-11;Expected XPath string(3 + xs:float("NaN")) eq "NaN" to resolve to true
+K-NumericAdd-12;Expected XPath string(3 + xs:double("NaN")) eq "NaN" to resolve to true
 K-NumericAdd-17;Expected XPath (xs:decimal(6) + xs:float(2)) instance of xs:float to resolve to true
 K-NumericAdd-18;Expected XPath (xs:float(6) + xs:decimal(2)) instance of xs:float to resolve to true
 K-NumericAdd-19;Expected XPath (xs:float(6) + xs:integer(2)) instance of xs:float to resolve to true
@@ -11599,12 +11384,12 @@ K-NumericAdd-61;Expected executing the XPath "(remove((5, 1e0), 2) + 1) eq 6" to
 K-NumericAdd-62;Expected executing the XPath "(1 + remove((5, 1e0), 2)) eq 6" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-63;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
 K-NumericAdd-64;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
-K-NumericAdd-9;Value was either too large or too small for a Decimal.
+K-NumericAdd-9;Expected XPath string(xs:float("NaN") + 3) eq "NaN" to resolve to true
 K-NumericDivide-20;Expected XPath (xs:float(6) div xs:decimal(2)) instance of xs:float to resolve to true
 K-NumericDivide-21;Expected XPath (xs:decimal(6) div xs:float(2)) instance of xs:float to resolve to true
 K-NumericDivide-22;Expected XPath (xs:float(6) div xs:integer(2)) instance of xs:float to resolve to true
 K-NumericDivide-23;Expected XPath (xs:integer(6) div xs:float(2)) instance of xs:float to resolve to true
-K-NumericDivide-37;Expected error code: XPST0003. Query succeeded with result: 3.3333333333333333333333333333
+K-NumericDivide-37;Expected error code: XPST0003. Query succeeded with result: 3.33333333333333
 K-NumericEqual-16;Expected XPath xs:double("NaN") ne xs:double("NaN") to resolve to true
 K-NumericEqual-30;Expected XPath xs:float("NaN") ne xs:float("NaN") to resolve to true
 K-NumericEqual-41;The function remove with arity 2 is not registered.
@@ -11657,18 +11442,18 @@ K-NumericMod-8;Expected XPath (xs:integer(6) mod xs:float(2)) instance of xs:flo
 K-NumericMultiply-10;Expected XPath (xs:float(6) * xs:decimal(2)) instance of xs:float to resolve to true
 K-NumericMultiply-11;Expected XPath (xs:float(6) * xs:integer(2)) instance of xs:float to resolve to true
 K-NumericMultiply-12;Expected XPath (xs:integer(6) * xs:float(2)) instance of xs:float to resolve to true
-K-NumericMultiply-21;Value was either too large or too small for a Decimal.
-K-NumericMultiply-22;Value was either too large or too small for a Decimal.
-K-NumericMultiply-23;Value was either too large or too small for a Decimal.
-K-NumericMultiply-24;Value was either too large or too small for a Decimal.
+K-NumericMultiply-21;Expected XPath string(xs:float("NaN") * 3) eq "NaN" to resolve to true
+K-NumericMultiply-22;Expected XPath string(xs:double("NaN") * 3) eq "NaN" to resolve to true
+K-NumericMultiply-23;Expected XPath string(3 * xs:float("NaN")) eq "NaN" to resolve to true
+K-NumericMultiply-24;Expected XPath string(3 * xs:double("NaN")) eq "NaN" to resolve to true
 K-NumericMultiply-9;Expected XPath (xs:decimal(6) * xs:float(2)) instance of xs:float to resolve to true
 K-NumericSubtract-10;Expected XPath (xs:float(6) - xs:decimal(2)) instance of xs:float to resolve to true
 K-NumericSubtract-11;Expected XPath (xs:float(6) - xs:integer(2)) instance of xs:float to resolve to true
 K-NumericSubtract-12;Expected XPath (xs:integer(6) - xs:float(2)) instance of xs:float to resolve to true
-K-NumericSubtract-21;Value was either too large or too small for a Decimal.
-K-NumericSubtract-22;Value was either too large or too small for a Decimal.
-K-NumericSubtract-23;Value was either too large or too small for a Decimal.
-K-NumericSubtract-24;Value was either too large or too small for a Decimal.
+K-NumericSubtract-21;Expected XPath string(xs:float("NaN") - 3) eq "NaN" to resolve to true
+K-NumericSubtract-22;Expected XPath string(xs:double("NaN") - 3) eq "NaN" to resolve to true
+K-NumericSubtract-23;Expected XPath string(3 - xs:float("NaN")) eq "NaN" to resolve to true
+K-NumericSubtract-24;Expected XPath string(3 - xs:double("NaN")) eq "NaN" to resolve to true
 K-NumericSubtract-36;Expected executing the XPath "1 eq (remove((current-time(), 1), 1) - 0)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericSubtract-37;Expected executing the XPath "1 eq (remove((current-time(), 1), 1) + 0)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericSubtract-38;Expected executing the XPath "1 eq (0 + remove((current-time(), 1), 1))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
@@ -11928,7 +11713,6 @@ K-SeqExprCast-100;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1000;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:NOTATION)'
 K-SeqExprCast-1003;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-1005;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
-K-SeqExprCast-1008;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-1009;PRSC Error: Failed to parse query 'xs:gYear("1999") castable as xs:untypedAtomic'
 K-SeqExprCast-101;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1011;PRSC Error: Failed to parse query 'xs:gYear("1999") castable as xs:string'
@@ -11967,7 +11751,6 @@ K-SeqExprCast-1052;Expected error code: XPST0080. Found error code: XPST0003 wit
 K-SeqExprCast-1055;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-1057;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-106;Type casting to XsHexBinary has not been implemented yet.
-K-SeqExprCast-1060;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-1061;PRSC Error: Failed to parse query 'xs:gMonthDay("--11-13") castable as xs:untypedAtomic'
 K-SeqExprCast-1063;PRSC Error: Failed to parse query 'xs:gMonthDay("--11-13") castable as xs:string'
 K-SeqExprCast-1065;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:float)'
@@ -12005,7 +11788,6 @@ K-SeqExprCast-1104;Expected error code: XPST0080. Found error code: XPST0003 wit
 K-SeqExprCast-1107;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-1109;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-111;Type casting to XsHexBinary has not been implemented yet.
-K-SeqExprCast-1112;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-1113;PRSC Error: Failed to parse query 'xs:gDay("---03") castable as xs:untypedAtomic'
 K-SeqExprCast-1115;PRSC Error: Failed to parse query 'xs:gDay("---03") castable as xs:string'
 K-SeqExprCast-1117;PRSC Error: Failed to parse query 'not(xs:gDay("---03") castable as xs:float)'
@@ -12043,7 +11825,6 @@ K-SeqExprCast-1156;Expected error code: XPST0080. Found error code: XPST0003 wit
 K-SeqExprCast-1159;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-116;Expected XPathException with code FORG0001, but got Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-1161;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
-K-SeqExprCast-1164;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-1165;PRSC Error: Failed to parse query 'xs:gMonth("--11") castable as xs:untypedAtomic'
 K-SeqExprCast-1167;PRSC Error: Failed to parse query 'xs:gMonth("--11") castable as xs:string'
 K-SeqExprCast-1169;PRSC Error: Failed to parse query 'not(xs:gMonth("--11") castable as xs:float)'
@@ -12081,7 +11862,6 @@ K-SeqExprCast-1208;Expected error code: XPST0080. Found error code: XPST0003 wit
 K-SeqExprCast-121;Expected XPathException with code FORG0001, but got Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-1211;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-1213;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
-K-SeqExprCast-1216;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-1217;PRSC Error: Failed to parse query 'xs:boolean("true") castable as xs:untypedAtomic'
 K-SeqExprCast-1219;PRSC Error: Failed to parse query 'xs:boolean("true") castable as xs:string'
 K-SeqExprCast-122;Expected XPathException with code FORG0001, but got Type casting to XsBase64Binary has not been implemented yet.
@@ -12578,10 +12358,6 @@ K-SeqExprCast-4;Expected error code: XPST0051. Found error code: XPST0080 with e
 K-SeqExprCast-40;Expected XPath xs:boolean('0') cast as xs:string eq 'false' to resolve to true
 K-SeqExprCast-400;Casting not supported from given type to xs:dateTime or any of its derived types.
 K-SeqExprCast-413;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-414;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-K-SeqExprCast-415;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-K-SeqExprCast-416;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-K-SeqExprCast-418;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-419;PRSC Error: Failed to parse query 'xs:untypedAtomic("an arbitrary string(untypedAtomic source)") castable as xs:untypedAtomic'
 K-SeqExprCast-42;The value fn:local-name can not be cast to a QName. Did you mean to use fn:QName?
 K-SeqExprCast-421;PRSC Error: Failed to parse query 'xs:untypedAtomic("an arbitrary string(untypedAtomic source)") castable as xs:string'
@@ -12591,14 +12367,12 @@ K-SeqExprCast-423;PRSC Error: Failed to parse query 'not(xs:untypedAtomic("an ar
 K-SeqExprCast-424;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:untypedAtomic("an arbitrary string(untypedAtomic source)") castable as xs:NOTATION)'
 K-SeqExprCast-427;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-43;Atomic Value for XsName is not implemented yet.
-K-SeqExprCast-432;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-433;PRSC Error: Failed to parse query 'xs:string("an arbitrary string") castable as xs:untypedAtomic'
 K-SeqExprCast-435;PRSC Error: Failed to parse query 'xs:string("an arbitrary string") castable as xs:string'
 K-SeqExprCast-436;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:string("an arbitrary string") castable as xs:NOTATION)'
 K-SeqExprCast-439;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-44;Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-441;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqExprCast-444;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-445;PRSC Error: Failed to parse query 'xs:float("3.4e5") castable as xs:untypedAtomic'
 K-SeqExprCast-447;PRSC Error: Failed to parse query 'xs:float("3.4e5") castable as xs:string'
 K-SeqExprCast-449;PRSC Error: Failed to parse query 'xs:float("3.4e5") castable as xs:float'
@@ -12629,13 +12403,11 @@ K-SeqExprCast-483;PRSC Error: Failed to parse query 'not(xs:float("3.4e5") casta
 K-SeqExprCast-484;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:float("3.4e5") castable as xs:NOTATION)'
 K-SeqExprCast-487;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-489;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqExprCast-49;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
-K-SeqExprCast-492;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-493;PRSC Error: Failed to parse query 'xs:double("3.3e3") castable as xs:untypedAtomic'
 K-SeqExprCast-495;PRSC Error: Failed to parse query 'xs:double("3.3e3") castable as xs:string'
 K-SeqExprCast-497;PRSC Error: Failed to parse query 'xs:double("3.3e3") castable as xs:float'
 K-SeqExprCast-499;PRSC Error: Failed to parse query 'xs:double("3.3e3") castable as xs:double'
-K-SeqExprCast-50;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
+K-SeqExprCast-50;Expected XPath false() cast as xs:untypedAtomic eq xs:untypedAtomic("false") to resolve to true
 K-SeqExprCast-500;Expected XPathException with code XPTY0004, but got Type casting to XsDuration has not been implemented yet.
 K-SeqExprCast-501;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:duration)'
 K-SeqExprCast-502;Expected XPathException with code XPTY0004, but got Type casting to XsYearMonthDuration has not been implemented yet.
@@ -12644,7 +12416,7 @@ K-SeqExprCast-504;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-505;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:dayTimeDuration)'
 K-SeqExprCast-507;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:dateTime)'
 K-SeqExprCast-509;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:time)'
-K-SeqExprCast-51;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
+K-SeqExprCast-51;Expected XPath true() cast as xs:untypedAtomic eq xs:untypedAtomic("true") to resolve to true
 K-SeqExprCast-511;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:date)'
 K-SeqExprCast-513;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:gYearMonth)'
 K-SeqExprCast-515;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:gYear)'
@@ -12664,7 +12436,6 @@ K-SeqExprCast-532;Expected error code: XPST0080. Found error code: XPST0003 with
 K-SeqExprCast-535;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-537;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqExprCast-54;Atomic Value for XsName is not implemented yet.
-K-SeqExprCast-540;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-541;PRSC Error: Failed to parse query 'xs:decimal("10.01") castable as xs:untypedAtomic'
 K-SeqExprCast-543;PRSC Error: Failed to parse query 'xs:decimal("10.01") castable as xs:string'
 K-SeqExprCast-545;PRSC Error: Failed to parse query 'xs:decimal("10.01") castable as xs:float'
@@ -12698,7 +12469,6 @@ K-SeqExprCast-582;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-583;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:QName)'
 K-SeqExprCast-584;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:NOTATION)'
 K-SeqExprCast-587;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-592;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-593;PRSC Error: Failed to parse query 'xs:integer("6789") castable as xs:untypedAtomic'
 K-SeqExprCast-595;PRSC Error: Failed to parse query 'xs:integer("6789") castable as xs:string'
 K-SeqExprCast-597;PRSC Error: Failed to parse query 'xs:integer("6789") castable as xs:float'
@@ -12893,7 +12663,6 @@ K-SeqExprCast-792;Expected error code: XPST0080. Found error code: XPST0003 with
 K-SeqExprCast-795;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-797;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-7a;Expected error code: XQST0052. Found error code: XPST0051 with error message: The type "xs:anyType" could not be found
-K-SeqExprCast-800;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-801;PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:untypedAtomic'
 K-SeqExprCast-803;PRSC Error: Failed to parse query 'xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:string'
 K-SeqExprCast-805;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:float)'
@@ -12929,7 +12698,6 @@ K-SeqExprCast-843;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10
 K-SeqExprCast-844;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:NOTATION)'
 K-SeqExprCast-847;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-849;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
-K-SeqExprCast-852;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-853;PRSC Error: Failed to parse query 'xs:time("03:20:00-05:00") castable as xs:untypedAtomic'
 K-SeqExprCast-855;PRSC Error: Failed to parse query 'xs:time("03:20:00-05:00") castable as xs:string'
 K-SeqExprCast-857;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:float)'
@@ -12962,7 +12730,6 @@ K-SeqExprCast-895;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00
 K-SeqExprCast-896;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:NOTATION)'
 K-SeqExprCast-899;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-901;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
-K-SeqExprCast-904;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-905;PRSC Error: Failed to parse query 'xs:date("2004-10-13") castable as xs:untypedAtomic'
 K-SeqExprCast-907;PRSC Error: Failed to parse query 'xs:date("2004-10-13") castable as xs:string'
 K-SeqExprCast-909;PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:float)'
@@ -13004,7 +12771,6 @@ K-SeqExprCast-948;Expected error code: XPST0080. Found error code: XPST0003 with
 K-SeqExprCast-95;Expected XPathException with code FORG0001, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-951;The function subsequence with arity 3 is not registered.
 K-SeqExprCast-953;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
-K-SeqExprCast-956;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-957;PRSC Error: Failed to parse query 'xs:gYearMonth("1999-11") castable as xs:untypedAtomic'
 K-SeqExprCast-959;PRSC Error: Failed to parse query 'xs:gYearMonth("1999-11") castable as xs:string'
 K-SeqExprCast-96;Expected XPathException with code FORG0001, but got Type casting to XsHexBinary has not been implemented yet.
@@ -13126,108 +12892,65 @@ K-SeqInsertBeforeFunc-6;The function insert-before with arity 3 is not registere
 K-SeqInsertBeforeFunc-7;The function insert-before with arity 3 is not registered.
 K-SeqInsertBeforeFunc-8;The function insert-before with arity 3 is not registered.
 K-SeqInsertBeforeFunc-9;The function insert-before with arity 3 is not registered.
-K-SeqMAXFunc-10;Casting AbstractValue(XsDouble) to FloatValue
-K-SeqMAXFunc-11;Casting AbstractValue(XsDouble) to FloatValue
-K-SeqMAXFunc-12;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-13;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-14;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-15;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-16;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-17;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMAXFunc-18;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMAXFunc-19;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMAXFunc-21;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMAXFunc-22;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
+K-SeqMAXFunc-16;Expected XPath string(max((1, xs:untypedAtomic("NaN"), xs:float(2)))) eq "NaN" to resolve to true
+K-SeqMAXFunc-17;Expected XPath string(max((xs:float("NaN"), xs:untypedAtomic("3"), xs:float(2)))) eq "NaN" to resolve to true
+K-SeqMAXFunc-21;Expected error code: FORG0006. Query succeeded with result: Infinity
+K-SeqMAXFunc-22;Expected error code: FORG0006. Query succeeded with result: Infinity
 K-SeqMAXFunc-23;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqMAXFunc-24;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqMAXFunc-25;Expected XPath string(max((xs:double("NaN"), xs:double("NaN")))) eq "NaN" to resolve to true
-K-SeqMAXFunc-26;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMAXFunc-27;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-28;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-29;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-30;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-31;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMAXFunc-32;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMAXFunc-33;Casting AbstractValue(XsFloat) to DoubleValue
+K-SeqMAXFunc-26;Expected XPath string(max((xs:float("NaN"), xs:float("NaN")))) eq "NaN" to resolve to true
+K-SeqMAXFunc-27;Expected XPath string(max((3, xs:double("NaN")))) eq "NaN" to resolve to true
+K-SeqMAXFunc-28;Expected XPath string(max((3, xs:float("NaN")))) eq "NaN" to resolve to true
+K-SeqMAXFunc-30;Expected XPath max((3, xs:float("NaN"))) instance of xs:float to resolve to true
+K-SeqMAXFunc-31;Expected XPath string(max((xs:float(-3), xs:untypedAtomic("3"), xs:double("NaN")))) eq "NaN" to resolve to true
+K-SeqMAXFunc-33;Expected XPath string(max(xs:float("NaN"))) eq "NaN" to resolve to true
 K-SeqMAXFunc-34;Expected XPath string(max(xs:double("NaN"))) eq "NaN" to resolve to true
 K-SeqMAXFunc-35;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqMAXFunc-36;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsDouble) to FloatValue
-K-SeqMAXFunc-37;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
-K-SeqMAXFunc-38;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsQName) to DoubleValue
+K-SeqMAXFunc-38;Expected XPathException with code FORG0006, but got Haven't implemented Qnames from: ncname:
 K-SeqMAXFunc-39;Type casting to XsAnyUri has not been implemented yet.
-K-SeqMAXFunc-4;Casting AbstractValue(XsInteger) to DoubleValue
 K-SeqMAXFunc-40;Type casting to XsAnyUri has not been implemented yet.
-K-SeqMAXFunc-41;Casting AbstractValue(XsString) to DoubleValue
-K-SeqMAXFunc-42;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
 K-SeqMAXFunc-43;PRSC Error: Failed to parse query 'max((5, 5.0e0)) eq 5.0e0'
 K-SeqMAXFunc-44;PRSC Error: Failed to parse query 'max((5, 5.0e0)) instance of xs:double'
 K-SeqMAXFunc-45;PRSC Error: Failed to parse query 'max((5, 3.0e0)) instance of xs:double'
 K-SeqMAXFunc-46;PRSC Error: Failed to parse query 'max((5.0e0, 5)) instance of xs:double'
 K-SeqMAXFunc-47;PRSC Error: Failed to parse query 'max((3, 5.0e0)) instance of xs:double'
 K-SeqMAXFunc-48;PRSC Error: Failed to parse query 'max((5.0e0, 3)) instance of xs:double'
-K-SeqMAXFunc-49;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-5;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-50;Casting AbstractValue(XsDecimal) to DoubleValue
-K-SeqMAXFunc-51;Casting AbstractValue(XsDecimal) to DoubleValue
+K-SeqMAXFunc-49;Expected XPath max((1, 1, 1, 1, 1.0)) instance of xs:decimal to resolve to true
+K-SeqMAXFunc-50;Expected XPath max((1.0, 1, 1, 1, 1)) instance of xs:decimal to resolve to true
+K-SeqMAXFunc-51;Expected XPath max((1.0, 1, 1.0, 1, 1)) instance of xs:decimal to resolve to true
 K-SeqMAXFunc-52;PRSC Error: Failed to parse query 'max((5.0e0, 5)) eq 5.0e0'
 K-SeqMAXFunc-53;PRSC Error: Failed to parse query 'max((3, 5.0e0)) eq 5.0e0'
 K-SeqMAXFunc-54;PRSC Error: Failed to parse query 'max((5.0e0, 3)) eq 5.0e0'
 K-SeqMAXFunc-55;The function current-date with arity 0 is not registered.
-K-SeqMAXFunc-56;Casting AbstractValue(XsInteger) to DoubleValue
 K-SeqMAXFunc-57;PRSC Error: Failed to parse query 'max((5, 5.0e0)) eq 5.0e0'
-K-SeqMAXFunc-58;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-59;Casting AbstractValue(XsString) to DoubleValue
-K-SeqMAXFunc-6;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-7;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-8;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMAXFunc-9;Casting AbstractValue(XsDouble) to FloatValue
-K-SeqMINFunc-10;Casting AbstractValue(XsDouble) to FloatValue
-K-SeqMINFunc-11;Casting AbstractValue(XsDouble) to FloatValue
-K-SeqMINFunc-12;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-13;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-14;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-15;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-16;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-17;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMINFunc-18;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMINFunc-19;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMINFunc-21;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMINFunc-22;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
+K-SeqMAXFunc-59;Input string was not in a correct format.
+K-SeqMAXFunc-8;Value was either too large or too small for a Decimal.
+K-SeqMINFunc-16;Expected XPath string(min((1, xs:untypedAtomic("NaN"), xs:float(2)))) eq "NaN" to resolve to true
+K-SeqMINFunc-17;Expected XPath string(min((xs:float("NaN"), xs:untypedAtomic("3"), xs:float(2)))) eq "NaN" to resolve to true
+K-SeqMINFunc-21;Expected error code: FORG0006. Query succeeded with result: Infinity
+K-SeqMINFunc-22;Expected error code: FORG0006. Query succeeded with result: Infinity
 K-SeqMINFunc-23;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqMINFunc-24;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqMINFunc-25;Expected XPath string(min((xs:double("NaN"), xs:double("NaN")))) eq "NaN" to resolve to true
-K-SeqMINFunc-26;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMINFunc-27;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-28;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-29;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-30;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-31;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMINFunc-32;Casting AbstractValue(XsFloat) to DoubleValue
-K-SeqMINFunc-33;Casting AbstractValue(XsFloat) to DoubleValue
+K-SeqMINFunc-26;Expected XPath string(min((xs:float("NaN"), xs:float("NaN")))) eq "NaN" to resolve to true
+K-SeqMINFunc-27;Expected XPath string(min((3, xs:double("NaN")))) eq "NaN" to resolve to true
+K-SeqMINFunc-28;Expected XPath string(min((3, xs:float("NaN")))) eq "NaN" to resolve to true
+K-SeqMINFunc-30;Expected XPath min((3, xs:float("NaN"))) instance of xs:float to resolve to true
+K-SeqMINFunc-31;Expected XPath string(min((xs:float(-3), xs:untypedAtomic("3"), xs:double("NaN")))) eq "NaN" to resolve to true
+K-SeqMINFunc-33;Expected XPath string(min(xs:float("NaN"))) eq "NaN" to resolve to true
 K-SeqMINFunc-34;Expected XPath string(min(xs:double("NaN"))) eq "NaN" to resolve to true
 K-SeqMINFunc-35;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-SeqMINFunc-36;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsDouble) to FloatValue
-K-SeqMINFunc-37;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
-K-SeqMINFunc-38;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsQName) to DoubleValue
+K-SeqMINFunc-38;Expected XPathException with code FORG0006, but got Haven't implemented Qnames from: ncname:
 K-SeqMINFunc-39;Type casting to XsAnyUri has not been implemented yet.
-K-SeqMINFunc-4;Casting AbstractValue(XsInteger) to DoubleValue
 K-SeqMINFunc-40;Type casting to XsAnyUri has not been implemented yet.
-K-SeqMINFunc-41;Casting AbstractValue(XsString) to DoubleValue
-K-SeqMINFunc-42;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsString) to DoubleValue
 K-SeqMINFunc-43;PRSC Error: Failed to parse query 'min((5, 5.0e0)) eq 5.0e0'
 K-SeqMINFunc-44;PRSC Error: Failed to parse query 'min((5.0e0, 5)) eq 5.0e0'
 K-SeqMINFunc-45;PRSC Error: Failed to parse query 'min((3, 5.0e0)) eq 3'
 K-SeqMINFunc-46;PRSC Error: Failed to parse query 'min((5.0e0, 3)) eq 3'
-K-SeqMINFunc-47;Casting AbstractValue(XsDate) to DoubleValue
-K-SeqMINFunc-48;Casting AbstractValue(XsInteger) to DoubleValue
+K-SeqMINFunc-47;Unable to cast object of type 'FontoXPathCSharp.Value.DateTimeWrapper' to type 'System.IConvertible'.
 K-SeqMINFunc-49;PRSC Error: Failed to parse query 'min((5, 5.0e0)) eq 5.0e0'
-K-SeqMINFunc-5;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-50;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsInteger) to DoubleValue
 K-SeqMINFunc-51;PRSC Error: Failed to parse query 'min((xs:float(0.0E0), xs:float(-0.0E0))) eq xs:float("-0")'
-K-SeqMINFunc-6;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-7;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-8;Casting AbstractValue(XsInteger) to DoubleValue
-K-SeqMINFunc-9;Casting AbstractValue(XsDouble) to FloatValue
 K-SeqOneOrMoreFunc-3;The function one-or-more with arity 1 is not registered.
 K-SeqOneOrMoreFunc-4;The function one-or-more with arity 1 is not registered.
 K-SeqOneOrMoreFunc-5;The function one-or-more with arity 1 is not registered.
@@ -13374,10 +13097,10 @@ K-SubstringAfterFunc-4;Expected error code: FOCH0002. Found error code: XPST0017
 K-SubstringAfterFunc-5;The function substring-after with arity 3 is not registered.
 K-SubstringBeforeFunc-4;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-before with arity 3 is not registered.
 K-SubstringBeforeFunc-5;The function substring-before with arity 3 is not registered.
-K-SubstringFunc-10;Attempted to divide by zero.
-K-SubstringFunc-11;Attempted to divide by zero.
-K-SubstringFunc-13;Attempted to divide by zero.
-K-SubstringFunc-14;Attempted to divide by zero.
+K-SubstringFunc-10;Value was either too large or too small for an Int32.
+K-SubstringFunc-11;Value was either too large or too small for an Int32.
+K-SubstringFunc-13;Value was either too large or too small for an Int32.
+K-SubstringFunc-14;Value was either too large or too small for an Int32.
 K-SubstringFunc-15;Length cannot be less than zero. (Parameter 'length')
 K-TimeSubtract-1;SubtractOp not available for types XsTime and XsTime
 K-TimeSubtract-2;SubtractOp not available for types XsTime and XsTime
@@ -13536,10 +13259,10 @@ K2-ABSFunc-43;Expected executing the XPath "abs(xs:long(.)) instance of xs:long"
 K2-ABSFunc-44;Expected executing the XPath "abs(xs:int(.)) instance of xs:int" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-45;Expected executing the XPath "abs(xs:short(.)) instance of xs:short" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-46;Expected executing the XPath "abs(xs:byte(.)) instance of xs:byte" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
-K2-ABSFunc-47;Value was either too large or too small for a Decimal.
-K2-ABSFunc-48;Value was either too large or too small for a Decimal.
-K2-ABSFunc-49;Value was either too large or too small for a Decimal.
-K2-ABSFunc-50;Value was either too large or too small for a Decimal.
+K2-ABSFunc-47;Expected XPath fn:abs(xs:float("-INF")) to resolve to INF, but instead got Infinity
+K2-ABSFunc-48;Expected XPath fn:abs(xs:double("-INF")) to resolve to INF, but instead got Infinity
+K2-ABSFunc-49;Expected XPath fn:abs(xs:float("INF")) to resolve to INF, but instead got Infinity
+K2-ABSFunc-50;Expected XPath fn:abs(xs:double("INF")) to resolve to INF, but instead got Infinity
 K2-ancestor-or-selfAxis-1;PRSC Error: Failed to parse query ''
 K2-ancestor-or-selfAxis-2;PRSC Error: Failed to parse query ''
 K2-ancestor-or-selfAxis-3;PRSC Error: Failed to parse query 'deep-equal((1, (attribute name {"content"}/ancestor-or-self::node() instance of attribute(name)), 1), (1, true(), 1))'
@@ -14495,23 +14218,23 @@ K2-NodeTest-40;Expected error code: XPTY0018. Found error code: XPST0003 with er
 K2-NodeTest-41;PRSC Error: Failed to parse query ''
 K2-NumericAdd-2;PRSC Error: Failed to parse query ' = 3'
 K2-NumericAdd-3;PRSC Error: Failed to parse query ' = 3'
-K2-NumericDivide-1;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
-K2-NumericDivide-10;Attempted to divide by zero.
-K2-NumericDivide-11;Attempted to divide by zero.
-K2-NumericDivide-12;Attempted to divide by zero.
-K2-NumericDivide-13;Attempted to divide by zero.
-K2-NumericDivide-14;Attempted to divide by zero.
-K2-NumericDivide-15;Attempted to divide by zero.
-K2-NumericDivide-16;Attempted to divide by zero.
+K2-NumericDivide-1;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from Infinity.
+K2-NumericDivide-10;Expected XPath +0e0 div +0e0 to resolve to NaN, but instead got Infinity
+K2-NumericDivide-11;Expected XPath -0e0 div -0e0 to resolve to NaN, but instead got Infinity
+K2-NumericDivide-12;Expected XPath -0e0 div +0e0 to resolve to NaN, but instead got Infinity
+K2-NumericDivide-13;Expected XPath +3 div +0e0 to resolve to INF, but instead got Infinity
+K2-NumericDivide-14;Expected XPath -3 div +0e0 to resolve to -INF, but instead got -Infinity
+K2-NumericDivide-15;Expected XPath +3 div -0e0 to resolve to -INF, but instead got -Infinity
+K2-NumericDivide-16;Expected XPath -3 div -0e0 to resolve to INF, but instead got Infinity
 K2-NumericDivide-17;PRSC Error: Failed to parse query ''
-K2-NumericDivide-2;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
-K2-NumericDivide-3;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
-K2-NumericDivide-4;Expected XPathException with code FOAR0001, but got Value was either too large or too small for a Decimal.
-K2-NumericDivide-5;Attempted to divide by zero.
-K2-NumericDivide-6;Attempted to divide by zero.
-K2-NumericDivide-7;Attempted to divide by zero.
-K2-NumericDivide-8;Attempted to divide by zero.
-K2-NumericDivide-9;Attempted to divide by zero.
+K2-NumericDivide-2;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from Infinity.
+K2-NumericDivide-3;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from Infinity.
+K2-NumericDivide-4;Expected error code: FOAR0001. Query succeeded with result: Infinity
+K2-NumericDivide-5;Expected XPath 1 div 0e0 to resolve to INF, but instead got Infinity
+K2-NumericDivide-6;Expected XPath -1 div 0e0 to resolve to -INF, but instead got -Infinity
+K2-NumericDivide-7;Expected XPath 1 div xs:float(0) to resolve to INF, but instead got Infinity
+K2-NumericDivide-8;Expected XPath -1 div xs:float(0) to resolve to -INF, but instead got -Infinity
+K2-NumericDivide-9;Expected XPath +0e0 div -0e0 to resolve to NaN, but instead got Infinity
 K2-NumericEqual-1;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-NumericEqual-2;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-NumericEqual-3;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
@@ -14524,51 +14247,37 @@ K2-NumericGT-3;Expected XPath xs:double("3") gt xs:double("NaN") to resolve to f
 K2-NumericIntegerDivide-4;Expected error code: FOAR0001. Found error code: FOAR0002 with error message: One of the operands of idiv is NaN or the first operand is (-)INF
 K2-NumericLT-1;Overflow when creating a Int64 from 18446744073709551615.
 K2-NumericLT-2;Overflow when creating a Int64 from 18446744073709551615.
-K2-NumericMod-10;Value was either too large or too small for a Decimal.
-K2-NumericMod-11;Value was either too large or too small for a Decimal.
-K2-NumericMod-12;Value was either too large or too small for a Decimal.
-K2-NumericMod-13;Value was either too large or too small for a Decimal.
-K2-NumericMod-14;Value was either too large or too small for a Decimal.
-K2-NumericMod-15;Value was either too large or too small for a Decimal.
-K2-NumericMod-16;Value was either too large or too small for a Decimal.
-K2-NumericMod-17;Value was either too large or too small for a Decimal.
-K2-NumericMod-18;Value was either too large or too small for a Decimal.
-K2-NumericMod-19;Value was either too large or too small for a Decimal.
+K2-NumericMod-10;Expected XPath 3 mod xs:float("NaN") to resolve to NaN, but instead got Infinity
+K2-NumericMod-11;Expected XPath xs:float("NaN") mod xs:float("NaN") to resolve to NaN, but instead got Infinity
+K2-NumericMod-12;Expected XPath xs:double("NaN") mod 3 to resolve to NaN, but instead got Infinity
+K2-NumericMod-13;Expected XPath 3 mod xs:double("NaN") to resolve to NaN, but instead got Infinity
+K2-NumericMod-14;Expected XPath xs:double("NaN") mod xs:double("NaN") to resolve to NaN, but instead got Infinity
+K2-NumericMod-15;Expected XPath xs:double("INF") mod 3 to resolve to NaN, but instead got Infinity
+K2-NumericMod-17;Expected XPath xs:double("INF") mod xs:double("INF") to resolve to NaN, but instead got Infinity
+K2-NumericMod-18;Expected XPath xs:double("-INF") mod 3 to resolve to NaN, but instead got Infinity
 K2-NumericMod-2;Value was either too large or too small for a Decimal.
-K2-NumericMod-20;Value was either too large or too small for a Decimal.
-K2-NumericMod-22;Attempted to divide by zero.
-K2-NumericMod-23;Value was either too large or too small for a Decimal.
-K2-NumericMod-25;Attempted to divide by zero.
-K2-NumericMod-26;Attempted to divide by zero.
-K2-NumericMod-27;Value was either too large or too small for a Decimal.
-K2-NumericMod-28;Value was either too large or too small for a Decimal.
-K2-NumericMod-29;Value was either too large or too small for a Decimal.
+K2-NumericMod-20;Expected XPath xs:double("-INF") mod xs:double("-INF") to resolve to NaN, but instead got Infinity
+K2-NumericMod-22;Expected XPath 3 mod xs:double("0") to resolve to NaN, but instead got Infinity
+K2-NumericMod-25;Expected XPath 3 mod xs:double("-0") to resolve to NaN, but instead got Infinity
+K2-NumericMod-26;Expected XPath xs:double("-0") mod xs:double("-0") to resolve to NaN, but instead got Infinity
+K2-NumericMod-27;Expected XPath xs:float("INF") mod 3 to resolve to NaN, but instead got Infinity
+K2-NumericMod-29;Expected XPath xs:float("INF") mod xs:float("INF") to resolve to NaN, but instead got Infinity
 K2-NumericMod-3;PRSC Error: Failed to parse query '-1.0e0 mod -1.0e0 = -0'
-K2-NumericMod-30;Value was either too large or too small for a Decimal.
-K2-NumericMod-31;Value was either too large or too small for a Decimal.
-K2-NumericMod-32;Value was either too large or too small for a Decimal.
-K2-NumericMod-34;Attempted to divide by zero.
-K2-NumericMod-35;Value was either too large or too small for a Decimal.
-K2-NumericMod-37;Attempted to divide by zero.
-K2-NumericMod-38;Attempted to divide by zero.
+K2-NumericMod-30;Expected XPath xs:float("-INF") mod 3 to resolve to NaN, but instead got Infinity
+K2-NumericMod-32;Expected XPath xs:float("-INF") mod xs:float("-INF") to resolve to NaN, but instead got Infinity
+K2-NumericMod-34;Expected XPath 3 mod xs:float("0") to resolve to NaN, but instead got Infinity
+K2-NumericMod-37;Expected XPath 3 mod xs:float("-0") to resolve to NaN, but instead got Infinity
+K2-NumericMod-38;Expected XPath xs:float("-0") mod xs:float("-0") to resolve to NaN, but instead got Infinity
 K2-NumericMod-4;PRSC Error: Failed to parse query '-1.0e0 mod xs:float(-1.0e0) = -0'
-K2-NumericMod-43;Value was either too large or too small for a Decimal.
-K2-NumericMod-44;Value was either too large or too small for a Decimal.
-K2-NumericMod-45;Value was either too large or too small for a Decimal.
-K2-NumericMod-46;Value was either too large or too small for a Decimal.
-K2-NumericMod-47;Value was either too large or too small for a Decimal.
-K2-NumericMod-48;Value was either too large or too small for a Decimal.
-K2-NumericMod-49;Value was either too large or too small for a Decimal.
 K2-NumericMod-5;Expected executing the XPath "-1 mod -9223372036854775808" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 9223372036854775808.
-K2-NumericMod-50;Value was either too large or too small for a Decimal.
-K2-NumericMod-59;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
+K2-NumericMod-59;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Int64 from NaN.
 K2-NumericMod-6;Value was either too large or too small for a Decimal.
-K2-NumericMod-60;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
-K2-NumericMod-61;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
+K2-NumericMod-60;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from NaN.
+K2-NumericMod-61;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from NaN.
 K2-NumericMod-62;PRSC Error: Failed to parse query ''
 K2-NumericMod-7;Expected executing the XPath "-1.0e0 mod xs:double(-9223372036854775808)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '-1.0e0 mod xs:double(-9223372036854775808) = -1'
 K2-NumericMod-8;Expected executing the XPath "xs:float(-1.0e0) mod xs:float(-9223372036854775808)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'xs:float(-1.0e0) mod xs:float(-9223372036854775808) = -1'
-K2-NumericMod-9;Value was either too large or too small for a Decimal.
+K2-NumericMod-9;Expected XPath xs:float("NaN") mod 3 to resolve to NaN, but instead got Infinity
 K2-NumericUnaryMinus-10;PRSC Error: Failed to parse query ' = -1'
 K2-NumericUnaryMinus-3;Value was either too large or too small for a Decimal.
 K2-NumericUnaryMinus-5;Value was either too large or too small for a Decimal.
@@ -14662,12 +14371,12 @@ K2-ReplaceFunc-5;Expected error code: FORX0002. Query succeeded with result: abc
 K2-ReplaceFunc-6;Expected error code: FORX0002. Query succeeded with result: abcd
 K2-ReplaceFunc-7;Expected error code: FORX0002. Query succeeded with result: abcd
 K2-ReplaceFunc-8;
-K2-RoundEvenFunc-11;Value was either too large or too small for a Decimal.
-K2-RoundEvenFunc-12;Value was either too large or too small for a Decimal.
-K2-RoundEvenFunc-13;Value was either too large or too small for a Decimal.
-K2-RoundEvenFunc-14;Value was either too large or too small for a Decimal.
-K2-RoundEvenFunc-15;Value was either too large or too small for a Decimal.
-K2-RoundEvenFunc-16;Value was either too large or too small for a Decimal.
+K2-RoundEvenFunc-11;Expected XPath round-half-to-even(xs:double("NaN")) to resolve to NaN, but instead got Infinity
+K2-RoundEvenFunc-12;Expected XPath round-half-to-even(xs:float("NaN")) to resolve to NaN, but instead got Infinity
+K2-RoundEvenFunc-13;Expected XPath round-half-to-even(xs:double("-INF")) to resolve to -INF, but instead got -Infinity
+K2-RoundEvenFunc-14;Expected XPath round-half-to-even(xs:float("-INF")) to resolve to -INF, but instead got -Infinity
+K2-RoundEvenFunc-15;Expected XPath round-half-to-even(xs:double("INF")) to resolve to INF, but instead got Infinity
+K2-RoundEvenFunc-16;Expected XPath round-half-to-even(xs:float("INF")) to resolve to INF, but instead got Infinity
 K2-RoundEvenFunc-6;PRSC Error: Failed to parse query 'round-half-to-even(3.567812E+3, 2) eq 3567.81E0'
 K2-RoundEvenFunc-7;PRSC Error: Failed to parse query 'round-half-to-even(4.7564E-3, 2) eq 0.0E0'
 K2-RoundFunc-1;Expected executing the XPath "round(xs:unsignedShort(.)) instance of xs:unsignedShort" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
@@ -14676,17 +14385,17 @@ K2-RoundFunc-11;Expected executing the XPath "round(xs:short(.)) instance of xs:
 K2-RoundFunc-115;Expected XPath fn:round(xs:float("0.50")) to resolve to 1
 K2-RoundFunc-116;Expected XPath fn:round(xs:double("0.50")) to resolve to 1
 K2-RoundFunc-12;Expected executing the XPath "round(xs:byte(.)) instance of xs:byte" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
-K2-RoundFunc-13;Value was either too large or too small for a Decimal.
-K2-RoundFunc-14;Value was either too large or too small for a Decimal.
+K2-RoundFunc-13;Expected XPath round(xs:double("INF")) to resolve to INF, but instead got Infinity
+K2-RoundFunc-14;Expected XPath round(xs:double("-INF")) to resolve to -INF, but instead got -Infinity
 K2-RoundFunc-15;Expected XPath round(xs:double("0")) to resolve to 0, but instead got -0
 K2-RoundFunc-168;Expected XPath fn:round(xs:double("0.101")) to resolve to 0, but instead got -0
-K2-RoundFunc-17;Value was either too large or too small for a Decimal.
+K2-RoundFunc-17;Expected XPath round(xs:float("INF")) to resolve to INF, but instead got Infinity
 K2-RoundFunc-171;Expected XPath fn:round(xs:float("0.104")) to resolve to 0, but instead got -0
 K2-RoundFunc-172;Expected XPath fn:round(xs:double("0.104")) to resolve to 0, but instead got -0
 K2-RoundFunc-175;Expected XPath fn:round(xs:float("0.105")) to resolve to 0, but instead got -0
 K2-RoundFunc-176;Expected XPath fn:round(xs:double("0.105")) to resolve to 0, but instead got -0
 K2-RoundFunc-179;Expected XPath fn:round(xs:float("0.106")) to resolve to 0, but instead got -0
-K2-RoundFunc-18;Value was either too large or too small for a Decimal.
+K2-RoundFunc-18;Expected XPath round(xs:float("-INF")) to resolve to -INF, but instead got -Infinity
 K2-RoundFunc-180;Expected XPath fn:round(xs:double("0.106")) to resolve to 0, but instead got -0
 K2-RoundFunc-183;Expected XPath fn:round(xs:float("0.109")) to resolve to 0, but instead got -0
 K2-RoundFunc-184;Expected XPath fn:round(xs:double("0.109")) to resolve to 0, but instead got -0
@@ -14694,8 +14403,8 @@ K2-RoundFunc-187;Expected XPath fn:round(xs:float("0.100")) to resolve to 0, but
 K2-RoundFunc-188;Expected XPath fn:round(xs:double("0.100")) to resolve to 0, but instead got -0
 K2-RoundFunc-19;Expected XPath round(xs:float("0")) to resolve to 0, but instead got -0
 K2-RoundFunc-2;Expected executing the XPath "round(xs:unsignedLong(.)) instance of xs:unsignedLong" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
-K2-RoundFunc-21;Value was either too large or too small for a Decimal.
-K2-RoundFunc-22;Value was either too large or too small for a Decimal.
+K2-RoundFunc-21;Expected XPath fn:round(xs:float("NaN")) to resolve to NaN, but instead got Infinity
+K2-RoundFunc-22;Expected XPath fn:round(xs:double("NaN")) to resolve to NaN, but instead got Infinity
 K2-RoundFunc-27;Expected XPath fn:round(xs:float("0.04")) to resolve to 0, but instead got -0
 K2-RoundFunc-28;Expected XPath fn:round(xs:double("0.04")) to resolve to 0, but instead got -0
 K2-RoundFunc-3;Expected executing the XPath "round(xs:unsignedInt(.)) instance of xs:unsignedInt" to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
@@ -15191,14 +14900,12 @@ K2-SeqMAXFunc-2;Type casting to XsAnyUri has not been implemented yet.
 K2-SeqMAXFunc-3;Type casting to XsAnyUri has not been implemented yet.
 K2-SeqMAXFunc-4;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function max with arity 2 is not registered.
 K2-SeqMAXFunc-6;Expected executing the XPath "max(xs:anyURI("str1"), "max://example.com/UNSUPPORTED_COLLATION")" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function max with arity 2 is not registered.
-K2-SeqMAXFunc-7;Casting AbstractValue(XsUnsignedShort) to DoubleValue
 K2-SeqMINFunc-1;Type casting to XsAnyUri has not been implemented yet.
 K2-SeqMINFunc-10;PRSC Error: Failed to parse query 'min((5.0e0, 3)) instance of xs:double'
-K2-SeqMINFunc-11;Casting AbstractValue(XsInteger) to DoubleValue
-K2-SeqMINFunc-12;Casting AbstractValue(XsDecimal) to DoubleValue
-K2-SeqMINFunc-13;Casting AbstractValue(XsDecimal) to DoubleValue
-K2-SeqMINFunc-14;Casting AbstractValue(XsString) to DoubleValue
-K2-SeqMINFunc-15;Casting AbstractValue(XsUnsignedShort) to DoubleValue
+K2-SeqMINFunc-11;Expected XPath min((1, 1, 1, 1, 1.0)) instance of xs:decimal to resolve to true
+K2-SeqMINFunc-12;Expected XPath min((1.0, 1, 1, 1, 1)) instance of xs:decimal to resolve to true
+K2-SeqMINFunc-13;Expected XPath min((1.0, 1, 1.0, 1, 1)) instance of xs:decimal to resolve to true
+K2-SeqMINFunc-14;Input string was not in a correct format.
 K2-SeqMINFunc-2;Type casting to XsAnyUri has not been implemented yet.
 K2-SeqMINFunc-3;Type casting to XsAnyUri has not been implemented yet.
 K2-SeqMINFunc-4;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function min with arity 2 is not registered.
@@ -15363,6 +15070,8 @@ last-8;Expected XPath for $h in (/works/employee[12]) return $h/overtime[last() 
 last-9;Expected XPath for $h in (/works) return $h//employee[@name="Jane Doe 13"][last() = 1]/string(@name) to resolve to Jane Doe 13, but instead got null
 lessthaneqonanyuri-1;PRSC Error: Failed to parse query ''
 lessthanonanyuri-1;PRSC Error: Failed to parse query ''
+LetExpr003;Expected XPath let $x := 92233720368547758+1 return $x to resolve to 92233720368547759
+LetExpr005;Expected XPath let $x := xs:long("-92233720368547758")+1 return $x to resolve to -92233720368547757
 LetExpr006;Expected XPath let $x := xs:double("1.7976931348623157E308") return $x to resolve to 1.7976931348623157E308, but instead got 1.7976931348623157E+308
 LetExpr007;PRSC Error: Failed to parse query ''
 LetExpr009;PRSC Error: Failed to parse query ''
@@ -16489,43 +16198,63 @@ op-numeric-add-7;PRSC Error: Failed to parse query '(\n         declare namespac
 op-numeric-add-8;PRSC Error: Failed to parse query '(\n         declare namespace atomic="http://www.w3.org/XQueryTest";\n         /*/atomic:double + /*/atomic:double\n      ) instance of $xs:double'
 op-numeric-add-9;PRSC Error: Failed to parse query '(\n         declare namespace atomic="http://www.w3.org/XQueryTest";\n         /*/atomic:integer + xs:untypedAtomic('123')\n      ) instance of $xs:double'
 op-numeric-adddbl2args-1;PRSC Error: Failed to parse query 'xs:double("0") + xs:double("-1.7976931348623157E308") = -1.7976931348623157E308'
-op-numeric-adddbl2args-2;Value was either too large or too small for a Decimal.
 op-numeric-adddbl2args-3;PRSC Error: Failed to parse query 'xs:double("-1.7976931348623157E308") + xs:double("0") = -1.7976931348623157E308'
-op-numeric-adddbl2args-4;Value was either too large or too small for a Decimal.
+op-numeric-adddec2args-1;Expected XPath xs:decimal("617375191608514839") + xs:decimal("-999999999999999999") to resolve to -382624808391485160
+op-numeric-adddec2args-3;Expected XPath xs:decimal("-999999999999999999") + xs:decimal("617375191608514839") to resolve to -382624808391485160
 op-numeric-addflt2args-1;PRSC Error: Failed to parse query 'xs:float("0") + xs:float("-3.4028235E38") = xs:float(-3.4028235E38)'
-op-numeric-addflt2args-2;Value was either too large or too small for a Decimal.
 op-numeric-addflt2args-3;PRSC Error: Failed to parse query 'xs:float("-3.4028235E38") + xs:float("0") = xs:float(-3.4028235E38)'
-op-numeric-addflt2args-4;Value was either too large or too small for a Decimal.
+op-numeric-addintg2args-1;Expected XPath xs:integer("830993497117024304") + xs:integer("-999999999999999999") to resolve to -169006502882975695
+op-numeric-addintg2args-3;Expected XPath xs:integer("-999999999999999999") + xs:integer("830993497117024304") to resolve to -169006502882975695
+op-numeric-addlng2args-1;Expected XPath xs:long("-47175562203048468") + xs:long("-45058158165499290") to resolve to -92233720368547758
+op-numeric-addlng2args-3;Expected XPath xs:long("-45058158165499290") + xs:long("-47175562203048468") to resolve to -92233720368547758
 op-numeric-addmix2args-4;PRSC Error: Failed to parse query ' = 3'
 op-numeric-addmix2args-5;PRSC Error: Failed to parse query ' = 3'
 op-numeric-addmix2args-6;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-addmix2args-7;PRSC Error: Failed to parse query ' = 3'
 op-numeric-addmix2args-8;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-addmix2args-9;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
+op-numeric-addnint2args-1;Expected XPath xs:negativeInteger("-297014075999096793") + xs:negativeInteger("-702985924000903206") to resolve to -999999999999999999
+op-numeric-addnint2args-3;Expected XPath xs:negativeInteger("-702985924000903206") + xs:negativeInteger("-297014075999096793") to resolve to -999999999999999999
+op-numeric-addnni2args-2;Expected XPath xs:nonNegativeInteger("303884545991464527") + xs:nonNegativeInteger("0") to resolve to 303884545991464527
+op-numeric-addnni2args-3;Expected XPath xs:nonNegativeInteger("999999999999999999") + xs:nonNegativeInteger("0") to resolve to 999999999999999999
+op-numeric-addnni2args-4;Expected XPath xs:nonNegativeInteger("0") + xs:nonNegativeInteger("303884545991464527") to resolve to 303884545991464527
+op-numeric-addnni2args-5;Expected XPath xs:nonNegativeInteger("0") + xs:nonNegativeInteger("999999999999999999") to resolve to 999999999999999999
+op-numeric-addnpi2args-1;Expected XPath xs:nonPositiveInteger("-475688437271870490") + xs:nonPositiveInteger("-524311562728129509") to resolve to -999999999999999999
+op-numeric-addnpi2args-2;Expected XPath xs:nonPositiveInteger("0") + xs:nonPositiveInteger("-999999999999999999") to resolve to -999999999999999999
+op-numeric-addnpi2args-3;Expected XPath xs:nonPositiveInteger("-524311562728129509") + xs:nonPositiveInteger("-475688437271870490") to resolve to -999999999999999999
+op-numeric-addnpi2args-4;Expected XPath xs:nonPositiveInteger("-999999999999999999") + xs:nonPositiveInteger("0") to resolve to -999999999999999999
+op-numeric-addpint2args-2;Expected XPath xs:positiveInteger("52704602390610033") + xs:positiveInteger("1") to resolve to 52704602390610034
+op-numeric-addpint2args-3;Expected XPath xs:positiveInteger("999999999999999998") + xs:positiveInteger("1") to resolve to 999999999999999999
+op-numeric-addpint2args-4;Expected XPath xs:positiveInteger("1") + xs:positiveInteger("52704602390610033") to resolve to 52704602390610034
+op-numeric-addpint2args-5;Expected XPath xs:positiveInteger("1") + xs:positiveInteger("999999999999999998") to resolve to 999999999999999999
+op-numeric-addulng2args-2;Expected XPath xs:unsignedLong("130747108607674654") + xs:unsignedLong("0") to resolve to 130747108607674654
+op-numeric-addulng2args-3;Expected XPath xs:unsignedLong("184467440737095516") + xs:unsignedLong("0") to resolve to 184467440737095516
+op-numeric-addulng2args-4;Expected XPath xs:unsignedLong("0") + xs:unsignedLong("130747108607674654") to resolve to 130747108607674654
+op-numeric-addulng2args-5;Expected XPath xs:unsignedLong("0") + xs:unsignedLong("184467440737095516") to resolve to 184467440737095516
 op-numeric-divide-1;The function error with arity 0 is not registered.
-op-numeric-divide-big-01;Expected executing the XPath "(10000000000000000000000000000.0 div 0.1) cast as xs:string" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOAR0002, but got Value was either too large or too small for a Decimal.
-op-numeric-dividedbl2args-1;Value was either too large or too small for a Decimal.
-op-numeric-dividedbl2args-2;Value was either too large or too small for a Decimal.
-op-numeric-dividedbl2args-3;Value was either too large or too small for a Decimal.
-op-numeric-dividedbl2args-4;Value was either too large or too small for a Decimal.
+op-numeric-divide-big-01;Expected executing the XPath "(10000000000000000000000000000.0 div 0.1) cast as xs:string" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOAR0002. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from 1E+29.
 op-numeric-dividedec2args-2;Expected executing the XPath "fn:round-half-to-even((xs:decimal("617375191608514839") div xs:decimal("-999999999999999999")),18)" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for a Decimal.
 op-numeric-dividedec2args-4;Expected executing the XPath "fn:round-half-to-even((xs:decimal("-999999999999999999") div xs:decimal("617375191608514839")),18)" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for a Decimal.
-op-numeric-divideflt2args-1;Value was either too large or too small for a Decimal.
-op-numeric-divideflt2args-2;Value was either too large or too small for a Decimal.
-op-numeric-divideflt2args-3;Value was either too large or too small for a Decimal.
-op-numeric-divideflt2args-4;Value was either too large or too small for a Decimal.
 op-numeric-divideint2args-3;Value was either too large or too small for a Decimal.
 op-numeric-divideint2args-5;Value was either too large or too small for a Decimal.
 op-numeric-divideintg2args-2;Expected executing the XPath "fn:round-half-to-even((xs:integer("830993497117024304") div xs:integer("-999999999999999999")),18)" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for a Decimal.
 op-numeric-divideintg2args-4;Expected executing the XPath "fn:round-half-to-even((xs:integer("-999999999999999999") div xs:integer("830993497117024304")),18)" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for a Decimal.
+op-numeric-dividelng2args-2;Expected executing the XPath "fn:round-half-to-even((xs:long("-47175562203048468") div xs:long("-92233720368547758")),17)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:round-half-to-even((xs:long("-47175562203048468") div xs:long("-92233720368547758")),17) to resolve to 0.51147847028770199
+op-numeric-dividelng2args-4;Expected executing the XPath "fn:round-half-to-even((xs:long("-92233720368547758") div xs:long("-47175562203048468")),17)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:round-half-to-even((xs:long("-92233720368547758") div xs:long("-47175562203048468")),17) to resolve to 1.95511650654133906
 op-numeric-dividemix2args-4;PRSC Error: Failed to parse query ' = 0.5'
 op-numeric-dividemix2args-5;PRSC Error: Failed to parse query ' = 0.5'
 op-numeric-dividemix2args-6;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-dividemix2args-7;PRSC Error: Failed to parse query ' = 0.5'
 op-numeric-dividemix2args-8;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-dividemix2args-9;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
+op-numeric-dividenint2args-2;Expected executing the XPath "fn:round-half-to-even((xs:negativeInteger("-297014075999096793") div xs:negativeInteger("-999999999999999999")),18)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:round-half-to-even((xs:negativeInteger("-297014075999096793") div xs:negativeInteger("-999999999999999999")),18) to resolve to 0.297014075999096793
+op-numeric-dividenint2args-4;Expected executing the XPath "fn:round-half-to-even((xs:negativeInteger("-999999999999999999") div xs:negativeInteger("-297014075999096793")),18)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:round-half-to-even((xs:negativeInteger("-999999999999999999") div xs:negativeInteger("-297014075999096793")),18) to resolve to 3.366843799022646172
+op-numeric-dividenint2args-5;Expected XPath xs:negativeInteger("-999999999999999999") div xs:negativeInteger("-1") to resolve to 999999999999999999
+op-numeric-dividenpi2args-2;Expected executing the XPath "fn:round-half-to-even((xs:nonPositiveInteger("-475688437271870490") div xs:nonPositiveInteger("-999999999999999999")),18)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:round-half-to-even((xs:nonPositiveInteger("-475688437271870490") div xs:nonPositiveInteger("-999999999999999999")),18) to resolve to 0.47568843727187049
+op-numeric-dividenpi2args-4;Expected executing the XPath "fn:round-half-to-even((xs:nonPositiveInteger("-999999999999999999") div xs:nonPositiveInteger("-475688437271870490")),18)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:round-half-to-even((xs:nonPositiveInteger("-999999999999999999") div xs:nonPositiveInteger("-475688437271870490")),18) to resolve to 2.102216328265447024
+op-numeric-dividepint2args-2;Expected XPath xs:positiveInteger("52704602390610033") div xs:positiveInteger("1") to resolve to 52704602390610033
+op-numeric-dividepint2args-3;Expected XPath xs:positiveInteger("999999999999999999") div xs:positiveInteger("1") to resolve to 999999999999999999
 op-numeric-dividesht2args-3;Expected executing the XPath "xs:short("32767") div xs:short("-32768")" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for a Decimal.
-op-numeric-integer-divide-1;Expected XPathException with code FOAR0002, but got Attempted to divide by zero.
 op-numeric-integer-dividemix2args-4;PRSC Error: Failed to parse query ' = 1'
 op-numeric-integer-dividemix2args-5;PRSC Error: Failed to parse query ' = 0'
 op-numeric-integer-dividemix2args-6;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
@@ -16533,8 +16262,8 @@ op-numeric-integer-dividemix2args-7;PRSC Error: Failed to parse query ' = 0'
 op-numeric-integer-dividemix2args-8;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-integer-dividemix2args-9;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-mod-1;Use of XQuery FLWOR expressions in XPath is not allowed
-op-numeric-moddbl2args-1;Value was either too large or too small for a Decimal.
-op-numeric-modflt2args-1;Value was either too large or too small for a Decimal.
+op-numeric-moddec2args-1;Expected XPath xs:decimal("-999999999999999999") mod xs:decimal("617375191608514839") to resolve to -382624808391485160
+op-numeric-modintg2args-1;Expected XPath xs:integer("-999999999999999999") mod xs:integer("830993497117024304") to resolve to -169006502882975695
 op-numeric-modmix2args-4;PRSC Error: Failed to parse query ' = 1'
 op-numeric-modmix2args-5;PRSC Error: Failed to parse query ' = 1'
 op-numeric-modmix2args-6;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
@@ -16543,14 +16272,13 @@ op-numeric-modmix2args-8;Expected error code: FORG0001. Found error code: XPST00
 op-numeric-modmix2args-9;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-multiply-1;Use of XQuery FLWOR expressions in XPath is not allowed
 op-numeric-multiplydbl2args-1;PRSC Error: Failed to parse query 'xs:double("-1.0000000000") * xs:double("-1.7976931348623157E308") = 1.7976931348623157E308'
-op-numeric-multiplydbl2args-2;Value was either too large or too small for a Decimal.
 op-numeric-multiplydbl2args-3;PRSC Error: Failed to parse query 'xs:double("1.7976931348623157E308") * xs:double("-1.0000000000") = -1.7976931348623157E308'
-op-numeric-multiplydbl2args-4;Value was either too large or too small for a Decimal.
 op-numeric-multiplydbl2args-5;PRSC Error: Failed to parse query 'xs:double("-1.0000000000") * xs:double("1.7976931348623157E308") = -1.7976931348623157E308'
+op-numeric-multiplydec2args-1;Expected XPath xs:decimal("-1.0000000000") * xs:decimal("-999999999999999999") to resolve to 999999999999999999
+op-numeric-multiplydec2args-3;Expected XPath xs:decimal("999999999999999999") * xs:decimal("-1.0000000000") to resolve to -999999999999999999
+op-numeric-multiplydec2args-5;Expected XPath xs:decimal("-1.0000000000") * xs:decimal("999999999999999999") to resolve to -999999999999999999
 op-numeric-multiplyflt2args-1;PRSC Error: Failed to parse query 'xs:float("-1.0000000000") * xs:float("-3.4028235E38") = xs:float(3.4028235E38)'
-op-numeric-multiplyflt2args-2;Value was either too large or too small for a Decimal.
 op-numeric-multiplyflt2args-3;PRSC Error: Failed to parse query 'xs:float("3.4028235E38") * xs:float("-1.0000000000") = xs:float(-3.4028235E38)'
-op-numeric-multiplyflt2args-4;Value was either too large or too small for a Decimal.
 op-numeric-multiplyflt2args-5;PRSC Error: Failed to parse query 'xs:float("-1.0000000000") * xs:float("3.4028235E38") = xs:float(-3.4028235E38)'
 op-numeric-multiplymix2args-4;PRSC Error: Failed to parse query ' = 2'
 op-numeric-multiplymix2args-5;PRSC Error: Failed to parse query ' = 2'
@@ -16558,24 +16286,48 @@ op-numeric-multiplymix2args-6;Expected error code: FORG0001. Found error code: X
 op-numeric-multiplymix2args-7;PRSC Error: Failed to parse query ' = 2'
 op-numeric-multiplymix2args-8;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-multiplymix2args-9;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
+op-numeric-multiplypint2args-2;Expected XPath xs:positiveInteger("52704602390610033") * xs:positiveInteger("1") to resolve to 52704602390610033
+op-numeric-multiplypint2args-3;Expected XPath xs:positiveInteger("999999999999999999") * xs:positiveInteger("1") to resolve to 999999999999999999
+op-numeric-multiplypint2args-4;Expected XPath xs:positiveInteger("1") * xs:positiveInteger("52704602390610033") to resolve to 52704602390610033
+op-numeric-multiplypint2args-5;Expected XPath xs:positiveInteger("1") * xs:positiveInteger("999999999999999999") to resolve to 999999999999999999
 op-numeric-subtract-1;Use of XQuery FLWOR expressions in XPath is not allowed
-op-numeric-subtract-big-01;Expected executing the XPath "(-79228162514264337593543950335.0 - 1.0) cast as xs:string" to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for a Decimal.
-op-numeric-subtractdbl2args-1;Value was either too large or too small for a Decimal.
+op-numeric-subtract-big-01;Expected executing the XPath "(-79228162514264337593543950335.0 - 1.0) cast as xs:string" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath (-79228162514264337593543950335.0 - 1.0) cast as xs:string to resolve to -79228162514264337593543950336, but instead got Infinity
 op-numeric-subtractdbl2args-2;PRSC Error: Failed to parse query 'xs:double("0") - xs:double("-1.7976931348623157E308") = 1.7976931348623157E308'
 op-numeric-subtractdbl2args-3;PRSC Error: Failed to parse query 'xs:double("0") - xs:double("-1.7976931348623157E308") = 1.7976931348623157E308'
 op-numeric-subtractdbl2args-4;PRSC Error: Failed to parse query 'xs:double("-1.7976931348623157E308") - xs:double("0") = -1.7976931348623157E308'
 op-numeric-subtractdbl2args-5;PRSC Error: Failed to parse query 'xs:double("0") - xs:double("1.7976931348623157E308") = -1.7976931348623157E308'
-op-numeric-subtractflt2args-1;Value was either too large or too small for a Decimal.
+op-numeric-subtractdec2args-2;Expected XPath xs:decimal("0") - xs:decimal("-999999999999999999") to resolve to 999999999999999999
+op-numeric-subtractdec2args-3;Expected XPath xs:decimal("0") - xs:decimal("-999999999999999999") to resolve to 999999999999999999
+op-numeric-subtractdec2args-4;Expected XPath xs:decimal("-382624808391485160") - xs:decimal("617375191608514839") to resolve to -999999999999999999
+op-numeric-subtractdec2args-5;Expected XPath xs:decimal("0") - xs:decimal("999999999999999999") to resolve to -999999999999999999
 op-numeric-subtractflt2args-2;PRSC Error: Failed to parse query 'xs:float("0") - xs:float("-3.4028235E38") = xs:float(3.4028235E38)'
 op-numeric-subtractflt2args-3;PRSC Error: Failed to parse query 'xs:float("0") - xs:float("-3.4028235E38") = xs:float(3.4028235E38)'
 op-numeric-subtractflt2args-4;PRSC Error: Failed to parse query 'xs:float("-3.4028235E38") - xs:float("0") = xs:float(-3.4028235E38)'
 op-numeric-subtractflt2args-5;PRSC Error: Failed to parse query 'xs:float("0") - xs:float("3.4028235E38") = xs:float(-3.4028235E38)'
+op-numeric-subtractintg2args-2;Expected XPath xs:integer("0") - xs:integer("-999999999999999999") to resolve to 999999999999999999
+op-numeric-subtractintg2args-3;Expected XPath xs:integer("0") - xs:integer("-999999999999999999") to resolve to 999999999999999999
+op-numeric-subtractintg2args-4;Expected XPath xs:integer("-169006502882975695") - xs:integer("830993497117024304") to resolve to -999999999999999999
+op-numeric-subtractintg2args-5;Expected XPath xs:integer("0") - xs:integer("999999999999999999") to resolve to -999999999999999999
+op-numeric-subtractlng2args-2;Expected XPath xs:long("-47175562203048468") - xs:long("-92233720368547758") to resolve to 45058158165499290
+op-numeric-subtractlng2args-3;Expected XPath xs:long("0") - xs:long("-92233720368547758") to resolve to 92233720368547758
+op-numeric-subtractlng2args-4;Expected XPath xs:long("-92233720368547758") - xs:long("-47175562203048468") to resolve to -45058158165499290
+op-numeric-subtractlng2args-5;Expected XPath xs:long("0") - xs:long("92233720368547758") to resolve to -92233720368547758
 op-numeric-subtractmix2args-4;PRSC Error: Failed to parse query ' = 1'
 op-numeric-subtractmix2args-5;PRSC Error: Failed to parse query ' = 1'
 op-numeric-subtractmix2args-6;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-subtractmix2args-7;PRSC Error: Failed to parse query ' = 1'
 op-numeric-subtractmix2args-8;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 op-numeric-subtractmix2args-9;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
+op-numeric-subtractnint2args-1;Expected XPath xs:negativeInteger("-999999999999999999") - xs:negativeInteger("-297014075999096793") to resolve to -702985924000903206
+op-numeric-subtractnint2args-2;Expected XPath xs:negativeInteger("-999999999999999999") - xs:negativeInteger("-1") to resolve to -999999999999999998
+op-numeric-subtractnni2args-2;Expected XPath xs:nonNegativeInteger("303884545991464527") - xs:nonNegativeInteger("0") to resolve to 303884545991464527
+op-numeric-subtractnni2args-3;Expected XPath xs:nonNegativeInteger("999999999999999999") - xs:nonNegativeInteger("0") to resolve to 999999999999999999
+op-numeric-subtractnpi2args-4;Expected XPath xs:nonPositiveInteger("-999999999999999999") - xs:nonPositiveInteger("-475688437271870490") to resolve to -524311562728129509
+op-numeric-subtractnpi2args-5;Expected XPath xs:nonPositiveInteger("-999999999999999999") - xs:nonPositiveInteger("0") to resolve to -999999999999999999
+op-numeric-subtractpint2args-2;Expected XPath xs:positiveInteger("999999999999999999") - xs:positiveInteger("1") to resolve to 999999999999999998
+op-numeric-subtractpint2args-3;Expected XPath xs:positiveInteger("52704602390610034") - xs:positiveInteger("52704602390610033") to resolve to 1
+op-numeric-subtractulng2args-2;Expected XPath xs:unsignedLong("130747108607674654") - xs:unsignedLong("0") to resolve to 130747108607674654
+op-numeric-subtractulng2args-3;Expected XPath xs:unsignedLong("184467440737095516") - xs:unsignedLong("0") to resolve to 184467440737095516
 op-numeric-unary-minus-1;
 op-numeric-unary-minusdbl1args-1;PRSC Error: Failed to parse query '-(xs:double("-1.7976931348623157E308")) = 1.7976931348623157E308'
 op-numeric-unary-minusdbl1args-3;PRSC Error: Failed to parse query '-(xs:double("1.7976931348623157E308")) = -1.7976931348623157E308'
@@ -17204,11 +16956,6 @@ quantexpr-68;PRSC Error: Failed to parse query ''
 quantExpr-7;PRSC Error: Failed to parse query 'some $x in (1, 2) satisfies $x idiv 2 = 1'
 quantExpr-8;PRSC Error: Failed to parse query 'some $x in (1, 2) satisfies fn:avg(($x, 1)) = 1'
 quantExpr-9;PRSC Error: Failed to parse query 'some $x in (1, 2) satisfies fn:string($x) = "1"'
-rangeExpr-12;Casting AbstractValue(XsInteger) to DoubleValue
-rangeExpr-13;Casting AbstractValue(XsInteger) to DoubleValue
-rangeExpr-14;Casting AbstractValue(XsInteger) to DoubleValue
-rangeExpr-15;Casting AbstractValue(XsInteger) to DoubleValue
-rangeExpr-16;Casting AbstractValue(XsInteger) to DoubleValue
 rangeExpr-28;Expected executing the XPath "18446744073709551616 to 18446744073709551620" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 18446744073709551616.
 rangeExpr-29;Expected executing the XPath "count(18446744073709551616 to 18446744073709551620)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 18446744073709551616.
 rangeExpr-30;Expected executing the XPath "(28446744073709551616 to 28446744073709551620)!position()" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '(28446744073709551616 to 28446744073709551620)!position()'
@@ -18971,7 +18718,6 @@ xs-dateTimeStamp-3;Expected XPathException with code FORG0001, but got Atomic Va
 xs-dateTimeStamp-4;Expected XPathException with code FORG0001, but got Atomic Value for XsDateTimeStamp is not implemented yet.
 xs-dateTimeStamp-5;Casting not supported from given type to xs:dateTime or any of its derived types.
 xs-dateTimeStamp-6;PRSC Error: Failed to parse query 'current-date() castable as xs:dateTimeStamp'
-xs-double-002;Attempted to divide by zero.
 xs-double-004;Expected error code: FORG0001. Query succeeded with result: True
 xs-double-005;PRSC Error: Failed to parse query '(xs:double("2.2250738585072012e-308")) instance of $xs:double'
 xs-error-002;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'xs:error#0'
@@ -19009,5 +18755,4 @@ xs-error-049;TreatExpr AST to Expression not yet implemented
 xs-error-052;PRSC Error: Failed to parse query '1 castable as xs:error'
 xs-error-053;PRSC Error: Failed to parse query '1 castable as xs:error'
 xs-error-054;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:identity($arg as xs:error)\n         {\n         $arg\n         };\n         local:identity(())\n      '
-xs-float-002;Attempted to divide by zero.
 xs-float-004;Expected error code: FORG0001. Query succeeded with result: True

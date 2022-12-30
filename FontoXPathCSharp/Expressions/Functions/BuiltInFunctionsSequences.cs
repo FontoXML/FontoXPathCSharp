@@ -69,13 +69,11 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         var resultValue = items.Aggregate(0.0, (sum, item) =>
             sum + Convert.ToDouble(((AtomicValue)item).GetValue())) / items.Length;
 
-        if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsInteger) ||
-                              item.GetValueType().IsSubtypeOf(ValueType.XsDouble))
-           )
+        if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsInteger)
+                              || item.GetValueType().IsSubtypeOf(ValueType.XsDouble)))
             return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsDouble));
 
-        if (items.All(item => { return item.GetValueType().IsSubtypeOf(ValueType.XsDecimal); })
-           )
+        if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsDecimal)))
             return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsDecimal));
 
         return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsInteger));
@@ -225,8 +223,9 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         // Values of type xs:untypedAtomic in $arg are cast to xs:double.
         items = CastUntypedItemsToDouble(items);
 
-        if (items.Any(item => double.IsNaN(item.GetAs<DoubleValue>().Value) ||
-                              float.IsNaN(item.GetAs<FloatValue>().Value)))
+        if (items.Any(item =>
+                (item.GetValueType() == ValueType.XsDouble && double.IsNaN(item.GetAs<DoubleValue>().Value))
+                || (item.GetValueType() == ValueType.XsFloat && float.IsNaN(item.GetAs<FloatValue>().Value))))
             return new AbstractValue[] { AtomicValue.Create(double.NaN, ValueType.XsDouble) };
 
         var convertResult = CommonTypeUtils.ConvertItemsToCommonType(items);
