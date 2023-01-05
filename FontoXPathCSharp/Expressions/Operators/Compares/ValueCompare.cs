@@ -98,8 +98,8 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
 
         bool AreBothSubtypeOf(params ValueType[] types)
         {
-            return types.Select(x => firstType.IsSubtypeOf(x)).Any() &&
-                   types.Select(x => secondType.IsSubtypeOf(x)).Any();
+            return types.Any(x => firstType.IsSubtypeOf(x)) &&
+                   types.Any(x => secondType.IsSubtypeOf(x));
         }
 
         if (
@@ -124,16 +124,37 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
         if (AreBothSubtypeOf(ValueType.XsDateTime) ||
             AreBothSubtypeOf(ValueType.XsDate) ||
             AreBothSubtypeOf(ValueType.XsTime))
-            throw new NotImplementedException("DateTime, Date, and Time comparison");
+            return HandleDateTime(type, first, second);
 
         if (AreBothSubtypeOf(ValueType.XsGYearMonth) ||
             AreBothSubtypeOf(ValueType.XsGYear) ||
             AreBothSubtypeOf(ValueType.XsGMonthDay) ||
             AreBothSubtypeOf(ValueType.XsGMonth) ||
             AreBothSubtypeOf(ValueType.XsGDay))
-            throw new NotImplementedException("GYearMonth, GYear, GMonthDay, GMonth, and GDay comparison");
+            return HandleDayMonthAndYear(type, first, second);
 
         throw new XPathException("XPTY0004", type + " not available for " + firstType + " and " + secondType);
+    }
+
+    private static bool HandleDayMonthAndYear(CompareType type, AbstractValue first, AbstractValue second)
+    {
+        return type switch
+        {
+            CompareType.Equal or CompareType.NotEqual => Compare(
+                type,
+                first.GetAs<DateTimeValue>().Value,
+                second.GetAs<DateTimeValue>().Value
+            ),
+            _ => throw new XPathException(
+                "XPTY0004",
+                $"{type} not available for {first.GetType()} and {first.GetType()}"
+            )
+        };
+    }
+
+    private static bool HandleDateTime(CompareType type, AbstractValue first, AbstractValue second)
+    {
+        return Compare(type, first.GetAs<DateTimeValue>().Value, second.GetAs<DateTimeValue>().Value);
     }
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)

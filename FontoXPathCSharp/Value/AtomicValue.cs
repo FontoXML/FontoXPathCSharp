@@ -26,7 +26,7 @@ public abstract class AtomicValue : AbstractValue
 
     public override string ToString()
     {
-        return "<Value>[type: " + Type + ", value: " + GetValue() + "]";
+        return $"<Value>[type: {Type}, value: {GetValue()}]";
     }
 
     public override bool Equals(object? obj)
@@ -70,13 +70,24 @@ public abstract class AtomicValue : AbstractValue
         return type switch
         {
             ValueType.XsBoolean => new BooleanValue(value),
-            ValueType.XsInt or ValueType.XsInteger or ValueType.XsShort or ValueType.XsUnsignedShort =>
+            ValueType.XsInt
+                or ValueType.XsInteger
+                or ValueType.XsShort
+                or ValueType.XsUnsignedShort =>
                 new IntValue(value),
             ValueType.XsFloat => new FloatValue(value),
             ValueType.XsDouble => new DoubleValue(value),
             ValueType.XsQName => new QNameValue(value),
             ValueType.XsUntypedAtomic => new UntypedAtomicValue(value!),
             ValueType.XsString => new StringValue(value),
+            ValueType.XsDate
+                or ValueType.XsDateTime
+                or ValueType.XsGDay
+                or ValueType.XsGMonth
+                or ValueType.XsGMonthDay
+                or ValueType.XsGYear
+                or ValueType.XsGYearMonth
+                or ValueType.XsTime => DateTimeValue.CreateDateTime(value, type),
             _ => throw new NotImplementedException($"Atomic Value for {type} is not implemented yet.")
         };
     }
