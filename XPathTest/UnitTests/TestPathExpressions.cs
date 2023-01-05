@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using FontoXPathCSharp;
@@ -152,7 +153,7 @@ public class TestPathExpressions
     [Fact]
     public void PrecedingFollowingSiblingsTest()
     {
-        const string query = "preceding::node()";
+        const string query = "//element/preceding::node()";
 
         var commentNode1 = Evaluate.EvaluateXPathToFirstNode(
             query,
@@ -176,7 +177,7 @@ public class TestPathExpressions
     [Fact]
     public void FollowingSiblingTest()
     {
-        const string query = "following-sibling::node()";
+        const string query = "//comment()/following-sibling::node()";
 
         var elementNode1 = Evaluate.EvaluateXPathToFirstNode(
             query,
@@ -200,26 +201,28 @@ public class TestPathExpressions
     [Fact]
     public void AncestorOrSelfTest()
     {
-        const string query = "ancestor-or-self:node()";
+        const string query = "//element/ancestor-or-self::node()";
 
-        var elementNode1 = Evaluate.EvaluateXPathToFirstNode(
+        var elementAndDocNodes1 = Evaluate.EvaluateXPathToNodes(
             query,
             XmlNodeElementDocument,
             XmlNodeDomfacade,
             XmlNodeOptions
-        );
+        ).ToList();
 
-        Assert.True(elementNode1 != null && XmlNodeDomfacade.IsElement(elementNode1) &&
-                    elementNode1 == XmlNodeDomfacade.GetDocumentElement(XmlNodeElementDocument));
+        Assert.True(elementAndDocNodes1.Any()
+                    && elementAndDocNodes1.Any(XmlNodeDomfacade.IsElement)
+                    && elementAndDocNodes1.Any(XmlNodeDomfacade.IsDocument));
 
-        var elementNode2 = Evaluate.EvaluateXPathToFirstNode(
+        var elementAndDocNodes2 = Evaluate.EvaluateXPathToNodes(
             query,
             XObjectElementDocument,
             XObjectDomfacade,
             XObjectOptions
-        );
+        ).ToList();
 
-        Assert.True(elementNode2 != null && XObjectDomfacade.IsElement(elementNode2) &&
-                    elementNode2 == XObjectDomfacade.GetDocumentElement(XObjectElementDocument));
+        Assert.True(elementAndDocNodes2.Any()
+                    && elementAndDocNodes2.Any(XObjectDomfacade.IsElement)
+                    && elementAndDocNodes2.Any(XObjectDomfacade.IsDocument));
     }
 }
