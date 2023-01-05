@@ -17,6 +17,15 @@ public class TestPathExpressions
         <hurr durr=""durrdurrdurr"">durrrrrr</hurr>
     </xml>";
 
+    private const string CommentElementXml = @"<xml>
+        <!--comment-->
+        <element/>
+    </xml>";
+
+    private const string ElementXml = @"<xml>
+        <element/>
+    </xml>";
+
     private static readonly XmlDocument XmlNodeDocument;
     private static readonly XmlNodeDomFacade XmlNodeDomfacade;
     private static readonly Options<XmlNode> XmlNodeOptions;
@@ -25,16 +34,30 @@ public class TestPathExpressions
     private static readonly XObjectDomFacade XObjectDomfacade;
     private static readonly Options<XObject> XObjectOptions;
 
+    private static readonly XmlDocument XmlNodeCommentNodeDocument;
+    private static readonly XDocument XObjectCommentNodeDocument;
+
+    private static readonly XmlDocument XmlNodeElementDocument;
+    private static readonly XDocument XObjectElementDocument;
+
     static TestPathExpressions()
     {
-        XmlNodeDocument = new XmlDocument();
-        XmlNodeDocument.LoadXml(TestXml);
         XmlNodeDomfacade = new XmlNodeDomFacade();
         XmlNodeOptions = new Options<XmlNode>(_ => null);
-
-        XObjectDocument = XDocument.Parse(TestXml);
         XObjectDomfacade = new XObjectDomFacade();
         XObjectOptions = new Options<XObject>(_ => null);
+
+        XmlNodeDocument = new XmlDocument();
+        XmlNodeDocument.LoadXml(TestXml);
+        XObjectDocument = XDocument.Parse(TestXml);
+
+        XmlNodeCommentNodeDocument = new XmlDocument();
+        XmlNodeCommentNodeDocument.LoadXml(CommentElementXml);
+        XObjectCommentNodeDocument = XDocument.Parse(CommentElementXml);
+
+        XmlNodeElementDocument = new XmlDocument();
+        XmlNodeElementDocument.LoadXml(ElementXml);
+        XObjectElementDocument = XDocument.Parse(ElementXml);
     }
 
     private static IEnumerable<XmlNode> XmlNodeEvalQueryNodes(string query)
@@ -124,5 +147,79 @@ public class TestPathExpressions
     {
         Assert.Equal("durrrrrr", XmlNodeEvalQueryString("/xml/hurr"));
         Assert.Equal("durrrrrr", XObjectEvalQueryString("/xml/hurr"));
+    }
+
+    [Fact]
+    public void PrecedingFollowingSiblingsTest()
+    {
+        const string query = "preceding::node()";
+
+        var commentNode1 = Evaluate.EvaluateXPathToFirstNode(
+            query,
+            XmlNodeCommentNodeDocument,
+            XmlNodeDomfacade,
+            XmlNodeOptions
+        );
+
+        Assert.True(commentNode1 != null && XmlNodeDomfacade.IsComment(commentNode1));
+
+        var commentNode2 = Evaluate.EvaluateXPathToFirstNode(
+            query,
+            XObjectCommentNodeDocument,
+            XObjectDomfacade,
+            XObjectOptions
+        );
+
+        Assert.True(commentNode2 != null && XObjectDomfacade.IsComment(commentNode2));
+    }
+
+    [Fact]
+    public void FollowingSiblingTest()
+    {
+        const string query = "following-sibling::node()";
+
+        var elementNode1 = Evaluate.EvaluateXPathToFirstNode(
+            query,
+            XmlNodeCommentNodeDocument,
+            XmlNodeDomfacade,
+            XmlNodeOptions
+        );
+
+        Assert.True(elementNode1 != null && XmlNodeDomfacade.IsElement(elementNode1));
+
+        var elementNode2 = Evaluate.EvaluateXPathToFirstNode(
+            query,
+            XObjectCommentNodeDocument,
+            XObjectDomfacade,
+            XObjectOptions
+        );
+
+        Assert.True(elementNode2 != null && XObjectDomfacade.IsElement(elementNode2));
+    }
+
+    [Fact]
+    public void AncestorOrSelfTest()
+    {
+        const string query = "ancestor-or-self:node()";
+
+        var elementNode1 = Evaluate.EvaluateXPathToFirstNode(
+            query,
+            XmlNodeElementDocument,
+            XmlNodeDomfacade,
+            XmlNodeOptions
+        );
+
+        Assert.True(elementNode1 != null && XmlNodeDomfacade.IsElement(elementNode1) &&
+                    elementNode1 == XmlNodeDomfacade.GetDocumentElement(XmlNodeElementDocument));
+
+        var elementNode2 = Evaluate.EvaluateXPathToFirstNode(
+            query,
+            XObjectElementDocument,
+            XObjectDomfacade,
+            XObjectOptions
+        );
+
+        Assert.True(elementNode2 != null && XObjectDomfacade.IsElement(elementNode2) &&
+                    elementNode2 == XObjectDomfacade.GetDocumentElement(XObjectElementDocument));
     }
 }
