@@ -19,6 +19,8 @@ public class TestMisc
     private static readonly Options<XmlNode> XmlNodeOptions;
     private readonly ITestOutputHelper _testOutputHelper;
 
+    private static readonly XmlDocument XmlNodeWorksMod;
+    
     static TestMisc()
     {
         XmlNodeEmptyContext = new XmlDocument();
@@ -26,6 +28,10 @@ public class TestMisc
         // XmlSimpleDocument.LoadXml("<p />");
         XmlNodeDomFacade = new XmlNodeDomFacade();
         XmlNodeOptions = new Options<XmlNode>(_ => null);
+
+        XmlNodeWorksMod = new XmlDocument();
+        XmlNodeWorksMod.LoadXml(TestFileSystem.ReadFile("qt3tests/docs/works-mod.xml"));
+        
     }
 
     public TestMisc(ITestOutputHelper testOutputHelper)
@@ -149,5 +155,15 @@ public class TestMisc
         );
 
         Assert.Equal("--05Z", res);
+    }
+
+    [Fact]
+    public void AbbreviatedSyntax14()
+    {
+        var selector = "for $h in (/works/employee[12]/overtime) return $h/../@name";
+
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeWorksMod, XmlNodeDomFacade, XmlNodeOptions);
+
+        Assert.Equal("John Doe 12", res);
     }
 }

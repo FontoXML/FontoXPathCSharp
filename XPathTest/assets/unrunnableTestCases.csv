@@ -1,19 +1,12 @@
-﻿abbreviatedSyntax-1;Expected XPath for $h in (/works/employee[4]) return $h/hours/string() to resolve to 20 40, but instead got null
-abbreviatedSyntax-14;Expected XPath for $h in (/works/employee[12]/overtime) return $h/../@name to resolve to John Doe 12, but instead got null
-abbreviatedSyntax-17;Expected XPath for $h in (/works) return $h/employee[@gender="female"][5]/@name to resolve to Jane Doe 9, but instead got null
-abbreviatedSyntax-18;Expected XPath for $h in (/works) return $h/employee[5][@gender="female"]/@name to resolve to Jane Doe 5, but instead got null
-abbreviatedSyntax-2;Expected XPath for $h in (/works/employee[2]) return $h/text() to resolve to Text data from Employee[2], but instead got null
+﻿abbreviatedSyntax-2;Expected XPath for $h in (/works/employee[2]) return $h/text() to resolve to Text data from Employee[2], but instead got Text data from Employee[2]
 abbreviatedSyntax-26;PRSC Error: Failed to parse query ''
-abbreviatedSyntax-3;Expected XPath for $h in (/works/employee[10]) return $h/@name to resolve to John Doe 10, but instead got null
-abbreviatedSyntax-5;Expected XPath for $h in (/works) return $h/employee[1]/@name to resolve to Jane Doe 1, but instead got null
 abbreviatedSyntax-6;Expected XPath for $h in (/works) return $h/employee[fn:last()]/@name to resolve to Jane Doe 13, but instead got null
-abbreviatedSyntax-8;Expected XPath /works/employee[5]/hours[2] to resolve to 30, but instead got null
 ancestor-10;NodeAfterOp AST to Expression not yet implemented
+ancestor-11;Expected results and parsedFragment children to match
+ancestor-12;Expected results and parsedFragment children to match
 ancestor-13;IntersectOp AST to Expression not yet implemented
 ancestor-14;ExceptOp AST to Expression not yet implemented
 ancestor-15;ExceptOp AST to Expression not yet implemented
-ancestor-16;Expected XPath (/works/employee[12]/overtime/day[ancestor::overtime]) and fn:true() to resolve to true
-ancestor-19;Expected XPath (/works/employee[12]/overtime/day[ancestor::overtime]) or fn:false() to resolve to true
 ancestor-21;PRSC Error: Failed to parse query ' = 0'
 ancestor-3;IsOp AST to Expression not yet implemented
 ancestor-4;IsOp AST to Expression not yet implemented
@@ -23,13 +16,9 @@ ancestor-7;PRSC Error: Failed to parse query ''
 ancestor-8;NodeAfterOp AST to Expression not yet implemented
 ancestor-9;NodeAfterOp AST to Expression not yet implemented
 ancestorself-10;NodeAfterOp AST to Expression not yet implemented
-ancestorself-11;Expected XPath ((/works/employee[12]/*/day/ancestor-or-self::overtime) | (/works/employee[12]/*/day/ancestor-or-self::overtime))/count(*) to resolve to 2, but instead got null
-ancestorself-12;Expected XPath ((/works/employee[12]/*/day[1]/ancestor-or-self::overtime) | (/works/employee[12]/*/day[2]/ancestor-or-self::overtime))/count(*) to resolve to 2, but instead got null
 ancestorself-13;IntersectOp AST to Expression not yet implemented
 ancestorself-14;ExceptOp AST to Expression not yet implemented
 ancestorself-15;ExceptOp AST to Expression not yet implemented
-ancestorself-16;Expected XPath (/works/employee[12]/overtime/day[ancestor-or-self::overtime]) and fn:true() to resolve to true
-ancestorself-19;Expected XPath (/works/employee[12]/overtime/day[ancestor-or-self::overtime]) or fn:false() to resolve to true
 ancestorself-21;PRSC Error: Failed to parse query ''
 ancestorself-3;IsOp AST to Expression not yet implemented
 ancestorself-4;IsOp AST to Expression not yet implemented
@@ -3356,6 +3345,7 @@ cbcl-zero-or-one-002;PRSC Error: Failed to parse query '\n        declare functi
 combined-errors-1;Expected executing the XPath "import module namespace defs="http://www.w3.org/TestModules/defs"; "ABC"" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'import module namespace defs="http://www.w3.org/TestModules/defs"; "ABC"'
 combined-errors-2;Expected executing the XPath "import schema namespace atomic="http://www.w3.org/XQueryTest"; "ABC"" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'import schema namespace atomic="http://www.w3.org/XQueryTest"; "ABC"'
 combined-errors-3;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
+combined-errors-4;Expected executing the XPath "/works[1]/employee[2]/preceding::employee" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected results and parsedFragment children to match
 combiningnodeseqexcepthc1;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 combiningnodeseqexcepthc2;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 combiningnodeseqexcepthc3;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
@@ -3417,8 +3407,6 @@ CondExpr004;PRSC Error: Failed to parse query ''
 CondExpr005;PRSC Error: Failed to parse query ''
 CondExpr006;PRSC Error: Failed to parse query ''
 CondExpr007;PRSC Error: Failed to parse query ''
-CondExpr008;Expected XPath if ( /Root/Customers[1]/@CustomerID = 'ALFKI' and /Root/Customers[1]/FullAddress/City = 'Berlin') then "pass" else "fail" to resolve to pass, but instead got fail
-CondExpr009;Expected XPath if (/Root/Customers[1]/@CustomerID = 'ALFKI' or /Root/Customers[1]/FullAddress/City = 'Non-Existent') then "pass" else "fail" to resolve to pass, but instead got fail
 CondExpr016;Value was either too large or too small for an Int32.
 CondExpr017;Value was either too large or too small for an Int32.
 CondExpr018;Expected XPath for $file in (//Folder)[1]/File return if( $file/FileName='File00000000004' ) then 1 else data( $file/FileName ) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 1 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got File00000000000 File00000000001 File00000000002 File00000000003 1 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100
@@ -4347,11 +4335,13 @@ externalcontextitem-15;The function exactly-one with arity 1 is not registered.
 externalcontextitem-16;The function exactly-one with arity 1 is not registered.
 externalcontextitem-17;The function exactly-one with arity 1 is not registered.
 externalcontextitem-18;The function exactly-one with arity 1 is not registered.
-externalcontextitem-19;Expected XPath for $var in (/works/employee[1]) return $var/fn:avg((hours,hours,hours)) to resolve to 40
+externalcontextitem-19;Items passed to fn:avg are not all numeric.
 externalcontextitem-2;The function exactly-one with arity 1 is not registered.
-externalcontextitem-20;Expected XPath for $var in (/works/employee[1]) return $var/fn:min((hours,hours,22)) to resolve to 22
+externalcontextitem-20;Casting AbstractValue(Element) to DoubleValue
 externalcontextitem-21;The function exactly-one with arity 1 is not registered.
+externalcontextitem-22;Expected results and parsedFragment children to match
 externalcontextitem-23;Expected executing the XPath "./works/employee[1]" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPDY0002. Found error code:  with error message: 
+externalcontextitem-24;Expected results and parsedFragment children to match
 externalcontextitem-3;The function exactly-one with arity 1 is not registered.
 externalcontextitem-4;The function exactly-one with arity 1 is not registered.
 externalcontextitem-5;The function exactly-one with arity 1 is not registered.
@@ -4463,6 +4453,7 @@ filter-limits-007;PRSC Error: Failed to parse query ''
 filter-limits-008;PRSC Error: Failed to parse query ''
 filter-limits-009;PRSC Error: Failed to parse query ''
 filter-limits-010;PRSC Error: Failed to parse query ''
+filterexpressionhc1;Can't cast a non-atomic value.
 filterexpressionhc10;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc11;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc12;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -4472,6 +4463,7 @@ filterexpressionhc2;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc20;Expected XPath ((1,2,3,4,5,6,7,8,9,10,11)[(. gt 1) and (. gt 2)][(. gt 5) and (. gt 6)]) to resolve to 7 8 9 10 11, but instead got 1 2 3 4 5 6 7 8 9 10 11
 filterexpressionhc22;Expected executing the XPath "fn:count(((1,2,3,4,5,6,7,8,9,10,11)[fn:false()]))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath fn:count(((1,2,3,4,5,6,7,8,9,10,11)[fn:false()])) to resolve to 0
 filterexpressionhc3;Casting AbstractValue(XsInt) to UntypedAtomicValue
+filterexpressionhc4;Can't cast a non-atomic value.
 filterexpressionhc6;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc7;Casting AbstractValue(XsInt) to UntypedAtomicValue
 filterexpressionhc8;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -4662,7 +4654,7 @@ fn-avg-mix-args-054;Expected XPathException with code FORG0006, but got Can't pa
 fn-avg-mix-args-055;Expected XPathException with code FORG0006, but got Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-056;Expected executing the XPath "fn:avg(( (xs:double("NaN"), xs:integer("-999999999999999999") , "a", (), "3") ))" to resolve to one of the expected results, but got System.Exception: Can't parse -999999999999999999 into an int.
 fn-avg-mix-args-065;Expected XPathException with code FORG0006, but got Atomic Value for XsDecimal is not implemented yet.
-fn-avg-mix-args-066;Expected error code: FORG0001. Found error code:  with error message: 
+fn-avg-mix-args-066;Expected error code: FORG0001. Found error code: FORG0006 with error message: Items passed to fn:avg are not all numeric.
 fn-avgdbl1args-1;PRSC Error: Failed to parse query 'fn:avg((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
 fn-avgdbl1args-2;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 fn-avgdbl1args-3;PRSC Error: Failed to parse query 'fn:avg((xs:double("1.7976931348623157E308"))) = 1.7976931348623157E308'
@@ -5858,7 +5850,7 @@ fn-function-lookup-268;Expected base expression of a function call to evaluate t
 fn-function-lookup-269;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'local-name'), 1)) to resolve to true
 fn-function-lookup-270;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-271;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'namespace-uri'), 0)) to resolve to true
-fn-function-lookup-272;Expected XPath /root/*[2]/function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'namespace-uri'), 0)() to resolve to http://www.example.org/, but instead got null
+fn-function-lookup-272;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-273;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'namespace-uri'), 1)) to resolve to true
 fn-function-lookup-274;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-275;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'lang'), 1)) to resolve to true
@@ -7055,20 +7047,20 @@ fn-months-from-duration1args-1;The function fn:months-from-duration with arity 1
 fn-months-from-duration1args-2;The function fn:months-from-duration with arity 1 is not registered.
 fn-months-from-duration1args-3;The function fn:months-from-duration with arity 1 is not registered.
 fn-name-1;Object reference not set to an instance of an object.
-fn-name-10;Expected XPath for $h in (./works/employee[2]) return fn:name($h/parent::node()) to resolve to works, but instead got null
-fn-name-11;Expected XPath for $h in (./works/employee[2]) return fn:name($h/descendant::empnum[position() =
-fn-name-12;Expected XPath for $h in (./works/employee[2]) return fn:name($h/descendant-or-self::empnum[position()
-fn-name-13;Expected XPath for $h in (./works/employee[2]) return fn:substring(fn:name($h),2) to resolve to mployee, but instead got null
-fn-name-14;Expected XPath for $h in (/works/employee[2]) return fn:concat(fn:name($h),"A String") to resolve to employeeA String, but instead got null
-fn-name-15;Expected XPath for $h in (./works/employee[2]) return fn:name($h/self::employee) to resolve to employee, but instead got null
-fn-name-16;Expected executing the XPath "for $h in (./works/employee[2]) return fn:count(fn:name($h/self::div))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath for $h in (./works/employee[2]) return fn:count(fn:name($h/self::div)) to resolve to 1, but instead got null
-fn-name-17;Expected XPath  for $h in (/works/employee[2]/@name) return fn:name($h/parent::node()) to resolve to employee, but instead got null
-fn-name-18;Object reference not set to an instance of an object.
+fn-name-10;Haven't implemented Qnames from: works:
+fn-name-11;Haven't implemented Qnames from: empnum:
+fn-name-12;Haven't implemented Qnames from: empnum:
+fn-name-13;Haven't implemented Qnames from: employee:
+fn-name-14;Haven't implemented Qnames from: employee:
+fn-name-15;Haven't implemented Qnames from: employee:
+fn-name-16;Expected executing the XPath "for $h in (./works/employee[2]) return fn:count(fn:name($h/self::div))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath for $h in (./works/employee[2]) return fn:count(fn:name($h/self::div)) to resolve to 1, but instead got 0
+fn-name-17;Haven't implemented Qnames from: employee:
+fn-name-18;Haven't implemented Qnames from: name:
 fn-name-19;PRSC Error: Failed to parse query ''
-fn-name-2;Expected XPath (fn:name(./works[1]/employee[1])) to resolve to employee, but instead got null
+fn-name-2;Haven't implemented Qnames from: employee:
 fn-name-20;PRSC Error: Failed to parse query ''
-fn-name-21;Expected XPath (fn:name(./works[1]/employee[1]),fn:name(./works[1]/employee[2])) to resolve to employee employee, but instead got null
-fn-name-22;Expected XPath fn:count(((fn:name(/works[1]/employee[1]),fn:name(/works[1]/employee[2])))) to resolve to 2
+fn-name-21;Haven't implemented Qnames from: employee:
+fn-name-22;Haven't implemented Qnames from: employee:
 fn-name-23;Expected error code: XPDY0002. Query succeeded with result: 
 fn-name-24;Haven't implemented Qnames from: AuctionWatchList:ma
 fn-name-25;Haven't implemented Qnames from: currency:ma
@@ -7076,12 +7068,12 @@ fn-name-26;Haven't implemented Qnames from: lang:xml
 fn-name-27;PRSC Error: Failed to parse query 'name((//namespace::*[.='http://www.w3.org/1999/xlink'])[1])'
 fn-name-28;Haven't implemented Qnames from: xml-stylesheet:
 fn-name-29;Haven't implemented Qnames from: recorded:
-fn-name-3;Expected XPath (fn:name(./works[1]/employee[1]/@name)) to resolve to name, but instead got null
+fn-name-3;Haven't implemented Qnames from: name:
 fn-name-5;Object reference not set to an instance of an object.
-fn-name-6;Expected XPath for $h in ./works[1]/employee[2] return
+fn-name-6;Object reference not set to an instance of an object.
 fn-name-7;Expected error code: XPDY0002. Query succeeded with result: 
-fn-name-8;Expected XPath for $h in (./works/employee[2]) return fn:upper-case(fn:name($h)) to resolve to EMPLOYEE, but instead got null
-fn-name-9;Expected XPath for $h in (./works/employee[2]) return fn:lower-case(fn:name($h)) to resolve to employee, but instead got null
+fn-name-8;Haven't implemented Qnames from: employee:
+fn-name-9;Haven't implemented Qnames from: employee:
 fn-node-name-1;Object reference not set to an instance of an object.
 fn-node-name-10;PRSC Error: Failed to parse query 'fn:local-name-from-QName(fn:node-name(element elementName { element achild {"some text"}}))'
 fn-node-name-11;PRSC Error: Failed to parse query 'fn:local-name-from-QName(fn:node-name(attribute attributeName {""}))'
@@ -7562,6 +7554,7 @@ fn-root-11;PRSC Error: Failed to parse query 'fn:root(element anElement {attribu
 fn-root-12;PRSC Error: Failed to parse query ''
 fn-root-13;PRSC Error: Failed to parse query ''
 fn-root-14;The function fn:exactly-one with arity 1 is not registered.
+fn-root-15;Expected results and parsedFragment children to match
 fn-root-16;PRSC Error: Failed to parse query 'fn:root(text {"A text Node"})'
 fn-root-17;PRSC Error: Failed to parse query 'let $var := text {"a text Node"} return fn:root($var)'
 fn-root-18;PRSC Error: Failed to parse query 'let $var := element anElement {"Element Content"} return fn:root($var) is fn:root($var)'
@@ -8320,10 +8313,13 @@ fn-true-14;PRSC Error: Failed to parse query ''
 fn-true-18;Expected XPath fn:string(fn:true()) to resolve to "true"
 fn-true-19;Expected XPath fn:concat(xs:string(fn:true()),xs:string(fn:true())) to resolve to truetrue, but instead got TrueTrue
 fn-true-22;PRSC Error: Failed to parse query 'let $t := true#0 return 3[$t()] = 3'
+fn-union-node-args-001;Expected results and parsedFragment children to match
 fn-union-node-args-003;The function fn:exactly-one with arity 1 is not registered.
+fn-union-node-args-004;Expected results and parsedFragment children to match
 fn-union-node-args-005;Expected results and parsedFragment children to match
 fn-union-node-args-006;Expected results and parsedFragment children to match
 fn-union-node-args-007;Expected results and parsedFragment children to match
+fn-union-node-args-008;Expected results and parsedFragment children to match
 fn-union-node-args-009;Expected results and parsedFragment children to match
 fn-union-node-args-010;Expected results and parsedFragment children to match
 fn-union-node-args-011;Expected results and parsedFragment children to match
@@ -9164,11 +9160,11 @@ fold-right-103;PRSC Error: Failed to parse query 'declare function local:fold-ri
 fold-right-104;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right((true(), false(), false()), false(),function($a, $b) { $a and $b })'
 fold-right-105;PRSC Error: Failed to parse query 'deep-equal((declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          let $f := function($a, $b){($b, $a)} return local:fold-right(1 to 5, (), $f)), (5,4,3,2,1))'
 following-10;NodeAfterOp AST to Expression not yet implemented
+following-11;Expected results and parsedFragment children to match
+following-12;Expected results and parsedFragment children to match
 following-13;IntersectOp AST to Expression not yet implemented
 following-14;ExceptOp AST to Expression not yet implemented
 following-15;ExceptOp AST to Expression not yet implemented
-following-16;Expected XPath (/works[1]/employee[12]/following::employee) and fn:true() to resolve to true
-following-19;Expected XPath (/works[1]/employee[12]/following::employee) or fn:false() to resolve to true
 following-21;PRSC Error: Failed to parse query ' = 0'
 following-22;Expected XPath exists(//employee[@name="John Doe 10"]/following::text()[.='Monday']) to resolve to true
 following-3;IsOp AST to Expression not yet implemented
@@ -9180,11 +9176,11 @@ following-8;NodeAfterOp AST to Expression not yet implemented
 following-9;NodeAfterOp AST to Expression not yet implemented
 following-sibling-attr;PRSC Error: Failed to parse query ''
 followingsibling-10;NodeAfterOp AST to Expression not yet implemented
+followingsibling-11;Expected results and parsedFragment children to match
+followingsibling-12;Expected results and parsedFragment children to match
 followingsibling-13;IntersectOp AST to Expression not yet implemented
 followingsibling-14;ExceptOp AST to Expression not yet implemented
 followingsibling-15;ExceptOp AST to Expression not yet implemented
-followingsibling-16;Expected XPath (/works[1]/employee[12]/following-sibling::employee) and fn:true() to resolve to true
-followingsibling-19;Expected XPath (/works[1]/employee[12]/following-sibling::employee) or fn:false() to resolve to true
 followingsibling-21;PRSC Error: Failed to parse query ' = 0'
 followingsibling-3;IsOp AST to Expression not yet implemented
 followingsibling-4;IsOp AST to Expression not yet implemented
@@ -9220,11 +9216,10 @@ ForExpr008;Use of XQuery FLWOR expressions in XPath is not allowed
 ForExpr009;Expected XPathException with code XPST0008, but got The given key 'a' was not present in the dictionary.
 ForExpr010;PRSC Error: Failed to parse query ''
 ForExpr011;PRSC Error: Failed to parse query ''
-ForExpr013;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/ForClause/ForExpr-013.out'.
-ForExpr015;Expected XPath for $folder in //Folder return for $file in $folder/File return string( $file/FileName[1] ) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100, but instead got                                                                                                     
+ForExpr013;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/ForClause/ForExpr-013.out'.
 ForExpr016;Expected results and parsedFragment children to match
-ForExpr022;Expected XPath for $file at $pos in (//Folder)[1]/File return (string($file/FileName[1]), $pos) to resolve to File00000000000 1 File00000000001 2 File00000000002 3 File00000000003 4 File00000000004 5 File00000000005 6 File00000000006 7 File00000000007 8 File00000000008 9 File00000000009 10 File00000000010 11 File00000000011 12 File00000000012 13 File00000000013 14 File00000000014 15 File00000000015 16 File00000000016 17 File00000000017 18 File00000000018 19 File00000000019 20 File00000000020 21 File00000000021 22 File00000000022 23 File00000000023 24 File00000000024 25 File00000000025 26 File00000000026 27 File00000000027 28 File00000000028 29 File00000000029 30 File00000000030 31, but instead got  1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99  100  101
-ForExpr023;Expected XPath for $file at $pos in (//Folder)[1]/File, $pos2 in $pos+1 return (string($file/FileName[1]), $pos, $pos2) to resolve to File00000000000 1 2 File00000000001 2 3 File00000000002 3 4 File00000000003 4 5 File00000000004 5 6 File00000000005 6 7 File00000000006 7 8 File00000000007 8 9 File00000000008 9 10 File00000000009 10 11 File00000000010 11 12 File00000000011 12 13 File00000000012 13 14 File00000000013 14 15 File00000000014 15 16 File00000000015 16 17 File00000000016 17 18 File00000000017 18 19 File00000000018 19 20 File00000000019 20 21 File00000000020 21 22 File00000000021 22 23 File00000000022 23 24 File00000000023 24 25 File00000000024 25 26 File00000000025 26 27 File00000000026 27 28 File00000000027 28 29 File00000000028 29 30 File00000000029 30 31 File00000000030 31 32, but instead got  1 2  2 3  3 4  4 5  5 6  6 7  7 8  8 9  9 10  10 11  11 12  12 13  13 14  14 15  15 16  16 17  17 18  18 19  19 20  20 21  21 22  22 23  23 24  24 25  25 26  26 27  27 28  28 29  29 30  30 31  31 32  32 33  33 34  34 35  35 36  36 37  37 38  38 39  39 40  40 41  41 42  42 43  43 44  44 45  45 46  46 47  47 48  48 49  49 50  50 51  51 52  52 53  53 54  54 55  55 56  56 57  57 58  58 59  59 60  60 61  61 62  62 63  63 64  64 65  65 66  66 67  67 68  68 69  69 70  70 71  71 72  72 73  73 74  74 75  75 76  76 77  77 78  78 79  79 80  80 81  81 82  82 83  83 84  84 85  85 86  86 87  87 88  88 89  89 90  90 91  91 92  92 93  93 94  94 95  95 96  96 97  97 98  98 99  99 100  100 101  101 102
+ForExpr022;Expected XPath for $file at $pos in (//Folder)[1]/File return (string($file/FileName[1]), $pos) to resolve to File00000000000 1 File00000000001 2 File00000000002 3 File00000000003 4 File00000000004 5 File00000000005 6 File00000000006 7 File00000000007 8 File00000000008 9 File00000000009 10 File00000000010 11 File00000000011 12 File00000000012 13 File00000000013 14 File00000000014 15 File00000000015 16 File00000000016 17 File00000000017 18 File00000000018 19 File00000000019 20 File00000000020 21 File00000000021 22 File00000000022 23 File00000000023 24 File00000000024 25 File00000000025 26 File00000000026 27 File00000000027 28 File00000000028 29 File00000000029 30 File00000000030 31, but instead got File00000000000 1 File00000000001 2 File00000000002 3 File00000000003 4 File00000000004 5 File00000000005 6 File00000000006 7 File00000000007 8 File00000000008 9 File00000000009 10 File00000000010 11 File00000000011 12 File00000000012 13 File00000000013 14 File00000000014 15 File00000000015 16 File00000000016 17 File00000000017 18 File00000000018 19 File00000000019 20 File00000000020 21 File00000000021 22 File00000000022 23 File00000000023 24 File00000000024 25 File00000000025 26 File00000000026 27 File00000000027 28 File00000000028 29 File00000000029 30 File00000000030 31 File00000000031 32 File00000000032 33 File00000000033 34 File00000000034 35 File00000000035 36 File00000000036 37 File00000000037 38 File00000000038 39 File00000000039 40 File00000000040 41 File00000000041 42 File00000000042 43 File00000000043 44 File00000000044 45 File00000000045 46 File00000000046 47 File00000000047 48 File00000000048 49 File00000000049 50 File00000000050 51 File00000000051 52 File00000000052 53 File00000000053 54 File00000000054 55 File00000000055 56 File00000000056 57 File00000000057 58 File00000000058 59 File00000000059 60 File00000000060 61 File00000000061 62 File00000000062 63 File00000000063 64 File00000000064 65 File00000000065 66 File00000000066 67 File00000000067 68 File00000000068 69 File00000000069 70 File00000000070 71 File00000000071 72 File00000000072 73 File00000000073 74 File00000000074 75 File00000000075 76 File00000000076 77 File00000000077 78 File00000000078 79 File00000000079 80 File00000000080 81 File00000000081 82 File00000000082 83 File00000000083 84 File00000000084 85 File00000000085 86 File00000000086 87 File00000000087 88 File00000000088 89 File00000000089 90 File00000000090 91 File00000000091 92 File00000000092 93 File00000000093 94 File00000000094 95 File00000000095 96 File00000000096 97 File00000000097 98 File00000000098 99 File00000000099 100 File00000000100 101
+ForExpr023;Expected XPath for $file at $pos in (//Folder)[1]/File, $pos2 in $pos+1 return (string($file/FileName[1]), $pos, $pos2) to resolve to File00000000000 1 2 File00000000001 2 3 File00000000002 3 4 File00000000003 4 5 File00000000004 5 6 File00000000005 6 7 File00000000006 7 8 File00000000007 8 9 File00000000008 9 10 File00000000009 10 11 File00000000010 11 12 File00000000011 12 13 File00000000012 13 14 File00000000013 14 15 File00000000014 15 16 File00000000015 16 17 File00000000016 17 18 File00000000017 18 19 File00000000018 19 20 File00000000019 20 21 File00000000020 21 22 File00000000021 22 23 File00000000022 23 24 File00000000023 24 25 File00000000024 25 26 File00000000025 26 27 File00000000026 27 28 File00000000027 28 29 File00000000028 29 30 File00000000029 30 31 File00000000030 31 32, but instead got File00000000000 1 2 File00000000001 2 3 File00000000002 3 4 File00000000003 4 5 File00000000004 5 6 File00000000005 6 7 File00000000006 7 8 File00000000007 8 9 File00000000008 9 10 File00000000009 10 11 File00000000010 11 12 File00000000011 12 13 File00000000012 13 14 File00000000013 14 15 File00000000014 15 16 File00000000015 16 17 File00000000016 17 18 File00000000017 18 19 File00000000018 19 20 File00000000019 20 21 File00000000020 21 22 File00000000021 22 23 File00000000022 23 24 File00000000023 24 25 File00000000024 25 26 File00000000025 26 27 File00000000026 27 28 File00000000027 28 29 File00000000028 29 30 File00000000029 30 31 File00000000030 31 32 File00000000031 32 33 File00000000032 33 34 File00000000033 34 35 File00000000034 35 36 File00000000035 36 37 File00000000036 37 38 File00000000037 38 39 File00000000038 39 40 File00000000039 40 41 File00000000040 41 42 File00000000041 42 43 File00000000042 43 44 File00000000043 44 45 File00000000044 45 46 File00000000045 46 47 File00000000046 47 48 File00000000047 48 49 File00000000048 49 50 File00000000049 50 51 File00000000050 51 52 File00000000051 52 53 File00000000052 53 54 File00000000053 54 55 File00000000054 55 56 File00000000055 56 57 File00000000056 57 58 File00000000057 58 59 File00000000058 59 60 File00000000059 60 61 File00000000060 61 62 File00000000061 62 63 File00000000062 63 64 File00000000063 64 65 File00000000064 65 66 File00000000065 66 67 File00000000066 67 68 File00000000067 68 69 File00000000068 69 70 File00000000069 70 71 File00000000070 71 72 File00000000071 72 73 File00000000072 73 74 File00000000073 74 75 File00000000074 75 76 File00000000075 76 77 File00000000076 77 78 File00000000077 78 79 File00000000078 79 80 File00000000079 80 81 File00000000080 81 82 File00000000081 82 83 File00000000082 83 84 File00000000083 84 85 File00000000084 85 86 File00000000085 86 87 File00000000086 87 88 File00000000087 88 89 File00000000088 89 90 File00000000089 90 91 File00000000090 91 92 File00000000091 92 93 File00000000092 93 94 File00000000093 94 95 File00000000094 95 96 File00000000095 96 97 File00000000096 97 98 File00000000097 98 99 File00000000098 99 100 File00000000099 100 101 File00000000100 101 102
 ForExpr024;Expected error code: XQST0089. Found error code: XPTY0019 with error message: The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 ForExpr025;Expected results and parsedFragment children to match
 ForExpr028;PRSC Error: Failed to parse query ''
@@ -10003,7 +9998,6 @@ functx-fn-base-uri-2;The function base-uri with arity 1 is not registered.
 functx-fn-base-uri-3;The function base-uri with arity 1 is not registered.
 functx-fn-base-uri-all;The function base-uri with arity 1 is not registered.
 functx-fn-boolean-6;Value was either too large or too small for a Decimal.
-functx-fn-boolean-7;Expected XPath let $ordDoc := (/) return (boolean($ordDoc/order[1])) to resolve to true
 functx-fn-boolean-9;PRSC Error: Failed to parse query ''
 functx-fn-boolean-all;PRSC Error: Failed to parse query ''
 functx-fn-ceiling-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -10023,12 +10017,8 @@ functx-fn-concat-all;PRSC Error: Failed to parse query ''
 functx-fn-contains-all;Expected XPath (contains('query', 'e'), contains('query', 'ery'), contains('query', 'query'), contains('query', 'x'), contains('query', ''), contains('query', ()), contains( (), 'q')) to resolve to true true true false true true false, but instead got True True True False True True False
 functx-fn-count-3;The function distinct-values with arity 1 is not registered.
 functx-fn-count-all;The function distinct-values with arity 1 is not registered.
-functx-fn-data-1;Expected XPath let $cat := (/) return (data($cat//product[1]/number)) to resolve to 557, but instead got null
-functx-fn-data-3;Expected XPath let $cat := (/) return (data($cat//product[1]/@dept)) to resolve to WMN, but instead got null
-functx-fn-data-4;Expected XPath let $cat := (/) return (data($cat//product[1]/colorChoices)) to resolve to navy black, but instead got null
-functx-fn-data-5;Expected XPath let $cat := (/) return (data($cat//product[1])) to resolve to 557 Fleece Pullover navy black, but instead got null
-functx-fn-data-6;Expected XPath let $cat := (/) return (data($cat//product[4]/desc)) to resolve to Our favorite shirt!, but instead got null
-functx-fn-data-all;Expected XPath let $cat := (/) return (data($cat//product[1]/number), data($cat//number), data($cat//product[1]/@dept), data($cat//product[1]/colorChoices), data($cat//product[1]), data($cat//product[4]/desc)) to resolve to 557 557 563 443 784 WMN navy black 557 Fleece Pullover navy black Our favorite shirt!, but instead got 557 563 443 784
+functx-fn-data-5;Expected XPath let $cat := (/) return (data($cat//product[1])) to resolve to 557 Fleece Pullover navy black, but instead got 557Fleece Pullovernavy black
+functx-fn-data-all;Expected XPath let $cat := (/) return (data($cat//product[1]/number), data($cat//number), data($cat//product[1]/@dept), data($cat//product[1]/colorChoices), data($cat//product[1]), data($cat//product[4]/desc)) to resolve to 557 557 563 443 784 WMN navy black 557 Fleece Pullover navy black Our favorite shirt!, but instead got 557 557 563 443 784 WMN navy black 557Fleece Pullovernavy black Our favorite shirt!
 functx-fn-dateTime-1;The function dateTime with arity 2 is not registered.
 functx-fn-day-from-date-1;The function day-from-date with arity 1 is not registered.
 functx-fn-day-from-dateTime-1;The function day-from-dateTime with arity 1 is not registered.
@@ -11005,20 +10995,20 @@ generalexpression109;The result of E1 in a path expression E1/E2 should not eval
 generalexpression113;PRSC Error: Failed to parse query ''
 generalexpression114;PRSC Error: Failed to parse query ''
 generalexpression115;PRSC Error: Failed to parse query ''
-generalexpression116;Expected XPath 10000 != (/works/employee[1]/hours[1]) to resolve to true
-generalexpression117;Expected XPath 10000 != (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression116;HandleNumericOperator: Different numeric types: XsInt and XsDouble
+generalexpression117;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression118;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression123;PRSC Error: Failed to parse query ''
 generalexpression124;PRSC Error: Failed to parse query ''
 generalexpression125;PRSC Error: Failed to parse query ''
-generalexpression126;Expected XPath (50000) != (/works/employee[1]/hours[1]) to resolve to true
-generalexpression127;Expected XPath (50000) != (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression126;HandleNumericOperator: Different numeric types: XsInt and XsDouble
+generalexpression127;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression128;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression133;PRSC Error: Failed to parse query ''
 generalexpression134;PRSC Error: Failed to parse query ''
 generalexpression135;PRSC Error: Failed to parse query ''
-generalexpression136;Expected XPath (10000,50000) != (/works/employee[1]/hours[1]) to resolve to true
-generalexpression137;Expected XPath (10000,50000) != (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression136;HandleNumericOperator: Different numeric types: XsInt and XsDouble
+generalexpression137;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression138;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression139;PRSC Error: Failed to parse query ''
 generalexpression14;PRSC Error: Failed to parse query ''
@@ -11053,22 +11043,25 @@ generalexpression165;PRSC Error: Failed to parse query ''
 generalexpression166;PRSC Error: Failed to parse query ''
 generalexpression167;PRSC Error: Failed to parse query ''
 generalexpression168;PRSC Error: Failed to parse query ''
-generalexpression170;Expected XPath (/works/employee[1]/hours[1]) != 10000 to resolve to true
-generalexpression171;Expected XPath (/works/employee[1]/hours[1]) != (50000) to resolve to true
-generalexpression172;Expected XPath (/works/employee[1]/hours[1]) != (10000,50000) to resolve to true
+generalexpression17;HandleNumericOperator: Different numeric types: XsInt and XsDouble
+generalexpression170;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression171;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression172;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 generalexpression173;PRSC Error: Failed to parse query ''
 generalexpression174;PRSC Error: Failed to parse query ''
 generalexpression175;PRSC Error: Failed to parse query ''
-generalexpression177;Expected XPath (/works/employee[1]/hours[1]) != (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression176;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
+generalexpression177;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression178;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression180;Expected XPath (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) != 10000 to resolve to true
-generalexpression181;Expected XPath (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) != (50000) to resolve to true
-generalexpression182;Expected XPath (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) != (10000,50000) to resolve to true
+generalexpression18;HandleNumericOperator: Different numeric types: XsInt and XsDouble
+generalexpression180;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression181;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression182;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 generalexpression183;PRSC Error: Failed to parse query ''
 generalexpression184;PRSC Error: Failed to parse query ''
 generalexpression185;PRSC Error: Failed to parse query ''
-generalexpression186;Expected XPath (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) != (/works/employee[1]/hours[1]) to resolve to true
-generalexpression187;Expected XPath (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) != (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression186;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
+generalexpression187;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression188;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression189;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression19;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
@@ -11155,6 +11148,7 @@ generalexpression266;PRSC Error: Failed to parse query ''
 generalexpression267;PRSC Error: Failed to parse query ''
 generalexpression268;PRSC Error: Failed to parse query ''
 generalexpression269;PRSC Error: Failed to parse query ''
+generalexpression27;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression270;PRSC Error: Failed to parse query ''
 generalexpression271;PRSC Error: Failed to parse query ''
 generalexpression272;PRSC Error: Failed to parse query ''
@@ -11165,6 +11159,7 @@ generalexpression276;PRSC Error: Failed to parse query ''
 generalexpression277;PRSC Error: Failed to parse query ''
 generalexpression278;PRSC Error: Failed to parse query ''
 generalexpression279;PRSC Error: Failed to parse query ''
+generalexpression28;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression280;PRSC Error: Failed to parse query ''
 generalexpression281;PRSC Error: Failed to parse query ''
 generalexpression282;PRSC Error: Failed to parse query ''
@@ -11259,6 +11254,7 @@ generalexpression366;PRSC Error: Failed to parse query ''
 generalexpression367;PRSC Error: Failed to parse query ''
 generalexpression368;PRSC Error: Failed to parse query ''
 generalexpression369;PRSC Error: Failed to parse query ''
+generalexpression37;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression370;PRSC Error: Failed to parse query ''
 generalexpression371;PRSC Error: Failed to parse query ''
 generalexpression372;PRSC Error: Failed to parse query ''
@@ -11269,6 +11265,7 @@ generalexpression376;PRSC Error: Failed to parse query ''
 generalexpression377;PRSC Error: Failed to parse query ''
 generalexpression378;PRSC Error: Failed to parse query ''
 generalexpression379;PRSC Error: Failed to parse query ''
+generalexpression38;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression380;PRSC Error: Failed to parse query ''
 generalexpression381;PRSC Error: Failed to parse query ''
 generalexpression382;PRSC Error: Failed to parse query ''
@@ -11296,22 +11293,22 @@ generalexpression41;PRSC Error: Failed to parse query ''
 generalexpression410;PRSC Error: Failed to parse query ''
 generalexpression411;PRSC Error: Failed to parse query ''
 generalexpression412;PRSC Error: Failed to parse query ''
-generalexpression413;Expected XPath 10000 > (/works/employee[1]/hours[1]) to resolve to true
-generalexpression414;Expected XPath 10000 > (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression413;HandleNumericOperator: Different numeric types: XsInt and XsDouble
+generalexpression414;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression415;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression42;PRSC Error: Failed to parse query ''
 generalexpression420;PRSC Error: Failed to parse query ''
 generalexpression421;PRSC Error: Failed to parse query ''
 generalexpression422;PRSC Error: Failed to parse query ''
-generalexpression423;Expected XPath (50000) > (/works/employee[1]/hours[1]) to resolve to true
-generalexpression424;Expected XPath (50000) > (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression423;HandleNumericOperator: Different numeric types: XsInt and XsDouble
+generalexpression424;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression425;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression43;PRSC Error: Failed to parse query ''
 generalexpression430;PRSC Error: Failed to parse query ''
 generalexpression431;PRSC Error: Failed to parse query ''
 generalexpression432;PRSC Error: Failed to parse query ''
-generalexpression433;Expected XPath (10000,50000) > (/works/employee[1]/hours[1]) to resolve to true
-generalexpression434;Expected XPath (10000,50000) > (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression433;HandleNumericOperator: Different numeric types: XsInt and XsDouble
+generalexpression434;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression435;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression436;PRSC Error: Failed to parse query ''
 generalexpression437;PRSC Error: Failed to parse query ''
@@ -11346,17 +11343,25 @@ generalexpression462;PRSC Error: Failed to parse query ''
 generalexpression463;PRSC Error: Failed to parse query ''
 generalexpression464;PRSC Error: Failed to parse query ''
 generalexpression465;PRSC Error: Failed to parse query ''
+generalexpression467;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression468;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression469;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 generalexpression47;PRSC Error: Failed to parse query ''
 generalexpression470;PRSC Error: Failed to parse query ''
 generalexpression471;PRSC Error: Failed to parse query ''
 generalexpression472;PRSC Error: Failed to parse query ''
-generalexpression474;Expected XPath (/works/employee[1]/hours[1]) > (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression473;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
+generalexpression474;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression475;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
+generalexpression477;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression478;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression479;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 generalexpression48;PRSC Error: Failed to parse query ''
 generalexpression480;PRSC Error: Failed to parse query ''
 generalexpression481;PRSC Error: Failed to parse query ''
 generalexpression482;PRSC Error: Failed to parse query ''
-generalexpression484;Expected XPath (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) > (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression483;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
+generalexpression484;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression485;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression486;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression487;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
@@ -11378,22 +11383,22 @@ generalexpression509;PRSC Error: Failed to parse query ''
 generalexpression51;PRSC Error: Failed to parse query ''
 generalexpression510;PRSC Error: Failed to parse query ''
 generalexpression511;PRSC Error: Failed to parse query ''
-generalexpression512;Expected XPath 10000 >= (/works/employee[1]/hours[1]) to resolve to true
-generalexpression513;Expected XPath 10000 >= (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression512;HandleNumericOperator: Different numeric types: XsInt and XsDouble
+generalexpression513;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression514;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression519;PRSC Error: Failed to parse query ''
 generalexpression52;PRSC Error: Failed to parse query ''
 generalexpression520;PRSC Error: Failed to parse query ''
 generalexpression521;PRSC Error: Failed to parse query ''
-generalexpression522;Expected XPath (50000) >= (/works/employee[1]/hours[1]) to resolve to true
-generalexpression523;Expected XPath (50000) >= (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression522;HandleNumericOperator: Different numeric types: XsInt and XsDouble
+generalexpression523;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression524;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression529;PRSC Error: Failed to parse query ''
 generalexpression53;PRSC Error: Failed to parse query ''
 generalexpression530;PRSC Error: Failed to parse query ''
 generalexpression531;PRSC Error: Failed to parse query ''
-generalexpression532;Expected XPath (10000,50000) >= (/works/employee[1]/hours[1]) to resolve to true
-generalexpression533;Expected XPath (10000,50000) >= (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression532;HandleNumericOperator: Different numeric types: XsInt and XsDouble
+generalexpression533;HandleNumericOperator: Different numeric types: XsInt and XsDouble
 generalexpression534;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression535;PRSC Error: Failed to parse query ''
 generalexpression536;PRSC Error: Failed to parse query ''
@@ -11428,19 +11433,25 @@ generalexpression561;PRSC Error: Failed to parse query ''
 generalexpression562;PRSC Error: Failed to parse query ''
 generalexpression563;PRSC Error: Failed to parse query ''
 generalexpression564;PRSC Error: Failed to parse query ''
+generalexpression566;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression567;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression568;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 generalexpression569;PRSC Error: Failed to parse query ''
 generalexpression57;PRSC Error: Failed to parse query ''
 generalexpression570;PRSC Error: Failed to parse query ''
 generalexpression571;PRSC Error: Failed to parse query ''
-generalexpression572;Expected XPath (/works/employee[1]/hours[1]) >= (/works/employee[1]/hours[1]) to resolve to true
-generalexpression573;Expected XPath (/works/employee[1]/hours[1]) >= (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression572;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
+generalexpression573;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression574;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
+generalexpression576;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression577;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression578;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 generalexpression579;PRSC Error: Failed to parse query ''
 generalexpression58;PRSC Error: Failed to parse query ''
 generalexpression580;PRSC Error: Failed to parse query ''
 generalexpression581;PRSC Error: Failed to parse query ''
-generalexpression582;Expected XPath (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) >= (/works/employee[1]/hours[1]) to resolve to true
-generalexpression583;Expected XPath (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) >= (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression582;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
+generalexpression583;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression584;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression585;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression586;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
@@ -11465,17 +11476,23 @@ generalexpression67;PRSC Error: Failed to parse query ''
 generalexpression68;PRSC Error: Failed to parse query ''
 generalexpression69;PRSC Error: Failed to parse query ''
 generalexpression7;PRSC Error: Failed to parse query ''
+generalexpression71;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression72;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression73;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 generalexpression74;PRSC Error: Failed to parse query ''
 generalexpression75;PRSC Error: Failed to parse query ''
 generalexpression76;PRSC Error: Failed to parse query ''
-generalexpression77;Expected XPath (/works/employee[1]/hours[1]) = (/works/employee[1]/hours[1]) to resolve to true
-generalexpression78;Expected XPath (/works/employee[1]/hours[1]) = (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression77;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
+generalexpression78;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression79;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
+generalexpression81;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression82;HandleNumericOperator: Different numeric types: XsDouble and XsInt
+generalexpression83;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 generalexpression84;PRSC Error: Failed to parse query ''
 generalexpression85;PRSC Error: Failed to parse query ''
 generalexpression86;PRSC Error: Failed to parse query ''
-generalexpression87;Expected XPath (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) = (/works/employee[1]/hours[1]) to resolve to true
-generalexpression88;Expected XPath (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) = (/works/employee[1]/hours[1],/works/employee[6]/hours[1]) to resolve to true
+generalexpression87;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
+generalexpression88;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 generalexpression89;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression90;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression91;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
@@ -12102,7 +12119,6 @@ K-FilterExpr-91;Expected error code: FORG0006. Query succeeded with result: 1 2 
 K-FilterExpr-92;Expected error code: FORG0006. Query succeeded with result: 1 2 3
 K-FilterExpr-93;Expected error code: FORG0006. Query succeeded with result: 1 2 3
 K-FilterExpr-94;Expected error code: FORG0006. Query succeeded with result: 1 2 3
-K-FilterExpr-95;Expected XPath /works/employee[@name=/works/employee[1]/@name]/@name/string() to resolve to "Jane Doe 1"
 K-FilterExpr-96;PRSC Error: Failed to parse query ' = "Jane Doe 3"'
 K-FloorFunc-4;Can't parse 10.5 into an int.
 K-FloorFunc-5;Can't parse 10.5 into an int.
@@ -16814,7 +16830,6 @@ K3-NodeNameFunc-3;Expected error code: XPTY0004. Found error code: XPST0003 with
 K3-NodeNameFunc-4;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( node-name(<a/>))'
 last-1;Expected XPath for $h in (/works) return $h//employee[last()]/string(@name) to resolve to Jane Doe 13, but instead got null
 last-10;Expected XPath for $h in (/works) return $h//employee[last() = 13][@name = "Jane Doe 13"]/string(@name) to resolve to Jane Doe 13, but instead got null
-last-11;Expected XPath for $h in (/works/employee[12]/overtime) return $h/day[not(position() = 1)] to resolve to Tuesday, but instead got null
 last-12;Expected XPath for $h in (/works/employee[12]/overtime) return $h/*[position() = position()]/string() to (deep equally) resolve to "Monday", "Tuesday"
 last-16;Atomic Value for XsDecimal is not implemented yet.
 last-18;Expected XPath for $h in (/works/employee[12]) return ($h/overtime[position() and fn:true()]/*/string()) to (deep equally) resolve to "Monday", "Tuesday"
@@ -17417,6 +17432,7 @@ NamespaceURIFromQNameFunc021;Expected error code: XPTY0004. Found error code: XP
 nametest-1;PRSC Error: Failed to parse query ''
 nametest-10;PRSC Error: Failed to parse query ''
 nametest-11;PRSC Error: Failed to parse query ' = 1'
+nametest-12;Expected results and parsedFragment children to match
 nametest-13;IntersectOp AST to Expression not yet implemented
 nametest-14;ExceptOp AST to Expression not yet implemented
 nametest-18;PRSC Error: Failed to parse query ''
@@ -17500,7 +17516,7 @@ nodeexpressionhc8;PRSC Error: Failed to parse query ''
 nodeexpressionhc9;PRSC Error: Failed to parse query ''
 NodeTest001;Expected results and parsedFragment children to match
 NodeTest002;Expected results and parsedFragment children to match
-NodeTest003;Expected XPath /*/*[1]/name() to resolve to Customers, but instead got null
+NodeTest003;Haven't implemented Qnames from: Customers:
 NodeTest004;PRSC Error: Failed to parse query '(/.) instance of $document-node(element(Root))'
 NodeTest005;PRSC Error: Failed to parse query '(/*/.) instance of $element(Root)'
 NodeTest006;PRSC Error: Failed to parse query ''
@@ -19110,8 +19126,8 @@ path004;PRSC Error: Failed to parse query '(fn:path(//*[@name="fn-absintg1args-1
 path005;PRSC Error: Failed to parse query '(fn:path((//@idref)[1])) instance of $xs:string'
 path006;PRSC Error: Failed to parse query '(fn:path((//*:source)[3]/@xml:id)) instance of $xs:string'
 path007;Expected XPath fn:path((//comment())[2]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[2]/Q{http://www.w3.org/2010/09/qt-fots-catalog}description[1]/comment()[1], but instead got /comment()[1]
-path008;Expected XPath fn:path(//text()[.='2147483647'][1]) to resolve to /Q{http://www.w3.org/2010/09/qt-fots-catalog}test-set[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}test-case[3]/Q{http://www.w3.org/2010/09/qt-fots-catalog}result[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}all-of[1]/Q{http://www.w3.org/2010/09/qt-fots-catalog}assert-eq[1]/text()[1], but instead got null
-path009;Expected XPath fn:path(//processing-instruction()[1]) to resolve to /processing-instruction(xml-stylesheet)[1], but instead got null
+path008;PRSC Error: Failed to parse query '(fn:path(//text()[.='2147483647'][1])) instance of $xs:string'
+path009;PRSC Error: Failed to parse query '(fn:path(//processing-instruction()[1])) instance of $xs:string'
 path010;PRSC Error: Failed to parse query '(fn:path(//p)) instance of $xs:string'
 path011;PRSC Error: Failed to parse query 'fn:path((//namespace::xml)[1])'
 path012;PRSC Error: Failed to parse query 'fn:path((//namespace::xml)[1])'
@@ -19134,7 +19150,6 @@ PathExpr-7p;PRSC Error: Failed to parse query ' = 0'
 PathExpr-8p;PRSC Error: Failed to parse query ' = 0'
 PathExpr-9p;PRSC Error: Failed to parse query ' = 0'
 PathExprErr-2;Expected error code: XPTY0018. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-position-11;Expected XPath for $h in (/works/employee[12]/overtime) return $h/day[not(position() = 1)]/string() to resolve to Tuesday, but instead got null
 position-12;Expected XPath for $h in (/works/employee[12]/overtime) return $h/*[position() = position()]/string() to (deep equally) resolve to "Monday", "Tuesday"
 position-16;Atomic Value for XsDecimal is not implemented yet.
 position-18;Expected XPath for $h in (/works/employee[12]) return ($h/overtime[position() and fn:true()]/*/string()) to (deep equally) resolve to "Monday", "Tuesday"
@@ -19147,11 +19162,11 @@ position-4;Expected XPath for $h in (/works) return $h/employee[position() = las
 position-5;Expected XPath for $h in (/works) return $h/employee[last() = position()]/string(@name) to resolve to Jane Doe 13, but instead got null
 position-8;Expected XPath for $h in (/works/employee[12]) return $h/overtime[position() = position()]/day/string() to (deep equally) resolve to "Monday", "Tuesday"
 preceding-10;NodeAfterOp AST to Expression not yet implemented
+preceding-11;Expected results and parsedFragment children to match
+preceding-12;Expected results and parsedFragment children to match
 preceding-13;IntersectOp AST to Expression not yet implemented
 preceding-14;ExceptOp AST to Expression not yet implemented
 preceding-15;ExceptOp AST to Expression not yet implemented
-preceding-16;Expected XPath (/works[1]/employee[12]/preceding::employee) and fn:true() to resolve to true
-preceding-19;Expected XPath (/works[1]/employee[12]/preceding::employee) or fn:false() to resolve to true
 preceding-21;PRSC Error: Failed to parse query ' = 0'
 preceding-22;PRSC Error: Failed to parse query ''
 preceding-23;PRSC Error: Failed to parse query ''
@@ -19163,11 +19178,11 @@ preceding-7;PRSC Error: Failed to parse query ''
 preceding-8;NodeAfterOp AST to Expression not yet implemented
 preceding-9;NodeAfterOp AST to Expression not yet implemented
 preceding-sibling-10;NodeAfterOp AST to Expression not yet implemented
+preceding-sibling-11;Expected results and parsedFragment children to match
+preceding-sibling-12;Expected results and parsedFragment children to match
 preceding-sibling-13;IntersectOp AST to Expression not yet implemented
 preceding-sibling-14;ExceptOp AST to Expression not yet implemented
 preceding-sibling-15;ExceptOp AST to Expression not yet implemented
-preceding-sibling-16;Expected XPath (/works[1]/employee[12]/preceding-sibling::employee) and fn:true() to resolve to true
-preceding-sibling-19;Expected XPath (/works[1]/employee[12]/preceding-sibling::employee) or fn:false() to resolve to true
 preceding-sibling-21;PRSC Error: Failed to parse query ' = 0'
 preceding-sibling-3;IsOp AST to Expression not yet implemented
 preceding-sibling-4;IsOp AST to Expression not yet implemented
@@ -19190,6 +19205,7 @@ predicates-20;Can't cast a non-atomic value.
 predicates-21;Can't cast a non-atomic value.
 predicates-22;Can't cast a non-atomic value.
 predicates-23;Can't cast a non-atomic value.
+predicates-24;Expected results and parsedFragment children to match
 predicates-25;PRSC Error: Failed to parse query ''
 predicates-26;PRSC Error: Failed to parse query ''
 predicates-27;Can't cast a non-atomic value.
@@ -20473,7 +20489,7 @@ ReturnExpr015;Expected results and parsedFragment children to match
 ReturnExpr016;PRSC Error: Failed to parse query ''
 ReturnExpr017;Expected XPath for $file in (//Folder)[1]/File return ($file/Stream/StreamSize)[1] + 1 to resolve to 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1032.33, but instead got 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1032.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33
 ReturnExpr018;HandleNumericOperator: Different numeric types: XsDouble and XsInt
-ReturnExpr020;Expected XPath for $file in (//Folder)[1]/File return xs:string( data( $file/FileName[1] )) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got null
+ReturnExpr020;Expected XPath for $file in (//Folder)[1]/File return xs:string( data( $file/FileName[1] )) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100
 reverse-001;The function fn:reverse with arity 1 is not registered.
 reverse-002;The function fn:reverse with arity 1 is not registered.
 reverse-003;The function reverse with arity 1 is not registered.
@@ -20565,11 +20581,11 @@ string-constructor-028;PRSC Error: Failed to parse query '() instance of $elemen
 string-constructor-910;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 string-constructor-911;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 string-constructor-912;PRSC Error: Failed to parse query ' = "There were 1 2 3 4 5 6 7 8 9 10 green bottles"'
-string-queries-results-q1;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q1.out'.
-string-queries-results-q2;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q2.out'.
-string-queries-results-q4;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q4.out'.
-string-queries-results-q5;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q5.out'.
-sudoku;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/Demos/sudoku-result.xml'.
+string-queries-results-q1;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q1.out'.
+string-queries-results-q2;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q2.out'.
+string-queries-results-q4;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q4.out'.
+string-queries-results-q5;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q5.out'.
+sudoku;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/Demos/sudoku-result.xml'.
 surrogates01;PRSC Error: Failed to parse query ' = 7'
 surrogates01a;Expected XPath string-length("abc𝅖def") to resolve to 7
 surrogates02;PRSC Error: Failed to parse query ''
@@ -20651,23 +20667,29 @@ typeswitchhc7;PRSC Error: Failed to parse query ''
 typeswitchhc8;PRSC Error: Failed to parse query ''
 typeswitchhc9;PRSC Error: Failed to parse query ''
 unabbreviatedSyntax-1;Expected results and parsedFragment children to match
-unabbreviatedSyntax-11;Expected XPath (for $h in (/works/employee[1]/hours) return $h/ancestor-or-self::employee)/@name to resolve to Jane Doe 1, but instead got null
-unabbreviatedSyntax-14;Expected XPath for $h in (/works[1]/employee[1]) return fn:count(($h/self::employee[1000])) to resolve to 0
+unabbreviatedSyntax-10;Expected results and parsedFragment children to match
+unabbreviatedSyntax-12;Expected results and parsedFragment children to match
+unabbreviatedSyntax-13;Expected results and parsedFragment children to match
 unabbreviatedSyntax-15;Expected results and parsedFragment children to match
 unabbreviatedSyntax-16;Expected results and parsedFragment children to match
 unabbreviatedSyntax-18;Expected results and parsedFragment children to match
 unabbreviatedSyntax-19;Expected results and parsedFragment children to match
+unabbreviatedSyntax-2;Expected results and parsedFragment children to match
 unabbreviatedSyntax-20;Expected results and parsedFragment children to match
 unabbreviatedSyntax-23;Expected results and parsedFragment children to match
+unabbreviatedSyntax-24;Expected results and parsedFragment children to match
+unabbreviatedSyntax-25;Expected results and parsedFragment children to match
 unabbreviatedSyntax-26;Expected results and parsedFragment children to match
 unabbreviatedSyntax-27;Expected results and parsedFragment children to match
 unabbreviatedSyntax-28;Expected results and parsedFragment children to match
 unabbreviatedSyntax-29;Expected results and parsedFragment children to match
-unabbreviatedSyntax-3;Expected XPath for $h in (/works[1]/employee[2]) return $h/child::text() to resolve to Text data from Employee[2], but instead got null
+unabbreviatedSyntax-3;Expected XPath for $h in (/works[1]/employee[2]) return $h/child::text() to resolve to Text data from Employee[2], but instead got Text data from Employee[2]
 unabbreviatedSyntax-30;Expected results and parsedFragment children to match
 unabbreviatedSyntax-31;Expected results and parsedFragment children to match
+unabbreviatedSyntax-32;Expected results and parsedFragment children to match
 unabbreviatedSyntax-4;for $h in (/works/employee[1]) return $h/child::node()
 unabbreviatedSyntax-5;for $h in (/works/employee[2]) return $h/child::node()
+unabbreviatedSyntax-8;Expected results and parsedFragment children to match
 unabbreviatedSyntax-9;Expected results and parsedFragment children to match
 UnaryLookup-001;PRSC Error: Failed to parse query 'deep-equal(((['a', 'b'], ['c', 'd'])[?1 eq 'c']), (['c', 'd']))'
 UnaryLookup-002;PRSC Error: Failed to parse query 'deep-equal((let $i := 1 return (['a', 'b'], ['c', 'd'])[?($i) eq 'c']), (['c', 'd']))'
@@ -20746,12 +20768,12 @@ user-defined-6;PRSC Error: Failed to parse query '\n        import schema namesp
 user-defined-7;PRSC Error: Failed to parse query '\n        import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:sizeType(2) castable as xs:integer'
 user-defined-8;PRSC Error: Failed to parse query '\n        import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        (myType:sizeType(16) cast as myType:floatBased) eq 16'
 user-defined-9;PRSC Error: Failed to parse query '\n        import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:sizeType(16) castable as myType:floatBased'
-value-comp-eq-double-3;Expected XPath 40e0 eq xs:double(/works/employee[1]/hours) to resolve to true
+value-comp-eq-double-3;Can't cast a non-atomic value.
 value-comp-eq-double-6;Expected XPath 40e0 eq number(/works/employee[1]/hours) to resolve to true
-value-comp-eq-double-7;Expected XPath 40e0 eq xs:double(/works/employee[1]/hours) to resolve to true
-value-comp-eq-int-3;Expected XPath 40 eq xs:integer(/works/employee[1]/hours) to resolve to true
+value-comp-eq-double-7;Can't cast a non-atomic value.
+value-comp-eq-int-3;Can't cast a non-atomic value.
 value-comp-eq-int-6;HandleNumericOperator: Different numeric types: XsInt and XsDouble
-value-comp-eq-int-7;Expected XPath 40 eq xs:double(/works/employee[1]/hours) to resolve to true
+value-comp-eq-int-7;Can't cast a non-atomic value.
 value-comparison-1;Type casting to XsAnyUri has not been implemented yet.
 value-comparison-10;Expected executing the XPath "map{} eq ()" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '(map{} eq ()) => empty()'
 value-comparison-11;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'map{1:1} eq 1'
@@ -20910,25 +20932,25 @@ WhereExpr033;PRSC Error: Failed to parse query '\n         declare variable $n e
 WhereExpr034;Use of XQuery FLWOR expressions in XPath is not allowed
 WhereExpr035;Casting AbstractValue(XsInt) to UntypedAtomicValue
 XMark-Q1;PRSC Error: Failed to parse query ''
-XMark-Q10;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q10.xml'.
-XMark-Q11;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q11.xml'.
-XMark-Q12;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q12.xml'.
-XMark-Q13;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q13.xml'.
-XMark-Q14;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q14.xml'.
-XMark-Q15;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q15.xml'.
-XMark-Q16;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q16.xml'.
-XMark-Q17;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q17.xml'.
-XMark-Q18;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q18.xml'.
-XMark-Q19;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q19.xml'.
-XMark-Q2;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q2.xml'.
-XMark-Q20;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q20.xml'.
-XMark-Q3;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q3.xml'.
+XMark-Q10;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q10.xml'.
+XMark-Q11;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q11.xml'.
+XMark-Q12;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q12.xml'.
+XMark-Q13;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q13.xml'.
+XMark-Q14;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q14.xml'.
+XMark-Q15;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q15.xml'.
+XMark-Q16;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q16.xml'.
+XMark-Q17;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q17.xml'.
+XMark-Q18;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q18.xml'.
+XMark-Q19;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q19.xml'.
+XMark-Q2;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q2.xml'.
+XMark-Q20;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q20.xml'.
+XMark-Q3;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q3.xml'.
 XMark-Q4;PRSC Error: Failed to parse query ''
 XMark-Q5;PRSC Error: Failed to parse query ''
 XMark-Q6;PRSC Error: Failed to parse query ''
 XMark-Q7;PRSC Error: Failed to parse query ''
-XMark-Q8;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q8.xml'.
-XMark-Q9;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q9.xml'.
+XMark-Q8;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q8.xml'.
+XMark-Q9;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q9.xml'.
 XML10-3ed-Mixed-content;PRSC Error: Failed to parse query '<foo> a <![CDATA[cdata section]]> in mixed content. a <!-- comment --> in mixed content. a <?processing instruction?> in mixed content. </foo>'
 XML10-4ed-Excluded-char-1-new;Name cannot begin with the 'Ϳ' character, hexadecimal value 0x37F. Line 1, position 7.
 XML10-5ed-Included-char-1;PRSC Error: Failed to parse query '<foo></foo>'
