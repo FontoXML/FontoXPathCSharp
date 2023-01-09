@@ -17,7 +17,7 @@ public static class CastToDateTime
         if (type.IsSubtypeOf(ValueType.XsDateTime))
             return value =>
                 new SuccessResult<AtomicValue>(
-                    CreateDateTimeValue((value.GetAs<DateTimeValue>()).ConvertToType(ValueType.XsDateTime)));
+                    CreateDateTimeValue(value.GetAs<DateTimeValue>().ConvertToType(ValueType.XsDateTime)));
 
         if (type.IsSubtypeOfAny(ValueType.XsUntypedAtomic, ValueType.XsString))
             return value =>

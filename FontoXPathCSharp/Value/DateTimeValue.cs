@@ -6,16 +6,14 @@ namespace FontoXPathCSharp.Value;
 
 public class DateTimeValue : AtomicValue
 {
-    private readonly DateTimeWrapper _dateTime;
-
     public DateTimeValue(DateTimeWrapper dateTime) : base(dateTime.GetValueType)
     {
-        _dateTime = dateTime;
+        Value = dateTime;
     }
 
     public DateTimeValue(DateTimeValue dateTimeValue) : base(dateTimeValue.GetValueType())
     {
-        _dateTime = dateTimeValue.Value;
+        Value = dateTimeValue.Value;
     }
 
     public DateTimeValue(
@@ -30,7 +28,8 @@ public class DateTimeValue : AtomicValue
         bool hasTimezone,
         ValueType type) : base(type)
     {
-        _dateTime = new DateTimeWrapper(years, months, days, hours, minutes, seconds, secondFraction, timezone, hasTimezone, type);
+        Value = new DateTimeWrapper(years, months, days, hours, minutes, seconds, secondFraction, timezone, hasTimezone,
+            type);
     }
 
 
@@ -46,7 +45,7 @@ public class DateTimeValue : AtomicValue
     public TimeSpan GetTimezone => Value.GetTimezone;
     public bool HasTimezone => Value.HasTimezone;
 
-    public DateTimeWrapper Value => _dateTime;
+    public DateTimeWrapper Value { get; }
 
     public override object GetValue()
     {
@@ -179,13 +178,13 @@ public class DateTimeValue : AtomicValue
     {
         //TODO: Figure out why this insists on adding your own timezone.
         var dateTime = XmlConvert.ToDateTimeOffset(dateTimeString);
-        
+
         var matches = Regex.Match(
                 dateTimeString,
                 @"^(?:(-?\d{4,}))?(?:--?(\d\d))?(?:-{1,3}(\d\d))?(T)?(?:(\d\d):(\d\d):(\d\d))?(\.\d+)?(Z|(?:[+-]\d\d:\d\d))?$")
             .Groups;
         var hasTimezone = matches[9].Success;
-        
+
         return new DateTimeValue(new DateTimeWrapper(dateTime, hasTimezone, type));
     }
 

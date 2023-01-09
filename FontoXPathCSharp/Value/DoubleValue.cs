@@ -2,41 +2,36 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class DoubleValue : AtomicValue
+public class DoubleValue : NumericValue<double>
 {
-    public readonly double Value;
-
-    public DoubleValue(double value) : base(ValueType.XsDouble)
+    public DoubleValue(double value) : base(value, ValueType.XsDouble)
     {
-        Value = value;
     }
 
-    public DoubleValue(object? value) : base(ValueType.XsDouble)
+    public static DoubleValue CreateDoubleValue(object? value)
     {
-        Value = value is string s
-            ? double.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
-            : ConvertToFloat(value);
+        var doubleValue = value is string str
+            ? CreateFromString(str)
+            : CreateFromValue(value);
+
+        return new DoubleValue(doubleValue);
     }
 
-    private double ConvertToFloat(object? value)
+    private static double CreateFromString(string str)
     {
-        return value != null
-            ? Convert.ToDouble(value)
-            : throw new Exception("Tried to initialize an DoubleValue with null.");
-    }
-
-    private double StringEdgeCasesOrException(string s)
-    {
-        return s switch
+        return NumericCast(str, v =>
         {
-            "INF" => double.PositiveInfinity,
-            "-INF" => double.NegativeInfinity,
-            _ => throw new Exception($"Can't parse {s} into an double for a DoubleValue.")
-        };
+            return str switch
+            {
+                "INF" => double.PositiveInfinity,
+                "-INF" => double.NegativeInfinity,
+                _ => double.Parse(str)
+            };
+        });
     }
 
-    public override object GetValue()
+    private static double CreateFromValue(object? val)
     {
-        return Value;
+        return NumericCast(val, Convert.ToDouble);
     }
 }
