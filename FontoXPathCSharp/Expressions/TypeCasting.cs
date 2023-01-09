@@ -163,6 +163,7 @@ public class TypeCasting
             ValueType.XsDecimal => CastToDecimal.ToDecimal(from),
             ValueType.XsInteger => CastToInteger.ToInteger(from),
             ValueType.XsBoolean => CastToBoolean.ToBoolean(from),
+            ValueType.XsNumeric => CastToNumeric.ToNumeric(from, CastToPrimitiveType),
             ValueType.XsDuration => CastToDuration.ToDuration(from),
             ValueType.XsYearMonthDuration => CastToYearMonthDuration.ToYearMonthDuration(from),
             ValueType.XsDayTimeDuration => CastToDayTimeDuration.ToDayTimeDuration(from),

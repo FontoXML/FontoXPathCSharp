@@ -38,7 +38,7 @@ public class XObjectDomFacade : IDomFacade<XObject>
             XmlNodeType.ProcessingInstruction => (node as XProcessingInstruction)?.Data,
             XmlNodeType.Comment => (node as XComment)?.Value,
             XmlNodeType.Text or XmlNodeType.CDATA => (node as XText)?.Value,
-            _ => throw new Exception($"Unexpected nodetype in XObjectDomFacade.GetData: {node.NodeType}")
+            _ => throw new Exception($"Unexpected node type in XObjectDomFacade.GetData: {node.NodeType}")
         } ?? string.Empty;
     }
 
@@ -69,7 +69,10 @@ public class XObjectDomFacade : IDomFacade<XObject>
     public XObject? GetParentNode(XObject node, string? bucket = null)
     {
         var parentNode = node.Parent;
-        if (parentNode == null) return null;
+        if (parentNode == null)
+        {
+            return node.Document != null && node.Document.Nodes().Contains(node) ? node.Document : null;
+        }
         return bucket == null || BucketUtils.GetBucketsForNode(parentNode, this).Contains(bucket)
             ? parentNode
             : null;
@@ -81,11 +84,6 @@ public class XObjectDomFacade : IDomFacade<XObject>
             if (bucket == null || BucketUtils.GetBucketsForNode(sibling, this).Contains(bucket))
                 return sibling;
         return null;
-    }
-
-    public XObject? GetDocument(XObject node)
-    {
-        return IsDocument(node) ? node : node.Document;
     }
 
     public string GetLocalName(XObject node)

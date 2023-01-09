@@ -109,14 +109,14 @@ public class Evaluate
         ) ?? Array.Empty<TNode>();
     }
 
-    public static int EvaluateXPathToInt<TSelector, TNode>(
+    public static long EvaluateXPathToInt<TSelector, TNode>(
         TSelector selector,
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
         Dictionary<string, object>? variables = null) where TNode : notnull where TSelector : notnull
     {
-        return EvaluateXPath<int, TSelector, TNode>(
+        return EvaluateXPath<long, TSelector, TNode>(
             selector,
             ParameterUtils.VerifyContextNode(contextItem, domFacade),
             domFacade,
@@ -246,7 +246,7 @@ public class Evaluate
         Dictionary<string, object>? variablesMap) where TNode : notnull where TSelector : notnull
     {
         Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-        
+
         variablesMap ??= new Dictionary<string, object>();
 
         var variables = ParameterUtils.ConvertToAbstractValueVariables(variablesMap);

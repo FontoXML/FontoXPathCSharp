@@ -1,5 +1,6 @@
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Expressions;
 
@@ -75,7 +76,7 @@ public class ForExpression<TNode> : FlworExpression<TNode> where TNode : notnull
 
                     if (_positionalVariableBindingKey != null)
                         variables[_positionalVariableBindingKey] = () =>
-                            SequenceFactory.CreateFromValue(new IntValue(position));
+                            SequenceFactory.CreateFromValue(new IntegerValue(position, ValueType.XsInt));
                     return IteratorResult<DynamicContext>.Ready(
                         currentDynamicContext!.ScopeWithVariableBindings(variables));
                 }

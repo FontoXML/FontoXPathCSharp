@@ -39,10 +39,10 @@ public class FilterExpression<TNode> : AbstractExpression<TNode> where TNode : n
             if (!resultValue.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
                 return result.GetEffectiveBooleanValue() ? valuesToFilter : SequenceFactory.CreateEmpty();
 
-            if (resultValue.GetValueType() != ValueType.XsInteger)
+            if (!resultValue.GetValueType().IsSubtypeOf(ValueType.XsInteger))
                 return SequenceFactory.CreateEmpty();
 
-            var requestedIndex = resultValue.GetAs<IntValue>().Value;
+            var requestedIndex = resultValue.GetAs<IntegerValue>().Value;
 
             var iterator = valuesToFilter.GetValue();
             var done = false;
@@ -98,7 +98,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode> where TNode : n
                 }
                 else if (first.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
                 {
-                    shouldReturnCurrentValue = first.GetAs<IntValue>().Value == i + 1;
+                    shouldReturnCurrentValue = first.GetAs<IntegerValue>().Value == i + 1;
                 }
                 else
                 {

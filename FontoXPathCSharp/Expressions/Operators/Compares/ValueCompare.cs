@@ -49,21 +49,48 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
 
     private static bool HandleNumericOperator(CompareType type, AbstractValue a, AbstractValue b)
     {
-        if (a.GetValueType() != b.GetValueType())
-            throw new NotImplementedException(
-                $"HandleNumericOperator: Different numeric types: {a.GetValueType()} and {b.GetValueType()}");
+        if (a.GetValueType() == b.GetValueType())
+            return a.GetValueType() switch
+            {
+                ValueType.XsBoolean => Compare(type, a.GetAs<BooleanValue>().Value, b.GetAs<BooleanValue>().Value),
+                ValueType.XsInteger
+                    or ValueType.XsPositiveInteger
+                    or ValueType.XsNegativeInteger
+                    or ValueType.XsNonPositiveInteger
+                    or ValueType.XsNonNegativeInteger
+                    or ValueType.XsByte
+                    or ValueType.XsUnsignedByte
+                    or ValueType.XsShort
+                    or ValueType.XsUnsignedShort
+                    or ValueType.XsInt
+                    or ValueType.XsUnsignedInt
+                    or ValueType.XsLong
+                    or ValueType.XsUnsignedLong =>
+                    Compare(type, a.GetAs<IntegerValue>().Value, b.GetAs<IntegerValue>().Value),
+                ValueType.XsFloat => Compare(type, a.GetAs<FloatValue>().Value, b.GetAs<FloatValue>().Value),
+                ValueType.XsDouble => Compare(type, a.GetAs<DoubleValue>().Value, b.GetAs<DoubleValue>().Value),
+                ValueType.XsString or ValueType.XsUntypedAtomic => Compare(type, 
+                        a.GetAs<UntypedAtomicValue>().GetValue().ToString(), 
+                        b.GetAs<UntypedAtomicValue>().GetValue().ToString()),
+                ValueType.XsDecimal => Compare(type, a.GetAs<DecimalValue>().Value, b.GetAs<DecimalValue>().Value),
+                _ => throw new ArgumentOutOfRangeException(
+                    $"Comparison between operands of type {a.GetValueType()} not implemented yet.")
+            };
 
-        return a.GetValueType() switch
-        {
-            ValueType.XsBoolean => Compare(type, a.GetAs<BooleanValue>().Value, b.GetAs<BooleanValue>().Value),
-            ValueType.XsInteger or ValueType.XsInt => Compare(type, a.GetAs<IntValue>().Value,
-                b.GetAs<IntValue>().Value),
-            ValueType.XsFloat => Compare(type, a.GetAs<FloatValue>().Value, b.GetAs<FloatValue>().Value),
-            ValueType.XsDouble => Compare(type, a.GetAs<DoubleValue>().Value, b.GetAs<DoubleValue>().Value),
-            ValueType.XsString => Compare(type, a.GetAs<StringValue>().Value, b.GetAs<StringValue>().Value),
-            _ => throw new ArgumentOutOfRangeException(
-                $"Comparison between operands of type {a.GetValueType()} not implemented yet.")
-        };
+        // Avoids conversions
+        if (a.GetValueType().IsSubtypeOf(ValueType.XsInteger) && b.GetValueType().IsSubtypeOf(ValueType.XsInteger))
+            return Compare(type, a.GetAs<IntegerValue>().Value, b.GetAs<IntegerValue>().Value);
+
+        // Last resort, see if both are numeric, if so convert to most generic numeric type and compare.
+        if (a.GetValueType().IsSubtypeOf(ValueType.XsNumeric) && b.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
+            return Compare(type,
+                Convert.ToDecimal(a.GetAs<AtomicValue>().GetValue()),
+                Convert.ToDecimal(b.GetAs<AtomicValue>().GetValue())
+            );
+
+
+        throw new NotImplementedException(
+            $"HandleNumericOperator: Different numeric types: {a.GetValueType()} and {b.GetValueType()}");
     }
 
     private static bool HandleDuration(CompareType type, AbstractValue first, AbstractValue second)

@@ -120,27 +120,27 @@ public class BinaryEvaluationFunctionMap
         {
             {
                 (ValueType.XsNumeric, ValueType.XsNumeric, AstNodeName.AddOp),
-                (a, b) => Convert.ToDecimal(a) + Convert.ToDecimal(b)
+                (a, b) => Convert.ToDouble(a) + Convert.ToDouble(b)
             },
             {
                 (ValueType.XsNumeric, ValueType.XsNumeric, AstNodeName.SubtractOp),
-                (a, b) => Convert.ToDecimal(a) - Convert.ToDecimal(b)
+                (a, b) => Convert.ToDouble(a) - Convert.ToDouble(b)
             },
             {
                 (ValueType.XsNumeric, ValueType.XsNumeric, AstNodeName.MultiplyOp),
-                (a, b) => Convert.ToDecimal(a) * Convert.ToDecimal(b)
+                (a, b) => Convert.ToDouble(a) * Convert.ToDouble(b)
             },
             {
                 (ValueType.XsNumeric, ValueType.XsNumeric, AstNodeName.DivOp),
-                (a, b) => Convert.ToDecimal(a) / Convert.ToDecimal(b)
+                (a, b) => Convert.ToDouble(a) / Convert.ToDouble(b)
             },
             {
                 (ValueType.XsNumeric, ValueType.XsNumeric, AstNodeName.ModOp),
-                (a, b) => Convert.ToDecimal(a) % Convert.ToDecimal(b)
+                (a, b) => Convert.ToDouble(a) % Convert.ToDouble(b)
             },
             {
                 (ValueType.XsNumeric, ValueType.XsNumeric, AstNodeName.IDivOp),
-                (a, b) => Math.Truncate(Convert.ToDecimal(a) / Convert.ToDecimal(b))
+                (a, b) => Math.Truncate(Convert.ToDouble(a) / Convert.ToDouble(b))
             },
             {
                 (ValueType.XsYearMonthDuration, ValueType.XsYearMonthDuration, AstNodeName.AddOp),
