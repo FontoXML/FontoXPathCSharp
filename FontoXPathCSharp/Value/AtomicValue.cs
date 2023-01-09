@@ -110,6 +110,9 @@ public abstract class AtomicValue : AbstractValue
                 or ValueType.XsGYear
                 or ValueType.XsGYearMonth
                 or ValueType.XsTime => DateTimeValue.CreateDateTime(value, type),
+            ValueType.XsDuration or
+                ValueType.XsDayTimeDuration or
+                ValueType.XsYearMonthDuration => DurationValue.CreateDuration(value, type),
             _ => throw new NotImplementedException($"Atomic Value for {type} is not implemented yet.")
         };
     }

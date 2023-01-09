@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Linq;
 using System.Xml;
 using FontoXPathCSharp.DomFacade;
@@ -15,7 +17,17 @@ public class XmlDocumentsByPathCache : ResourceCache<string, XmlNode>
 
     protected override XmlNode? Load(string filename)
     {
-        var content = TestFileSystem.ReadFile($"qt3tests/{filename}").Replace("\r\n", "\n");
+        string content;
+        try
+        {
+            // Add support for testsets, for example to access ForExpr-013.out, which needs to enter the prod folder.
+            content = TestFileSystem.ReadFile($"qt3tests/{filename}").Replace("\r\n", "\n");
+        }
+        catch (DirectoryNotFoundException e)
+        {
+            throw new DirectoryNotFoundException($"Could not find a part of the path ending in: 'qt3tests/{filename}'");
+        }
+
 
         if (filename.EndsWith(".out"))
         {

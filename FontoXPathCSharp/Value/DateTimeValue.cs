@@ -1,19 +1,22 @@
 using System.Text.RegularExpressions;
 using System.Xml;
+using DateTime = FontoXPathCSharp.Value.InternalValues.DateTime;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
 public class DateTimeValue : AtomicValue
 {
-    public DateTimeValue(DateTimeWrapper dateTime) : base(dateTime.GetValueType)
+    private readonly DateTime _dateTime;
+
+    public DateTimeValue(DateTime dateTime) : base(dateTime.GetValueType)
     {
-        Value = dateTime;
+        _dateTime = dateTime;
     }
 
     public DateTimeValue(DateTimeValue dateTimeValue) : base(dateTimeValue.GetValueType())
     {
-        Value = dateTimeValue.Value;
+        _dateTime = dateTimeValue.Value;
     }
 
     public DateTimeValue(
@@ -28,7 +31,7 @@ public class DateTimeValue : AtomicValue
         bool hasTimezone,
         ValueType type) : base(type)
     {
-        Value = new DateTimeWrapper(years, months, days, hours, minutes, seconds, secondFraction, timezone, hasTimezone,
+        _dateTime = new DateTime(years, months, days, hours, minutes, seconds, secondFraction, timezone, hasTimezone,
             type);
     }
 
@@ -45,7 +48,7 @@ public class DateTimeValue : AtomicValue
     public TimeSpan GetTimezone => Value.GetTimezone;
     public bool HasTimezone => Value.HasTimezone;
 
-    public DateTimeWrapper Value { get; }
+    public DateTime Value => _dateTime;
 
     public override object GetValue()
     {
@@ -185,14 +188,14 @@ public class DateTimeValue : AtomicValue
             .Groups;
         var hasTimezone = matches[9].Success;
 
-        return new DateTimeValue(new DateTimeWrapper(dateTime, hasTimezone, type));
+        return new DateTimeValue(new DateTime(dateTime, hasTimezone, type));
     }
 
     public static DateTimeValue? CreateDateTime(object value, ValueType type)
     {
         return value switch
         {
-            DateTimeWrapper dateTime => new DateTimeValue(dateTime),
+            DateTime dateTime => new DateTimeValue(dateTime),
             DateTimeValue dateTimeValue => new DateTimeValue(dateTimeValue),
             string s => FromString(s, type),
             _ => null
