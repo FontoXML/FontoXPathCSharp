@@ -14,10 +14,10 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
     private static readonly FunctionSignature<ISequence, TNode> FnEmpty = (_, _, _, args) =>
         SequenceFactory.CreateFromValue(new BooleanValue(args[0].IsEmpty()));
 
-    private static readonly FunctionSignature<ISequence, TNode> FnHead = (_, _, _, args) => 
+    private static readonly FunctionSignature<ISequence, TNode> FnHead = (_, _, _, args) =>
         SubSequence(args[0], 1, 1);
 
-    private static readonly FunctionSignature<ISequence, TNode> FnTail = (_, _, _, args) => 
+    private static readonly FunctionSignature<ISequence, TNode> FnTail = (_, _, _, args) =>
         SubSequence(args[0], 2);
 
     private static readonly FunctionSignature<ISequence, TNode> FnInsertBefore = (_, _, _, args) =>
@@ -25,30 +25,24 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         var sequence = args[0];
         var position = args[1];
         var inserts = args[2];
-        
-        if (sequence.IsEmpty()) {
-            return inserts;
-        }
-    
-        if (inserts.IsEmpty()) {
-            return sequence;
-        }
+
+        if (sequence.IsEmpty()) return inserts;
+
+        if (inserts.IsEmpty()) return sequence;
         var sequenceValue = sequence.GetAllValues();
-    
+
         // XPath is 1 based
         var effectivePosition = position.First().GetAs<IntValue>().Value - 1;
-        if (effectivePosition < 0) {
+        if (effectivePosition < 0)
             effectivePosition = 0;
-        } else if (effectivePosition > sequenceValue.Length) {
-            effectivePosition = sequenceValue.Length;
-        }
+        else if (effectivePosition > sequenceValue.Length) effectivePosition = sequenceValue.Length;
 
         var firstHalve = sequenceValue[..effectivePosition];
         var secondHalve = sequenceValue[effectivePosition..];
-        
+
         return SequenceFactory.CreateFromArray(firstHalve.Concat(inserts.GetAllValues()).Concat(secondHalve).ToArray());
     };
-    
+
     private static readonly FunctionSignature<ISequence, TNode> FnRemove = (_, _, _, args) =>
     {
         var sequence = args[0];
@@ -59,9 +53,8 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             sequenceValue.Length == 0 ||
             effectivePosition < 1 ||
             effectivePosition > sequenceValue.Length
-        ) {
+        )
             return SequenceFactory.CreateFromArray(sequenceValue);
-        }
 
         var sequenceValueList = sequenceValue.ToList();
         sequenceValueList.RemoveAt(effectivePosition - 1);
@@ -76,7 +69,37 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             return SequenceFactory.CreateFromArray(allValues);
         });
     };
-    
+
+    private static readonly FunctionSignature<ISequence, TNode> FnSubSequence = (_, _, _, args) =>
+    {
+        var sequence = args[0];
+        var startSequence = args[1];
+        var lengthSequence = args[2];
+        return ISequence.ZipSingleton(new[] { startSequence, lengthSequence }, sequences =>
+        {
+            var startVal = sequences[0]!.GetAs<DoubleValue>().Value;
+            var lengthVal = sequences[1];
+            if (double.IsPositiveInfinity(startVal)) return SequenceFactory.CreateEmpty();
+            if (double.IsNegativeInfinity(startVal))
+                return lengthVal != null && double.IsPositiveInfinity(lengthVal.GetAs<DoubleValue>().Value)
+                    ? SequenceFactory.CreateEmpty()
+                    : sequence;
+            if (lengthVal != null)
+            {
+                var lengthValue = lengthVal.GetAs<DoubleValue>().Value;
+                if (double.IsNaN(lengthValue)) return SequenceFactory.CreateEmpty();
+                if (double.IsInfinity(lengthValue)) lengthVal = null;
+            }
+
+            if (double.IsNaN(startVal)) return SequenceFactory.CreateEmpty();
+            return SubSequence(
+                sequence,
+                (int)Math.Round(startVal),
+                lengthVal != null ? (int)Math.Round(lengthVal.GetAs<DoubleValue>().Value) : null
+            );
+        });
+    };
+
     private static readonly FunctionSignature<ISequence, TNode> FnCount = (_, _, _, args) =>
     {
         var hasPassed = false;
@@ -244,12 +267,12 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
         ),
-        
+
         new(new[]
             {
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
                 new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne),
-                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
             },
             FnInsertBefore,
             "insert-before",
@@ -260,24 +283,53 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         new(new[]
             {
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
-                new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne),
+                new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne)
             },
             FnRemove,
             "remove",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
         ),
-        
+
         new(new[]
             {
-                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
             },
             FnReverse,
             "reverse",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
         ),
-        
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne)
+            },
+            (context, parameters, staticContext, sequences) =>
+                FnSubSequence(
+                    context,
+                    parameters,
+                    staticContext,
+                    sequences.Concat(new[] { SequenceFactory.CreateEmpty() }).ToArray()
+                ),
+            "subsequence",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne),
+                new ParameterType(ValueType.XsDouble, SequenceMultiplicity.ExactlyOne)
+            },
+            FnSubSequence,
+            "subsequence",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+
         new(new[]
             {
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)

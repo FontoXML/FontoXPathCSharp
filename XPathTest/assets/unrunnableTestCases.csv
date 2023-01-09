@@ -2642,7 +2642,7 @@ cbcl-error-027;Expected executing the XPath "empty( if (current-date() lt xs:dat
 cbcl-error-028;Expected executing the XPath "declare function local:item() { if (current-date() lt xs:date('2012-10-10')) then 1 else "one" }; empty( typeswitch ( local:item() ) case xs:integer return fn:error() default return ())" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare function local:item() { if (current-date() lt xs:date('2012-10-10')) then 1 else "one" }; empty( typeswitch ( local:item() ) case xs:integer return fn:error() default return ())'
 cbcl-error-029;PRSC Error: Failed to parse query 'declare function local:item() { if (current-date() gt xs:date('1900-01-01')) then 1 else "one" }; empty( typeswitch ( local:item() ) case xs:integer return () default return fn:error())'
 cbcl-error-030;Expected executing the XPath "empty(fn:remove( fn:error(), 1))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
-cbcl-error-031;Expected executing the XPath "empty(fn:subsequence( fn:error(), 2, 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:subsequence with arity 3 is not registered.
+cbcl-error-031;Expected executing the XPath "empty(fn:subsequence( fn:error(), 2, 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
 cbcl-error-032;Expected executing the XPath "empty(fn:error() except fn:error() )" to resolve to one of the expected results, but got System.NotImplementedException: ExceptOp AST to Expression not yet implemented
 cbcl-error-033;Expected executing the XPath "empty(fn:error() intersect fn:error() )" to resolve to one of the expected results, but got System.NotImplementedException: IntersectOp AST to Expression not yet implemented
 cbcl-error-034;Expected executing the XPath "empty( fn:zero-or-one(fn:error()) )" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
@@ -3212,33 +3212,33 @@ cbcl-string-less-than-001;The function current-time with arity 0 is not register
 cbcl-string-less-than-002;The function current-time with arity 0 is not registered.
 cbcl-string-less-than-003;The function current-time with arity 0 is not registered.
 cbcl-string-less-than-004;The function current-time with arity 0 is not registered.
-cbcl-subsequence-001;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-002;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-003;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-004;The function subsequence with arity 2 is not registered.
-cbcl-subsequence-005;The function subsequence with arity 2 is not registered.
-cbcl-subsequence-006;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-007;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-008;Expected executing the XPath "subsequence(1 to 100, 99, 2147483648)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function subsequence with arity 3 is not registered.
-cbcl-subsequence-009;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-010;Expected executing the XPath "count(subsequence(1 to 3000000000, -2147483648, 2147483647))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPDY0130. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
-cbcl-subsequence-011;Expected executing the XPath "count(subsequence(1 to 3000000000, -2147483649))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function subsequence with arity 2 is not registered.
-cbcl-subsequence-012;Expected executing the XPath "count(subsequence(1 to 3000000000, 2147483648))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function subsequence with arity 2 is not registered.
-cbcl-subsequence-013;Expected executing the XPath "count(subsequence(1 to 3000000000, 2147483647))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function subsequence with arity 2 is not registered.
-cbcl-subsequence-014;Expected executing the XPath "subsequence(1 to 3000000000, 2147483647, 5)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function subsequence with arity 3 is not registered.
-cbcl-subsequence-015;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-016;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-017;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-018;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-019;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-020;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-021;The function subsequence with arity 2 is not registered.
+cbcl-subsequence-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-subsequence-002;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-subsequence-003;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-subsequence-004;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-subsequence-005;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-subsequence-006;The function year-from-date with arity 1 is not registered.
+cbcl-subsequence-007;The function sum with arity 1 is not registered.
+cbcl-subsequence-008;Expected executing the XPath "subsequence(1 to 100, 99, 2147483648)" to resolve to one of the expected results, but got System.InvalidCastException: Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-subsequence-009;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-subsequence-010;Expected executing the XPath "count(subsequence(1 to 3000000000, -2147483648, 2147483647))" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPDY0130, but got Can't parse 3000000000 into an int.
+cbcl-subsequence-011;Expected executing the XPath "count(subsequence(1 to 3000000000, -2147483649))" to resolve to one of the expected results, but got System.Exception: Can't parse 3000000000 into an int.
+cbcl-subsequence-012;Expected executing the XPath "count(subsequence(1 to 3000000000, 2147483648))" to resolve to one of the expected results, but got System.Exception: Can't parse 3000000000 into an int.
+cbcl-subsequence-013;Expected executing the XPath "count(subsequence(1 to 3000000000, 2147483647))" to resolve to one of the expected results, but got System.Exception: Can't parse 3000000000 into an int.
+cbcl-subsequence-014;Expected executing the XPath "subsequence(1 to 3000000000, 2147483647, 5)" to resolve to one of the expected results, but got System.Exception: Can't parse 3000000000 into an int.
+cbcl-subsequence-015;Casting AbstractValue(XsInt) to DoubleValue
+cbcl-subsequence-016;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-subsequence-017;Can't parse 1.2 into an int.
+cbcl-subsequence-018;Can't parse 4.2 into an int.
+cbcl-subsequence-019;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-subsequence-020;Casting AbstractValue(XsInt) to DoubleValue
+cbcl-subsequence-021;Casting AbstractValue(XsInt) to DoubleValue
 cbcl-subsequence-022;PRSC Error: Failed to parse query ''
-cbcl-subsequence-023;The function subsequence with arity 2 is not registered.
-cbcl-subsequence-024;The function subsequence with arity 3 is not registered.
+cbcl-subsequence-023;Casting AbstractValue(XsInt) to DoubleValue
+cbcl-subsequence-024;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-subsequence-025;PRSC Error: Failed to parse query ''
-cbcl-subsequence-026;The function subsequence with arity 3 is not registered.
-cbcl-subsequence-027;The function subsequence with arity 3 is not registered.
+cbcl-subsequence-026;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-subsequence-027;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-substring-001;Atomic Value for XsDecimal is not implemented yet.
 cbcl-substring-002;Atomic Value for XsDecimal is not implemented yet.
 cbcl-substring-after-001;The function fn:substring-after with arity 3 is not registered.
@@ -3293,7 +3293,7 @@ cbcl-typeswitch-001;PRSC Error: Failed to parse query '\n        upper-case(type
 cbcl-typeswitch-002;PRSC Error: Failed to parse query '\n        upper-case(typeswitch ((1 to 10)[. div 2 = 0]) case xs:integer+ return "int" default return "false")\n      '
 cbcl-typeswitch-003;PRSC Error: Failed to parse query '\n        typeswitch ((1 to 10)[. mod 2 = 0]) case xs:integer+ return true() default return true()\n      '
 cbcl-typeswitch-004;PRSC Error: Failed to parse query '\n        typeswitch ((1 to 10)[. mod 2 = 0]) case xs:integer+ return false() default return true()\n      '
-cbcl-typeswitch-005;The function subsequence with arity 2 is not registered.
+cbcl-typeswitch-005;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-typeswitch-006;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-value-greater-equal-001;PRSC Error: Failed to parse query '\n        declare function local:f($x) { if ($x) then xs:duration("P1M") else xs:yearMonthDuration("P1M") };\n        local:f(false()) ge xs:yearMonthDuration("P1Y")'
 cbcl-value-greater-equal-002;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:f($x) { if ($x) then xs:duration("P1M") else xs:yearMonthDuration("P1M") };\n        local:f(true()) ge xs:yearMonthDuration("P1Y")'
@@ -7826,30 +7826,30 @@ fn-stringpint1args-3;Can't parse 999999999999999999 into an int.
 fn-stringulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
 fn-stringulng1args-2;Can't parse 130747108607674654 into an int.
 fn-stringulng1args-3;Can't parse 184467440737095516 into an int.
-fn-subsequence-mix-args-001;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-002;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-003;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-004;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-005;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-006;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-007;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-008;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-009;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-010;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-011;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-012;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-013;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-014;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-015;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-016;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-017;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-018;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-019;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-020;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-021;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-022;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-023;The function fn:subsequence with arity 3 is not registered.
-fn-subsequence-mix-args-024;The function fn:subsequence with arity 3 is not registered.
+fn-subsequence-mix-args-001;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-002;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-003;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-004;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-005;Type casting to XsAnyUri has not been implemented yet.
+fn-subsequence-mix-args-006;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-007;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-008;Atomic Value for XsDecimal is not implemented yet.
+fn-subsequence-mix-args-009;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-010;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-011;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-012;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-013;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-014;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-015;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-016;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-017;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-018;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-019;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-020;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-021;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-022;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-023;Casting AbstractValue(XsInt) to DoubleValue
+fn-subsequence-mix-args-024;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fn-substring-1;Atomic Value for XsDecimal is not implemented yet.
 fn-substring-10;Attempted to divide by zero.
 fn-substring-11;Attempted to divide by zero.
@@ -8735,8 +8735,8 @@ fo-test-fn-string-join-005;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fo-test-fn-string-join-006;PRSC Error: Failed to parse query 'deep-equal((\n          let $doc := \n          <doc>\n  <chap>\n    <section xml:id="xyz"/>\n  </chap>\n</doc>\n           return \n\n        \n        $doc//@xml:id ! fn:string-join((node-name(), '="', ., '"'))\n      ), ('xml:id="xyz"'))'
 fo-test-fn-string-join-007;PRSC Error: Failed to parse query 'deep-equal((\n          let $doc := \n          <doc>\n  <chap>\n    <section xml:id="xyz"/>\n  </chap>\n</doc>\n           return \n\n        \n        $doc//section ! fn:string-join(ancestor-or-self::*/name(), '/')\n      ), ("doc/chap/section"))'
 fo-test-fn-string-length-002;Object reference not set to an instance of an object.
-fo-test-fn-subsequence-001;The function fn:subsequence with arity 2 is not registered.
-fo-test-fn-subsequence-002;The function fn:subsequence with arity 3 is not registered.
+fo-test-fn-subsequence-001;Casting AbstractValue(XsInt) to DoubleValue
+fo-test-fn-subsequence-002;Casting AbstractValue(XsInt) to DoubleValue
 fo-test-fn-substring-001;Atomic Value for XsDecimal is not implemented yet.
 fo-test-fn-substring-002;Atomic Value for XsDecimal is not implemented yet.
 fo-test-fn-substring-003;Can't parse 1.5 into an int.
@@ -10178,13 +10178,13 @@ functx-fn-string-all;PRSC Error: Failed to parse query ''
 functx-fn-string-length-6;Object reference not set to an instance of an object.
 functx-fn-string-length-all;Object reference not set to an instance of an object.
 functx-fn-string-to-codepoints-3;Expected XPath (string-to-codepoints('')) to resolve to , but instead got null
-functx-fn-subsequence-1;The function subsequence with arity 2 is not registered.
-functx-fn-subsequence-2;The function subsequence with arity 3 is not registered.
-functx-fn-subsequence-3;The function subsequence with arity 3 is not registered.
-functx-fn-subsequence-4;The function subsequence with arity 2 is not registered.
-functx-fn-subsequence-5;The function subsequence with arity 3 is not registered.
-functx-fn-subsequence-6;The function subsequence with arity 2 is not registered.
-functx-fn-subsequence-all;The function subsequence with arity 2 is not registered.
+functx-fn-subsequence-1;Casting AbstractValue(XsInt) to DoubleValue
+functx-fn-subsequence-2;Casting AbstractValue(XsInt) to DoubleValue
+functx-fn-subsequence-3;Casting AbstractValue(XsInt) to DoubleValue
+functx-fn-subsequence-4;Casting AbstractValue(XsInt) to DoubleValue
+functx-fn-subsequence-5;Casting AbstractValue(XsInt) to DoubleValue
+functx-fn-subsequence-6;Casting AbstractValue(XsInt) to DoubleValue
+functx-fn-subsequence-all;Casting AbstractValue(XsInt) to DoubleValue
 functx-fn-substring-1;Atomic Value for XsDecimal is not implemented yet.
 functx-fn-substring-10;Atomic Value for XsDecimal is not implemented yet.
 functx-fn-substring-2;Atomic Value for XsDecimal is not implemented yet.
@@ -12018,17 +12018,17 @@ K-ForExprPositionalVar-2;Expected XPathException with code XPST0008, but got The
 K-ForExprPositionalVar-20;The function current-time with arity 0 is not registered.
 K-ForExprPositionalVar-21;The function current-time with arity 0 is not registered.
 K-ForExprPositionalVar-22;The function current-time with arity 0 is not registered.
-K-ForExprPositionalVar-23;The function subsequence with arity 3 is not registered.
-K-ForExprPositionalVar-24;Expected executing the XPath "empty(for $i at $p in subsequence((1, 2, 3, current-time()), 5) return $p)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function subsequence with arity 2 is not registered.
-K-ForExprPositionalVar-25;Expected executing the XPath "empty(for $i at $p in subsequence((1, 2, 3, current-time()), 5, 8) return $p)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function subsequence with arity 3 is not registered.
-K-ForExprPositionalVar-26;The function subsequence with arity 3 is not registered.
-K-ForExprPositionalVar-27;The function subsequence with arity 3 is not registered.
-K-ForExprPositionalVar-28;The function subsequence with arity 3 is not registered.
+K-ForExprPositionalVar-23;The function current-time with arity 0 is not registered.
+K-ForExprPositionalVar-24;Expected executing the XPath "empty(for $i at $p in subsequence((1, 2, 3, current-time()), 5) return $p)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
+K-ForExprPositionalVar-25;Expected executing the XPath "empty(for $i at $p in subsequence((1, 2, 3, current-time()), 5, 8) return $p)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
+K-ForExprPositionalVar-26;The function current-time with arity 0 is not registered.
+K-ForExprPositionalVar-27;The function current-time with arity 0 is not registered.
+K-ForExprPositionalVar-28;The function current-time with arity 0 is not registered.
 K-ForExprPositionalVar-3;Expected XPathException with code XPST0008, but got The given key 'p2' was not present in the dictionary.
 K-ForExprPositionalVar-4;Expected XPathException with code XPST0008, but got The given key 'p3' was not present in the dictionary.
 K-ForExprWithout-18;Expected executing the XPath "empty(for $var in () return current-time())" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-ForExprWithout-20;Expected executing the XPath "empty((for $var in () return current-time()))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
-K-ForExprWithout-22;The function subsequence with arity 2 is not registered.
+K-ForExprWithout-22;The function current-time with arity 0 is not registered.
 K-ForExprWithout-23;The function current-time with arity 0 is not registered.
 K-ForExprWithout-26;Expected XPathException with code XPST0008, but got The given key 'NOTEXIST' was not present in the dictionary.
 K-ForExprWithout-27;Expected XPathException with code XPST0081, but got The given key 'NOTEXIST' was not present in the dictionary.
@@ -12047,7 +12047,7 @@ K-ForExprWithout-42;Expected XPathException with code XPST0008, but got The give
 K-ForExprWithout-43;Expected XPathException with code XPST0008, but got The given key 'a' was not present in the dictionary.
 K-ForExprWithout-44;Expected XPathException with code XPST0008, but got The given key 'b' was not present in the dictionary.
 K-ForExprWithout-45;Expected XPathException with code XPST0008, but got The given key 'c' was not present in the dictionary.
-K-ForExprWithout-47;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
+K-ForExprWithout-47;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to DoubleValue
 K-ForExprWithout-49;The function trace with arity 2 is not registered.
 K-ForExprWithout-5;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-ForExprWithout-52;PRSC Error: Failed to parse query '\n        declare variable $i := false(); \n        declare variable $t := false(); \n        deep-equal( for $i in (true(), true()), $t in (true(), true()) \n                    return ($i, $t), (true(), true(), true(), true(), true(), true(), true(), true()))'
@@ -12385,8 +12385,8 @@ K-NumericAdd-57;Expected executing the XPath "(remove((1, "two"), 2) + xs:untype
 K-NumericAdd-58;Expected executing the XPath "2 eq (xs:untypedAtomic("1") + remove((1, "two"), 2))" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsInt and XsDouble
 K-NumericAdd-59;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 K-NumericAdd-6;Can't parse 1.1 into an int.
-K-NumericAdd-63;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
-K-NumericAdd-64;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
+K-NumericAdd-63;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to DoubleValue
+K-NumericAdd-64;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to DoubleValue
 K-NumericAdd-8;HandleNumericOperator: Different numeric types: XsFloat and XsInt
 K-NumericAdd-9;Value was either too large or too small for a Decimal.
 K-NumericDivide-1;HandleNumericOperator: Different numeric types: XsDouble and XsInt
@@ -12685,14 +12685,14 @@ K-QuantExprWithout-96;Expected error code: FORG0006. Found error code: XPST0003 
 K-QuantExprWithout-97;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'some $i in (1, 2, 3) satisfies ($i, $i)'
 K-RangeExpr-1;Expected executing the XPath "1 to 1 eq 1" to resolve to one of the expected results, but got System.InvalidCastException: Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-10;Casting AbstractValue(XsInt) to UntypedAtomicValue
-K-RangeExpr-11;The function subsequence with arity 3 is not registered.
-K-RangeExpr-12;The function subsequence with arity 3 is not registered.
+K-RangeExpr-11;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-RangeExpr-12;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-13;Casting AbstractValue(XsInt) to UntypedAtomicValue
-K-RangeExpr-14;The function subsequence with arity 3 is not registered.
-K-RangeExpr-15;The function subsequence with arity 3 is not registered.
-K-RangeExpr-16;The function subsequence with arity 3 is not registered.
-K-RangeExpr-17;The function subsequence with arity 3 is not registered.
-K-RangeExpr-18;The function subsequence with arity 3 is not registered.
+K-RangeExpr-14;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-RangeExpr-15;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-RangeExpr-16;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-RangeExpr-17;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-RangeExpr-18;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-19;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-20;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -12828,7 +12828,7 @@ K-SeqExistsFunc-13;The function current-time with arity 0 is not registered.
 K-SeqExistsFunc-14;The function current-time with arity 0 is not registered.
 K-SeqExprCast-100;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1000;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:NOTATION)'
-K-SeqExprCast-1003;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-1003;Can't parse 1.1 into an int.
 K-SeqExprCast-1005;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-1008;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-1009;PRSC Error: Failed to parse query 'xs:gYear("1999") castable as xs:untypedAtomic'
@@ -12866,7 +12866,7 @@ K-SeqExprCast-105;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1050;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-1051;PRSC Error: Failed to parse query 'not(xs:gYear("1999") castable as xs:QName)'
 K-SeqExprCast-1052;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:gYear("1999") castable as xs:NOTATION)'
-K-SeqExprCast-1055;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-1055;Can't parse 1.1 into an int.
 K-SeqExprCast-1057;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-106;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1060;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
@@ -12904,7 +12904,7 @@ K-SeqExprCast-1101;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13"
 K-SeqExprCast-1102;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-1103;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:QName)'
 K-SeqExprCast-1104;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:NOTATION)'
-K-SeqExprCast-1107;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-1107;Can't parse 1.1 into an int.
 K-SeqExprCast-1109;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-111;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1112;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
@@ -12942,7 +12942,7 @@ K-SeqExprCast-1153;PRSC Error: Failed to parse query 'not(xs:gDay("---03") casta
 K-SeqExprCast-1154;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-1155;PRSC Error: Failed to parse query 'not(xs:gDay("---03") castable as xs:QName)'
 K-SeqExprCast-1156;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:gDay("---03") castable as xs:NOTATION)'
-K-SeqExprCast-1159;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-1159;Can't parse 1.1 into an int.
 K-SeqExprCast-116;Expected XPathException with code FORG0001, but got Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-1161;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-1164;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
@@ -12981,7 +12981,7 @@ K-SeqExprCast-1206;Expected XPathException with code XPTY0004, but got Type cast
 K-SeqExprCast-1207;PRSC Error: Failed to parse query 'not(xs:gMonth("--11") castable as xs:QName)'
 K-SeqExprCast-1208;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:gMonth("--11") castable as xs:NOTATION)'
 K-SeqExprCast-121;Expected XPathException with code FORG0001, but got Type casting to XsBase64Binary has not been implemented yet.
-K-SeqExprCast-1211;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-1211;Can't parse 1.1 into an int.
 K-SeqExprCast-1213;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
 K-SeqExprCast-1216;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-1217;PRSC Error: Failed to parse query 'xs:boolean("true") castable as xs:untypedAtomic'
@@ -13020,7 +13020,7 @@ K-SeqExprCast-1258;Expected XPathException with code XPTY0004, but got Type cast
 K-SeqExprCast-1259;PRSC Error: Failed to parse query 'not(xs:boolean("true") castable as xs:QName)'
 K-SeqExprCast-126;Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-1260;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:boolean("true") castable as xs:NOTATION)'
-K-SeqExprCast-1263;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-1263;Can't parse 1.1 into an int.
 K-SeqExprCast-1264;Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-1265;Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-1266;Type casting to XsBase64Binary has not been implemented yet.
@@ -13075,7 +13075,7 @@ K-SeqExprCast-131;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1310;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-1311;PRSC Error: Failed to parse query 'not(xs:base64Binary("aaaa") castable as xs:QName)'
 K-SeqExprCast-1312;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:base64Binary("aaaa") castable as xs:NOTATION)'
-K-SeqExprCast-1315;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-1315;Can't parse 1.1 into an int.
 K-SeqExprCast-1316;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1317;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1318;Type casting to XsHexBinary has not been implemented yet.
@@ -13130,7 +13130,7 @@ K-SeqExprCast-1361;PRSC Error: Failed to parse query 'not(xs:hexBinary("0FB7") c
 K-SeqExprCast-1362;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1363;PRSC Error: Failed to parse query 'not(xs:hexBinary("0FB7") castable as xs:QName)'
 K-SeqExprCast-1364;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:hexBinary("0FB7") castable as xs:NOTATION)'
-K-SeqExprCast-1367;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-1367;Can't parse 1.1 into an int.
 K-SeqExprCast-1368;Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1369;Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-137;Type casting to XsHexBinary has not been implemented yet.
@@ -13185,7 +13185,7 @@ K-SeqExprCast-1413;PRSC Error: Failed to parse query 'xs:anyURI("http://www.exam
 K-SeqExprCast-1414;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1415;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:QName)'
 K-SeqExprCast-1416;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:NOTATION)'
-K-SeqExprCast-1419;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-1419;Can't parse 1.1 into an int.
 K-SeqExprCast-142;Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-1420;Atomic Value for XsName is not implemented yet.
 K-SeqExprCast-1421;Expected XPathException with code FORG0001, but got Atomic Value for XsName is not implemented yet.
@@ -13483,7 +13483,7 @@ K-SeqExprCast-399;Casting not supported from given type to xs:dateTime or any of
 K-SeqExprCast-4;Expected error code: XPST0051. Found error code: XPST0080 with error message: Casting to xs:anyAtomicType, xs:anySimpleType or xs:NOTATION is not permitted.
 K-SeqExprCast-40;Expected XPath xs:boolean('0') cast as xs:string eq 'false' to resolve to true
 K-SeqExprCast-400;Casting not supported from given type to xs:dateTime or any of its derived types.
-K-SeqExprCast-413;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-413;Can't parse 1.1 into an int.
 K-SeqExprCast-414;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-415;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-416;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
@@ -13495,13 +13495,13 @@ K-SeqExprCast-422;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-422a;Expected XPathException with code FORG0001, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-423;PRSC Error: Failed to parse query 'not(xs:untypedAtomic("an arbitrary string(untypedAtomic source)") castable as xs:QName)'
 K-SeqExprCast-424;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:untypedAtomic("an arbitrary string(untypedAtomic source)") castable as xs:NOTATION)'
-K-SeqExprCast-427;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-427;Can't parse 1.1 into an int.
 K-SeqExprCast-43;Atomic Value for XsName is not implemented yet.
 K-SeqExprCast-432;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-433;PRSC Error: Failed to parse query 'xs:string("an arbitrary string") castable as xs:untypedAtomic'
 K-SeqExprCast-435;PRSC Error: Failed to parse query 'xs:string("an arbitrary string") castable as xs:string'
 K-SeqExprCast-436;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:string("an arbitrary string") castable as xs:NOTATION)'
-K-SeqExprCast-439;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-439;Can't parse 1.1 into an int.
 K-SeqExprCast-44;Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-441;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqExprCast-444;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
@@ -13534,7 +13534,7 @@ K-SeqExprCast-481;PRSC Error: Failed to parse query 'not(xs:float("3.4e5") casta
 K-SeqExprCast-482;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-483;PRSC Error: Failed to parse query 'not(xs:float("3.4e5") castable as xs:QName)'
 K-SeqExprCast-484;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:float("3.4e5") castable as xs:NOTATION)'
-K-SeqExprCast-487;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-487;Can't parse 1.1 into an int.
 K-SeqExprCast-489;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqExprCast-49;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-492;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
@@ -13568,7 +13568,7 @@ K-SeqExprCast-529;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") cast
 K-SeqExprCast-530;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-531;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:QName)'
 K-SeqExprCast-532;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:NOTATION)'
-K-SeqExprCast-535;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-535;Can't parse 1.1 into an int.
 K-SeqExprCast-536;Atomic Value for XsDecimal is not implemented yet.
 K-SeqExprCast-537;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqExprCast-538;Atomic Value for XsDecimal is not implemented yet.
@@ -13621,7 +13621,7 @@ K-SeqExprCast-581;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") cas
 K-SeqExprCast-582;Expected XPathException with code XPTY0004, but got Atomic Value for XsDecimal is not implemented yet.
 K-SeqExprCast-583;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:QName)'
 K-SeqExprCast-584;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:NOTATION)'
-K-SeqExprCast-587;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-587;Can't parse 1.1 into an int.
 K-SeqExprCast-589;Expected XPathException with code FORG0001, but got Can't parse  into an int.
 K-SeqExprCast-592;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-593;PRSC Error: Failed to parse query 'xs:integer("6789") castable as xs:untypedAtomic'
@@ -13657,7 +13657,7 @@ K-SeqExprCast-633;PRSC Error: Failed to parse query 'not(xs:integer("6789") cast
 K-SeqExprCast-634;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-635;PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:QName)'
 K-SeqExprCast-636;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:NOTATION)'
-K-SeqExprCast-639;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-639;Can't parse 1.1 into an int.
 K-SeqExprCast-640;Type casting to XsDuration has not been implemented yet.
 K-SeqExprCast-641;Expected XPathException with code FORG0001, but got Type casting to XsDuration has not been implemented yet.
 K-SeqExprCast-642;Type casting to XsDuration has not been implemented yet.
@@ -13709,7 +13709,7 @@ K-SeqExprCast-686;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-687;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:QName)'
 K-SeqExprCast-688;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:NOTATION)'
 K-SeqExprCast-69;Expected executing the XPath ". cast as xs:QName" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
-K-SeqExprCast-691;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-691;Can't parse 1.1 into an int.
 K-SeqExprCast-692;Type casting to XsYearMonthDuration has not been implemented yet.
 K-SeqExprCast-693;Expected XPathException with code FORG0001, but got Type casting to XsYearMonthDuration has not been implemented yet.
 K-SeqExprCast-694;Type casting to XsYearMonthDuration has not been implemented yet.
@@ -13765,7 +13765,7 @@ K-SeqExprCast-738;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-739;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:QName)'
 K-SeqExprCast-74;Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-740;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:NOTATION)'
-K-SeqExprCast-743;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-743;Can't parse 1.1 into an int.
 K-SeqExprCast-744;Type casting to XsDayTimeDuration has not been implemented yet.
 K-SeqExprCast-745;Expected XPathException with code FORG0001, but got Type casting to XsDayTimeDuration has not been implemented yet.
 K-SeqExprCast-746;Type casting to XsDayTimeDuration has not been implemented yet.
@@ -13819,7 +13819,7 @@ K-SeqExprCast-79;Expected XPath xs:string(xs:double("-INF")) eq "-INF" to resolv
 K-SeqExprCast-790;Expected XPathException with code XPTY0004, but got Type casting to XsDayTimeDuration has not been implemented yet.
 K-SeqExprCast-791;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:QName)'
 K-SeqExprCast-792;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:NOTATION)'
-K-SeqExprCast-795;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-795;Can't parse 1.1 into an int.
 K-SeqExprCast-797;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-7a;Expected error code: XQST0052. Found error code: XPST0051 with error message: The type "xs:anyType" could not be found
 K-SeqExprCast-80;HandleNumericOperator: Different numeric types: XsFloat and XsInt
@@ -13858,7 +13858,7 @@ K-SeqExprCast-841;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10
 K-SeqExprCast-842;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-843;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:QName)'
 K-SeqExprCast-844;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:NOTATION)'
-K-SeqExprCast-847;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-847;Can't parse 1.1 into an int.
 K-SeqExprCast-849;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-85;Atomic Value for XsDecimal is not implemented yet.
 K-SeqExprCast-852;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
@@ -13895,7 +13895,7 @@ K-SeqExprCast-893;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00
 K-SeqExprCast-894;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-895;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:QName)'
 K-SeqExprCast-896;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:NOTATION)'
-K-SeqExprCast-899;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-899;Can't parse 1.1 into an int.
 K-SeqExprCast-90;Can't parse 3.1 into an int.
 K-SeqExprCast-901;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-904;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
@@ -13938,7 +13938,7 @@ K-SeqExprCast-946;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-947;PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:QName)'
 K-SeqExprCast-948;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:NOTATION)'
 K-SeqExprCast-95;Expected XPathException with code FORG0001, but got Type casting to XsHexBinary has not been implemented yet.
-K-SeqExprCast-951;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-951;Can't parse 1.1 into an int.
 K-SeqExprCast-953;Expected XPathException with code FORG0001, but got The string '' is not a valid AllXsd value.
 K-SeqExprCast-956;Specified argument was out of the range of valid values. (Parameter 'Comparison between operands of type XsUntypedAtomic not implemented yet.')
 K-SeqExprCast-957;PRSC Error: Failed to parse query 'xs:gYearMonth("1999-11") castable as xs:untypedAtomic'
@@ -14179,45 +14179,45 @@ K-SeqReverseFunc-16;Expected XPath reverse((1, 2, 3))[last()] eq 1 to resolve to
 K-SeqReverseFunc-20;The function current-time with arity 0 is not registered.
 K-SeqReverseFunc-21;The function current-time with arity 0 is not registered.
 K-SeqReverseFunc-8;The function current-time with arity 0 is not registered.
-K-SeqSubsequenceFunc-10;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-11;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-12;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-13;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-14;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-15;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-16;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-17;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-18;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-19;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-20;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-21;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-22;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-23;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-24;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-25;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-26;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-28;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-29;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-30;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-31;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-32;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-33;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-35;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-36;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-37;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-38;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-39;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-4;Expected executing the XPath "empty(subsequence((), 2, 3))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-40;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-41;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-42;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-43;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-44;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-5;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-6;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-7;The function subsequence with arity 3 is not registered.
-K-SeqSubsequenceFunc-8;The function subsequence with arity 2 is not registered.
-K-SeqSubsequenceFunc-9;The function subsequence with arity 3 is not registered.
+K-SeqSubsequenceFunc-10;Can't parse 3.1 into an int.
+K-SeqSubsequenceFunc-11;Can't parse 3.1 into an int.
+K-SeqSubsequenceFunc-12;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-13;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-14;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-15;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-16;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-17;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-18;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-19;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-20;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-SeqSubsequenceFunc-21;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-22;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-23;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-24;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-25;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-26;Can't parse 3.1 into an int.
+K-SeqSubsequenceFunc-28;Expected XPathException with code XPTY0004, but got Can't parse 3.1 into an int.
+K-SeqSubsequenceFunc-29;Expected XPathException with code XPTY0004, but got Can't parse 3.1 into an int.
+K-SeqSubsequenceFunc-30;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
+K-SeqSubsequenceFunc-31;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-32;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-33;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-35;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-36;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-37;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-38;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-39;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-4;Expected executing the XPath "empty(subsequence((), 2, 3))" to resolve to one of the expected results, but got System.InvalidCastException: Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-40;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-41;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-42;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-43;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-44;The function current-time with arity 0 is not registered.
+K-SeqSubsequenceFunc-5;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-6;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-7;Casting AbstractValue(XsInt) to DoubleValue
+K-SeqSubsequenceFunc-8;Can't parse 3.1 into an int.
+K-SeqSubsequenceFunc-9;Can't parse 3.1 into an int.
 K-SeqSUMFunc-10;The function sum with arity 1 is not registered.
 K-SeqSUMFunc-11;The function sum with arity 1 is not registered.
 K-SeqSUMFunc-12;The function sum with arity 1 is not registered.
@@ -16520,13 +16520,13 @@ K2-SeqReverseFunc-2;PRSC Error: Failed to parse query ''
 K2-SeqReverseFunc-3;PRSC Error: Failed to parse query ''
 K2-SeqReverseFunc-6;PRSC Error: Failed to parse query 'deep-equal((declare ordering unordered; reverse((1, 2))), (2, 1))'
 K2-SeqSubsequenceFunc-1;TreatExpr AST to Expression not yet implemented
-K2-SeqSubsequenceFunc-10;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
-K2-SeqSubsequenceFunc-2;The function subsequence with arity 3 is not registered.
-K2-SeqSubsequenceFunc-3;The function subsequence with arity 3 is not registered.
-K2-SeqSubsequenceFunc-4;The function fn:subsequence with arity 3 is not registered.
-K2-SeqSubsequenceFunc-5;The function fn:subsequence with arity 3 is not registered.
-K2-SeqSubsequenceFunc-6;The function fn:subsequence with arity 3 is not registered.
-K2-SeqSubsequenceFunc-7;The function fn:subsequence with arity 3 is not registered.
+K2-SeqSubsequenceFunc-10;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to DoubleValue
+K2-SeqSubsequenceFunc-2;Casting AbstractValue(XsInt) to DoubleValue
+K2-SeqSubsequenceFunc-3;Casting AbstractValue(XsInt) to DoubleValue
+K2-SeqSubsequenceFunc-4;Can't parse 1.1 into an int.
+K2-SeqSubsequenceFunc-5;Can't parse 1.8 into an int.
+K2-SeqSubsequenceFunc-6;Can't parse 1.4 into an int.
+K2-SeqSubsequenceFunc-7;Can't parse 1.5 into an int.
 K2-SeqSubsequenceFunc-8;PRSC Error: Failed to parse query 'let $f :=function() { subsequence(subsequence((1, 2, 3, 4), 3, 1), 1, 4) } return $f() = 3'
 K2-SeqSubsequenceFunc-9;PRSC Error: Failed to parse query 'deep-equal((let $f :=function() { subsequence((1, 2, 3), 1) } return $f()), (1, 2, 3))'
 K2-SeqSUMFunc-1;The function sum with arity 2 is not registered.
