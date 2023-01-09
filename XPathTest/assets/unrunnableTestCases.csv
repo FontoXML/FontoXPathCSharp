@@ -291,7 +291,6 @@ ArrowPostfix-107;PRSC Error: Failed to parse query '1 => ([2,3],[4,5][6])() = 2'
 ArrowPostfix-108;Object reference not set to an instance of an object.
 ArrowPostfix-109;PRSC Error: Failed to parse query 'let $days := map{"Mo": "Monday", "Tu": "Tuesday"} return "Tu" => $days() = "Tuesday"'
 ArrowPostfix-110;PRSC Error: Failed to parse query '"Tu" => (map{"Mo": "Monday", "Tu": "Tuesday"})() = "Tuesday"'
-Axes018-1;Expected XPath fn:count(/far-north/parent::node()) to resolve to 1
 Axes046-1;Expected XPath fn:count(/child::node()) to resolve to 1
 Axes046-2;Expected XPath fn:count(/child::node()) to resolve to 7
 Axes049-1;Expected XPath fn:count(/node()) to resolve to 1
@@ -8088,7 +8087,7 @@ ForExpr008;Use of XQuery FLWOR expressions in XPath is not allowed
 ForExpr009;Expected XPathException with code XPST0008, but got The given key 'a' was not present in the dictionary.
 ForExpr010;PRSC Error: Failed to parse query ''
 ForExpr011;PRSC Error: Failed to parse query ''
-ForExpr013;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/ForClause/ForExpr-013.out'.
+ForExpr013;Could not find a part of the path ending in: 'qt3tests//ForClause/ForExpr-013.out'
 ForExpr016;Expected results and parsedFragment children to match
 ForExpr022;Expected XPath for $file at $pos in (//Folder)[1]/File return (string($file/FileName[1]), $pos) to resolve to File00000000000 1 File00000000001 2 File00000000002 3 File00000000003 4 File00000000004 5 File00000000005 6 File00000000006 7 File00000000007 8 File00000000008 9 File00000000009 10 File00000000010 11 File00000000011 12 File00000000012 13 File00000000013 14 File00000000014 15 File00000000015 16 File00000000016 17 File00000000017 18 File00000000018 19 File00000000019 20 File00000000020 21 File00000000021 22 File00000000022 23 File00000000023 24 File00000000024 25 File00000000025 26 File00000000026 27 File00000000027 28 File00000000028 29 File00000000029 30 File00000000030 31, but instead got File00000000000 1 File00000000001 2 File00000000002 3 File00000000003 4 File00000000004 5 File00000000005 6 File00000000006 7 File00000000007 8 File00000000008 9 File00000000009 10 File00000000010 11 File00000000011 12 File00000000012 13 File00000000013 14 File00000000014 15 File00000000015 16 File00000000016 17 File00000000017 18 File00000000018 19 File00000000019 20 File00000000020 21 File00000000021 22 File00000000022 23 File00000000023 24 File00000000024 25 File00000000025 26 File00000000026 27 File00000000027 28 File00000000028 29 File00000000029 30 File00000000030 31 File00000000031 32 File00000000032 33 File00000000033 34 File00000000034 35 File00000000035 36 File00000000036 37 File00000000037 38 File00000000038 39 File00000000039 40 File00000000040 41 File00000000041 42 File00000000042 43 File00000000043 44 File00000000044 45 File00000000045 46 File00000000046 47 File00000000047 48 File00000000048 49 File00000000049 50 File00000000050 51 File00000000051 52 File00000000052 53 File00000000053 54 File00000000054 55 File00000000055 56 File00000000056 57 File00000000057 58 File00000000058 59 File00000000059 60 File00000000060 61 File00000000061 62 File00000000062 63 File00000000063 64 File00000000064 65 File00000000065 66 File00000000066 67 File00000000067 68 File00000000068 69 File00000000069 70 File00000000070 71 File00000000071 72 File00000000072 73 File00000000073 74 File00000000074 75 File00000000075 76 File00000000076 77 File00000000077 78 File00000000078 79 File00000000079 80 File00000000080 81 File00000000081 82 File00000000082 83 File00000000083 84 File00000000084 85 File00000000085 86 File00000000086 87 File00000000087 88 File00000000088 89 File00000000089 90 File00000000090 91 File00000000091 92 File00000000092 93 File00000000093 94 File00000000094 95 File00000000095 96 File00000000096 97 File00000000097 98 File00000000098 99 File00000000099 100 File00000000100 101
 ForExpr023;Expected XPath for $file at $pos in (//Folder)[1]/File, $pos2 in $pos+1 return (string($file/FileName[1]), $pos, $pos2) to resolve to File00000000000 1 2 File00000000001 2 3 File00000000002 3 4 File00000000003 4 5 File00000000004 5 6 File00000000005 6 7 File00000000006 7 8 File00000000007 8 9 File00000000008 9 10 File00000000009 10 11 File00000000010 11 12 File00000000011 12 13 File00000000012 13 14 File00000000013 14 15 File00000000014 15 16 File00000000015 16 17 File00000000016 17 18 File00000000017 18 19 File00000000018 19 20 File00000000019 20 21 File00000000020 21 22 File00000000021 22 23 File00000000022 23 24 File00000000023 24 25 File00000000024 25 26 File00000000025 26 27 File00000000026 27 28 File00000000027 28 29 File00000000028 29 30 File00000000029 30 31 File00000000030 31 32, but instead got File00000000000 1 2 File00000000001 2 3 File00000000002 3 4 File00000000003 4 5 File00000000004 5 6 File00000000005 6 7 File00000000006 7 8 File00000000007 8 9 File00000000008 9 10 File00000000009 10 11 File00000000010 11 12 File00000000011 12 13 File00000000012 13 14 File00000000013 14 15 File00000000014 15 16 File00000000015 16 17 File00000000016 17 18 File00000000017 18 19 File00000000018 19 20 File00000000019 20 21 File00000000020 21 22 File00000000021 22 23 File00000000022 23 24 File00000000023 24 25 File00000000024 25 26 File00000000025 26 27 File00000000026 27 28 File00000000027 28 29 File00000000028 29 30 File00000000029 30 31 File00000000030 31 32 File00000000031 32 33 File00000000032 33 34 File00000000033 34 35 File00000000034 35 36 File00000000035 36 37 File00000000036 37 38 File00000000037 38 39 File00000000038 39 40 File00000000039 40 41 File00000000040 41 42 File00000000041 42 43 File00000000042 43 44 File00000000043 44 45 File00000000044 45 46 File00000000045 46 47 File00000000046 47 48 File00000000047 48 49 File00000000048 49 50 File00000000049 50 51 File00000000050 51 52 File00000000051 52 53 File00000000052 53 54 File00000000053 54 55 File00000000054 55 56 File00000000055 56 57 File00000000056 57 58 File00000000057 58 59 File00000000058 59 60 File00000000059 60 61 File00000000060 61 62 File00000000061 62 63 File00000000062 63 64 File00000000063 64 65 File00000000064 65 66 File00000000065 66 67 File00000000066 67 68 File00000000067 68 69 File00000000068 69 70 File00000000069 70 71 File00000000070 71 72 File00000000071 72 73 File00000000072 73 74 File00000000073 74 75 File00000000074 75 76 File00000000075 76 77 File00000000076 77 78 File00000000077 78 79 File00000000078 79 80 File00000000079 80 81 File00000000080 81 82 File00000000081 82 83 File00000000082 83 84 File00000000083 84 85 File00000000084 85 86 File00000000085 86 87 File00000000086 87 88 File00000000087 88 89 File00000000088 89 90 File00000000089 90 91 File00000000090 91 92 File00000000091 92 93 File00000000092 93 94 File00000000093 94 95 File00000000094 95 96 File00000000095 96 97 File00000000096 97 98 File00000000097 98 99 File00000000098 99 100 File00000000099 100 101 File00000000100 101 102
@@ -17962,11 +17961,11 @@ string-constructor-028;PRSC Error: Failed to parse query '() instance of $elemen
 string-constructor-910;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 string-constructor-911;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 string-constructor-912;PRSC Error: Failed to parse query ' = "There were 1 2 3 4 5 6 7 8 9 10 green bottles"'
-string-queries-results-q1;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q1.out'.
-string-queries-results-q2;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q2.out'.
-string-queries-results-q4;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q4.out'.
-string-queries-results-q5;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q5.out'.
-sudoku;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/Demos/sudoku-result.xml'.
+string-queries-results-q1;Could not find a part of the path ending in: 'qt3tests//UseCaseSTRING/string-queries-results-q1.out'
+string-queries-results-q2;Could not find a part of the path ending in: 'qt3tests//UseCaseSTRING/string-queries-results-q2.out'
+string-queries-results-q4;Could not find a part of the path ending in: 'qt3tests//UseCaseSTRING/string-queries-results-q4.out'
+string-queries-results-q5;Could not find a part of the path ending in: 'qt3tests//UseCaseSTRING/string-queries-results-q5.out'
+sudoku;Could not find a part of the path ending in: 'qt3tests//Demos/sudoku-result.xml'
 surrogates01;PRSC Error: Failed to parse query ' = 7'
 surrogates01a;Expected XPath string-length("abc𝅖def") to resolve to 7
 surrogates02;PRSC Error: Failed to parse query ''
@@ -18311,25 +18310,25 @@ WhereExpr032;Use of XQuery FLWOR expressions in XPath is not allowed
 WhereExpr033;PRSC Error: Failed to parse query '\n         declare variable $n external := 0;\n         for $x in -2 to +2\n         where ($n - $x)\n         return $x\n      '
 WhereExpr034;Use of XQuery FLWOR expressions in XPath is not allowed
 XMark-Q1;PRSC Error: Failed to parse query ''
-XMark-Q10;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q10.xml'.
-XMark-Q11;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q11.xml'.
-XMark-Q12;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q12.xml'.
-XMark-Q13;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q13.xml'.
-XMark-Q14;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q14.xml'.
-XMark-Q15;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q15.xml'.
-XMark-Q16;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q16.xml'.
-XMark-Q17;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q17.xml'.
-XMark-Q18;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q18.xml'.
-XMark-Q19;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q19.xml'.
-XMark-Q2;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q2.xml'.
-XMark-Q20;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q20.xml'.
-XMark-Q3;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q3.xml'.
+XMark-Q10;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q10.xml'
+XMark-Q11;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q11.xml'
+XMark-Q12;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q12.xml'
+XMark-Q13;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q13.xml'
+XMark-Q14;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q14.xml'
+XMark-Q15;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q15.xml'
+XMark-Q16;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q16.xml'
+XMark-Q17;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q17.xml'
+XMark-Q18;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q18.xml'
+XMark-Q19;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q19.xml'
+XMark-Q2;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q2.xml'
+XMark-Q20;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q20.xml'
+XMark-Q3;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q3.xml'
 XMark-Q4;PRSC Error: Failed to parse query ''
 XMark-Q5;PRSC Error: Failed to parse query ''
 XMark-Q6;PRSC Error: Failed to parse query ''
 XMark-Q7;PRSC Error: Failed to parse query ''
-XMark-Q8;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q8.xml'.
-XMark-Q9;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q9.xml'.
+XMark-Q8;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q8.xml'
+XMark-Q9;Could not find a part of the path ending in: 'qt3tests//XMark/XMark-Q9.xml'
 XML10-3ed-Mixed-content;PRSC Error: Failed to parse query '<foo> a <![CDATA[cdata section]]> in mixed content. a <!-- comment --> in mixed content. a <?processing instruction?> in mixed content. </foo>'
 XML10-4ed-Excluded-char-1-new;Name cannot begin with the 'Ϳ' character, hexadecimal value 0x37F. Line 1, position 7.
 XML10-5ed-Included-char-1;PRSC Error: Failed to parse query '<foo></foo>'

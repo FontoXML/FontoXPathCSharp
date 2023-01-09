@@ -20,8 +20,6 @@ public interface IDomFacade<TNode>
 
     TNode? GetPreviousSibling(TNode node, string? bucket = null);
 
-    TNode? GetDocument(TNode node);
-
     string GetLocalName(TNode node);
 
     string GetNamespaceUri(TNode node);
