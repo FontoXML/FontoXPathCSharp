@@ -1,12 +1,13 @@
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
-namespace FontoXPathCSharp.Value;
+namespace FontoXPathCSharp.Value.InternalValues;
 
-public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
+public class DateTime : IComparable<DateTime>, IComparable
 {
     private readonly DateTimeOffset _dateTime;
+    private readonly bool _hasTimezone;
 
-    public DateTimeWrapper(
+    public DateTime(
         int years,
         int months,
         int days,
@@ -18,7 +19,7 @@ public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
         bool hasTimezone,
         ValueType type)
     {
-        HasTimezone = hasTimezone && timezone != null;
+        _hasTimezone = hasTimezone && timezone != null;
         _dateTime = new DateTimeOffset(
             years,
             months,
@@ -32,9 +33,9 @@ public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
         GetValueType = type;
     }
 
-    public DateTimeWrapper(DateTimeOffset dateTime, bool hasTimezone, ValueType type)
+    public DateTime(DateTimeOffset dateTime, bool hasTimezone, ValueType type)
     {
-        HasTimezone = hasTimezone;
+        _hasTimezone = hasTimezone;
         _dateTime = dateTime;
         GetValueType = type;
     }
@@ -49,16 +50,16 @@ public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
     public bool IsPositive => GetYear >= 0;
     public TimeSpan GetTimezone => _dateTime.Offset;
 
-    public bool HasTimezone { get; }
+    public bool HasTimezone => _hasTimezone;
 
     public ValueType GetValueType { get; }
 
     public int CompareTo(object? obj)
     {
-        return obj is DateTimeWrapper dateTime ? CompareTo(dateTime) : 1;
+        return obj is DateTime dateTime ? CompareTo(dateTime) : 1;
     }
-
-    public int CompareTo(DateTimeWrapper? other)
+    
+    public int CompareTo(DateTime? other)
     {
         return other != null ? _dateTime.CompareTo(other._dateTime) : 1;
     }
@@ -108,7 +109,7 @@ public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
 
     private string TimezoneToString(TimeSpan timezone)
     {
-        if (!HasTimezone) return "";
+        if (!_hasTimezone) return "";
 
         if (IsUtc(timezone)) return "Z";
         return $"{(timezone.TotalSeconds >= 0 ? '+' : '-')}{ConvertToTwoCharString(Math.Abs(timezone.Hours))}" +
@@ -118,5 +119,23 @@ public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
     private static bool IsUtc(TimeSpan timezone)
     {
         return timezone.Hours == 0 && timezone.Minutes == 0;
+    }
+
+    public static Duration operator -(DateTime a, DateTime b)
+    {
+        var result = a._dateTime - b._dateTime;
+        return new Duration(result);
+    }
+
+    public static DateTime operator +(DateTime dateTime, Duration duration)
+    {
+        var result = dateTime._dateTime + new TimeSpan(duration.RawSeconds * TimeSpan.TicksPerSecond);
+        return new DateTime(result, dateTime.HasTimezone, dateTime.GetValueType);
+    }
+
+    public static DateTime operator -(DateTime dateTime, Duration duration)
+    {
+        var result = dateTime._dateTime - new TimeSpan(duration.RawSeconds * TimeSpan.TicksPerSecond);
+        return new DateTime(result, dateTime.HasTimezone, dateTime.GetValueType);
     }
 }

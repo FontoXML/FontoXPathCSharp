@@ -93,6 +93,11 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
             $"HandleNumericOperator: Different numeric types: {a.GetValueType()} and {b.GetValueType()}");
     }
 
+    private static bool HandleDuration(CompareType type, AbstractValue first, AbstractValue second)
+    {
+        return Compare(type, first.GetAs<DurationValue>().Value, first.GetAs<DurationValue>().Value);
+    }
+
     public static bool PerformValueCompare(
         CompareType type,
         AbstractValue first,
@@ -140,13 +145,10 @@ public class ValueCompare<TNode> : AbstractExpression<TNode> where TNode : notnu
         )
             return HandleNumericOperator(type, first, second);
 
-        if (AreBothSubtypeOf(ValueType.XsYearMonthDuration))
-            throw new NotImplementedException("YearMonthDuration comparison");
-
-        if (AreBothSubtypeOf(ValueType.XsDayTimeDuration))
-            throw new NotImplementedException("DayTimeDuration comparison");
-
-        if (AreBothSubtypeOf(ValueType.XsDuration)) throw new NotImplementedException("Duration comparison");
+        if (AreBothSubtypeOf(ValueType.XsYearMonthDuration) ||
+            AreBothSubtypeOf(ValueType.XsDayTimeDuration) ||
+            AreBothSubtypeOf(ValueType.XsDuration))
+            return HandleDuration(type, first, second);
 
         if (AreBothSubtypeOf(ValueType.XsDateTime) ||
             AreBothSubtypeOf(ValueType.XsDate) ||
