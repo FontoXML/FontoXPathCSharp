@@ -2698,9 +2698,9 @@ cbcl-fn-translate-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-translate-002;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-union-001;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 cbcl-fn-union-002;PRSC Error: Failed to parse query ''
-cbcl-fn-unordered-001;The function unordered with arity 1 is not registered.
+cbcl-fn-unordered-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-unordered-002;PRSC Error: Failed to parse query ''
-cbcl-fn-unordered-003;The function unordered with arity 1 is not registered.
+cbcl-fn-unordered-003;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-followingAxis-001;PRSC Error: Failed to parse query ''
 cbcl-function-decl-001;PRSC Error: Failed to parse query 'declare function local:nothing() as empty-sequence() { () }; empty(local:nothing())'
 cbcl-function-declaration-002;PRSC Error: Failed to parse query 'declare function local:count($x) { count($x) }; local:count((1 to 100000, 1 to 100000))'
@@ -4235,8 +4235,8 @@ DirectConElemNamespace-3;Expected executing the XPath "" to resolve to one of th
 DirectConElemNamespace-4;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 DirectConElemNamespace-5;PRSC Error: Failed to parse query ''
 DirectConElemNamespace-6;PRSC Error: Failed to parse query ''
-distinct-duration-equal-1;Expected executing the XPath "fn:distinct-values((xs:yearMonthDuration('P0Y'), xs:dayTimeDuration('P0D')))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:distinct-values with arity 1 is not registered.
-distinct-duration-equal-2;Expected executing the XPath "fn:distinct-values((xs:yearMonthDuration('P1Y'), xs:dayTimeDuration('P365D')))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:distinct-values with arity 1 is not registered.
+distinct-duration-equal-1;Expected executing the XPath "fn:distinct-values((xs:yearMonthDuration('P0Y'), xs:dayTimeDuration('P0D')))" to resolve to one of the expected results, but got System.NotImplementedException: Type casting to XsYearMonthDuration has not been implemented yet.
+distinct-duration-equal-2;Expected executing the XPath "fn:distinct-values((xs:yearMonthDuration('P1Y'), xs:dayTimeDuration('P365D')))" to resolve to one of the expected results, but got System.NotImplementedException: Type casting to XsYearMonthDuration has not been implemented yet.
 ElemContentArray-001;PRSC Error: Failed to parse query ''
 ElemContentArray-002;PRSC Error: Failed to parse query ''
 emptyorderdecl-1;Expected error code: XQST0069. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare default order empty least; declare default order empty greatest;  "aaa"'
@@ -8276,13 +8276,9 @@ fn-union-node-args-019;Expected XPath (/atomic:root/atomic:date/text()) | (/atom
 fn-union-node-args-020;Expected XPath (/atomic:root/atomic:base64Binary/text()) | (/atomic:root/atomic:base64Binary/text()) to resolve to R0lGODlhcgGSALMAAAQCAEMmCZtuMFQxDS8b, but instead got null
 fn-union-node-args-021;Expected XPath (/atomic:root/atomic:QName/text()) | (/atomic:root/atomic:QName/text()) to resolve to foo:aQname, but instead got null
 fn-union-node-args-022;Expected XPath (/atomic:root/atomic:idrefs/text()) | (/atomic:root/atomic:idrefs/text()) to resolve to id1 id2, but instead got null
-fn-unordered-101;The function unordered with arity 1 is not registered.
-fn-unordered-102;The function unordered with arity 1 is not registered.
-fn-unordered-103;The function unordered with arity 1 is not registered.
-fn-unordered-104;The function unordered with arity 1 is not registered.
-fn-unordered-105;The function unordered with arity 1 is not registered.
-fn-unordered-106;The function unordered with arity 1 is not registered.
-fn-unordered-107;The function unordered with arity 1 is not registered.
+fn-unordered-101;Expected XPath count(/works/employee[last()]/unordered(preceding-sibling::*)) to resolve to 12
+fn-unordered-102;Expected XPath count(/works/employee[last()]/unordered(preceding::*)) to resolve to 54
+fn-unordered-103;Expected XPath count((/works//day)[last()]/unordered(ancestor-or-self::*)) to resolve to 4
 fn-unordered-108;Skipped test, it was a assert-permutation
 fn-unordered-109;Skipped test, it was a assert-permutation
 fn-unordered-mix-args-001;Skipped test, it was a assert-permutation
@@ -8996,7 +8992,6 @@ FOCA0005_2;Expected XPathException with code FOCA0005, but got Type casting to X
 FOCA0005_3;Expected XPathException with code FOCA0005, but got Type casting to XsDayTimeDuration has not been implemented yet.
 FOCA0005_4;Expected XPathException with code FOCA0005, but got Type casting to XsDayTimeDuration has not been implemented yet.
 FOCH0002_10;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-before with arity 3 is not registered.
-FOCH0002_3;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function distinct-values with arity 2 is not registered.
 FOCH0002_5;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function index-of with arity 3 is not registered.
 FOCH0002_9;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-after with arity 3 is not registered.
 FODC0001_1;Expected error code: FODC0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
@@ -9938,8 +9933,6 @@ functx-fn-compare-all;Expected XPath (compare('a', 'b'), compare('a', 'a'), comp
 functx-fn-concat-4;PRSC Error: Failed to parse query ''
 functx-fn-concat-all;PRSC Error: Failed to parse query ''
 functx-fn-contains-all;Expected XPath (contains('query', 'e'), contains('query', 'ery'), contains('query', 'query'), contains('query', 'x'), contains('query', ''), contains('query', ()), contains( (), 'q')) to resolve to true true true false true true false, but instead got True True True False True True False
-functx-fn-count-3;The function distinct-values with arity 1 is not registered.
-functx-fn-count-all;The function distinct-values with arity 1 is not registered.
 functx-fn-data-1;Expected XPath let $cat := (/) return (data($cat//product[1]/number)) to resolve to 557, but instead got null
 functx-fn-data-3;Expected XPath let $cat := (/) return (data($cat//product[1]/@dept)) to resolve to WMN, but instead got null
 functx-fn-data-4;Expected XPath let $cat := (/) return (data($cat//product[1]/colorChoices)) to resolve to navy black, but instead got null
@@ -11396,7 +11389,7 @@ generate-id-006;The function generate-id with arity 1 is not registered.
 generate-id-007;PRSC Error: Failed to parse query 'let $result := (generate-id((//namespace::*)[1])) return matches($result, '^[A-Za-z][A-Za-z0-9]*$')'
 generate-id-008;The function generate-id with arity 0 is not registered.
 generate-id-009;The function generate-id with arity 0 is not registered.
-generate-id-010;The function distinct-values with arity 1 is not registered.
+generate-id-010;The function generate-id with arity 0 is not registered.
 generate-id-011;PRSC Error: Failed to parse query 'let $nodes := //*/(@* | namespace::*) \n            return count($nodes) eq count(distinct-values($nodes/generate-id()))'
 generate-id-012;The function collection with arity 0 is not registered.
 generate-id-013;The function collection with arity 0 is not registered.
@@ -12005,7 +11998,6 @@ K-FloorFunc-4;Can't parse 10.5 into an int.
 K-FloorFunc-5;Can't parse 10.5 into an int.
 K-FloorFunc-6;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to UntypedAtomicValue
 K-ForExprPositionalVar-1;Expected XPathException with code XPST0008, but got The given key 'p' was not present in the dictionary.
-K-ForExprPositionalVar-10;The function distinct-values with arity 1 is not registered.
 K-ForExprPositionalVar-12;The function current-time with arity 0 is not registered.
 K-ForExprPositionalVar-13;The function current-time with arity 0 is not registered.
 K-ForExprPositionalVar-14;The function current-time with arity 0 is not registered.
@@ -14257,12 +14249,8 @@ K-sequenceExprTypeswitch-5;PRSC Error: Failed to parse query '(typeswitch(((1, c
 K-sequenceExprTypeswitch-6;PRSC Error: Failed to parse query '(typeswitch(()) case xs:integer* return 1 case empty-sequence() return 1 default return -2) eq 1'
 K-sequenceExprTypeswitch-7;PRSC Error: Failed to parse query '(typeswitch(1, 2, 3) case xs:string+ return -1 case xs:integer+ return 1 default return -2) eq 1'
 K-sequenceExprTypeswitch-8;PRSC Error: Failed to parse query '(typeswitch(1, 2, current-time()) case element() return -1 case document-node() return -2 default return 1) eq 1'
-K-SeqUnorderedFunc-3;The function unordered with arity 1 is not registered.
-K-SeqUnorderedFunc-4;The function unordered with arity 1 is not registered.
-K-SeqUnorderedFunc-5;The function unordered with arity 1 is not registered.
-K-SeqUnorderedFunc-6;Expected executing the XPath "empty(unordered(()))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function unordered with arity 1 is not registered.
-K-SeqUnorderedFunc-7;The function unordered with arity 1 is not registered.
-K-SeqUnorderedFunc-8;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function unordered with arity 1 is not registered.
+K-SeqUnorderedFunc-5;The function current-time with arity 0 is not registered.
+K-SeqUnorderedFunc-8;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-SeqZeroOrOneFunc-7;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-StartsWithFunc-5;No collations are supported
 K-StringFunc-5;The function current-time with arity 0 is not registered.

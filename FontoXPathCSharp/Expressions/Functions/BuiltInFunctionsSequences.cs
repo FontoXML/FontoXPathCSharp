@@ -100,6 +100,21 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         });
     };
 
+    private static readonly FunctionSignature<ISequence, TNode> FnUnordered = (_, _, _, args) => args[0];
+
+    private static readonly FunctionSignature<ISequence, TNode> FnDistinctValues =
+        (dynamicContext, executionParameters, staticContext, args) =>
+        {
+            var sequence = args[0];
+            var xs = Atomize.AtomizeSequence(sequence, executionParameters).GetAllValues();
+            Func<AtomicValue, AtomicValue, bool> equals = (x, y) =>
+                BuiltInFunctionsSequencesDeepEqual<TNode>
+                    .AnyAtomicTypeDeepEqual(dynamicContext!, executionParameters, staticContext!, x, y).Value;
+            return SequenceFactory.CreateFromArray(xs
+                .Where((x, i) => xs[..i].All(y => !equals((AtomicValue)x, (AtomicValue)y))).ToArray());
+        };
+
+
     private static readonly FunctionSignature<ISequence, TNode> FnCount = (_, _, _, args) =>
     {
         var hasPassed = false;
@@ -329,6 +344,38 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
         ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnUnordered,
+            "unordered",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnDistinctValues,
+            "distinct-values",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrMore)
+            },
+            (_, _, _, _) => throw new XPathException("FOCH0002", "No collations are supported"),
+            "distinct-values",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+
 
         new(new[]
             {
