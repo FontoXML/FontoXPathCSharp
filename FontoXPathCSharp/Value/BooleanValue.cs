@@ -11,14 +11,32 @@ public class BooleanValue : AtomicValue
         Value = value;
     }
 
-    public BooleanValue(object? value) : base(ValueType.XsBoolean)
+    public static BooleanValue CreateBooleanValue(object? value)
     {
-        Value = value is string s
-            ? bool.TryParse(s, out var val) ? val : throw new Exception($"Can't parse {s} into an bool.")
-            : ConvertToBool(value);
+        var booleanValue = value is string str 
+            ? CreateFromString(str) 
+            : CreateFromValue(value);
+
+        return new BooleanValue(booleanValue);
     }
 
-    private bool ConvertToBool(object? value)
+    private static bool CreateFromString(string str)
+    {
+        try
+        {
+            return bool.Parse(str);
+        }
+        catch (FormatException formatEx)
+        {
+            throw new XPathException("FORG0001", formatEx.Message);
+        }
+        catch (OverflowException overflowEx)
+        {
+            throw new XPathException("FOCA0001", overflowEx.Message);
+        }
+    }
+
+    private static bool CreateFromValue(object? value)
     {
         return value != null
             ? Convert.ToBoolean(value)

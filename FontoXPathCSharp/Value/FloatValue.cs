@@ -2,42 +2,36 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
 
-public class FloatValue : AtomicValue
+public class FloatValue : NumericValue<float>
 {
-    public readonly float Value;
-
-    public FloatValue(float value) : base(ValueType.XsFloat)
+    public FloatValue(float value) : base(value, ValueType.XsFloat)
     {
-        Value = value;
     }
 
-    public FloatValue(object? value) : base(ValueType.XsFloat)
+    public static FloatValue CreateFloatValue(object? value)
     {
-        Value = value is string s
-            ? float.TryParse(s, out var val) ? val : StringEdgeCasesOrException(s)
-            : ConvertToFloat(value);
+        var floatValue = value is string str 
+            ? CreateFromString(str) 
+            : CreateFromValue(value);
+        
+        return new FloatValue(floatValue);
     }
 
-    private float ConvertToFloat(object? value)
+    private static float CreateFromString(string str)
     {
-        return value != null
-            ? Convert.ToSingle(value)
-            : throw new Exception("Tried to initialize an FloatValue with null.");
-    }
-
-
-    private float StringEdgeCasesOrException(string s)
-    {
-        return s switch
+        return NumericCast(str, v =>
         {
-            "INF" => float.PositiveInfinity,
-            "-INF" => float.NegativeInfinity,
-            _ => throw new Exception($"Can't parse {s} into an float for a FloatValue.")
-        };
+            return str switch
+            {
+                "INF" => float.PositiveInfinity,
+                "-INF" => float.NegativeInfinity,
+                _ => float.Parse(str)
+            };
+        });
     }
 
-    public override object GetValue()
+    private static float CreateFromValue(object? val)
     {
-        return Value;
+        return NumericCast(val, Convert.ToSingle);
     }
 }

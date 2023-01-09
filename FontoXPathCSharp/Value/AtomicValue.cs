@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FontoXPathCSharp.Expressions.DataTypes.Builtins;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
@@ -10,6 +11,13 @@ public abstract class AtomicValue : AbstractValue
 
     protected AtomicValue(ValueType type) : base(type)
     {
+    }
+
+    public override T GetAs<T>()
+    {
+        return typeof(T) == typeof(UntypedAtomicValue)
+            ? (T)(object)new UntypedAtomicValue(GetValue())
+            : base.GetAs<T>();
     }
 
     public abstract object GetValue();
@@ -61,6 +69,11 @@ public abstract class AtomicValue : AbstractValue
     // {
     //     
     // }
+    //
+    // private static string PrintStackTrace(StackTrace st)
+    // {
+    //     return string.Concat("<-", st.GetFrames().Select(f => f.GetMethod()!.Name));
+    // }
 
     public static AtomicValue Create<T>(T value, ValueType type)
     {
@@ -69,17 +82,26 @@ public abstract class AtomicValue : AbstractValue
 
         return type switch
         {
-            ValueType.XsBoolean => new BooleanValue(value),
-            ValueType.XsInt
-                or ValueType.XsInteger
+            ValueType.XsBoolean => BooleanValue.CreateBooleanValue(value),
+            ValueType.XsInteger
+                or ValueType.XsPositiveInteger
+                or ValueType.XsNegativeInteger
+                or ValueType.XsNonPositiveInteger
+                or ValueType.XsNonNegativeInteger
+                or ValueType.XsByte
+                or ValueType.XsUnsignedByte
                 or ValueType.XsShort
-                or ValueType.XsUnsignedShort =>
-                new IntValue(value),
-            ValueType.XsFloat => new FloatValue(value),
-            ValueType.XsDouble => new DoubleValue(value),
+                or ValueType.XsUnsignedShort
+                or ValueType.XsInt
+                or ValueType.XsUnsignedInt
+                or ValueType.XsLong
+                or ValueType.XsUnsignedLong => IntegerValue.CreateIntegerValue(value, type),
+            ValueType.XsFloat => FloatValue.CreateFloatValue(value),
+            ValueType.XsDouble => DoubleValue.CreateDoubleValue(value),
+            ValueType.XsDecimal => DecimalValue.CreateDecimalValue(value),
             ValueType.XsQName => new QNameValue(value),
             ValueType.XsUntypedAtomic => new UntypedAtomicValue(value!),
-            ValueType.XsString => new StringValue(value),
+            ValueType.XsString => StringValue.CreateStringValue(value),
             ValueType.XsDate
                 or ValueType.XsDateTime
                 or ValueType.XsGDay

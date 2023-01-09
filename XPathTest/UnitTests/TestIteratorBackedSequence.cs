@@ -1,6 +1,7 @@
 using FontoXPathCSharp;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
 using Xunit;
 
 namespace XPathTest.UnitTests;
@@ -13,7 +14,7 @@ public class TestIteratorBackedSequence
         return (IteratorBackedSequence)SequenceFactory.CreateFromIterator(_ =>
             count == length
                 ? IteratorResult<AbstractValue>.Done()
-                : IteratorResult<AbstractValue>.Ready(new IntValue(count++)), predictedLength);
+                : IteratorResult<AbstractValue>.Ready(new IntegerValue(count++, ValueType.XsInt)), predictedLength);
     }
 
     [Fact]
