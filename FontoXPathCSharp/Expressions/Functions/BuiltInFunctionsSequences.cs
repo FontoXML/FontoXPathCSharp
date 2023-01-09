@@ -1,4 +1,5 @@
 using FontoXPathCSharp.EvaluationUtils;
+using FontoXPathCSharp.Expressions.Operators.Compares;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -114,6 +115,49 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
                 .Where((x, i) => xs[..i].All(y => !equals((AtomicValue)x, (AtomicValue)y))).ToArray());
         };
 
+    private static readonly FunctionSignature<ISequence, TNode> FnIndexOf =
+        (dynamicContext, executionParameters, _, args) =>
+        {
+            var sequence = args[0];
+            var search = args[1];
+            return search.MapAll(sequencesValues =>
+            {
+                var onlySearchValue = sequencesValues[0];
+                return Atomize.AtomizeSequence(sequence, executionParameters)
+                    .Map((element, i, _) =>
+                        ValueCompare<TNode>.PerformValueCompare(CompareType.Equal, element, onlySearchValue,
+                            dynamicContext!)
+                            ? AtomicValue.Create(i + 1, ValueType.XsInteger)
+                            : AtomicValue.Create(-1, ValueType.XsInteger))
+                    .Filter((indexValue, _, _) => indexValue.GetAs<IntegerValue>().Value != -1);
+            });
+        };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnDeepEqual =
+        (dynamicContext, executionParameters, staticContext, args) =>
+        {
+            var hasPassed = false;
+            var deepEqualityIterator = BuiltInFunctionsSequencesDeepEqual<TNode>.SequenceDeepEqual(
+                dynamicContext!,
+                executionParameters,
+                staticContext!,
+                args[0],
+                args[1]
+            );
+
+            return SequenceFactory.CreateFromIterator(
+                _ =>
+                {
+                    if (hasPassed) return IteratorResult<BooleanValue>.Done();
+
+                    var result = deepEqualityIterator(IterationHint.None);
+                    if (result.IsDone) return result;
+
+                    hasPassed = true;
+                    return IteratorResult<BooleanValue>.Ready(result.Value!);
+                }
+            );
+        };
 
     private static readonly FunctionSignature<ISequence, TNode> FnCount = (_, _, _, args) =>
     {
@@ -125,6 +169,33 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             hasPassed = true;
             return IteratorResult<AbstractValue>.Ready(new IntegerValue(args[0].GetLength(), ValueType.XsInt));
         }, 1);
+    };
+    
+    private static readonly FunctionSignature<ISequence, TNode> FnAvg = (_, _, _, args) =>
+    {
+        var sequence = args[0];
+        if (sequence.IsEmpty()) return sequence;
+
+
+        // TODO: throw FORG0006 if the items contain both yearMonthDurations and dayTimeDurations
+        var items = CastUntypedItemsToDouble(sequence.GetAllValues());
+        items = CommonTypeUtils.ConvertItemsToCommonType(items)!;
+        if (items == null) throw new XPathException("FORG0006", "Incompatible types to be converted to a common type");
+
+        if (!items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsNumeric)))
+            throw new XPathException("FORG0006", "Items passed to fn:avg are not all numeric.");
+
+        var resultValue = items.Aggregate(0.0, (sum, item) =>
+            sum + Convert.ToDouble(((AtomicValue)item).GetValue())) / items.Length;
+
+        if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsInteger)
+                              || item.GetValueType().IsSubtypeOf(ValueType.XsDouble)))
+            return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsDouble));
+
+        if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsDecimal)))
+            return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsDecimal));
+
+        return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsInteger));
     };
 
     private static readonly FunctionSignature<ISequence, TNode> FnMax = (_, _, _, args) =>
@@ -202,33 +273,6 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         return SequenceFactory.CreateFromValue(AtomicValue.Create(floatResult, ValueType.XsFloat));
     };
 
-    private static readonly FunctionSignature<ISequence, TNode> FnAvg = (_, _, _, args) =>
-    {
-        var sequence = args[0];
-        if (sequence.IsEmpty()) return sequence;
-
-
-        // TODO: throw FORG0006 if the items contain both yearMonthDurations and dayTimeDurations
-        var items = CastUntypedItemsToDouble(sequence.GetAllValues());
-        items = CommonTypeUtils.ConvertItemsToCommonType(items)!;
-        if (items == null) throw new XPathException("FORG0006", "Incompatible types to be converted to a common type");
-
-        if (!items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsNumeric)))
-            throw new XPathException("FORG0006", "Items passed to fn:avg are not all numeric.");
-
-        var resultValue = items.Aggregate(0.0, (sum, item) =>
-            sum + Convert.ToDouble(((AtomicValue)item).GetValue())) / items.Length;
-
-        if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsInteger)
-                              || item.GetValueType().IsSubtypeOf(ValueType.XsDouble)))
-            return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsDouble));
-
-        if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsDecimal)))
-            return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsDecimal));
-
-        return SequenceFactory.CreateFromValue(AtomicValue.Create(resultValue, ValueType.XsInteger));
-    };
-
 
     private static readonly FunctionSignature<ISequence, TNode> FnZeroOrOne = (_, _, _, args) =>
     {
@@ -254,33 +298,8 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
                 "The argument passed to fn:exactly-one is empty or contained more than one item.");
         return arg;
     };
-
-    private static readonly FunctionSignature<ISequence, TNode> FnDeepEqual =
-        (dynamicContext, executionParameters, staticContext, args) =>
-        {
-            var hasPassed = false;
-            var deepEqualityIterator = BuiltInFunctionsSequencesDeepEqual<TNode>.SequenceDeepEqual(
-                dynamicContext!,
-                executionParameters,
-                staticContext!,
-                args[0],
-                args[1]
-            );
-
-            return SequenceFactory.CreateFromIterator(
-                _ =>
-                {
-                    if (hasPassed) return IteratorResult<BooleanValue>.Done();
-
-                    var result = deepEqualityIterator(IterationHint.None);
-                    if (result.IsDone) return result;
-
-                    hasPassed = true;
-                    return IteratorResult<BooleanValue>.Ready(result.Value!);
-                }
-            );
-        };
-
+    
+    //TODO: Filter, Foreach, Folds and Serialize
 
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
@@ -409,12 +428,35 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         new(new[]
             {
                 new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore),
-                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrMore)
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
             },
             (_, _, _, _) => throw new XPathException("FOCH0002", "No collations are supported"),
             "distinct-values",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ExactlyOne)
+            },
+            FnIndexOf,
+            "index-of",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ZeroOrMore)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ExactlyOne),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            (_, _, _, _) => throw new XPathException("FOCH0002", "No collations are supported"),
+            "index-of",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ZeroOrMore)
         ),
 
 
@@ -478,10 +520,10 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             "min",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
-            ),
-        
-        new( new[]
-            {             
+        ),
+
+        new(new[]
+            {
                 new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore)
             },
             (dynamicContext, executionParameters, staticContext, sequences) =>
@@ -506,7 +548,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
         ),
-            
+
 
         new(new[]
             {

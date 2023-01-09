@@ -2052,7 +2052,7 @@ cbcl-constr-comppi-001;Expected error code: XQDY0026. Found error code: XPST0003
 cbcl-constr-comppi-002;Expected error code: XQDY0026. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 cbcl-contains-001;No collations are supported
 cbcl-contains-002;No collations are supported
-cbcl-contains-003;The function fn:index-of with arity 2 is not registered.
+cbcl-contains-003;No collations are supported
 cbcl-count-002;PRSC Error: Failed to parse query 'declare function local:generate($arg as xs:integer?) { if ($arg = 0) then (1, 2, 3) else $arg }; fn:count( ( (), local:generate( () ), local:generate( 0 ), (1 to 10000000), local:generate( () ), local:generate(1)) )'
 cbcl-count-003;The function year-from-date with arity 1 is not registered.
 cbcl-count-005;PRSC Error: Failed to parse query 'declare function local:primes($n as xs:integer) { if ($n lt 2) then 1 else for $i in 2 to $n return if (every $x in 2 to ($i - 1) satisfies ($i mod $x ne 0)) then $i else () }; count(local:primes(100)) lt 25'
@@ -2332,8 +2332,8 @@ cbcl-date-less-than-015;PRSC Error: Failed to parse query '\n      	declare func
 cbcl-date-less-than-016;PRSC Error: Failed to parse query '\n      	declare function local:date($date as xs:string, $timezone as xs:string) { xs:date( concat($date, $timezone) ) }; \n      	adjust-date-to-timezone(local:date("1972-12-14", "-12:00")) le adjust-date-to-timezone(xs:date("1972-12-15+12:00"))\n      '
 cbcl-date-lt-001;Expected executing the XPath '' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FODT0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 cbcl-date-ne-001;Expected executing the XPath 'xs:date("25252734927766555-07-28") != xs:date("-25252734927766555-06-07+02:00")' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FODT0001, but got The string '25252734927766555-07-28' is not a valid AllXsd value.
-cbcl-dateTime-001;The function fn:index-of with arity 2 is not registered.
-cbcl-dateTime-002;Expected error code: FORG0008. Found error code: XPST0017 with error message: The function fn:index-of with arity 2 is not registered.
+cbcl-dateTime-001;The function fn:current-dateTime with arity 0 is not registered.
+cbcl-dateTime-002;Expected error code: FORG0008. Found error code: XPST0017 with error message: The function fn:current-dateTime with arity 0 is not registered.
 cbcl-dateTime-equal-001;PRSC Error: Failed to parse query '\n      	declare function local:two-digit($number as xs:integer) { \n      		let $string := string($number) \n      		return if (string-length($string) lt 2) then concat('0', $string) else $string \n      	}; \n      	declare function local:dateTime($year as xs:integer, $month as xs:integer, $day as xs:integer) { \n      		let $m := local:two-digit($month), $d := local:two-digit($day) \n      		return xs:dateTime(concat($year, '-', $m, '-', $d, "T12:00:00")) \n      	}; \n      	not(local:dateTime(2008, 05, 12) eq xs:dateTime("1972-12-15T12:00:00"))'
 cbcl-dateTime-equal-006;PRSC Error: Failed to parse query '\n      	declare function local:two-digit($number as xs:integer) { \n      		let $string := string($number) \n      		return if (string-length($string) lt 2) then concat('0', $string) else $string \n      	}; \n      	declare function local:dateTime($year as xs:integer, $month as xs:integer, $day as xs:integer) { \n      		let $m := local:two-digit($month), $d := local:two-digit($day) \n      		return xs:dateTime(concat($year, '-', $m, '-', $d, "T12:00:00")) \n      	}; \n      	not(local:dateTime(2008, 05, 12) ne xs:dateTime("1972-12-15T12:00:00"))'
 cbcl-dateTime-equal-011;PRSC Error: Failed to parse query 'declare function local:dateTime($dateTime as xs:dateTime, $null as xs:boolean) { if ($null) then () else $dateTime }; exists(local:dateTime(xs:dateTime("1972-12-15T12:00:00"), fn:true()) eq xs:dateTime("1972-12-15T12:00:00"))'
@@ -2484,12 +2484,10 @@ cbcl-first-in-sequence-010;PRSC Error: Failed to parse query 'declare function l
 cbcl-first-in-sequence-011;PRSC Error: Failed to parse query 'declare function local:generate($arg as xs:integer?) as xs:string* { if ($arg = 0) then ('a', 'b', 'c') else () }; boolean(local:generate(1)[1])'
 cbcl-first-in-sequence-012;PRSC Error: Failed to parse query 'declare function local:generate($arg as xs:boolean) as xs:string+ { if ($arg) then ('a', 'b', 'c') else ('A', 'B', 'C') }; ( for $x in local:generate(true()) return 3)[1]'
 cbcl-float-002;Expected XPath xs:float(xs:double('-INF')),xs:float(xs:double('INF')) to resolve to -INF INF, but instead got -Infinity Infinity
-cbcl-fn-indexof-006;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function index-of with arity 2 is not registered.
-cbcl-fn-indexof-1;The function index-of with arity 2 is not registered.
-cbcl-fn-indexof-2;The function index-of with arity 2 is not registered.
-cbcl-fn-indexof-3;The function index-of with arity 2 is not registered.
-cbcl-fn-indexof-4;The function index-of with arity 2 is not registered.
-cbcl-fn-indexof-5;The function index-of with arity 2 is not registered.
+cbcl-fn-indexof-006;Expected error code: XPTY0004. Query succeeded with result: 1
+cbcl-fn-indexof-2;The argument passed to fn:exactly-one is empty or contained more than one item.
+cbcl-fn-indexof-4;Expected XPath boolean(index-of((1 to 10)[. mod 2 = 0],5)) to resolve to false
+cbcl-fn-indexof-5;Expected XPath index-of((1 to 10,(1 to 10)[. mod 2 = 0]),4) to resolve to 4 12, but instead got 4 14
 cbcl-fn-insert-before-002;Expected XPath 
 cbcl-fn-remove-001;The argument passed to fn:exactly-one is empty or contained more than one item.
 cbcl-fn-remove-003;Expected XPath remove((1 to 10)[. mod 2 = 0],4) to resolve to 2 4 6 10, but instead got 1 2 3 5 6 7 8 9 10
@@ -5817,27 +5815,14 @@ fn-implicit-timezone-6;Expected error code: FOCA0005. Found error code: XPST0017
 fn-implicit-timezone-7;The function fn:implicit-timezone with arity 0 is not registered.
 fn-implicit-timezone-8;The function fn:implicit-timezone with arity 0 is not registered.
 fn-implicit-timezone-9;PRSC Error: Failed to parse query '(fn:string(fn:implicit-timezone() div xs:double(2))) instance of $xs:string'
-fn-indexof-mix-args-001;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-002;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-003;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-004;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-005;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-006;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-007;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-008;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-009;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-010;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-011;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-012;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-013;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-014;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-015;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-016;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-017;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-018;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-019;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-020;The function fn:index-of with arity 2 is not registered.
-fn-indexof-mix-args-021;The function fn:index-of with arity 2 is not registered.
+fn-indexof-mix-args-002;Expected XPath fn:index-of ((10, 20, 30, 40), 35) to resolve to , but instead got null
+fn-indexof-mix-args-005;Expected XPath fn:index-of((),"") to resolve to , but instead got null
+fn-indexof-mix-args-006;Expected XPath fn:index-of(("sport"), "") to resolve to , but instead got null
+fn-indexof-mix-args-007;Expected XPath fn:index-of((),fn:exactly-one(xs:untypedAtomic(''))) to resolve to , but instead got null
+fn-indexof-mix-args-008;Expected XPath fn:index-of((xs:float('NaN')), fn:exactly-one(xs:float('NaN'))) to resolve to , but instead got 1
+fn-indexof-mix-args-009;Expected XPath fn:index-of((xs:double('NaN')), fn:exactly-one(xs:double('NaN'))) to resolve to , but instead got 1
+fn-indexof-mix-args-013;Expected XPath fn:index-of((xs:decimal('9.99999999999999999999999999')), fn:exactly-one(xs:decimal('9.9999999999999999999999999'))) to resolve to , but instead got null
+fn-indexof-mix-args-021;Equal not available for XsInteger and XsString
 fn-innermost-002;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:innermost#0'
 fn-innermost-004;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:innermost#2'
 fn-innermost-005;PRSC Error: Failed to parse query 'fn:exists( fn:innermost#1 )'
@@ -7414,10 +7399,7 @@ fo-test-fn-id-001;PRSC Error: Failed to parse query 'deep-equal((\n          let
 fo-test-fn-id-002;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n        validate lax{    \n          document{\n            <employee xml:id="ID21256"\n                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  \n                      xmlns:xs="http://www.w3.org/2001/XMLSchema">\n               <empnr xsi:type="xs:ID">E21256</empnr>\n               <first>John</first>\n               <last>Brown</last>\n            </employee>\n          }\n        }\n         \n           return \n\n        \n        $emp/id('E21256')/name()\n      ), ("empnr"))'
 fo-test-fn-idref-001;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n      validate lax {  \n        document {    \n          <employees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  \n                     xmlns:xs="http://www.w3.org/2001/XMLSchema">  \n            <employee xml:id="ID21256">\n               <empnr xsi:type="xs:ID">E21256</empnr>\n               <first>Anil</first>\n               <last>Singh</last>\n               <deputy xsi:type="xs:IDREF">E30561</deputy>\n            </employee>\n            <employee xml:id="ID30561">\n               <empnr xsi:type="xs:ID">E30561</empnr>\n               <first>John</first>\n               <last>Brown</last>\n               <manager xsi:type="xs:IDREF">ID21256</manager>\n            </employee>\n          </employees>\n        }\n      }\n         \n           return \n\n        \n        $emp/(element-with-id('ID21256')/@xml:id => fn:idref())/ancestor::employee/last => string()\n      ), ("Brown"))'
 fo-test-fn-idref-002;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n      validate lax {  \n        document {    \n          <employees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  \n                     xmlns:xs="http://www.w3.org/2001/XMLSchema">  \n            <employee xml:id="ID21256">\n               <empnr xsi:type="xs:ID">E21256</empnr>\n               <first>Anil</first>\n               <last>Singh</last>\n               <deputy xsi:type="xs:IDREF">E30561</deputy>\n            </employee>\n            <employee xml:id="ID30561">\n               <empnr xsi:type="xs:ID">E30561</empnr>\n               <first>John</first>\n               <last>Brown</last>\n               <manager xsi:type="xs:IDREF">ID21256</manager>\n            </employee>\n          </employees>\n        }\n      }\n         \n           return \n\n        \n        $emp/(element-with-id('E30561')/empnr => fn:idref())/ancestor::employee/last => string()\n      ), ("Singh"))'
-fo-test-fn-index-of-001;The function fn:index-of with arity 2 is not registered.
-fo-test-fn-index-of-002;The function fn:index-of with arity 2 is not registered.
-fo-test-fn-index-of-003;The function fn:index-of with arity 2 is not registered.
-fo-test-fn-index-of-004;The function fn:index-of with arity 2 is not registered.
+fo-test-fn-index-of-004;The function current-date with arity 0 is not registered.
 fo-test-fn-index-of-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:index-of([1, [5, 6], [6, 7]], 6)\n      ), ((3, 4)))'
 fo-test-fn-iri-to-uri-001;Expected XPath 
 fo-test-fn-iri-to-uri-002;Expected XPath 
@@ -7763,7 +7745,6 @@ FOCA0005_2;Expected XPathException with code FOCA0005, but got Type casting to X
 FOCA0005_3;Expected XPathException with code FOCA0005, but got Type casting to XsDayTimeDuration has not been implemented yet.
 FOCA0005_4;Expected XPathException with code FOCA0005, but got Type casting to XsDayTimeDuration has not been implemented yet.
 FOCH0002_10;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-before with arity 3 is not registered.
-FOCH0002_5;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function index-of with arity 3 is not registered.
 FOCH0002_9;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-after with arity 3 is not registered.
 FODC0001_1;Expected error code: FODC0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 FODC0001_2;Expected error code: FODC0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
@@ -8747,12 +8728,8 @@ functx-fn-hours-from-duration-all;The function hours-from-duration with arity 1 
 functx-fn-hours-from-time-1;The function hours-from-time with arity 1 is not registered.
 functx-fn-hours-from-time-2;The function hours-from-time with arity 1 is not registered.
 functx-fn-hours-from-time-all;The function hours-from-time with arity 1 is not registered.
-functx-fn-index-of-1;The function index-of with arity 2 is not registered.
-functx-fn-index-of-2;The function index-of with arity 2 is not registered.
-functx-fn-index-of-3;The function index-of with arity 2 is not registered.
-functx-fn-index-of-4;The function index-of with arity 2 is not registered.
-functx-fn-index-of-5;The function index-of with arity 2 is not registered.
-functx-fn-index-of-6;The function index-of with arity 2 is not registered.
+functx-fn-index-of-2;Expected XPath (index-of( ('a', 'b', 'c'), 'd')) to resolve to , but instead got null
+functx-fn-index-of-6;Expected XPath (index-of( (), 'a')) to resolve to , but instead got null
 functx-fn-index-of-7;PRSC Error: Failed to parse query ''
 functx-fn-index-of-all;PRSC Error: Failed to parse query ''
 functx-fn-iri-to-uri-1;Expected XPath (iri-to-uri( 'http://datypic.com/Sales Numbers.pdf')) to resolve to http://datypic.com/Sales%20Numbers.pdf, but instead got http:%2f%2fdatypic.com%2fSales+Numbers.pdf
@@ -11267,10 +11244,6 @@ K-SeqDeepEqualFunc-18;Type casting to XsAnyUri has not been implemented yet.
 K-SeqDeepEqualFunc-22;Type casting to XsHexBinary has not been implemented yet.
 K-SeqDeepEqualFunc-23;Type casting to XsBase64Binary has not been implemented yet.
 K-SeqDeepEqualFunc-24;Type casting to XsBase64Binary has not been implemented yet.
-K-SeqDeepEqualFunc-32;The function index-of with arity 2 is not registered.
-K-SeqDeepEqualFunc-33;The function index-of with arity 2 is not registered.
-K-SeqDeepEqualFunc-34;The function index-of with arity 2 is not registered.
-K-SeqDeepEqualFunc-35;The function index-of with arity 2 is not registered.
 K-SeqDeepEqualFunc-5;Expected executing the XPath 'deep-equal("a string", "a string", ())' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: No collations are supported
 K-SeqDeepEqualFunc-56;No collations are supported
 K-SeqDeepEqualFunc-57;No collations are supported
@@ -12440,28 +12413,16 @@ K-SeqExprInstanceOf-60;Expected error code: FOER0000. Found error code: XPST0017
 K-SeqExprInstanceOf-61;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-SeqExprInstanceOf-62;Expected executing the XPath '(1, error()) instance of xs:integer*' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
 K-SeqExprInstanceOf-63;Expected executing the XPath '(error(), 1) instance of xs:integer*' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
-K-SeqIndexOfFunc-10;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-11;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-12;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-13;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-14;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-15;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-16;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-17;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-18;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-19;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-20;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-21;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-22;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-23;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-24;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-25;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-3;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function index-of with arity 3 is not registered.
-K-SeqIndexOfFunc-4;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function index-of with arity 3 is not registered.
-K-SeqIndexOfFunc-6;The function index-of with arity 3 is not registered.
-K-SeqIndexOfFunc-7;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-8;The function index-of with arity 2 is not registered.
-K-SeqIndexOfFunc-9;The function index-of with arity 2 is not registered.
+K-SeqIndexOfFunc-10;Expected XPath empty(index-of(xs:double("NaN"), xs:double("NaN"))) to resolve to true
+K-SeqIndexOfFunc-11;Equal not available for XsInteger and XsString
+K-SeqIndexOfFunc-16;Type casting to XsAnyUri has not been implemented yet.
+K-SeqIndexOfFunc-17;Type casting to XsAnyUri has not been implemented yet.
+K-SeqIndexOfFunc-18;Equal not available for XsString and XsInteger
+K-SeqIndexOfFunc-3;Expected error code: XPTY0004. Found error code: FOCH0002 with error message: No collations are supported
+K-SeqIndexOfFunc-6;No collations are supported
+K-SeqIndexOfFunc-7;Value was either too large or too small for a Decimal.
+K-SeqIndexOfFunc-8;Value was either too large or too small for a Decimal.
+K-SeqIndexOfFunc-9;Expected XPath empty(index-of(xs:float("NaN"), xs:float("NaN"))) to resolve to true
 K-SeqInsertBeforeFunc-16;Expected executing the XPath 'count(insert-before((error(), 1), 1, (1, "two", 3))) > 1' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
 K-SeqInsertBeforeFunc-17;TreatExpr AST to Expression not yet implemented
 K-SeqInsertBeforeFunc-18;TreatExpr AST to Expression not yet implemented
