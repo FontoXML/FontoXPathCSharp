@@ -280,7 +280,6 @@ ArrowPostfix-003;Expected XPath "the cat sat on the mat"=>tokenize("\s+")=>count
 ArrowPostfix-004;PRSC Error: Failed to parse query 'deep-equal((let $f:= tokenize#2 return "the cat sat on the mat"=>$f("\s+")=>count()), (6))'
 ArrowPostfix-005;PRSC Error: Failed to parse query 'deep-equal((let $f:= tokenize#1 return "the cat sat on the mat"=>$f()=>count()), (6))'
 ArrowPostfix-006;PRSC Error: Failed to parse query 'deep-equal((let $f:= tokenize#2 return "the cat sat on the mat"=>($f)("\s+")=>count()), (6))'
-ArrowPostfix-007;The function head with arity 1 is not registered.
 ArrowPostfix-008;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to UntypedAtomicValue
 ArrowPostfix-011;PRSC Error: Failed to parse query 'deep-equal((let $f:= (ceiling#1, floor#1, round#1, abs#1)=>head() return 4.54=>$f()), (5))'
 ArrowPostfix-012;PRSC Error: Failed to parse query 'deep-equal((4.54=>((ceiling#1, floor#1, round#1, abs#1) => head())()), (5))'
@@ -2681,8 +2680,8 @@ cbcl-fn-indexof-2;The function index-of with arity 2 is not registered.
 cbcl-fn-indexof-3;The function index-of with arity 2 is not registered.
 cbcl-fn-indexof-4;The function index-of with arity 2 is not registered.
 cbcl-fn-indexof-5;The function index-of with arity 2 is not registered.
-cbcl-fn-insert-before-001;The function insert-before with arity 3 is not registered.
-cbcl-fn-insert-before-002;The function insert-before with arity 3 is not registered.
+cbcl-fn-insert-before-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-fn-insert-before-002;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-remove-001;The function remove with arity 2 is not registered.
 cbcl-fn-remove-002;The function remove with arity 2 is not registered.
 cbcl-fn-remove-003;The function remove with arity 2 is not registered.
@@ -6536,26 +6535,12 @@ fn-innermost-055;Use of XQuery FLWOR expressions in XPath is not allowed
 fn-innermost-056;Use of XQuery FLWOR expressions in XPath is not allowed
 fn-innermost-058;ExceptOp AST to Expression not yet implemented
 fn-innermost-059;Value was either too large or too small for an Int32.
-fn-insert-before-mix-args-001;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-002;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-003;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-004;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-005;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-006;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-007;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-008;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-009;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-010;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-011;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-012;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-013;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-014;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-015;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-016;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-017;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-018;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-019;The function fn:insert-before with arity 3 is not registered.
-fn-insert-before-mix-args-020;The function fn:insert-before with arity 3 is not registered.
+fn-insert-before-mix-args-005;Type casting to XsAnyUri has not been implemented yet.
+fn-insert-before-mix-args-007;Atomic Value for XsDecimal is not implemented yet.
+fn-insert-before-mix-args-008;Can't parse 1.1 into an int.
+fn-insert-before-mix-args-018;Comparison between dates/times not implemented yet
+fn-insert-before-mix-args-019;Comparison between dates/times not implemented yet
+fn-insert-before-mix-args-020;Comparison between dates/times not implemented yet
 fn-intersect-node-args-001;IntersectOp AST to Expression not yet implemented
 fn-intersect-node-args-002;IntersectOp AST to Expression not yet implemented
 fn-intersect-node-args-003;IntersectOp AST to Expression not yet implemented
@@ -8644,9 +8629,7 @@ fo-test-fn-function-arity-003;ArgumentPlaceholder AST to Expression not yet impl
 fo-test-fn-function-lookup-001;The value fn:substring can not be cast to a QName. Did you mean to use fn:QName?
 fo-test-fn-function-name-001;PRSC Error: Failed to parse query 'deep-equal((\n        fn:function-name(fn:substring#2)\n      ), (fn:QName("http://www.w3.org/2005/xpath-functions",\n                  "fn:substring")))'
 fo-test-fn-function-name-002;PRSC Error: Failed to parse query 'deep-equal((\n        fn:function-name(function($node){count($node/*)})\n      ), (()))'
-fo-test-fn-head-001;The function fn:head with arity 1 is not registered.
-fo-test-fn-head-002;The function fn:head with arity 1 is not registered.
-fo-test-fn-head-003;The function fn:head with arity 1 is not registered.
+fo-test-fn-head-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fo-test-fn-head-004;PRSC Error: Failed to parse query 'deep-equal((\n        fn:head([1,2,3])\n      ), ([1,2,3]))'
 fo-test-fn-hours-from-dateTime-001;The function fn:hours-from-dateTime with arity 1 is not registered.
 fo-test-fn-hours-from-dateTime-002;The function fn:hours-from-dateTime with arity 1 is not registered.
@@ -8671,11 +8654,6 @@ fo-test-fn-index-of-002;The function fn:index-of with arity 2 is not registered.
 fo-test-fn-index-of-003;The function fn:index-of with arity 2 is not registered.
 fo-test-fn-index-of-004;The function fn:index-of with arity 2 is not registered.
 fo-test-fn-index-of-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:index-of([1, [5, 6], [6, 7]], 6)\n      ), ((3, 4)))'
-fo-test-fn-insert-before-001;The function fn:insert-before with arity 3 is not registered.
-fo-test-fn-insert-before-002;The function fn:insert-before with arity 3 is not registered.
-fo-test-fn-insert-before-003;The function fn:insert-before with arity 3 is not registered.
-fo-test-fn-insert-before-004;The function fn:insert-before with arity 3 is not registered.
-fo-test-fn-insert-before-005;The function fn:insert-before with arity 3 is not registered.
 fo-test-fn-iri-to-uri-001;Expected XPath 
 fo-test-fn-iri-to-uri-002;Expected XPath 
 fo-test-fn-json-to-xml-001;The function json-to-xml with arity 1 is not registered.
@@ -8818,10 +8796,7 @@ fo-test-fn-sum-006;The function fn:sum with arity 2 is not registered.
 fo-test-fn-sum-007;The function fn:sum with arity 2 is not registered.
 fo-test-fn-sum-008;PRSC Error: Failed to parse query 'deep-equal((\n        fn:sum([1, 2, 3])\n      ), (6))'
 fo-test-fn-sum-009;PRSC Error: Failed to parse query 'deep-equal((\n        fn:sum([[1, 2], [3, 4]])\n      ), (10))'
-fo-test-fn-tail-001;The function fn:tail with arity 1 is not registered.
-fo-test-fn-tail-002;The function fn:tail with arity 1 is not registered.
-fo-test-fn-tail-003;The function fn:tail with arity 1 is not registered.
-fo-test-fn-tail-004;The function fn:tail with arity 1 is not registered.
+fo-test-fn-tail-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
 fo-test-fn-tail-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:tail([1,2,3])\n      ), (()))'
 fo-test-fn-timezone-from-date-001;The function fn:timezone-from-date with arity 1 is not registered.
 fo-test-fn-timezone-from-date-002;The function fn:timezone-from-date with arity 1 is not registered.
@@ -9055,8 +9030,6 @@ FOCA0005_4;Expected XPathException with code FOCA0005, but got Type casting to X
 FOCH0002_10;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-before with arity 3 is not registered.
 FOCH0002_3;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function distinct-values with arity 2 is not registered.
 FOCH0002_5;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function index-of with arity 3 is not registered.
-FOCH0002_6;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function max with arity 2 is not registered.
-FOCH0002_7;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function min with arity 2 is not registered.
 FOCH0002_9;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-after with arity 3 is not registered.
 FODC0001_1;Expected error code: FODC0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 FODC0001_2;Expected error code: FODC0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
@@ -10073,13 +10046,6 @@ functx-fn-index-of-5;The function index-of with arity 2 is not registered.
 functx-fn-index-of-6;The function index-of with arity 2 is not registered.
 functx-fn-index-of-7;PRSC Error: Failed to parse query ''
 functx-fn-index-of-all;PRSC Error: Failed to parse query ''
-functx-fn-insert-before-1;The function insert-before with arity 3 is not registered.
-functx-fn-insert-before-2;The function insert-before with arity 3 is not registered.
-functx-fn-insert-before-3;The function insert-before with arity 3 is not registered.
-functx-fn-insert-before-4;The function insert-before with arity 3 is not registered.
-functx-fn-insert-before-5;The function insert-before with arity 3 is not registered.
-functx-fn-insert-before-6;The function insert-before with arity 3 is not registered.
-functx-fn-insert-before-all;The function insert-before with arity 3 is not registered.
 functx-fn-iri-to-uri-1;Expected XPath (iri-to-uri( 'http://datypic.com/Sales Numbers.pdf')) to resolve to http://datypic.com/Sales%20Numbers.pdf, but instead got http:%2f%2fdatypic.com%2fSales+Numbers.pdf
 functx-fn-lang-1;PRSC Error: Failed to parse query ''
 functx-fn-lang-2;PRSC Error: Failed to parse query ''
@@ -11490,11 +11456,9 @@ generate-id-904;Expected error code: XPTY0004. Found error code: XPST0003 with e
 generate-id-905;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function generate-id with arity 1 is not registered.
 greaterthaneqonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
 greaterthanonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
-head-001;The function head with arity 1 is not registered.
-head-002;The function head with arity 1 is not registered.
-head-003;The function head with arity 1 is not registered.
-head-004;The function head with arity 1 is not registered.
-head-005;The function head with arity 1 is not registered.
+head-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
+head-002;The function current-dateTime with arity 0 is not registered.
+head-004;Haven't implemented Qnames from: works:
 head-006;IsOp AST to Expression not yet implemented
 head-007;PRSC Error: Failed to parse query '\n        let $f := if (current-date() gt xs:date('1900-01-01')) then head#1 else count#1\n        return $f(5 to 10) = 5'
 head-008;PRSC Error: Failed to parse query '(\n        let $f := if (current-date() gt xs:date('1900-01-01')) then head#1 else (abs#1, abs#1, abs#1, abs#1)\n        return $f[1](/works/cucumber)) => empty()'
@@ -12081,9 +12045,9 @@ K-FloorFunc-5;Can't parse 10.5 into an int.
 K-FloorFunc-6;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to UntypedAtomicValue
 K-ForExprPositionalVar-1;Expected XPathException with code XPST0008, but got The given key 'p' was not present in the dictionary.
 K-ForExprPositionalVar-10;The function distinct-values with arity 1 is not registered.
-K-ForExprPositionalVar-12;The function insert-before with arity 3 is not registered.
-K-ForExprPositionalVar-13;The function insert-before with arity 3 is not registered.
-K-ForExprPositionalVar-14;The function insert-before with arity 3 is not registered.
+K-ForExprPositionalVar-12;The function current-time with arity 0 is not registered.
+K-ForExprPositionalVar-13;The function current-time with arity 0 is not registered.
+K-ForExprPositionalVar-14;The function current-time with arity 0 is not registered.
 K-ForExprPositionalVar-15;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-ForExprPositionalVar-16;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-ForExprPositionalVar-17;The function remove with arity 2 is not registered.
@@ -14134,24 +14098,13 @@ K-SeqIndexOfFunc-6;The function index-of with arity 3 is not registered.
 K-SeqIndexOfFunc-7;The function index-of with arity 2 is not registered.
 K-SeqIndexOfFunc-8;The function index-of with arity 2 is not registered.
 K-SeqIndexOfFunc-9;The function index-of with arity 2 is not registered.
-K-SeqInsertBeforeFunc-10;The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-11;The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-12;The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-13;The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-14;The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-15;The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-16;Expected executing the XPath "count(insert-before((error(), 1), 1, (1, "two", 3))) > 1" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function insert-before with arity 3 is not registered.
+K-SeqInsertBeforeFunc-16;Expected executing the XPath "count(insert-before((error(), 1), 1, (1, "two", 3))) > 1" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
 K-SeqInsertBeforeFunc-17;TreatExpr AST to Expression not yet implemented
 K-SeqInsertBeforeFunc-18;TreatExpr AST to Expression not yet implemented
 K-SeqInsertBeforeFunc-19;TreatExpr AST to Expression not yet implemented
 K-SeqInsertBeforeFunc-20;TreatExpr AST to Expression not yet implemented
-K-SeqInsertBeforeFunc-21;The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-4;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-5;The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-6;The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-7;The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-8;The function insert-before with arity 3 is not registered.
-K-SeqInsertBeforeFunc-9;The function insert-before with arity 3 is not registered.
+K-SeqInsertBeforeFunc-21;The function current-time with arity 0 is not registered.
+K-SeqInsertBeforeFunc-4;Expected error code: XPTY0004. Query succeeded with result: a string
 K-SeqMAXFunc-10;Casting AbstractValue(XsDouble) to FloatValue
 K-SeqMAXFunc-11;Casting AbstractValue(XsDouble) to FloatValue
 K-SeqMAXFunc-12;Casting AbstractValue(XsInt) to DoubleValue
@@ -16620,8 +16573,7 @@ K2-SeqIntersect-9;PRSC Error: Failed to parse query ''
 K2-SeqMAXFunc-1;Type casting to XsAnyUri has not been implemented yet.
 K2-SeqMAXFunc-2;Type casting to XsAnyUri has not been implemented yet.
 K2-SeqMAXFunc-3;Type casting to XsAnyUri has not been implemented yet.
-K2-SeqMAXFunc-4;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function max with arity 2 is not registered.
-K2-SeqMAXFunc-6;Expected executing the XPath "max(xs:anyURI("str1"), "max://example.com/UNSUPPORTED_COLLATION")" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function max with arity 2 is not registered.
+K2-SeqMAXFunc-6;Expected executing the XPath "max(xs:anyURI("str1"), "max://example.com/UNSUPPORTED_COLLATION")" to resolve to one of the expected results, but got System.NotImplementedException: Type casting to XsAnyUri has not been implemented yet.
 K2-SeqMAXFunc-7;Casting AbstractValue(XsInt) to DoubleValue
 K2-SeqMINFunc-1;Type casting to XsAnyUri has not been implemented yet.
 K2-SeqMINFunc-10;PRSC Error: Failed to parse query 'min((5.0e0, 3)) instance of xs:double'
@@ -16632,8 +16584,7 @@ K2-SeqMINFunc-14;Casting AbstractValue(XsString) to DoubleValue
 K2-SeqMINFunc-15;Casting AbstractValue(XsInt) to DoubleValue
 K2-SeqMINFunc-2;Type casting to XsAnyUri has not been implemented yet.
 K2-SeqMINFunc-3;Type casting to XsAnyUri has not been implemented yet.
-K2-SeqMINFunc-4;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function min with arity 2 is not registered.
-K2-SeqMINFunc-5;Expected executing the XPath "min(xs:anyURI("str1"), "http://example.com/UNSUPPORTED_COLLATION")" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function min with arity 2 is not registered.
+K2-SeqMINFunc-5;Expected executing the XPath "min(xs:anyURI("str1"), "http://example.com/UNSUPPORTED_COLLATION")" to resolve to one of the expected results, but got System.NotImplementedException: Type casting to XsAnyUri has not been implemented yet.
 K2-SeqMINFunc-7;PRSC Error: Failed to parse query 'min((5, 5.0e0)) instance of xs:double'
 K2-SeqMINFunc-8;PRSC Error: Failed to parse query 'min((5.0e0, 5)) instance of xs:double'
 K2-SeqMINFunc-9;PRSC Error: Failed to parse query 'min((3, 5.0e0)) instance of xs:double'
@@ -20558,11 +20509,7 @@ surrogates15;PRSC Error: Failed to parse query ''
 surrogates15a;Expected XPath replace("abc𝅗def", "[^a-f]", "###") to resolve to abc###def, but instead got abc######def
 surrogates16;PRSC Error: Failed to parse query ' = 65'
 surrogates16a;Atomic Value for XsDecimal is not implemented yet.
-tail-001;The function tail with arity 1 is not registered.
-tail-002;The function tail with arity 1 is not registered.
-tail-003;The function tail with arity 1 is not registered.
-tail-004;The function tail with arity 1 is not registered.
-tail-005;The function tail with arity 1 is not registered.
+tail-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
 tail-006;PRSC Error: Failed to parse query 'declare function local:sum($n) { if (empty($n)) then 0 else head($n) + local:sum(tail($n)) }; \n            local:sum(1 to 5) = 15'
 tree-queries-results-q1;PRSC Error: Failed to parse query ''
 tree-queries-results-q2;PRSC Error: Failed to parse query ''

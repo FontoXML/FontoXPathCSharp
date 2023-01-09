@@ -8,6 +8,47 @@ namespace FontoXPathCSharp.Expressions.Functions;
 
 public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 {
+    private static readonly FunctionSignature<ISequence, TNode> FnExists = (_, _, _, args) =>
+        SequenceFactory.CreateFromValue(new BooleanValue(!args[0].IsEmpty()));
+
+    private static readonly FunctionSignature<ISequence, TNode> FnEmpty = (_, _, _, args) =>
+        SequenceFactory.CreateFromValue(new BooleanValue(args[0].IsEmpty()));
+
+    private static readonly FunctionSignature<ISequence, TNode> FnHead = (_, _, _, args) => 
+        SubSequence(args[0], 1, 1);
+
+    private static readonly FunctionSignature<ISequence, TNode> FnTail = (_, _, _, args) => 
+        SubSequence(args[0], 2);
+
+    private static readonly FunctionSignature<ISequence, TNode> FnInsertBefore = (_, _, _, args) =>
+    {
+        var sequence = args[0];
+        var position = args[1];
+        var inserts = args[2];
+        
+        if (sequence.IsEmpty()) {
+            return inserts;
+        }
+    
+        if (inserts.IsEmpty()) {
+            return sequence;
+        }
+        var sequenceValue = sequence.GetAllValues();
+    
+        // XPath is 1 based
+        var effectivePosition = position.First().GetAs<IntValue>().Value - 1;
+        if (effectivePosition < 0) {
+            effectivePosition = 0;
+        } else if (effectivePosition > sequenceValue.Length) {
+            effectivePosition = sequenceValue.Length;
+        }
+
+        var firstHalve = sequenceValue[..effectivePosition];
+        var secondHalve = sequenceValue[effectivePosition..];
+        
+        return SequenceFactory.CreateFromArray(firstHalve.Concat(inserts.GetAllValues()).Concat(secondHalve).ToArray());
+    };
+    
     private static readonly FunctionSignature<ISequence, TNode> FnCount = (_, _, _, args) =>
     {
         var hasPassed = false;
@@ -107,12 +148,6 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         return arg;
     };
 
-    private static readonly FunctionSignature<ISequence, TNode> FnExists = (_, _, _, args) =>
-        SequenceFactory.CreateFromValue(new BooleanValue(!args[0].IsEmpty()));
-
-    private static readonly FunctionSignature<ISequence, TNode> FnEmpty = (_, _, _, args) =>
-        SequenceFactory.CreateFromValue(new BooleanValue(args[0].IsEmpty()));
-
     private static readonly FunctionSignature<ISequence, TNode> FnDeepEqual =
         (dynamicContext, executionParameters, staticContext, args) =>
         {
@@ -142,6 +177,58 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnEmpty,
+            "empty",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnExists,
+            "exists",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnHead,
+            "head",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnTail,
+            "tail",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+        
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne),
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+            },
+            FnInsertBefore,
+            "insert-before",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+
         new(new[]
             {
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
@@ -174,9 +261,31 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 
         new(new[]
             {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            (_, _, _, _) => throw new XPathException("FOCH0002", "No collations are supported"),
+            "max",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
                 new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore)
             },
             FnMin,
+            "min",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
+            },
+            (_, _, _, _) => throw new XPathException("FOCH0002", "No collations are supported"),
             "min",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne)
@@ -214,26 +323,6 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 
         new(new[]
             {
-                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
-            },
-            FnEmpty,
-            "empty",
-            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
-        ),
-
-        new(new[]
-            {
-                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
-            },
-            FnExists,
-            "exists",
-            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
-        ),
-
-        new(new[]
-            {
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
             },
@@ -255,6 +344,43 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
         )
     };
+
+    private static ISequence SubSequence(ISequence sequence, int start, int? length = null)
+    {
+        // XPath starts from 1
+        var i = 1;
+        var iterator = sequence.GetValue();
+
+        var predictedLength = sequence.GetLength();
+        int? newSequenceLength = null;
+        var startIndex = Math.Max(start - 1, 0);
+        if (predictedLength != -1)
+        {
+            var endIndex = length == null
+                ? predictedLength
+                : Math.Max(0, Math.Min(predictedLength, (int)length + (start - 1)));
+            newSequenceLength = Math.Max(0, endIndex - startIndex);
+        }
+
+        return SequenceFactory.CreateFromIterator(
+            hint =>
+            {
+                while (i < start)
+                {
+                    iterator(hint);
+                    i++;
+                }
+
+                if (length != null && i >= start + length) return IteratorResult<AbstractValue>.Done();
+
+                var returnableVal = iterator(hint);
+                i++;
+
+                return returnableVal;
+            },
+            newSequenceLength
+        );
+    }
 
     private static AbstractValue[] CastItemsForMinMax(AbstractValue[] items)
     {
