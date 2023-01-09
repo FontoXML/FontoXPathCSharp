@@ -23,8 +23,13 @@ internal static class EffectiveBooleanValue
             return (Convert.ToString(value.GetAs<UntypedAtomicValue>().Value) ?? string.Empty).Length > 0;
 
         if (value.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
-            return Convert.ToDecimal(value.GetAs<AtomicValue>().GetValue()) > 0;
-
+            return value.GetValueType() switch
+            {
+                ValueType.XsFloat => value.GetAs<FloatValue>().Value > 0,
+                ValueType.XsDouble => value.GetAs<DoubleValue>().Value > 0,
+                ValueType.XsDecimal => value.GetAs<DecimalValue>().Value > 0,
+                _ => value.GetAs<IntegerValue>().Value > 0
+            };
 
         throw new XPathException("FORG0006", "Could not find a suitable conversion.");
     }

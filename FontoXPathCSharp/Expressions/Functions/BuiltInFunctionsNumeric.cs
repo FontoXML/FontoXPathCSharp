@@ -26,31 +26,38 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
         };
     };
 
+    private static AbstractValue ApplyFunc(
+        AbstractValue value, 
+        Func<double, double> dFun, 
+        Func<float,float> fFun, 
+        Func<long, long> iFun,
+        Func<decimal, decimal> decFun)
+    {
+        if (value.GetValueType().IsSubtypeOf(ValueType.XsDouble))
+            return AtomicValue.Create(dFun(value.GetAs<DoubleValue>().Value), ValueType.XsDouble);
+        if (value.GetValueType().IsSubtypeOf(ValueType.XsFloat))
+            return AtomicValue.Create(fFun(value.GetAs<FloatValue>().Value), ValueType.XsFloat);
+        if (value.GetValueType().IsSubtypeOf(ValueType.XsInteger))
+            return AtomicValue.Create(iFun(value.GetAs<IntegerValue>().Value), ValueType.XsInteger);
+        return AtomicValue.Create(decFun(value.GetAs<DecimalValue>().Value), ValueType.XsDecimal);
+    }
+
     private static readonly FunctionSignature<ISequence, TNode> FnAbs = (_, _, _, sequences) =>
     {
         var sequence = sequences[0];
-        return sequence.Map((onlyValue, _, _) =>
-            CreateValidNumericType(onlyValue.GetValueType(),
-                Math.Abs(Convert.ToDouble(onlyValue.GetAs<UntypedAtomicValue>())))
-        );
+        return sequence.Map((onlyValue, _, _) => ApplyFunc(onlyValue, Math.Abs, MathF.Abs, Math.Abs, Math.Abs));
     };
 
     private static readonly FunctionSignature<ISequence, TNode> FnCeiling = (_, _, _, sequences) =>
     {
         var sequence = sequences[0];
-        return sequence.Map((onlyValue, _, _) =>
-            CreateValidNumericType(onlyValue.GetValueType(),
-                Math.Ceiling(Convert.ToDouble(onlyValue.GetAs<UntypedAtomicValue>())))
-        );
+        return sequence.Map((onlyValue, _, _) => ApplyFunc(onlyValue, Math.Ceiling, MathF.Ceiling, i => i, Math.Ceiling));
     };
 
     private static readonly FunctionSignature<ISequence, TNode> FnFloor = (_, _, _, sequences) =>
     {
         var sequence = sequences[0];
-        return sequence.Map((onlyValue, _, _) =>
-            CreateValidNumericType(onlyValue.GetValueType(),
-                Math.Floor(Convert.ToDouble(onlyValue.GetAs<UntypedAtomicValue>())))
-        );
+        return sequence.Map((onlyValue, _, _) => ApplyFunc(onlyValue, Math.Floor, MathF.Ceiling, i => i, Math.Floor));
     };
 
     private static readonly FunctionSignature<ISequence, TNode> FnFormatInteger = (_, _, _, sequences) =>
@@ -260,12 +267,11 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
         return isNegative ? $"-{romanString}" : romanString;
     }
 
-    private static AbstractValue CreateValidNumericType(ValueType type, double transformedValue)
+    private static AbstractValue CreateValidNumericType<T>(ValueType type, T transformedValue)
     {
         if (type.IsSubtypeOf(ValueType.XsInteger)) return AtomicValue.Create(transformedValue, ValueType.XsInteger);
         if (type.IsSubtypeOf(ValueType.XsFloat)) return AtomicValue.Create(transformedValue, ValueType.XsFloat);
         if (type.IsSubtypeOf(ValueType.XsDouble)) return AtomicValue.Create(transformedValue, ValueType.XsDouble);
-        // It must be a decimal, only four numeric types
         return AtomicValue.Create(transformedValue, ValueType.XsDecimal);
     }
 
@@ -289,19 +295,28 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
                     return IteratorResult<AbstractValue>.Done();
                 }
 
-                var firstValue = sequence.First()!;
-                var numericValue = Convert.ToDecimal(firstValue.GetAs<AtomicValue>().GetValue());
+                var firstValue = sequence?.First()!;
 
-                if (firstValue.GetValueType().IsSubtypeOfAny(ValueType.XsFloat, ValueType.XsDouble))
+                if (firstValue.GetValueType().IsSubtypeOf(ValueType.XsFloat))
                 {
-                    // TODO: Check if this is sufficient for floats as well, or if they need a separate pass.
-                    var doubleValue = Convert.ToDouble(numericValue);
-                    if (doubleValue == 0 || double.IsNaN(doubleValue) || double.IsInfinity(doubleValue))
+                    var value = firstValue.GetAs<FloatValue>().Value;
+                    if (value is 0.0f or float.NaN || float.IsInfinity(value))
                     {
                         done = true;
                         return IteratorResult<AbstractValue>.Ready(firstValue);
                     }
                 }
+                else if (firstValue.GetValueType().IsSubtypeOf(ValueType.XsDouble))
+                {
+                    var value = firstValue.GetAs<DoubleValue>().Value;
+                    if (value is 0.0 or double.NaN || double.IsInfinity(value))
+                    {
+                        done = true;
+                        return IteratorResult<AbstractValue>.Ready(firstValue);
+                    }
+                }
+
+                var numericValue = Convert.ToDecimal(firstValue.GetAs<AtomicValue>().GetValue());
 
                 var scalingPrecision = precision != null
                     ? Convert.ToInt32(precision.First()?.GetAs<AtomicValue>().GetValue())

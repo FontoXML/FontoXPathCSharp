@@ -12,7 +12,7 @@ public static class BuiltInFunctionsArraysGet<TNode> where TNode : notnull
         return positionSequence.MapAll(positions =>
         {
             var position = positions.First();
-            var positionValue = position.GetAs<IntValue>().Value;
+            var positionValue = (int)position.GetAs<IntegerValue>().Value;
             return arraySequence.MapAll(arrays =>
             {
                 var array = arrays.First();

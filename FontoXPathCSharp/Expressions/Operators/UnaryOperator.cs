@@ -98,7 +98,7 @@ public class UnaryOperator<TNode> : AbstractExpression<TNode> where TNode : notn
 
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsInteger))
                     return SequenceFactory.CreateFromValue(
-                        AtomicValue.Create(value.GetAs<IntValue>().Value * -1, ValueType.XsInteger)
+                        AtomicValue.Create(value.GetAs<IntegerValue>().Value * -1, ValueType.XsInteger)
                     );
             }
 
