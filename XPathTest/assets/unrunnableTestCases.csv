@@ -1832,7 +1832,7 @@ Catalog002;PRSC Error: Failed to parse query '(\n        import schema namespace
 Catalog003;PRSC Error: Failed to parse query '(\n        declare namespace fots = "http://www.w3.org/2010/09/qt-fots-catalog";\n        let $testsets := //fots:test-set/@file/doc(resolve-uri(., base-uri(..)))\n        for $test in $testsets//fots:test-case[contains(test, "import schema")]\n        where empty($test/(fots:dependency | ../fots:dependency)[@type='feature' and @value="schemaImport"]) \n        return $test\n      ) => empty()'
 Catalog009;PRSC Error: Failed to parse query '() instance of $element()*'
 Catalog011;PRSC Error: Failed to parse query ''
-cbcl-abs-001;The function fn:reverse with arity 1 is not registered.
+cbcl-abs-001;Can't parse 2.2 into an int.
 cbcl-add-dayTimeDurations-001;PRSC Error: Failed to parse query 'declare function local:dayTimeDuration($days as xs:integer, $hours as xs:integer ) { xs:dayTimeDuration(concat('P', $days, 'DT', $hours, 'H')) }; local:dayTimeDuration(1, 1) + xs:dayTimeDuration("P0D")'
 cbcl-add-dayTimeDurations-002;PRSC Error: Failed to parse query 'declare function local:dayTimeDuration($days as xs:integer, $hours as xs:integer ) { xs:dayTimeDuration(concat('P', $days, 'DT', $hours, 'H')) }; xs:dayTimeDuration("P0D") + local:dayTimeDuration(1, 1)'
 cbcl-add-dayTimeDurations-003;PRSC Error: Failed to parse query 'declare function local:dayTimeDuration($days as xs:integer, $hours as xs:integer ) { xs:dayTimeDuration(concat('P', $days, 'DT', $hours, 'H')) }; local:dayTimeDuration(1, 1) + local:dayTimeDuration(1, 1)'
@@ -2641,7 +2641,7 @@ cbcl-error-026;Expected executing the XPath "empty( if (current-date() lt xs:dat
 cbcl-error-027;Expected executing the XPath "empty( if (current-date() lt xs:date('2009-01-01')) then () else fn:error())" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-date with arity 0 is not registered.
 cbcl-error-028;Expected executing the XPath "declare function local:item() { if (current-date() lt xs:date('2012-10-10')) then 1 else "one" }; empty( typeswitch ( local:item() ) case xs:integer return fn:error() default return ())" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare function local:item() { if (current-date() lt xs:date('2012-10-10')) then 1 else "one" }; empty( typeswitch ( local:item() ) case xs:integer return fn:error() default return ())'
 cbcl-error-029;PRSC Error: Failed to parse query 'declare function local:item() { if (current-date() gt xs:date('1900-01-01')) then 1 else "one" }; empty( typeswitch ( local:item() ) case xs:integer return () default return fn:error())'
-cbcl-error-030;Expected executing the XPath "empty(fn:remove( fn:error(), 1))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:remove with arity 2 is not registered.
+cbcl-error-030;Expected executing the XPath "empty(fn:remove( fn:error(), 1))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
 cbcl-error-031;Expected executing the XPath "empty(fn:subsequence( fn:error(), 2, 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:subsequence with arity 3 is not registered.
 cbcl-error-032;Expected executing the XPath "empty(fn:error() except fn:error() )" to resolve to one of the expected results, but got System.NotImplementedException: ExceptOp AST to Expression not yet implemented
 cbcl-error-033;Expected executing the XPath "empty(fn:error() intersect fn:error() )" to resolve to one of the expected results, but got System.NotImplementedException: IntersectOp AST to Expression not yet implemented
@@ -2682,10 +2682,10 @@ cbcl-fn-indexof-4;The function index-of with arity 2 is not registered.
 cbcl-fn-indexof-5;The function index-of with arity 2 is not registered.
 cbcl-fn-insert-before-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-insert-before-002;Casting AbstractValue(XsInt) to UntypedAtomicValue
-cbcl-fn-remove-001;The function remove with arity 2 is not registered.
-cbcl-fn-remove-002;The function remove with arity 2 is not registered.
-cbcl-fn-remove-003;The function remove with arity 2 is not registered.
-cbcl-fn-remove-004;The function remove with arity 2 is not registered.
+cbcl-fn-remove-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-fn-remove-002;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-fn-remove-003;Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-fn-remove-004;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-replace-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-replace-003;Expected XPathException with code FORX0003, but got Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-replace-004;Expected XPathException with code FORX0003, but got Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -3184,7 +3184,6 @@ cbcl-promotion-007;PRSC Error: Failed to parse query '\n        declare function
 cbcl-qname-001;Expected XPathException with code FOCA0002, but got Haven't implemented Qnames from:  :
 cbcl-QName-equal-001;PRSC Error: Failed to parse query '\n        declare function local:QName-value($arg as xs:boolean) as xs:QName { if ($arg) then QName("example.com/", "p:ncname") else QName("example.com/", "q:ncname") };\n        not(local:QName-value(true()) eq local:QName-value(false()))'
 cbcl-QName-equal-002;PRSC Error: Failed to parse query '\n        declare function local:QName-value($arg as xs:boolean) as xs:QName { if ($arg) then QName("example.com/", "p:ncname") else QName("example.com/", "q:ncname") };\n        not(local:QName-value(true()) ne local:QName-value(false()))'
-cbcl-reverse-1;Expected executing the XPath "empty(reverse( () ))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function reverse with arity 1 is not registered.
 cbcl-round-half-to-even-001;PRSC Error: Failed to parse query 'fn:round-half-to-even(3.567812E+3, 4294967296)'
 cbcl-round-half-to-even-003;Atomic Value for XsDecimal is not implemented yet.
 cbcl-round-half-to-even-005;Atomic Value for XsDecimal is not implemented yet.
@@ -7441,26 +7440,15 @@ fn-prefix-from-qname-6;The function fn:prefix-from-QName with arity 1 is not reg
 fn-prefix-from-qname-7;The function fn:prefix-from-QName with arity 1 is not registered.
 fn-prefix-from-qname-8;Expected error code: FONS0004. Found error code: XPST0017 with error message: The function fn:prefix-from-QName with arity 1 is not registered.
 fn-prefix-from-qname-9;The function fn:prefix-from-QName with arity 1 is not registered.
-fn-remove-mix-args-001;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-002;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-003;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-004;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-005;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-006;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-007;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-008;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-009;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-010;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-011;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-012;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-013;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-014;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-015;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-016;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-017;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-018;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-019;The function fn:remove with arity 2 is not registered.
-fn-remove-mix-args-020;The function fn:remove with arity 2 is not registered.
+fn-remove-mix-args-005;Type casting to XsAnyUri has not been implemented yet.
+fn-remove-mix-args-006;Type casting to XsAnyUri has not been implemented yet.
+fn-remove-mix-args-007;Type casting to XsAnyUri has not been implemented yet.
+fn-remove-mix-args-009;Atomic Value for XsDecimal is not implemented yet.
+fn-remove-mix-args-010;Can't parse 1.01 into an int.
+fn-remove-mix-args-012;Atomic Value for XsDecimal is not implemented yet.
+fn-remove-mix-args-018;Comparison between dates/times not implemented yet
+fn-remove-mix-args-019;Comparison between dates/times not implemented yet
+fn-remove-mix-args-020;Atomic Value for XsDecimal is not implemented yet.
 fn-replace-12;Using flags in 'replace' is not supported
 fn-replace-34;Using flags in 'replace' is not supported
 fn-replace-35;Using flags in 'replace' is not supported
@@ -7481,44 +7469,34 @@ fn-replaceErr-1;Expected XPathException with code FORX0001, but got Using flags 
 fn-replaceErr-2;Expected error code: FORX0004. Query succeeded with result: a\cada\
 fn-replaceErr-3;Expected error code: FORX0004. Query succeeded with result: a$ycada$y
 fn-reversedbl1args-1;PRSC Error: Failed to parse query 'fn:reverse((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
-fn-reversedbl1args-2;The function fn:reverse with arity 1 is not registered.
+fn-reversedbl1args-2;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 fn-reversedbl1args-3;PRSC Error: Failed to parse query 'fn:reverse((xs:double("1.7976931348623157E308"))) = 1.7976931348623157E308'
-fn-reversedec1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reversedec1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reversedec1args-3;The function fn:reverse with arity 1 is not registered.
-fn-reverseflt1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reverseflt1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reverseflt1args-3;The function fn:reverse with arity 1 is not registered.
-fn-reverseint1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reverseint1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reverseint1args-3;The function fn:reverse with arity 1 is not registered.
-fn-reverseintg1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reverseintg1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reverseintg1args-3;The function fn:reverse with arity 1 is not registered.
-fn-reverselng1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reverselng1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reverselng1args-3;The function fn:reverse with arity 1 is not registered.
-fn-reversenint1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reversenint1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reversenint1args-3;The function fn:reverse with arity 1 is not registered.
-fn-reversenni1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reversenni1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reversenni1args-3;The function fn:reverse with arity 1 is not registered.
-fn-reversenpi1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reversenpi1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reversenpi1args-3;The function fn:reverse with arity 1 is not registered.
-fn-reversepint1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reversepint1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reversepint1args-3;The function fn:reverse with arity 1 is not registered.
-fn-reversesht1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reversesht1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reversesht1args-3;The function fn:reverse with arity 1 is not registered.
-fn-reverseulng1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reverseulng1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reverseulng1args-3;The function fn:reverse with arity 1 is not registered.
-fn-reverseusht1args-1;The function fn:reverse with arity 1 is not registered.
-fn-reverseusht1args-2;The function fn:reverse with arity 1 is not registered.
-fn-reverseusht1args-3;The function fn:reverse with arity 1 is not registered.
+fn-reversedec1args-1;Atomic Value for XsDecimal is not implemented yet.
+fn-reversedec1args-2;Atomic Value for XsDecimal is not implemented yet.
+fn-reversedec1args-3;Atomic Value for XsDecimal is not implemented yet.
+fn-reverseflt1args-2;HandleNumericOperator: Different numeric types: XsFloat and XsInt
+fn-reverseint1args-1;Can't parse 2147483648 into an int.
+fn-reverseintg1args-1;Can't parse -999999999999999999 into an int.
+fn-reverseintg1args-2;Can't parse 830993497117024304 into an int.
+fn-reverseintg1args-3;Can't parse 999999999999999999 into an int.
+fn-reverselng1args-1;Can't parse -92233720368547758 into an int.
+fn-reverselng1args-2;Can't parse -47175562203048468 into an int.
+fn-reverselng1args-3;Can't parse 92233720368547758 into an int.
+fn-reversenint1args-1;Can't parse -999999999999999999 into an int.
+fn-reversenint1args-2;Can't parse -297014075999096793 into an int.
+fn-reversenint1args-3;Atomic Value for XsNegativeInteger is not implemented yet.
+fn-reversenni1args-1;Atomic Value for XsNonNegativeInteger is not implemented yet.
+fn-reversenni1args-2;Can't parse 303884545991464527 into an int.
+fn-reversenni1args-3;Can't parse 999999999999999999 into an int.
+fn-reversenpi1args-1;Can't parse -999999999999999999 into an int.
+fn-reversenpi1args-2;Can't parse -475688437271870490 into an int.
+fn-reversenpi1args-3;Atomic Value for XsNonPositiveInteger is not implemented yet.
+fn-reversepint1args-1;Atomic Value for XsPositiveInteger is not implemented yet.
+fn-reversepint1args-2;Can't parse 52704602390610033 into an int.
+fn-reversepint1args-3;Can't parse 999999999999999999 into an int.
+fn-reverseulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
+fn-reverseulng1args-2;Can't parse 130747108607674654 into an int.
+fn-reverseulng1args-3;Can't parse 184467440737095516 into an int.
 fn-root-1;Expected error code: XPDY0002. Query succeeded with result: 
 fn-root-10;PRSC Error: Failed to parse query 'let $var := element anElement {attribute anAttribute {"Attribute Value"}} return fn:root($var)'
 fn-root-11;PRSC Error: Failed to parse query 'fn:root(element anElement {attribute anAttribute {"Attribute Value"}})'
@@ -8568,7 +8546,6 @@ fo-test-fn-distinct-values-002;Skipped test, it was a assert-permutation
 fo-test-fn-element-with-id-001;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n         validate lax{    \n          document{\n            <employee xml:id="ID21256"\n                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  \n                      xmlns:xs="http://www.w3.org/2001/XMLSchema">\n               <empnr xsi:type="xs:ID">E21256</empnr>\n               <first>John</first>\n               <last>Brown</last>\n            </employee>\n          }\n        }\n         \n           return \n\n        \n        $emp/fn:element-with-id('ID21256')/name()\n      ), ("employee"))'
 fo-test-fn-element-with-id-002;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n         validate lax{    \n          document{\n            <employee xml:id="ID21256"\n                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  \n                      xmlns:xs="http://www.w3.org/2001/XMLSchema">\n               <empnr xsi:type="xs:ID">E21256</empnr>\n               <first>John</first>\n               <last>Brown</last>\n            </employee>\n          }\n        }\n         \n           return \n\n        \n        $emp/fn:element-with-id('E21256')/name()\n      ), ("employee"))'
 fo-test-fn-empty-001;Expected XPath 
-fo-test-fn-empty-002;The function fn:remove with arity 2 is not registered.
 fo-test-fn-empty-003;PRSC Error: Failed to parse query '\n        fn:empty([])\n      '
 fo-test-fn-empty-004;PRSC Error: Failed to parse query '\n        fn:empty(map{})\n      '
 fo-test-fn-encode-for-uri-001;Expected XPath 
@@ -8583,8 +8560,6 @@ fo-test-fn-error-001;Expected error code: FOER0000. Found error code: XPST0017 w
 fo-test-fn-error-002;Expected error code: *. Found error code: XPST0017 with error message: The function fn:error with arity 2 is not registered.
 fo-test-fn-escape-html-uri-001;The function fn:escape-html-uri with arity 1 is not registered.
 fo-test-fn-escape-html-uri-002;The function fn:escape-html-uri with arity 1 is not registered.
-fo-test-fn-exists-001;The function fn:remove with arity 2 is not registered.
-fo-test-fn-exists-002;The function fn:remove with arity 2 is not registered.
 fo-test-fn-exists-003;PRSC Error: Failed to parse query '\n        fn:exists([])\n      '
 fo-test-fn-exists-004;PRSC Error: Failed to parse query '\n        fn:exists(map{})\n      '
 fo-test-fn-filter-001;PRSC Error: Failed to parse query 'deep-equal((\n        fn:filter(1 to 10, function($a) {$a mod 2 = 0})\n      ), ((2, 4, 6, 8, 10)))'
@@ -8723,13 +8698,6 @@ fo-test-fn-path-006;PRSC Error: Failed to parse query 'deep-equal((\n          l
 fo-test-fn-path-007;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n            <employee xml:id="ID21256">\n               <empnr>E21256</empnr>\n               <first>John</first>\n               <last>Brown</last>\n            </employee>\n         \n           return \n\n        \n        fn:path($emp)\n      ), ('Q{http://www.w3.org/2005/xpath-functions}root()'))'
 fo-test-fn-path-008;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n            <employee xml:id="ID21256">\n               <empnr>E21256</empnr>\n               <first>John</first>\n               <last>Brown</last>\n            </employee>\n         \n           return \n\n        \n        fn:path($emp/@xml:id)\n      ), ('Q{http://www.w3.org/2005/xpath-functions}root()/@Q{http://www.w3.org/XML/1998/namespace}id'))'
 fo-test-fn-path-009;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n            <employee xml:id="ID21256">\n               <empnr>E21256</empnr>\n               <first>John</first>\n               <last>Brown</last>\n            </employee>\n         \n           return \n\n        \n        fn:path($emp/empnr)\n      ), ('Q{http://www.w3.org/2005/xpath-functions}root()/Q{}empnr[1]'))'
-fo-test-fn-remove-001;The function fn:remove with arity 2 is not registered.
-fo-test-fn-remove-002;The function fn:remove with arity 2 is not registered.
-fo-test-fn-remove-003;The function fn:remove with arity 2 is not registered.
-fo-test-fn-remove-004;The function fn:remove with arity 2 is not registered.
-fo-test-fn-reverse-001;The function fn:reverse with arity 1 is not registered.
-fo-test-fn-reverse-002;The function fn:reverse with arity 1 is not registered.
-fo-test-fn-reverse-003;The function fn:reverse with arity 1 is not registered.
 fo-test-fn-reverse-004;PRSC Error: Failed to parse query 'deep-equal((\n        fn:reverse([1,2,3])\n      ), ([1,2,3]))'
 fo-test-fn-reverse-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:reverse(([1,2,3],[4,5,6]))\n      ), (([4,5,6],[1,2,3])))'
 fo-test-fn-round-001;Can't parse 2.5 into an int.
@@ -10169,10 +10137,6 @@ functx-fn-QName-1;Haven't implemented Qnames from: product:
 functx-fn-QName-2;Haven't implemented Qnames from: product:pre
 functx-fn-QName-3;Haven't implemented Qnames from: product:
 functx-fn-QName-all;Haven't implemented Qnames from: product:
-functx-fn-remove-1;The function remove with arity 2 is not registered.
-functx-fn-remove-2;The function remove with arity 2 is not registered.
-functx-fn-remove-3;The function remove with arity 2 is not registered.
-functx-fn-remove-all;The function remove with arity 2 is not registered.
 functx-fn-resolve-QName-1;PRSC Error: Failed to parse query ''
 functx-fn-resolve-QName-2;PRSC Error: Failed to parse query ''
 functx-fn-resolve-QName-3;PRSC Error: Failed to parse query ''
@@ -10183,10 +10147,7 @@ functx-fn-resolve-uri-3;The function resolve-uri with arity 2 is not registered.
 functx-fn-resolve-uri-4;Expected executing the XPath "(resolve-uri( 'http://datypic.com', '../base'))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function resolve-uri with arity 2 is not registered.
 functx-fn-resolve-uri-5;Expected executing the XPath "(resolve-uri( '', 'http://datypic.com'))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function resolve-uri with arity 2 is not registered.
 functx-fn-resolve-uri-all;The function resolve-uri with arity 2 is not registered.
-functx-fn-reverse-1;The function reverse with arity 1 is not registered.
-functx-fn-reverse-2;The function reverse with arity 1 is not registered.
-functx-fn-reverse-3;The function reverse with arity 1 is not registered.
-functx-fn-reverse-all;The function reverse with arity 1 is not registered.
+functx-fn-reverse-3;Expected XPath (reverse( () )) to resolve to , but instead got null
 functx-fn-root-1;PRSC Error: Failed to parse query ''
 functx-fn-root-2;PRSC Error: Failed to parse query ''
 functx-fn-root-all;PRSC Error: Failed to parse query ''
@@ -11730,7 +11691,7 @@ K-CombinedErrorCodes-5;Expected executing the XPath "import schema namespace pre
 K-CombinedErrorCodes-6;Expected executing the XPath "import schema default element namespace "http://example.com/NSNOTRECOGNIZED" at
 K-CombinedErrorCodes-9;Expected executing the XPath "validate { 1 }" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQTY0030. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'validate { 1 }'
 K-CondExpr-10;The function current-time with arity 0 is not registered.
-K-CondExpr-11;The function remove with arity 2 is not registered.
+K-CondExpr-11;The function current-time with arity 0 is not registered.
 K-CondExpr-12;TreatExpr AST to Expression not yet implemented
 K-CondExpr-3;TreatExpr AST to Expression not yet implemented
 K-CondExpr-4;TreatExpr AST to Expression not yet implemented
@@ -11751,19 +11712,19 @@ K-ContextCurrentTimeFunc-2;The function current-time with arity 0 is not registe
 K-ContextImplicitTimezoneFunc-2;The function seconds-from-duration with arity 1 is not registered.
 K-ContextImplicitTimezoneFunc-3;The function seconds-from-duration with arity 1 is not registered.
 K-ContextLastFunc-10;Expected executing the XPath "empty((1, 2, 3, current-time(), current-date(), 6, 7, 8) [0 eq last()])" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
-K-ContextLastFunc-11;The function remove with arity 2 is not registered.
-K-ContextLastFunc-12;The function remove with arity 2 is not registered.
-K-ContextLastFunc-13;The function remove with arity 2 is not registered.
-K-ContextLastFunc-14;The function remove with arity 2 is not registered.
+K-ContextLastFunc-11;The function current-time with arity 0 is not registered.
+K-ContextLastFunc-12;The function current-time with arity 0 is not registered.
+K-ContextLastFunc-13;The function current-time with arity 0 is not registered.
+K-ContextLastFunc-14;The function current-time with arity 0 is not registered.
 K-ContextLastFunc-15;Expected executing the XPath "empty((1, 2, 3, current-time(), current-date(), 6, 7, 8) [last() lt 1])" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-ContextLastFunc-16;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 K-ContextLastFunc-17;Expected executing the XPath "empty((1, 2, 3, current-time(), current-date(), 6, 7, 8) [last() le 0])" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-ContextLastFunc-18;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
-K-ContextLastFunc-19;The function remove with arity 2 is not registered.
-K-ContextLastFunc-20;The function remove with arity 2 is not registered.
-K-ContextLastFunc-21;The function remove with arity 2 is not registered.
-K-ContextLastFunc-22;The function remove with arity 2 is not registered.
-K-ContextLastFunc-23;The function remove with arity 2 is not registered.
+K-ContextLastFunc-19;The function current-time with arity 0 is not registered.
+K-ContextLastFunc-20;The function current-time with arity 0 is not registered.
+K-ContextLastFunc-21;The function current-time with arity 0 is not registered.
+K-ContextLastFunc-22;The function current-time with arity 0 is not registered.
+K-ContextLastFunc-23;The function current-time with arity 0 is not registered.
 K-ContextLastFunc-24;TreatExpr AST to Expression not yet implemented
 K-ContextLastFunc-25;TreatExpr AST to Expression not yet implemented
 K-ContextLastFunc-26;TreatExpr AST to Expression not yet implemented
@@ -11775,16 +11736,16 @@ K-ContextLastFunc-6;The function current-time with arity 0 is not registered.
 K-ContextLastFunc-7;Expected executing the XPath "empty((1, 2, 3, current-time(), current-date(), 6, 7, 8) [last() = 0])" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-ContextLastFunc-8;Expected executing the XPath "empty((1, 2, 3, current-time(), current-date(), 6, 7, 8) [0 = last()])" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-ContextLastFunc-9;Expected executing the XPath "empty((1, 2, 3, current-time(), current-date(), 6, 7, 8) [last() eq 0])" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
-K-ContextPositionFunc-10;The function remove with arity 2 is not registered.
+K-ContextPositionFunc-10;The function current-time with arity 0 is not registered.
 K-ContextPositionFunc-11;The function current-time with arity 0 is not registered.
 K-ContextPositionFunc-12;PRSC Error: Failed to parse query ''
 K-ContextPositionFunc-13;The function current-time with arity 0 is not registered.
 K-ContextPositionFunc-14;PRSC Error: Failed to parse query ''
-K-ContextPositionFunc-15;The function remove with arity 2 is not registered.
-K-ContextPositionFunc-16;The function remove with arity 2 is not registered.
-K-ContextPositionFunc-17;The function remove with arity 2 is not registered.
-K-ContextPositionFunc-18;The function remove with arity 2 is not registered.
-K-ContextPositionFunc-19;The function remove with arity 2 is not registered.
+K-ContextPositionFunc-15;The function current-time with arity 0 is not registered.
+K-ContextPositionFunc-16;The function current-time with arity 0 is not registered.
+K-ContextPositionFunc-17;The function current-time with arity 0 is not registered.
+K-ContextPositionFunc-18;The function current-time with arity 0 is not registered.
+K-ContextPositionFunc-19;The function current-time with arity 0 is not registered.
 K-ContextPositionFunc-20;TreatExpr AST to Expression not yet implemented
 K-ContextPositionFunc-21;TreatExpr AST to Expression not yet implemented
 K-ContextPositionFunc-22;TreatExpr AST to Expression not yet implemented
@@ -11813,9 +11774,9 @@ K-ContextPositionFunc-42;The function current-time with arity 0 is not registere
 K-ContextPositionFunc-43;The function current-time with arity 0 is not registered.
 K-ContextPositionFunc-5;The function current-time with arity 0 is not registered.
 K-ContextPositionFunc-6;The function current-time with arity 0 is not registered.
-K-ContextPositionFunc-7;The function remove with arity 2 is not registered.
-K-ContextPositionFunc-8;The function remove with arity 2 is not registered.
-K-ContextPositionFunc-9;The function remove with arity 2 is not registered.
+K-ContextPositionFunc-7;The function current-time with arity 0 is not registered.
+K-ContextPositionFunc-8;The function current-time with arity 0 is not registered.
+K-ContextPositionFunc-9;The function current-time with arity 0 is not registered.
 K-DataFunc-1;Expected error code: XPST0017. Query succeeded with result: 
 K-DatesSubtract-1;SubtractOp not available for types XsDate and XsDate
 K-DatesSubtract-2;SubtractOp not available for types XsDate and XsDate
@@ -12031,8 +11992,8 @@ K-FilterExpr-84;Expected executing the XPath "empty((1, 2, 3)[remove((false(), "
 K-FilterExpr-85;Expected executing the XPath "empty((1, 2, 3)[remove((false(), "a string"), 2)])" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath empty((1, 2, 3)[remove((false(), "a string"), 2)]) to resolve to true
 K-FilterExpr-86;The function current-time with arity 0 is not registered.
 K-FilterExpr-87;The function current-time with arity 0 is not registered.
-K-FilterExpr-88;Expected executing the XPath "empty(remove((1, 2, 3, current-time()), 4)[false()])" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-FilterExpr-89;The function remove with arity 2 is not registered.
+K-FilterExpr-88;Expected executing the XPath "empty(remove((1, 2, 3, current-time()), 4)[false()])" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
+K-FilterExpr-89;The function current-time with arity 0 is not registered.
 K-FilterExpr-9;Expected XPath empty((1, 2, 3)[4]) to resolve to true
 K-FilterExpr-91;Expected error code: FORG0006. Query succeeded with result: 1 2 3
 K-FilterExpr-92;Expected error code: FORG0006. Query succeeded with result: 1 2 3
@@ -12050,13 +12011,13 @@ K-ForExprPositionalVar-13;The function current-time with arity 0 is not register
 K-ForExprPositionalVar-14;The function current-time with arity 0 is not registered.
 K-ForExprPositionalVar-15;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-ForExprPositionalVar-16;Casting AbstractValue(XsInt) to UntypedAtomicValue
-K-ForExprPositionalVar-17;The function remove with arity 2 is not registered.
-K-ForExprPositionalVar-18;The function remove with arity 2 is not registered.
-K-ForExprPositionalVar-19;The function remove with arity 2 is not registered.
+K-ForExprPositionalVar-17;The function current-time with arity 0 is not registered.
+K-ForExprPositionalVar-18;The function current-time with arity 0 is not registered.
+K-ForExprPositionalVar-19;The function current-time with arity 0 is not registered.
 K-ForExprPositionalVar-2;Expected XPathException with code XPST0008, but got The given key 'p1' was not present in the dictionary.
-K-ForExprPositionalVar-20;The function remove with arity 2 is not registered.
-K-ForExprPositionalVar-21;The function remove with arity 2 is not registered.
-K-ForExprPositionalVar-22;The function remove with arity 2 is not registered.
+K-ForExprPositionalVar-20;The function current-time with arity 0 is not registered.
+K-ForExprPositionalVar-21;The function current-time with arity 0 is not registered.
+K-ForExprPositionalVar-22;The function current-time with arity 0 is not registered.
 K-ForExprPositionalVar-23;The function subsequence with arity 3 is not registered.
 K-ForExprPositionalVar-24;Expected executing the XPath "empty(for $i at $p in subsequence((1, 2, 3, current-time()), 5) return $p)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function subsequence with arity 2 is not registered.
 K-ForExprPositionalVar-25;Expected executing the XPath "empty(for $i at $p in subsequence((1, 2, 3, current-time()), 5, 8) return $p)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function subsequence with arity 3 is not registered.
@@ -12068,7 +12029,7 @@ K-ForExprPositionalVar-4;Expected XPathException with code XPST0008, but got The
 K-ForExprWithout-18;Expected executing the XPath "empty(for $var in () return current-time())" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-ForExprWithout-20;Expected executing the XPath "empty((for $var in () return current-time()))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-ForExprWithout-22;The function subsequence with arity 2 is not registered.
-K-ForExprWithout-23;The function remove with arity 2 is not registered.
+K-ForExprWithout-23;The function current-time with arity 0 is not registered.
 K-ForExprWithout-26;Expected XPathException with code XPST0008, but got The given key 'NOTEXIST' was not present in the dictionary.
 K-ForExprWithout-27;Expected XPathException with code XPST0081, but got The given key 'NOTEXIST' was not present in the dictionary.
 K-ForExprWithout-29;Expected XPathException with code XPST0008, but got The given key 'NOTEXIST' was not present in the dictionary.
@@ -12168,16 +12129,14 @@ K-GenCompEq-16;Expected error code: FOER0000. Found error code: XPST0017 with er
 K-GenCompEq-17;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-GenCompEq-18;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-GenCompEq-19;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
-K-GenCompEq-20;The function remove with arity 2 is not registered.
+K-GenCompEq-20;The function current-time with arity 0 is not registered.
 K-GenCompEq-21;The function timezone-from-time with arity 1 is not registered.
 K-GenCompEq-22;The function timezone-from-time with arity 1 is not registered.
 K-GenCompEq-23;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-K-GenCompEq-30;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function remove with arity 2 is not registered.
-K-GenCompEq-31;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function remove with arity 2 is not registered.
-K-GenCompEq-32;Expected executing the XPath "remove((6, "a string"), 2) = xs:untypedAtomic("6")" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-GenCompEq-33;Expected executing the XPath "xs:untypedAtomic("6") = remove(("a string", 6), 1)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-GenCompEq-34;Expected executing the XPath "(remove((xs:untypedAtomic("6"), "a string"), 2)) = 6" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-GenCompEq-35;Expected executing the XPath "6 = (remove(("a string", xs:untypedAtomic("6")), 1))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
+K-GenCompEq-32;Expected executing the XPath "remove((6, "a string"), 2) = xs:untypedAtomic("6")" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsInt and XsDouble
+K-GenCompEq-33;Expected executing the XPath "xs:untypedAtomic("6") = remove(("a string", 6), 1)" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsDouble and XsInt
+K-GenCompEq-34;Expected executing the XPath "(remove((xs:untypedAtomic("6"), "a string"), 2)) = 6" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsDouble and XsInt
+K-GenCompEq-35;Expected executing the XPath "6 = (remove(("a string", xs:untypedAtomic("6")), 1))" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsInt and XsDouble
 K-GenCompEq-51;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-GenCompEq-54;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompEq-55;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
@@ -12418,18 +12377,14 @@ K-NumericAdd-42;Expected error code: FOER0000. Found error code: XPST0017 with e
 K-NumericAdd-45;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 K-NumericAdd-46;Can't parse 3.0 into an int.
 K-NumericAdd-5;Can't parse 1.1 into an int.
-K-NumericAdd-51;Expected executing the XPath "(remove((1, "two"), 2) + 1) eq 2" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericAdd-52;Expected executing the XPath "2 eq (1 + remove((1, "two"), 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericAdd-53;Expected executing the XPath "(remove((1, "two"), 2) + xs:untypedAtomic("1")) eq 2" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericAdd-54;Expected executing the XPath "2 eq (xs:untypedAtomic("1") + remove((1, "two"), 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericAdd-55;Expected executing the XPath "(remove((xs:untypedAtomic("1"), "two"), 2) + 1) eq 2" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericAdd-56;Expected executing the XPath "2 eq (1 + remove((xs:untypedAtomic("1"), "two"), 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericAdd-57;Expected executing the XPath "(remove((1, "two"), 2) + xs:untypedAtomic("1")) eq 2" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericAdd-58;Expected executing the XPath "2 eq (xs:untypedAtomic("1") + remove((1, "two"), 2))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
+K-NumericAdd-53;Expected executing the XPath "(remove((1, "two"), 2) + xs:untypedAtomic("1")) eq 2" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsDouble and XsInt
+K-NumericAdd-54;Expected executing the XPath "2 eq (xs:untypedAtomic("1") + remove((1, "two"), 2))" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsInt and XsDouble
+K-NumericAdd-55;Expected executing the XPath "(remove((xs:untypedAtomic("1"), "two"), 2) + 1) eq 2" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsDouble and XsInt
+K-NumericAdd-56;Expected executing the XPath "2 eq (1 + remove((xs:untypedAtomic("1"), "two"), 2))" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsInt and XsDouble
+K-NumericAdd-57;Expected executing the XPath "(remove((1, "two"), 2) + xs:untypedAtomic("1")) eq 2" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsDouble and XsInt
+K-NumericAdd-58;Expected executing the XPath "2 eq (xs:untypedAtomic("1") + remove((1, "two"), 2))" to resolve to one of the expected results, but got System.NotImplementedException: HandleNumericOperator: Different numeric types: XsInt and XsDouble
 K-NumericAdd-59;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 K-NumericAdd-6;Can't parse 1.1 into an int.
-K-NumericAdd-61;Expected executing the XPath "(remove((5, 1e0), 2) + 1) eq 6" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericAdd-62;Expected executing the XPath "(1 + remove((5, 1e0), 2)) eq 6" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
 K-NumericAdd-63;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
 K-NumericAdd-64;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
 K-NumericAdd-8;HandleNumericOperator: Different numeric types: XsFloat and XsInt
@@ -12472,7 +12427,7 @@ K-NumericEqual-27;Can't parse 1.1 into an int.
 K-NumericEqual-28;Can't parse 1.1 into an int.
 K-NumericEqual-29;Can't parse 1.1 into an int.
 K-NumericEqual-30;Expected XPath xs:float("NaN") ne xs:float("NaN") to resolve to true
-K-NumericEqual-41;The function remove with arity 2 is not registered.
+K-NumericEqual-41;The function current-time with arity 0 is not registered.
 K-NumericEqual-42;The function timezone-from-time with arity 1 is not registered.
 K-NumericEqual-43;The function timezone-from-time with arity 1 is not registered.
 K-NumericEqual-44;Expected error code: XPTY0004. Query succeeded with result: True
@@ -12588,9 +12543,9 @@ K-NumericSubtract-28;HandleNumericOperator: Different numeric types: XsDouble an
 K-NumericSubtract-32;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 K-NumericSubtract-34;Can't parse 1.1 into an int.
 K-NumericSubtract-35;Can't parse 1.1 into an int.
-K-NumericSubtract-36;Expected executing the XPath "1 eq (remove((current-time(), 1), 1) - 0)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericSubtract-37;Expected executing the XPath "1 eq (remove((current-time(), 1), 1) + 0)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-NumericSubtract-38;Expected executing the XPath "1 eq (0 + remove((current-time(), 1), 1))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
+K-NumericSubtract-36;Expected executing the XPath "1 eq (remove((current-time(), 1), 1) - 0)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
+K-NumericSubtract-37;Expected executing the XPath "1 eq (remove((current-time(), 1), 1) + 0)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
+K-NumericSubtract-38;Expected executing the XPath "1 eq (0 + remove((current-time(), 1), 1))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-NumericSubtract-4;HandleNumericOperator: Different numeric types: XsFloat and XsInt
 K-NumericSubtract-5;Atomic Value for XsDecimal is not implemented yet.
 K-NumericSubtract-6;Atomic Value for XsDecimal is not implemented yet.
@@ -12732,26 +12687,26 @@ K-RangeExpr-1;Expected executing the XPath "1 to 1 eq 1" to resolve to one of th
 K-RangeExpr-10;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-11;The function subsequence with arity 3 is not registered.
 K-RangeExpr-12;The function subsequence with arity 3 is not registered.
-K-RangeExpr-13;The function reverse with arity 1 is not registered.
+K-RangeExpr-13;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-14;The function subsequence with arity 3 is not registered.
 K-RangeExpr-15;The function subsequence with arity 3 is not registered.
 K-RangeExpr-16;The function subsequence with arity 3 is not registered.
 K-RangeExpr-17;The function subsequence with arity 3 is not registered.
 K-RangeExpr-18;The function subsequence with arity 3 is not registered.
-K-RangeExpr-19;The function reverse with arity 1 is not registered.
+K-RangeExpr-19;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-2;Casting AbstractValue(XsInt) to UntypedAtomicValue
-K-RangeExpr-20;The function reverse with arity 1 is not registered.
-K-RangeExpr-21;The function reverse with arity 1 is not registered.
-K-RangeExpr-22;The function reverse with arity 1 is not registered.
-K-RangeExpr-23;The function reverse with arity 1 is not registered.
-K-RangeExpr-24;The function reverse with arity 1 is not registered.
+K-RangeExpr-20;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-RangeExpr-21;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-RangeExpr-22;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-RangeExpr-23;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-RangeExpr-24;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-25;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-26;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-27;Casting AbstractValue(XsInt) to UntypedAtomicValue
-K-RangeExpr-28;The function reverse with arity 1 is not registered.
-K-RangeExpr-29;The function reverse with arity 1 is not registered.
+K-RangeExpr-28;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-RangeExpr-29;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-3;Casting AbstractValue(XsInt) to UntypedAtomicValue
-K-RangeExpr-30;The function reverse with arity 1 is not registered.
+K-RangeExpr-30;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-RangeExpr-31;TreatExpr AST to Expression not yet implemented
 K-RangeExpr-32;TreatExpr AST to Expression not yet implemented
 K-RangeExpr-33;Expected XPathException with code XPTY0004, but got Can't parse 1.1 into an int.
@@ -12829,8 +12784,6 @@ K-SeqBooleanFunc-6;Expected XPathException with code FORG0006, but got Type cast
 K-SeqBooleanFunc-7;Type casting to XsAnyUri has not been implemented yet.
 K-SeqBooleanFunc-8;Type casting to XsAnyUri has not been implemented yet.
 K-SeqCountFunc-15;Casting AbstractValue(XsInt) to UntypedAtomicValue
-K-SeqCountFunc-16;The function reverse with arity 1 is not registered.
-K-SeqCountFunc-17;The function reverse with arity 1 is not registered.
 K-SeqCountFunc-18;The function current-time with arity 0 is not registered.
 K-SeqDeepEqualFunc-16;Atomic Value for XsDecimal is not implemented yet.
 K-SeqDeepEqualFunc-18;Type casting to XsAnyUri has not been implemented yet.
@@ -12843,9 +12796,9 @@ K-SeqDeepEqualFunc-33;The function index-of with arity 2 is not registered.
 K-SeqDeepEqualFunc-34;The function index-of with arity 2 is not registered.
 K-SeqDeepEqualFunc-35;The function index-of with arity 2 is not registered.
 K-SeqDeepEqualFunc-5;Expected executing the XPath "deep-equal("a string", "a string", ())" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: No collations are supported
-K-SeqDeepEqualFunc-52;The function reverse with arity 1 is not registered.
+K-SeqDeepEqualFunc-52;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-SeqDeepEqualFunc-53;Casting AbstractValue(XsInt) to UntypedAtomicValue
-K-SeqDeepEqualFunc-54;The function reverse with arity 1 is not registered.
+K-SeqDeepEqualFunc-54;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-SeqDeepEqualFunc-55;Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-SeqDeepEqualFunc-56;No collations are supported
 K-SeqDeepEqualFunc-57;No collations are supported
@@ -12864,16 +12817,15 @@ K-SeqDeepEqualFunc-68;PRSC Error: Failed to parse query ''
 K-SeqDeepEqualFunc-69;PRSC Error: Failed to parse query ''
 K-SeqDeepEqualFunc-70;PRSC Error: Failed to parse query ''
 K-SeqDeepEqualFunc-71;PRSC Error: Failed to parse query ''
-K-SeqEmptyFunc-9;The function remove with arity 2 is not registered.
+K-SeqEmptyFunc-9;The function current-time with arity 0 is not registered.
 K-SeqExactlyOneFunc-6;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-SeqExactlyOneFunc-7;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-SeqExactlyOneFunc-8;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-SeqExistsFunc-10;The function timezone-from-dateTime with arity 1 is not registered.
 K-SeqExistsFunc-11;The function timezone-from-date with arity 1 is not registered.
 K-SeqExistsFunc-12;The function timezone-from-time with arity 1 is not registered.
-K-SeqExistsFunc-13;The function remove with arity 2 is not registered.
-K-SeqExistsFunc-14;The function remove with arity 2 is not registered.
-K-SeqExistsFunc-9;The function reverse with arity 1 is not registered.
+K-SeqExistsFunc-13;The function current-time with arity 0 is not registered.
+K-SeqExistsFunc-14;The function current-time with arity 0 is not registered.
 K-SeqExprCast-100;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1000;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:NOTATION)'
 K-SeqExprCast-1003;The function subsequence with arity 3 is not registered.
@@ -13256,7 +13208,7 @@ K-SeqExprCast-1436;PRSC Error: Failed to parse query 'not(xs:QName("ncname") cas
 K-SeqExprCast-1437;Expected XPathException with code XPTY0004, but got Atomic Value for XsName is not implemented yet.
 K-SeqExprCast-1438;PRSC Error: Failed to parse query 'not(xs:QName("ncname") castable as xs:yearMonthDuration)'
 K-SeqExprCast-1439;Expected XPathException with code XPTY0004, but got Atomic Value for XsName is not implemented yet.
-K-SeqExprCast-144;Expected executing the XPath "(xs:decimal(remove((3e3, 1.1), 1))) eq 1.1" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
+K-SeqExprCast-144;Expected executing the XPath "(xs:decimal(remove((3e3, 1.1), 1))) eq 1.1" to resolve to one of the expected results, but got System.Exception: Can't parse 1.1 into an int.
 K-SeqExprCast-1440;PRSC Error: Failed to parse query 'not(xs:QName("ncname") castable as xs:dayTimeDuration)'
 K-SeqExprCast-1441;Expected XPathException with code XPTY0004, but got Atomic Value for XsName is not implemented yet.
 K-SeqExprCast-1442;PRSC Error: Failed to parse query 'not(xs:QName("ncname") castable as xs:dateTime)'
@@ -13267,7 +13219,7 @@ K-SeqExprCast-1446;PRSC Error: Failed to parse query 'not(xs:QName("ncname") cas
 K-SeqExprCast-1447;Expected XPathException with code XPTY0004, but got Atomic Value for XsName is not implemented yet.
 K-SeqExprCast-1448;PRSC Error: Failed to parse query 'not(xs:QName("ncname") castable as xs:gYearMonth)'
 K-SeqExprCast-1449;Expected XPathException with code XPTY0004, but got Atomic Value for XsName is not implemented yet.
-K-SeqExprCast-145;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function remove with arity 2 is not registered.
+K-SeqExprCast-145;Expected XPathException with code XPTY0004, but got Atomic Value for XsDecimal is not implemented yet.
 K-SeqExprCast-1450;PRSC Error: Failed to parse query 'not(xs:QName("ncname") castable as xs:gYear)'
 K-SeqExprCast-1451;Expected XPathException with code XPTY0004, but got Atomic Value for XsName is not implemented yet.
 K-SeqExprCast-1452;PRSC Error: Failed to parse query 'not(xs:QName("ncname") castable as xs:gMonthDay)'
@@ -14208,49 +14160,25 @@ K-SeqMINFunc-7;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMINFunc-8;Can't parse 5.0 into an int.
 K-SeqMINFunc-9;Casting AbstractValue(XsDouble) to FloatValue
 K-SeqOneOrMoreFunc-7;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
-K-SeqRemoveFunc-10;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-11;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-12;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-13;Expected executing the XPath "remove(error(), 1)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOER0000. Found error code: XPST0017 with error message: The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-14;Expected executing the XPath "remove((5, 1e0), 2) eq 5" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-15;Expected executing the XPath "5 eq remove((5, 1e0), 2)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-17;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-18;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-19;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-20;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-21;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-22;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-23;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-24;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-25;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function remove with arity 2 is not registered.
+K-SeqRemoveFunc-12;Can't parse 3.1 into an int.
+K-SeqRemoveFunc-13;Expected executing the XPath "remove(error(), 1)" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
+K-SeqRemoveFunc-17;Expected error code: XPTY0004. Query succeeded with result: True
+K-SeqRemoveFunc-18;Expected error code: XPTY0004. Query succeeded with result: False
+K-SeqRemoveFunc-19;The function current-time with arity 0 is not registered.
+K-SeqRemoveFunc-20;The function current-time with arity 0 is not registered.
+K-SeqRemoveFunc-21;The function current-time with arity 0 is not registered.
+K-SeqRemoveFunc-22;The function current-time with arity 0 is not registered.
+K-SeqRemoveFunc-23;The function current-time with arity 0 is not registered.
+K-SeqRemoveFunc-24;The function current-time with arity 0 is not registered.
+K-SeqRemoveFunc-25;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to UntypedAtomicValue
 K-SeqRemoveFunc-26;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'remove(1 to 10, 1.0e0)'
-K-SeqRemoveFunc-27;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-3;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-4;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-5;Expected executing the XPath "empty(remove((), 4))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-6;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-7;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-8;The function remove with arity 2 is not registered.
-K-SeqRemoveFunc-9;The function remove with arity 2 is not registered.
-K-SeqReverseFunc-10;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-11;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-12;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-13;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-14;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-15;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-16;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-17;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-18;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-19;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-20;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-21;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-3;Expected executing the XPath "empty(reverse(()))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-4;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-5;Expected executing the XPath "not(reverse(()))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-6;Expected executing the XPath "not(exists(reverse(())))" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-7;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-8;The function reverse with arity 1 is not registered.
-K-SeqReverseFunc-9;The function reverse with arity 1 is not registered.
+K-SeqRemoveFunc-27;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-SeqReverseFunc-12;Casting AbstractValue(XsInt) to UntypedAtomicValue
+K-SeqReverseFunc-15;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
+K-SeqReverseFunc-16;Expected XPath reverse((1, 2, 3))[last()] eq 1 to resolve to true
+K-SeqReverseFunc-20;The function current-time with arity 0 is not registered.
+K-SeqReverseFunc-21;The function current-time with arity 0 is not registered.
+K-SeqReverseFunc-8;The function current-time with arity 0 is not registered.
 K-SeqSubsequenceFunc-10;The function subsequence with arity 3 is not registered.
 K-SeqSubsequenceFunc-11;The function subsequence with arity 3 is not registered.
 K-SeqSubsequenceFunc-12;The function subsequence with arity 3 is not registered.
@@ -15175,7 +15103,6 @@ K2-followingAxis-1;PRSC Error: Failed to parse query ''
 K2-followingAxis-2;PRSC Error: Failed to parse query ''
 K2-followingAxis-3;PRSC Error: Failed to parse query ''
 K2-followingAxis-4;PRSC Error: Failed to parse query ''
-K2-ForExprPositionalVar-1;The function remove with arity 2 is not registered.
 K2-ForExprPositionalVar-2;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 K2-ForExprPositionalVar-3;PRSC Error: Failed to parse query ''
 K2-ForExprPositionalVar-4;PRSC Error: Failed to parse query 'for $i at $pos in (3 to 6) let $let := $pos + 1 return ($let, $let - 1)'
@@ -19240,14 +19167,14 @@ rangeExpr-29;Expected executing the XPath "count(18446744073709551616 to 1844674
 rangeExpr-3;Casting AbstractValue(XsInt) to UntypedAtomicValue
 rangeExpr-30;Expected executing the XPath "(28446744073709551616 to 28446744073709551620)!position()" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '(28446744073709551616 to 28446744073709551620)!position()'
 rangeExpr-31;Expected executing the XPath "((28446744073709551616 to 28446744073709551620)!last())[1]" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '((28446744073709551616 to 28446744073709551620)!last())[1] = 5'
-rangeExpr-32;Expected executing the XPath "reverse(28446744073709551616 to 28446744073709551620)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function reverse with arity 1 is not registered.
+rangeExpr-32;Expected executing the XPath "reverse(28446744073709551616 to 28446744073709551620)" to resolve to one of the expected results, but got System.Exception: Can't parse 28446744073709551616 into an int.
 rangeExpr-34;Casting AbstractValue(XsInt) to UntypedAtomicValue
 rangeExpr-35;Casting AbstractValue(XsInt) to UntypedAtomicValue
 rangeExpr-36;The function year-from-date with arity 1 is not registered.
 rangeExpr-37;The function year-from-date with arity 1 is not registered.
 rangeExpr-38;The function year-from-date with arity 1 is not registered.
 rangeExpr-39;The function year-from-date with arity 1 is not registered.
-rangeExpr-4;The function fn:reverse with arity 1 is not registered.
+rangeExpr-4;Casting AbstractValue(XsInt) to UntypedAtomicValue
 rangeExpr-40;The function year-from-date with arity 1 is not registered.
 RangeExpr-401;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-401a;Casting AbstractValue(XsInt) to UntypedAtomicValue
@@ -19278,50 +19205,50 @@ RangeExpr-406b;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-406c;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-406d;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-406e;Casting AbstractValue(XsInt) to UntypedAtomicValue
-RangeExpr-406f;The function reverse with arity 1 is not registered.
+RangeExpr-406f;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-407;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-407a;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-407b;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-407c;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-407d;Casting AbstractValue(XsInt) to UntypedAtomicValue
-RangeExpr-407e;The function reverse with arity 1 is not registered.
+RangeExpr-407e;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-408;Can't parse 100000000000 into an int.
 RangeExpr-408a;Can't parse 100000000000 into an int.
 RangeExpr-408b;Can't parse 100000000000 into an int.
 RangeExpr-408c;Can't parse 100000000002 into an int.
 RangeExpr-408d;Can't parse 100001000002 into an int.
-RangeExpr-408e;The function reverse with arity 1 is not registered.
+RangeExpr-408e;Can't parse 100000000000 into an int.
 RangeExpr-409;Can't parse 1000000000000000000000 into an int.
 RangeExpr-409a;Can't parse 1000000000000000000000 into an int.
 RangeExpr-409b;Can't parse 1000000000000000000000 into an int.
 RangeExpr-409c;Can't parse 1000000000000000020001 into an int.
 RangeExpr-409d;Can't parse 1000000000000000020001 into an int.
-RangeExpr-409e;The function reverse with arity 1 is not registered.
+RangeExpr-409e;Can't parse 1000000000000000000000 into an int.
 rangeExpr-41;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-410;Can't parse 100000000003 into an int.
 RangeExpr-410a;Can't parse 100000000003 into an int.
 RangeExpr-410b;Can't parse 100000000003 into an int.
 RangeExpr-410c;Can't parse 100000000003 into an int.
 RangeExpr-410d;Can't parse 100000000008 into an int.
-RangeExpr-410e;The function reverse with arity 1 is not registered.
+RangeExpr-410e;Can't parse 100000000003 into an int.
 RangeExpr-411;Can't parse 1000000000000000000003 into an int.
 RangeExpr-411a;Can't parse 1000000000000000000003 into an int.
 RangeExpr-411b;Can't parse 1000000000000000000003 into an int.
 RangeExpr-411c;Can't parse 1000000000000000000000 into an int.
 RangeExpr-411d;Can't parse 1000000000000000000000 into an int.
-RangeExpr-411e;The function reverse with arity 1 is not registered.
+RangeExpr-411e;Can't parse 1000000000000000000003 into an int.
 RangeExpr-412;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-412a;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-412b;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-412c;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-412d;Casting AbstractValue(XsInt) to UntypedAtomicValue
-RangeExpr-412e;The function reverse with arity 1 is not registered.
+RangeExpr-412e;Casting AbstractValue(XsInt) to UntypedAtomicValue
 RangeExpr-413;The function year-from-date with arity 1 is not registered.
 RangeExpr-413a;The function year-from-date with arity 1 is not registered.
 RangeExpr-413b;The function year-from-date with arity 1 is not registered.
 RangeExpr-413c;The function year-from-date with arity 1 is not registered.
 RangeExpr-413d;The function year-from-date with arity 1 is not registered.
-RangeExpr-413e;The function reverse with arity 1 is not registered.
+RangeExpr-413e;The function year-from-date with arity 1 is not registered.
 RangeExpr-414;The function year-from-date with arity 1 is not registered.
 RangeExpr-414a;The function year-from-date with arity 1 is not registered.
 RangeExpr-414b;The function year-from-date with arity 1 is not registered.
@@ -20387,9 +20314,8 @@ ReturnExpr016;PRSC Error: Failed to parse query ''
 ReturnExpr017;Expected XPath for $file in (//Folder)[1]/File return ($file/Stream/StreamSize)[1] + 1 to resolve to 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1032.33, but instead got 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1032.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33
 ReturnExpr018;HandleNumericOperator: Different numeric types: XsDouble and XsInt
 ReturnExpr020;Expected XPath for $file in (//Folder)[1]/File return xs:string( data( $file/FileName[1] )) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030, but instead got null
-reverse-001;The function fn:reverse with arity 1 is not registered.
-reverse-002;The function fn:reverse with arity 1 is not registered.
-reverse-003;The function reverse with arity 1 is not registered.
+reverse-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
+reverse-003;Expected XPath string-join(reverse(((//*:Open)[1])/ancestor-or-self::*/local-name()), '~') to resolve to "Open~Schedule~Auction~AuctionWatchList"
 seq-queries-results-q1;Expected results and parsedFragment children to match
 seq-queries-results-q2;PRSC Error: Failed to parse query ''
 seq-queries-results-q3;PRSC Error: Failed to parse query ''
@@ -20408,7 +20334,7 @@ sequence-type-3;Can't parse 1.1 into an int.
 sequence-type-9;PRSC Error: Failed to parse query '(2) castable as xs:integer?'
 sequenceexpressionhc4;Casting AbstractValue(XsInt) to UntypedAtomicValue
 sequenceexpressionhc6;Casting AbstractValue(XsInt) to UntypedAtomicValue
-sequenceexpressionhc7;The function fn:reverse with arity 1 is not registered.
+sequenceexpressionhc7;Casting AbstractValue(XsInt) to UntypedAtomicValue
 sequenceexpressionhc8;Expected results and parsedFragment children to match
 sequenceexpressionhc9;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 sgml-queries-results-q1;PRSC Error: Failed to parse query ''

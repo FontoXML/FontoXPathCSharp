@@ -49,6 +49,34 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         return SequenceFactory.CreateFromArray(firstHalve.Concat(inserts.GetAllValues()).Concat(secondHalve).ToArray());
     };
     
+    private static readonly FunctionSignature<ISequence, TNode> FnRemove = (_, _, _, args) =>
+    {
+        var sequence = args[0];
+        var position = args[1];
+        var effectivePosition = position.First()!.GetAs<IntValue>().Value;
+        var sequenceValue = sequence.GetAllValues();
+        if (
+            sequenceValue.Length == 0 ||
+            effectivePosition < 1 ||
+            effectivePosition > sequenceValue.Length
+        ) {
+            return SequenceFactory.CreateFromArray(sequenceValue);
+        }
+
+        var sequenceValueList = sequenceValue.ToList();
+        sequenceValueList.RemoveAt(effectivePosition - 1);
+        return SequenceFactory.CreateFromArray(sequenceValueList.ToArray());
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnReverse = (_, _, _, args) =>
+    {
+        return args[0].MapAll(allValues =>
+        {
+            Array.Reverse(allValues);
+            return SequenceFactory.CreateFromArray(allValues);
+        });
+    };
+    
     private static readonly FunctionSignature<ISequence, TNode> FnCount = (_, _, _, args) =>
     {
         var hasPassed = false;
@@ -229,6 +257,27 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
         ),
 
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ExactlyOne),
+            },
+            FnRemove,
+            "remove",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+        
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+            },
+            FnReverse,
+            "reverse",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+        
         new(new[]
             {
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
