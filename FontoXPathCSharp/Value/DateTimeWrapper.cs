@@ -1,4 +1,3 @@
-using System.Xml;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value;
@@ -6,7 +5,6 @@ namespace FontoXPathCSharp.Value;
 public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
 {
     private readonly DateTimeOffset _dateTime;
-    private readonly bool _hasTimezone;
 
     public DateTimeWrapper(
         int years,
@@ -20,7 +18,7 @@ public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
         bool hasTimezone,
         ValueType type)
     {
-        _hasTimezone = hasTimezone && timezone != null;
+        HasTimezone = hasTimezone && timezone != null;
         _dateTime = new DateTimeOffset(
             years,
             months,
@@ -36,7 +34,7 @@ public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
 
     public DateTimeWrapper(DateTimeOffset dateTime, bool hasTimezone, ValueType type)
     {
-        _hasTimezone = hasTimezone;
+        HasTimezone = hasTimezone;
         _dateTime = dateTime;
         GetValueType = type;
     }
@@ -51,9 +49,14 @@ public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
     public bool IsPositive => GetYear >= 0;
     public TimeSpan GetTimezone => _dateTime.Offset;
 
-    public bool HasTimezone => _hasTimezone;
+    public bool HasTimezone { get; }
 
     public ValueType GetValueType { get; }
+
+    public int CompareTo(object? obj)
+    {
+        return obj is DateTimeWrapper dateTime ? CompareTo(dateTime) : 1;
+    }
 
     public int CompareTo(DateTimeWrapper? other)
     {
@@ -81,11 +84,6 @@ public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
         };
     }
 
-    public int CompareTo(object? obj)
-    {
-        return obj is DateTimeWrapper dateTime ? CompareTo(dateTime) : 1;
-    }
-
     private static string ConvertToTwoCharString(int value)
     {
         var valueString = value + "";
@@ -110,7 +108,7 @@ public class DateTimeWrapper : IComparable<DateTimeWrapper>, IComparable
 
     private string TimezoneToString(TimeSpan timezone)
     {
-        if (!_hasTimezone) return "";
+        if (!HasTimezone) return "";
 
         if (IsUtc(timezone)) return "Z";
         return $"{(timezone.TotalSeconds >= 0 ? '+' : '-')}{ConvertToTwoCharString(Math.Abs(timezone.Hours))}" +

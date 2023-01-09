@@ -163,6 +163,7 @@ public class TypeCasting
             ValueType.XsDecimal => CastToDecimal.ToDecimal(from),
             ValueType.XsInteger => CastToInteger.ToInteger(from),
             ValueType.XsBoolean => CastToBoolean.ToBoolean(from),
+            ValueType.XsNumeric => CastToNumeric.ToNumeric(from, CastToPrimitiveType),
             ValueType.XsTime => CastToTime.ToTime(from),
             ValueType.XsDateTime => CastToDateTime.ToDateTime(from),
             ValueType.XsDate => CastToDate.ToDate(from),

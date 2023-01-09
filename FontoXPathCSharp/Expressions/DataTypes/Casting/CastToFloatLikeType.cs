@@ -37,10 +37,10 @@ public static class CastToFloatLikeType
 
                 if (!double.IsNaN(floatValue)) return new SuccessResult<double>(floatValue);
 
-                return new ErrorResult<double>($"Cannot cast {value} to {to.ToString()}", "FORG0001");
+                return new ErrorResult<double>($"Cannot cast '{value}' to {to}", "FORG0001");
             };
 
         return _ => new ErrorResult<double>(
-            $"Casting not supported from given type to {to} or any of its derived types.", "XPTY0004");
+            $"Casting not supported from {from} to {to} or any of its derived types.", "XPTY0004");
     }
 }
