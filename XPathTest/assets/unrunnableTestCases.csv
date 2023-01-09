@@ -309,7 +309,6 @@ ArrowPostfix-107;PRSC Error: Failed to parse query '1 => ([2,3],[4,5][6])() = 2'
 ArrowPostfix-108;Object reference not set to an instance of an object.
 ArrowPostfix-109;PRSC Error: Failed to parse query 'let $days := map{"Mo": "Monday", "Tu": "Tuesday"} return "Tu" => $days() = "Tuesday"'
 ArrowPostfix-110;PRSC Error: Failed to parse query '"Tu" => (map{"Mo": "Monday", "Tu": "Tuesday"})() = "Tuesday"'
-Axes018-1;Expected XPath fn:count(/far-north/parent::node()) to resolve to 1
 Axes046-1;Expected XPath fn:count(/child::node()) to resolve to 1
 Axes046-2;Expected XPath fn:count(/child::node()) to resolve to 7
 Axes049-1;Expected XPath fn:count(/node()) to resolve to 1
@@ -2696,7 +2695,7 @@ cbcl-fn-string-join-001;PRSC Error: Failed to parse query '\n        declare fun
 cbcl-fn-tokenize-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-tokenize-002;Expected XPathException with code FORX0002, but got Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-tokenize-003;PRSC Error: Failed to parse query ''
-cbcl-fn-translate-001;The function exactly-one with arity 1 is not registered.
+cbcl-fn-translate-001;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-translate-002;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-fn-union-001;Expected executing the XPath "" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 cbcl-fn-union-002;PRSC Error: Failed to parse query ''
@@ -3133,10 +3132,10 @@ cbcl-numeric-unary-plus-001;Expected executing the XPath "
 cbcl-one-or-more-001;PRSC Error: Failed to parse query '\n        declare function local:generate($arg as xs:integer?) { if ($arg = 0) then (1, 2, 3) else $arg };\n        fn:one-or-more(fn:reverse( local:generate( 0 ) ))'
 cbcl-one-or-more-002;Expected error code: FORG0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:generate($arg as xs:integer?) { if ($arg = 0) then (1, 2, 3) else $arg };\n        fn:one-or-more(fn:zero-or-one( local:generate( () ) ))'
 cbcl-one-or-more-003;PRSC Error: Failed to parse query ''
-cbcl-one-or-more-004;Expected error code: FORG0004. Found error code: XPST0017 with error message: The function one-or-more with arity 1 is not registered.
-cbcl-one-or-more-005;Expected error code: FORG0006. Found error code: XPST0017 with error message: The function one-or-more with arity 1 is not registered.
-cbcl-one-or-more-006;Expected error code: FORG0004. Found error code: XPST0017 with error message: The function one-or-more with arity 1 is not registered.
-cbcl-one-or-more-007;The function one-or-more with arity 1 is not registered.
+cbcl-one-or-more-004;Expected error code: FORG0004. Found error code: XPST0017 with error message: The function month-from-date with arity 1 is not registered.
+cbcl-one-or-more-005;Expected XPathException with code FORG0006, but got Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-one-or-more-006;Expected XPathException with code FORG0004, but got Casting AbstractValue(XsInt) to UntypedAtomicValue
+cbcl-one-or-more-007;Casting AbstractValue(XsInt) to UntypedAtomicValue
 cbcl-path-nodes-and-atomics;Expected executing the XPath "" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPTY0018. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 cbcl-plus-001;PRSC Error: Failed to parse query '\n        declare function local:f($x) { if ($x) then xs:duration("P1D") else xs:dayTimeDuration("P1D") };\n        xs:date("1997-01-01") + local:f(false())'
 cbcl-plus-002;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:f($x) { if ($x) then xs:duration("P1D") else xs:dayTimeDuration("P1D") };\n        xs:date("1997-01-01") + local:f(true())'
@@ -4338,26 +4337,25 @@ ExpandedQNameConstructFunc019;Expected error code: FOCA0002. Found error code: X
 ExpandedQNameConstructFunc020;PRSC Error: Failed to parse query 'declare namespace ht="http://www.example.com/example"; element {fn:QName( "http://www.example.com/another-example", "ht:person" )}{ "test" }'
 ExpandedQNameConstructFunc021;PRSC Error: Failed to parse query 'declare namespace ht="http://www.example.com/example"; element {fn:QName( "http://www.example.com/example", "ht2:person" )}{ "test" }'
 externalcontextitem-1;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare namespace eg = "http://example.org"; \n        declare function eg:noContextFunction() { name }; \n        eg:noContextFunction()'
-externalcontextitem-10;The function exactly-one with arity 1 is not registered.
-externalcontextitem-11;The function exactly-one with arity 1 is not registered.
-externalcontextitem-12;The function exactly-one with arity 1 is not registered.
-externalcontextitem-13;The function exactly-one with arity 1 is not registered.
-externalcontextitem-14;The function exactly-one with arity 1 is not registered.
-externalcontextitem-15;The function exactly-one with arity 1 is not registered.
-externalcontextitem-16;The function exactly-one with arity 1 is not registered.
-externalcontextitem-17;The function exactly-one with arity 1 is not registered.
-externalcontextitem-18;The function exactly-one with arity 1 is not registered.
+externalcontextitem-10;Expected XPath for $var in (/works/employee[1]) return $var/(exactly-one(hours) + exactly-one(hours)) to resolve to 80
+externalcontextitem-11;Expected XPath for $var in (/works/employee[1]) return $var/(exactly-one(hours) - exactly-one(hours)) to resolve to 0
+externalcontextitem-12;Expected XPath for $var in (/works/employee[1]) return $var/(exactly-one(hours) * exactly-one(hours)) to resolve to 1600
+externalcontextitem-13;Expected XPath for $var in (/works/employee[1]) return $var/(exactly-one(hours) mod exactly-one(hours)) to resolve to 0
+externalcontextitem-14;Expected XPath for $var in (/works/employee[1]) return $var/(exactly-one(hours) div exactly-one(hours)) to resolve to 1
+externalcontextitem-15;Expected XPath for $var in (/works/employee[1]) return $var/(exactly-one(hours) idiv exactly-one(hours)) to resolve to 1
+externalcontextitem-16;Expected XPath for $var in (/works/employee[1]) return $var/(xs:boolean(exactly-one(hours) - 39) and xs:boolean(exactly-one(hours) - 39)) to resolve to true
+externalcontextitem-17;Expected XPath for $var in (/works/employee[1]) return $var/(xs:boolean(exactly-one(hours) - 39) or xs:boolean(exactly-one(hours) - 39)) to resolve to true
+externalcontextitem-18;Expected XPath for $var in (/works/employee[1]) return $var/fn:string-length(exactly-one(hours)) to resolve to 2
 externalcontextitem-19;Expected XPath for $var in (/works/employee[1]) return $var/fn:avg((hours,hours,hours)) to resolve to 40
-externalcontextitem-2;The function exactly-one with arity 1 is not registered.
+externalcontextitem-2;Expected XPath for $var in /works/employee[1] return $var/xs:string(exactly-one(empnum)) to resolve to E1, but instead got null
 externalcontextitem-20;Expected XPath for $var in (/works/employee[1]) return $var/fn:min((hours,hours,22)) to resolve to 22
-externalcontextitem-21;The function exactly-one with arity 1 is not registered.
+externalcontextitem-21;Expected XPath for $var in (/works/employee[1]) return $var/fn:max((hours,exactly-one(hours) + 1,22)) to resolve to 41
 externalcontextitem-23;Expected executing the XPath "./works/employee[1]" to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPDY0002. Found error code:  with error message: 
-externalcontextitem-3;The function exactly-one with arity 1 is not registered.
-externalcontextitem-4;The function exactly-one with arity 1 is not registered.
-externalcontextitem-5;The function exactly-one with arity 1 is not registered.
-externalcontextitem-6;The function exactly-one with arity 1 is not registered.
-externalcontextitem-7;The function exactly-one with arity 1 is not registered.
-externalcontextitem-8;The function exactly-one with arity 1 is not registered.
+externalcontextitem-3;Expected XPath for $var in (/works/employee[1]) return $var/xs:integer(exactly-one(hours)) to resolve to 40
+externalcontextitem-4;Expected XPath for $var in (/works/employee[1]) return $var/xs:decimal(exactly-one(hours)) to resolve to 40
+externalcontextitem-5;Expected XPath for $var in /works/employee[1] return $var/xs:float(exactly-one(hours)) to resolve to 40
+externalcontextitem-6;Expected XPath for $var in (/works/employee[1]) return $var/xs:double(exactly-one(hours)) to resolve to 40
+externalcontextitem-7;Expected XPath for $var in (/works/employee[1]) return $var/xs:boolean(exactly-one(hours) - 39) to resolve to true
 externalcontextitem-9;The function fn:sum with arity 1 is not registered.
 extvardeclwithouttype-1;Expected executing the XPath "declare variable $x external; fn:string($x)" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare variable $x external; fn:string($x)'
 extvardeclwithouttype-10;Expected executing the XPath "declare variable $x external; $x + $x" to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare variable $x external; $x + $x = 2'
@@ -5403,46 +5401,36 @@ fn-error-6;Expected error code: FOER0000. Found error code: XPST0017 with error 
 fn-error-7;Expected error code: FODT0001. Found error code: XPST0017 with error message: The function fn:error with arity 1 is not registered.
 fn-error-8;Expected error code: FORG0009. Found error code: XPST0017 with error message: The function fn:error with arity 1 is not registered.
 fn-error-9;Expected error code: FOTY0012. Found error code: XPST0017 with error message: The function fn:error with arity 1 is not registered.
-fn-exactly-one-1;Expected error code: FORG0005. Found error code: XPST0017 with error message: The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onedbl1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onedbl1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onedbl1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onedec1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onedec1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onedec1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneflt1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneflt1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneflt1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneint1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneint1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneint1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneintg1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneintg1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneintg1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onelng1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onelng1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onelng1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onenint1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onenint1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onenint1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onenni1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onenni1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onenni1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onenpi1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onenpi1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onenpi1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onepint1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onepint1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onepint1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onesht1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onesht1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-onesht1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneulng1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneulng1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneulng1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneusht1args-1;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneusht1args-2;The function fn:exactly-one with arity 1 is not registered.
-fn-exactly-oneusht1args-3;The function fn:exactly-one with arity 1 is not registered.
+fn-exactly-onedbl1args-1;Expected XPath fn:exactly-one(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308, but instead got -1.7976931348623157E+308
+fn-exactly-onedbl1args-2;Expected XPath fn:exactly-one(xs:double("0")) to resolve to 0, but instead got -0
+fn-exactly-onedbl1args-3;Expected XPath fn:exactly-one(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308, but instead got 1.7976931348623157E+308
+fn-exactly-onedec1args-1;Atomic Value for XsDecimal is not implemented yet.
+fn-exactly-onedec1args-2;Atomic Value for XsDecimal is not implemented yet.
+fn-exactly-onedec1args-3;Atomic Value for XsDecimal is not implemented yet.
+fn-exactly-oneflt1args-1;Expected XPath fn:exactly-one(xs:float("-3.4028235E38")) to resolve to -3.4028235E38, but instead got -3.4028235E+38
+fn-exactly-oneflt1args-2;Expected XPath fn:exactly-one(xs:float("0")) to resolve to 0, but instead got -0
+fn-exactly-oneflt1args-3;Expected XPath fn:exactly-one(xs:float("3.4028235E38")) to resolve to 3.4028235E38, but instead got 3.4028235E+38
+fn-exactly-oneintg1args-1;Can't parse -999999999999999999 into an int.
+fn-exactly-oneintg1args-2;Can't parse 830993497117024304 into an int.
+fn-exactly-oneintg1args-3;Can't parse 999999999999999999 into an int.
+fn-exactly-onelng1args-1;Can't parse -92233720368547758 into an int.
+fn-exactly-onelng1args-2;Can't parse -47175562203048468 into an int.
+fn-exactly-onelng1args-3;Can't parse 92233720368547758 into an int.
+fn-exactly-onenint1args-1;Can't parse -999999999999999999 into an int.
+fn-exactly-onenint1args-2;Can't parse -297014075999096793 into an int.
+fn-exactly-onenint1args-3;Atomic Value for XsNegativeInteger is not implemented yet.
+fn-exactly-onenni1args-1;Atomic Value for XsNonNegativeInteger is not implemented yet.
+fn-exactly-onenni1args-2;Can't parse 303884545991464527 into an int.
+fn-exactly-onenni1args-3;Can't parse 999999999999999999 into an int.
+fn-exactly-onenpi1args-1;Can't parse -999999999999999999 into an int.
+fn-exactly-onenpi1args-2;Can't parse -475688437271870490 into an int.
+fn-exactly-onenpi1args-3;Atomic Value for XsNonPositiveInteger is not implemented yet.
+fn-exactly-onepint1args-1;Atomic Value for XsPositiveInteger is not implemented yet.
+fn-exactly-onepint1args-2;Can't parse 52704602390610033 into an int.
+fn-exactly-onepint1args-3;Can't parse 999999999999999999 into an int.
+fn-exactly-oneulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
+fn-exactly-oneulng1args-2;Can't parse 130747108607674654 into an int.
+fn-exactly-oneulng1args-3;Can't parse 184467440737095516 into an int.
 fn-except-node-args-001;ExceptOp AST to Expression not yet implemented
 fn-except-node-args-002;ExceptOp AST to Expression not yet implemented
 fn-except-node-args-003;ExceptOp AST to Expression not yet implemented
@@ -7212,46 +7200,36 @@ fn-numberulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
 fn-numberulng1args-2;Expected executing the XPath "fn:number(xs:unsignedLong("130747108607674654"))" to resolve to one of the expected results, but got System.Exception: Can't parse 130747108607674654 into an int.
 fn-numberulng1args-3;PRSC Error: Failed to parse query 'fn:number(xs:unsignedLong("184467440737095516")) eq 1.8446744073709551E17'
 fn-numberusht1args-1;Expected XPath fn:number(xs:unsignedShort("0")) to resolve to 0, but instead got -0
-fn-one-or-more-1;Expected error code: FORG0004. Found error code: XPST0017 with error message: The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moredbl1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moredbl1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moredbl1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moredec1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moredec1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moredec1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreflt1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreflt1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreflt1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreint1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreint1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreint1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreintg1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreintg1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreintg1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morelng1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morelng1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morelng1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morenint1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morenint1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morenint1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morenni1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morenni1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morenni1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morenpi1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morenpi1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morenpi1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morepint1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morepint1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-morepint1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moresht1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moresht1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moresht1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreulng1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreulng1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreulng1args-3;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreusht1args-1;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreusht1args-2;The function fn:one-or-more with arity 1 is not registered.
-fn-one-or-moreusht1args-3;The function fn:one-or-more with arity 1 is not registered.
+fn-one-or-moredbl1args-1;Expected XPath fn:one-or-more(xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308, but instead got -1.7976931348623157E+308
+fn-one-or-moredbl1args-2;Expected XPath fn:one-or-more(xs:double("0")) to resolve to 0, but instead got -0
+fn-one-or-moredbl1args-3;Expected XPath fn:one-or-more(xs:double("1.7976931348623157E308")) to resolve to 1.7976931348623157E308, but instead got 1.7976931348623157E+308
+fn-one-or-moredec1args-1;Atomic Value for XsDecimal is not implemented yet.
+fn-one-or-moredec1args-2;Atomic Value for XsDecimal is not implemented yet.
+fn-one-or-moredec1args-3;Atomic Value for XsDecimal is not implemented yet.
+fn-one-or-moreflt1args-1;Expected XPath fn:one-or-more(xs:float("-3.4028235E38")) to resolve to -3.4028235E38, but instead got -3.4028235E+38
+fn-one-or-moreflt1args-2;Expected XPath fn:one-or-more(xs:float("0")) to resolve to 0, but instead got -0
+fn-one-or-moreflt1args-3;Expected XPath fn:one-or-more(xs:float("3.4028235E38")) to resolve to 3.4028235E38, but instead got 3.4028235E+38
+fn-one-or-moreintg1args-1;Can't parse -999999999999999999 into an int.
+fn-one-or-moreintg1args-2;Can't parse 830993497117024304 into an int.
+fn-one-or-moreintg1args-3;Can't parse 999999999999999999 into an int.
+fn-one-or-morelng1args-1;Can't parse -92233720368547758 into an int.
+fn-one-or-morelng1args-2;Can't parse -47175562203048468 into an int.
+fn-one-or-morelng1args-3;Can't parse 92233720368547758 into an int.
+fn-one-or-morenint1args-1;Can't parse -999999999999999999 into an int.
+fn-one-or-morenint1args-2;Can't parse -297014075999096793 into an int.
+fn-one-or-morenint1args-3;Atomic Value for XsNegativeInteger is not implemented yet.
+fn-one-or-morenni1args-1;Atomic Value for XsNonNegativeInteger is not implemented yet.
+fn-one-or-morenni1args-2;Can't parse 303884545991464527 into an int.
+fn-one-or-morenni1args-3;Can't parse 999999999999999999 into an int.
+fn-one-or-morenpi1args-1;Can't parse -999999999999999999 into an int.
+fn-one-or-morenpi1args-2;Can't parse -475688437271870490 into an int.
+fn-one-or-morenpi1args-3;Atomic Value for XsNonPositiveInteger is not implemented yet.
+fn-one-or-morepint1args-1;Atomic Value for XsPositiveInteger is not implemented yet.
+fn-one-or-morepint1args-2;Can't parse 52704602390610033 into an int.
+fn-one-or-morepint1args-3;Can't parse 999999999999999999 into an int.
+fn-one-or-moreulng1args-1;Atomic Value for XsUnsignedLong is not implemented yet.
+fn-one-or-moreulng1args-2;Can't parse 130747108607674654 into an int.
+fn-one-or-moreulng1args-3;Can't parse 184467440737095516 into an int.
 fn-outermost-002;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:outermost#0'
 fn-outermost-004;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:outermost#2'
 fn-outermost-005;PRSC Error: Failed to parse query 'fn:exists( fn:outermost#1 )'
@@ -7561,7 +7539,7 @@ fn-root-10;PRSC Error: Failed to parse query 'let $var := element anElement {att
 fn-root-11;PRSC Error: Failed to parse query 'fn:root(element anElement {attribute anAttribute {"Attribute Value"}})'
 fn-root-12;PRSC Error: Failed to parse query ''
 fn-root-13;PRSC Error: Failed to parse query ''
-fn-root-14;The function fn:exactly-one with arity 1 is not registered.
+fn-root-14;The argument passed to fn:exactly-one is empty or contained more than one item.
 fn-root-16;PRSC Error: Failed to parse query 'fn:root(text {"A text Node"})'
 fn-root-17;PRSC Error: Failed to parse query 'let $var := text {"a text Node"} return fn:root($var)'
 fn-root-18;PRSC Error: Failed to parse query 'let $var := element anElement {"Element Content"} return fn:root($var) is fn:root($var)'
@@ -8320,7 +8298,7 @@ fn-true-14;PRSC Error: Failed to parse query ''
 fn-true-18;Expected XPath fn:string(fn:true()) to resolve to "true"
 fn-true-19;Expected XPath fn:concat(xs:string(fn:true()),xs:string(fn:true())) to resolve to truetrue, but instead got TrueTrue
 fn-true-22;PRSC Error: Failed to parse query 'let $t := true#0 return 3[$t()] = 3'
-fn-union-node-args-003;The function fn:exactly-one with arity 1 is not registered.
+fn-union-node-args-003;The argument passed to fn:exactly-one is empty or contained more than one item.
 fn-union-node-args-005;Expected results and parsedFragment children to match
 fn-union-node-args-006;Expected results and parsedFragment children to match
 fn-union-node-args-007;Expected results and parsedFragment children to match
@@ -9220,7 +9198,7 @@ ForExpr008;Use of XQuery FLWOR expressions in XPath is not allowed
 ForExpr009;Expected XPathException with code XPST0008, but got The given key 'a' was not present in the dictionary.
 ForExpr010;PRSC Error: Failed to parse query ''
 ForExpr011;PRSC Error: Failed to parse query ''
-ForExpr013;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/ForClause/ForExpr-013.out'.
+ForExpr013;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/ForClause/ForExpr-013.out'.
 ForExpr015;Expected XPath for $folder in //Folder return for $file in $folder/File return string( $file/FileName[1] ) to resolve to File00000000000 File00000000001 File00000000002 File00000000003 File00000000004 File00000000005 File00000000006 File00000000007 File00000000008 File00000000009 File00000000010 File00000000011 File00000000012 File00000000013 File00000000014 File00000000015 File00000000016 File00000000017 File00000000018 File00000000019 File00000000020 File00000000021 File00000000022 File00000000023 File00000000024 File00000000025 File00000000026 File00000000027 File00000000028 File00000000029 File00000000030 File00000000031 File00000000032 File00000000033 File00000000034 File00000000035 File00000000036 File00000000037 File00000000038 File00000000039 File00000000040 File00000000041 File00000000042 File00000000043 File00000000044 File00000000045 File00000000046 File00000000047 File00000000048 File00000000049 File00000000050 File00000000051 File00000000052 File00000000053 File00000000054 File00000000055 File00000000056 File00000000057 File00000000058 File00000000059 File00000000060 File00000000061 File00000000062 File00000000063 File00000000064 File00000000065 File00000000066 File00000000067 File00000000068 File00000000069 File00000000070 File00000000071 File00000000072 File00000000073 File00000000074 File00000000075 File00000000076 File00000000077 File00000000078 File00000000079 File00000000080 File00000000081 File00000000082 File00000000083 File00000000084 File00000000085 File00000000086 File00000000087 File00000000088 File00000000089 File00000000090 File00000000091 File00000000092 File00000000093 File00000000094 File00000000095 File00000000096 File00000000097 File00000000098 File00000000099 File00000000100, but instead got                                                                                                     
 ForExpr016;Expected results and parsedFragment children to match
 ForExpr022;Expected XPath for $file at $pos in (//Folder)[1]/File return (string($file/FileName[1]), $pos) to resolve to File00000000000 1 File00000000001 2 File00000000002 3 File00000000003 4 File00000000004 5 File00000000005 6 File00000000006 7 File00000000007 8 File00000000008 9 File00000000009 10 File00000000010 11 File00000000011 12 File00000000012 13 File00000000013 14 File00000000014 15 File00000000015 16 File00000000016 17 File00000000017 18 File00000000018 19 File00000000019 20 File00000000020 21 File00000000021 22 File00000000022 23 File00000000023 24 File00000000024 25 File00000000025 26 File00000000026 27 File00000000027 28 File00000000028 29 File00000000029 30 File00000000030 31, but instead got  1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99  100  101
@@ -9299,8 +9277,6 @@ ForExprType072;Expected error code: XPTY0004. Found error code: XPST0003 with er
 ForExprType073;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare namespace fs="http://www.example.com/filesystem"; \n        for $test as document-node() in data( (//fs:Folder)[1]/fs:File/fs:FileName ) return $test\n      '
 FORG0001;Expected XPathException with code FORG0001, but got Can't parse INF into an int.
 FORG0002;Expected error code: FORG0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare base-uri "http://www.w3.org/"; resolve-uri("%gg")'
-FORG0004;Expected error code: FORG0004. Found error code: XPST0017 with error message: The function one-or-more with arity 1 is not registered.
-FORG0005;Expected error code: FORG0005. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
 FORG0006_02;Expected XPathException with code FORG0006, but got Type casting to XsYearMonthDuration has not been implemented yet.
 FORG0006_03;Expected XPathException with code FORG0006, but got Type casting to XsYearMonthDuration has not been implemented yet.
 FORG0006_04;Expected XPathException with code FORG0006, but got Type casting to XsYearMonthDuration has not been implemented yet.
@@ -10069,7 +10045,6 @@ functx-fn-ends-with-all;Expected XPath (ends-with('query', 'y'), ends-with('quer
 functx-fn-escape-html-uri-1;The function escape-html-uri with arity 1 is not registered.
 functx-fn-escape-html-uri-2;The function escape-html-uri with arity 1 is not registered.
 functx-fn-escape-html-uri-all;The function escape-html-uri with arity 1 is not registered.
-functx-fn-exactly-one-1;The function exactly-one with arity 1 is not registered.
 functx-fn-exists-all;Expected XPath (exists( ('a', 'b', 'c') ), exists( '' ), exists( () ), exists( false() )) to resolve to true true false true, but instead got True True False True
 functx-fn-floor-1;Casting AbstractValue(XsInt) to UntypedAtomicValue
 functx-fn-floor-2;Can't parse 5.1 into an int.
@@ -10213,9 +10188,6 @@ functx-fn-number-4;Input string was not in a correct format.
 functx-fn-number-5;Expected XPath let $priceDoc := (/) return (number( () )) to resolve to NaN, but instead got Infinity
 functx-fn-number-6;PerformFunctionConversion is not implemented yet.
 functx-fn-number-all;Can't parse 29.99 into an int.
-functx-fn-one-or-more-1;The function one-or-more with arity 1 is not registered.
-functx-fn-one-or-more-2;The function one-or-more with arity 1 is not registered.
-functx-fn-one-or-more-all;The function one-or-more with arity 1 is not registered.
 functx-fn-position-1;PRSC Error: Failed to parse query ''
 functx-fn-position-2;PRSC Error: Failed to parse query ''
 functx-fn-position-3;PRSC Error: Failed to parse query ''
@@ -12041,7 +12013,7 @@ K-EncodeURIfunc-5;Expected XPath concat("http://www.example.com/", encode-for-ur
 K-EncodeURIfunc-6;TreatExpr AST to Expression not yet implemented
 K-EndsWithFunc-5;No collations are supported
 K-ErrorFunc-1;The function error with arity 0 is not registered.
-K-ErrorFunc-10;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
+K-ErrorFunc-10;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-ErrorFunc-2;The function error with arity 2 is not registered.
 K-ErrorFunc-4;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function error with arity 1 is not registered.
 K-ErrorFunc-4a;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 1 is not registered.
@@ -12929,13 +12901,9 @@ K-SeqDeepEqualFunc-69;PRSC Error: Failed to parse query ''
 K-SeqDeepEqualFunc-70;PRSC Error: Failed to parse query ''
 K-SeqDeepEqualFunc-71;PRSC Error: Failed to parse query ''
 K-SeqEmptyFunc-9;The function remove with arity 2 is not registered.
-K-SeqExactlyOneFunc-3;Expected error code: FORG0005. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
-K-SeqExactlyOneFunc-4;The function exactly-one with arity 1 is not registered.
-K-SeqExactlyOneFunc-5;The function exactly-one with arity 1 is not registered.
-K-SeqExactlyOneFunc-6;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
-K-SeqExactlyOneFunc-7;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
-K-SeqExactlyOneFunc-8;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
-K-SeqExactlyOneFunc-9;Expected error code: FORG0005. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
+K-SeqExactlyOneFunc-6;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
+K-SeqExactlyOneFunc-7;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
+K-SeqExactlyOneFunc-8;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-SeqExistsFunc-10;The function timezone-from-dateTime with arity 1 is not registered.
 K-SeqExistsFunc-11;The function timezone-from-date with arity 1 is not registered.
 K-SeqExistsFunc-12;The function timezone-from-time with arity 1 is not registered.
@@ -14286,12 +14254,7 @@ K-SeqMINFunc-6;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMINFunc-7;Casting AbstractValue(XsInt) to DoubleValue
 K-SeqMINFunc-8;Can't parse 5.0 into an int.
 K-SeqMINFunc-9;Casting AbstractValue(XsDouble) to FloatValue
-K-SeqOneOrMoreFunc-3;The function one-or-more with arity 1 is not registered.
-K-SeqOneOrMoreFunc-4;The function one-or-more with arity 1 is not registered.
-K-SeqOneOrMoreFunc-5;The function one-or-more with arity 1 is not registered.
-K-SeqOneOrMoreFunc-6;The function one-or-more with arity 1 is not registered.
-K-SeqOneOrMoreFunc-7;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function one-or-more with arity 1 is not registered.
-K-SeqOneOrMoreFunc-8;Expected error code: FORG0004. Found error code: XPST0017 with error message: The function one-or-more with arity 1 is not registered.
+K-SeqOneOrMoreFunc-7;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
 K-SeqRemoveFunc-10;The function remove with arity 2 is not registered.
 K-SeqRemoveFunc-11;The function remove with arity 2 is not registered.
 K-SeqRemoveFunc-12;The function remove with arity 2 is not registered.
@@ -16674,7 +16637,6 @@ K2-SeqMINFunc-5;Expected executing the XPath "min(xs:anyURI("str1"), "http://exa
 K2-SeqMINFunc-7;PRSC Error: Failed to parse query 'min((5, 5.0e0)) instance of xs:double'
 K2-SeqMINFunc-8;PRSC Error: Failed to parse query 'min((5.0e0, 5)) instance of xs:double'
 K2-SeqMINFunc-9;PRSC Error: Failed to parse query 'min((3, 5.0e0)) instance of xs:double'
-K2-SeqOneOrMoreFunc-1;The function one-or-more with arity 1 is not registered.
 K2-SeqReverseFunc-1;PRSC Error: Failed to parse query ''
 K2-SeqReverseFunc-2;PRSC Error: Failed to parse query ''
 K2-SeqReverseFunc-3;PRSC Error: Failed to parse query ''
@@ -19095,7 +19057,7 @@ outer-015;PRSC Error: Failed to parse query ''
 outer-016;PRSC Error: Failed to parse query ''
 outer-017;PRSC Error: Failed to parse query ''
 outer-018;PRSC Error: Failed to parse query ''
-outer-019;Expected error code: FORG0005. Found error code: XPST0017 with error message: The function exactly-one with arity 1 is not registered.
+outer-019;Expected error code: FORG0005. Found error code:  with error message: 
 Parenexpr-11;Use of XQuery FLWOR expressions in XPath is not allowed
 Parenexpr-15;PRSC Error: Failed to parse query ''
 Parenexpr-16;PRSC Error: Failed to parse query ''
@@ -20565,11 +20527,11 @@ string-constructor-028;PRSC Error: Failed to parse query '() instance of $elemen
 string-constructor-910;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 string-constructor-911;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 string-constructor-912;PRSC Error: Failed to parse query ' = "There were 1 2 3 4 5 6 7 8 9 10 green bottles"'
-string-queries-results-q1;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q1.out'.
-string-queries-results-q2;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q2.out'.
-string-queries-results-q4;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q4.out'.
-string-queries-results-q5;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q5.out'.
-sudoku;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/Demos/sudoku-result.xml'.
+string-queries-results-q1;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q1.out'.
+string-queries-results-q2;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q2.out'.
+string-queries-results-q4;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q4.out'.
+string-queries-results-q5;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/UseCaseSTRING/string-queries-results-q5.out'.
+sudoku;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/Demos/sudoku-result.xml'.
 surrogates01;PRSC Error: Failed to parse query ' = 7'
 surrogates01a;Expected XPath string-length("abc𝅖def") to resolve to 7
 surrogates02;PRSC Error: Failed to parse query ''
@@ -20910,25 +20872,25 @@ WhereExpr033;PRSC Error: Failed to parse query '\n         declare variable $n e
 WhereExpr034;Use of XQuery FLWOR expressions in XPath is not allowed
 WhereExpr035;Casting AbstractValue(XsInt) to UntypedAtomicValue
 XMark-Q1;PRSC Error: Failed to parse query ''
-XMark-Q10;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q10.xml'.
-XMark-Q11;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q11.xml'.
-XMark-Q12;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q12.xml'.
-XMark-Q13;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q13.xml'.
-XMark-Q14;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q14.xml'.
-XMark-Q15;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q15.xml'.
-XMark-Q16;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q16.xml'.
-XMark-Q17;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q17.xml'.
-XMark-Q18;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q18.xml'.
-XMark-Q19;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q19.xml'.
-XMark-Q2;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q2.xml'.
-XMark-Q20;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q20.xml'.
-XMark-Q3;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q3.xml'.
+XMark-Q10;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q10.xml'.
+XMark-Q11;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q11.xml'.
+XMark-Q12;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q12.xml'.
+XMark-Q13;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q13.xml'.
+XMark-Q14;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q14.xml'.
+XMark-Q15;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q15.xml'.
+XMark-Q16;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q16.xml'.
+XMark-Q17;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q17.xml'.
+XMark-Q18;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q18.xml'.
+XMark-Q19;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q19.xml'.
+XMark-Q2;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q2.xml'.
+XMark-Q20;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q20.xml'.
+XMark-Q3;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q3.xml'.
 XMark-Q4;PRSC Error: Failed to parse query ''
 XMark-Q5;PRSC Error: Failed to parse query ''
 XMark-Q6;PRSC Error: Failed to parse query ''
 XMark-Q7;PRSC Error: Failed to parse query ''
-XMark-Q8;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q8.xml'.
-XMark-Q9;Could not find a part of the path '/Users/mtesseract/dev/work/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q9.xml'.
+XMark-Q8;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q8.xml'.
+XMark-Q9;Could not find a part of the path '/home/mtesseract/dev/Fonto/FontoXPathCSharp/XPathTest/assets/qt3tests/XMark/XMark-Q9.xml'.
 XML10-3ed-Mixed-content;PRSC Error: Failed to parse query '<foo> a <![CDATA[cdata section]]> in mixed content. a <!-- comment --> in mixed content. a <?processing instruction?> in mixed content. </foo>'
 XML10-4ed-Excluded-char-1-new;Name cannot begin with the 'Ϳ' character, hexadecimal value 0x37F. Line 1, position 7.
 XML10-5ed-Included-char-1;PRSC Error: Failed to parse query '<foo></foo>'

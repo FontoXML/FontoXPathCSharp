@@ -91,6 +91,22 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         return arg;
     };
 
+    private static readonly FunctionSignature<ISequence, TNode> FnOneOrMore = (_, _, _, args) =>
+    {
+        var arg = args[0];
+        if (arg.IsEmpty()) throw new XPathException("FORG0004", "The argument passed to fn:one-or-more was empty.");
+        return arg;
+    };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnExactlyOne = (_, _, _, args) =>
+    {
+        var arg = args[0];
+        if (!arg.IsSingleton())
+            throw new XPathException("FORG0005",
+                "The argument passed to fn:exactly-one is empty or contained more than one item.");
+        return arg;
+    };
+
     private static readonly FunctionSignature<ISequence, TNode> FnExists = (_, _, _, args) =>
         SequenceFactory.CreateFromValue(new BooleanValue(!args[0].IsEmpty()));
 
@@ -172,6 +188,26 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             },
             FnZeroOrOne,
             "zero-or-one",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnOneOrMore,
+            "one-or-more",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+            },
+            FnExactlyOne,
+            "exactly-one",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
         ),
