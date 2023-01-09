@@ -39,7 +39,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode> where TNode : n
             if (!resultValue.GetValueType().IsSubtypeOf(ValueType.XsNumeric))
                 return result.GetEffectiveBooleanValue() ? valuesToFilter : SequenceFactory.CreateEmpty();
 
-            if (resultValue.GetValueType() != ValueType.XsInteger)
+            if (!resultValue.GetValueType().IsSubtypeOf(ValueType.XsInteger))
                 return SequenceFactory.CreateEmpty();
 
             var requestedIndex = resultValue.GetAs<IntegerValue>().Value;
