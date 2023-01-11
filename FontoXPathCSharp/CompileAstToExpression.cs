@@ -356,6 +356,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.QueryBody => CompileAst(ast.GetFirstChild()!, options),
             AstNodeName.PathExpr => CompilePathExpression(ast, options),
             AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast, options),
+            AstNodeName.InlineFunctionExpr => CompileInlineFunctionExpression(ast,options),
             AstNodeName.ContextItemExpr => new ContextItemExpression<TNode>(),
             AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
@@ -395,6 +396,11 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.InstanceOfExpr => CompileInstanceOfExpr(ast, options),
             _ => CompileTestExpression(ast)
         };
+    }
+
+    private static AbstractExpression<TNode> CompileInlineFunctionExpression(Ast ast, CompilationOptions options)
+    {
+        throw new NotImplementedException();
     }
 
     private static AbstractExpression<TNode> CompileVarRef(Ast ast)

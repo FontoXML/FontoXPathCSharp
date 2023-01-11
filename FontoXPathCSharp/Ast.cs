@@ -143,7 +143,9 @@ public enum AstNodeName
     ReturnClause,
     XStackTrace,
     WindowClause,
-    CountClause
+    CountClause,
+    InlineFunctionExpr,
+    Param
 }
 
 public class Ast

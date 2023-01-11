@@ -79,6 +79,7 @@ public class XPathParser
     private readonly ParseFunc<Ast> OrderSpec;
     private readonly ParseFunc<Ast[]> OrderSpecList;
     private readonly ParseFunc<Ast> OrExpr;
+    private readonly ParseFunc<Ast> Param;
     private readonly ParseFunc<Ast> ParenthesizedExpr;
     private readonly ParseFunc<Ast> PathExpr;
     private readonly ParseFunc<Ast> PiTest;
@@ -435,6 +436,51 @@ public class XPathParser
             x => new Ast(AstNodeName.TypeDeclaration, x)
         );
 
+        Param = Then(
+            Preceded(Token("$"), nameParser.EqName),
+            Optional(Preceded(_whitespaceParser.WhitespacePlus, TypeDeclaration)),
+            (variableName, typeDecl) => new Ast(
+                AstNodeName.Param,
+                new[] { new Ast(AstNodeName.VarName) }.Concat(ParsingUtils.WrapNullableInArray(typeDecl))
+            )
+        );
+
+
+        /*
+    const paramList: Parser<IAST[]> = binaryOperator(param, tokens.COMMA, (lhs, rhs) => [
+        lhs,
+        ...rhs.map((x) => x[1]),
+    ]);
+    
+    const inlineFunctionExpr: Parser<IAST> = then4(
+        star(annotation),
+        precededMultiple(
+            [whitespace, tokens.FUNCTION, whitespace, tokens.BRACE_OPEN, whitespace],
+            optional(paramList)
+        ),
+        precededMultiple(
+            [whitespace, tokens.BRACE_CLOSE, whitespace],
+            optional(
+                map(
+                    precededMultiple([tokens.AS, whitespace], followed(sequenceType, whitespace)),
+                    (x) => ['typeDeclaration', ...x]
+                )
+            )
+        ),
+        functionBody,
+        (annotations, params, typeDecl, body) =>
+            [
+                'inlineFunctionExpr',
+                ...annotations,
+                ['paramList', ...(params ? params : [])],
+                ...(typeDecl ? [typeDecl] : []),
+                ['functionBody', body],
+            ] as IAST
+    );
+    
+    const functionItemExpr: Parser<IAST> = or([namedFunctionRef, inlineFunctionExpr]);
+         */
+
         VarName = nameParser.EqName;
 
         LetBinding = Then3(
@@ -446,9 +492,7 @@ public class XPathParser
                 return new Ast(AstNodeName.LetClauseItem,
                     new Ast(AstNodeName.TypedVariableBinding,
                         new[] { variableName.GetAst(AstNodeName.VarName) }
-                            .Concat(typeDecl != null
-                                ? new[] { typeDecl }
-                                : Array.Empty<Ast>())),
+                            .Concat(ParsingUtils.WrapNullableInArray(typeDecl))),
                     new Ast(AstNodeName.LetExpr, letExpr));
             }
         );
@@ -477,7 +521,7 @@ public class XPathParser
                             )
                         }
                         .Concat(empty != null ? new[] { new Ast(AstNodeName.AllowingEmpty) } : Array.Empty<Ast>())
-                        .Concat(pos != null ? new[] { pos } : Array.Empty<Ast>())
+                        .Concat(ParsingUtils.WrapNullableInArray(pos))
                         .Concat(new[] { new Ast(AstNodeName.ForExpr, forExpr) })
                 )
         );
@@ -534,8 +578,10 @@ public class XPathParser
             (variableName, init, col) => new Ast(
                 AstNodeName.GroupingSpec,
                 new[] { variableName }
-                    .Concat(init != null ? new[] { init } : Array.Empty<Ast>())
-                    .Concat(col != null ? new[] { col } : Array.Empty<Ast>())));
+                    .Concat(ParsingUtils.WrapNullableInArray(init))
+                    .Concat(ParsingUtils.WrapNullableInArray(col))
+                )
+            );
 
         GroupingSpecList = BinaryOperator(
             GroupingSpec,
@@ -577,7 +623,8 @@ public class XPathParser
             (orderByExpr, modifier) =>
                 new Ast(AstNodeName.OrderBySpec,
                     new[] { new Ast(AstNodeName.OrderByExpr, orderByExpr) }
-                        .Concat(modifier != null ? new[] { modifier } : Array.Empty<Ast>()))
+                        .Concat(ParsingUtils.WrapNullableInArray(modifier))
+                    )
         );
 
         OrderSpecList = BinaryOperator(

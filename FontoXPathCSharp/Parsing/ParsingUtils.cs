@@ -11,27 +11,31 @@ public static class ParsingUtils
             case AstNodeName.FunctionCallExpr:
             case AstNodeName.SequenceExpr:
             case AstNodeName.DynamicFunctionInvocationExpr:
-                // TODO: implement these
-                // case AstNodeName.ConstantExpr:
-                // case AstNodeName.ElementConstructor:
-                // case AstNodeName.ComputedElementConstructor:
-                // case AstNodeName.ComputedAttributeConstructor:
-                // case AstNodeName.ComputedDocumentConstructor:
-                // case AstNodeName.ComputedTextConstructor:
-                // case AstNodeName.ComputedCommentConstructor:
-                // case AstNodeName.ComputedNamespaceConstructor:
-                // case AstNodeName.ComputedPIConstructor:
-                // case AstNodeName.OrderedExpr:
-                // case AstNodeName.UnOrderedExpr:
-                // case AstNodeName.NamedFunctionRef:
-                // case AstNodeName.InlineFunctionRef:
-                // case AstNodeName.MapConstructor:
-                // case AstNodeName.ArrayConstructor:
-                // case AstNodeName.StringConstructor:
-                // case AstNodeName.UnaryLookup:
+            // case AstNodeName.ConstantExpr:
+            // case AstNodeName.ElementConstructor:
+            // case AstNodeName.ComputedElementConstructor:
+            // case AstNodeName.ComputedAttributeConstructor:
+            // case AstNodeName.ComputedDocumentConstructor:
+            // case AstNodeName.ComputedTextConstructor:
+            // case AstNodeName.ComputedCommentConstructor:
+            // case AstNodeName.ComputedNamespaceConstructor:
+            // case AstNodeName.ComputedPIConstructor:
+            // case AstNodeName.OrderedExpr:
+            // case AstNodeName.UnOrderedExpr:
+            // case AstNodeName.NamedFunctionRef:
+            case AstNodeName.InlineFunctionExpr:
+            // case AstNodeName.MapConstructor:
+            // case AstNodeName.ArrayConstructor:
+            // case AstNodeName.StringConstructor:
+            // case AstNodeName.UnaryLookup:
                 return expr;
             default:
                 return new Ast(AstNodeName.SequenceExpr, expr);
         }
+    }
+
+    public static T[] WrapNullableInArray<T>(T? item)
+    {
+        return item != null ? new[] { item } : Array.Empty<T>();
     }
 }
