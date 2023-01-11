@@ -34,8 +34,22 @@ public static class ParsingUtils
         }
     }
 
+    // Replaces the x != null ? [x] : [] pattern that's common in the parser.
     public static T[] WrapNullableInArray<T>(T? item)
     {
-        return item != null ? new[] { item } : Array.Empty<T>();
+        return IfNotNullWrapValue(item, item);
+    }
+    
+    // Replaces the x != null ? [y] : [] pattern that's common in the parser
+    // often used to wrap an AST if a val is not null.
+    public static T2[] IfNotNullWrapValue<T1, T2>(T1? nullable, T2? valToWrap)
+    {
+        return nullable != null ? new[] { valToWrap! } : Array.Empty<T2>();
+    }
+
+    // Convenient when you want to append arrays/lists to singletones.
+    public static T[] WrapSingletonInArray<T>(T item)
+    {
+        return new[] { item };
     }
 }
