@@ -2,6 +2,7 @@ using System.Diagnostics;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Expressions;
 using FontoXPathCSharp.Expressions.Axes;
+using FontoXPathCSharp.Expressions.Functions;
 using FontoXPathCSharp.Expressions.Operators;
 using FontoXPathCSharp.Expressions.Operators.Compares;
 using FontoXPathCSharp.Expressions.Tests;
@@ -356,7 +357,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.QueryBody => CompileAst(ast.GetFirstChild()!, options),
             AstNodeName.PathExpr => CompilePathExpression(ast, options),
             AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast, options),
-            AstNodeName.InlineFunctionExpr => CompileInlineFunctionExpression(ast,options),
+            AstNodeName.InlineFunctionExpr => CompileInlineFunctionExpression(ast, options),
             AstNodeName.ContextItemExpr => new ContextItemExpression<TNode>(),
             AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
@@ -400,7 +401,21 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
 
     private static AbstractExpression<TNode> CompileInlineFunctionExpression(Ast ast, CompilationOptions options)
     {
-        throw new NotImplementedException();
+        var parameters = ast.GetFirstChild(AstNodeName.ParamList)?.GetChildren(AstNodeName.All);
+        var functionBody = ast.FollowPath(AstNodeName.FunctionBody, AstNodeName.All);
+
+        return new InlineFunction<TNode>(
+            parameters!.Select(param =>
+                new ParameterDescription(
+                    param.GetFirstChild(AstNodeName.VarName)!.GetQName(),
+                    param.GetTypeDeclaration()
+                )
+            ).ToArray(),
+            ast.GetTypeDeclaration(),
+            functionBody != null
+                ? (PossiblyUpdatingExpression<TNode>)CompileAst(functionBody, options)
+                : new SequenceOperator<TNode>(Array.Empty<AbstractExpression<TNode>>())
+        );
     }
 
     private static AbstractExpression<TNode> CompileVarRef(Ast ast)

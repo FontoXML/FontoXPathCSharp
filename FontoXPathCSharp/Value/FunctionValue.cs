@@ -14,7 +14,7 @@ public delegate ISequence FunctionDefinitionType<TNode>(
     ExecutionParameters<TNode> executionParameters,
     StaticContext<TNode>? staticContext, params ISequence[] sequences) where TNode : notnull;
 
-public class FunctionValue<T, TNode> : AbstractValue where TNode : notnull
+public class FunctionValue<TReturn, TNode> : AbstractValue where TNode : notnull
 {
     private readonly ParameterType[] _argumentTypes;
     public readonly int Arity;
@@ -27,7 +27,7 @@ public class FunctionValue<T, TNode> : AbstractValue where TNode : notnull
     protected FunctionValue(
         ParameterType[] argumentTypes,
         int arity,
-        FunctionSignature<T, TNode> value,
+        FunctionSignature<TReturn, TNode> value,
         ValueType type,
         bool isUpdating = false) : base(type)
     {
@@ -43,7 +43,7 @@ public class FunctionValue<T, TNode> : AbstractValue where TNode : notnull
         string localName,
         string namespaceUri,
         SequenceType returnType,
-        FunctionSignature<T, TNode> value,
+        FunctionSignature<TReturn, TNode> value,
         bool isAnonymous = false,
         bool isUpdating = false) : base(ValueType.Function)
     {
@@ -56,13 +56,13 @@ public class FunctionValue<T, TNode> : AbstractValue where TNode : notnull
         _returnType = returnType;
     }
 
-    protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<T, TNode> value,
+    protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<TReturn, TNode> value,
         bool isUpdating) : this(
         argumentTypes, arity, value, ValueType.Function, isUpdating)
     {
     }
-
-    public FunctionSignature<T, TNode> Value { get; init; }
+    
+    public FunctionSignature<TReturn, TNode> Value { get; init; }
 
     private static ParameterType[] ExpandParameterTypeToArity(ParameterType[] argumentTypes, int arity)
     {

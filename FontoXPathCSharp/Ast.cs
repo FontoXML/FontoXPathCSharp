@@ -1,4 +1,6 @@
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp;
 
@@ -145,7 +147,16 @@ public enum AstNodeName
     WindowClause,
     CountClause,
     InlineFunctionExpr,
-    Param
+    Param,
+    Annotation,
+    AnnotationName,
+    ParamList,
+    FunctionBody,
+    NamedFunctionRef,
+    FunctionTest,
+    AnyMapTest,
+    AnyArrayTest,
+    NamespaceNodeTest
 }
 
 public class Ast
@@ -218,8 +229,11 @@ public class Ast
 
     public QName GetQName()
     {
-        return new QName(TextContent, StringAttributes["URI"],
-            StringAttributes["prefix"]);
+        return new QName(
+            TextContent,
+            StringAttributes.ContainsKey("URI") ? StringAttributes["URI"] : null,
+            StringAttributes.ContainsKey("prefix") ? StringAttributes["prefix"] : null
+        );
     }
 
     public bool IsA(params AstNodeName[] names)
@@ -240,6 +254,12 @@ public class Ast
         return this;
     }
 
+    public Ast AddChild(Ast child)
+    {
+        Children.Add(child);
+        return this;
+    }
+
     public class StackTraceInfo
     {
         public int Column;
@@ -252,5 +272,58 @@ public class Ast
             Line = line;
             Column = column;
         }
+    }
+
+    public SequenceType GetTypeDeclaration()
+    {
+        var typeDeclarationAst = GetFirstChild(AstNodeName.TypeDeclaration);
+        if (typeDeclarationAst == null || typeDeclarationAst.GetFirstChild(AstNodeName.VoidSequenceType) != null)
+        {
+            return new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore);
+        }
+        
+        Func<Ast, ValueType>? determineType = null;
+        determineType = typeAst =>
+        {
+            return typeAst.Name switch
+            {
+                AstNodeName.DocumentTest => ValueType.DocumentNode,
+                AstNodeName.ElementTest => ValueType.Element,
+                AstNodeName.AttributeTest => ValueType.Attribute,
+                AstNodeName.PiTest => ValueType.ProcessingInstruction,
+                AstNodeName.CommentTest => ValueType.Comment,
+                AstNodeName.TextTest => ValueType.Text,
+                AstNodeName.AnyKindTest => ValueType.Node,
+                AstNodeName.AnyItemType => ValueType.Item,
+                AstNodeName.AnyFunctionTest or AstNodeName.FunctionTest or AstNodeName.TypedFunctionTest => ValueType.Function,
+                AstNodeName.AnyMapTest or AstNodeName.TypedMapTest => ValueType.Map,
+                AstNodeName.AnyArrayTest or AstNodeName.TypedArrayTest => ValueType.Array,
+                AstNodeName.AtomicType => string.Join(':',
+                        typeAst.StringAttributes.ContainsKey("prefix") ? typeAst.StringAttributes["prefix"] : "",
+                        typeAst.TextContent)
+                    .StringToValueType(),
+                AstNodeName.ParenthesizedItemType => determineType!(typeAst.GetFirstChild()!),
+                AstNodeName.SchemaElementTest or AstNodeName.SchemaAttributeTest or AstNodeName.NamespaceNodeTest => throw new Exception(
+                    $"Type declaration '{typeDeclarationAst.GetFirstChild()?.Name}' is not supported."),
+                _ => throw new Exception(
+                    $"Type declaration '{typeDeclarationAst.GetFirstChild()?.Name}' is not supported.")
+            };
+        };
+
+        var valueType = determineType(typeDeclarationAst.GetFirstChild()!);
+        
+        string? occurrence = null;
+        var occurrenceNode = typeDeclarationAst.GetFirstChild(AstNodeName.OccurrenceIndicator);
+        if (occurrenceNode != null) {
+            occurrence = occurrenceNode.TextContent;
+        }
+
+        return occurrence switch
+        {
+            "*" => new SequenceType(valueType, SequenceMultiplicity.ZeroOrMore),
+            "?" => new SequenceType(valueType, SequenceMultiplicity.ZeroOrOne),
+            "+" => new SequenceType(valueType, SequenceMultiplicity.OneOrMore),
+            _ => new SequenceType(valueType, SequenceMultiplicity.ExactlyOne)
+        };
     }
 }

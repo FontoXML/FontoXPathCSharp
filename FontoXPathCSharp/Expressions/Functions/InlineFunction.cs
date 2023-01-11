@@ -1,0 +1,86 @@
+using FontoXPathCSharp.Sequences;
+using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
+
+namespace FontoXPathCSharp.Expressions.Functions;
+
+public record ParameterDescription(QName ParameterName, SequenceType ParameterType);
+
+public class InlineFunction<TNode> : AbstractExpression<TNode> where TNode : notnull
+{
+    private PossiblyUpdatingExpression<TNode> _functionBody;
+    private string[] _parameterBindingNames;
+    private QName[] _parameterNames;
+    private SequenceType[] _parameterTypes;
+    private SequenceType _returnType;
+
+    public InlineFunction(
+        ParameterDescription[] parameterDescriptions, 
+        SequenceType returnType, 
+        PossiblyUpdatingExpression<TNode> functionBody) : base(
+        new Specificity(new Dictionary<SpecificityKind, int> { {SpecificityKind.External , 1}}), 
+        new AbstractExpression<TNode>[]{functionBody}, 
+        new OptimizationOptions())
+    {
+        _parameterNames = parameterDescriptions.Select(desc => desc.ParameterName).ToArray();
+        _parameterTypes = parameterDescriptions.Select(desc => desc.ParameterType).ToArray();
+
+        _parameterBindingNames = Array.Empty<string>();
+        _returnType = returnType;
+        _functionBody = functionBody;
+    }
+
+    public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
+    {
+        FunctionSignature<ISequence, TNode> executeFunction = (_unboundDynamicContext, _executionParameters, _staticContext, parameters) => {
+            // Since functionCall already does typechecking, we do not have to do it here
+            var scopedDynamicContext = dynamicContext
+                .ScopeWithFocus(-1, null, SequenceFactory.CreateEmpty())
+                .ScopeWithVariableBindings(_parameterBindingNames.Reduce(
+                        new Dictionary<string, Func<ISequence>>(),
+                        (paramByName, bindingName, i) => {
+                        paramByName[bindingName] = ISequence.CreateDoublyIterableSequence(parameters[i]);
+                        return paramByName;
+                    })
+                );
+            return _functionBody.EvaluateMaybeStatically(
+                scopedDynamicContext,
+                executionParameters
+            );
+        };
+
+        var functionItem = new FunctionValue<ISequence,TNode>(
+            _parameterTypes.Cast<ParameterType>().ToArray(),
+            _parameterTypes.Length,
+            "dynamic-function",
+            "",
+            _returnType,
+            executeFunction,
+            true,
+            _functionBody.IsUpdating
+        );
+        return SequenceFactory.CreateFromValue(functionItem);
+    }
+
+    public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
+    {
+        staticContext.IntroduceScope();
+        _parameterBindingNames = _parameterNames.Select((name) => {
+            var namespaceURI = name.NamespaceUri;
+            var prefix = name.Prefix;
+            var localName = name.LocalName;
+
+            if (string.IsNullOrEmpty(namespaceURI) && prefix != "*") {
+                namespaceURI = staticContext.ResolveNamespace(prefix);
+            }
+            return staticContext.RegisterVariable(namespaceURI, localName)!;
+        }).ToArray();
+
+        _functionBody.PerformStaticEvaluation(staticContext);
+        staticContext.RemoveScope();
+
+        if (_functionBody.IsUpdating) {
+            throw new Exception("Not implemented: inline functions can not yet be updating.");
+        }
+    }
+}
