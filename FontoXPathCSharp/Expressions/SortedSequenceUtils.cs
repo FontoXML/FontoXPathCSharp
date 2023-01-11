@@ -14,7 +14,7 @@ public static class SortedSequenceUtils<TNode> where TNode : notnull
         return node1 == node2 || node1.Value.Equals(node2.Value);
     }
 
-    private static bool IsSameNodeValue(AbstractValue? a, AbstractValue? b)
+    public static bool IsSameNodeValue(AbstractValue? a, AbstractValue? b)
     {
         if (a == null || b == null) return false;
 

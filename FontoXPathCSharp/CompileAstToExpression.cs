@@ -393,8 +393,18 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.ArrowExpr => CompileArrowExpr(ast, options),
             AstNodeName.RangeSequenceExpr => CompileRangeSequenceExpr(ast, options),
             AstNodeName.InstanceOfExpr => CompileInstanceOfExpr(ast, options),
+            AstNodeName.ExceptOp or AstNodeName.IntersectOp => CompileIntersectExcept(ast, options),
             _ => CompileTestExpression(ast)
         };
+    }
+
+    private static AbstractExpression<TNode> CompileIntersectExcept(Ast ast, CompilationOptions options)
+    {
+        return new IntersectExcept<TNode>(
+            ast.Name,
+            CompileAst(ast.FollowPath(AstNodeName.FirstOperand, AstNodeName.All), DisallowUpdating(options)),
+            CompileAst(ast.FollowPath(AstNodeName.SecondOperand, AstNodeName.All), DisallowUpdating(options))
+        );
     }
 
     private static AbstractExpression<TNode> CompileVarRef(Ast ast)

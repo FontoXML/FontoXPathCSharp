@@ -4,9 +4,7 @@ abbreviatedSyntax-6;Expected XPath for $h in (/works) return $h/employee[fn:last
 ancestor-10;NodeAfterOp AST to Expression not yet implemented
 ancestor-11;Expected results and parsedFragment children to match
 ancestor-12;Expected results and parsedFragment children to match
-ancestor-13;IntersectOp AST to Expression not yet implemented
-ancestor-14;ExceptOp AST to Expression not yet implemented
-ancestor-15;ExceptOp AST to Expression not yet implemented
+ancestor-13;Expected results and parsedFragment children to match
 ancestor-21;PRSC Error: Failed to parse query ' = 0'
 ancestor-3;IsOp AST to Expression not yet implemented
 ancestor-4;IsOp AST to Expression not yet implemented
@@ -16,9 +14,6 @@ ancestor-7;PRSC Error: Failed to parse query ''
 ancestor-8;NodeAfterOp AST to Expression not yet implemented
 ancestor-9;NodeAfterOp AST to Expression not yet implemented
 ancestorself-10;NodeAfterOp AST to Expression not yet implemented
-ancestorself-13;IntersectOp AST to Expression not yet implemented
-ancestorself-14;ExceptOp AST to Expression not yet implemented
-ancestorself-15;ExceptOp AST to Expression not yet implemented
 ancestorself-21;PRSC Error: Failed to parse query ''
 ancestorself-3;IsOp AST to Expression not yet implemented
 ancestorself-4;IsOp AST to Expression not yet implemented
@@ -2372,8 +2367,8 @@ cbcl-error-028;Expected executing the XPath 'declare function local:item() { if 
 cbcl-error-029;PRSC Error: Failed to parse query 'declare function local:item() { if (current-date() gt xs:date('1900-01-01')) then 1 else "one" }; empty( typeswitch ( local:item() ) case xs:integer return () default return fn:error())'
 cbcl-error-030;Expected executing the XPath 'empty(fn:remove( fn:error(), 1))' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:remove with arity 2 is not registered.
 cbcl-error-031;Expected executing the XPath 'empty(fn:subsequence( fn:error(), 2, 2))' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:subsequence with arity 3 is not registered.
-cbcl-error-032;Expected executing the XPath 'empty(fn:error() except fn:error() )' to resolve to one of the expected results, but got System.NotImplementedException: ExceptOp AST to Expression not yet implemented
-cbcl-error-033;Expected executing the XPath 'empty(fn:error() intersect fn:error() )' to resolve to one of the expected results, but got System.NotImplementedException: IntersectOp AST to Expression not yet implemented
+cbcl-error-032;Expected executing the XPath 'empty(fn:error() except fn:error() )' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
+cbcl-error-033;Expected executing the XPath 'empty(fn:error() intersect fn:error() )' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
 cbcl-error-034;Expected executing the XPath 'empty( fn:zero-or-one(fn:error()) )' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
 cbcl-error-035;Expected executing the XPath 'empty( fn:error() treat as empty-sequence() )' to resolve to one of the expected results, but got System.NotImplementedException: TreatExpr AST to Expression not yet implemented
 cbcl-every-001;PRSC Error: Failed to parse query 'every $x in (1 to 10)[. div 2 = 11] satisfies false()'
@@ -3078,7 +3073,6 @@ combiningnodeseqhc7;Use of XQuery FLWOR expressions in XPath is not allowed
 combiningnodeseqhc8;Use of XQuery FLWOR expressions in XPath is not allowed
 combiningnodeseqhc9;Use of XQuery FLWOR expressions in XPath is not allowed
 combiningnodeseqintersecthc1;PRSC Error: Failed to parse query ' = 0'
-combiningnodeseqintersecthc2;Expected executing the XPath 'count(() intersect ())' to resolve to one of the expected results, but got System.NotImplementedException: IntersectOp AST to Expression not yet implemented
 combiningnodeseqintersecthc3;Use of XQuery FLWOR expressions in XPath is not allowed
 combiningnodeseqintersecthc4;Use of XQuery FLWOR expressions in XPath is not allowed
 comp-attr-bad-name-1;Expected executing the XPath '' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQDY0044. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
@@ -4802,29 +4796,16 @@ fn-exactly-oneulng1args-3;The function fn:exactly-one with arity 1 is not regist
 fn-exactly-oneusht1args-1;The function fn:exactly-one with arity 1 is not registered.
 fn-exactly-oneusht1args-2;The function fn:exactly-one with arity 1 is not registered.
 fn-exactly-oneusht1args-3;The function fn:exactly-one with arity 1 is not registered.
-fn-except-node-args-001;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-002;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-003;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-004;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-005;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-006;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-007;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-008;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-009;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-010;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-011;Expected executing the XPath '/bib/book except /bib/book' to resolve to one of the expected results, but got System.NotImplementedException: ExceptOp AST to Expression not yet implemented
-fn-except-node-args-012;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-013;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-014;Expected executing the XPath '() except ()' to resolve to one of the expected results, but got System.NotImplementedException: ExceptOp AST to Expression not yet implemented
-fn-except-node-args-015;Expected executing the XPath '(/atomic:root/atomic:integer) except (/atomic:root/atomic:integer)' to resolve to one of the expected results, but got System.NotImplementedException: ExceptOp AST to Expression not yet implemented
-fn-except-node-args-016;Expected executing the XPath '(/atomic:root/atomic:integer) except (/atomic:root/atomic:integer)' to resolve to one of the expected results, but got System.NotImplementedException: ExceptOp AST to Expression not yet implemented
-fn-except-node-args-017;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-018;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-019;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-020;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-021;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-022;ExceptOp AST to Expression not yet implemented
-fn-except-node-args-023;ExceptOp AST to Expression not yet implemented
+fn-except-node-args-001;Expected XPath /bib/book[1]/title except /bib/book[1]/title to resolve to , but instead got null
+fn-except-node-args-002;Expected results and parsedFragment children to match
+fn-except-node-args-003;The function exactly-one with arity 1 is not registered.
+fn-except-node-args-006;Haven't implemented Qnames from: PI2:
+fn-except-node-args-009;Haven't implemented Qnames from: PI1:
+fn-except-node-args-010;Haven't implemented Qnames from: PI1:
+fn-except-node-args-012;Expected results and parsedFragment children to match
+fn-except-node-args-013;Expected results and parsedFragment children to match
+fn-except-node-args-017;Value was either too large or too small for a Decimal.
+fn-except-node-args-021;Expected XPath (/atomic:root/atomic:QName/text()) except (/atomic:root/atomic:QName/text()) to resolve to , but instead got null
 fn-false-1;PRSC Error: Failed to parse query '(fn:false()) instance of $xs:boolean'
 fn-false-13;PRSC Error: Failed to parse query ''
 fn-false-14;PRSC Error: Failed to parse query ''
@@ -5825,30 +5806,20 @@ fn-innermost-029;Arithmetic operation resulted in an overflow.
 fn-innermost-030;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //text() ) ! string() ), (('0t',' ',\n                         '00t',' ','000t',' ',\n                         '01t',' ','010t',' ',\n                         '02t',' ','020t',' ')))'
 fn-innermost-032;Arithmetic operation resulted in an overflow.
 fn-innermost-033;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //* ) ! local-name(.)), (('empty-level-0',   'non-empty-level-0',\n                         'empty-level-00',  'non-empty-level-00',\n                         'empty-level-000', 'non-empty-level-000',\n                         'empty-level-01',  'non-empty-level-01',\n                         'empty-level-010', 'non-empty-level-010',\n                         'empty-level-02',  'non-empty-level-02',\n                         'empty-level-020', 'non-empty-level-020')))'
-fn-innermost-034;ExceptOp AST to Expression not yet implemented
 fn-innermost-035;Arithmetic operation resulted in an overflow.
-fn-innermost-036;ExceptOp AST to Expression not yet implemented
+fn-innermost-036;Expected XPath fn:deep-equal( fn:innermost( //node() ), 
 fn-innermost-037;Arithmetic operation resulted in an overflow.
-fn-innermost-038;ExceptOp AST to Expression not yet implemented
 fn-innermost-039;Arithmetic operation resulted in an overflow.
-fn-innermost-040;ExceptOp AST to Expression not yet implemented
 fn-innermost-041;Arithmetic operation resulted in an overflow.
-fn-innermost-042;ExceptOp AST to Expression not yet implemented
 fn-innermost-043;Arithmetic operation resulted in an overflow.
-fn-innermost-044;ExceptOp AST to Expression not yet implemented
 fn-innermost-045;Arithmetic operation resulted in an overflow.
-fn-innermost-046;ExceptOp AST to Expression not yet implemented
 fn-innermost-047;Arithmetic operation resulted in an overflow.
-fn-innermost-048;ExceptOp AST to Expression not yet implemented
 fn-innermost-049;Arithmetic operation resulted in an overflow.
-fn-innermost-050;ExceptOp AST to Expression not yet implemented
 fn-innermost-051;Arithmetic operation resulted in an overflow.
-fn-innermost-052;ExceptOp AST to Expression not yet implemented
 fn-innermost-053;Arithmetic operation resulted in an overflow.
-fn-innermost-054;ExceptOp AST to Expression not yet implemented
+fn-innermost-054;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 fn-innermost-055;Use of XQuery FLWOR expressions in XPath is not allowed
 fn-innermost-056;Use of XQuery FLWOR expressions in XPath is not allowed
-fn-innermost-058;ExceptOp AST to Expression not yet implemented
 fn-innermost-059;Arithmetic operation resulted in an overflow.
 fn-insert-before-mix-args-001;The function fn:insert-before with arity 3 is not registered.
 fn-insert-before-mix-args-002;The function fn:insert-before with arity 3 is not registered.
@@ -5870,28 +5841,14 @@ fn-insert-before-mix-args-017;The function fn:insert-before with arity 3 is not 
 fn-insert-before-mix-args-018;The function fn:insert-before with arity 3 is not registered.
 fn-insert-before-mix-args-019;The function fn:insert-before with arity 3 is not registered.
 fn-insert-before-mix-args-020;The function fn:insert-before with arity 3 is not registered.
-fn-intersect-node-args-001;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-002;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-003;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-004;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-005;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-006;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-007;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-008;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-009;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-010;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-011;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-012;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-013;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-014;Expected executing the XPath '() intersect ()' to resolve to one of the expected results, but got System.NotImplementedException: IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-015;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-016;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-017;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-018;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-019;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-020;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-021;IntersectOp AST to Expression not yet implemented
-fn-intersect-node-args-022;IntersectOp AST to Expression not yet implemented
+fn-intersect-node-args-003;The function exactly-one with arity 1 is not registered.
+fn-intersect-node-args-005;Haven't implemented Qnames from: PI1:
+fn-intersect-node-args-006;Haven't implemented Qnames from: PI1:
+fn-intersect-node-args-018;Expected XPath (/atomic:root/atomic:duration/text()) intersect (/atomic:root/atomic:duration/text()) to resolve to P1Y2M3DT10H30M, but instead got null
+fn-intersect-node-args-019;Expected XPath (/atomic:root/atomic:date/text()) intersect (/atomic:root/atomic:date/text()) to resolve to 2000-01-01+05:00, but instead got null
+fn-intersect-node-args-020;Expected XPath (/atomic:root/atomic:base64Binary/text()) intersect (/atomic:root/atomic:base64Binary/text()) to resolve to R0lGODlhcgGSALMAAAQCAEMmCZtuMFQxDS8b, but instead got null
+fn-intersect-node-args-021;Expected XPath (/atomic:root/atomic:QName/text()) intersect (/atomic:root/atomic:QName/text()) to resolve to foo:aQname, but instead got null
+fn-intersect-node-args-022;Expected XPath (/atomic:root/atomic:idrefs/text()) intersect (/atomic:root/atomic:idrefs/text()) to resolve to id1 id2, but instead got null
 fn-intersect-node-args-023;PRSC Error: Failed to parse query ''
 fn-iri-to-uri-14;Expected XPath fn:iri-to-uri("example/example") to resolve to example/example, but instead got example%2fexample
 fn-iri-to-uri-18;PRSC Error: Failed to parse query ''
@@ -6370,30 +6327,20 @@ fn-outermost-029;Arithmetic operation resulted in an overflow.
 fn-outermost-030;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //text() ) ! string() ), (('0t',' ',\n                         '00t',' ','000t',' ',\n                         '01t',' ','010t',' ',\n                         '02t',' ','020t',' ')))'
 fn-outermost-032;Arithmetic operation resulted in an overflow.
 fn-outermost-033;PRSC Error: Failed to parse query 'fn:outermost( //* ) ! local-name(.) = ('root')'
-fn-outermost-034;ExceptOp AST to Expression not yet implemented
 fn-outermost-035;Arithmetic operation resulted in an overflow.
-fn-outermost-036;ExceptOp AST to Expression not yet implemented
+fn-outermost-036;Expected XPath fn:deep-equal( fn:outermost( //node() ), 
 fn-outermost-037;Arithmetic operation resulted in an overflow.
-fn-outermost-038;ExceptOp AST to Expression not yet implemented
 fn-outermost-039;Arithmetic operation resulted in an overflow.
-fn-outermost-040;ExceptOp AST to Expression not yet implemented
 fn-outermost-041;Arithmetic operation resulted in an overflow.
-fn-outermost-042;ExceptOp AST to Expression not yet implemented
 fn-outermost-043;Arithmetic operation resulted in an overflow.
-fn-outermost-044;ExceptOp AST to Expression not yet implemented
 fn-outermost-045;Arithmetic operation resulted in an overflow.
-fn-outermost-046;ExceptOp AST to Expression not yet implemented
 fn-outermost-047;Arithmetic operation resulted in an overflow.
-fn-outermost-048;ExceptOp AST to Expression not yet implemented
 fn-outermost-049;Arithmetic operation resulted in an overflow.
-fn-outermost-050;ExceptOp AST to Expression not yet implemented
 fn-outermost-051;Arithmetic operation resulted in an overflow.
-fn-outermost-052;ExceptOp AST to Expression not yet implemented
 fn-outermost-053;Arithmetic operation resulted in an overflow.
-fn-outermost-054;ExceptOp AST to Expression not yet implemented
+fn-outermost-054;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 fn-outermost-055;Use of XQuery FLWOR expressions in XPath is not allowed
 fn-outermost-056;Use of XQuery FLWOR expressions in XPath is not allowed
-fn-outermost-058;ExceptOp AST to Expression not yet implemented
 fn-parse-json-001;PRSC Error: Failed to parse query 'deep-equal((parse-json("{}")), (map{}))'
 fn-parse-json-002;PRSC Error: Failed to parse query 'deep-equal((parse-json('{"abc":12}', map{'liberal':false()})), (map{"abc":12e0}))'
 fn-parse-json-003;PRSC Error: Failed to parse query 'deep-equal((parse-json('{"abc":12e0}')), (map{"abc":12e0}))'
@@ -7936,9 +7883,8 @@ fold-right-105;PRSC Error: Failed to parse query 'deep-equal((declare function l
 following-10;NodeAfterOp AST to Expression not yet implemented
 following-11;Expected results and parsedFragment children to match
 following-12;Expected results and parsedFragment children to match
-following-13;IntersectOp AST to Expression not yet implemented
-following-14;ExceptOp AST to Expression not yet implemented
-following-15;ExceptOp AST to Expression not yet implemented
+following-13;Expected results and parsedFragment children to match
+following-15;Expected results and parsedFragment children to match
 following-21;PRSC Error: Failed to parse query ' = 0'
 following-22;Expected XPath exists(//employee[@name="John Doe 10"]/following::text()[.='Monday']) to resolve to true
 following-3;IsOp AST to Expression not yet implemented
@@ -7952,9 +7898,8 @@ following-sibling-attr;PRSC Error: Failed to parse query ''
 followingsibling-10;NodeAfterOp AST to Expression not yet implemented
 followingsibling-11;Expected results and parsedFragment children to match
 followingsibling-12;Expected results and parsedFragment children to match
-followingsibling-13;IntersectOp AST to Expression not yet implemented
-followingsibling-14;ExceptOp AST to Expression not yet implemented
-followingsibling-15;ExceptOp AST to Expression not yet implemented
+followingsibling-13;Expected results and parsedFragment children to match
+followingsibling-15;Expected results and parsedFragment children to match
 followingsibling-21;PRSC Error: Failed to parse query ' = 0'
 followingsibling-3;IsOp AST to Expression not yet implemented
 followingsibling-4;IsOp AST to Expression not yet implemented
@@ -14012,7 +13957,6 @@ K2-SeqDeepEqualFunc-43;Expected executing the XPath 'deep-equal((0 to year-from-
 K2-SeqDeepEqualFunc-5;PRSC Error: Failed to parse query ''
 K2-SeqDeepEqualFunc-6;PRSC Error: Failed to parse query ''
 K2-SeqDeepEqualFunc-7;PRSC Error: Failed to parse query ''
-K2-SeqExcept-1;Expected XPathException with code XPTY0004, but got ExceptOp AST to Expression not yet implemented
 K2-SeqExcept-10;PRSC Error: Failed to parse query ''
 K2-SeqExcept-11;PRSC Error: Failed to parse query ''
 K2-SeqExcept-12;PRSC Error: Failed to parse query ''
@@ -14044,7 +13988,6 @@ K2-SeqExcept-35;PRSC Error: Failed to parse query ''
 K2-SeqExcept-36;PRSC Error: Failed to parse query ''
 K2-SeqExcept-37;PRSC Error: Failed to parse query ''
 K2-SeqExcept-38;PRSC Error: Failed to parse query ''
-K2-SeqExcept-39;ExceptOp AST to Expression not yet implemented
 K2-SeqExcept-4;PRSC Error: Failed to parse query ''
 K2-SeqExcept-40;PRSC Error: Failed to parse query ''
 K2-SeqExcept-41;PRSC Error: Failed to parse query ''
@@ -14372,7 +14315,6 @@ K2-SeqIDFunc-9;PRSC Error: Failed to parse query ''
 K2-SeqIDREFFunc-1;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function idref with arity 2 is not registered.
 K2-SeqIDREFFunc-2;Expected error code: XPTY0004. Query succeeded with result: 1 2 3
 K2-SeqIDREFFunc-3;Expected error code: XPTY0004. Query succeeded with result: 1 2 3
-K2-SeqIntersect-1;Expected XPathException with code XPTY0004, but got IntersectOp AST to Expression not yet implemented
 K2-SeqIntersect-10;PRSC Error: Failed to parse query ''
 K2-SeqIntersect-11;PRSC Error: Failed to parse query ''
 K2-SeqIntersect-12;PRSC Error: Failed to parse query ''
@@ -14404,16 +14346,12 @@ K2-SeqIntersect-35;PRSC Error: Failed to parse query ''
 K2-SeqIntersect-36;PRSC Error: Failed to parse query ''
 K2-SeqIntersect-37;PRSC Error: Failed to parse query ''
 K2-SeqIntersect-38;PRSC Error: Failed to parse query ''
-K2-SeqIntersect-39;IntersectOp AST to Expression not yet implemented
 K2-SeqIntersect-4;PRSC Error: Failed to parse query ''
-K2-SeqIntersect-40;IntersectOp AST to Expression not yet implemented
 K2-SeqIntersect-41;PRSC Error: Failed to parse query ''
 K2-SeqIntersect-42;PRSC Error: Failed to parse query '\n         declare function local:function ($c as node()) { $c intersect $c }; \n         empty(local:function(document{()}))\n      '
-K2-SeqIntersect-43;Expected XPathException with code XPTY0004, but got IntersectOp AST to Expression not yet implemented
-K2-SeqIntersect-44;Expected XPathException with code XPTY0004, but got ExceptOp AST to Expression not yet implemented
 K2-SeqIntersect-45;Arithmetic operation resulted in an overflow.
-K2-SeqIntersect-46;IntersectOp AST to Expression not yet implemented
-K2-SeqIntersect-47;IntersectOp AST to Expression not yet implemented
+K2-SeqIntersect-46;The function subsequence with arity 3 is not registered.
+K2-SeqIntersect-47;The function head with arity 1 is not registered.
 K2-SeqIntersect-5;PRSC Error: Failed to parse query ''
 K2-SeqIntersect-6;PRSC Error: Failed to parse query ''
 K2-SeqIntersect-7;PRSC Error: Failed to parse query ''
@@ -15168,8 +15106,7 @@ nametest-1;PRSC Error: Failed to parse query ''
 nametest-10;PRSC Error: Failed to parse query ''
 nametest-11;PRSC Error: Failed to parse query ' = 1'
 nametest-12;Expected results and parsedFragment children to match
-nametest-13;IntersectOp AST to Expression not yet implemented
-nametest-14;ExceptOp AST to Expression not yet implemented
+nametest-13;Expected results and parsedFragment children to match
 nametest-18;PRSC Error: Failed to parse query ''
 nametest-19;PRSC Error: Failed to parse query ''
 nametest-2;PRSC Error: Failed to parse query ''
@@ -16144,9 +16081,8 @@ position-8;Expected XPath for $h in (/works/employee[12]) return $h/overtime[pos
 preceding-10;NodeAfterOp AST to Expression not yet implemented
 preceding-11;Expected results and parsedFragment children to match
 preceding-12;Expected results and parsedFragment children to match
-preceding-13;IntersectOp AST to Expression not yet implemented
-preceding-14;ExceptOp AST to Expression not yet implemented
-preceding-15;ExceptOp AST to Expression not yet implemented
+preceding-13;Expected results and parsedFragment children to match
+preceding-15;Expected results and parsedFragment children to match
 preceding-21;PRSC Error: Failed to parse query ' = 0'
 preceding-22;PRSC Error: Failed to parse query ''
 preceding-23;PRSC Error: Failed to parse query ''
@@ -16160,9 +16096,8 @@ preceding-9;NodeAfterOp AST to Expression not yet implemented
 preceding-sibling-10;NodeAfterOp AST to Expression not yet implemented
 preceding-sibling-11;Expected results and parsedFragment children to match
 preceding-sibling-12;Expected results and parsedFragment children to match
-preceding-sibling-13;IntersectOp AST to Expression not yet implemented
-preceding-sibling-14;ExceptOp AST to Expression not yet implemented
-preceding-sibling-15;ExceptOp AST to Expression not yet implemented
+preceding-sibling-13;Expected results and parsedFragment children to match
+preceding-sibling-15;Expected results and parsedFragment children to match
 preceding-sibling-21;PRSC Error: Failed to parse query ' = 0'
 preceding-sibling-3;IsOp AST to Expression not yet implemented
 preceding-sibling-4;IsOp AST to Expression not yet implemented
