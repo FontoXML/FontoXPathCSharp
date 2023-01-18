@@ -3622,7 +3622,6 @@ Constr-ws-xmlspace-1;PRSC Error: Failed to parse query ''
 Constr-ws-xmlspace-2;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 constSeq-16;Type casting to XsAnyUri has not been implemented yet.
 constSeq-18;PRSC Error: Failed to parse query 'deep-equal(( (xs:double(1.2E2), 2.2E2, 3.3E2)), (120, 220, 330))'
-context-item-1;Expected XPathException with code XPDY0002, but got Casting AbstractValue(Function) to FunctionValue`2
 contextDecl-014;PRSC Error: Failed to parse query '\n        declare variable $x := . + 5;\n        declare context item := 17;\n        $x\n       = 22'
 contextDecl-015;Expected executing the XPath '' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 contextDecl-016;PRSC Error: Failed to parse query ' = 1'
@@ -6265,7 +6264,7 @@ fn-notsht1args-2;Expected XPath fn:not(xs:short("-5324")) to resolve to false
 fn-number-1;Expected XPath fn:number(()) to resolve to NaN, but instead got Infinity
 fn-number-10;PRSC Error: Failed to parse query '(number(xs:untypedAtomic("1000"))) instance of $xs:double'
 fn-number-2;Input string was not in a correct format.
-fn-number-3;Expected XPathException with code XPDY0002, but got PerformFunctionConversion is not implemented yet.
+fn-number-3;Expected XPathException with code XPDY0002, but got Input string was not in a correct format.
 fn-number-4;Expected error code: XPDY0002. Query succeeded with result: Infinity
 fn-number-5;PRSC Error: Failed to parse query '(number(true())) instance of $xs:double'
 fn-number-6;PRSC Error: Failed to parse query '(number(false())) instance of $xs:double'
@@ -8952,7 +8951,7 @@ functx-fn-number-1;Expected XPath let $priceDoc := (/) return (number( $priceDoc
 functx-fn-number-2;Expected XPath let $priceDoc := (/) return (number( $priceDoc//prod[1]/@currency)) to resolve to NaN, but instead got Infinity
 functx-fn-number-4;Input string was not in a correct format.
 functx-fn-number-5;Expected XPath let $priceDoc := (/) return (number( () )) to resolve to NaN, but instead got Infinity
-functx-fn-number-6;PerformFunctionConversion is not implemented yet.
+functx-fn-number-6;Expected results and parsedFragment children to match
 functx-fn-number-all;Input string was not in a correct format.
 functx-fn-one-or-more-1;The function one-or-more with arity 1 is not registered.
 functx-fn-one-or-more-2;The function one-or-more with arity 1 is not registered.
@@ -10296,8 +10295,7 @@ inline-fn-002;Unable to cast object of type 'FontoXPathCSharp.Expressions.Litera
 inline-fn-003;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 inline-fn-004;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 inline-fn-005;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         (1 to 4) !\n         (let $add := function($x){$x + .} return $add(4))'
-inline-fn-006;Expected XPathException with code XPST0003, but got Casting AbstractValue(Function) to FunctionValue`2
-inline-fn-007;Casting AbstractValue(Function) to FunctionValue`2
+inline-fn-006;Expected error code: XPST0003. Found error code:  with error message: 
 inline-fn-008;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 inline-fn-009;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 inline-fn-010;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.

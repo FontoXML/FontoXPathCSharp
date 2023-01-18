@@ -43,9 +43,9 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TReturn : ISequ
 
     public ParameterType[] ArgumentTypes { get; }
 
-    public string? Name { get; }
+    public string Name { get; }
 
-    public SequenceType? ReturnType { get; }
+    public SequenceType ReturnType { get; }
 
     private static ParameterType[] ExpandParameterTypeToArity(ParameterType[] argumentTypes, int arity)
     {

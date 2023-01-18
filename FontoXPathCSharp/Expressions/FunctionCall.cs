@@ -106,7 +106,7 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
             transformedArguments
         );
 
-        return ArgumentHelper.PerformFunctionConversion(
+        return ArgumentHelper<TNode>.PerformFunctionConversion(
             functionItem.ReturnType,
             toReturn,
             executionParameters,
@@ -146,7 +146,7 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
                 continue;
             }
 
-            var transformedArgument = ArgumentHelper.PerformFunctionConversion(
+            var transformedArgument = ArgumentHelper<TNode>.PerformFunctionConversion(
                 argumentTypes[i],
                 current,
                 executionParameters,

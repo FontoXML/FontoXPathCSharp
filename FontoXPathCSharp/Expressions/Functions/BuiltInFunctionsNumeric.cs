@@ -210,7 +210,7 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
             {
                 var atomizedContextItem = dynamicContext?.ContextItem == null
                     ? null
-                    : ArgumentHelper.PerformFunctionConversion(
+                    : ArgumentHelper<TNode>.PerformFunctionConversion(
                         new SequenceType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne),
                         SequenceFactory.CreateFromValue(dynamicContext.ContextItem), executionParameters, "fn:number",
                         false);
