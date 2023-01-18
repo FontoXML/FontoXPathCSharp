@@ -24,10 +24,10 @@ public static class ParsingUtils
             // case AstNodeName.UnOrderedExpr:
             // case AstNodeName.NamedFunctionRef:
             case AstNodeName.InlineFunctionExpr:
-            // case AstNodeName.MapConstructor:
-            // case AstNodeName.ArrayConstructor:
-            // case AstNodeName.StringConstructor:
-            // case AstNodeName.UnaryLookup:
+                // case AstNodeName.MapConstructor:
+                // case AstNodeName.ArrayConstructor:
+                // case AstNodeName.StringConstructor:
+                // case AstNodeName.UnaryLookup:
                 return expr;
             default:
                 return new Ast(AstNodeName.SequenceExpr, expr);
@@ -39,7 +39,7 @@ public static class ParsingUtils
     {
         return IfNotNullWrapValue(item, item);
     }
-    
+
     // Replaces the x != null ? [y] : [] pattern that's common in the parser
     // often used to wrap an AST if a val is not null.
     public static T2[] IfNotNullWrapValue<T1, T2>(T1? nullable, T2? valToWrap)

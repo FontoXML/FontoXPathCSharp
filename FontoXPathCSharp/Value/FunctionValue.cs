@@ -14,28 +14,11 @@ public delegate ISequence FunctionDefinitionType<TNode>(
     ExecutionParameters<TNode> executionParameters,
     StaticContext<TNode>? staticContext, params ISequence[] sequences) where TNode : notnull;
 
-public class FunctionValue<TReturn, TNode> : AbstractValue where TNode : notnull
+public class FunctionValue<TReturn, TNode> : AbstractValue where TReturn : ISequence where TNode : notnull
 {
-    private readonly ParameterType[] _argumentTypes;
+    private readonly string? _namespaceUri;
     public readonly int Arity;
     public readonly bool IsUpdating;
-    private string? _localName;
-    private string? _namespaceUri;
-    private SequenceType? _returnType;
-
-
-    protected FunctionValue(
-        ParameterType[] argumentTypes,
-        int arity,
-        FunctionSignature<TReturn, TNode> value,
-        ValueType type,
-        bool isUpdating = false) : base(type)
-    {
-        _argumentTypes = argumentTypes;
-        Arity = arity;
-        Value = value;
-        IsUpdating = isUpdating;
-    }
 
     public FunctionValue(
         ParameterType[] argumentTypes,
@@ -49,20 +32,20 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TNode : notnull
     {
         Value = value;
         Arity = arity;
-        _argumentTypes = ExpandParameterTypeToArity(argumentTypes, arity);
+        ArgumentTypes = ExpandParameterTypeToArity(argumentTypes, arity);
         IsUpdating = isUpdating;
-        _localName = localName;
+        Name = localName;
         _namespaceUri = namespaceUri;
-        _returnType = returnType;
+        ReturnType = returnType;
     }
 
-    protected FunctionValue(ParameterType[] argumentTypes, int arity, FunctionSignature<TReturn, TNode> value,
-        bool isUpdating) : this(
-        argumentTypes, arity, value, ValueType.Function, isUpdating)
-    {
-    }
-    
-    public FunctionSignature<TReturn, TNode> Value { get; init; }
+    public FunctionSignature<TReturn, TNode> Value { get; set; }
+
+    public ParameterType[] ArgumentTypes { get; }
+
+    public string? Name { get; }
+
+    public SequenceType? ReturnType { get; }
 
     private static ParameterType[] ExpandParameterTypeToArity(ParameterType[] argumentTypes, int arity)
     {
@@ -78,5 +61,54 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TNode : notnull
         }
 
         return argumentTypes;
+    }
+
+    public ISequence ApplyArguments(ISequence?[] appliedArguments)
+    {
+        var fn = Value;
+
+        var argumentSequenceCreators =
+            appliedArguments.Select(arg => arg == null ? null : ISequence.CreateDoublyIterableSequence(arg));
+
+        FunctionSignature<ISequence, TNode> curriedFunction =
+            (dynamicContext, executionParameters, staticContext, sequences) =>
+            {
+                var newArguments = sequences.ToList();
+                var allArguments = argumentSequenceCreators.Select(createArgumentSequence =>
+                {
+                    // If createArgumentSequence == null, it is a placeholder, so use a provided one
+                    if (createArgumentSequence == null)
+                    {
+                        var firstEntry = newArguments[0];
+                        newArguments.RemoveAt(0);
+                        return firstEntry;
+                    }
+
+                    return createArgumentSequence();
+                }).ToArray();
+                return fn(dynamicContext, executionParameters, staticContext, allArguments);
+            };
+
+        var argumentTypes = appliedArguments.Reduce(
+            new List<ParameterType>(),
+            (indices, arg, index) =>
+            {
+                if (arg == null) indices.Add(ArgumentTypes[index]);
+                return indices;
+            }
+        ).ToArray();
+
+        var functionItem = new FunctionValue<ISequence, TNode>(
+            argumentTypes,
+            argumentTypes.Length,
+            "boundFunction",
+            _namespaceUri!,
+            ReturnType!,
+            curriedFunction,
+            true,
+            IsUpdating
+        );
+
+        return SequenceFactory.CreateFromValue(functionItem);
     }
 }

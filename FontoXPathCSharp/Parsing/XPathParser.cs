@@ -422,7 +422,8 @@ public class XPathParser
         NamedFunctionRef = Then(
             nameParser.EqName,
             Preceded(Token("#"), literalParser.IntegerLiteral),
-            (functionName, integer) => new Ast(AstNodeName.NamedFunctionRef, functionName.GetAst(AstNodeName.FunctionName), integer)
+            (functionName, integer) => new Ast(AstNodeName.NamedFunctionRef,
+                functionName.GetAst(AstNodeName.FunctionName), integer)
         );
 
         EnclosedExpr = Delimited(

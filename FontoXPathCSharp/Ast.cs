@@ -260,28 +260,12 @@ public class Ast
         return this;
     }
 
-    public class StackTraceInfo
-    {
-        public int Column;
-        public int Line;
-        public int Offset;
-
-        public StackTraceInfo(int offset, int line, int column)
-        {
-            Offset = offset;
-            Line = line;
-            Column = column;
-        }
-    }
-
     public SequenceType GetTypeDeclaration()
     {
         var typeDeclarationAst = GetFirstChild(AstNodeName.TypeDeclaration);
         if (typeDeclarationAst == null || typeDeclarationAst.GetFirstChild(AstNodeName.VoidSequenceType) != null)
-        {
             return new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore);
-        }
-        
+
         Func<Ast, ValueType>? determineType = null;
         determineType = typeAst =>
         {
@@ -295,7 +279,8 @@ public class Ast
                 AstNodeName.TextTest => ValueType.Text,
                 AstNodeName.AnyKindTest => ValueType.Node,
                 AstNodeName.AnyItemType => ValueType.Item,
-                AstNodeName.AnyFunctionTest or AstNodeName.FunctionTest or AstNodeName.TypedFunctionTest => ValueType.Function,
+                AstNodeName.AnyFunctionTest or AstNodeName.FunctionTest or AstNodeName.TypedFunctionTest => ValueType
+                    .Function,
                 AstNodeName.AnyMapTest or AstNodeName.TypedMapTest => ValueType.Map,
                 AstNodeName.AnyArrayTest or AstNodeName.TypedArrayTest => ValueType.Array,
                 AstNodeName.AtomicType => string.Join(':',
@@ -303,20 +288,19 @@ public class Ast
                         typeAst.TextContent)
                     .StringToValueType(),
                 AstNodeName.ParenthesizedItemType => determineType!(typeAst.GetFirstChild()!),
-                AstNodeName.SchemaElementTest or AstNodeName.SchemaAttributeTest or AstNodeName.NamespaceNodeTest => throw new Exception(
-                    $"Type declaration '{typeDeclarationAst.GetFirstChild()?.Name}' is not supported."),
+                AstNodeName.SchemaElementTest or AstNodeName.SchemaAttributeTest or AstNodeName.NamespaceNodeTest =>
+                    throw new Exception(
+                        $"Type declaration '{typeDeclarationAst.GetFirstChild()?.Name}' is not supported."),
                 _ => throw new Exception(
                     $"Type declaration '{typeDeclarationAst.GetFirstChild()?.Name}' is not supported.")
             };
         };
 
         var valueType = determineType(typeDeclarationAst.GetFirstChild()!);
-        
+
         string? occurrence = null;
         var occurrenceNode = typeDeclarationAst.GetFirstChild(AstNodeName.OccurrenceIndicator);
-        if (occurrenceNode != null) {
-            occurrence = occurrenceNode.TextContent;
-        }
+        if (occurrenceNode != null) occurrence = occurrenceNode.TextContent;
 
         return occurrence switch
         {
@@ -325,5 +309,19 @@ public class Ast
             "+" => new SequenceType(valueType, SequenceMultiplicity.OneOrMore),
             _ => new SequenceType(valueType, SequenceMultiplicity.ExactlyOne)
         };
+    }
+
+    public class StackTraceInfo
+    {
+        public int Column;
+        public int Line;
+        public int Offset;
+
+        public StackTraceInfo(int offset, int line, int column)
+        {
+            Offset = offset;
+            Line = line;
+            Column = column;
+        }
     }
 }

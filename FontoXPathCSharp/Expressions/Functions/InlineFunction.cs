@@ -8,18 +8,18 @@ public record ParameterDescription(QName ParameterName, SequenceType ParameterTy
 
 public class InlineFunction<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
-    private PossiblyUpdatingExpression<TNode> _functionBody;
+    private readonly PossiblyUpdatingExpression<TNode> _functionBody;
+    private readonly QName[] _parameterNames;
+    private readonly SequenceType[] _parameterTypes;
+    private readonly SequenceType _returnType;
     private string[] _parameterBindingNames;
-    private QName[] _parameterNames;
-    private SequenceType[] _parameterTypes;
-    private SequenceType _returnType;
 
     public InlineFunction(
-        ParameterDescription[] parameterDescriptions, 
-        SequenceType returnType, 
+        ParameterDescription[] parameterDescriptions,
+        SequenceType returnType,
         PossiblyUpdatingExpression<TNode> functionBody) : base(
-        new Specificity(new Dictionary<SpecificityKind, int> { {SpecificityKind.External , 1}}), 
-        new AbstractExpression<TNode>[]{functionBody}, 
+        new Specificity(SpecificityKind.External, 1),
+        new AbstractExpression<TNode>[] { functionBody },
         new OptimizationOptions())
     {
         _parameterNames = parameterDescriptions.Select(desc => desc.ParameterName).ToArray();
@@ -32,24 +32,27 @@ public class InlineFunction<TNode> : AbstractExpression<TNode> where TNode : not
 
     public override ISequence Evaluate(DynamicContext? dynamicContext, ExecutionParameters<TNode>? executionParameters)
     {
-        FunctionSignature<ISequence, TNode> executeFunction = (_unboundDynamicContext, _executionParameters, _staticContext, parameters) => {
-            // Since functionCall already does typechecking, we do not have to do it here
-            var scopedDynamicContext = dynamicContext
-                .ScopeWithFocus(-1, null, SequenceFactory.CreateEmpty())
-                .ScopeWithVariableBindings(_parameterBindingNames.Reduce(
+        FunctionSignature<ISequence, TNode> executeFunction =
+            (_, _, _, parameters) =>
+            {
+                // Since functionCall already does typechecking, we do not have to do it here
+                var scopedDynamicContext = dynamicContext
+                    .ScopeWithFocus(-1, null, SequenceFactory.CreateEmpty())
+                    .ScopeWithVariableBindings(_parameterBindingNames.Reduce(
                         new Dictionary<string, Func<ISequence>>(),
-                        (paramByName, bindingName, i) => {
-                        paramByName[bindingName] = ISequence.CreateDoublyIterableSequence(parameters[i]);
-                        return paramByName;
-                    })
+                        (paramByName, bindingName, i) =>
+                        {
+                            paramByName[bindingName] = ISequence.CreateDoublyIterableSequence(parameters[i]);
+                            return paramByName;
+                        })
+                    );
+                return _functionBody.EvaluateMaybeStatically(
+                    scopedDynamicContext,
+                    executionParameters
                 );
-            return _functionBody.EvaluateMaybeStatically(
-                scopedDynamicContext,
-                executionParameters
-            );
-        };
+            };
 
-        var functionItem = new FunctionValue<ISequence,TNode>(
+        var functionItem = new FunctionValue<ISequence, TNode>(
             _parameterTypes.Cast<ParameterType>().ToArray(),
             _parameterTypes.Length,
             "dynamic-function",
@@ -65,22 +68,20 @@ public class InlineFunction<TNode> : AbstractExpression<TNode> where TNode : not
     public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
     {
         staticContext.IntroduceScope();
-        _parameterBindingNames = _parameterNames.Select((name) => {
+        _parameterBindingNames = _parameterNames.Select(name =>
+        {
             var namespaceURI = name.NamespaceUri;
             var prefix = name.Prefix;
             var localName = name.LocalName;
 
-            if (string.IsNullOrEmpty(namespaceURI) && prefix != "*") {
+            if (string.IsNullOrEmpty(namespaceURI) && prefix != "*")
                 namespaceURI = staticContext.ResolveNamespace(prefix);
-            }
             return staticContext.RegisterVariable(namespaceURI, localName)!;
         }).ToArray();
 
         _functionBody.PerformStaticEvaluation(staticContext);
         staticContext.RemoveScope();
 
-        if (_functionBody.IsUpdating) {
-            throw new Exception("Not implemented: inline functions can not yet be updating.");
-        }
+        if (_functionBody.IsUpdating) throw new Exception("Not implemented: inline functions can not yet be updating.");
     }
 }

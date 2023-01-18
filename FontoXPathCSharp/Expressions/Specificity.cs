@@ -33,6 +33,11 @@ public class Specificity : IComparable<Specificity>
         //You can't pass in invalid specificity kinds with this implementation, so the check after this was not needed.
     }
 
+    // Often when explicitly creating specificities, it is created with a single entry, so this keeps that clean.
+    public Specificity(SpecificityKind kind, int count) : this(new Dictionary<SpecificityKind, int> { { kind, count } })
+    {
+    }
+
 
     public int CompareTo(Specificity? other)
     {

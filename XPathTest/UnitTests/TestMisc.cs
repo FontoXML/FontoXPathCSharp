@@ -166,4 +166,14 @@ public class TestMisc
 
         Assert.Equal("John Doe 12", res);
     }
+
+    [Fact]
+    public void InlineFunc()
+    {
+        var selector = "let $fn := function () as xs:boolean { true() } return $fn()";
+        
+        var res = Evaluate.EvaluateXPathToBoolean(selector, XmlNodeWorksMod, XmlNodeDomFacade, XmlNodeOptions);
+        
+        Assert.True(res);
+    }
 }
