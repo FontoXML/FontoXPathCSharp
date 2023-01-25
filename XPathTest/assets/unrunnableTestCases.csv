@@ -4147,8 +4147,8 @@ filter-006;Expected XPath  to (deep equally) resolve to 2, 4, 6, 8, 10, 12, 14, 
 filter-007;Expected XPath  to (deep equally) resolve to 4, 6
 filter-008;Expected XPath  to (deep equally) resolve to 4, 6
 filter-901;Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
-filter-902;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function filter with arity 2 is not registered.
-filter-903;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function filter with arity 2 is not registered.
+filter-902;Expected error code: XPTY0004. Found error code: XPST0008 with error message: The variable 'x' is not in scope.
+filter-903;Expected error code: XPTY0004. Found error code: XPST0008 with error message: The variable 'x' is not in scope.
 filter-904;Expected XPathException with code XPTY0004, but got ArgumentPlaceholder AST to Expression not yet implemented
 filter-limits-001;Expected XPath 'a'[2147483649] to resolve to the empty sequence
 filter-limits-002;Expected XPath 'a'[4294967296] to resolve to the empty sequence
@@ -4836,21 +4836,21 @@ fn-filter-004;Expected XPathException with code XPST0017, but got NamedFunctionR
 fn-filter-005;NamedFunctionRef AST to Expression not yet implemented
 fn-filter-006;Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
 fn-filter-007;Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
-fn-filter-008;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:filter with arity 2 is not registered.
-fn-filter-009;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:filter with arity 2 is not registered.
-fn-filter-010;Expected executing the XPath 'fn:filter( (), function($a as item()) as xs:boolean* { fn:boolean($a), fn:boolean($a) } )' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPST0005. Found error code: XPST0017 with error message: The function fn:filter with arity 2 is not registered.
-fn-filter-011;Expected executing the XPath 'fn:filter( (), function($a as item()) as xs:boolean? { () } )' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPST0005. Found error code: XPST0017 with error message: The function fn:filter with arity 2 is not registered.
+fn-filter-008;Expected error code: XPTY0004. Found error code:  with error message: 
+fn-filter-009;Expected error code: XPTY0004. Found error code:  with error message: 
+fn-filter-010;Expected executing the XPath 'fn:filter( (), function($a as item()) as xs:boolean* { fn:boolean($a), fn:boolean($a) } )' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPST0005. Found error code: XPST0008 with error message: The variable 'a' is not in scope.
+fn-filter-011;Expected executing the XPath 'fn:filter( (), function($a as item()) as xs:boolean? { () } )' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPST0005, but got Unable to cast object of type 'FontoXPathCSharp.Value.Types.SequenceType' to type 'FontoXPathCSharp.Value.Types.ParameterType'.
 fn-filter-012;Expected executing the XPath 'fn:filter( (), fn:string#1 )' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
 fn-filter-013;Arithmetic operation resulted in an overflow.
 fn-filter-014;Arithmetic operation resulted in an overflow.
-fn-filter-015;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:filter with arity 2 is not registered.
-fn-filter-016;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:filter with arity 2 is not registered.
+fn-filter-015;Expected error code: XPTY0004. Found error code: XPST0008 with error message: The variable 'arg' is not in scope.
+fn-filter-016;Expected error code: XPTY0004. Found error code: XPST0008 with error message: The variable 'arg' is not in scope.
 fn-filter-017;Arithmetic operation resulted in an overflow.
-fn-filter-018;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:filter with arity 2 is not registered.
-fn-filter-019;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:filter with arity 2 is not registered.
+fn-filter-018;Expected error code: XPTY0004. Found error code: XPST0008 with error message: The variable 'arg' is not in scope.
+fn-filter-019;Expected error code: XPTY0004. Found error code: XPST0008 with error message: The variable 'arg' is not in scope.
 fn-filter-020;Arithmetic operation resulted in an overflow.
-fn-filter-021;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:filter with arity 2 is not registered.
-fn-filter-022;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:filter with arity 2 is not registered.
+fn-filter-021;Expected error code: XPTY0004. Found error code: XPST0008 with error message: The variable 'arg' is not in scope.
+fn-filter-022;Expected error code: XPTY0004. Found error code: XPST0008 with error message: The variable 'arg' is not in scope.
 fn-filter-023;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.Compares.ValueCompare`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fn-floor-1;The function error with arity 0 is not registered.
 fn-floor-decimal-1;PRSC Error: Failed to parse query '(floor(12.5)) instance of $xs:decimal'
@@ -7427,7 +7427,7 @@ fo-test-fn-fold-left-001;Unable to cast object of type 'FontoXPathCSharp.Express
 fo-test-fn-fold-left-002;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fo-test-fn-fold-left-003;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.OrOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fo-test-fn-fold-left-004;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.AndOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fo-test-fn-fold-left-005;The function fn:fold-left with arity 3 is not registered.
+fo-test-fn-fold-left-005;The variable 'b' is not in scope.
 fo-test-fn-fold-left-006;ArgumentPlaceholder AST to Expression not yet implemented
 fo-test-fn-fold-left-007;ArgumentPlaceholder AST to Expression not yet implemented
 fo-test-fn-fold-left-008;PRSC Error: Failed to parse query 'deep-equal((\n        fn:fold-left(1 to 5, map{}, function($map, $n) {map:put($map, $n, $n*2)})\n      ), (map{1:2, 2:4, 3:6, 4:8, 5:10}))'
@@ -7885,7 +7885,7 @@ fold-left-001;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operat
 fold-left-002;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-left-003;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.OrOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-left-004;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.AndOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-left-005;The function fold-left with arity 3 is not registered.
+fold-left-005;The variable 'b' is not in scope.
 fold-left-006;ArgumentPlaceholder AST to Expression not yet implemented
 fold-left-007;ArgumentPlaceholder AST to Expression not yet implemented
 fold-left-008;Arithmetic operation resulted in an overflow.
@@ -7895,11 +7895,11 @@ fold-left-011;Expected XPathException with code XPTY0004, but got Unable to cast
 fold-left-012;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-left-013;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-left-014;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-left-015;The function fold-left with arity 3 is not registered.
+fold-left-015;The variable 'a' is not in scope.
 fold-left-016;PRSC Error: Failed to parse query ''
 fold-left-017;ArgumentPlaceholder AST to Expression not yet implemented
 fold-left-018;Expected XPath  to (deep equally) resolve to 2, 2, 2
-fold-left-019;The function fold-left with arity 3 is not registered.
+fold-left-019;The variable 'a' is not in scope.
 fold-left-020;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-left-021;PRSC Error: Failed to parse query ''
 fold-left-101;PRSC Error: Failed to parse query '\n        declare function local:fold-left(\n          $seq as item()*,\n          $zero as item()*,\n          $f as function(item()*, item()) as item()*)\n        as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else fn:fold-left(fn:tail($seq), $f($zero, fn:head($seq)), $f)\n        };\n        local:fold-left(1 to 5, 0, function($a, $b) { $a + $b }) = 15'
@@ -7911,7 +7911,7 @@ fold-right-001;Unable to cast object of type 'FontoXPathCSharp.Expressions.Opera
 fold-right-002;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-right-003;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.OrOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-right-004;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.AndOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-right-005;The given key 'b' was not present in the dictionary.
+fold-right-005;The variable 'b' is not in scope.
 fold-right-006;ArgumentPlaceholder AST to Expression not yet implemented
 fold-right-007;ArgumentPlaceholder AST to Expression not yet implemented
 fold-right-008;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
@@ -7920,13 +7920,13 @@ fold-right-010;Expected XPathException with code XPTY0004, but got Unable to cas
 fold-right-011;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-right-012;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-right-013;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-right-014;The function fold-right with arity 3 is not registered.
-fold-right-015;The function fold-right with arity 3 is not registered.
-fold-right-016;The function fold-right with arity 3 is not registered.
+fold-right-014;The variable 'b' is not in scope.
+fold-right-015;The variable 'b' is not in scope.
+fold-right-016;The variable 'a' is not in scope.
 fold-right-017;ArgumentPlaceholder AST to Expression not yet implemented
 fold-right-018;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-right-019;The function fold-right with arity 3 is not registered.
-fold-right-020;The function fold-right with arity 3 is not registered.
+fold-right-019;The variable 'b' is not in scope.
+fold-right-020;The variable 'b' is not in scope.
 fold-right-101;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right(1 to 5, 0,function($a, $b) { $a + $b }) = 15'
 fold-right-102;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right((2,3,5,7), 1,function($a, $b) { $a * $b }) = 210'
 fold-right-103;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right((true(), false(), false()), false(),function($a, $b) { $a or $b })'
@@ -7966,8 +7966,8 @@ FONS0004-1;Expected error code: FONS0004. Found error code: XPST0003 with error 
 for-each-001;NamedFunctionRef AST to Expression not yet implemented
 for-each-002;NamedFunctionRef AST to Expression not yet implemented
 for-each-003;Unable to cast object of type 'FontoXPathCSharp.Expressions.VarRef`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-for-each-004;The function for-each with arity 2 is not registered.
-for-each-005;The function for-each with arity 2 is not registered.
+for-each-004;The variable 'x' is not in scope.
+for-each-005;The variable 'n' is not in scope.
 for-each-006;PRSC Error: Failed to parse query '\n            declare function local:children($n as node()) as node()* \n                { $n/child::node() }; \n            declare function local:attributes($e as node()) as node()* \n                { $e/attribute::node() }; \n            declare function local:self($e as node()) as node() \n                { $e }; \n            declare function local:union(\n                        $f as function(node()) as node()*, \n                        $g as function(node()) as node()*) as function(node()) as node()* { \n                function($a) {$f($a) | $g($a)} };\n            let $data := (/a), \n                $f := local:union(local:children#1, local:union(local:attributes#1, local:self#1)) \n            return for-each($data/*, $f)[not(. instance of attribute())]\n        '
 for-each-007;NamedFunctionRef AST to Expression not yet implemented
 for-each-008;NamedFunctionRef AST to Expression not yet implemented
@@ -7979,14 +7979,13 @@ for-each-013;Expected XPath  to (deep equally) resolve to "four", "five", "six"
 for-each-014;Expected XPath  to (deep equally) resolve to "four", "five", "six"
 for-each-901;Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
 for-each-902;Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
-for-each-903;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function for-each with arity 2 is not registered.
+for-each-903;Expected XPathException with code XPTY0004, but got Object reference not set to an instance of an object.
 ForExpr002;Expected error code: XPST0008. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 ForExpr003;PRSC Error: Failed to parse query ''
 ForExpr004;PRSC Error: Failed to parse query ''
 ForExpr006;PRSC Error: Failed to parse query ''
 ForExpr007;Expected results and parsedFragment children to match
 ForExpr008;Use of XQuery FLWOR expressions in XPath is not allowed
-ForExpr009;Expected XPathException with code XPST0008, but got The given key 'a' was not present in the dictionary.
 ForExpr010;PRSC Error: Failed to parse query ''
 ForExpr011;PRSC Error: Failed to parse query ''
 ForExpr013;Could not find a part of the path ending in: 'qt3tests//ForClause/ForExpr-013.out'
@@ -8136,7 +8135,7 @@ function-item-3;Expected XPathException with code XPTY0004, but got IsOp AST to 
 function-item-4;Expected XPathException with code FOTY0013, but got NamedFunctionRef AST to Expression not yet implemented
 function-item-5;Expected error code: XQTY0105. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'element a { avg#1 }'
 function-item-6;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'attribute a { avg#1 }'
-function-item-7;The given key 'c' was not present in the dictionary.
+function-item-7;The variable 'c' is not in scope.
 function-item-8;NamedFunctionRef AST to Expression not yet implemented
 function-item-9;Arithmetic operation resulted in an overflow.
 function-literal-001;PRSC Error: Failed to parse query 'exists(Q{http://www.w3.org/2005/xpath-functions}node-name#0)'
@@ -10310,7 +10309,7 @@ inline-fn-022;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operat
 inline-fn-023;PRSC Error: Failed to parse query '\n         let $add := function($x, $y) {$x + $y} return apply($add, [12, 5])\n       = 17'
 inline-fn-024;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 inline-fn-025;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-026;The given key 'x' was not present in the dictionary.
+inline-fn-026;The variable 'x' is not in scope.
 inline-fn-027;PRSC Error: Failed to parse query '\n         let $calc := map{\n            "+" : function($a, $b) {$a + $b},\n            "-" : function($a, $b) {$a - $b},\n            "*" : function($a, $b) {$a * $b},\n            "/" : function($a, $b) {$a div $b}}\n         return $calc("*")(2,3)  \n       = 6'
 inline-fn-028;Expected XPathException with code FOTY0014, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 inline-fn-029;Expected XPathException with code FOTY0015, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
@@ -10320,13 +10319,11 @@ inline-fn-032;PRSC Error: Failed to parse query '(\n         function($a, $b) {$
 inline-fn-033;PRSC Error: Failed to parse query '(\n         function($a as xs:integer, $b as xs:integer) as xs:integer {$a + $b}\n      ) instance of $item()'
 inline-fn-034;PRSC Error: Failed to parse query '\n         declare variable $p as xs:integer external;\n         declare variable $f := function($a) {$a + $p};\n         $f(12)\n       = 19'
 inline-fn-035;PRSC Error: Failed to parse query '\n         declare variable $p as xs:integer external;\n         declare function local:negate($x) {-$x};\n         declare variable $f := let $x := $p return function($a) {local:negate($a + $x + $p)};\n         $f(12)\n       = -26'
-inline-fn-036;Expected XPathException with code XPTY0004, but got The given key 'x' was not present in the dictionary.
+inline-fn-036;Expected error code: XPTY0004. Found error code: XPST0008 with error message: The variable 'x' is not in scope.
 inline-function-1;PRSC Error: Failed to parse query 'function() { 5 } instance of function(*)'
-inline-function-10;Expected XPathException with code XPST0008, but got The given key 'a' was not present in the dictionary.
 inline-function-11;Unable to cast object of type 'FontoXPathCSharp.Value.Types.SequenceType' to type 'FontoXPathCSharp.Value.Types.ParameterType'.
 inline-function-11a;Unable to cast object of type 'FontoXPathCSharp.Expressions.LetExpression`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-function-12;Expected XPathException with code XPST0008, but got The given key 'a' was not present in the dictionary.
-inline-function-12a;Expected XPathException with code XQST0039, but got The given key 'a' was not present in the dictionary.
+inline-function-12a;Expected error code: XQST0039. Found error code: XPST0008 with error message: The variable 'a' is not in scope.
 inline-function-13;Expected error code: XQST0039. Found error code: XPST0008 with error message: The variable 'foo' is not in scope.
 inline-function-14;The variable 'foo' is not in scope.
 inline-function-15;Expected error code: XQST0039. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'function($Q{http://local/}foo, $Q{http://local/}bar, $Q{http://local/}foo) { \n              "lala", $Q{http://local/}foo, $Q{http://local/}bar }("gibbon", "monkey", "ape")'
@@ -10722,7 +10719,6 @@ K-FilterExpr-94;Expected error code: FORG0006. Query succeeded with result: 1 2 
 K-FilterExpr-96;PRSC Error: Failed to parse query ' = "Jane Doe 3"'
 K-FloorFunc-5;Value was either too large or too small for a Decimal.
 K-FloorFunc-6;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsString) to DecimalValue
-K-ForExprPositionalVar-1;Expected XPathException with code XPST0008, but got The given key 'p' was not present in the dictionary.
 K-ForExprPositionalVar-10;The function distinct-values with arity 1 is not registered.
 K-ForExprPositionalVar-12;The function insert-before with arity 3 is not registered.
 K-ForExprPositionalVar-13;The function insert-before with arity 3 is not registered.
@@ -10730,7 +10726,6 @@ K-ForExprPositionalVar-14;The function insert-before with arity 3 is not registe
 K-ForExprPositionalVar-17;The function remove with arity 2 is not registered.
 K-ForExprPositionalVar-18;The function remove with arity 2 is not registered.
 K-ForExprPositionalVar-19;The function remove with arity 2 is not registered.
-K-ForExprPositionalVar-2;Expected XPathException with code XPST0008, but got The given key 'p1' was not present in the dictionary.
 K-ForExprPositionalVar-20;The function remove with arity 2 is not registered.
 K-ForExprPositionalVar-21;The function remove with arity 2 is not registered.
 K-ForExprPositionalVar-22;The function remove with arity 2 is not registered.
@@ -10740,29 +10735,13 @@ K-ForExprPositionalVar-25;Expected executing the XPath 'empty(for $i at $p in su
 K-ForExprPositionalVar-26;The function subsequence with arity 3 is not registered.
 K-ForExprPositionalVar-27;The function subsequence with arity 3 is not registered.
 K-ForExprPositionalVar-28;The function subsequence with arity 3 is not registered.
-K-ForExprPositionalVar-3;Expected XPathException with code XPST0008, but got The given key 'p2' was not present in the dictionary.
-K-ForExprPositionalVar-4;Expected XPathException with code XPST0008, but got The given key 'p3' was not present in the dictionary.
 K-ForExprWithout-18;Expected executing the XPath 'empty(for $var in () return current-time())' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-ForExprWithout-20;Expected executing the XPath 'empty((for $var in () return current-time()))' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-ForExprWithout-22;The function subsequence with arity 2 is not registered.
 K-ForExprWithout-23;The function remove with arity 2 is not registered.
-K-ForExprWithout-26;Expected XPathException with code XPST0008, but got The given key 'NOTEXIST' was not present in the dictionary.
-K-ForExprWithout-27;Expected XPathException with code XPST0081, but got The given key 'NOTEXIST' was not present in the dictionary.
-K-ForExprWithout-29;Expected XPathException with code XPST0008, but got The given key 'NOTEXIST' was not present in the dictionary.
-K-ForExprWithout-30;Expected XPathException with code XPST0081, but got The given key 'NOTEXIST' was not present in the dictionary.
-K-ForExprWithout-32;Expected XPathException with code XPST0008, but got The given key 'NOTEXIST' was not present in the dictionary.
-K-ForExprWithout-33;Expected XPathException with code XPST0081, but got The given key 'NOTEXIST' was not present in the dictionary.
-K-ForExprWithout-35;Expected XPathException with code XPST0008, but got The given key 'NOTEXIST' was not present in the dictionary.
-K-ForExprWithout-36;Expected XPathException with code XPST0008, but got The given key 'foo' was not present in the dictionary.
-K-ForExprWithout-37;Expected XPathException with code XPST0008, but got The given key 'foo' was not present in the dictionary.
-K-ForExprWithout-38;Expected XPathException with code XPST0008, but got The given key 'foo' was not present in the dictionary.
-K-ForExprWithout-39;Expected XPathException with code XPST0008, but got The given key 'foo' was not present in the dictionary.
-K-ForExprWithout-40;Expected XPathException with code XPST0008, but got The given key 'bar' was not present in the dictionary.
-K-ForExprWithout-41;Expected XPathException with code XPST0008, but got The given key 'b' was not present in the dictionary.
-K-ForExprWithout-42;Expected XPathException with code XPST0008, but got The given key 'a' was not present in the dictionary.
-K-ForExprWithout-43;Expected XPathException with code XPST0008, but got The given key 'a' was not present in the dictionary.
-K-ForExprWithout-44;Expected XPathException with code XPST0008, but got The given key 'b' was not present in the dictionary.
-K-ForExprWithout-45;Expected XPathException with code XPST0008, but got The given key 'c' was not present in the dictionary.
+K-ForExprWithout-27;Expected error code: XPST0081. Found error code: XPST0008 with error message: The variable 'NOTEXIST' is not in scope.
+K-ForExprWithout-30;Expected error code: XPST0081. Found error code: XPST0008 with error message: The variable 'NOTEXIST' is not in scope.
+K-ForExprWithout-33;Expected error code: XPST0081. Found error code: XPST0008 with error message: The variable 'NOTEXIST' is not in scope.
 K-ForExprWithout-47;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function subsequence with arity 3 is not registered.
 K-ForExprWithout-49;The function trace with arity 2 is not registered.
 K-ForExprWithout-52;PRSC Error: Failed to parse query '\n        declare variable $i := false(); \n        declare variable $t := false(); \n        deep-equal( for $i in (true(), true()), $t in (true(), true()) \n                    return ($i, $t), (true(), true(), true(), true(), true(), true(), true(), true()))'
@@ -10940,7 +10919,6 @@ K-InternalVariablesWith-6b;PRSC Error: Failed to parse query 'declare variable $
 K-InternalVariablesWith-9a;Expected error code: XPST0008. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare variable $var1 := $var2; declare variable $var2 := 2; $var1'
 K-InternalVariablesWith-9b;PRSC Error: Failed to parse query 'declare variable $var1 := $var2; declare variable $var2 := 2; $var1 = 2'
 K-IRIToURIfunc-4;Expected executing the XPath 'normalize-space(iri-to-uri(("somestring", current-time())[1])) eq "somestring"' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
-K-LetExprWithout-1;Expected XPathException with code XPST0008, but got The given key 'j' was not present in the dictionary.
 K-LetExprWithout-4;PRSC Error: Failed to parse query '\n        declare variable $i := false(); \n        declare variable $t := false(); \n        deep-equal((let $i := true(), $t := true() return ($i, $t)), (true(), true()))'
 K-Literals-10;PRSC Error: Failed to parse query '1.3e-3 instance of xs:double'
 K-Literals-13;PRSC Error: Failed to parse query '1231.123e3 instance of xs:double'
@@ -14604,7 +14582,6 @@ LetExpr017;PRSC Error: Failed to parse query ''
 LetExpr018;Expected error code: XPTY0019. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 LetExpr019;PRSC Error: Failed to parse query ''
 LetExpr020;PRSC Error: Failed to parse query 'let $a := 1 let $b := $a let $c := $a+$b return ($c) = 2'
-LetExpr021;Expected XPathException with code XPST0008, but got The given key 'b' was not present in the dictionary.
 letexprwith-21;Expected XPath let $var as xs:string := xs:string(fn:true()) return $var to resolve to true, but instead got True
 letexprwith-24;PRSC Error: Failed to parse query 'let $var as xs:string := typeswitch(fn:true()) case $i as xs:boolean return "Test Passed" default return "Test failed" return $var'
 liam-contains-001;No collations are supported
@@ -17415,7 +17392,6 @@ ReturnExpr008;Expected XPath for $file in (//Folder)[1]/File return 1 to resolve
 ReturnExpr009;Expected results and parsedFragment children to match
 ReturnExpr010;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 ReturnExpr011;Expected results and parsedFragment children to match
-ReturnExpr014;Expected XPathException with code XPST0008, but got The given key 'undefined' was not present in the dictionary.
 ReturnExpr015;Expected results and parsedFragment children to match
 ReturnExpr016;PRSC Error: Failed to parse query ''
 ReturnExpr017;Expected XPath for $file in (//Folder)[1]/File return ($file/Stream/StreamSize)[1] + 1 to resolve to 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1032.33, but instead got 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1032.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33 1026.33 1027.33 1028.33 1029.33 1030.33 1031.33 1002.33 1003.33 1004.33 1005.33 1006.33 1007.33 1008.33 1009.33 1010.33 1011.33 1012.33 1013.33 1014.33 1015.33 1016.33 1017.33 1018.33 1019.33 1020.33 1021.33 1022.33 1023.33 1024.33 1025.33

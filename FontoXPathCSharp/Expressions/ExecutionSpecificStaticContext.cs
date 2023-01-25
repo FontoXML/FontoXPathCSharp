@@ -98,9 +98,11 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode> wher
 
     public override string? LookupVariable(string? namespaceUri, string localName)
     {
+        _executionContextWasRequired = true;
+        
         if (!string.IsNullOrEmpty(namespaceUri)) return null;
 
-        var bindingName = _variableBindingByName[localName];
+        var bindingName = _variableBindingByName.ContainsKey(localName) ? _variableBindingByName[localName] : null;
 
         if (!_referredVariableByName.ContainsKey(localName)) _referredVariableByName.Add(localName, localName);
 
