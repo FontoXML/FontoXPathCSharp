@@ -164,6 +164,44 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             );
         };
 
+    private static readonly FunctionSignature<ISequence, TNode> FnFilter =
+        (dynamicContext, executionParameters, staticContext, args) =>
+        {
+            var sequence = args[0];
+
+            if (sequence.IsEmpty()) return sequence;
+
+            var callbackSequence = args[1];
+
+            var callbackFn = callbackSequence.First() as FunctionValue<ISequence, TNode>;
+            var callbackArgumentTypes = callbackFn!.ArgumentTypes;
+            if (callbackArgumentTypes.Length != 1)
+                throw new XPathException("XPTY0004", "Signature of function passed to fn:filter is incompatible.");
+
+            return sequence.Filter(item =>
+            {
+                // Transform argument
+                var transformedArgument = ArgumentHelper<TNode>.PerformFunctionConversion(
+                    callbackArgumentTypes[0],
+                    SequenceFactory.CreateFromValue(item),
+                    executionParameters,
+                    "fn:filter",
+                    false
+                );
+                var functionCallResult = callbackFn.Value(
+                    dynamicContext,
+                    executionParameters,
+                    staticContext,
+                    transformedArgument
+                );
+                if (!functionCallResult.IsSingleton() ||
+                    !functionCallResult.First()!.GetValueType().IsSubtypeOf(ValueType.XsBoolean)
+                   )
+                    throw new XPathException("XPTY0004", "Signature of function passed to fn:filter is incompatible.");
+                return functionCallResult.First().GetAs<BooleanValue>().Value;
+            });
+        };
+
 
     private static readonly FunctionSignature<ISequence, TNode> FnForEach =
         (dynamicContext, executionParameters, staticContext, args) =>
