@@ -4,13 +4,13 @@ using FontoXPathCSharp.Value.Types;
 
 namespace FontoXPathCSharp.Expressions.Functions;
 
-public record ParameterDescription(QName ParameterName, SequenceType ParameterType);
+public record ParameterDescription(QName ParameterName, ParameterType ParameterType);
 
 public class InlineFunction<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
     private readonly PossiblyUpdatingExpression<TNode> _functionBody;
     private readonly QName[] _parameterNames;
-    private readonly SequenceType[] _parameterTypes;
+    private readonly ParameterType[] _parameterTypes;
     private readonly SequenceType _returnType;
     private string[] _parameterBindingNames;
 
@@ -53,7 +53,7 @@ public class InlineFunction<TNode> : AbstractExpression<TNode> where TNode : not
             };
 
         var functionItem = new FunctionValue<ISequence, TNode>(
-            _parameterTypes.Cast<ParameterType>().ToArray(),
+            _parameterTypes,
             _parameterTypes.Length,
             "dynamic-function",
             "",
@@ -74,7 +74,7 @@ public class InlineFunction<TNode> : AbstractExpression<TNode> where TNode : not
             var prefix = name.Prefix;
             var localName = name.LocalName;
 
-            if (string.IsNullOrEmpty(namespaceURI) && prefix != "*")
+            if (namespaceURI == null && prefix != "*")
                 namespaceURI = staticContext.ResolveNamespace(prefix);
             return staticContext.RegisterVariable(namespaceURI, localName)!;
         }).ToArray();

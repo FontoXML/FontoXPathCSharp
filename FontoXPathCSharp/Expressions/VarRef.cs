@@ -41,7 +41,7 @@ public class VarRef<TNode> : AbstractExpression<TNode> where TNode : notnull
 
     public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
     {
-        if (string.IsNullOrEmpty(_qualifiedName.NamespaceUri) && !string.IsNullOrEmpty(_qualifiedName.Prefix))
+        if (_qualifiedName.NamespaceUri == null && !string.IsNullOrEmpty(_qualifiedName.Prefix))
             _qualifiedName.NamespaceUri = staticContext.ResolveNamespace(_qualifiedName.Prefix);
 
         _variableBindingName = staticContext.LookupVariable(
@@ -49,7 +49,7 @@ public class VarRef<TNode> : AbstractExpression<TNode> where TNode : notnull
             _qualifiedName.LocalName
         );
 
-        if (_variableBindingName == null)
+        if (string.IsNullOrEmpty(_variableBindingName))
             throw new XPathException(
                 "XPST0008",
                 $"The variable '{_qualifiedName.LocalName}' is not in scope."

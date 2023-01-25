@@ -482,7 +482,7 @@ public class XPathParser
             Optional(Preceded(_whitespaceParser.WhitespacePlus, TypeDeclaration)),
             (variableName, typeDecl) => new Ast(
                 AstNodeName.Param,
-                new[] { new Ast(AstNodeName.VarName) }.Concat(ParsingUtils.WrapNullableInArray(typeDecl))
+                new[] { variableName.GetAst(AstNodeName.VarName) }.Concat(ParsingUtils.WrapNullableInArray(typeDecl))
             )
         );
 

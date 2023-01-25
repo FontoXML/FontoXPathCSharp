@@ -408,7 +408,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             parameters!.Select(param =>
                 new ParameterDescription(
                     param.GetFirstChild(AstNodeName.VarName)!.GetQName(),
-                    param.GetTypeDeclaration()
+                    new ParameterType(param.GetTypeDeclaration().ValueType, param.GetTypeDeclaration().Multiplicity)
                 )
             ).ToArray(),
             ast.GetTypeDeclaration(),
