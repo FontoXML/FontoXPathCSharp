@@ -165,6 +165,59 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         };
 
 
+    private static readonly FunctionSignature<ISequence, TNode> FnForEach =
+        (dynamicContext, executionParameters, staticContext, args) =>
+        {
+            var sequence = args[0];
+            if (sequence.IsEmpty()) return sequence;
+
+            var callbackSequence = args[1];
+            var callbackFn = callbackSequence.First() as FunctionValue<ISequence, TNode>;
+            var callbackArgumentTypes = callbackFn!.ArgumentTypes;
+            if (callbackArgumentTypes.Length != 1) {
+                throw new XPathException("XPTY0004","Signature of function passed to fn:for-each is incompatible.");
+            }
+
+            var outerIterator = sequence.GetValue();
+            Iterator<AbstractValue>? innerIterator = null;
+            return SequenceFactory.CreateFromIterator(
+                hint => {
+                    while (true) {
+                        if (innerIterator == null) {
+                            var item = outerIterator(IterationHint.None);
+
+                            if (item.IsDone) {
+                                return item;
+                            }
+
+                            var transformedArgument = ArgumentHelper<TNode>.PerformFunctionConversion(
+                                callbackArgumentTypes[0],
+                                SequenceFactory.CreateFromValue(item.Value),
+                                executionParameters,
+                                "fn:for-each",
+                                false
+                            );
+                            var nextSequence = callbackFn.Value(
+                                dynamicContext,
+                                executionParameters,
+                                staticContext,
+                                transformedArgument
+                            );
+
+                            innerIterator = nextSequence.GetValue();
+                        }
+
+                        var entry = innerIterator(hint);
+                        if (!entry.IsDone) {
+                            return entry;
+                        }
+                        innerIterator = null;
+                    }
+                });
+        };
+    
+    
+
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
         new(new[]
