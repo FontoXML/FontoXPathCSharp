@@ -178,7 +178,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             if (callbackArgumentTypes.Length != 1)
                 throw new XPathException("XPTY0004", "Signature of function passed to fn:filter is incompatible.");
 
-            return sequence.Filter((item,_,_) =>
+            return sequence.Filter((item, _, _) =>
             {
                 // Transform argument
                 var transformedArgument = ArgumentHelper<TNode>.PerformFunctionConversion(
@@ -198,7 +198,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
                     !functionCallResult.First()!.GetValueType().IsSubtypeOf(ValueType.XsBoolean)
                    )
                     throw new XPathException("XPTY0004", "Signature of function passed to fn:filter is incompatible.");
-                return functionCallResult.First().GetAs<BooleanValue>().Value;
+                return functionCallResult.First()!.GetAs<BooleanValue>().Value;
             });
         };
 
@@ -527,7 +527,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
     {
         return items.Select(item =>
             item.GetValueType().IsSubtypeOf(ValueType.XsUntypedAtomic)
-                ? item.CastToType(ValueType.XsDouble)!
+                ? item.CastToType(ValueType.XsDouble)
                 : item).ToArray();
     }
 }

@@ -7,7 +7,7 @@ namespace FontoXPathCSharp.Expressions.Functions;
 
 public static class BuiltInFunctionsOperators<TNode> where TNode : notnull
 {
-    private static readonly FunctionSignature<ISequence, TNode> FnOpTo = (_, _, staticContext, sequences) =>
+    private static readonly FunctionSignature<ISequence, TNode> FnOpTo = (_, _, _, sequences) =>
     {
         var fromSequence = sequences[0];
         var toSequence = sequences[1];

@@ -8,8 +8,6 @@ namespace FontoXPathCSharp.Parsing;
 
 public class NameParser
 {
-    private readonly WhitespaceParser _whitespaceParser;
-
     public readonly ParseFunc<Ast> AttributeNameOrWildcard;
 
     public readonly ParseFunc<string> BracedUriLiteral;
@@ -44,8 +42,6 @@ public class NameParser
 
     public NameParser(WhitespaceParser whitespaceParser)
     {
-        _whitespaceParser = whitespaceParser;
-
         NcNameStartChar = Or(
             Regex(
                 @"[A-Z_a-z\xC0-\xD6\xD8-\xF6\xF8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]"),
@@ -85,7 +81,7 @@ public class NameParser
 
         BracedUriLiteral = Followed(
             PrecededMultiple(
-                new[] { Token("Q"), _whitespaceParser.Whitespace, Token("{") },
+                new[] { Token("Q"), whitespaceParser.Whitespace, Token("{") },
                 Map(Star(Regex("/[^{}]/")), x => Regex.Replace(string.Join("", x), @"\s+", " ").Trim())
             ),
             Token("}")

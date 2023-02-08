@@ -30,7 +30,7 @@ public class TypeRestrictions
         Whitespace = whitespace;
     }
 
-    private ExplicitTimezone? ExplicitTimezone { get; }
+    private ExplicitTimezone? ExplicitTimezone { get; init; }
 
     public int? FractionDigits { get; init; }
 

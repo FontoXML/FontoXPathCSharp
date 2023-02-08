@@ -26,22 +26,6 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
         };
     };
 
-    private static AbstractValue ApplyFunc(
-        AbstractValue value, 
-        Func<double, double> dFun, 
-        Func<float,float> fFun, 
-        Func<long, long> iFun,
-        Func<decimal, decimal> decFun)
-    {
-        if (value.GetValueType().IsSubtypeOf(ValueType.XsDouble))
-            return AtomicValue.Create(dFun(value.GetAs<DoubleValue>().Value), ValueType.XsDouble);
-        if (value.GetValueType().IsSubtypeOf(ValueType.XsFloat))
-            return AtomicValue.Create(fFun(value.GetAs<FloatValue>().Value), ValueType.XsFloat);
-        if (value.GetValueType().IsSubtypeOf(ValueType.XsInteger))
-            return AtomicValue.Create(iFun(value.GetAs<IntegerValue>().Value), ValueType.XsInteger);
-        return AtomicValue.Create(decFun(value.GetAs<DecimalValue>().Value), ValueType.XsDecimal);
-    }
-
     private static readonly FunctionSignature<ISequence, TNode> FnAbs = (_, _, _, sequences) =>
     {
         var sequence = sequences[0];
@@ -51,7 +35,8 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
     private static readonly FunctionSignature<ISequence, TNode> FnCeiling = (_, _, _, sequences) =>
     {
         var sequence = sequences[0];
-        return sequence.Map((onlyValue, _, _) => ApplyFunc(onlyValue, Math.Ceiling, MathF.Ceiling, i => i, Math.Ceiling));
+        return sequence.Map(
+            (onlyValue, _, _) => ApplyFunc(onlyValue, Math.Ceiling, MathF.Ceiling, i => i, Math.Ceiling));
     };
 
     private static readonly FunctionSignature<ISequence, TNode> FnFloor = (_, _, _, sequences) =>
@@ -86,13 +71,15 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
                     ConvertIntegerToAlphabet(sequenceValue.Value, true), ValueType.XsString));
             default:
                 throw new Exception(
-                    $"Picture: {pictureValue!.Value} is not implemented yet. The supported picture strings are 'A', 'a', 'I', and 'i'"
+                    $"Picture: {pictureValue.Value} is not implemented yet. The supported picture strings are 'A', 'a', 'I', and 'i'"
                 );
         }
     };
 
+    // ReSharper disable once StaticMemberInGenericType
     private static readonly char[] Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".Split().Select(s => s[0]).ToArray();
 
+    // ReSharper disable once StaticMemberInGenericType
     private static readonly Dictionary<string, int> RomanNumbers = new()
     {
         { "M", 1000 },
@@ -225,6 +212,22 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
         )
     };
 
+    private static AbstractValue ApplyFunc(
+        AbstractValue value,
+        Func<double, double> dFun,
+        Func<float, float> fFun,
+        Func<long, long> iFun,
+        Func<decimal, decimal> decFun)
+    {
+        if (value.GetValueType().IsSubtypeOf(ValueType.XsDouble))
+            return AtomicValue.Create(dFun(value.GetAs<DoubleValue>().Value), ValueType.XsDouble);
+        if (value.GetValueType().IsSubtypeOf(ValueType.XsFloat))
+            return AtomicValue.Create(fFun(value.GetAs<FloatValue>().Value), ValueType.XsFloat);
+        if (value.GetValueType().IsSubtypeOf(ValueType.XsInteger))
+            return AtomicValue.Create(iFun(value.GetAs<IntegerValue>().Value), ValueType.XsInteger);
+        return AtomicValue.Create(decFun(value.GetAs<DecimalValue>().Value), ValueType.XsDecimal);
+    }
+
     private static string ConvertIntegerToAlphabet(string intString, bool isLowerCase)
     {
         if (!int.TryParse(intString, out var integer)) return "-";
@@ -267,6 +270,7 @@ public static class BuiltInFunctionsNumeric<TNode> where TNode : notnull
         return isNegative ? $"-{romanString}" : romanString;
     }
 
+    // ReSharper disable once UnusedMember.Local
     private static AbstractValue CreateValidNumericType<T>(ValueType type, T transformedValue)
     {
         if (type.IsSubtypeOf(ValueType.XsInteger)) return AtomicValue.Create(transformedValue, ValueType.XsInteger);

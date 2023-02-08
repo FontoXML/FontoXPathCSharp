@@ -28,7 +28,7 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
         new[] { functionReferenceExpression }.Concat(args).ToArray()!,
         new OptimizationOptions(false))
     {
-        _argumentExpressions = args;
+        _argumentExpressions = args!;
         _callArity = args.Length;
         _functionReferenceExpression = functionReferenceExpression;
         _staticContext = null;
@@ -91,10 +91,10 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
 
         // Test if we have the correct arguments, and pre-convert the ones we can pre-convert
         var transformedArguments = TransformArgumentList(
-            functionItem.ArgumentTypes,
+            functionItem.ArgumentTypes.Cast<SequenceType>().ToArray(),
             evaluatedArgs,
             executionParameters,
-            functionItem.Name!
+            functionItem.Name
         );
 
         if (transformedArguments.Contains(null)) return functionItem.ApplyArguments(transformedArguments);
@@ -103,7 +103,7 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
             dynamicContext,
             executionParameters,
             staticContext,
-            transformedArguments
+            transformedArguments!
         );
 
         return ArgumentHelper<TNode>.PerformFunctionConversion(

@@ -454,15 +454,15 @@ public class XPathParser
                     Then(
                         PrecededMultiple(new[] { Token("("), _whitespaceParser.Whitespace }, Literal),
                         Star(PrecededMultiple(new[] { Token(","), _whitespaceParser.Whitespace }, Literal)),
-                        (lhs, rhs) => ParsingUtils.WrapSingletonInArray(lhs).Concat(rhs)
+                        (lhs, rhs) => ParsingUtils.WrapSingleton(lhs).Concat(rhs)
                     ),
                     Token(")")
                 )
             ),
             (annotationName, parameters) =>
                 new Ast(AstNodeName.Annotation,
-                    ParsingUtils.WrapSingletonInArray(new Ast(AstNodeName.AnnotationName, annotationName))
-                        .Concat(ParsingUtils.IfNotNullWrapValue(parameters,
+                    ParsingUtils.WrapSingleton(new Ast(AstNodeName.AnnotationName, annotationName))
+                        .Concat(ParsingUtils.IfNotNullWrapOther(parameters,
                             new Ast(AstNodeName.Arguments, parameters))))
         );
 

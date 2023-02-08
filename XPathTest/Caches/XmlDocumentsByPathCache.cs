@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -23,7 +22,7 @@ public class XmlDocumentsByPathCache : ResourceCache<string, XmlNode>
             // Add support for testsets, for example to access ForExpr-013.out, which needs to enter the prod folder.
             content = TestFileSystem.ReadFile($"qt3tests/{filename}").Replace("\r\n", "\n");
         }
-        catch (DirectoryNotFoundException e)
+        catch (DirectoryNotFoundException)
         {
             throw new DirectoryNotFoundException($"Could not find a part of the path ending in: 'qt3tests/{filename}'");
         }

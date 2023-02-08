@@ -23,7 +23,7 @@ public class IntegerValue : NumericValue<long>
 
     private static long CreateFromString(string str)
     {
-       return NumericCast(str, v => long.Parse(v, NumberStyles.Integer | NumberStyles.AllowDecimalPoint));
+        return NumericCast(str, v => long.Parse(v, NumberStyles.Integer | NumberStyles.AllowDecimalPoint));
     }
 
     private static long CreateFromValue(object? val)

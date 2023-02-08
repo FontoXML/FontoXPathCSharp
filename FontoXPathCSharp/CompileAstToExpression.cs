@@ -626,7 +626,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             var func = parts[i].Name == AstNodeName.EqName
                 ? new NamedFunctionRef<TNode>(parts[i].GetQName(), abstractExpressions.Length)
                 : CompileAst(parts[i], DisallowUpdating(options));
-            args = new List<AbstractExpression<TNode>?> { new FunctionCall<TNode>(func, abstractExpressions!) };
+            args = new List<AbstractExpression<TNode>?> { new FunctionCall<TNode>(func, abstractExpressions) };
         }
 
         return args.First()!;

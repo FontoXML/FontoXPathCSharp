@@ -7,16 +7,14 @@ namespace FontoXPathCSharp.Value;
 
 public class DateTimeValue : AtomicValue
 {
-    private readonly DateTime _dateTime;
-
     public DateTimeValue(DateTime dateTime) : base(dateTime.GetValueType)
     {
-        _dateTime = dateTime;
+        Value = dateTime;
     }
 
     public DateTimeValue(DateTimeValue dateTimeValue) : base(dateTimeValue.GetValueType())
     {
-        _dateTime = dateTimeValue.Value;
+        Value = dateTimeValue.Value;
     }
 
     public DateTimeValue(
@@ -31,7 +29,7 @@ public class DateTimeValue : AtomicValue
         bool hasTimezone,
         ValueType type) : base(type)
     {
-        _dateTime = new DateTime(years, months, days, hours, minutes, seconds, secondFraction, timezone, hasTimezone,
+        Value = new DateTime(years, months, days, hours, minutes, seconds, secondFraction, timezone, hasTimezone,
             type);
     }
 
@@ -48,7 +46,7 @@ public class DateTimeValue : AtomicValue
     public TimeSpan GetTimezone => Value.GetTimezone;
     public bool HasTimezone => Value.HasTimezone;
 
-    public DateTime Value => _dateTime;
+    public DateTime Value { get; }
 
     public override object GetValue()
     {
@@ -191,14 +189,14 @@ public class DateTimeValue : AtomicValue
         return new DateTimeValue(new DateTime(dateTime, hasTimezone, type));
     }
 
-    public static DateTimeValue? CreateDateTime(object value, ValueType type)
+    public static DateTimeValue CreateDateTime(object? value, ValueType type)
     {
         return value switch
         {
             DateTime dateTime => new DateTimeValue(dateTime),
             DateTimeValue dateTimeValue => new DateTimeValue(dateTimeValue),
-            string s => FromString(s, type),
-            _ => null
+            string dateTimeString => FromString(dateTimeString, type),
+            _ => throw new Exception($"Tried to create DateTime value from invalid type: {(value != null ? value.GetType().Name : "null")}")
         };
     }
 }

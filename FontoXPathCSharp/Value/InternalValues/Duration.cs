@@ -170,11 +170,11 @@ public class Duration : IComparable<Duration>, IComparable
     {
         return a.DurationType switch
         {
-            ValueType.XsDayTimeDuration when b.DurationType == ValueType.XsDayTimeDuration => new(
+            ValueType.XsDayTimeDuration when b.DurationType == ValueType.XsDayTimeDuration => new Duration(
                 a.RawMilliSeconds + b.RawMilliSeconds, 0, ValueType.XsDayTimeDuration),
-            ValueType.XsYearMonthDuration when b.DurationType == ValueType.XsYearMonthDuration => new(0,
+            ValueType.XsYearMonthDuration when b.DurationType == ValueType.XsYearMonthDuration => new Duration(0,
                 a.RawMonths + b.RawMonths, ValueType.XsYearMonthDuration),
-            _ => new(a.RawMilliSeconds + b.RawMilliSeconds, a.RawMonths + b.RawMonths, ValueType.XsDuration)
+            _ => new Duration(a.RawMilliSeconds + b.RawMilliSeconds, a.RawMonths + b.RawMonths, ValueType.XsDuration)
         };
     }
 
@@ -182,11 +182,11 @@ public class Duration : IComparable<Duration>, IComparable
     {
         return a.DurationType switch
         {
-            ValueType.XsDayTimeDuration when b.DurationType == ValueType.XsDayTimeDuration => new(
+            ValueType.XsDayTimeDuration when b.DurationType == ValueType.XsDayTimeDuration => new Duration(
                 a.RawMilliSeconds - b.RawMilliSeconds, 0, ValueType.XsDayTimeDuration),
-            ValueType.XsYearMonthDuration when b.DurationType == ValueType.XsYearMonthDuration => new(0,
+            ValueType.XsYearMonthDuration when b.DurationType == ValueType.XsYearMonthDuration => new Duration(0,
                 a.RawMonths - b.RawMonths, ValueType.XsYearMonthDuration),
-            _ => new(a.RawMilliSeconds - b.RawMilliSeconds, a.RawMonths - b.RawMonths, ValueType.XsDuration)
+            _ => new Duration(a.RawMilliSeconds - b.RawMilliSeconds, a.RawMonths - b.RawMonths, ValueType.XsDuration)
         };
     }
 
@@ -217,11 +217,12 @@ public class Duration : IComparable<Duration>, IComparable
             );
         return a.DurationType switch
         {
-            ValueType.XsDayTimeDuration => new(
+            ValueType.XsDayTimeDuration => new Duration(
                 (long)Math.Round(a.RawMilliSeconds * b), 0, ValueType.XsDayTimeDuration),
-            ValueType.XsYearMonthDuration => new(0,
+            ValueType.XsYearMonthDuration => new Duration(0,
                 (int)Math.Round(a.RawMonths * b), ValueType.XsYearMonthDuration),
-            _ => new((long)Math.Round(a.RawMilliSeconds * b), (int)Math.Round(a.RawMonths * b), ValueType.XsDuration)
+            _ => new Duration((long)Math.Round(a.RawMilliSeconds * b), (int)Math.Round(a.RawMonths * b),
+                ValueType.XsDuration)
         };
     }
 
@@ -241,11 +242,12 @@ public class Duration : IComparable<Duration>, IComparable
             );
         return a.DurationType switch
         {
-            ValueType.XsDayTimeDuration => new(
+            ValueType.XsDayTimeDuration => new Duration(
                 (long)Math.Round(a.RawMilliSeconds * b), 0, ValueType.XsDayTimeDuration),
-            ValueType.XsYearMonthDuration => new(0,
+            ValueType.XsYearMonthDuration => new Duration(0,
                 (int)Math.Round(a.RawMonths * b), ValueType.XsYearMonthDuration),
-            _ => new((long)Math.Round(a.RawMilliSeconds * b), (int)Math.Round(a.RawMonths * b), ValueType.XsDuration)
+            _ => new Duration((long)Math.Round(a.RawMilliSeconds * b), (int)Math.Round(a.RawMonths * b),
+                ValueType.XsDuration)
         };
     }
 }

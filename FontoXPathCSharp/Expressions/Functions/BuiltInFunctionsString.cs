@@ -21,7 +21,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
         return ISequence.ZipSingleton(stringSequences,
             stringValues =>
                 SequenceFactory.CreateFromValue(AtomicValue.Create(string.Join("", stringValues.Select(x =>
-                        x.GetAs<StringValue>().Value)),
+                        x?.GetAs<StringValue>().Value)),
                     ValueType.XsString)));
     };
 
@@ -53,9 +53,9 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
                 var stringValueSequence = Atomize.AtomizeSingleValue(value, executionParameters);
                 var stringValue = stringValueSequence.First();
 
-                return value.GetValueType().IsSubtypeOf(ValueType.Attribute)
+                return (value.GetValueType().IsSubtypeOf(ValueType.Attribute)
                     ? stringValue!.CastToType(ValueType.XsString)
-                    : stringValue!;
+                    : stringValue!);
             }
 
             return value.CastToType(ValueType.XsString);
@@ -70,8 +70,8 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
     {
         return ISequence.ZipSingleton(sequences, sequenceValues =>
         {
-            var input = Convert.ToString(sequenceValues[0].GetAs<AtomicValue>().GetValue()) ?? "";
-            var pattern = Convert.ToString(sequenceValues[1].GetAs<AtomicValue>().GetValue()) ?? "";
+            var input = Convert.ToString(sequenceValues[0]?.GetAs<AtomicValue>().GetValue()) ?? "";
+            var pattern = Convert.ToString(sequenceValues[1]?.GetAs<AtomicValue>().GetValue()) ?? "";
 
             Func<string, bool> compiledPattern = _ => false;
             if (!CachedPatterns.ContainsKey(pattern))
@@ -287,6 +287,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
         );
     };
 
+    // ReSharper disable once StaticMemberInGenericType
     private static readonly Dictionary<string, Regex> CompiledRegexes = new();
 
     private static readonly FunctionSignature<ISequence, TNode> FnTokenize = (_, _, _, args) =>

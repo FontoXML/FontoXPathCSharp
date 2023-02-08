@@ -1,18 +1,10 @@
 using FontoXPathCSharp.Parsing;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace XPathTest.UnitTests;
 
 public class TestParser
 {
-    private readonly ITestOutputHelper _output;
-
-    public TestParser(ITestOutputHelper output)
-    {
-        _output = output;
-    }
-
     private static void ParseQuery(string query)
     {
         var result = XPathParser.Parse(query, new ParseOptions(false, false));

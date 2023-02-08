@@ -263,8 +263,11 @@ public static class BuiltInFunctionsSequencesDeepEqual<TNode> where TNode : notn
     }
 
     private static BooleanValue AnyAtomicTypeDeepEqual(
+        // ReSharper disable once UnusedParameter.Local
         DynamicContext dynamicContext,
+        // ReSharper disable once UnusedParameter.Local
         ExecutionParameters<TNode> executionParameters,
+        // ReSharper disable once UnusedParameter.Local
         StaticContext<TNode> staticContext,
         AtomicValue item1,
         AtomicValue item2)

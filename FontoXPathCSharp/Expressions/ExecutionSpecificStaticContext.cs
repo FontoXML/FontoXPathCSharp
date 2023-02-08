@@ -19,7 +19,9 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode> wher
     private readonly List<ResolvedFunction> _resolvedFunctions;
 
     private readonly Dictionary<string, string> _variableBindingByName;
+#pragma warning disable CS0414
     private bool _executionContextWasRequired;
+#pragma warning restore CS0414
 
     public ExecutionSpecificStaticContext(
         NamespaceResolver namespaceResolver,
@@ -99,7 +101,7 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode> wher
     public override string? LookupVariable(string? namespaceUri, string localName)
     {
         _executionContextWasRequired = true;
-        
+
         if (!string.IsNullOrEmpty(namespaceUri)) return null;
 
         var bindingName = _variableBindingByName.ContainsKey(localName) ? _variableBindingByName[localName] : null;

@@ -1247,7 +1247,7 @@ CastAs021;Expected XPathException with code FORG0001, but got Input string was n
 CastAs025;Expected error code: FORG0001. Found error code: FOCA0001 with error message: Overflow when creating a Int64 from -1.1234.
 CastAs027;Expected XPath xs:untypedAtomic("P1Y2M3DT10H30M23S") cast as xs:duration to resolve to P1Y2M3DT10H30M23S, but instead got PT
 CastAs028;Input string was not in a correct format.
-CastAs029;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
+CastAs029;Expected error code: FORG0001. Query succeeded with result: PT
 CastAs030;Expected error code: FORG0001. Query succeeded with result: P
 CastAs031;Expected XPath xs:untypedAtomic("P24M") cast as xs:yearMonthDuration to resolve to P2Y, but instead got P
 CastAs032;Expected XPath xs:untypedAtomic("-P21M") cast as xs:yearMonthDuration to resolve to -P1Y9M, but instead got P
@@ -1292,7 +1292,7 @@ CastAs103;Expected XPathException with code FORG0001, but got Input string was n
 CastAs107;Expected error code: FORG0001. Found error code: FOCA0001 with error message: Overflow when creating a Int64 from -1.1234.
 CastAs109;Expected XPath xs:string("P1Y2M3DT10H30M23S") cast as xs:duration to resolve to P1Y2M3DT10H30M23S, but instead got PT
 CastAs110;Input string was not in a correct format.
-CastAs111;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
+CastAs111;Expected error code: FORG0001. Query succeeded with result: PT
 CastAs112;Expected error code: FORG0001. Query succeeded with result: P
 CastAs113;Expected XPath xs:string("P24M") cast as xs:yearMonthDuration to resolve to P2Y, but instead got P
 CastAs114;Expected XPath xs:string("-P21M") cast as xs:yearMonthDuration to resolve to -P1Y9M, but instead got P
@@ -8863,7 +8863,7 @@ functx-fn-matches-4;BuiltInFunctionsString.FnMatches, XSD pattern compiling need
 functx-fn-matches-5;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 functx-fn-matches-6;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 functx-fn-matches-7;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
-functx-fn-matches-8;Object reference not set to an instance of an object.
+functx-fn-matches-8;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 functx-fn-matches-9;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 functx-fn-matches-all;The function matches with arity 3 is not registered.
 functx-fn-max-2;Input string was not in a correct format.
@@ -9688,6 +9688,7 @@ GenCompEq-23;PRSC Error: Failed to parse query '\n        declare variable $p ex
 GenCompEq-26;PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) = myType:integer-or-nothing(5)'
 GenCompEq-27;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) = myType:integer-or-nothing("")'
 GenCompEq-3;Input string was not in a correct format.
+GenCompEq-5;Expected XPath xs:untypedAtomic("P1999Y10M") = xs:yearMonthDuration("P1999Y10M") to resolve to true
 GenCompEq-7;PRSC Error: Failed to parse query '[3, 4, 5] = 4'
 GenCompEq-8;PRSC Error: Failed to parse query '[[3, 4], 5] = [4, [5, 6]]'
 GenCompEq-9;PRSC Error: Failed to parse query '[3, 4, 5] = []'
@@ -10511,6 +10512,7 @@ K-ContextPositionFunc-7;The function remove with arity 2 is not registered.
 K-ContextPositionFunc-8;The function remove with arity 2 is not registered.
 K-ContextPositionFunc-9;The function remove with arity 2 is not registered.
 K-DataFunc-1;Expected error code: XPST0017. Query succeeded with result: 
+K-DatesSubtract-1;Expected XPath xs:date("1999-07-19") - xs:date("1969-11-30") eq xs:dayTimeDuration("P10823D") to resolve to true
 K-DateTimeFunc-10;The function dateTime with arity 2 is not registered.
 K-DateTimeFunc-11;The function dateTime with arity 2 is not registered.
 K-DateTimeFunc-12;The function dateTime with arity 2 is not registered.
@@ -10939,7 +10941,7 @@ K-LogicExpr-43;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-44;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-8;Type casting to XsAnyUri has not been implemented yet.
 K-LogicExpr-9;Type casting to XsAnyUri has not been implemented yet.
-K-MatchesFunc-1;Expected XPathException with code XPTY0004, but got Object reference not set to an instance of an object.
+K-MatchesFunc-1;Expected XPathException with code XPTY0004, but got BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 K-MatchesFunc-3;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function matches with arity 3 is not registered.
 K-MatchesFunc-5;Expected error code: FORX0001. Found error code: XPST0017 with error message: The function matches with arity 3 is not registered.
 K-MatchesFunc-6;Expected error code: FORX0001. Found error code: XPST0017 with error message: The function matches with arity 3 is not registered.
@@ -11747,7 +11749,7 @@ K-SeqExprCast-1464;PRSC Error: Failed to parse query 'not(xs:QName("ncname") cas
 K-SeqExprCast-1465;PRSC Error: Failed to parse query 'xs:QName("ncname") castable as xs:QName'
 K-SeqExprCast-1466;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:QName("ncname") castable as xs:NOTATION)'
 K-SeqExprCast-1469;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:untypedAtomic)'
-K-SeqExprCast-147;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
+K-SeqExprCast-147;Expected error code: FORG0001. Query succeeded with result: PT
 K-SeqExprCast-1470;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:string)'
 K-SeqExprCast-1471;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:float)'
 K-SeqExprCast-1472;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:double)'
@@ -11758,7 +11760,7 @@ K-SeqExprCast-1476;Expected error code: XPST0017. Found error code: XPST0003 wit
 K-SeqExprCast-1477;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:dayTimeDuration)'
 K-SeqExprCast-1478;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:dateTime)'
 K-SeqExprCast-1479;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:time)'
-K-SeqExprCast-148;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
+K-SeqExprCast-148;Expected error code: FORG0001. Query succeeded with result: PT
 K-SeqExprCast-1480;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:date)'
 K-SeqExprCast-1481;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:gYearMonth)'
 K-SeqExprCast-1482;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:gYear)'
@@ -11769,13 +11771,13 @@ K-SeqExprCast-1486;Expected error code: XPST0017. Found error code: XPST0003 wit
 K-SeqExprCast-1487;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:base64Binary)'
 K-SeqExprCast-1488;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:hexBinary)'
 K-SeqExprCast-1489;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:anyURI)'
-K-SeqExprCast-149;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
+K-SeqExprCast-149;Expected error code: FORG0001. Query succeeded with result: PT
 K-SeqExprCast-1490;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:QName)'
 K-SeqExprCast-1491;Expected executing the XPath 'not(xs:NOTATION("prefix:local") castable as xs:NOTATION)' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:NOTATION("prefix:local") castable as xs:NOTATION)'
 K-SeqExprCast-150;Expected error code: FORG0001. Query succeeded with result: PT
 K-SeqExprCast-151;Expected error code: FORG0001. Query succeeded with result: PT
 K-SeqExprCast-152;Expected error code: FORG0001. Query succeeded with result: PT
-K-SeqExprCast-153;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
+K-SeqExprCast-153;Expected error code: FORG0001. Query succeeded with result: PT
 K-SeqExprCast-154;Expected XPath xs:string(xs:duration("P0010Y0010M0010DT0010H0010M0010S")) eq "P10Y10M10DT10H10M10S" to resolve to true
 K-SeqExprCast-155;Expected XPath xs:string(xs:duration("-P0010DT0010H0010M0010S")) eq "-P10DT10H10M10S" to resolve to true
 K-SeqExprCast-156;Input string was not in a correct format.
@@ -12113,7 +12115,8 @@ K-SeqExprCast-634;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-635;PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:QName)'
 K-SeqExprCast-636;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:NOTATION)'
 K-SeqExprCast-639;The function subsequence with arity 3 is not registered.
-K-SeqExprCast-641;Expected XPathException with code FORG0001, but got Object reference not set to an instance of an object.
+K-SeqExprCast-641;Expected error code: FORG0001. Query succeeded with result: PT
+K-SeqExprCast-642;Expected XPath xs:duration(xs:untypedAtomic( "P1Y2M3DT10H30M" )) eq xs:duration("P1Y2M3DT10H30M") to resolve to true
 K-SeqExprCast-645;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:untypedAtomic'
 K-SeqExprCast-647;PRSC Error: Failed to parse query 'xs:duration("P1Y2M3DT10H30M") castable as xs:string'
 K-SeqExprCast-649;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:float)'
@@ -12146,6 +12149,7 @@ K-SeqExprCast-687;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10
 K-SeqExprCast-688;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:NOTATION)'
 K-SeqExprCast-69;Expected executing the XPath '. cast as xs:QName' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-691;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-694;Expected XPath xs:yearMonthDuration(xs:untypedAtomic( "P1Y12M" )) eq xs:yearMonthDuration("P1Y12M") to resolve to true
 K-SeqExprCast-697;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:untypedAtomic'
 K-SeqExprCast-699;PRSC Error: Failed to parse query 'xs:yearMonthDuration("P1Y12M") castable as xs:string'
 K-SeqExprCast-70;Atomic Value for XsName is not implemented yet.
@@ -12182,6 +12186,7 @@ K-SeqExprCast-739;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P
 K-SeqExprCast-74;Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-740;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:NOTATION)'
 K-SeqExprCast-743;The function subsequence with arity 3 is not registered.
+K-SeqExprCast-746;Expected XPath xs:dayTimeDuration(xs:untypedAtomic( "P3DT2H" )) eq xs:dayTimeDuration("P3DT2H") to resolve to true
 K-SeqExprCast-749;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:untypedAtomic'
 K-SeqExprCast-751;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:string'
 K-SeqExprCast-753;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:float)'
@@ -12625,6 +12630,7 @@ K-SubstringFunc-11;Value was either too large or too small for an Int32.
 K-SubstringFunc-13;Value was either too large or too small for an Int32.
 K-SubstringFunc-14;Value was either too large or too small for an Int32.
 K-SubstringFunc-15;Length cannot be less than zero. (Parameter 'length')
+K-TimeSubtract-1;Expected XPath xs:time("08:12:32") - xs:time("18:12:32") eq xs:dayTimeDuration("-PT10H") to resolve to true
 K-TimezoneFromDateFunc-3;The function timezone-from-date with arity 1 is not registered.
 K-TimezoneFromDateFunc-4;The function timezone-from-date with arity 1 is not registered.
 K-TimezoneFromDateFunc-5;The function timezone-from-date with arity 1 is not registered.
@@ -13287,7 +13293,7 @@ K2-EndsWithFunc-6;TreatExpr AST to Expression not yet implemented
 K2-ErrorFunc-1;Expected executing the XPath '(1, 2, error())[2]' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
 K2-ErrorFunc-2;Expected error code: *. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare default element namespace ""; fn:error(xs:QName("onlyAnNCName"))'
 K2-ErrorFunc-3;Expected error code: *. Found error code: XPST0017 with error message: The function error with arity 2 is not registered.
-K2-ExpandedQNameConstructFunc-1;Expected XPathException with code XPTY0004, but got Object reference not set to an instance of an object.
+K2-ExpandedQNameConstructFunc-1;Expected XPathException with code XPTY0004, but got Haven't implemented Qnames from: :
 K2-ExternalVariablesWith-1;Expected error code: XQST0049. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare variable $input-context as item()* external; declare variable $input-context external; 1'
 K2-ExternalVariablesWith-10;Expected executing the XPath 'declare namespace e = "http://example.com/ANamespace"; declare variable $e:exampleComThisVarIsNotRecognized as element(*) external; 1' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare namespace e = "http://example.com/ANamespace"; declare variable $e:exampleComThisVarIsNotRecognized as element(*) external; 1 = 1'
 K2-ExternalVariablesWith-12;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare variable $i as xs:integer := xs:untypedAtomic("1"); $i'
@@ -15791,9 +15797,6 @@ op-subtract-dayTimeDurations2args-3;Expected XPath xs:dayTimeDuration("P31DT23H5
 op-subtract-dayTimeDurations2args-4;Expected XPath xs:dayTimeDuration("P0DT0H0M0S") - xs:dayTimeDuration("P15DT11H59M59S") to resolve to -P15DT11H59M59S, but instead got PT
 op-subtract-dayTimeDurations2args-5;Expected XPath xs:dayTimeDuration("P0DT0H0M0S") - xs:dayTimeDuration("P31DT23H59M59S") to resolve to -P31DT23H59M59S, but instead got PT
 op-subtract-times-1;Expected XPath xs:time("11:12:00Z") - xs:time("04:00:00Z") to resolve to PT7H12M, but instead got PT
-op-subtract-times-13;Expected XPath (xs:time("13:00:00Z") - xs:time("17:00:00Z")) eq xs:dayTimeDuration("P20DT01H02M") to resolve to false
-op-subtract-times-14;Expected XPath (xs:time("13:00:00Z") - xs:time("17:00:00Z")) ne xs:dayTimeDuration("P10DT01H01M") to resolve to true
-op-subtract-times-16;Expected XPath (xs:time("13:00:00Z") - xs:time("17:00:00Z")) ge xs:dayTimeDuration("P17DT10H02M") to resolve to false
 op-subtract-times-2;Expected XPath xs:time("11:00:00-05:00") - xs:time("21:30:00+05:30") to resolve to PT0S, but instead got PT
 op-subtract-times-3;Expected XPath xs:time("17:00:00-06:00") - xs:time("08:00:00+09:00") to resolve to P1D, but instead got PT
 op-subtract-times-6;Expected XPath fn:number(xs:time("13:00:00Z") - xs:time("12:00:00Z")) to resolve to NaN, but instead got Infinity

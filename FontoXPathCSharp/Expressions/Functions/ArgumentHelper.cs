@@ -77,7 +77,7 @@ public class ArgumentHelper<TNode> where TNode : notnull
                 throw new XPathException(
                     "XPTY0004",
                     $"Unable to convert {(isReturn ? "return" : "argument")} of type " +
-                    $"{argumentItem.GetValueType().Name()} to type {seqType.ToString()} while calling {functionName}"
+                    $"{argumentItem.GetValueType().Name()} to type {seqType} while calling {functionName}"
                 );
             return convertedItem;
         }
@@ -88,7 +88,7 @@ public class ArgumentHelper<TNode> where TNode : notnull
             throw new XPathException(
                 "XPTY0004",
                 $"Unable to cast {(isReturn ? "return" : "argument")} of type " +
-                $"{argumentItem.GetValueType().Name()} to type {seqType.ToString()} while calling {functionName}");
+                $"{argumentItem.GetValueType().Name()} to type {seqType} while calling {functionName}");
         return item;
     }
 

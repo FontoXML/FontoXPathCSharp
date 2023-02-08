@@ -70,9 +70,7 @@ public class XObjectDomFacade : IDomFacade<XObject>
     {
         var parentNode = node.Parent;
         if (parentNode == null)
-        {
             return node.Document != null && node.Document.Nodes().Contains(node) ? node.Document : null;
-        }
         return bucket == null || BucketUtils.GetBucketsForNode(parentNode, this).Contains(bucket)
             ? parentNode
             : null;

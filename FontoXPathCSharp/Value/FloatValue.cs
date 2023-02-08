@@ -10,16 +10,16 @@ public class FloatValue : NumericValue<float>
 
     public static FloatValue CreateFloatValue(object? value)
     {
-        var floatValue = value is string str 
-            ? CreateFromString(str) 
+        var floatValue = value is string str
+            ? CreateFromString(str)
             : CreateFromValue(value);
-        
+
         return new FloatValue(floatValue);
     }
 
     private static float CreateFromString(string str)
     {
-        return NumericCast(str, v =>
+        return NumericCast(str, _ =>
         {
             return str switch
             {

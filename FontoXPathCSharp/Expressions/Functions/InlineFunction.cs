@@ -36,7 +36,7 @@ public class InlineFunction<TNode> : AbstractExpression<TNode> where TNode : not
             (_, _, _, parameters) =>
             {
                 // Since functionCall already does typechecking, we do not have to do it here
-                var scopedDynamicContext = dynamicContext
+                var scopedDynamicContext = dynamicContext?
                     .ScopeWithFocus(-1, null, SequenceFactory.CreateEmpty())
                     .ScopeWithVariableBindings(_parameterBindingNames.Reduce(
                         new Dictionary<string, Func<ISequence>>(),
@@ -70,13 +70,13 @@ public class InlineFunction<TNode> : AbstractExpression<TNode> where TNode : not
         staticContext.IntroduceScope();
         _parameterBindingNames = _parameterNames.Select(name =>
         {
-            var namespaceURI = name.NamespaceUri;
+            var namespaceUri = name.NamespaceUri;
             var prefix = name.Prefix;
             var localName = name.LocalName;
 
-            if (namespaceURI == null && prefix != "*")
-                namespaceURI = staticContext.ResolveNamespace(prefix);
-            return staticContext.RegisterVariable(namespaceURI, localName)!;
+            if (namespaceUri == null && prefix != "*")
+                namespaceUri = staticContext.ResolveNamespace(prefix);
+            return staticContext.RegisterVariable(namespaceUri, localName);
         }).ToArray();
 
         _functionBody.PerformStaticEvaluation(staticContext);

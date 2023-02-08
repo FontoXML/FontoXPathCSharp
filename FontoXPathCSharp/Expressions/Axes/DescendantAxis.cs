@@ -49,18 +49,13 @@ public class DescendantAxis<TNode> : AbstractExpression<TNode> where TNode : not
         if (!_inclusive) iterator(IterationHint.None);
 
         var descendantSequence = SequenceFactory.CreateFromIterator(iterator);
-        var initialLength = descendantSequence.GetLength();
 
-        var returnValue = descendantSequence.Filter((item, _, _) =>
+        return descendantSequence.Filter((item, _, _) =>
             _descendantExpression.EvaluateToBoolean(
                 dynamicContext,
                 item,
                 executionParameters)
         );
-
-        var length = returnValue.GetLength();
-
-        return returnValue;
     }
 
     private static Iterator<TNode> CreateChildGenerator(TNode node, IDomFacade<TNode> domFacade, string? bucket)

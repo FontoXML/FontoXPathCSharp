@@ -8,13 +8,12 @@ namespace FontoXPathCSharp.Expressions.Operators;
 
 public class UnaryOperator<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
+    // ReSharper disable once StaticMemberInGenericType
     private static readonly IReadOnlyDictionary<ValueType, ValueType> UnaryLookup = new Dictionary<ValueType, ValueType>
     {
         { ValueType.XsInteger, ValueType.XsInteger },
         { ValueType.XsNonPositiveInteger, ValueType.XsInteger },
         { ValueType.XsNegativeInteger, ValueType.XsInteger },
-        { ValueType.XsLong, ValueType.XsInteger },
-        { ValueType.XsInt, ValueType.XsInteger },
         { ValueType.XsLong, ValueType.XsInteger },
         { ValueType.XsInt, ValueType.XsInteger },
         { ValueType.XsShort, ValueType.XsInteger },
@@ -73,10 +72,10 @@ public class UnaryOperator<TNode> : AbstractExpression<TNode> where TNode : notn
 
             if (value.GetValueType().IsSubtypeOf(ValueType.XsUntypedAtomic))
             {
-                var castValue = value.CastToType(ValueType.XsDouble).GetAs<DoubleValue>();
+                var castValue = value.CastToType(ValueType.XsDouble).GetAs<DoubleValue>().Value;
                 return SequenceFactory.CreateFromValue(
                     AtomicValue.Create(
-                        _kind == UnaryOperatorKind.Minus ? -castValue.Value : castValue.Value,
+                        _kind == UnaryOperatorKind.Minus ? -castValue : castValue,
                         ValueType.XsDouble
                     )
                 );
@@ -89,19 +88,18 @@ public class UnaryOperator<TNode> : AbstractExpression<TNode> where TNode : notn
                 // Not very pretty, but it is what it is, maybe this can be fixed later.
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsDouble))
                     return SequenceFactory.CreateFromValue(
-                        AtomicValue.Create(value.GetAs<DoubleValue>().Value * -1, ValueType.XsDouble)
+                        AtomicValue.Create(value.GetAs<DoubleValue>().Value * -1, UnaryLookup[value.GetValueType()])
                     );
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsFloat))
                     return SequenceFactory.CreateFromValue(
-                        AtomicValue.Create(value.GetAs<FloatValue>().Value * -1, ValueType.XsFloat)
+                        AtomicValue.Create(value.GetAs<FloatValue>().Value * -1, UnaryLookup[value.GetValueType()])
                     );
-
+                
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsInteger))
                     return SequenceFactory.CreateFromValue(
-                        AtomicValue.Create(value.GetAs<IntegerValue>().Value * -1, ValueType.XsInteger)
+                        AtomicValue.Create(value.GetAs<IntegerValue>().Value * -1, UnaryLookup[value.GetValueType()])
                     );
             }
-
             return SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN, ValueType.XsDouble));
         });
     }

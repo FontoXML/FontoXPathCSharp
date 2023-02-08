@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using FontoXPathCSharp.Expressions.DataTypes.Builtins;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
@@ -109,7 +108,7 @@ public abstract class AtomicValue : AbstractValue
                 or ValueType.XsGMonthDay
                 or ValueType.XsGYear
                 or ValueType.XsGYearMonth
-                or ValueType.XsTime => DateTimeValue.CreateDateTime(value, type),
+                or ValueType.XsTime => DateTimeValue.CreateDateTime(value!, type),
             ValueType.XsDuration or
                 ValueType.XsDayTimeDuration or
                 ValueType.XsYearMonthDuration => DurationValue.CreateDuration(value, type),

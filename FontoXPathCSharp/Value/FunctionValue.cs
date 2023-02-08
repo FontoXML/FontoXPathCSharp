@@ -36,6 +36,7 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TReturn : ISequ
         IsUpdating = isUpdating;
         Name = localName;
         _namespaceUri = namespaceUri;
+        IsAnonymous = isAnonymous;
         ReturnType = returnType;
     }
 
@@ -46,6 +47,8 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TReturn : ISequ
     public string Name { get; }
 
     public SequenceType ReturnType { get; }
+
+    public bool IsAnonymous { get; }
 
     private static ParameterType[] ExpandParameterTypeToArity(ParameterType[] argumentTypes, int arity)
     {
@@ -103,7 +106,7 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TReturn : ISequ
             argumentTypes.Length,
             "boundFunction",
             _namespaceUri!,
-            ReturnType!,
+            ReturnType,
             curriedFunction,
             true,
             IsUpdating

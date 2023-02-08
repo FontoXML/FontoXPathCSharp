@@ -6,7 +6,7 @@ public class ContextItemExpression<TNode> : AbstractExpression<TNode> where TNod
 {
     public ContextItemExpression() : base(
         new Specificity(), Array.Empty<AbstractExpression<TNode>>(),
-        new OptimizationOptions(false, resultOrder: ResultOrdering.Sorted))
+        new OptimizationOptions(resultOrder: ResultOrdering.Sorted))
     {
     }
 
