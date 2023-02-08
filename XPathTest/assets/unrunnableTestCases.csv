@@ -4139,7 +4139,6 @@ extvardef-025;PRSC Error: Failed to parse query ''
 extvardef-026;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 extvardef-027;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 filter-001;ArgumentPlaceholder AST to Expression not yet implemented
-filter-002;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.Compares.ValueCompare`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 filter-003;Arithmetic operation resulted in an overflow.
 filter-004;Expected XPath (1 to 20)[. = filter(1 to position(), function($x){$x idiv 2 * 2 = $x})] to (deep equally) resolve to 2, 4, 6, 8, 10, 12, 14, 16, 18, 20
 filter-005;IsOp AST to Expression not yet implemented
@@ -4844,7 +4843,6 @@ fn-filter-017;Arithmetic operation resulted in an overflow.
 fn-filter-019;Expected error code: XPTY0004. Query succeeded with result: 1 2 3 4 5 6 7 8 9 10
 fn-filter-020;Arithmetic operation resulted in an overflow.
 fn-filter-022;Expected error code: XPTY0004. Query succeeded with result: 1 2 3 4 5 6 7 8 9 10
-fn-filter-023;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.Compares.ValueCompare`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fn-floor-1;The function error with arity 0 is not registered.
 fn-floor-decimal-1;PRSC Error: Failed to parse query '(floor(12.5)) instance of $xs:decimal'
 fn-floor-decimal-2;PRSC Error: Failed to parse query '(floor(12.9)) instance of $xs:decimal'
@@ -5306,7 +5304,7 @@ fn-function-lookup-422;NamedFunctionRef AST to Expression not yet implemented
 fn-function-lookup-423;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'for-each'), 2)) to resolve to true
 fn-function-lookup-424;NamedFunctionRef AST to Expression not yet implemented
 fn-function-lookup-425;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'filter'), 2)) to resolve to true
-fn-function-lookup-426;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.Compares.GeneralCompare`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+fn-function-lookup-426;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-427;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'fold-left'), 3)) to resolve to true
 fn-function-lookup-428;ArgumentPlaceholder AST to Expression not yet implemented
 fn-function-lookup-429;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'fold-right'), 3)) to resolve to true
@@ -7413,25 +7411,18 @@ fo-test-fn-exists-001;The function fn:remove with arity 2 is not registered.
 fo-test-fn-exists-002;The function fn:remove with arity 2 is not registered.
 fo-test-fn-exists-003;PRSC Error: Failed to parse query '\n        fn:exists([])\n      '
 fo-test-fn-exists-004;PRSC Error: Failed to parse query '\n        fn:exists(map{})\n      '
-fo-test-fn-filter-001;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.Compares.GeneralCompare`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fo-test-fn-filter-002;ArgumentPlaceholder AST to Expression not yet implemented
 fo-test-fn-floor-002;Expected XPath 
-fo-test-fn-fold-left-001;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fo-test-fn-fold-left-002;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fo-test-fn-fold-left-003;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.OrOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fo-test-fn-fold-left-004;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.AndOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fo-test-fn-fold-left-006;ArgumentPlaceholder AST to Expression not yet implemented
 fo-test-fn-fold-left-007;ArgumentPlaceholder AST to Expression not yet implemented
 fo-test-fn-fold-left-008;PRSC Error: Failed to parse query 'deep-equal((\n        fn:fold-left(1 to 5, map{}, function($map, $n) {map:put($map, $n, $n*2)})\n      ), (map{1:2, 2:4, 3:6, 4:8, 5:10}))'
-fo-test-fn-fold-right-001;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fo-test-fn-fold-right-002;ArgumentPlaceholder AST to Expression not yet implemented
 fo-test-fn-fold-right-003;ArgumentPlaceholder AST to Expression not yet implemented
-fo-test-fn-for-each-001;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fo-test-fn-for-each-002;NamedFunctionRef AST to Expression not yet implemented
 fo-test-fn-for-each-003;NamedFunctionRef AST to Expression not yet implemented
 fo-test-fn-for-each-pair-001;NamedFunctionRef AST to Expression not yet implemented
-fo-test-fn-for-each-pair-002;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fo-test-fn-for-each-pair-003;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+fo-test-fn-for-each-pair-002;The function fn:for-each-pair with arity 3 is not registered.
+fo-test-fn-for-each-pair-003;The function fn:for-each-pair with arity 3 is not registered.
 fo-test-fn-format-integer-001;Casting AbstractValue(XsInteger) to StringValue
 fo-test-fn-format-integer-002;The function format-integer with arity 3 is not registered.
 fo-test-fn-format-integer-003;Casting AbstractValue(XsInteger) to StringValue
@@ -7873,47 +7864,30 @@ FODT0002-9;Expected XPathException with code FODT0002, but got Value was either 
 FODT0003-1;Expected error code: FODT0003. Found error code: XPST0017 with error message: The function adjust-date-to-timezone with arity 2 is not registered.
 FODT0003-2;Expected error code: FODT0003. Found error code: XPST0017 with error message: The function adjust-date-to-timezone with arity 2 is not registered.
 FOER0000;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
-fold-left-001;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-left-002;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-left-003;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.OrOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-left-004;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.AndOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-left-006;ArgumentPlaceholder AST to Expression not yet implemented
 fold-left-007;ArgumentPlaceholder AST to Expression not yet implemented
 fold-left-008;Arithmetic operation resulted in an overflow.
 fold-left-009;PRSC Error: Failed to parse query ''
-fold-left-010;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-left-011;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-left-012;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-left-013;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-left-014;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+fold-left-011;Expected error code: XPTY0004. Query succeeded with result: 16
 fold-left-016;PRSC Error: Failed to parse query ''
 fold-left-017;ArgumentPlaceholder AST to Expression not yet implemented
 fold-left-018;Expected XPath  to (deep equally) resolve to 2, 2, 2
-fold-left-020;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-left-021;PRSC Error: Failed to parse query ''
 fold-left-101;PRSC Error: Failed to parse query '\n        declare function local:fold-left(\n          $seq as item()*,\n          $zero as item()*,\n          $f as function(item()*, item()) as item()*)\n        as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else fn:fold-left(fn:tail($seq), $f($zero, fn:head($seq)), $f)\n        };\n        local:fold-left(1 to 5, 0, function($a, $b) { $a + $b }) = 15'
 fold-left-102;PRSC Error: Failed to parse query '\n        declare function local:fold-left(\n          $seq as item()*,\n          $zero as item()*,\n          $f as function(item()*, item()) as item()*)\n        as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else fn:fold-left(fn:tail($seq), $f($zero, fn:head($seq)), $f)\n        };\n        local:fold-left((2,3,5,7), 1, function($a, $b) { $a * $b })\n       = 210'
 fold-left-103;PRSC Error: Failed to parse query '\n        declare function local:fold-left(\n          $seq as item()*,\n          $zero as item()*,\n          $f as function(item()*, item()) as item()*)\n        as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else fn:fold-left(fn:tail($seq), $f($zero, fn:head($seq)), $f)\n        };\n        local:fold-left((true(), false(), false()), false(), function($a, $b) { $a or $b })'
 fold-left-104;PRSC Error: Failed to parse query '\n        declare function local:fold-left(\n          $seq as item()*,\n          $zero as item()*,\n          $f as function(item()*, item()) as item()*)\n        as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else fn:fold-left(fn:tail($seq), $f($zero, fn:head($seq)), $f)\n        };\n        local:fold-left((true(), false(), false()), false(), function($a, $b) { $a and $b })'
 fold-left-105;PRSC Error: Failed to parse query 'deep-equal((\n        declare function local:fold-left(\n          $seq as item()*,\n          $zero as item()*,\n          $f as function(item()*, item()) as item()*)\n        as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else fn:fold-left(fn:tail($seq), $f($zero, fn:head($seq)), $f)\n        };\n        local:fold-left(1 to 5, (), function($a, $b) {($b, $a)})), (5, 4, 3, 2, 1))'
-fold-right-001;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-right-002;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-right-003;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.OrOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-right-004;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.AndOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 fold-right-005;Expected XPath let $f := function($a, $b){($b, $a)} return fold-right(1 to 5, (), $f) to (deep equally) resolve to 5,4,3,2,1
 fold-right-006;ArgumentPlaceholder AST to Expression not yet implemented
 fold-right-007;ArgumentPlaceholder AST to Expression not yet implemented
-fold-right-008;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-right-009;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-right-010;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-right-011;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-right-012;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-fold-right-013;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+fold-right-012;Expected error code: XPTY0004. Query succeeded with result: 15
+fold-right-013;Expected XPath fold-right(1 to 1000000, 0, function($a, $b){ $b + 1 }) to resolve to 1000000, but instead got 2
 fold-right-014;Expected XPath fold-right((1 to 5), (), function($a , $b){ ($b, $a) }) to (deep equally) resolve to 5, 4, 3, 2, 1
 fold-right-015;Expected XPath fold-right((1, 2, 2, 3, 3, 3, 4, 5, 5), (), function($a, $b){ if(exists($b[. eq $a])) then $b else ($a, $b) }) to (deep equally) resolve to 1, 2, 3, 4, 5
 fold-right-016;Expected XPath fold-right((1 to 5), (), function($a, $b){ ($a, $a, $b) }) to (deep equally) resolve to 1, 1, 2, 2, 3, 3, 4, 4, 5, 5
 fold-right-017;ArgumentPlaceholder AST to Expression not yet implemented
-fold-right-018;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+fold-right-018;Casting AbstractValue(XsInteger) to StringValue
 fold-right-019;Expected XPath fold-right( 1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a lt $b) then $b else $a }) to resolve to 10, but instead got null
 fold-right-020;Expected XPath fold-right(1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a gt $b) then $b else $a }) to resolve to 1, but instead got null
 fold-right-101;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right(1 to 5, 0,function($a, $b) { $a + $b }) = 15'
@@ -7954,7 +7928,7 @@ followingsibling-9;NodeAfterOp AST to Expression not yet implemented
 FONS0004-1;Expected error code: FONS0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 for-each-001;NamedFunctionRef AST to Expression not yet implemented
 for-each-002;NamedFunctionRef AST to Expression not yet implemented
-for-each-003;Unable to cast object of type 'FontoXPathCSharp.Expressions.VarRef`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+for-each-003;Expected XPath for-each(("john", "mary", "jane", "anne", "peter", "ian"), function($x){$x[contains(., 'e')]}) to (deep equally) resolve to "jane", "anne", "peter"
 for-each-006;PRSC Error: Failed to parse query '\n            declare function local:children($n as node()) as node()* \n                { $n/child::node() }; \n            declare function local:attributes($e as node()) as node()* \n                { $e/attribute::node() }; \n            declare function local:self($e as node()) as node() \n                { $e }; \n            declare function local:union(\n                        $f as function(node()) as node()*, \n                        $g as function(node()) as node()*) as function(node()) as node()* { \n                function($a) {$f($a) | $g($a)} };\n            let $data := (/a), \n                $f := local:union(local:children#1, local:union(local:attributes#1, local:self#1)) \n            return for-each($data/*, $f)[not(. instance of attribute())]\n        '
 for-each-007;NamedFunctionRef AST to Expression not yet implemented
 for-each-008;NamedFunctionRef AST to Expression not yet implemented
@@ -8687,7 +8661,7 @@ FunctionCall-022;Expected XPath  to (deep equally) resolve to true(), false()
 FunctionCall-023;PRSC Error: Failed to parse query ''
 FunctionCall-025;PRSC Error: Failed to parse query '(function($in as xs:double*) as xs:double {sum($in, 0.0e0)}((1, xs:float(0.25), xs:decimal(0.5)))) instance of $xs:double'
 FunctionCall-026;PRSC Error: Failed to parse query '(function($in as xs:string*) as xs:string {string-join($in, ';')}((xs:anyURI('http://one.com/'), xs:anyURI('http://two.com/')))) instance of $xs:string'
-FunctionCall-027;Expected XPathException with code XPST0051, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.VarRef`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+FunctionCall-027;Expected XPathException with code XPST0051, but got Atomic Value for XsNmTokens is not implemented yet.
 FunctionCall-028;PRSC Error: Failed to parse query '\n        declare namespace lu = 'http://www.w3.org/XQueryTest/ListUnionTypes' ;\n        import schema "http://www.w3.org/XQueryTest/ListUnionTypes";\n      	function($in as lu:unionType) as xs:boolean {$in instance of xs:integer}(23)'
 FunctionCall-029;PRSC Error: Failed to parse query '\n        declare namespace lu = 'http://www.w3.org/XQueryTest/ListUnionTypes' ;\n        import schema "http://www.w3.org/XQueryTest/ListUnionTypes";\n      	function($in as lu:unionType) as xs:boolean {$in instance of xs:integer}(xs:float(12))'
 FunctionCall-030;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare namespace lu = 'http://www.w3.org/XQueryTest/ListUnionTypes' ;\n        import schema "http://www.w3.org/XQueryTest/ListUnionTypes";\n      	function($in as lu:unionType) as xs:boolean {$in instance of xs:integer}(12.3)'
@@ -10175,7 +10149,7 @@ generate-id-023;PRSC Error: Failed to parse query ''
 generate-id-901;Expected error code: XPDY0002. Found error code: XPST0017 with error message: The function generate-id with arity 0 is not registered.
 generate-id-902;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function generate-id with arity 1 is not registered.
 generate-id-903;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function generate-id with arity 1 is not registered.
-generate-id-904;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Literal`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+generate-id-904;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function generate-id with arity 1 is not registered.
 generate-id-905;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function generate-id with arity 1 is not registered.
 greaterthaneqonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
 greaterthanonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
@@ -10272,46 +10246,28 @@ hof-916;Expected XPathException with code XPTY0004, but got ArgumentPlaceholder 
 hof-917;Expected XPathException with code XPTY0004, but got ArgumentPlaceholder AST to Expression not yet implemented
 hof-918;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:round($x as xs:double, $algorithm as (function(xs:double) as xs:double)) as xs:double \n        { $algorithm($x) }; \n        declare variable $roundToCeiling := local:round(?, upper-case#1); \n        $roundToCeiling(12.4)\n      '
 hof-919;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      declare function local:round($x as xs:double) as xs:double { fn:floor($x) }; \n      declare function local:ops() as (function(xs:double) as xs:double)* \n      	{ (abs#1, local:round#1, function($x as xs:float){$x+1}, round-half-to-even(?, 2)) }; \n      string-join(for $f in local:ops() return string(round-half-to-even($f(xs:decimal('123.456')), 4)), '~')\n      '
-inline-fn-001;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-002;Unable to cast object of type 'FontoXPathCSharp.Expressions.Literal`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-003;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-004;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 inline-fn-005;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         (1 to 4) !\n         (let $add := function($x){$x + .} return $add(4))'
 inline-fn-006;Expected error code: XPST0003. Found error code:  with error message: 
-inline-fn-008;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-009;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-010;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-011;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-012;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-012a;Expected XPathException with code XPTY0004, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-013;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+inline-fn-013;PRSC Error: Failed to parse query '(\n         let $add := function($x, $y) as xs:double {$x + $y}\n         return $add(3, 4)\n      ) instance of $xs:double'
 inline-fn-014;PRSC Error: Failed to parse query '\n         let $process := function($op, $x, $y) as function(*) {if ($op = "+") then function() {$x + $y} else function() {$x - $y}}\n         return $process("+", 3, 4)()\n       = 7'
 inline-fn-015;PRSC Error: Failed to parse query '\n         let $add := %Q{http://example.com/speed}fast %Q{http://example.com/origin}author("Mike") function($x, $y) {$x + $y} return $add(2,2)\n       = 4'
-inline-fn-021;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-022;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+inline-fn-021;The function function-name with arity 1 is not registered.
+inline-fn-022;The function function-arity with arity 1 is not registered.
 inline-fn-023;PRSC Error: Failed to parse query '\n         let $add := function($x, $y) {$x + $y} return apply($add, [12, 5])\n       = 17'
-inline-fn-024;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-025;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 inline-fn-027;PRSC Error: Failed to parse query '\n         let $calc := map{\n            "+" : function($a, $b) {$a + $b},\n            "-" : function($a, $b) {$a - $b},\n            "*" : function($a, $b) {$a * $b},\n            "/" : function($a, $b) {$a div $b}}\n         return $calc("*")(2,3)  \n       = 6'
-inline-fn-028;Expected XPathException with code FOTY0014, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-029;Expected XPathException with code FOTY0015, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-030;Expected XPathException with code FOTY0013, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-fn-031;Expected XPathException with code FOTY0013, but got Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.Compares.GeneralCompare`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+inline-fn-028;Expected XPathException with code FOTY0014, but got Can't cast a non-atomic value.
+inline-fn-029;Expected error code: FOTY0015. Query succeeded with result: False
 inline-fn-032;PRSC Error: Failed to parse query '(\n         function($a, $b) {$a + $b}\n      ) instance of $item()'
 inline-fn-033;PRSC Error: Failed to parse query '(\n         function($a as xs:integer, $b as xs:integer) as xs:integer {$a + $b}\n      ) instance of $item()'
 inline-fn-034;PRSC Error: Failed to parse query '\n         declare variable $p as xs:integer external;\n         declare variable $f := function($a) {$a + $p};\n         $f(12)\n       = 19'
 inline-fn-035;PRSC Error: Failed to parse query '\n         declare variable $p as xs:integer external;\n         declare function local:negate($x) {-$x};\n         declare variable $f := let $x := $p return function($a) {local:negate($a + $x + $p)};\n         $f(12)\n       = -26'
 inline-fn-036;Expected error code: XPTY0004. Query succeeded with result: 1 2 3
 inline-function-1;PRSC Error: Failed to parse query 'function() { 5 } instance of function(*)'
-inline-function-11a;Unable to cast object of type 'FontoXPathCSharp.Expressions.LetExpression`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 inline-function-12a;Expected error code: XQST0039. Query succeeded with result: lala monkey
 inline-function-13;Expected error code: XQST0039. Query succeeded with result: lala ape monkey
 inline-function-15;Expected error code: XQST0039. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'function($Q{http://local/}foo, $Q{http://local/}bar, $Q{http://local/}foo) { \n              "lala", $Q{http://local/}foo, $Q{http://local/}bar }("gibbon", "monkey", "ape")'
 inline-function-16;PRSC Error: Failed to parse query 'deep-equal((function($Q{http://local/}foo, $Q{http://local/}bar, $fn:foo) { \n               "lala", $Q{http://local/}foo, $Q{http://local/}bar }("gibbon", "monkey", "ape")), ("lala", "gibbon", "monkey"))'
 inline-function-2;Arithmetic operation resulted in an overflow.
-inline-function-3;Unable to cast object of type 'FontoXPathCSharp.Expressions.Literal`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-function-4;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
-inline-function-5;Unable to cast object of type 'FontoXPathCSharp.Expressions.Operators.BinaryOperator`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
 inline-function-6;PRSC Error: Failed to parse query 'function($a, $b as xs:double) as xs:double { $a * $b + 5 } instance of function(item()*, xs:double) as xs:double'
 inline-function-7;PRSC Error: Failed to parse query 'function($a as node()+, $b) as xs:double { $a * $b + 5 } instance of function(node(), item()*) as xs:double'
 inline-function-8;PRSC Error: Failed to parse query 'function($a as node()+) { $a + 5 } instance of function(node()) as item()*'
@@ -14765,7 +14721,7 @@ map-for-each-006;Arithmetic operation resulted in an overflow.
 map-for-each-007;Expected error code: XQDY0137. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'map:for-each(map{"a":1, "a":2}, function($k,$v){$k})'
 map-for-each-008;Arithmetic operation resulted in an overflow.
 map-for-each-009;Arithmetic operation resulted in an overflow.
-map-for-each-010;Unable to cast object of type 'FontoXPathCSharp.Expressions.VarRef`1[System.Xml.XmlNode]' to type 'FontoXPathCSharp.Expressions.PossiblyUpdatingExpression`1[System.Xml.XmlNode]'.
+map-for-each-010;The function map:for-each with arity 2 is not registered.
 map-for-each-011;PRSC Error: Failed to parse query '(map:for-each(map:remove(map:remove(map{"a":1,"b":2},"b"),"a"), function($k,$v){$k})) => empty()'
 map-for-each-012;Arithmetic operation resulted in an overflow.
 map-for-each-013;Arithmetic operation resulted in an overflow.

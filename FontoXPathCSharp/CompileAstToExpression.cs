@@ -413,7 +413,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             ).ToArray(),
             ast.GetTypeDeclaration(),
             functionBody != null
-                ? (PossiblyUpdatingExpression<TNode>)CompileAst(functionBody, options)
+                ? CompileAst(functionBody, options)
                 : new SequenceOperator<TNode>(Array.Empty<AbstractExpression<TNode>>())
         );
     }

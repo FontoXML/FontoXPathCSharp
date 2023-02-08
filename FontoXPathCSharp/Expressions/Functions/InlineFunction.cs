@@ -8,7 +8,7 @@ public record ParameterDescription(QName ParameterName, ParameterType ParameterT
 
 public class InlineFunction<TNode> : AbstractExpression<TNode> where TNode : notnull
 {
-    private readonly PossiblyUpdatingExpression<TNode> _functionBody;
+    private readonly AbstractExpression<TNode> _functionBody;
     private readonly QName[] _parameterNames;
     private readonly ParameterType[] _parameterTypes;
     private readonly SequenceType _returnType;
@@ -17,9 +17,9 @@ public class InlineFunction<TNode> : AbstractExpression<TNode> where TNode : not
     public InlineFunction(
         ParameterDescription[] parameterDescriptions,
         SequenceType returnType,
-        PossiblyUpdatingExpression<TNode> functionBody) : base(
+        AbstractExpression<TNode> functionBody) : base(
         new Specificity(SpecificityKind.External, 1),
-        new AbstractExpression<TNode>[] { functionBody },
+        new[] { functionBody },
         new OptimizationOptions())
     {
         _parameterNames = parameterDescriptions.Select(desc => desc.ParameterName).ToArray();
