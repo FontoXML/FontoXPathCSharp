@@ -98,7 +98,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                             }
 
                             return true;
-                        }), $"Expected executing the XPath '{xpath}' to resolve to one of the expected results, " +
+                        }), $"Expected executing the XPath '{SingleLinePrint(xpath)}' to resolve to one of the expected results, " +
                             $"but got {string.Join(", ", errors.Select(e => e.ToString()))}."
                     );
                 };
@@ -140,7 +140,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                                 languageId: language),
                             variablesInScope
                         ),
-                        $"Expected XPath {xpath} to resolve to true");
+                        $"Expected XPath {SingleLinePrint(xpath)} to resolve to true");
                 };
             case "assert-eq":
             {
@@ -164,7 +164,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                                 languageId: language),
                             variablesInScope
                         ),
-                        $"Expected XPath {xpath} to resolve to {equalWith}"
+                        $"Expected XPath {SingleLinePrint(xpath)} to resolve to {equalWith}"
                     );
                 };
             }
@@ -190,7 +190,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                                 languageId: language),
                             variablesInScope
                         ),
-                        $"Expected XPath {xpath} to (deep equally) resolve to {equalWith}"
+                        $"Expected XPath {SingleLinePrint(xpath)} to (deep equally) resolve to {equalWith}"
                     );
                 };
             }
@@ -209,7 +209,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                                 languageId: language),
                             variablesInScope
                         ),
-                        $"Expected XPath {xpath} to resolve to the empty sequence");
+                        $"Expected XPath {SingleLinePrint(xpath)} to resolve to the empty sequence");
                 };
             }
             case "assert-false":
@@ -226,7 +226,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                                 documentWriter: nodesFactory,
                                 languageId: language),
                             variablesInScope),
-                        $"Expected XPath {xpath} to resolve to false"
+                        $"Expected XPath {SingleLinePrint(xpath)} to resolve to false"
                     );
                 };
             }
@@ -250,7 +250,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                                 documentWriter: nodesFactory,
                                 languageId: language),
                             variablesInScope)
-                        == expectedCount, $"Expected {xpath} to resolve to {expectedCount}");
+                        == expectedCount, $"Expected {SingleLinePrint(xpath)} to resolve to {expectedCount}");
                 };
             }
             case "assert-type":
@@ -275,7 +275,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                                 languageId: language),
                             variablesInScope
                         ),
-                        $"Expected XPath {xpath} to resolve to something of type {expectedType}"
+                        $"Expected XPath {SingleLinePrint(xpath)} to resolve to something of type {expectedType}"
                     );
                 };
             }
@@ -350,7 +350,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                         variablesInScope);
                     Assert.True(
                         result == expectedString,
-                        $"Expected XPath {xpath} to resolve to {expectedString}, but instead got {result ?? "null"}"
+                        $"Expected XPath {SingleLinePrint(xpath)} to resolve to {expectedString}, but instead got {result ?? "null"}"
                     );
                 };
             }
@@ -414,12 +414,17 @@ public class Qt3Assertions<TNode> where TNode : notnull
                                 languageId: language),
                             variablesInScope
                         ),
-                        $"Expected XPath {xpath} to resolve to the empty sequence");
+                        $"Expected XPath {SingleLinePrint(xpath)} to resolve to the empty sequence");
                 };
             }
             default:
                 return (_, _, _, _) =>
                     Assert.True(false, $"Skipped test, it was a {domFacade.GetLocalName(assertNode)}");
         }
+    }
+
+    private static string SingleLinePrint(string input)
+    {
+        return input.Trim().ReplaceLineEndings().Replace(Environment.NewLine, "\\n").Replace("\t", "\\t");
     }
 }

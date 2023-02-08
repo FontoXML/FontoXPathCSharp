@@ -316,14 +316,14 @@ Axes090;Expected executing the XPath '' to resolve to one of the expected result
 Axes091;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 Axes092;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 Axes093;Expected executing the XPath 'let $attribute as attribute(foo) := attribute foo { } return count($attribute/self::bar)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'let $attribute as attribute(foo) := attribute foo { } return count($attribute/self::bar) = 0'
-Axes094;Expected executing the XPath 'let $attribute as attribute(foo) := attribute foo { } 
-Axes095;Expected executing the XPath '
+Axes094;Expected executing the XPath 'let $attribute as attribute(foo) := attribute foo { } \n            return count($attribute/self::*:bar)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'let $attribute as attribute(foo) := attribute foo { } \n            return count($attribute/self::*:bar)\n       = 0'
+Axes095;Expected executing the XPath 'declare namespace ns1 = "http://www.example.org/ns1"; \n        declare namespace ns2 = "http://www.example.org/ns2"; \n        let $attribute as attribute(ns1:foo) := attribute ns1:foo { } \n        return count($attribute/self::ns2:*)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        declare namespace ns1 = "http://www.example.org/ns1"; \n        declare namespace ns2 = "http://www.example.org/ns2"; \n        let $attribute as attribute(ns1:foo) := attribute ns1:foo { } \n        return count($attribute/self::ns2:*)\n       = 0'
 Axes096;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 Axes097;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 Axes098;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 Axes099;Expected executing the XPath 'let $attribute as attribute(*) := attribute foo { } return count($attribute/self::bar)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'let $attribute as attribute(*) := attribute foo { } return count($attribute/self::bar) = 0'
 Axes100;Expected executing the XPath 'let $attribute as attribute(*) := attribute foo { } return count($attribute/self::*:bar)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'let $attribute as attribute(*) := attribute foo { } return count($attribute/self::*:bar) = 0'
-Axes101;Expected executing the XPath '
+Axes101;Expected executing the XPath 'declare namespace ns1 = "http://www.example.org/ns1"; \n        declare namespace ns2 = "http://www.example.org/ns2"; \n        let $attribute as attribute(*) := attribute ns1:foo { } \n        return count($attribute/self::ns2:*)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        declare namespace ns1 = "http://www.example.org/ns1"; \n        declare namespace ns2 = "http://www.example.org/ns2"; \n        let $attribute as attribute(*) := attribute ns1:foo { } \n        return count($attribute/self::ns2:*) = 0'
 Axes102;PRSC Error: Failed to parse query ' = 1'
 Axes103;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 Axes104;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
@@ -1612,7 +1612,7 @@ cbcl-anyURI-011;Type casting to XsAnyUri has not been implemented yet.
 cbcl-anyURI-012;PRSC Error: Failed to parse query ''
 cbcl-anyURI-012b;Type casting to XsAnyUri has not been implemented yet.
 cbcl-anyURI-013;Type casting to XsAnyUri has not been implemented yet.
-cbcl-avg-001;Expected executing the XPath 'fn:avg((xs:decimal("79000000000000000000000000000"),
+cbcl-avg-001;Expected executing the XPath 'fn:avg((xs:decimal("79000000000000000000000000000"),\n                    xs:decimal("79000000000000000000000000000")))\n            eq 79000000000000000000000000000' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 79000000000000000000000000000.
 cbcl-avg-002;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
 cbcl-avg-003;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
 cbcl-avg-004;Items passed to fn:avg are not all numeric.
@@ -2403,10 +2403,10 @@ cbcl-fn-indexof-006;Expected error code: XPTY0004. Query succeeded with result: 
 cbcl-fn-indexof-2;The argument passed to fn:exactly-one is empty or contained more than one item.
 cbcl-fn-indexof-4;Expected XPath boolean(index-of((1 to 10)[. mod 2 = 0],5)) to resolve to false
 cbcl-fn-indexof-5;Expected XPath index-of((1 to 10,(1 to 10)[. mod 2 = 0]),4) to resolve to 4 12, but instead got 4 14
-cbcl-fn-insert-before-002;Expected XPath 
+cbcl-fn-insert-before-002;Expected XPath insert-before((1 to 10,(20 to 30)[. mod 2 = 0],30 to 40),12,"blah") to resolve to 1 2 3 4 5 6 7 8 9 10 20 blah 22 24 26 28 30 30 31 32 33 34 35 36 37 38 39 40, but instead got 1 2 3 4 5 6 7 8 9 10 20 blah 21 22 23 24 25 26 27 28 29 30 30 31 32 33 34 35 36 37 38 39 40
 cbcl-fn-remove-001;The argument passed to fn:exactly-one is empty or contained more than one item.
 cbcl-fn-remove-003;Expected XPath remove((1 to 10)[. mod 2 = 0],4) to resolve to 2 4 6 10, but instead got 1 2 3 5 6 7 8 9 10
-cbcl-fn-remove-004;Expected XPath 
+cbcl-fn-remove-004;Expected XPath remove(((1 to 10)[. mod 2 = 0],"blah",(1 to 10)[. mod 2 = 0]),4) to resolve to 2 4 6 10 blah 2 4 6 8 10, but instead got 1 2 3 5 6 7 8 9 10 blah 1 2 3 4 5 6 7 8 9 10
 cbcl-fn-replace-001;Using flags in 'replace' is not supported
 cbcl-fn-replace-004;Expected XPathException with code FORX0003, but got Using flags in 'replace' is not supported
 cbcl-fn-replace-005;Expected XPathException with code FORX0003, but got Using flags in 'replace' is not supported
@@ -2524,7 +2524,7 @@ cbcl-idref-001;PRSC Error: Failed to parse query ''
 cbcl-idref-002;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 cbcl-idref-003;PRSC Error: Failed to parse query ''
 cbcl-if-not-empty-001;The argument passed to fn:zero-or-one contained more than one item.
-cbcl-instance-of-001;Expected XPath 
+cbcl-instance-of-001;Expected XPath for $x in (xs:integer(1), xs:decimal(1)) return (((($x + 1) * 2) - 1) instance of xs:integer) to resolve to true false, but instead got True False
 cbcl-is-same-node-001;PRSC Error: Failed to parse query ''
 cbcl-last-in-sequence-001;PRSC Error: Failed to parse query '\n      	declare function local:generate($arg as xs:integer?) { if ($arg = 0) then (1, 2, 3) else () }; \n      	( local:generate(0), 1, local:generate(0) )[last()]\n      '
 cbcl-last-in-sequence-002;PRSC Error: Failed to parse query '\n      	declare function local:generate($arg as xs:integer?) as xs:integer* { if ($arg = 0) then (1, 2, 3) else $arg }; \n      	( local:generate(()), for $x in local:generate(0) return $x + 2 )[last()]\n      '
@@ -2736,12 +2736,12 @@ cbcl-numeric-equal-009;PRSC Error: Failed to parse query '\n      	declare funct
 cbcl-numeric-equal-010;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	let $x := local:square(4) return 0 eq $x + 1'
 cbcl-numeric-equal-011;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	let $x := local:square(4) return 4 eq $x + 1'
 cbcl-numeric-equal-012;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	let $x := local:square(4) return 4 eq 1 + $x'
-cbcl-numeric-equal-013;Expected executing the XPath '
-cbcl-numeric-equal-014;Expected executing the XPath '
-cbcl-numeric-equal-015;Expected executing the XPath '
+cbcl-numeric-equal-013;Expected executing the XPath 'declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      \tlet $x := local:square(4) return -52676506002282294014967032012 eq $x + 52676506002282294014967032012' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	let $x := local:square(4) return -52676506002282294014967032012 eq $x + 52676506002282294014967032012'
+cbcl-numeric-equal-014;Expected executing the XPath 'declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      \tlet $x := local:square(4) return -52676506002282294014967032012 eq 52676506002282294014967032012 + $x' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	let $x := local:square(4) return -52676506002282294014967032012 eq 52676506002282294014967032012 + $x'
+cbcl-numeric-equal-015;Expected executing the XPath 'declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      \tlet $x := local:square(4) return 4 eq 1 - $x' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	let $x := local:square(4) return 4 eq 1 - $x'
 cbcl-numeric-equal-016;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	let $x := local:square(4) return 4 eq $x - 1'
-cbcl-numeric-equal-017;Expected executing the XPath '
-cbcl-numeric-equal-018;Expected executing the XPath '
+cbcl-numeric-equal-017;Expected executing the XPath 'declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      \tlet $x := local:square(4) return -52676506002282294014967032012 eq 52676506002282294014967032012 - $x' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	let $x := local:square(4) return -52676506002282294014967032012 eq 52676506002282294014967032012 - $x'
+cbcl-numeric-equal-018;Expected executing the XPath 'declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      \tlet $x := local:square(4) return 52676506002282294014967032012 eq $x - 52676506002282294014967032012' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	let $x := local:square(4) return 52676506002282294014967032012 eq $x - 52676506002282294014967032012'
 cbcl-numeric-greater-than-001;PRSC Error: Failed to parse query 'declare function local:square($arg as xs:double) as xs:double { $arg * $arg }; not( local:square(1e0) gt local:square(2e0) )'
 cbcl-numeric-greater-than-002;PRSC Error: Failed to parse query 'declare function local:square($arg as xs:float) as xs:float { $arg * $arg }; not( local:square(xs:float(1e0)) gt local:square(xs:float(2e0)) )'
 cbcl-numeric-greater-than-003;PRSC Error: Failed to parse query 'declare function local:square($arg as xs:decimal) as xs:decimal { $arg * $arg }; not( local:square(1.0) gt local:square(2.0) )'
@@ -2766,12 +2766,12 @@ cbcl-numeric-greater-than-021;PRSC Error: Failed to parse query 'declare functio
 cbcl-numeric-greater-than-022;PRSC Error: Failed to parse query 'declare function local:factorial($arg as xs:integer) as xs:integer { if ($arg lt 1) then 1 else $arg * local:factorial($arg - 1) }; let $x := local:factorial(5) return 1 + $x gt 121'
 cbcl-numeric-greater-than-023;PRSC Error: Failed to parse query 'declare function local:factorial($arg as xs:integer) as xs:integer { if ($arg lt 1) then 1 else $arg * local:factorial($arg - 1) }; let $x := local:factorial(5) return 1 + $x le 121'
 cbcl-numeric-greater-than-024;PRSC Error: Failed to parse query 'declare function local:factorial($arg as xs:integer) as xs:integer { if ($arg lt 1) then 1 else $arg * local:factorial($arg - 1) }; let $x := local:factorial(5) return 121 le $x - 1'
-cbcl-numeric-idivide-001;Expected executing the XPath '
-cbcl-numeric-idivide-002;Expected executing the XPath '
+cbcl-numeric-idivide-001;Expected executing the XPath 'declare function local:square($arg as xs:decimal) as xs:decimal { $arg * $arg }; \n      \tlocal:square(4294967296.0) idiv 0.0000000000005 gt 0' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:decimal) as xs:decimal { $arg * $arg }; \n      	local:square(4294967296.0) idiv 0.0000000000005 gt 0'
+cbcl-numeric-idivide-002;Expected executing the XPath 'declare function local:square($arg as xs:double) as xs:double { $arg * $arg }; \n      \tlocal:square(1e100) idiv 5e-100' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOAR0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:double) as xs:double { $arg * $arg }; \n      	local:square(1e100) idiv 5e-100'
 cbcl-numeric-idivide-003;Expected error code: FOAR0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:float) as xs:float { $arg * $arg }; \n      	local:square(xs:float(1e30)) idiv xs:float(5e-30)'
 cbcl-numeric-idivide-004;PRSC Error: Failed to parse query '\n      	declare function local:integer($x as xs:decimal) { if ($x mod 1 eq 0) then xs:integer($x) else $x };\n      	 (local:integer(2) idiv local:integer(2)) instance of xs:integer'
 cbcl-numeric-idivide-008;Expected executing the XPath 'xs:float('1e38') idiv xs:float('1e-37')' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOAR0002, but got Value was either too large or too small for a Decimal.
-cbcl-numeric-idivide-009;Expected executing the XPath '
+cbcl-numeric-idivide-009;Expected executing the XPath 'declare function local:value($number as xs:boolean) { if ($number) then 1 else xs:string('1') }; \n      \tlocal:value(true()) idiv local:value(true())' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n      	declare function local:value($number as xs:boolean) { if ($number) then 1 else xs:string('1') }; \n      	local:value(true()) idiv local:value(true())\n       = 1'
 cbcl-numeric-less-than-001;PRSC Error: Failed to parse query 'declare function local:square($arg as xs:double) as xs:double { $arg * $arg }; not( local:square(1e0) lt local:square(2e0) )'
 cbcl-numeric-less-than-002;PRSC Error: Failed to parse query 'declare function local:square($arg as xs:float) as xs:float { $arg * $arg }; not( local:square(xs:float(1e0)) lt local:square(xs:float(2e0)) )'
 cbcl-numeric-less-than-003;PRSC Error: Failed to parse query 'declare function local:square($arg as xs:decimal) as xs:decimal { $arg * $arg }; not( local:square(1.0) lt local:square(2.0) )'
@@ -2803,7 +2803,7 @@ cbcl-numeric-less-than-028;PRSC Error: Failed to parse query 'declare function l
 cbcl-numeric-less-than-029;PRSC Error: Failed to parse query 'declare function local:factorial($arg as xs:integer) as xs:integer { if ($arg lt 1) then 1 else $arg * local:factorial($arg - 1) }; let $x := local:factorial(5) return 121 ge 2 + $x'
 cbcl-numeric-mod-001;PRSC Error: Failed to parse query '\n      	declare function local:integer($x as xs:decimal) { if ($x mod 1 eq 0) then xs:integer($x) else $x }; \n      	(local:integer(3) mod local:integer(2)) instance of xs:integer'
 cbcl-numeric-mod-002;PRSC Error: Failed to parse query '\n      	declare function local:integer($x as xs:decimal) { if ($x mod 1 eq 0) then xs:integer($x) else $x }; \n      	(local:integer(3.5) mod local:integer(2)) instance of xs:integer'
-cbcl-numeric-mod-003;Expected executing the XPath '
+cbcl-numeric-mod-003;Expected executing the XPath 'declare function local:value($number as xs:boolean) { if ($number) then 1 else xs:string('1') }; \n      \tlocal:value(true()) mod local:value(true())' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n      	declare function local:value($number as xs:boolean) { if ($number) then 1 else xs:string('1') }; \n      	local:value(true()) mod local:value(true())'
 cbcl-numeric-multiply-001;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:double) as xs:double { $arg * $arg }; \n      	xs:double('NaN') * local:square(7)'
 cbcl-numeric-multiply-002;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:double) as xs:double { $arg * $arg }; \n      	local:square(7) * xs:double('NaN')'
 cbcl-numeric-multiply-003;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:double) as xs:double { $arg * $arg }; \n      	local:square(7) * 1e0'
@@ -2828,8 +2828,8 @@ cbcl-numeric-multiply-021;PRSC Error: Failed to parse query '\n      	declare fu
 cbcl-numeric-multiply-022;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	1 * local:square(7)'
 cbcl-numeric-multiply-023;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	local:square(7) * -1'
 cbcl-numeric-multiply-024;PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	-1 * local:square(7)'
-cbcl-numeric-multiply-025;Expected executing the XPath '
-cbcl-numeric-multiply-026;Expected executing the XPath '
+cbcl-numeric-multiply-025;Expected executing the XPath 'declare function local:square($arg as xs:decimal) as xs:decimal { $arg * $arg }; \n      \tlocal:square(9223372036854775808.1) gt 0' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:decimal) as xs:decimal { $arg * $arg }; \n      	local:square(9223372036854775808.1) gt 0'
+cbcl-numeric-multiply-026;Expected executing the XPath 'declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      \tlocal:square(9223372036854775808) gt 0' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n      	declare function local:square($arg as xs:integer) as xs:integer { $arg * $arg }; \n      	local:square(9223372036854775808) gt 0'
 cbcl-numeric-multiply-027;PRSC Error: Failed to parse query '\n      	declare function local:integer($x as xs:decimal) { if ($x mod 1 eq 0) then xs:integer($x) else $x }; \n      	(local:integer(2) * local:integer(2)) instance of xs:integer'
 cbcl-numeric-subtract-001;Expected executing the XPath '-79228162514264337593543950335.0 - 1.0 lt 0.0' to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for a Decimal.
 cbcl-numeric-subtract-002;Expected executing the XPath '-79228162514264337593543950335 - 1 lt 0' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 79228162514264337593543950335.
@@ -2840,7 +2840,7 @@ cbcl-numeric-subtract-006;PRSC Error: Failed to parse query '\n      	declare fu
 cbcl-numeric-subtract-007;PRSC Error: Failed to parse query '\n      	declare function local:integer($x as xs:decimal) { if ($x mod 1 eq 0) then xs:integer($x) else $x }; \n      	local:integer(2) - -(local:integer(4))'
 cbcl-numeric-subtract-008;PRSC Error: Failed to parse query '\n      	declare function local:integer($x as xs:decimal) { if ($x mod 1 eq 0) then xs:integer($x) else $x }; \n      	-(local:integer(2)) - local:integer(4)'
 cbcl-numeric-unary-minus-001;Expected executing the XPath 'declare function local:value($number as xs:boolean) { if ($number) then 1 else xs:string('1') }; -(local:value(true()))' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare function local:value($number as xs:boolean) { if ($number) then 1 else xs:string('1') }; -(local:value(true()))'
-cbcl-numeric-unary-plus-001;Expected executing the XPath '
+cbcl-numeric-unary-plus-001;Expected executing the XPath 'declare function local:value($number as xs:boolean) { if ($number) then 1 else xs:string('1') }; \n      \t+(local:value(true()))' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n      	declare function local:value($number as xs:boolean) { if ($number) then 1 else xs:string('1') }; \n      	+(local:value(true()))'
 cbcl-one-or-more-001;PRSC Error: Failed to parse query '\n        declare function local:generate($arg as xs:integer?) { if ($arg = 0) then (1, 2, 3) else $arg };\n        fn:one-or-more(fn:reverse( local:generate( 0 ) ))'
 cbcl-one-or-more-002;Expected error code: FORG0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:generate($arg as xs:integer?) { if ($arg = 0) then (1, 2, 3) else $arg };\n        fn:one-or-more(fn:zero-or-one( local:generate( () ) ))'
 cbcl-one-or-more-003;PRSC Error: Failed to parse query ''
@@ -3095,10 +3095,10 @@ Comp-notation-16;PRSC Error: Failed to parse query 'import schema namespace myns
 Comp-notation-17;PRSC Error: Failed to parse query 'import schema namespace myns="http://www.example.com/notation"; \n         (exactly-one(//*:NOTATION1[1]) eq exactly-one(//*:NOTATION2[1])) and fn:false()'
 Comp-notation-18;PRSC Error: Failed to parse query 'import schema namespace myns="http://www.example.com/notation"; \n         (exactly-one(//*:NOTATION1[1]) ne exactly-one(//*:NOTATION2[1])) and fn:false()'
 Comp-notation-19;PRSC Error: Failed to parse query 'import schema namespace myns="http://www.example.com/notation"; \n         (exactly-one(//*:NOTATION1[1]) eq exactly-one(//*:NOTATION2[1])) or fn:false()'
-Comp-notation-2;Expected executing the XPath 'import schema namespace myns="http://www.example.com/notation"; 
+Comp-notation-2;Expected executing the XPath 'import schema namespace myns="http://www.example.com/notation"; \n         exactly-one(//*:NOTATION1[1]) eq exactly-one(//*:NOTATION2[1])' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'import schema namespace myns="http://www.example.com/notation"; \n         exactly-one(//*:NOTATION1[1]) eq exactly-one(//*:NOTATION2[1])'
 Comp-notation-20;PRSC Error: Failed to parse query 'import schema namespace myns="http://www.example.com/notation"; \n         (exactly-one(//*:NOTATION1[1]) ne exactly-one(//*:NOTATION2[1])) or fn:false()'
 Comp-notation-21;PRSC Error: Failed to parse query 'import schema namespace myns="http://www.example.com/notation"; \n         exactly-one(//*:NOTATION1[1]) eq exactly-one(//*:NOTATION2[1])\n      '
-Comp-notation-22;Expected executing the XPath 'import schema namespace myns="http://www.example.com/notation"; 
+Comp-notation-22;Expected executing the XPath 'import schema namespace myns="http://www.example.com/notation"; \n         exactly-one(//*:NOTATION1[1]) ne exactly-one(//*:NOTATION2[1])' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'import schema namespace myns="http://www.example.com/notation"; \n         exactly-one(//*:NOTATION1[1]) ne exactly-one(//*:NOTATION2[1])'
 Comp-notation-3;PRSC Error: Failed to parse query 'import schema namespace myns="http://www.example.com/notation"; \n         exactly-one(//*:NOTATION1[1]) eq exactly-one(//*:NOTATION4[1])'
 Comp-notation-4;PRSC Error: Failed to parse query 'import schema namespace myns="http://www.example.com/notation"; \n         exactly-one(//*:NOTATION1[1]) ne exactly-one(//*:NOTATION3[1])'
 Comp-notation-5;PRSC Error: Failed to parse query 'import schema namespace myns="http://www.example.com/notation"; \n         exactly-one(//*:NOTATION1[1]) ne exactly-one(//*:NOTATION2[1])'
@@ -3294,11 +3294,11 @@ Constr-compelem-compname-7;Expected error code: XPTY0004. Found error code: XPST
 Constr-compelem-compname-8;PRSC Error: Failed to parse query 'element {//*:NCName[1]} {'text'}'
 Constr-compelem-compname-9;PRSC Error: Failed to parse query 'element {xs:QName('aQname')} {'text'}'
 Constr-compelem-constrmod-1;PRSC Error: Failed to parse query '\n        declare construction strip; \n        import schema namespace atomic="http://www.w3.org/XQueryTest"; \n        fn:count(fn:data((element elem {//*:idrefs})/*))\n       = 1'
-Constr-compelem-constrmod-2;Expected executing the XPath '
+Constr-compelem-constrmod-2;Expected executing the XPath 'declare construction preserve; \n        import schema namespace atomic="http://www.w3.org/XQueryTest"; \n        fn:count(fn:data((element elem {//*:idrefs})/*))' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        declare construction preserve; \n        import schema namespace atomic="http://www.w3.org/XQueryTest"; \n        fn:count(fn:data((element elem {//*:idrefs})/*))\n       = 2'
 Constr-compelem-constrmod-3;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare construction strip; (element elem {xs:decimal((//decimal[1]))}) cast as xs:integer'
 Constr-compelem-constrmod-4;Expected executing the XPath 'declare construction preserve; (element elem {xs:decimal((//decimal[1]))}) cast as xs:integer' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare construction preserve; (element elem {xs:decimal((//decimal[1]))}) cast as xs:integer = 12678967'
 Constr-compelem-constrmod-5;PRSC Error: Failed to parse query '\n        declare construction strip; \n        import schema namespace atomic="http://www.w3.org/XQueryTest"; \n        fn:count(fn:data((element elem {//*:idrefs/@*:attr})/@*:attr))\n       = 1'
-Constr-compelem-constrmod-6;Expected executing the XPath '
+Constr-compelem-constrmod-6;Expected executing the XPath 'declare construction preserve; \n        import schema namespace atomic="http://www.w3.org/XQueryTest"; \n        fn:count(fn:data((element elem {//*:idrefs/@*:attr})/@*:attr))' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        declare construction preserve; \n        import schema namespace atomic="http://www.w3.org/XQueryTest"; \n        fn:count(fn:data((element elem {//*:idrefs/@*:attr})/@*:attr))\n       = 2'
 Constr-compelem-constrmod-7;Expected error code: FORG0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare construction strip; (element elem {//*:decimal/@*:attr})/@*:attr cast as xs:integer'
 Constr-compelem-constrmod-8;Expected executing the XPath 'declare construction preserve; (element elem {xs:decimal(//*:decimal[1]/@*:attr)}) cast as xs:integer' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare construction preserve; (element elem {xs:decimal(//*:decimal[1]/@*:attr)}) cast as xs:integer = 12678967'
 Constr-compelem-data-1;PRSC Error: Failed to parse query 'fn:data(element elem {'a', element a {}, 'b'})'
@@ -3617,11 +3617,11 @@ contextDecl-014;PRSC Error: Failed to parse query '\n        declare variable $x
 contextDecl-015;Expected executing the XPath '' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 contextDecl-016;PRSC Error: Failed to parse query ' = 1'
 contextDecl-017;PRSC Error: Failed to parse query ' = 1'
-contextDecl-018;Expected executing the XPath ' declare context item := last() + 1; .' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' declare context item := last() + 1; . = 2'
-contextDecl-019;Expected executing the XPath ' declare context item := position() + 1; .' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' declare context item := position() + 1; . = 2'
+contextDecl-018;Expected executing the XPath 'declare context item := last() + 1; .' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' declare context item := last() + 1; . = 2'
+contextDecl-019;Expected executing the XPath 'declare context item := position() + 1; .' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' declare context item := position() + 1; . = 2'
 contextDecl-020;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ' declare context item as xs:integer external; . '
 contextDecl-021;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ' declare context item as xs:integer := 'London'; . '
-contextDecl-022;Expected executing the XPath ' declare context item as xs:string := 2; . ' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ' declare context item as xs:string := 2; . '
+contextDecl-022;Expected executing the XPath 'declare context item as xs:string := 2; .' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ' declare context item as xs:string := 2; . '
 contextDecl-028;PRSC Error: Failed to parse query ' declare context item := 3; . + 4  = 7'
 contextDecl-029;PRSC Error: Failed to parse query ' = 7'
 contextDecl-030;PRSC Error: Failed to parse query ' = 6'
@@ -3647,7 +3647,7 @@ contextDecl-049;PRSC Error: Failed to parse query ''
 contextDecl-050;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 contextDecl-051;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 contextDecl-052;Expected error code: XQST0113. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        import module namespace m="http://www.w3.org/TestModules/libmodule3"; \n        . eq 23\n      '
-contextDecl-053;Expected executing the XPath '
+contextDecl-053;Expected executing the XPath 'declare variable $p := "base-uri";\n        declare variable $f := function-lookup(xs:QName("fn:"||$p), 0);\n        declare context item := $f();\n        .' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare variable $p := "base-uri";\n        declare variable $f := function-lookup(xs:QName("fn:"||$p), 0);\n        declare context item := $f();\n        .\n      '
 contextDecl-054;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      	import module namespace m="http://www.w3.org/TestModules/libmodule2"; \n        xs:date(.) gt xs:date('1900-01-01')\n      '
 contextDecl-055;PRSC Error: Failed to parse query ' = "e"'
 contextDecl-056;PRSC Error: Failed to parse query '\n      import module namespace m="http://www.w3.org/TestModules/libmodule4";\n      declare context item as xs:numeric external;\n      $m:v eq 4\n    '
@@ -3990,7 +3990,7 @@ eqname-030;PRSC Error: Failed to parse query '\n         let $f := function($Q{'
 eqname-031;PRSC Error: Failed to parse query '\n         let $Q{t:e:s:t}f := function($Q{''}a, $Q{http:}a) { $Q{''}a + $Q{http:}a }\n         return $Q{t:e:s:t}f(15, 27)\n       = 42'
 eqname-032;PRSC Error: Failed to parse query '\n         let $Q{%7D}a := 12, $Q{}b := 13\n         return $Q{%7D}a + $b\n       = 25'
 eqname-033;PRSC Error: Failed to parse query '\n         let $Q{foo%20bar}a := 12, $Q{foo bar}a := 13\n         return $Q{foo%20bar}a + $Q{  foo   bar  }a\n       = 25'
-eqname-034;Expected executing the XPath '
+eqname-034;Expected executing the XPath 'let $Q{$Q}a := 12, $Q{//}a := 13, $Q{*}a := 14\n         return $Q{$Q}a + $Q{//}a + $Q{*}a' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQST0046. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         let $Q{$Q}a := 12, $Q{//}a := 13, $Q{*}a := 14\n         return $Q{$Q}a + $Q{//}a + $Q{*}a\n      '
 eqname-908;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'Q{http://www.w3.org/2005/ xpath-functions/math}pi()'
 eqname-909;Expected executing the XPath '' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQST0046. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 eqname-909p;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
@@ -4514,7 +4514,7 @@ fn-current-time-5;The function fn:current-time with arity 0 is not registered.
 fn-current-time-6;PRSC Error: Failed to parse query '(fn:current-time() + xs:dayTimeDuration("P3DT1H15M")) instance of $xs:time'
 fn-current-time-7;PRSC Error: Failed to parse query '(fn:current-time() - xs:dayTimeDuration("P3DT1H15M")) instance of $xs:time'
 fn-current-time-9;The function fn:current-time with arity 0 is not registered.
-fn-data-1;Expected executing the XPath '
+fn-data-1;Expected executing the XPath 'import schema namespace examples = "http://www.w3.org/XQueryTest/someExamples"; \n        fn:data(/examples:E6-Root/examples:E6)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        import schema namespace examples = "http://www.w3.org/XQueryTest/someExamples"; \n        fn:data(/examples:E6-Root/examples:E6)'
 fn-data-2;PRSC Error: Failed to parse query '(data([])) => empty()'
 fn-data-3;PRSC Error: Failed to parse query 'deep-equal((data([1,2,3])), (1,2,3))'
 fn-data-4;Expected XPath  to (deep equally) resolve to '1','2','3'
@@ -6925,8 +6925,8 @@ fn-tokenize-22;Expected XPath fn:tokenize("abracadabra-abracadabra", "\-") to (d
 fn-tokenize-23;Expected XPath fn:tokenize("abracadabra.abracadabra", "\.") to (deep equally) resolve to "abracadabra", "abracadabra"
 fn-tokenize-24;Expected XPath fn:tokenize("abracadabra|abracadabra", "\|") to (deep equally) resolve to "abracadabra", "abracadabra"
 fn-tokenize-25;Expected XPath fn:tokenize("abracadabra\abracadabra", "\\") to (deep equally) resolve to "abracadabra", "abracadabra"
-fn-tokenize-26;Expected XPath fn:tokenize("abracadabra	abracadabra", "\t") to (deep equally) resolve to "abracadabra", "abracadabra"
-fn-tokenize-27;Expected XPath fn:tokenize("abracadabra
+fn-tokenize-26;Expected XPath fn:tokenize("abracadabra\tabracadabra", "\t") to (deep equally) resolve to "abracadabra", "abracadabra"
+fn-tokenize-27;Expected XPath fn:tokenize("abracadabra\nabracadabra", "\n") to (deep equally) resolve to "abracadabra", "abracadabra"
 fn-tokenize-28;Expected XPath fn:tokenize("abracadabraabracadabra", "aa{1}") to (deep equally) resolve to "abracadabr", "bracadabra"
 fn-tokenize-29;Expected XPath fn:tokenize("abracadabraabracadabraabracadabra", "aa{1,}") to (deep equally) resolve to "abracadabr", "bracadabr", "bracadabra"
 fn-tokenize-3;Expected XPath fn:tokenize("The cat sat on the mat", "\s+") to resolve to The cat sat on the mat, but instead got          
@@ -7156,7 +7156,7 @@ fo-test-array-subarray-006;PRSC Error: Failed to parse query 'deep-equal((\n    
 fo-test-array-subarray-007;PRSC Error: Failed to parse query 'deep-equal((\n        array:subarray([ ], 1, 0)\n      ), ([ ]))'
 fo-test-array-tail-001;PRSC Error: Failed to parse query 'deep-equal((\n        array:tail([5, 6, 7, 8])\n      ), ([6, 7, 8]))'
 fo-test-array-tail-002;PRSC Error: Failed to parse query 'deep-equal((\n        array:tail([5])\n      ), ([ ]))'
-fo-test-fn-abs-002;Expected XPath 
+fo-test-fn-abs-002;Expected XPath fn:abs(-10.5) to (deep equally) resolve to 10.5
 fo-test-fn-adjust-date-to-timezone-003;The function fn:adjust-date-to-timezone with arity 2 is not registered.
 fo-test-fn-adjust-date-to-timezone-004;The function fn:adjust-date-to-timezone with arity 2 is not registered.
 fo-test-fn-adjust-date-to-timezone-005;The function fn:adjust-date-to-timezone with arity 2 is not registered.
@@ -7184,13 +7184,13 @@ fo-test-fn-avg-005;Overflow when creating a Int64 from NaN.
 fo-test-fn-boolean-001;A wrong argument type was specified in a function call.
 fo-test-fn-boolean-002;A wrong argument type was specified in a function call.
 fo-test-fn-boolean-003;A wrong argument type was specified in a function call.
-fo-test-fn-ceiling-002;Expected XPath 
+fo-test-fn-ceiling-002;Expected XPath fn:ceiling(-10.5) to (deep equally) resolve to -10
 fo-test-fn-collation-key-001;PRSC Error: Failed to parse query 'deep-equal((\n          let $C := 'http://www.w3.org/2013/collation/UCA?strength=primary'\n          \n           return \n\n        \n        map:merge((map{collation-key("A", $C):1}, map{collation-key("a",\n                  $C):2}), map{"duplicates":"use-last"})(collation-key("A", $C))\n      ), (2))'
 fo-test-fn-collation-key-002;PRSC Error: Failed to parse query 'deep-equal((\n          let $C := 'http://www.w3.org/2013/collation/UCA?strength=primary'\n          \n           return \n\n        \n        let $M := map{collation-key("A", $C):1, collation-key("B", $C):2}\n                  return $M(collation-key("a", $C))\n      ), (1))'
-fo-test-fn-compare-002;Expected XPath 
+fo-test-fn-compare-002;Expected XPath fn:compare('Strasse', 'Straße') to (deep equally) resolve to 0
 fo-test-fn-compare-003;No collations are supported
-fo-test-fn-compare-004;Expected XPath 
-fo-test-fn-concat-005;Expected XPath 
+fo-test-fn-compare-004;Expected XPath fn:compare('Strassen', 'Straße') to (deep equally) resolve to 1
+fo-test-fn-concat-005;Expected XPath fn:concat(01, 02, 03, 04, true()) to (deep equally) resolve to "1234true"
 fo-test-fn-contains-004;No collations are supported
 fo-test-fn-contains-005;No collations are supported
 fo-test-fn-contains-006;No collations are supported
@@ -7200,7 +7200,7 @@ fo-test-fn-contains-token-002;The function fn:contains-token with arity 2 is not
 fo-test-fn-contains-token-003;The function fn:contains-token with arity 2 is not registered.
 fo-test-fn-contains-token-004;The function fn:contains-token with arity 3 is not registered.
 fo-test-fn-count-001;PRSC Error: Failed to parse query 'deep-equal((\n          let $po := \n          <PurchaseOrder> <line-item>\n         <description>Large widget</description> <price>8.95</price>\n         <quantity>5.0</quantity> </line-item> <line-item>\n         <description>Small widget</description> <price>3.99</price>\n         <quantity>2.0</quantity> </line-item> <line-item>\n         <description>Tiny widget</description> <price>1.49</price>a\n         <quantity>805</quantity> </line-item>\n         </PurchaseOrder>\n           return \n\n        \n          let $item1 := $po/line-item[1]\n          \n           return \n\n        \n          let $item2 := $po/line-item[2]\n          \n           return \n\n        \n          let $seq1 := ($item1, $item2)\n          \n           return \n\n        \n        fn:count($seq1)\n      ), (2))'
-fo-test-fn-count-004;Expected XPath 
+fo-test-fn-count-004;Expected XPath let $seq2 := (98.5, 98.3, 98.9)\n          \n           return \n\n        \n        fn:count($seq2[. > 100]) to (deep equally) resolve to 0
 fo-test-fn-count-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:count([])\n      ), (1))'
 fo-test-fn-count-006;PRSC Error: Failed to parse query 'deep-equal((\n        fn:count([1,2,3])\n      ), (1))'
 fo-test-fn-data-003;PRSC Error: Failed to parse query 'deep-equal((\n        data([[1,2],[3,4]])\n      ), (1, 2, 3, 4))'
@@ -7228,12 +7228,12 @@ fo-test-fn-distinct-values-001;Skipped test, it was a assert-permutation
 fo-test-fn-distinct-values-002;Skipped test, it was a assert-permutation
 fo-test-fn-element-with-id-001;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n         validate lax{    \n          document{\n            <employee xml:id="ID21256"\n                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  \n                      xmlns:xs="http://www.w3.org/2001/XMLSchema">\n               <empnr xsi:type="xs:ID">E21256</empnr>\n               <first>John</first>\n               <last>Brown</last>\n            </employee>\n          }\n        }\n         \n           return \n\n        \n        $emp/fn:element-with-id('ID21256')/name()\n      ), ("employee"))'
 fo-test-fn-element-with-id-002;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n         validate lax{    \n          document{\n            <employee xml:id="ID21256"\n                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  \n                      xmlns:xs="http://www.w3.org/2001/XMLSchema">\n               <empnr xsi:type="xs:ID">E21256</empnr>\n               <first>John</first>\n               <last>Brown</last>\n            </employee>\n          }\n        }\n         \n           return \n\n        \n        $emp/fn:element-with-id('E21256')/name()\n      ), ("employee"))'
-fo-test-fn-empty-001;Expected XPath 
+fo-test-fn-empty-001;Expected XPath fn:empty((1,2,3)[10]) to resolve to true
 fo-test-fn-empty-003;PRSC Error: Failed to parse query '\n        fn:empty([])\n      '
 fo-test-fn-empty-004;PRSC Error: Failed to parse query '\n        fn:empty(map{})\n      '
-fo-test-fn-encode-for-uri-001;Expected XPath 
-fo-test-fn-encode-for-uri-002;Expected XPath 
-fo-test-fn-encode-for-uri-003;Expected XPath 
+fo-test-fn-encode-for-uri-001;Expected XPath fn:encode-for-uri("http://www.example.com/00/Weather/CA/Los%20Angeles#ocean") to (deep equally) resolve to "http%3A%2F%2Fwww.example.com%2F00%2FWeather%2FCA%2FLos%2520Angeles%23ocean"
+fo-test-fn-encode-for-uri-002;Expected XPath concat("http://www.example.com/",\n                  encode-for-uri("~bébé")) to (deep equally) resolve to "http://www.example.com/~b%C3%A9b%C3%A9"
+fo-test-fn-encode-for-uri-003;Expected XPath concat("http://www.example.com/", encode-for-uri("100% organic")) to (deep equally) resolve to "http://www.example.com/100%25%20organic"
 fo-test-fn-ends-with-004;No collations are supported
 fo-test-fn-ends-with-005;No collations are supported
 fo-test-fn-ends-with-006;No collations are supported
@@ -7247,7 +7247,7 @@ fo-test-fn-exists-003;PRSC Error: Failed to parse query '\n        fn:exists([])
 fo-test-fn-exists-004;PRSC Error: Failed to parse query '\n        fn:exists(map{})\n      '
 fo-test-fn-filter-001;PRSC Error: Failed to parse query 'deep-equal((\n        fn:filter(1 to 10, function($a) {$a mod 2 = 0})\n      ), ((2, 4, 6, 8, 10)))'
 fo-test-fn-filter-002;ArgumentPlaceholder AST to Expression not yet implemented
-fo-test-fn-floor-002;Expected XPath 
+fo-test-fn-floor-002;Expected XPath fn:floor(-10.5) to (deep equally) resolve to -11
 fo-test-fn-fold-left-001;PRSC Error: Failed to parse query 'deep-equal((\n        fn:fold-left(1 to 5, 0, function($a, $b) { $a + $b\n                  })\n      ), (15))'
 fo-test-fn-fold-left-002;PRSC Error: Failed to parse query 'deep-equal((\n        fn:fold-left((2,3,5,7), 1, function($a, $b) { $a * $b\n                  })\n      ), (210))'
 fo-test-fn-fold-left-003;PRSC Error: Failed to parse query '\n        fn:fold-left((true(), false(), false()), false(), function($a, $b) {\n                  $a or $b })\n      '
@@ -7307,13 +7307,13 @@ fo-test-fn-idref-001;PRSC Error: Failed to parse query 'deep-equal((\n          
 fo-test-fn-idref-002;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n      validate lax {  \n        document {    \n          <employees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  \n                     xmlns:xs="http://www.w3.org/2001/XMLSchema">  \n            <employee xml:id="ID21256">\n               <empnr xsi:type="xs:ID">E21256</empnr>\n               <first>Anil</first>\n               <last>Singh</last>\n               <deputy xsi:type="xs:IDREF">E30561</deputy>\n            </employee>\n            <employee xml:id="ID30561">\n               <empnr xsi:type="xs:ID">E30561</empnr>\n               <first>John</first>\n               <last>Brown</last>\n               <manager xsi:type="xs:IDREF">ID21256</manager>\n            </employee>\n          </employees>\n        }\n      }\n         \n           return \n\n        \n        $emp/(element-with-id('E30561')/empnr => fn:idref())/ancestor::employee/last => string()\n      ), ("Singh"))'
 fo-test-fn-index-of-004;The function current-date with arity 0 is not registered.
 fo-test-fn-index-of-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:index-of([1, [5, 6], [6, 7]], 6)\n      ), ((3, 4)))'
-fo-test-fn-iri-to-uri-001;Expected XPath 
-fo-test-fn-iri-to-uri-002;Expected XPath 
+fo-test-fn-iri-to-uri-001;Expected XPath fn:iri-to-uri\n                  ("http://www.example.com/00/Weather/CA/Los%20Angeles#ocean") to (deep equally) resolve to "http://www.example.com/00/Weather/CA/Los%20Angeles#ocean"
+fo-test-fn-iri-to-uri-002;Expected XPath fn:iri-to-uri ("http://www.example.com/~bébé") to (deep equally) resolve to "http://www.example.com/~b%C3%A9b%C3%A9"
 fo-test-fn-json-to-xml-001;The function json-to-xml with arity 1 is not registered.
 fo-test-fn-json-to-xml-002;PRSC Error: Failed to parse query '\n        json-to-xml('"abcd"', map{'liberal': false()})\n      '
 fo-test-fn-json-to-xml-003;The function json-to-xml with arity 1 is not registered.
 fo-test-fn-json-to-xml-004;PRSC Error: Failed to parse query '\n        json-to-xml('{"x": "\\", "y": "\u0025"}', map{'escape':\n                  true()})\n      '
-fo-test-fn-last-001;Expected XPath 
+fo-test-fn-last-001;Expected XPath (1 to 20)[fn:last() - 1] to (deep equally) resolve to 19
 fo-test-fn-local-name-from-QName-001;The function fn:local-name-from-QName with arity 1 is not registered.
 fo-test-fn-matches-001;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fo-test-fn-matches-002;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
@@ -7376,8 +7376,8 @@ fo-test-fn-path-008;PRSC Error: Failed to parse query 'deep-equal((\n          l
 fo-test-fn-path-009;PRSC Error: Failed to parse query 'deep-equal((\n          let $emp := \n          \n            <employee xml:id="ID21256">\n               <empnr>E21256</empnr>\n               <first>John</first>\n               <last>Brown</last>\n            </employee>\n         \n           return \n\n        \n        fn:path($emp/empnr)\n      ), ('Q{http://www.w3.org/2005/xpath-functions}root()/Q{}empnr[1]'))'
 fo-test-fn-reverse-004;PRSC Error: Failed to parse query 'deep-equal((\n        fn:reverse([1,2,3])\n      ), ([1,2,3]))'
 fo-test-fn-reverse-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:reverse(([1,2,3],[4,5,6]))\n      ), (([4,5,6],[1,2,3])))'
-fo-test-fn-round-001;Expected XPath 
-fo-test-fn-round-004;Expected XPath 
+fo-test-fn-round-001;Expected XPath fn:round(2.5) to (deep equally) resolve to 3.0
+fo-test-fn-round-004;Expected XPath fn:round(1.125, 2) to (deep equally) resolve to 1.13
 fo-test-fn-round-006;PRSC Error: Failed to parse query 'deep-equal((\n        fn:round(3.1415e0, 2)\n      ), (3.14e0))'
 fo-test-fn-round-half-to-even-004;PRSC Error: Failed to parse query 'deep-equal((\n        fn:round-half-to-even(3.567812e+3, 2)\n      ), (3567.81e0))'
 fo-test-fn-round-half-to-even-005;PRSC Error: Failed to parse query 'deep-equal((\n        fn:round-half-to-even(4.7564e-3, 2)\n      ), (0.0e0))'
@@ -7394,7 +7394,7 @@ fo-test-fn-starts-with-005;No collations are supported
 fo-test-fn-starts-with-006;No collations are supported
 fo-test-fn-starts-with-007;No collations are supported
 fo-test-fn-starts-with-008;No collations are supported
-fo-test-fn-string-002;Expected XPath 
+fo-test-fn-string-002;Expected XPath string(false()) to (deep equally) resolve to "false"
 fo-test-fn-string-004;Expected error code: XPTY0004. Query succeeded with result: 1 2 3
 fo-test-fn-string-005;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        string([[1, 2], [3, 4]])\n      '
 fo-test-fn-string-006;Expected error code: FOTY0014. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        string(abs#1)\n      '
@@ -7419,7 +7419,7 @@ fo-test-fn-substring-before-006;The function fn:substring-before with arity 3 is
 fo-test-fn-substring-before-007;The function fn:substring-before with arity 3 is not registered.
 fo-test-fn-sum-001;Items passed to fn:sum are not all numeric.
 fo-test-fn-sum-002;Items passed to fn:sum are not all numeric.
-fo-test-fn-sum-006;Expected XPath 
+fo-test-fn-sum-006;Expected XPath fn:sum((1 to 100)[. lt 0], 0) to (deep equally) resolve to 0
 fo-test-fn-sum-007;Items passed to fn:sum are not all numeric.
 fo-test-fn-sum-008;PRSC Error: Failed to parse query 'deep-equal((\n        fn:sum([1, 2, 3])\n      ), (6))'
 fo-test-fn-sum-009;PRSC Error: Failed to parse query 'deep-equal((\n        fn:sum([[1, 2], [3, 4]])\n      ), (10))'
@@ -7432,10 +7432,10 @@ fo-test-fn-timezone-from-dateTime-003;The function fn:timezone-from-dateTime wit
 fo-test-fn-timezone-from-time-001;The function fn:timezone-from-time with arity 1 is not registered.
 fo-test-fn-timezone-from-time-002;The function fn:timezone-from-time with arity 1 is not registered.
 fo-test-fn-tokenize-001;The function fn:tokenize with arity 1 is not registered.
-fo-test-fn-tokenize-002;Expected XPath 
-fo-test-fn-tokenize-003;Expected XPath 
-fo-test-fn-tokenize-004;Expected XPath 
-fo-test-fn-tokenize-005;Expected XPath 
+fo-test-fn-tokenize-002;Expected XPath fn:tokenize("The cat sat on the mat", "\s+") to (deep equally) resolve to ("The", "cat", "sat", "on", "the", "mat")
+fo-test-fn-tokenize-003;Expected XPath fn:tokenize(" red green blue ", "\s+") to (deep equally) resolve to ("", "red", "green", "blue", "")
+fo-test-fn-tokenize-004;Expected XPath fn:tokenize("1, 15, 24, 50", ",\s*") to (deep equally) resolve to ("1", "15", "24", "50")
+fo-test-fn-tokenize-005;Expected XPath fn:tokenize("1,15,,24,50,", ",") to (deep equally) resolve to ("1", "15", "", "24", "50", "")
 fo-test-fn-tokenize-006;Using flags in 'tokenize' is not supported
 fo-test-fn-translate-002;Index was outside the bounds of the array.
 fo-test-fn-translate-003;Index was outside the bounds of the array.
@@ -7636,7 +7636,7 @@ FOAR0001_7;Expected error code: FOAR0001. Found error code: FOCA0001 with error 
 FOAR0001_8;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from NaN.
 FOAR0001_9;Expected XPathException with code FOAR0001, but got Attempted to divide by zero.
 FOAR0002_1;Expected executing the XPath '2e308' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOAR0002. Query succeeded with result: Infinity
-FOAR0002-5;Expected executing the XPath 'xs:dayTimeDuration('P5999999999999999999DT00H00M01S') div
+FOAR0002-5;Expected executing the XPath 'xs:dayTimeDuration('P5999999999999999999DT00H00M01S') div\n         xs:dayTimeDuration('P0DT00H00M0.000001S')' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOAR0002, but got Value was either too large or too small for an Int32.
 FOCA0002_2;Expected XPathException with code FOCA0002, but got Haven't implemented Qnames from: 1:
 FOCA0002_3;Expected XPathException with code FOCA0002, but got Haven't implemented Qnames from: localName:prefix
 FOCA0002_4;Expected XPathException with code FOCA0002, but got Haven't implemented Qnames from: localName:1prefix
@@ -7803,8 +7803,8 @@ ForExprType002;Expected XPath for $fileName as attribute(name,xs:untypedAtomic) 
 ForExprType003;Expected results and parsedFragment children to match
 ForExprType004;Expected results and parsedFragment children to match
 ForExprType006;Expected error code: XPTY0004. Query succeeded with result: 1 2
-ForExprType009;Expected executing the XPath '
-ForExprType010;Expected executing the XPath '
+ForExprType009;Expected executing the XPath 'declare namespace xqt="http://www.w3.org/XQueryTestOrderBy"; \n        for $num as element(xqt:NegativeNumbers) in /xqt:DataValues/xqt:NegativeNumbers return $num' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        declare namespace xqt="http://www.w3.org/XQueryTestOrderBy"; \n        for $num as element(xqt:NegativeNumbers) in /xqt:DataValues/xqt:NegativeNumbers return $num'
+ForExprType010;Expected executing the XPath 'import schema namespace xqt="http://www.w3.org/XQueryTestOrderBy"; \n        for $num as xs:decimal in data( /xqt:DataValues/xqt:NegativeNumbers/xqt:orderData ) \n        return $num' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        import schema namespace xqt="http://www.w3.org/XQueryTestOrderBy"; \n        for $num as xs:decimal in data( /xqt:DataValues/xqt:NegativeNumbers/xqt:orderData ) \n        return $num\n      '
 ForExprType011;Expected error code: XPST0051. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare namespace xqt="http://www.w3.org/XQueryTestOrderBy"; \n        for $num as xs:undefinedType in data( /xqt:DataValues/xqt:NegativeNumbers/xqt:orderData ) return $num'
 ForExprType014;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare namespace xqt="http://www.w3.org/XQueryTestOrderBy"; \n        for $num as empty-sequence() in data( /xqt:DataValues/xqt:NegativeNumbers/xqt:orderData ) return $num'
 ForExprType017;Expected error code: XPTY0004. Query succeeded with result: 1 2 3
@@ -7818,7 +7818,7 @@ ForExprType025;PRSC Error: Failed to parse query '\n        import schema defaul
 ForExprType026;PRSC Error: Failed to parse query 'import schema default element namespace "http://www.example.com/typedecl";\n            for $test as attribute( att,Enumeration ) in /root/UserDefinedSimpleTypeAttribute/@att return data( $test )'
 ForExprType027;PRSC Error: Failed to parse query 'import schema default element namespace "http://www.example.com/typedecl";\n            for $test as attribute( *,Enumeration ) in /root/UserDefinedSimpleTypeAttribute/@att return data( $test )'
 ForExprType030;Atomic Value for XsLanguage is not implemented yet.
-ForExprType031;Expected XPath 
+ForExprType031;Expected XPath for $test as xs:anyAtomicType in ( xs:duration("P0Y1347M0D"), xs:dateTime("1999-05-31T13:20:00-05:00"), \n                    xs:time("13:00:00-05:00"), xs:date("1999-05-10Z"), xs:gYearMonth("2002-03"), xs:gYear("1999"), \n                    xs:gMonthDay("--05-10"), xs:gDay("---10"), xs:gMonth("--05") ) \n        return $test to resolve to P112Y3M 1999-05-31T13:20:00-05:00 13:00:00-05:00 1999-05-10Z 2002-03 1999 --05-10 ---10 --05, but instead got PT 1999-05-31T13:20:00-05:00 13:00:00-05:00 1999-05-10Z 2002-03 1999 --05-10 ---10 --05
 ForExprType032;Type casting to XsBase64Binary has not been implemented yet.
 ForExprType033;Atomic Value for XsEntity is not implemented yet.
 ForExprType036;PRSC Error: Failed to parse query '\n        declare default element namespace "http://www.example.com/typedecl"; \n        for $test as element(*) in /root/InterleaveType/* return $test\n      '
@@ -7912,7 +7912,7 @@ function-declaration-019;PRSC Error: Failed to parse query ''
 function-declaration-020;PRSC Error: Failed to parse query 'declare namespace foo = "http://www..oracle.com/xquery/test";\n        declare function foo:price () as xs:integer+ { 100 };\n        declare function foo:price ($z as xs:integer) as xs:integer+ { $z };\n        declare function foo:price ($x as xs:integer, $y as xs:integer) as xs:integer+ { $x, $y };\n        declare function foo:price ($x as xs:integer, $y as xs:integer, $z as xs:integer) as xs:integer+ { $x+$y+$z };\n        foo:price(), foo:price(1), foo:price(2,3), foo:price(4,5,6)'
 function-declaration-021;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:foo ($n as xs:integer) as xs:string { $n };\n        local:foo(4)'
 function-declaration-022;Expected error code: XQST0034. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:foo ($m as xs:integer) { $m };\n        declare function local:foo ($n as xs:integer) { $n };\n        local:foo(4)'
-function-declaration-023;Expected executing the XPath '
+function-declaration-023;Expected executing the XPath 'declare function foo ($n as xs:integer) { $n };\n        foo(4)' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQST0045. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function foo ($n as xs:integer) { $n };\n        foo(4)'
 function-declaration-024;Expected error code: XQST0039. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:foo ($n as xs:integer, $n as xs:integer) { $n };\n        local:foo(4, 1)'
 function-declaration-025;Expected error code: XQST0060. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare default function namespace "";\n        declare function foo ($n as xs:integer, $m as xs:integer) { $n };\n        foo(4, 1)'
 function-declaration-026;PRSC Error: Failed to parse query '\n        declare variable $global := node();\n        declare function local:function() { exists($global) };\n        local:function()'
@@ -10211,11 +10211,11 @@ K-CombinedErrorCodes-1;Expected executing the XPath 'import schema "http://examp
 K-CombinedErrorCodes-10;Expected executing the XPath 'validate { () }' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQTY0030. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'validate { () }'
 K-CombinedErrorCodes-11;Expected executing the XPath 'validate lax { 1 }' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQTY0030. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'validate lax { 1 }'
 K-CombinedErrorCodes-12;Expected executing the XPath 'validate strict { 1 }' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQTY0030. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'validate strict { 1 }'
-K-CombinedErrorCodes-2;Expected executing the XPath 'import schema "http://example.com/NSNOTRECOGNIZED" at "http://example.com/DOESNOTEXIST";
-K-CombinedErrorCodes-3;Expected executing the XPath 'import schema "http://example.com/NSNOTRECOGNIZED" at "http://example.com/DOESNOTEXIST",
-K-CombinedErrorCodes-4;Expected executing the XPath 'import schema "http://example.com/NSNOTRECOGNIZED" at "http://example.com/DOESNOTEXIST",
-K-CombinedErrorCodes-5;Expected executing the XPath 'import schema namespace prefix = "http://example.com/NSNOTRECOGNIZED" at
-K-CombinedErrorCodes-6;Expected executing the XPath 'import schema default element namespace "http://example.com/NSNOTRECOGNIZED" at
+K-CombinedErrorCodes-2;Expected executing the XPath 'import schema "http://example.com/NSNOTRECOGNIZED" at "http://example.com/DOESNOTEXIST";\n         1 eq 1' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQST0009. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'import schema "http://example.com/NSNOTRECOGNIZED" at "http://example.com/DOESNOTEXIST";\n         1 eq 1'
+K-CombinedErrorCodes-3;Expected executing the XPath 'import schema "http://example.com/NSNOTRECOGNIZED" at "http://example.com/DOESNOTEXIST",\n         "http://example.com/2", "http://example.com/3"; 1 eq 1' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQST0009. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'import schema "http://example.com/NSNOTRECOGNIZED" at "http://example.com/DOESNOTEXIST",\n         "http://example.com/2", "http://example.com/3"; 1 eq 1'
+K-CombinedErrorCodes-4;Expected executing the XPath 'import schema "http://example.com/NSNOTRECOGNIZED" at "http://example.com/DOESNOTEXIST",\n         "http://example.com/2", "http://example.com/3"; 1 eq 1' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQST0009. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'import schema "http://example.com/NSNOTRECOGNIZED" at "http://example.com/DOESNOTEXIST",\n         "http://example.com/2", "http://example.com/3"; 1 eq 1'
+K-CombinedErrorCodes-5;Expected executing the XPath 'import schema namespace prefix = "http://example.com/NSNOTRECOGNIZED" at\n         "http://example.com/DOESNOTEXIST", "http://example.com/2DOESNOTEXIST",\n         "http://example.com/3DOESNOTEXIST"; 1 eq 1' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQST0009. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'import schema namespace prefix = "http://example.com/NSNOTRECOGNIZED" at\n         "http://example.com/DOESNOTEXIST", "http://example.com/2DOESNOTEXIST",\n         "http://example.com/3DOESNOTEXIST"; 1 eq 1'
+K-CombinedErrorCodes-6;Expected executing the XPath 'import schema default element namespace "http://example.com/NSNOTRECOGNIZED" at\n         "http://example.com/DOESNOTEXIST", "http://example.com/2DOESNOTEXIST",\n         "http://example.com/3DOESNOTEXIST"; 1 eq 1' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQST0009. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'import schema default element namespace "http://example.com/NSNOTRECOGNIZED" at\n         "http://example.com/DOESNOTEXIST", "http://example.com/2DOESNOTEXIST",\n         "http://example.com/3DOESNOTEXIST"; 1 eq 1'
 K-CombinedErrorCodes-9;Expected executing the XPath 'validate { 1 }' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQTY0030. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'validate { 1 }'
 K-CondExpr-10;The function current-time with arity 0 is not registered.
 K-CondExpr-11;The function current-time with arity 0 is not registered.
@@ -10550,7 +10550,7 @@ K-FunctionProlog-11;Expected error code: XPTY0004. Found error code: XPST0003 wi
 K-FunctionProlog-12a;Expected error code: XPST0008. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:computeSum() { $myVariable };\n        declare variable $myVariable := 1;\n        1'
 K-FunctionProlog-12b;PRSC Error: Failed to parse query '\n        declare function local:computeSum() { $myVariable };\n        declare variable $myVariable := 1;\n        1 = 1'
 K-FunctionProlog-14;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction() as xs:integer { subsequence((1, 2, "a string"), 3 ,1) };\n        fn:boolean(local:myFunction())'
-K-FunctionProlog-15;Expected executing the XPath '
+K-FunctionProlog-15;Expected executing the XPath 'declare function local:myFunction() as xs:anyURI { 1 };\n        true()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        declare function local:myFunction() as xs:anyURI { 1 };\n        true()'
 K-FunctionProlog-18;PRSC Error: Failed to parse query 'declare variable $var1 := 1;\n        declare function local:func1() as xs:integer { $var1 };\n        declare variable $var2 := 2;\n        declare function local:func2() as xs:integer { $var2 };\n        1 eq local:func1() and 2 eq local:func2()'
 K-FunctionProlog-19;PRSC Error: Failed to parse query '\n        declare function local:func1($a1, $a2, $a3) { 1 };\n        local:func1(1, 2, 3) = 1'
 K-FunctionProlog-2;Expected error code: XQST0045. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function wrongNS() { 1 };\n        1'
@@ -10568,7 +10568,7 @@ K-FunctionProlog-3;Expected error code: XQST0045. Found error code: XPST0003 wit
 K-FunctionProlog-30;PRSC Error: Failed to parse query '\n        declare function local:myName($var as xs:integer) as xs:integer { $var };\n        declare function local:myName() as xs:integer { 1 };\n        (local:myName(4) - 3) eq local:myName()'
 K-FunctionProlog-31;Expected error code: XQST0045. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function fn:count($var) { fn:count($var) };\n        1'
 K-FunctionProlog-32;Expected error code: XQST0045. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function xs:gYear($arg as xs:anyAtomicType?) as xs:gYear? { xs:gYear($arg) };\n        1'
-K-FunctionProlog-33;Expected executing the XPath '
+K-FunctionProlog-33;Expected executing the XPath 'declare function local:myFunction() { "a string" + 1 };\n        true()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        declare function local:myFunction() { "a string" + 1 };\n        true()'
 K-FunctionProlog-34;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:MyFunction() { 1 };\n        local:myFunction()'
 K-FunctionProlog-35;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:MyFunction() { 1 };\n        local:myFunctionn()'
 K-FunctionProlog-36;Expected error code: XPST0008. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:MyFunction($myArg) { 0 };\n        $myArg'
@@ -10582,24 +10582,24 @@ K-FunctionProlog-42;Expected error code: XPTY0004. Found error code: XPST0003 wi
 K-FunctionProlog-43;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction($arg as item(), $arg2 as xs:integer) { $arg, $arg2 };\n        local:myFunction("3", "3")'
 K-FunctionProlog-44;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction($arg as item(), $arg2 as xs:integer) { $arg, $arg2 };\n        local:myFunction("3", ())'
 K-FunctionProlog-45;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction($arg as item()?, $arg2 as xs:integer) { $arg, $arg2 };\n        local:myFunction((), 4.1)'
-K-FunctionProlog-46;Expected executing the XPath '
-K-FunctionProlog-49;Expected executing the XPath '
+K-FunctionProlog-46;Expected executing the XPath 'declare function local:myFunction($arg as empty-sequence()) { $arg };\n        local:myFunction(1)' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction($arg as empty-sequence()) { $arg };\n        local:myFunction(1)'
+K-FunctionProlog-49;Expected executing the XPath 'declare function local:myFunction($arg as empty-sequence()) { $arg };\n        empty(local:myFunction(()))' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        declare function local:myFunction($arg as empty-sequence()) { $arg };\n        empty(local:myFunction(()))'
 K-FunctionProlog-5;Expected error code: XQST0045. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace my = "http://www.w3.org/2001/XMLSchema";\n        declare function my:wrongNS() { 1 };\n        1'
 K-FunctionProlog-50;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction($arg) as empty-sequence() { $arg };\n        local:myFunction(1)'
 K-FunctionProlog-51;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction($arg) { $arg };\n        local:myFunction()'
 K-FunctionProlog-52;Expected error code: FOER0000. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction() as empty-sequence() { fn:error() };\n        local:myFunction()'
-K-FunctionProlog-53;Expected executing the XPath 'declare namespace my = "http://example.com/MyNamespace/";
+K-FunctionProlog-53;Expected executing the XPath 'declare namespace my = "http://example.com/MyNamespace/";\n        declare variable $my:error-qname := QName("http:example.org/", "prefix:ncname");\n        declare function my:error($choice, $msg as xs:string) as empty-sequence() { if($choice) then error($my:error-qname, concat('No luck: ', $msg)) else () };\n        empty((my:error(false(), "msg"), my:error(false(), "The message")))' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare namespace my = "http://example.com/MyNamespace/";\n        declare variable $my:error-qname := QName("http:example.org/", "prefix:ncname");\n        declare function my:error($choice, $msg as xs:string) as empty-sequence() { if($choice) then error($my:error-qname, concat('No luck: ', $msg)) else () };\n        empty((my:error(false(), "msg"), my:error(false(), "The message")))'
 K-FunctionProlog-54;Expected error code: *. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace my = "http://example.com/MyNamespace/";\n        declare variable $my:error-qname := QName("http://example.com/MyErrorNS", "my:qName");\n        declare function my:error($msg as xs:string) as empty-sequence() { error($my:error-qname, concat('No luck: ', $msg)) };\n        my:error("The message")'
 K-FunctionProlog-55;Expected error code: *. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace my = "http://example.com/MyNamespace/";\n        declare variable $my:error-qname := QName("http://example.com/MyErrorNS", "my:qName");\n        declare function my:error($choice, $msg as xs:string) as empty-sequence() { if($choice) then error($my:error-qname, concat('No luck: ', $msg)) else () };\n        my:error(false(), "msg"), my:error(true(), "The message")'
-K-FunctionProlog-56;Expected executing the XPath 'declare namespace my = "http://example.com/MyNamespace/";
+K-FunctionProlog-56;Expected executing the XPath 'declare namespace my = "http://example.com/MyNamespace/";\n        declare variable $my:error-qname := QName("http://example.com/MyErrorNS", "my:qName");\n        declare function my:error($choice, $msg as xs:string) as empty-sequence() { if($choice) then error($my:error-qname, concat('No luck: ', $msg)) else () };\n        empty((my:error(false(), "msg"), my:error(false(), "The message")))' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare namespace my = "http://example.com/MyNamespace/";\n        declare variable $my:error-qname := QName("http://example.com/MyErrorNS", "my:qName");\n        declare function my:error($choice, $msg as xs:string) as empty-sequence() { if($choice) then error($my:error-qname, concat('No luck: ', $msg)) else () };\n        empty((my:error(false(), "msg"), my:error(false(), "The message")))'
 K-FunctionProlog-57;Expected error code: XPST0051. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:error() as none { 1 };\n        local:error()'
-K-FunctionProlog-59;Expected executing the XPath '
+K-FunctionProlog-59;Expected executing the XPath 'declare function local:myFunction($unusedArg) { true() };\n        local:myFunction(1 + "a string")' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        declare function local:myFunction($unusedArg) { true() };\n        local:myFunction(1 + "a string")'
 K-FunctionProlog-60;Expected error code: XPST0008. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction($arg) { 1 };\n        $arg'
 K-FunctionProlog-61;Expected error code: XPST0008. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction($arg, $arg2, $arg3) { 1 };\n        $arg3'
 K-FunctionProlog-62;PRSC Error: Failed to parse query 'declare variable $my := 3;\n        declare function local:myFunction($my, $arg2, $arg4) { 1 };\n        $my eq 3'
 K-FunctionProlog-64;Expected error code: XPST0017. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace my = "http://example.com/ANamespace";\n        my:function(1)'
-K-FunctionProlog-65;Expected executing the XPath '
-K-FunctionProlog-66;Expected executing the XPath '
+K-FunctionProlog-65;Expected executing the XPath 'declare function local:myFunction() as empty-sequence() { fn:error() };\n        QName("http://example.com/ANamespace", local:myFunction())' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction() as empty-sequence() { fn:error() };\n        QName("http://example.com/ANamespace", local:myFunction())'
+K-FunctionProlog-66;Expected executing the XPath 'declare function local:myFunction() { fn:error() };\n        QName("http://example.com/ANamespace", local:myFunction())' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FOER0000. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction() { fn:error() };\n        QName("http://example.com/ANamespace", local:myFunction())'
 K-FunctionProlog-67;PRSC Error: Failed to parse query 'declare default function namespace "http://www.w3.org/2005/xquery-local-functions";\n        declare function local:is() as xs:integer { 1 };\n        is() eq 1'
 K-FunctionProlog-68;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:myFunction($usedArg) { $usedArg };\n        local:myFunction(1 + "a string")'
 K-GenCompEq-16;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
@@ -12445,8 +12445,8 @@ K2-ABSFunc-36;Expected executing the XPath 'abs(xs:unsignedLong(.)) instance of 
 K2-ABSFunc-37;Expected executing the XPath 'abs(xs:unsignedInt(.)) instance of xs:unsignedInt' to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-38;Expected executing the XPath 'abs(xs:unsignedByte(.)) instance of xs:unsignedByte' to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-39;Expected executing the XPath 'abs(xs:positiveInteger(.)) instance of xs:positiveInteger' to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
-K2-ABSFunc-40;Expected executing the XPath 'abs(xs:nonPositiveInteger(.)) instance of
-K2-ABSFunc-41;Expected executing the XPath 'abs(xs:nonNegativeInteger(.)) instance of
+K2-ABSFunc-40;Expected executing the XPath 'abs(xs:nonPositiveInteger(.)) instance of\n         xs:nonPositiveInteger' to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
+K2-ABSFunc-41;Expected executing the XPath 'abs(xs:nonNegativeInteger(.)) instance of\n         xs:nonNegativeInteger' to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-42;Expected executing the XPath 'abs(xs:negativeInteger(.)) instance of xs:negativeInteger' to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-43;Expected executing the XPath 'abs(xs:long(.)) instance of xs:long' to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
 K2-ABSFunc-44;Expected executing the XPath 'abs(xs:int(.)) instance of xs:int' to resolve to one of the expected results, but got System.Exception: Can't cast a non-atomic value.
@@ -13082,7 +13082,7 @@ K2-ForExprPositionalVar-2;Expected executing the XPath '' to resolve to one of t
 K2-ForExprPositionalVar-3;PRSC Error: Failed to parse query ''
 K2-ForExprPositionalVar-4;PRSC Error: Failed to parse query 'for $i at $pos in (3 to 6) let $let := $pos + 1 return ($let, $let - 1)'
 K2-ForExprWith-1;Expected error code: XPTY0004. Query succeeded with result: input
-K2-ForExprWithout-10;Expected executing the XPath '
+K2-ForExprWithout-10;Expected executing the XPath 'for $a in (3, 2, 1) \n        for $b in (6, 5, 4) \n        let $c := $a + $b \n        let $d := $a - $b \n        let $e := () stable order by $a ascending, $b descending, $d empty greatest, $e empty least, $c descending empty greatest, $d ascending empty greatest, $e descending empty least, $b ascending empty least \n        return $a' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        for $a in (3, 2, 1) \n        for $b in (6, 5, 4) \n        let $c := $a + $b \n        let $d := $a - $b \n        let $e := () stable order by $a ascending, $b descending, $d empty greatest, $e empty least, $c descending empty greatest, $d ascending empty greatest, $e descending empty least, $b ascending empty least \n        return $a'
 K2-ForExprWithout-11;Use of XQuery FLWOR expressions in XPath is not allowed
 K2-ForExprWithout-12;Use of XQuery FLWOR expressions in XPath is not allowed
 K2-ForExprWithout-13;PRSC Error: Failed to parse query ''
@@ -13134,10 +13134,10 @@ K2-FunctionProlog-1;PRSC Error: Failed to parse query '\n        declare functio
 K2-FunctionProlog-10;PRSC Error: Failed to parse query 'declare default function namespace "http://example.com";\n        declare function _() { 1 };\n        _() = 1'
 K2-FunctionProlog-11;PRSC Error: Failed to parse query '\n        declare function local:_() { 1 };\n        local:_() = 1'
 K2-FunctionProlog-12;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:_($arg as node()) { $arg };\n        local:_(1)'
-K2-FunctionProlog-13;Expected executing the XPath '
+K2-FunctionProlog-13;Expected executing the XPath 'declare function local:_($arg as attribute()?) { 1 };\n        local:_(1)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        declare function local:_($arg as attribute()?) { 1 };\n        local:_(1) = 1'
 K2-FunctionProlog-14;Expected executing the XPath '' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-FunctionProlog-15;PRSC Error: Failed to parse query 'declare variable $var1 := let $var1 := 1 return 1;\n        $var1 eq 1'
-K2-FunctionProlog-16;Expected executing the XPath '
+K2-FunctionProlog-16;Expected executing the XPath 'declare function local:myFunction() as item()* {***};\n        1' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        declare function local:myFunction() as item()* {***};\n        1 = 1'
 K2-FunctionProlog-17;PRSC Error: Failed to parse query ' = 1'
 K2-FunctionProlog-18;PRSC Error: Failed to parse query '\n        declare function local:func() as xs:integer { attribute name {"1"} };\n        local:func() = 1'
 K2-FunctionProlog-19;PRSC Error: Failed to parse query '\n        declare function local:func() as xs:integer { document {"1"} };\n        local:func() = 1'
@@ -13217,7 +13217,7 @@ K2-IRIToURIfunc-4;Expected error code: XPTY0004. Query succeeded with result: a+
 K2-IRIToURIfunc-5;Type casting to XsAnyUri has not been implemented yet.
 K2-IRIToURIfunc-6;Casting AbstractValue(XsUntypedAtomic) to StringValue
 K2-IRIToURIfunc-7;PRSC Error: Failed to parse query ''
-K2-IRIToURIfunc-8;Expected XPath iri-to-uri("
+K2-IRIToURIfunc-8;Expected XPath iri-to-uri("\n") to resolve to %0A, but instead got %0a
 K2-IRIToURIfunc-9;Expected XPath iri-to-uri(codepoints-to-string(32 to 294)) to resolve to %20!%22#$%&'()*+,-./0123456789:;%3C=%3E?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[%5C]%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D~%7F%C2%80%C2%81%C2%82%C2%83%C2%84%C2%85%C2%86%C2%87%C2%88%C2%89%C2%8A%C2%8B%C2%8C%C2%8D%C2%8E%C2%8F%C2%90%C2%91%C2%92%C2%93%C2%94%C2%95%C2%96%C2%97%C2%98%C2%99%C2%9A%C2%9B%C2%9C%C2%9D%C2%9E%C2%9F%C2%A0%C2%A1%C2%A2%C2%A3%C2%A4%C2%A5%C2%A6%C2%A7%C2%A8%C2%A9%C2%AA%C2%AB%C2%AC%C2%AD%C2%AE%C2%AF%C2%B0%C2%B1%C2%B2%C2%B3%C2%B4%C2%B5%C2%B6%C2%B7%C2%B8%C2%B9%C2%BA%C2%BB%C2%BC%C2%BD%C2%BE%C2%BF%C3%80%C3%81%C3%82%C3%83%C3%84%C3%85%C3%86%C3%87%C3%88%C3%89%C3%8A%C3%8B%C3%8C%C3%8D%C3%8E%C3%8F%C3%90%C3%91%C3%92%C3%93%C3%94%C3%95%C3%96%C3%97%C3%98%C3%99%C3%9A%C3%9B%C3%9C%C3%9D%C3%9E%C3%9F%C3%A0%C3%A1%C3%A2%C3%A3%C3%A4%C3%A5%C3%A6%C3%A7%C3%A8%C3%A9%C3%AA%C3%AB%C3%AC%C3%AD%C3%AE%C3%AF%C3%B0%C3%B1%C3%B2%C3%B3%C3%B4%C3%B5%C3%B6%C3%B7%C3%B8%C3%B9%C3%BA%C3%BB%C3%BC%C3%BD%C3%BE%C3%BF%C4%80%C4%81%C4%82%C4%83%C4%84%C4%85%C4%86%C4%87%C4%88%C4%89%C4%8A%C4%8B%C4%8C%C4%8D%C4%8E%C4%8F%C4%90%C4%91%C4%92%C4%93%C4%94%C4%95%C4%96%C4%97%C4%98%C4%99%C4%9A%C4%9B%C4%9C%C4%9D%C4%9E%C4%9F%C4%A0%C4%A1%C4%A2%C4%A3%C4%A4%C4%A5%C4%A6, but instead got +!%22#$%&'()*+,-.%2f0123456789:;%3c=%3e?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[%5c]%5e_%60abcdefghijklmnopqrstuvwxyz%7b%7c%7d~%7f%c2%80%c2%81%c2%82%c2%83%c2%84%c2%85%c2%86%c2%87%c2%88%c2%89%c2%8a%c2%8b%c2%8c%c2%8d%c2%8e%c2%8f%c2%90%c2%91%c2%92%c2%93%c2%94%c2%95%c2%96%c2%97%c2%98%c2%99%c2%9a%c2%9b%c2%9c%c2%9d%c2%9e%c2%9f%c2%a0%c2%a1%c2%a2%c2%a3%c2%a4%c2%a5%c2%a6%c2%a7%c2%a8%c2%a9%c2%aa%c2%ab%c2%ac%c2%ad%c2%ae%c2%af%c2%b0%c2%b1%c2%b2%c2%b3%c2%b4%c2%b5%c2%b6%c2%b7%c2%b8%c2%b9%c2%ba%c2%bb%c2%bc%c2%bd%c2%be%c2%bf%c3%80%c3%81%c3%82%c3%83%c3%84%c3%85%c3%86%c3%87%c3%88%c3%89%c3%8a%c3%8b%c3%8c%c3%8d%c3%8e%c3%8f%c3%90%c3%91%c3%92%c3%93%c3%94%c3%95%c3%96%c3%97%c3%98%c3%99%c3%9a%c3%9b%c3%9c%c3%9d%c3%9e%c3%9f%c3%a0%c3%a1%c3%a2%c3%a3%c3%a4%c3%a5%c3%a6%c3%a7%c3%a8%c3%a9%c3%aa%c3%ab%c3%ac%c3%ad%c3%ae%c3%af%c3%b0%c3%b1%c3%b2%c3%b3%c3%b4%c3%b5%c3%b6%c3%b7%c3%b8%c3%b9%c3%ba%c3%bb%c3%bc%c3%bd%c3%be%c3%bf%c4%80%c4%81%c4%82%c4%83%c4%84%c4%85%c4%86%c4%87%c4%88%c4%89%c4%8a%c4%8b%c4%8c%c4%8d%c4%8e%c4%8f%c4%90%c4%91%c4%92%c4%93%c4%94%c4%95%c4%96%c4%97%c4%98%c4%99%c4%9a%c4%9b%c4%9c%c4%9d%c4%9e%c4%9f%c4%a0%c4%a1%c4%a2%c4%a3%c4%a4%c4%a5%c4%a6
 K2-LetExprWithout-1;PRSC Error: Failed to parse query ''
 K2-LetExprWithout-10;Expected error code: XPTY0004. Query succeeded with result: 1.1
@@ -13387,7 +13387,7 @@ K2-NodeTest-1;Expected executing the XPath '' to resolve to one of the expected 
 K2-NodeTest-19;Expected error code: XPST0008. Found error code:  with error message: 
 K2-NodeTest-2;PRSC Error: Failed to parse query ' = 0'
 K2-NodeTest-20;Expected error code: XPST0008. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         declare namespace ex = "http://www.example.com/"; \n         document-node(schema-element(ex:thisTypeIsNotRecognizedExample.Com))'
-K2-NodeTest-21;Expected executing the XPath '
+K2-NodeTest-21;Expected executing the XPath 'declare namespace ex = "http://www.example.com/"; \n         declare function local:userFunction() { document-node(element(local:ncname)) }; 1' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n         declare namespace ex = "http://www.example.com/"; \n         declare function local:userFunction() { document-node(element(local:ncname)) }; 1 = 1'
 K2-NodeTest-22;Expected error code: XPST0081. Found error code:  with error message: 
 K2-NodeTest-23;Expected error code: XPST0081. Found error code:  with error message: 
 K2-NodeTest-24;Expected error code: XPST0081. Found error code:  with error message: 
@@ -14276,12 +14276,12 @@ liam-contains-001;No collations are supported
 liam-contains-002;No collations are supported
 liam-contains-003;No collations are supported
 liam-contains-004;No collations are supported
-line-ending-Q002;Expected XPath deep-equal(string-to-codepoints('
-line-ending-Q003;Expected XPath deep-equal(string-to-codepoints('
-line-ending-Q004;Expected XPath deep-equal(string-to-codepoints('
-line-ending-Q005;Expected XPath deep-equal(string-to-codepoints(' 
-line-ending-Q006;Expected XPath deep-equal(string-to-codepoints(' 
-line-ending-Q007;Expected XPath deep-equal(string-to-codepoints('
+line-ending-Q002;Expected XPath deep-equal(string-to-codepoints('\n'), (10)) to resolve to true
+line-ending-Q003;Expected XPath deep-equal(string-to-codepoints('\n \n \n\n'), (10, 32, 10, 32, 10, 10)) to resolve to true
+line-ending-Q004;Expected XPath deep-equal(string-to-codepoints('\n\n'), (10)) to resolve to true
+line-ending-Q005;Expected XPath deep-equal(string-to-codepoints(' \n '), (32, 10, 32)) to resolve to true
+line-ending-Q006;Expected XPath deep-equal(string-to-codepoints(' \n '), (32, 10, 32)) to resolve to true
+line-ending-Q007;Expected XPath deep-equal(string-to-codepoints('\n\n'), (10, 133)) to resolve to true
 Literals005;PRSC Error: Failed to parse query ''
 Literals014;Expected XPath -.65535032 to resolve to -0.65535032, but instead got Infinity
 Literals016;Expected XPath 65535032e2 to resolve to 6.5535032E9, but instead got 6553503200
@@ -17101,7 +17101,7 @@ SquareArray-009;PRSC Error: Failed to parse query 'deep-equal((declare function 
 SquareArray-010;Expected error code: FOAY0001. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '[1](4294967297)'
 ST-Data001;Expected error code: FOTY0012. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        import schema namespace mc ="http://www.w3.org/XQueryTest/mixedcontent"; \n        let $node as element(*, mc:mixedType) := /* \n        return data($node)'
 static-context-1;Expected error code: XPST0008. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-step-expr-si-1;Expected executing the XPath '
+step-expr-si-1;Expected executing the XPath 'import schema default element namespace "http://www.example.com/XQueryTest/extendedTypes"; \n        for $extended as element(*, extendedWithElementType) in //element(*, extendedWithElementType) \n        let $baseElement as empty-sequence() := $extended/baseElement \n        return $baseElement' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        import schema default element namespace "http://www.example.com/XQueryTest/extendedTypes"; \n        for $extended as element(*, extendedWithElementType) in //element(*, extendedWithElementType) \n        let $baseElement as empty-sequence() := $extended/baseElement \n        return $baseElement'
 step-expr-si-2;PRSC Error: Failed to parse query '\n        import schema default element namespace "http://www.example.com/XQueryTest/extendedTypes"; \n        for $extended as element(*, restrictedType) in //element(*, restrictedType) \n        let $baseElement as element()+ := $extended/node() \n        return $baseElement'
 step-expr-si-3;PRSC Error: Failed to parse query '\n        import schema default element namespace "http://www.example.com/XQueryTest/extendedTypes"; \n        for $extended as element(*, anotherBaseType) in //element(restrictedAttribute, anotherBaseType) \n        let $baseElement as element(baseElement) := $extended/baseElement \n        return $baseElement'
 Steps-leading-lone-slash-10;PRSC Error: Failed to parse query ''
@@ -17192,7 +17192,7 @@ typeswitch-114;Expected error code: XPST0051. Found error code: XPST0003 with er
 typeswitch-115;Expected error code: XPST0051. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      	declare namespace lu = 'http://www.w3.org/XQueryTest/ListUnionTypes' ;\n        import schema "http://www.w3.org/XQueryTest/ListUnionTypes";\n        typeswitch (-23)\n        case $i as lu:unionOfListType return true()\n        default $v return false()\n      '
 typeswitch-116;PRSC Error: Failed to parse query '\n      	declare namespace lu = 'http://www.w3.org/XQueryTest/ListUnionTypes' ;\n        import schema "http://www.w3.org/XQueryTest/ListUnionTypes";\n        \n        (typeswitch (current-date())\n        case $i as lu:unionOfUnionType return true()\n        default $v return false())\n          and\n        (typeswitch (23)\n        case $i as lu:unionOfUnionType return true()\n        default $v return false())  \n      '
 typeswitch-117;PRSC Error: Failed to parse query 'deep-equal((\n      	let $x := [map{'x':1, 'y':2}, 'x']\n      	let $y := [array{1, 2, 3}, 1]\n      	let $z := ($x, $y)\n      	for $e in $z return\n      	  typeswitch($e?1)\n      	  case $A as array(*) return array:get($A, $e?2)\n      	  case $M as map(*) return map:get($M, $e?2)\n      	  default return error()\n      ), (1,1))'
-typeswitch-118;Expected executing the XPath '
+typeswitch-118;Expected executing the XPath 'let $x := map{'x':1, 'y':2}\n      \tlet $y := map{'A':1, 'B':2}\n      \tlet $z := ($x, $y, [])\n      \tfor $e in $z[position() lt 3] return\n      \t  typeswitch($e)\n      \t  case $A as array(*) return array:get($A, 'A') (: deliberate: array:get requires an integer :)\n      \t  case $M as map(*) return map:get($M, 'A')\n      \t  default return error()' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      	let $x := map{'x':1, 'y':2}\n      	let $y := map{'A':1, 'B':2}\n      	let $z := ($x, $y, [])\n      	for $e in $z[position() lt 3] return\n      	  typeswitch($e)\n      	  case $A as array(*) return array:get($A, 'A') (: deliberate: array:get requires an integer :)\n      	  case $M as map(*) return map:get($M, 'A')\n      	  default return error()\n      '
 typeswitch-119;PRSC Error: Failed to parse query '\n         let $x := map{'x':1, 'y':2}\n         let $y := map{'A':1, 'B':2}\n         let $z := ($x, $y, [])\n         for $e as map(*) in $z[position() lt 3] return\n         typeswitch($e)\n         case $A as array(*) return array:get($A, 1)\n         case $M as map(*) return map:get($M, 'A')\n         default return error()\n       = 1'
 typeswitch-union-branch-1-dup;PRSC Error: Failed to parse query ' = 47'
 typeswitch-union-branch-1;PRSC Error: Failed to parse query ' = 47'
@@ -17343,8 +17343,8 @@ value-comparison-12;Expected XPath //test:comparable[1]/test:int eq //test:compa
 value-comparison-13;PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) eq myType:integer-or-nothing(5)'
 value-comparison-14;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) eq myType:integer-or-nothing("")'
 value-comparison-2;Type casting to XsAnyUri has not been implemented yet.
-value-comparison-3;Expected executing the XPath '
-value-comparison-4;Expected executing the XPath '
+value-comparison-3;Expected executing the XPath 'import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:hatsize(5) eq myType:shoesize(5)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:hatsize(5) eq myType:shoesize(5)'
+value-comparison-4;Expected executing the XPath 'import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:hatsize(5) ne myType:shoesize(5)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:hatsize(5) ne myType:shoesize(5)'
 value-comparison-5;PRSC Error: Failed to parse query '[3] eq 3'
 value-comparison-6;PRSC Error: Failed to parse query '[3] le [3]'
 value-comparison-7;PRSC Error: Failed to parse query '([] eq 3) => empty()'
@@ -17441,7 +17441,7 @@ vardeclwithtype-8;PRSC Error: Failed to parse query 'declare variable $var as xs
 vardeclwithtype-9;PRSC Error: Failed to parse query 'declare variable $var as xs:dateTime := xs:dateTime("1999-11-28T09:00:00Z"); $var'
 version_declaration-001;Expected executing the XPath 'xquery version "1.0" (:encoding "utf-8xx":); 1,2' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'xquery version "1.0" (:encoding "utf-8xx":); 1,2'
 version_declaration-002;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
-version_declaration-005;Expected executing the XPath '
+version_declaration-005;Expected executing the XPath 'xquery version "1.0"; \n        declare boundary-space preserve; \n        declare default collation "xspanish"; \n        declare base-uri "http://www.base-uri.com/"; \n        declare construction strip; declare ordering unordered; \n        declare default order empty greatest; \n        import schema default element namespace "http://comment"; \n        declare namespace foo = "http://foo.org"; \n        declare default function namespace "http://example.org/math-functions"; \n        declare namespace bar = "http://bar.org"; \n        declare variable $x as xs:integer := 7; \n        declare function local:sumOf1toN($i) as xs:integer { if ($i = 1) then $i else $i + local:sumOf1toN($i - 1) }; \n        declare option foo:strip-comments "true"; \n        local:sumOf1toN(5)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        xquery version "1.0"; \n        declare boundary-space preserve; \n        declare default collation "xspanish"; \n        declare base-uri "http://www.base-uri.com/"; \n        declare construction strip; declare ordering unordered; \n        declare default order empty greatest; \n        import schema default element namespace "http://comment"; \n        declare namespace foo = "http://foo.org"; \n        declare default function namespace "http://example.org/math-functions"; \n        declare namespace bar = "http://bar.org"; \n        declare variable $x as xs:integer := 7; \n        declare function local:sumOf1toN($i) as xs:integer { if ($i = 1) then $i else $i + local:sumOf1toN($i - 1) }; \n        declare option foo:strip-comments "true"; \n        local:sumOf1toN(5) = 15'
 version_declaration-007;Expected error code: XQST0031. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'xquery version '-1.0'; 2 + 2'
 version_declaration-008;Expected error code: XQST0031. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'xquery version "abc"; 1,2'
 version_declaration-010-v3;Expected error code: XQST0087. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'xquery version "3.0" encoding "999-UTF-8-*"; "ABC"'
@@ -17701,9 +17701,9 @@ XQueryComment005;PRSC Error: Failed to parse query ''
 XQueryComment006;PRSC Error: Failed to parse query ''
 XQueryComment007;PRSC Error: Failed to parse query ''
 XQueryComment008;PRSC Error: Failed to parse query ''
-XQueryComment009;Expected XPath (: Name: XQueryComment009 :)
+XQueryComment009;Expected XPath (: Name: XQueryComment009 :)\n(: Description: Comments inside a conditional expression :)\n\n\n\nif (:test (: yada (: neato :) :) :) (/fs:MyComputer) \n\tthen (: yada :) "true"\n\telse "false" to resolve to true, but instead got false
 XQueryComment010;PRSC Error: Failed to parse query ''
-XQueryComment011;Expected XPath (: Name: XQueryComment011 :)
+XQueryComment011;Expected XPath (: Name: XQueryComment011 :)\n(: Description: Comments inside a conditional expression :)\n\n\n\nif (:test:)(:t2:)(:t3:) (/fs:MyComputer) \n\tthen "true"\n\telse "false" to resolve to true, but instead got false
 XQueryComment012;Expected results and parsedFragment children to match
 XQueryComment014;PRSC Error: Failed to parse query '(: Name: XQueryComment014 :)\n(: Description: Comments inside a cast expression :)\n\n\n"10" cast as (: type comment :) xs:integer ?\n\n = 10'
 XQueryComment020;PRSC Error: Failed to parse query ''
@@ -17724,7 +17724,7 @@ xs-error-015;PRSC Error: Failed to parse query 'function() as empty-sequence() {
 xs-error-016;PRSC Error: Failed to parse query 'function() as empty-sequence() { () } instance of function() as xs:error*'
 xs-error-017;Expected error code: FOER0000. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:identity($arg as xs:error)\n            {\n              $arg\n            };\n       local:identity(fn:error())\n      '
 xs-error-018;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:identity($arg as xs:error)\n            {\n              $arg\n            };\n       local:identity(1)\n      '
-xs-error-019;Expected executing the XPath 'declare function local:constant($arg as xs:error)
+xs-error-019;Expected executing the XPath 'declare function local:constant($arg as xs:error)\n            {\n              fn:true()\n            };\n       local:constant(fn:error())' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare function local:constant($arg as xs:error)\n            {\n              fn:true()\n            };\n       local:constant(fn:error())\n      '
 xs-error-020;PRSC Error: Failed to parse query '(declare function local:identity($arg as xs:error?)\n            {\n              $arg\n            };\n       local:identity(())\n      ) => empty()'
 xs-error-021;Expected error code: FOER0000. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:error() as xs:error\n            {\n               fn:error()\n            };\n       local:error()\n      '
 xs-error-022;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare function local:error() as xs:error\n            {\n	      1\n            };\n       local:error()\n      '
@@ -17742,8 +17742,8 @@ xs-error-035;PRSC Error: Failed to parse query 'xs:error(()) castable as xs:erro
 xs-error-036;Expected error code: FOER0000. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'fn:error() castable as xs:error'
 xs-error-037;PRSC Error: Failed to parse query '() castable as xs:error?'
 xs-error-044;Expected executing the XPath 'fn:error() instance of xs:error' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
-xs-error-045;Expected executing the XPath 'typeswitch (xs:error(1)) 
-xs-error-046;Expected executing the XPath 'typeswitch (fn:error()) 
+xs-error-045;Expected executing the XPath 'typeswitch (xs:error(1)) \n            case xs:error return fn:true()\n            default return false()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'typeswitch (xs:error(1)) \n            case xs:error return fn:true()\n            default return false()'
+xs-error-046;Expected executing the XPath 'typeswitch (fn:error()) \n            case xs:error return fn:true()\n            default return false()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'typeswitch (fn:error()) \n            case xs:error return fn:true()\n            default return false()'
 xs-error-047;Expected XPathException with code FOER0000, but got TreatExpr AST to Expression not yet implemented
 xs-error-048;Expected XPathException with code XPDY0050, but got TreatExpr AST to Expression not yet implemented
 xs-error-049;TreatExpr AST to Expression not yet implemented
