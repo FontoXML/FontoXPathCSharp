@@ -155,7 +155,8 @@ public class DurationValue : AtomicValue, IComparable<DurationValue>
             Duration duration => new DurationValue(duration, type),
             DurationValue durationValue => new DurationValue(durationValue.Value, type),
             string durationString => FromString(durationString, type),
-            _ => throw new Exception($"Tried to create Duration value from invalid type: {(value != null ? value.GetType().Name : "null")}")
+            _ => throw new Exception(
+                $"Tried to create Duration value from invalid type: {(value != null ? value.GetType().Name : "null")}")
         })!;
     }
 }

@@ -263,7 +263,7 @@ public class Ast
         var attributes = ' ' + string.Join(' ', StringAttributes.Select(x => $"xqx:{x.Key}=\"{x.Value}\""));
         var opening = $"{indent}<{nodeName}{(attributes.Length > 1 ? attributes : "")}>";
         var closing = $"</{nodeName}>";
-        return Children.Count != 0 
+        return Children.Count != 0
             ? $"{opening}" +
               $"{(!string.IsNullOrEmpty(TextContent) ? "\n" + new string(' ', (indentLevel + 1) * indentSize) + TextContent : "")}" +
               $"\n{string.Join("\n", Children.Select(c => c.IndentedToString(indentLevel + 1)))}\n{indent}{closing}"

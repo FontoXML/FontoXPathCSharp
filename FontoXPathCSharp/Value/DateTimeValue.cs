@@ -196,7 +196,8 @@ public class DateTimeValue : AtomicValue
             DateTime dateTime => new DateTimeValue(dateTime),
             DateTimeValue dateTimeValue => new DateTimeValue(dateTimeValue),
             string dateTimeString => FromString(dateTimeString, type),
-            _ => throw new Exception($"Tried to create DateTime value from invalid type: {(value != null ? value.GetType().Name : "null")}")
+            _ => throw new Exception(
+                $"Tried to create DateTime value from invalid type: {(value != null ? value.GetType().Name : "null")}")
         };
     }
 }

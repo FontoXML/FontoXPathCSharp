@@ -94,12 +94,13 @@ public class UnaryOperator<TNode> : AbstractExpression<TNode> where TNode : notn
                     return SequenceFactory.CreateFromValue(
                         AtomicValue.Create(value.GetAs<FloatValue>().Value * -1, UnaryLookup[value.GetValueType()])
                     );
-                
+
                 if (value.GetValueType().IsSubtypeOf(ValueType.XsInteger))
                     return SequenceFactory.CreateFromValue(
                         AtomicValue.Create(value.GetAs<IntegerValue>().Value * -1, UnaryLookup[value.GetValueType()])
                     );
             }
+
             return SequenceFactory.CreateFromValue(AtomicValue.Create(double.NaN, ValueType.XsDouble));
         });
     }

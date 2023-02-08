@@ -53,9 +53,9 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
                 var stringValueSequence = Atomize.AtomizeSingleValue(value, executionParameters);
                 var stringValue = stringValueSequence.First();
 
-                return (value.GetValueType().IsSubtypeOf(ValueType.Attribute)
+                return value.GetValueType().IsSubtypeOf(ValueType.Attribute)
                     ? stringValue!.CastToType(ValueType.XsString)
-                    : stringValue!);
+                    : stringValue!;
             }
 
             return value.CastToType(ValueType.XsString);
