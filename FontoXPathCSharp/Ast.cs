@@ -159,6 +159,15 @@ public enum AstNodeName
     NamespaceNodeTest
 }
 
+public static class AstNodeUtils
+{
+    public static string GetNodeName(this AstNodeName input)
+    {
+        var name = Enum.GetName(typeof(AstNodeName), input)!;
+        return "xqx:" + char.ToLowerInvariant(name[0]) + name[1..];
+    }
+}
+
 public class Ast
 {
     public readonly AstNodeName Name;
@@ -243,9 +252,22 @@ public class Ast
 
     public override string ToString()
     {
-        return string.Format("<AST \"{0}\", {{{1}}}, \"{2}\", [{3}]>", Name,
-            string.Join(", ", StringAttributes.Select(x => $"{x.Key}: \"{x.Value}\"")),
-            TextContent, Children.Count == 0 ? "" : $"\n{string.Join("\n", Children)}\n");
+        return IndentedToString(0);
+    }
+
+    private string IndentedToString(int indentLevel)
+    {
+        var indentSize = 2;
+        var indent = new string(' ', indentLevel * indentSize);
+        var nodeName = Name.GetNodeName();
+        var attributes = ' ' + string.Join(' ', StringAttributes.Select(x => $"xqx:{x.Key}=\"{x.Value}\""));
+        var opening = $"{indent}<{nodeName}{(attributes.Length > 1 ? attributes : "")}>";
+        var closing = $"</{nodeName}>";
+        return Children.Count != 0 
+            ? $"{opening}" +
+              $"{(!string.IsNullOrEmpty(TextContent) ? "\n" + new string(' ', (indentLevel + 1) * indentSize) + TextContent : "")}" +
+              $"\n{string.Join("\n", Children.Select(c => c.IndentedToString(indentLevel + 1)))}\n{indent}{closing}"
+            : opening + TextContent + closing;
     }
 
     public Ast AddChildren(IEnumerable<Ast> children)
