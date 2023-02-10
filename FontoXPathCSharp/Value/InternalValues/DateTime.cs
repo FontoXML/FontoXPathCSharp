@@ -1,3 +1,4 @@
+using System.Xml;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Value.InternalValues;
@@ -137,5 +138,10 @@ public class DateTime : IComparable<DateTime>, IComparable
     {
         var result = dateTime._dateTime - new TimeSpan(duration.RawSeconds * TimeSpan.TicksPerSecond);
         return new DateTime(result, dateTime.HasTimezone, dateTime.GetValueType);
+    }
+
+    public DateTimeOffset ToDateTimeOffset()
+    {
+        return XmlConvert.ToDateTimeOffset(ToString());
     }
 }

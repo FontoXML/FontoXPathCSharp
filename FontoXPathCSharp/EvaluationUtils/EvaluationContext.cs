@@ -5,8 +5,6 @@ using FontoXPathCSharp.NodesFactory;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 using FontoXPathCSharp.Value;
-using FontoXPathCSharp.Value.Types;
-using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.EvaluationUtils;
 
@@ -62,7 +60,7 @@ public class EvaluationContext<TSelector, TNode> where TSelector : notnull where
         );
 
         var contextSequence = contextItem != null
-            ? AdaptValueToSequence(wrappedDomFacade, contextItem)
+            ? AdaptToValues<TNode>.AdaptValueToSequence(wrappedDomFacade, contextItem)
             : SequenceFactory.CreateEmpty();
 
         INodesFactory<TNode>? nodesFactory = null;
@@ -81,7 +79,7 @@ public class EvaluationContext<TSelector, TNode> where TSelector : notnull where
                 typedVariableByName[GenerateGlobalVariableBindingName(variableName)] =
                     variables.ContainsKey(variableName)
                         ? () => SequenceFactory.CreateFromValue(variables[variableName])
-                        : () => AdaptValueToSequence(
+                        : () => AdaptToValues<TNode>.AdaptValueToSequence(
                             wrappedDomFacade,
                             variables[variableName]
                         );
@@ -135,19 +133,6 @@ public class EvaluationContext<TSelector, TNode> where TSelector : notnull where
 
         throw new NotImplementedException(
             "EvaluationContext.CreateWrappedDomFacade: External Dom Facade not implemented yet");
-    }
-
-    private static ISequence AdaptValueToSequence(
-        DomFacade<TNode> domFacade,
-        AbstractValue? value,
-        SequenceType? expectedType = null)
-    {
-        // TODO: create a better implementation of AdaptValueToSequence
-        if (value == null) return SequenceFactory.CreateEmpty();
-        expectedType ??= new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne);
-        return SequenceFactory.CreateFromValue(
-            new NodeValue<TNode>(value.GetAs<NodeValue<TNode>>().Value, domFacade)
-        );
     }
 
     private static FunctionNameResolver CreateDefaultFunctionNameResolver(string defaultFunctionNamespaceUri)
