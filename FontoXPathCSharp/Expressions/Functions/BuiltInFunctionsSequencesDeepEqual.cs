@@ -262,7 +262,7 @@ public static class BuiltInFunctionsSequencesDeepEqual<TNode> where TNode : notn
         };
     }
 
-    private static BooleanValue AnyAtomicTypeDeepEqual(
+    public static BooleanValue AnyAtomicTypeDeepEqual(
         DynamicContext dynamicContext,
         ExecutionParameters<TNode> executionParameters,
         StaticContext<TNode> staticContext,
