@@ -1,6 +1,6 @@
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
-using FontoXPathCSharp.Expressions;
+using FontoXPathCSharp.Expressions.Functions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -8,9 +8,43 @@ using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp;
 
-public delegate object? FunctionCallback<TNode>(
-    DynamicContextAdapter<TNode> domFacade,
-    params object[] functionArgs
+public delegate TReturn FunctionCallback<TNode, out TReturn>(
+    DynamicContextAdapter<TNode>? domFacade
+) where TNode : notnull;
+
+public delegate TReturn FunctionCallback<TNode, in T1, out TReturn>(
+    DynamicContextAdapter<TNode>? domFacade,
+    T1 arg1
+) where TNode : notnull;
+
+public delegate TReturn FunctionCallback<TNode, in T1, in T2, out TReturn>(
+    DynamicContextAdapter<TNode>? domFacade,
+    T1 arg1,
+    T2 arg2
+) where TNode : notnull;
+
+public delegate TReturn FunctionCallback<TNode, in T1, in T2, in T3, out TReturn>(
+    DynamicContextAdapter<TNode>? domFacade,
+    T1 arg1,
+    T2 arg2,
+    T3 arg3
+) where TNode : notnull;
+
+public delegate TReturn FunctionCallback<TNode, in T1, in T2, in T3, in T4, out TReturn>(
+    DynamicContextAdapter<TNode>? domFacade,
+    T1 arg1,
+    T2 arg2,
+    T3 arg3,
+    T4 arg4
+) where TNode : notnull;
+
+public delegate TReturn FunctionCallback<TNode, in T1, in T2, in T3, in T4, in T5, out TReturn>(
+    DynamicContextAdapter<TNode>? domFacade,
+    T1 arg1,
+    T2 arg2,
+    T3 arg3,
+    T4 arg4,
+    T5 arg5
 ) where TNode : notnull;
 
 public record DynamicContextAdapter<TNode>(
@@ -20,7 +54,7 @@ public record DynamicContextAdapter<TNode>(
 
 public class CustomXPathFunctionException : Exception
 {
-    public CustomXPathFunctionException(Exception innerError, string localName, string namespaceUri)
+    public CustomXPathFunctionException(Exception innerError, string localName, string? namespaceUri)
         : base(GenerateMessage(innerError.StackTrace, innerError.Message, localName, namespaceUri))
     {
     }
@@ -58,31 +92,39 @@ public class CustomXPathFunctionException : Exception
 
 public class RegisterCustomXPathFunction<TNode> where TNode : notnull
 {
-    public static void RegisterFunction(
-        string name,
+    // public static void RegisterFunction(
+    //     string name,
+    //     string[] signatureNames,
+    //     string returnTypeName,
+    //     FunctionCallback<TNode> callback)
+    // {
+    //     RegisterFunction(SplitFunctionName(name), signatureNames, returnTypeName, callback);
+    // }
+
+    private static void RegisterFunction<TCallback>(
+        QName qName,
         string[] signatureNames,
         string returnTypeName,
-        FunctionCallback<TNode> callback)
+        TCallback callback,
+        Func<DynamicContextAdapter<TNode>, TCallback, object?[], object?> callbackRunner)
     {
-        var qName = SplitFunctionName(name);
-
         if (qName.NamespaceUri == null)
             throw new XPathException(
                 "XQST0060",
                 "Functions declared in a module or as an external function must reside in a namespace."
             );
 
-        var signature = signatureNames.Select(SequenceType.StringToSequenceType).ToArray();
+        var signature = signatureNames.Select(n => new ParameterType(SequenceType.StringToSequenceType(n))).ToArray();
         var returnType = SequenceType.StringToSequenceType(returnTypeName);
 
         FunctionSignature<ISequence, TNode> callFunction =
-            (dynamicContext, executionParameters, staticContext, args) =>
+            (_, executionParameters, _, args) =>
             {
-                var newArguments = args.Select((argument, index) => AdaptXPathValueToValue(
+                var newArgs = args.Select((argument, index) => AdaptXPathValueToValue(
                     argument,
                     signature[index],
                     executionParameters
-                ));
+                )).ToArray();
 
                 // Adapt the domFacade into another object to prevent passing everything. The closure compiler might rename some variables otherwise.
                 // Since the interface for domFacade (IDomFacade) is marked as extern, it will not be changed
@@ -91,17 +133,7 @@ public class RegisterCustomXPathFunction<TNode> where TNode : notnull
                     executionParameters.DomFacade.Unwrap()
                 );
 
-                object? result;
-                try
-                {
-                    result = callback(dynamicContextAdapter, newArguments);
-                }
-                catch (Exception error)
-                {
-                    // We throw our own error here so we can keep the JS stack only for custom XPath
-                    // functions
-                    throw new CustomXPathFunctionException(error, qName.LocalName, qName.NamespaceUri);
-                }
+                var result = callbackRunner(dynamicContextAdapter, callback, newArgs);
 
                 if (result != null && result is AbstractValue)
                     // If this symbol is present, the value has already undergone type conversion.
@@ -109,26 +141,130 @@ public class RegisterCustomXPathFunction<TNode> where TNode : notnull
 
                 return AdaptToValues<TNode>.AdaptValueToSequence(executionParameters.DomFacade, result, returnType);
             };
+
+        FunctionRegistry<TNode>.RegisterFunction(
+            qName.NamespaceUri,
+            qName.LocalName,
+            signature,
+            returnType,
+            callFunction
+        );
     }
 
-
-    private static QName SplitFunctionName(string name)
+    public static void RegisterFunction<TReturn>(
+        QName qName,
+        string[] signatureNames,
+        string returnTypeName,
+        FunctionCallback<TNode, TReturn> callback)
     {
-        var parts = name.Split(':');
-        if (parts.Length != 2)
-            throw new Exception("Do not register custom functions in the default function namespace");
+        RegisterFunction(qName,
+            signatureNames,
+            returnTypeName,
+            callback,
+            (dynamicContextAdapter, callbackFunction, _) =>
+            {
+                try
+                {
+                    return callbackFunction(dynamicContextAdapter);
+                }
+                catch (Exception error)
+                {
+                    throw new CustomXPathFunctionException(error, qName.LocalName, qName.NamespaceUri);
+                }
+            });
+    }
 
-        var prefix = parts[0];
-        var localName = parts[1];
+    public static void RegisterFunction<T1, TReturn>(
+        QName qName,
+        string[] signatureNames,
+        string returnTypeName,
+        FunctionCallback<TNode, T1?, TReturn> callback)
+    {
+        RegisterFunction(qName,
+            signatureNames,
+            returnTypeName,
+            callback,
+            (dynamicContextAdapter, callbackFunction, args) =>
+            {
+                try
+                {
+                    return callbackFunction(dynamicContextAdapter, (T1?)args[0]);
+                }
+                catch (Exception error)
+                {
+                    throw new CustomXPathFunctionException(error, qName.LocalName, qName.NamespaceUri);
+                }
+            });
+    }
 
-        var namespaceUriForPrefix = StaticallyKnownNamespacesExtensions.GetStaticallyKnownNamespaceByPrefix(prefix);
-        if (namespaceUriForPrefix == null)
-        {
-            namespaceUriForPrefix = $"generated_namespace_uri_{prefix}";
-            StaticallyKnownNamespacesExtensions.RegisterStaticallyKnownNamespace(prefix, namespaceUriForPrefix);
-        }
+    public static void RegisterFunction<T1, T2, TReturn>(
+        QName qName,
+        string[] signatureNames,
+        string returnTypeName,
+        FunctionCallback<TNode, T1?, T2?, TReturn> callback)
+    {
+        RegisterFunction(qName,
+            signatureNames,
+            returnTypeName,
+            callback,
+            (dynamicContextAdapter, callbackFunction, args) =>
+            {
+                try
+                {
+                    return callbackFunction(dynamicContextAdapter, (T1?)args[0], (T2?)args[1]);
+                }
+                catch (Exception error)
+                {
+                    throw new CustomXPathFunctionException(error, qName.LocalName, qName.NamespaceUri);
+                }
+            });
+    }
 
-        return new QName(localName, namespaceUriForPrefix);
+    public static void RegisterFunction<T1, T2, T3, TReturn>(
+        QName qName,
+        string[] signatureNames,
+        string returnTypeName,
+        FunctionCallback<TNode, T1?, T2?, T3?, TReturn> callback)
+    {
+        RegisterFunction(qName,
+            signatureNames,
+            returnTypeName,
+            callback,
+            (dynamicContextAdapter, callbackFunction, args) =>
+            {
+                try
+                {
+                    return callbackFunction(dynamicContextAdapter, (T1?)args[0], (T2?)args[1], (T3?)args[2]);
+                }
+                catch (Exception error)
+                {
+                    throw new CustomXPathFunctionException(error, qName.LocalName, qName.NamespaceUri);
+                }
+            });
+    }
+
+    public static void RegisterFunction<T1, T2, T3, T4, TReturn>(
+        QName qName,
+        string[] signatureNames,
+        string returnTypeName,
+        FunctionCallback<TNode, T1?, T2?, T3?, T4?, TReturn> callback)
+    {
+        RegisterFunction(qName,
+            signatureNames,
+            returnTypeName,
+            callback,
+            (dynamicContextAdapter, callbackFunction, args) =>
+            {
+                try
+                {
+                    return callbackFunction(dynamicContextAdapter, (T1?)args[0], (T2?)args[1], (T3?)args[2],
+                        (T4?)args[3]);
+                }
+                catch (Exception error)
+                {
+                    throw new CustomXPathFunctionException(error, qName.LocalName, qName.NamespaceUri);
+                }
+            });
     }
 
     public static object? AdaptXPathValueToValue(

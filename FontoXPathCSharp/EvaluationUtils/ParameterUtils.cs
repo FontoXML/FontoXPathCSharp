@@ -15,7 +15,7 @@ public class ParameterUtils
         return returnVariables;
     }
 
-    public static AbstractValue? ConvertToAbstractValue(object? value)
+    private static AbstractValue? ConvertToAbstractValue(object? value)
     {
         if (value == null) return null;
         var actualType = value.GetType();
@@ -31,7 +31,7 @@ public class ParameterUtils
             "Only a subset set of Atomic Values are implemented as variables so far.");
     }
 
-    public static NodeValue<TNode> VerifyContextNode<TNode>(TNode contextNode, IDomFacade<TNode> domFacade)
+    public static TNode VerifyContextNode<TNode>(TNode contextNode, IDomFacade<TNode> domFacade)
         where TNode : notnull
     {
         if (contextNode == null)
@@ -40,6 +40,6 @@ public class ParameterUtils
         if (domFacade == null)
             throw new Exception("Cannot have a null DOM facade when context item is an XML node.");
 
-        return new NodeValue<TNode>(contextNode, domFacade);
+        return contextNode;
     }
 }

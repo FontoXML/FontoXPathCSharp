@@ -12,7 +12,7 @@ public class EvaluationContext<TSelector, TNode> where TSelector : notnull where
 {
     public EvaluationContext(
         TSelector expression,
-        AbstractValue? contextItem,
+        object? contextItem,
         IDomFacade<TNode>? domFacade,
         Dictionary<string, AbstractValue?> variables,
         Options<TNode>? externalOptions,

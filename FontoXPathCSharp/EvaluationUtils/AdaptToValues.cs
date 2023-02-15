@@ -15,7 +15,6 @@ public class AdaptToValues<TNode> where TNode : notnull
         object? value,
         SequenceType? expectedType = null)
     {
-        if (value == null) return SequenceFactory.CreateEmpty();
         expectedType ??= new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne);
         return SequenceFactory.CreateFromArray(AdaptValueToArrayOfXPathValues(domFacade, value, expectedType));
     }
@@ -105,10 +104,10 @@ public class AdaptToValues<TNode> where TNode : notnull
             case ValueType.Text:
             case ValueType.ProcessingInstruction:
             case ValueType.Comment:
-                if (value is not TNode)
+                if (value is not TNode node)
                     throw new Exception(
                         $"The value {value} with type {value.GetType().Name} is not a valid type to be converted to an XPath {valueType}.");
-                return new NodeValue<TNode>((TNode)value, domFacade);
+                return new NodeValue<TNode>(node, domFacade);
             case ValueType.Item:
             case ValueType.Map:
                 return AdaptSingleValue(value, domFacade);
