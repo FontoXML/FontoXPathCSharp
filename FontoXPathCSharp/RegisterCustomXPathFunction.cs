@@ -178,7 +178,7 @@ public class RegisterCustomXPathFunction<TNode> where TNode : notnull
         QName qName,
         string[] signatureNames,
         string returnTypeName,
-        FunctionCallback<TNode, T1?, TReturn> callback)
+        FunctionCallback<TNode, T1, TReturn> callback)
     {
         RegisterFunction(qName,
             signatureNames,
@@ -188,7 +188,7 @@ public class RegisterCustomXPathFunction<TNode> where TNode : notnull
             {
                 try
                 {
-                    return callbackFunction(dynamicContextAdapter, (T1?)args[0]);
+                    return callbackFunction(dynamicContextAdapter, (T1)args[0]!);
                 }
                 catch (Exception error)
                 {
@@ -201,7 +201,7 @@ public class RegisterCustomXPathFunction<TNode> where TNode : notnull
         QName qName,
         string[] signatureNames,
         string returnTypeName,
-        FunctionCallback<TNode, T1?, T2?, TReturn> callback)
+        FunctionCallback<TNode, T1, T2, TReturn> callback)
     {
         RegisterFunction(qName,
             signatureNames,
@@ -211,7 +211,7 @@ public class RegisterCustomXPathFunction<TNode> where TNode : notnull
             {
                 try
                 {
-                    return callbackFunction(dynamicContextAdapter, (T1?)args[0], (T2?)args[1]);
+                    return callbackFunction(dynamicContextAdapter, (T1)args[0]!, (T2)args[1]!);
                 }
                 catch (Exception error)
                 {
@@ -224,7 +224,7 @@ public class RegisterCustomXPathFunction<TNode> where TNode : notnull
         QName qName,
         string[] signatureNames,
         string returnTypeName,
-        FunctionCallback<TNode, T1?, T2?, T3?, TReturn> callback)
+        FunctionCallback<TNode, T1, T2, T3, TReturn> callback)
     {
         RegisterFunction(qName,
             signatureNames,
@@ -234,7 +234,7 @@ public class RegisterCustomXPathFunction<TNode> where TNode : notnull
             {
                 try
                 {
-                    return callbackFunction(dynamicContextAdapter, (T1?)args[0], (T2?)args[1], (T3?)args[2]);
+                    return callbackFunction(dynamicContextAdapter, (T1?)args[0]!, (T2?)args[1]!, (T3?)args[2]!);
                 }
                 catch (Exception error)
                 {
@@ -257,8 +257,7 @@ public class RegisterCustomXPathFunction<TNode> where TNode : notnull
             {
                 try
                 {
-                    return callbackFunction(dynamicContextAdapter, (T1?)args[0], (T2?)args[1], (T3?)args[2],
-                        (T4?)args[3]);
+                    return callbackFunction(dynamicContextAdapter, (T1)args[0]!, (T2)args[1]!, (T3)args[2]!, (T4)args[3]!);
                 }
                 catch (Exception error)
                 {

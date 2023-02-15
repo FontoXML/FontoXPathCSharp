@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Xml;
 using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
@@ -32,14 +33,19 @@ public class TestRegisterCustomXPathFunction
 
     private static void RegisterFunctions<TNode>() where TNode : notnull
     {
+        void VerifyDynamicContext(DynamicContextAdapter<TNode>? dynamicContext)
+        {
+            Assert.True(dynamicContext != null, "A dynamic context has not been passed");
+            Assert.True(dynamicContext?.DomFacade != null, "A domFacade has not been passed");
+        }
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction<string?, bool>(
             new QName("custom-function1", "test"),
             new[] { "xs:string?" },
             "xs:boolean",
             (dynamicContext, arg1) =>
             {
-                Assert.True(dynamicContext != null, "A dynamic context has not been passed");
-                Assert.True(dynamicContext?.DomFacade != null, "A domFacade has not been passed");
+                VerifyDynamicContext(dynamicContext);
                 return arg1 is null or "test";
             }
         );
@@ -50,59 +56,82 @@ public class TestRegisterCustomXPathFunction
             "xs:boolean",
             (dynamicContext, stringArg, boolArg) =>
             {
-                Assert.True(dynamicContext != null, "A dynamic context has not been passed");
-                Assert.True(dynamicContext?.DomFacade != null, "A domFacade has not been passed");
+                VerifyDynamicContext(dynamicContext);
                 return stringArg == "test" && boolArg;
             }
         );
 
-        // RegisterCustomXPathFunction<TNode>.RegisterFunction(
-        // 	"test:custom-function3",
-        // 	new []{"item()*"},
-        // 	"item()",
-        // 	(dynamicContext, args) => { 
-        // 		Assert.True(dynamicContext != null, "A dynamic context has not been passed");
-        // 		Assert.True(dynamicContext?.DomFacade != null, "A domFacade has not been passed");
-        //
-        // 		return args[0];
-        // 	}
-        // );
-        //
-        // registerCustomXPathFunction(
-        // 	{ namespaceURI: 'test', localName: 'custom-function4' },
-        // 	['xs:string*'],
-        // 	'xs:string*',
-        // 	(dynamicContext, stringArray) => {
-        // 		chai.assert.isOk(dynamicContext, 'A dynamic context has not been passed');
-        // 		chai.assert.isOk(dynamicContext.domFacade, 'A domFacade has not been passed');
-        //
-        // 		return stringArray.map((stringValue) => {
-        // 			return stringValue + '-test';
-        // 		});
-        // 	}
-        // );
-        //
-        // registerCustomXPathFunction(
-        // 	{ namespaceURI: 'test', localName: 'custom-function5' },
-        // 	['xs:string?'],
-        // 	'xs:string?',
-        // 	(dynamicContext, stringValue) => {
-        // 		chai.assert.isOk(dynamicContext, 'A dynamic context has not been passed');
-        // 		chai.assert.isOk(dynamicContext.domFacade, 'A domFacade has not been passed');
-        //
-        // 		if (stringValue === 'returnNull') {
-        // 			return null;
-        // 		} else if (stringValue === null) {
-        // 			return 'nullIsPassed';
-        // 		} else {
-        // 			return stringValueFactory('test', dynamicContext.domFacade);
-        // 		}
-        // 	}
-        // );    
+        RegisterCustomXPathFunction<TNode>.RegisterFunction<object[], object>(
+            new QName("custom-function3", "test"),
+            new[] { "item()*" },
+            "item()",
+            (dynamicContext, args) =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return args[0];
+            }
+        );
+
+
+        RegisterCustomXPathFunction<TNode>.RegisterFunction<string[], string[]>(
+            new QName("custom-function4", "test"),
+            new[] { "xs:string*" },
+            "xs:string*",
+            (dynamicContext, stringArray) =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return stringArray.Select(stringValue => stringValue + "-test").ToArray();
+            }
+        );
+
+        RegisterCustomXPathFunction<TNode>.RegisterFunction<string?, string?>(
+            new QName("custom-function5", "test"),
+            new[] { "xs:string?" },
+            "xs:string?",
+            (dynamicContext, stringValue) =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return stringValue switch
+                {
+                    null => "nullIsPassed",
+                    "returnNull" => null,
+                    _ => "test"
+                };
+            }
+        );
     }
 
     [Fact]
-    public void TwoArgumentFunction()
+    public void BooleanReturnValueTest()
+    {
+        Assert.True(
+            Evaluate.EvaluateXPathToBoolean(
+                "test:custom-function1('test')",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+        Assert.False(
+            Evaluate.EvaluateXPathToBoolean(
+                "test:custom-function1('bla')",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+        Assert.True(
+            Evaluate.EvaluateXPathToBoolean(
+                "test:custom-function1(())",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+    }
+
+    [Fact]
+    public void TwoArgumentFunctionTest()
     {
         RegisterFunctions<XmlNode>();
 
