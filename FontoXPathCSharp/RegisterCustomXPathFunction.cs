@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Reflection;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions.Functions;
@@ -99,7 +100,12 @@ public static class RegisterCustomXPathFunction<TNode> where TNode : notnull
 
     private static T ParamConvert<T>(object param)
     {
-        return param is T ? (T)param : (T)Convert.ChangeType(param, typeof(T));
+        return param switch
+        {
+            T t => t,
+            Array a => ReflectionCast.CastToArrayDynamically<T>(a),
+            _ => (T)Convert.ChangeType(param, typeof(T))
+        };
     }
 
     public static void RegisterFunction<T1, TReturn>(
@@ -108,6 +114,7 @@ public static class RegisterCustomXPathFunction<TNode> where TNode : notnull
         string returnTypeName,
         FunctionCallback<TNode, T1, TReturn> callback)
     {
+        // argCaster1 ??= ParamConvert<T1>;
         RegisterFunction(qName,
             signatureNames,
             returnTypeName,
