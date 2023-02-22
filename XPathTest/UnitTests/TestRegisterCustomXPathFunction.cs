@@ -146,6 +146,138 @@ public class TestRegisterCustomXPathFunction
                 return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
             }
         );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-datetime-function", "test"),
+            Array.Empty<string>(),
+            "xs:dateTime",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
+            }
+        );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-datetime-function-simple", "test"),
+            Array.Empty<string>(),
+            "xs:dateTime",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+            }
+        );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-gYearMonth-function", "test"),
+            Array.Empty<string>(),
+            "xs:gYearMonth",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
+            }
+        );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-gYearMonth-function-simple", "test"),
+            Array.Empty<string>(),
+            "xs:gYearMonth",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+            }
+        );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-gYear-function", "test"),
+            Array.Empty<string>(),
+            "xs:gYear",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
+            }
+        );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-gYear-function-simple", "test"),
+            Array.Empty<string>(),
+            "xs:gYear",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+            }
+        );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-gMonthDay-function", "test"),
+            Array.Empty<string>(),
+            "xs:gMonthDay",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
+            }
+        );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-gMonthDay-function-simple", "test"),
+            Array.Empty<string>(),
+            "xs:gMonthDay",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+            }
+        );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-gMonth-function", "test"),
+            Array.Empty<string>(),
+            "xs:gMonth",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
+            }
+        );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-gMonth-function-simple", "test"),
+            Array.Empty<string>(),
+            "xs:gMonth",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+            }
+        );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-gDay-function", "test"),
+            Array.Empty<string>(),
+            "xs:gDay",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
+            }
+        );
+        
+        RegisterCustomXPathFunction<TNode>.RegisterFunction(
+            new QName("custom-gDay-function-simple", "test"),
+            Array.Empty<string>(),
+            "xs:gDay",
+            dynamicContext =>
+            {
+                VerifyDynamicContext(dynamicContext);
+                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+            }
+        );
     }
 
     [Fact]
@@ -399,6 +531,150 @@ public class TestRegisterCustomXPathFunction
             "10:25:30Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-time-function-simple()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+    }
+
+    [Fact]
+    private void RegisteredFunctionDateTimeTest()
+    {
+        Assert.Equal(
+            "2018-06-22T10:25:30Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-datetime-function()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+        
+        Assert.Equal(
+            "2018-06-22T10:25:30Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-datetime-function-simple()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+    }
+    
+    [Fact]
+    private void RegisteredFunctionGYearMonthTest()
+    {
+        Assert.Equal(
+            "2018-06Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-gYearMonth-function()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+        
+        Assert.Equal(
+            "2018-06Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-gYearMonth-function-simple()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+    }
+    
+    [Fact]
+    private void RegisteredFunctionGYearTest()
+    {
+        Assert.Equal(
+            "2018Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-gYear-function()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+        
+        Assert.Equal(
+            "2018Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-gYear-function-simple()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+    }
+    
+    [Fact]
+    private void RegisteredFunctionGMonthDayTest()
+    {
+        Assert.Equal(
+            "--06-22Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-gMonthDay-function()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+        
+        Assert.Equal(
+            "--06-22Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-gMonthDay-function-simple()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+    }
+    
+    [Fact]
+    private void RegisteredFunctionGMonthTest()
+    {
+        Assert.Equal(
+            "--06Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-gMonth-function()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+        
+        Assert.Equal(
+            "--06Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-gMonth-function-simple()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+    }
+    
+    [Fact]
+    private void RegisteredFunctionGDayTest()
+    {
+        Assert.Equal(
+            "---22Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-gDay-function()",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+        
+        Assert.Equal(
+            "---22Z",
+            Evaluate.EvaluateXPathToString(
+                "test:custom-gDay-function-simple()",
                 XmlNodeEmptyContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
