@@ -36,7 +36,7 @@ public class AdaptToValues<TNode> where TNode : notnull
                     $"The value {value} should be an array if it is to be converted to {expectedType}."
                 );
             case SequenceMultiplicity.ZeroOrMore or SequenceMultiplicity.OneOrMore:
-                return ((IEnumerable<object?>)value)
+                return ((IEnumerable)value).Cast<object?>()
                     .Select(val => AdaptValueToXPath(expectedType.ValueType, val, domFacade))
                     .Where(val => val != null)
                     .Cast<AbstractValue>()

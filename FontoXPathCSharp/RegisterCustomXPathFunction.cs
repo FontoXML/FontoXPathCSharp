@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Reflection;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions.Functions;
@@ -52,7 +50,7 @@ public class CustomXPathFunctionException : Exception
     }
 
     private static string GenerateMessage(string? stack, string innerErrorMessage, string localName,
-        string namespaceUri)
+        string? namespaceUri)
     {
         if (stack != null)
         {
@@ -98,8 +96,9 @@ public static class RegisterCustomXPathFunction<TNode> where TNode : notnull
                 callbackFunction(dynamicContextAdapter));
     }
 
-    private static T ParamConvert<T>(object param)
+    private static T? ParamConvert<T>(object? param)
     {
+        if (param == null) return default;
         return param switch
         {
             T t => t,
@@ -122,7 +121,7 @@ public static class RegisterCustomXPathFunction<TNode> where TNode : notnull
             (dynamicContextAdapter, callbackFunction, args) =>
                 callbackFunction(
                     dynamicContextAdapter,
-                    ParamConvert<T1>(args[0]!)
+                    ParamConvert<T1>(args[0]!)!
                 ));
     }
 
@@ -139,8 +138,8 @@ public static class RegisterCustomXPathFunction<TNode> where TNode : notnull
             (dynamicContextAdapter, callbackFunction, args) =>
                 callbackFunction(
                     dynamicContextAdapter,
-                    ParamConvert<T1>(args[0]!),
-                    ParamConvert<T2>(args[1]!)
+                    ParamConvert<T1>(args[0]!)!,
+                    ParamConvert<T2>(args[1]!)!
                 ));
     }
 
@@ -157,9 +156,9 @@ public static class RegisterCustomXPathFunction<TNode> where TNode : notnull
             (dynamicContextAdapter, callbackFunction, args) =>
                 callbackFunction(
                     dynamicContextAdapter,
-                    ParamConvert<T1>(args[0]!),
-                    ParamConvert<T2>(args[1]!),
-                    ParamConvert<T3>(args[2]!)
+                    ParamConvert<T1>(args[0]!)!,
+                    ParamConvert<T2>(args[1]!)!,
+                    ParamConvert<T3>(args[2]!)!
                 ));
     }
 
@@ -176,10 +175,10 @@ public static class RegisterCustomXPathFunction<TNode> where TNode : notnull
             (dynamicContextAdapter, callbackFunction, args) =>
                 callbackFunction(
                     dynamicContextAdapter,
-                    ParamConvert<T1>(args[0]!),
-                    ParamConvert<T2>(args[1]!),
-                    ParamConvert<T3>(args[2]!),
-                    ParamConvert<T4>(args[3]!)
+                    ParamConvert<T1>(args[0]!)!,
+                    ParamConvert<T2>(args[1]!)!,
+                    ParamConvert<T3>(args[2]!)!,
+                    ParamConvert<T4>(args[3]!)!
                 ));
     }
 

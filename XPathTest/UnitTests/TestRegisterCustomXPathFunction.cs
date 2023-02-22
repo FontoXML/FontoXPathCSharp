@@ -30,7 +30,8 @@ public class TestRegisterCustomXPathFunction
         XmlNodeWorksMod = new XmlDocument();
         XmlNodeWorksMod.LoadXml(TestFileSystem.ReadFile("qt3tests/docs/works-mod.xml"));
 
-        RegisterFunctions<XmlNode>();
+        RegisterSimpleFunctions<XmlNode>();
+        RegisterComplexFunctions<XmlNode>();
     }
 
     private static void VerifyDynamicContext<TNode>(DynamicContextAdapter<TNode>? dynamicContext) where TNode : notnull
@@ -39,7 +40,7 @@ public class TestRegisterCustomXPathFunction
         Assert.True(dynamicContext?.DomFacade != null, "A domFacade has not been passed");
     }
 
-    private static void RegisterFunctions<TNode>() where TNode : notnull
+    private static void RegisterComplexFunctions<TNode>() where TNode : notnull
     {
         RegisterCustomXPathFunction<TNode>.RegisterFunction<string?, bool>(
             new QName("custom-function1", "test"),
@@ -101,7 +102,7 @@ public class TestRegisterCustomXPathFunction
                 };
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-date-function", "test"),
             Array.Empty<string>(),
@@ -112,7 +113,7 @@ public class TestRegisterCustomXPathFunction
                 return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
             }
         );
-        
+
         //Added this one to do simple datetime as well.
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-date-function-simple", "test"),
@@ -121,10 +122,10 @@ public class TestRegisterCustomXPathFunction
             dynamicContext =>
             {
                 VerifyDynamicContext(dynamicContext);
-                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+                return new DateTime(2018, 6, 22, 10, 25, 30, DateTimeKind.Utc);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-time-function", "test"),
             Array.Empty<string>(),
@@ -135,7 +136,7 @@ public class TestRegisterCustomXPathFunction
                 return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-time-function-simple", "test"),
             Array.Empty<string>(),
@@ -143,10 +144,10 @@ public class TestRegisterCustomXPathFunction
             dynamicContext =>
             {
                 VerifyDynamicContext(dynamicContext);
-                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+                return new DateTime(2018, 6, 22, 10, 25, 30, DateTimeKind.Utc);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-datetime-function", "test"),
             Array.Empty<string>(),
@@ -157,7 +158,7 @@ public class TestRegisterCustomXPathFunction
                 return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-datetime-function-simple", "test"),
             Array.Empty<string>(),
@@ -165,10 +166,10 @@ public class TestRegisterCustomXPathFunction
             dynamicContext =>
             {
                 VerifyDynamicContext(dynamicContext);
-                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+                return new DateTime(2018, 6, 22, 10, 25, 30, DateTimeKind.Utc);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-gYearMonth-function", "test"),
             Array.Empty<string>(),
@@ -179,7 +180,7 @@ public class TestRegisterCustomXPathFunction
                 return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-gYearMonth-function-simple", "test"),
             Array.Empty<string>(),
@@ -187,10 +188,10 @@ public class TestRegisterCustomXPathFunction
             dynamicContext =>
             {
                 VerifyDynamicContext(dynamicContext);
-                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+                return new DateTime(2018, 6, 22, 10, 25, 30, DateTimeKind.Utc);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-gYear-function", "test"),
             Array.Empty<string>(),
@@ -201,7 +202,7 @@ public class TestRegisterCustomXPathFunction
                 return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-gYear-function-simple", "test"),
             Array.Empty<string>(),
@@ -209,10 +210,10 @@ public class TestRegisterCustomXPathFunction
             dynamicContext =>
             {
                 VerifyDynamicContext(dynamicContext);
-                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+                return new DateTime(2018, 6, 22, 10, 25, 30, DateTimeKind.Utc);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-gMonthDay-function", "test"),
             Array.Empty<string>(),
@@ -223,7 +224,7 @@ public class TestRegisterCustomXPathFunction
                 return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-gMonthDay-function-simple", "test"),
             Array.Empty<string>(),
@@ -231,10 +232,10 @@ public class TestRegisterCustomXPathFunction
             dynamicContext =>
             {
                 VerifyDynamicContext(dynamicContext);
-                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+                return new DateTime(2018, 6, 22, 10, 25, 30, DateTimeKind.Utc);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-gMonth-function", "test"),
             Array.Empty<string>(),
@@ -245,7 +246,7 @@ public class TestRegisterCustomXPathFunction
                 return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-gMonth-function-simple", "test"),
             Array.Empty<string>(),
@@ -253,10 +254,10 @@ public class TestRegisterCustomXPathFunction
             dynamicContext =>
             {
                 VerifyDynamicContext(dynamicContext);
-                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+                return new DateTime(2018, 6, 22, 10, 25, 30, DateTimeKind.Utc);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-gDay-function", "test"),
             Array.Empty<string>(),
@@ -267,7 +268,7 @@ public class TestRegisterCustomXPathFunction
                 return new DateTimeOffset(2018, 6, 22, 10, 25, 30, TimeSpan.Zero);
             }
         );
-        
+
         RegisterCustomXPathFunction<TNode>.RegisterFunction(
             new QName("custom-gDay-function-simple", "test"),
             Array.Empty<string>(),
@@ -275,7 +276,7 @@ public class TestRegisterCustomXPathFunction
             dynamicContext =>
             {
                 VerifyDynamicContext(dynamicContext);
-                return new DateTime(2018, 6, 22,10, 25, 30, DateTimeKind.Utc);
+                return new DateTime(2018, 6, 22, 10, 25, 30, DateTimeKind.Utc);
             }
         );
     }
@@ -340,7 +341,7 @@ public class TestRegisterCustomXPathFunction
         );
     }
 
-    [Fact (Skip = "Parser does not support this yet for some reason.")]
+    [Fact(Skip = "Parser does not support this yet for some reason.")]
     public void RegisterFunctionInNamespaceTest()
     {
         const string namespaceUri = "http://www.example.com/customFunctionTest";
@@ -459,7 +460,7 @@ public class TestRegisterCustomXPathFunction
             )
         );
     }
-    
+
     [Fact]
     private void RegisteredFunctionCanReturnValueTest()
     {
@@ -484,11 +485,11 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeEmptyContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions,
-                new Dictionary<string, object?> {{"str", null}}
+                new Dictionary<string, object?> { { "str", null } }
             )
         );
     }
-    
+
     [Fact]
     private void RegisteredFunctionDateTest()
     {
@@ -501,7 +502,7 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeOptions
             )
         );
-        
+
         Assert.Equal(
             "2018-06-22Z",
             Evaluate.EvaluateXPathToString(
@@ -526,7 +527,7 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeOptions
             )
         );
-        
+
         Assert.Equal(
             "10:25:30Z",
             Evaluate.EvaluateXPathToString(
@@ -550,7 +551,7 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeOptions
             )
         );
-        
+
         Assert.Equal(
             "2018-06-22T10:25:30Z",
             Evaluate.EvaluateXPathToString(
@@ -561,7 +562,7 @@ public class TestRegisterCustomXPathFunction
             )
         );
     }
-    
+
     [Fact]
     private void RegisteredFunctionGYearMonthTest()
     {
@@ -574,7 +575,7 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeOptions
             )
         );
-        
+
         Assert.Equal(
             "2018-06Z",
             Evaluate.EvaluateXPathToString(
@@ -585,7 +586,7 @@ public class TestRegisterCustomXPathFunction
             )
         );
     }
-    
+
     [Fact]
     private void RegisteredFunctionGYearTest()
     {
@@ -598,7 +599,7 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeOptions
             )
         );
-        
+
         Assert.Equal(
             "2018Z",
             Evaluate.EvaluateXPathToString(
@@ -609,7 +610,7 @@ public class TestRegisterCustomXPathFunction
             )
         );
     }
-    
+
     [Fact]
     private void RegisteredFunctionGMonthDayTest()
     {
@@ -622,7 +623,7 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeOptions
             )
         );
-        
+
         Assert.Equal(
             "--06-22Z",
             Evaluate.EvaluateXPathToString(
@@ -633,7 +634,7 @@ public class TestRegisterCustomXPathFunction
             )
         );
     }
-    
+
     [Fact]
     private void RegisteredFunctionGMonthTest()
     {
@@ -646,7 +647,7 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeOptions
             )
         );
-        
+
         Assert.Equal(
             "--06Z",
             Evaluate.EvaluateXPathToString(
@@ -657,7 +658,7 @@ public class TestRegisterCustomXPathFunction
             )
         );
     }
-    
+
     [Fact]
     private void RegisteredFunctionGDayTest()
     {
@@ -670,7 +671,7 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeOptions
             )
         );
-        
+
         Assert.Equal(
             "---22Z",
             Evaluate.EvaluateXPathToString(
@@ -680,5 +681,184 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeOptions
             )
         );
+    }
+
+    [Fact]
+    private void KeepsDomFacadeIntactTest()
+    {
+        var outerDomFacade = new OuterDomFacade();
+        RegisterCustomXPathFunction<XmlNode>.RegisterFunction(
+            new QName("custom-function-keeps-the-dom-facade", "test"),
+            Array.Empty<string>(),
+            "xs:boolean",
+            dynamicContext =>
+            {
+                Assert.Equal(outerDomFacade, dynamicContext?.DomFacade);
+                return dynamicContext?.DomFacade is OuterDomFacade outer && OuterDomFacade.ThisIsTheOuterOne;
+            }
+        );
+        Assert.True(
+            Evaluate.EvaluateXPathToBoolean(
+                "test:custom-function-keeps-the-dom-facade()",
+                XmlNodeEmptyContext,
+                outerDomFacade,
+                XmlNodeOptions
+            )
+        );
+    }
+
+    [Fact]
+    private void ThrowsWhenRegisteringWithUriTest()
+    {
+        XPathException? xqst0060 = null;
+        try
+        {
+            RegisterCustomXPathFunction<XmlNode>.RegisterFunction(
+                new QName("empty-uri", ""),
+                Array.Empty<string>(),
+                "xs:boolean",
+                _ => true
+            );
+        }
+        catch (XPathException ex)
+        {
+            xqst0060 = ex;
+        }
+
+        Assert.True(xqst0060 != null && xqst0060.ErrorCode == "XQST0060");
+
+        xqst0060 = null;
+
+        try
+        {
+            RegisterCustomXPathFunction<XmlNode>.RegisterFunction(
+                new QName("empty-uri"),
+                Array.Empty<string>(),
+                "xs:boolean",
+                _ => true
+            );
+        }
+        catch (XPathException ex)
+        {
+            xqst0060 = ex;
+        }
+
+        Assert.True(xqst0060 != null && xqst0060.ErrorCode == "XQST0060");
+    }
+
+    [Fact(Skip = "The functionality for this test does not really exist yet I think.")]
+    private void GetNodeWithoutWrappingPointersTest()
+    {
+    }
+
+    private static void RegisterSimpleFunctions<TNode>() where TNode : notnull
+    {
+        RegisterCustomXPathFunction<TNode>.RegisterFunction<DateTimeOffset, DateTimeOffset>(
+            new QName("custom-date-function-param", "test"),
+            new[] { "xs:date" },
+            "xs:date",
+            (_, date) =>
+            {
+                Assert.True(date is DateTimeOffset, "Parameter is not of type DateTimeOffset");
+                return date;
+            }
+        );
+
+        RegisterCustomXPathFunction<TNode>.RegisterFunction<DateTimeOffset?, DateTimeOffset?>(
+            new QName("custom-date-function-optional-param", "test"),
+            new[] { "xs:date?" },
+            "xs:date?",
+            (_, date) =>
+            {
+                Assert.True(date is null or DateTimeOffset, "Parameter is not null or of type DateTimeOffset");
+                return date;
+            }
+        );
+
+        RegisterCustomXPathFunction<TNode>.RegisterFunction<DateTimeOffset[], DateTimeOffset[]>(
+            new QName("custom-date-function-zero-to-many-param", "test"),
+            new[] { "xs:date*" },
+            "xs:date*",
+            (_, dates) =>
+            {
+                Assert.True(dates is Array, "Parameter is not an array.");
+
+                Assert.True(dates.All(d => d is DateTimeOffset), "Parameter is not of type DateTimeOffset");
+
+                return dates;
+            }
+        );
+
+        // There were more tests of a similar nature, but they all do the same, which is a waste in a strongly typed language.
+    }
+
+    [Fact]
+    private void PassesDateTimeOffsetTest()
+    {
+        Assert.NotNull(
+            Evaluate.EvaluateXPathToString(
+                "test:custom-date-function-param(xs:date('2019-08-29'))",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            ));
+    }
+
+    [Fact]
+    private void PassesDateTimeOffsetOptionalTest()
+    {
+        Assert.NotNull(
+            Evaluate.EvaluateXPathToString(
+                "test:custom-date-function-optional-param(xs:date('2019-08-29'))",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            ));
+
+        Assert.Null(
+            Evaluate.EvaluateXPathToString(
+                "test:custom-date-function-optional-param(())",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            ));
+    }
+
+    [Fact]
+    private void PassesDateTimeOffsetZeroManyTest()
+    {
+        Assert.NotNull(
+            Evaluate.EvaluateXPathToString(
+                "test:custom-date-function-zero-to-many-param((xs:date('2019-08-29'), xs:date('2019-08-31')))",
+                XmlNodeEmptyContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            ));
+    }
+
+    [Fact]
+    private void NoUnsupportedTypesTest()
+    {
+        XPathException? err = null;
+        try
+        {
+            RegisterCustomXPathFunction<XmlNode>.RegisterFunction(
+                new QName("func", "a-random-prefix-to-prevent-collisions"),
+                Array.Empty<string>(),
+                "this-type::does-not-exist",
+                _ => true
+            );
+        }
+        catch (XPathException ex)
+        {
+            err = ex;
+        }
+
+        Assert.True(err != null && err.ErrorCode == "XPST0081");
+    }
+
+    private class OuterDomFacade : XmlNodeDomFacade
+    {
+        public const bool ThisIsTheOuterOne = true;
     }
 }

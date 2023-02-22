@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Reflection;
 
 namespace FontoXPathCSharp.EvaluationUtils;
