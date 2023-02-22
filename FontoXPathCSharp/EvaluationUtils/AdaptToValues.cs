@@ -26,7 +26,7 @@ public class AdaptToValues<TNode> where TNode : notnull
     {
         switch (expectedType.Multiplicity)
         {
-            case SequenceMultiplicity.ZeroOrMore:
+            case SequenceMultiplicity.ZeroOrOne:
             {
                 var converted = AdaptValueToXPath(expectedType.ValueType, value, domFacade);
                 return converted == null ? Array.Empty<AbstractValue>() : new[] { converted };
@@ -45,7 +45,7 @@ public class AdaptToValues<TNode> where TNode : notnull
                 var adaptedValue = AdaptValueToXPath(expectedType.ValueType, value, domFacade);
                 if (adaptedValue == null)
                     throw new Exception(
-                        $"The JavaScript value {value} should be a single entry if it is to be converted to {expectedType}."
+                        $"The value {value} should be a single entry if it is to be converted to {expectedType}."
                     );
                 return new[] { adaptedValue };
         }
@@ -125,6 +125,7 @@ public class AdaptToValues<TNode> where TNode : notnull
         return value switch
         {
             bool b => b ? AtomicValue.TrueBoolean : AtomicValue.FalseBoolean,
+            string s => StringValue.CreateStringValue(s),
             float f => FloatValue.CreateFloatValue(f),
             double dbl => DoubleValue.CreateDoubleValue(dbl),
             decimal dml => DecimalValue.CreateDecimalValue(dml),
@@ -177,5 +178,32 @@ public class AdaptToValues<TNode> where TNode : notnull
         ExecutionParameters<TNode> executionParameters)
     {
         throw new NotImplementedException();
+    }
+    
+    public static object? AdaptXPathValueToValue(
+        ISequence valueSequence,
+        SequenceType sequenceType,
+        ExecutionParameters<TNode> executionParameters)
+    {
+        return sequenceType.Multiplicity switch
+        {
+            SequenceMultiplicity.ZeroOrOne when valueSequence.IsEmpty() => null,
+            SequenceMultiplicity.ZeroOrOne => TransformValues<TNode>.TransformXPathItemToObject(valueSequence.First()!,
+                    executionParameters)
+                (IterationHint.None)
+                .Value,
+            SequenceMultiplicity.ZeroOrMore or SequenceMultiplicity.OneOrMore => valueSequence.GetAllValues()
+                .Select(value =>
+                {
+                    if (value.GetValueType().IsSubtypeOf(ValueType.Attribute))
+                        throw new Exception("Cannot pass attribute nodes to custom functions");
+
+                    return TransformValues<TNode>
+                        .TransformXPathItemToObject(value, executionParameters)(IterationHint.None).Value;
+                })
+                .ToArray(),
+            _ => TransformValues<TNode>
+                .TransformXPathItemToObject(valueSequence.First()!, executionParameters)(IterationHint.None).Value
+        };
     }
 }
