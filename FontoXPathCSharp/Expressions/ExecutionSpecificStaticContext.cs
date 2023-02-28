@@ -19,7 +19,6 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode> wher
     private readonly List<ResolvedFunction> _resolvedFunctions;
 
     private readonly Dictionary<string, string> _variableBindingByName;
-    private bool _executionContextWasRequired;
 
     public ExecutionSpecificStaticContext(
         NamespaceResolver namespaceResolver,
@@ -88,7 +87,10 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode> wher
         return _resolvedFunctions;
     }
 
-    public override FunctionProperties<TNode>? LookupFunction(string? namespaceUri, string localName, int arity,
+    public override FunctionProperties<TNode>? LookupFunction(
+        string? namespaceUri,
+        string localName,
+        int arity,
         bool skipExternal = false)
     {
         return namespaceUri != null
@@ -100,7 +102,7 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode> wher
     {
         if (!string.IsNullOrEmpty(namespaceUri)) return null;
 
-        var bindingName = _variableBindingByName[localName];
+        var bindingName = _variableBindingByName.ContainsKey(localName) ? _variableBindingByName[localName] : null;
 
         if (!_referredVariableByName.ContainsKey(localName)) _referredVariableByName.Add(localName, localName);
 
@@ -137,8 +139,6 @@ public class ExecutionSpecificStaticContext<TNode> : AbstractContext<TNode> wher
 
         var knownNamespaceUri = StaticallyKnownNamespaceUtils.GetStaticallyKnownNamespaceByPrefix(prefix);
         if (knownNamespaceUri != null) return knownNamespaceUri;
-
-        _executionContextWasRequired = true;
 
         var uri = _namespaceResolver(prefix);
 

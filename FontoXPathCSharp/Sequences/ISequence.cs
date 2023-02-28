@@ -22,7 +22,7 @@ public interface ISequence : IEnumerable<AbstractValue>
     public static ISequence ZipSingleton(IEnumerable<ISequence> sequences, CallbackType callback)
     {
         var firstValues = sequences.Select(x => x.First()).ToList();
-        return callback(firstValues!);
+        return callback(firstValues);
     }
 
     public static ISequence ConcatSequences(ISequence[] sequences)

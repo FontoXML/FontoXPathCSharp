@@ -169,7 +169,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
                 sequenceHasPeerProperty = sequenceHasPeerProperty && selector.Peer;
                 return sortedResultSequence!;
             }
-        );
+        )!;
 
         return result;
     }

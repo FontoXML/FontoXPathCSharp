@@ -53,7 +53,7 @@ public class LiteralParser
         Alias(AstNodeName.GreaterThanOp, ">")
     );
 
-    private readonly ParseFunc<Ast> IntegerLiteral;
+    public readonly ParseFunc<Ast> IntegerLiteral;
 
     public readonly ParseFunc<Ast> LocationPathAbbreviation =
         Map(Token("//"), _ =>

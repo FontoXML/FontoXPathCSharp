@@ -13,7 +13,7 @@ public abstract class NumericValue<TS> : AtomicValue where TS : notnull
             throw new Exception("Cannot create a NumericValue with a type that does not inherit xs:numeric");
         Value = value;
     }
-    
+
     protected static TNum NumericCast<TIn, TNum>(TIn val, Func<TIn, TNum> castingFunc)
     {
         try
@@ -24,13 +24,14 @@ public abstract class NumericValue<TS> : AtomicValue where TS : notnull
         {
             throw new XPathException("FORG0001", $"Tried to create a {typeof(TNum).Name} from null.");
         }
-        catch (FormatException formatEx)
+        catch (FormatException)
         {
             throw new XPathException("FORG0001", $"Cannot make a {typeof(TNum).Name} from {val!.ToString()}.");
         }
-        catch (OverflowException overflowEx)
+        catch (OverflowException)
         {
-            throw new XPathException("FOCA0001", $"Overflow when creating a {typeof(TNum).Name} from {val!.ToString()}.");
+            throw new XPathException("FOCA0001",
+                $"Overflow when creating a {typeof(TNum).Name} from {val!.ToString()}.");
         }
     }
 

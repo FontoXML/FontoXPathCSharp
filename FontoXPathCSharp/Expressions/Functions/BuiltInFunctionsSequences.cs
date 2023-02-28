@@ -170,7 +170,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             return IteratorResult<AbstractValue>.Ready(new IntegerValue(args[0].GetLength(), ValueType.XsInt));
         }, 1);
     };
-    
+
     private static readonly FunctionSignature<ISequence, TNode> FnAvg = (_, _, _, args) =>
     {
         var sequence = args[0];
@@ -298,8 +298,178 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
                 "The argument passed to fn:exactly-one is empty or contained more than one item.");
         return arg;
     };
-    
-    //TODO: Filter, Foreach, Folds and Serialize
+
+    private static readonly FunctionSignature<ISequence, TNode> FnFilter =
+        (dynamicContext, executionParameters, staticContext, args) =>
+        {
+            var sequence = args[0];
+
+            if (sequence.IsEmpty()) return sequence;
+
+            var callbackSequence = args[1];
+
+            var callbackFn = callbackSequence.First() as FunctionValue<ISequence, TNode>;
+            var callbackArgumentTypes = callbackFn!.ArgumentTypes;
+            if (callbackArgumentTypes.Length != 1)
+                throw new XPathException("XPTY0004", "Signature of function passed to fn:filter is incompatible.");
+
+            return sequence.Filter((item, _, _) =>
+            {
+                // Transform argument
+                var transformedArgument = ArgumentHelper<TNode>.PerformFunctionConversion(
+                    callbackArgumentTypes[0],
+                    SequenceFactory.CreateFromValue(item),
+                    executionParameters,
+                    "fn:filter",
+                    false
+                );
+                var functionCallResult = callbackFn.Value(
+                    dynamicContext,
+                    executionParameters,
+                    staticContext,
+                    transformedArgument
+                );
+                if (!functionCallResult.IsSingleton() ||
+                    !functionCallResult.First()!.GetValueType().IsSubtypeOf(ValueType.XsBoolean)
+                   )
+                    throw new XPathException("XPTY0004", "Signature of function passed to fn:filter is incompatible.");
+                return functionCallResult.First()!.GetAs<BooleanValue>().Value;
+            });
+        };
+
+
+    private static readonly FunctionSignature<ISequence, TNode> FnForEach =
+        (dynamicContext, executionParameters, staticContext, args) =>
+        {
+            var sequence = args[0];
+            if (sequence.IsEmpty()) return sequence;
+
+            var callbackSequence = args[1];
+            var callbackFn = callbackSequence.First() as FunctionValue<ISequence, TNode>;
+            var callbackArgumentTypes = callbackFn!.ArgumentTypes;
+            if (callbackArgumentTypes.Length != 1)
+                throw new XPathException("XPTY0004", "Signature of function passed to fn:for-each is incompatible.");
+
+            var outerIterator = sequence.GetValue();
+            Iterator<AbstractValue>? innerIterator = null;
+            return SequenceFactory.CreateFromIterator(
+                hint =>
+                {
+                    while (true)
+                    {
+                        if (innerIterator == null)
+                        {
+                            var item = outerIterator(IterationHint.None);
+
+                            if (item.IsDone) return item;
+
+                            var transformedArgument = ArgumentHelper<TNode>.PerformFunctionConversion(
+                                callbackArgumentTypes[0],
+                                SequenceFactory.CreateFromValue(item.Value),
+                                executionParameters,
+                                "fn:for-each",
+                                false
+                            );
+                            var nextSequence = callbackFn.Value(
+                                dynamicContext,
+                                executionParameters,
+                                staticContext,
+                                transformedArgument
+                            );
+
+                            innerIterator = nextSequence.GetValue();
+                        }
+
+                        var entry = innerIterator(hint);
+                        if (!entry.IsDone) return entry;
+                        innerIterator = null;
+                    }
+                });
+        };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnFoldLeft =
+        (dynamicContext, executionParameters, staticContext, args) =>
+        {
+            var sequence = args[0];
+            if (sequence.IsEmpty()) return sequence;
+
+            var seed = args[1];
+            var callbackSequence = args[2];
+
+            var callbackFn = callbackSequence.First() as FunctionValue<ISequence, TNode>;
+            var callbackArgumentTypes = callbackFn!.ArgumentTypes;
+
+            if (callbackArgumentTypes.Length != 2)
+                throw new XPathException("XPTY0004", "Signature of function passed to fn:fold-left is incompatible.");
+
+            return sequence.MapAll(values =>
+                values.Reduce(seed, (previous, current, _) =>
+                {
+                    var previousArg = ArgumentHelper<TNode>.PerformFunctionConversion(
+                        callbackArgumentTypes[0],
+                        previous,
+                        executionParameters,
+                        "fn:fold-left",
+                        false
+                    );
+                    var currentArg = ArgumentHelper<TNode>.PerformFunctionConversion(
+                        callbackArgumentTypes[1],
+                        SequenceFactory.CreateFromValue(current),
+                        executionParameters,
+                        "fn:fold-left",
+                        false
+                    );
+                    return callbackFn.Value(
+                        dynamicContext,
+                        executionParameters,
+                        staticContext,
+                        previousArg,
+                        currentArg
+                    );
+                }));
+        };
+
+    private static readonly FunctionSignature<ISequence, TNode> FnFoldRight =
+        (dynamicContext, executionParameters, staticContext, args) =>
+        {
+            var sequence = args[0];
+            if (sequence.IsEmpty()) return sequence;
+
+            var seed = args[1];
+            var callbackSequence = args[2];
+
+            var callbackFn = callbackSequence.First() as FunctionValue<ISequence, TNode>;
+            var callbackArgumentTypes = callbackFn!.ArgumentTypes;
+
+            if (callbackArgumentTypes.Length != 2)
+                throw new XPathException("XPTY0004", "Signature of function passed to fn:fold-right is incompatible.");
+
+            return sequence.MapAll(values =>
+                values.ReduceRight(seed, (previous, current, _) =>
+                {
+                    var previousArg = ArgumentHelper<TNode>.PerformFunctionConversion(
+                        callbackArgumentTypes[0],
+                        previous,
+                        executionParameters,
+                        "fn:fold-left",
+                        false
+                    );
+                    var currentArg = ArgumentHelper<TNode>.PerformFunctionConversion(
+                        callbackArgumentTypes[1],
+                        SequenceFactory.CreateFromValue(current),
+                        executionParameters,
+                        "fn:fold-left",
+                        false
+                    );
+                    return callbackFn.Value(
+                        dynamicContext,
+                        executionParameters,
+                        staticContext,
+                        previousArg,
+                        currentArg
+                    );
+                }));
+        };
 
     public static readonly BuiltinDeclarationType<TNode>[] Declarations =
     {
@@ -459,7 +629,6 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ZeroOrMore)
         ),
 
-
         new(new[]
             {
                 new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
@@ -601,6 +770,52 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             "deep-equal",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
             new SequenceType(ValueType.XsBoolean, SequenceMultiplicity.ExactlyOne)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.Function, SequenceMultiplicity.ExactlyOne)
+            },
+            FnFilter,
+            "filter",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.Function, SequenceMultiplicity.ExactlyOne)
+            },
+            FnForEach,
+            "for-each",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.Function, SequenceMultiplicity.ExactlyOne)
+            },
+            FnFoldLeft,
+            "fold-left",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
+        ),
+
+        new(new[]
+            {
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore),
+                new ParameterType(ValueType.Function, SequenceMultiplicity.ExactlyOne)
+            },
+            FnFoldRight,
+            "fold-right",
+            BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
+            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
         )
     };
 
