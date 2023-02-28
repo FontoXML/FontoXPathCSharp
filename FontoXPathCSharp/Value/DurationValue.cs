@@ -62,8 +62,8 @@ public class DurationValue : AtomicValue, IComparable<DurationValue>
                 var dtd = DayTimeDurationFromString(durationString);
                 var ymd = YearMonthDurationFromString(durationString);
                 return new DurationValue(new Duration(
-                    dtd.Value.RawMilliSeconds,
-                    ymd.Value.RawMonths,
+                    dtd != null ? dtd.Value.RawMilliSeconds : 0,
+                    ymd != null ? ymd.Value.RawMonths : 0,
                     type
                 ));
             case ValueType.XsYearMonthDuration:
@@ -148,15 +148,15 @@ public class DurationValue : AtomicValue, IComparable<DurationValue>
         return new DurationValue((Duration)duration.GetValue(), ValueType.XsDuration);
     }
 
-    public static AtomicValue? CreateDuration(object? value, ValueType type)
+    public static DurationValue CreateDuration(object? value, ValueType type)
     {
-        return value switch
+        return (value switch
         {
-            null => null,
             Duration duration => new DurationValue(duration, type),
             DurationValue durationValue => new DurationValue(durationValue.Value, type),
             string durationString => FromString(durationString, type),
-            _ => throw new NotImplementedException($"Cannot turn {value} into a {type.ToString()}")
-        };
+            _ => throw new Exception(
+                $"Tried to create Duration value from invalid type: {(value != null ? value.GetType().Name : "null")}")
+        })!;
     }
 }

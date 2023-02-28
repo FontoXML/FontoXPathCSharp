@@ -11,7 +11,7 @@ public class AttributeAxis<TNode> : AbstractExpression<TNode> where TNode : notn
     private readonly string? _filterBucket;
 
     public AttributeAxis(AbstractTestExpression<TNode> attributeTestExpression, string? filterBucket) : base(
-        new Specificity(new Dictionary<SpecificityKind, int> { { SpecificityKind.Attribute, 1 } }),
+        new Specificity(SpecificityKind.Attribute, 1),
         new AbstractExpression<TNode>[] { attributeTestExpression },
         new OptimizationOptions(
             false,

@@ -11,20 +11,19 @@ public static class ParsingUtils
             case AstNodeName.FunctionCallExpr:
             case AstNodeName.SequenceExpr:
             case AstNodeName.DynamicFunctionInvocationExpr:
-                // TODO: implement these
-                // case AstNodeName.ConstantExpr:
-                // case AstNodeName.ElementConstructor:
-                // case AstNodeName.ComputedElementConstructor:
-                // case AstNodeName.ComputedAttributeConstructor:
-                // case AstNodeName.ComputedDocumentConstructor:
-                // case AstNodeName.ComputedTextConstructor:
-                // case AstNodeName.ComputedCommentConstructor:
-                // case AstNodeName.ComputedNamespaceConstructor:
-                // case AstNodeName.ComputedPIConstructor:
-                // case AstNodeName.OrderedExpr:
-                // case AstNodeName.UnOrderedExpr:
-                // case AstNodeName.NamedFunctionRef:
-                // case AstNodeName.InlineFunctionRef:
+            // case AstNodeName.ConstantExpr:
+            // case AstNodeName.ElementConstructor:
+            // case AstNodeName.ComputedElementConstructor:
+            // case AstNodeName.ComputedAttributeConstructor:
+            // case AstNodeName.ComputedDocumentConstructor:
+            // case AstNodeName.ComputedTextConstructor:
+            // case AstNodeName.ComputedCommentConstructor:
+            // case AstNodeName.ComputedNamespaceConstructor:
+            // case AstNodeName.ComputedPIConstructor:
+            // case AstNodeName.OrderedExpr:
+            // case AstNodeName.UnOrderedExpr:
+            // case AstNodeName.NamedFunctionRef:
+            case AstNodeName.InlineFunctionExpr:
                 // case AstNodeName.MapConstructor:
                 // case AstNodeName.ArrayConstructor:
                 // case AstNodeName.StringConstructor:
@@ -33,5 +32,24 @@ public static class ParsingUtils
             default:
                 return new Ast(AstNodeName.SequenceExpr, expr);
         }
+    }
+
+    // Replaces the x != null ? [x] : [] pattern that's common in the parser.
+    public static T[] WrapNullableInArray<T>(T? item)
+    {
+        return IfNotNullWrapOther(item, item);
+    }
+
+    // Replaces the x != null ? [y] : [] pattern that's common in the parser
+    // often used to wrap an AST if a val is not null.
+    public static T2[] IfNotNullWrapOther<T1, T2>(T1? nullable, T2? valToWrap)
+    {
+        return nullable != null ? new[] { valToWrap! } : Array.Empty<T2>();
+    }
+
+    // Convenient when you want to append arrays/lists to singletons.
+    public static T[] WrapSingleton<T>(T item)
+    {
+        return new[] { item };
     }
 }

@@ -5,11 +5,12 @@ namespace XPathRunner;
 
 public class Runners
 {
-    // private readonly ITestOutputHelper _testOutputHelper;
+    // ReSharper disable once NotAccessedField.Local
+    private readonly ITestOutputHelper _testOutputHelper;
 
     public Runners(ITestOutputHelper testOutputHelper)
     {
-        // _testOutputHelper = testOutputHelper;
+        _testOutputHelper = testOutputHelper;
         var qt3Tests = new XmlDocument();
         qt3Tests.Load("../../../../XPathTest/assets/qt3tests/catalog.xml");
     }

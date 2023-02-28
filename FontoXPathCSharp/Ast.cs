@@ -1,4 +1,6 @@
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.Types;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp;
 
@@ -143,7 +145,27 @@ public enum AstNodeName
     ReturnClause,
     XStackTrace,
     WindowClause,
-    CountClause
+    CountClause,
+    InlineFunctionExpr,
+    Param,
+    Annotation,
+    AnnotationName,
+    ParamList,
+    FunctionBody,
+    NamedFunctionRef,
+    FunctionTest,
+    AnyMapTest,
+    AnyArrayTest,
+    NamespaceNodeTest
+}
+
+public static class AstNodeUtils
+{
+    public static string GetNodeName(this AstNodeName input)
+    {
+        var name = Enum.GetName(typeof(AstNodeName), input)!;
+        return "xqx:" + char.ToLowerInvariant(name[0]) + name[1..];
+    }
 }
 
 public class Ast
@@ -216,8 +238,11 @@ public class Ast
 
     public QName GetQName()
     {
-        return new QName(TextContent, StringAttributes["URI"],
-            StringAttributes["prefix"]);
+        return new QName(
+            TextContent,
+            StringAttributes.ContainsKey("URI") ? StringAttributes["URI"] : null,
+            StringAttributes.ContainsKey("prefix") ? StringAttributes["prefix"] : null
+        );
     }
 
     public bool IsA(params AstNodeName[] names)
@@ -227,15 +252,85 @@ public class Ast
 
     public override string ToString()
     {
-        return string.Format("<AST \"{0}\", {{{1}}}, \"{2}\", [{3}]>", Name,
-            string.Join(", ", StringAttributes.Select(x => $"{x.Key}: \"{x.Value}\"")),
-            TextContent, Children.Count == 0 ? "" : $"\n{string.Join("\n", Children)}\n");
+        return IndentedToString(0);
+    }
+
+    private string IndentedToString(int indentLevel)
+    {
+        var indentSize = 2;
+        var indent = new string(' ', indentLevel * indentSize);
+        var nodeName = Name.GetNodeName();
+        var attributes = ' ' + string.Join(' ', StringAttributes.Select(x => $"xqx:{x.Key}=\"{x.Value}\""));
+        var opening = $"{indent}<{nodeName}{(attributes.Length > 1 ? attributes : "")}>";
+        var closing = $"</{nodeName}>";
+        return Children.Count != 0
+            ? $"{opening}" +
+              $"{(!string.IsNullOrEmpty(TextContent) ? "\n" + new string(' ', (indentLevel + 1) * indentSize) + TextContent : "")}" +
+              $"\n{string.Join("\n", Children.Select(c => c.IndentedToString(indentLevel + 1)))}\n{indent}{closing}"
+            : opening + TextContent + closing;
     }
 
     public Ast AddChildren(IEnumerable<Ast> children)
     {
         Children.AddRange(children);
         return this;
+    }
+
+    public Ast AddChild(Ast child)
+    {
+        Children.Add(child);
+        return this;
+    }
+
+    public SequenceType GetTypeDeclaration()
+    {
+        var typeDeclarationAst = GetFirstChild(AstNodeName.TypeDeclaration);
+        if (typeDeclarationAst == null || typeDeclarationAst.GetFirstChild(AstNodeName.VoidSequenceType) != null)
+            return new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrMore);
+
+        Func<Ast, ValueType>? determineType = null;
+        determineType = typeAst =>
+        {
+            return typeAst.Name switch
+            {
+                AstNodeName.DocumentTest => ValueType.DocumentNode,
+                AstNodeName.ElementTest => ValueType.Element,
+                AstNodeName.AttributeTest => ValueType.Attribute,
+                AstNodeName.PiTest => ValueType.ProcessingInstruction,
+                AstNodeName.CommentTest => ValueType.Comment,
+                AstNodeName.TextTest => ValueType.Text,
+                AstNodeName.AnyKindTest => ValueType.Node,
+                AstNodeName.AnyItemType => ValueType.Item,
+                AstNodeName.AnyFunctionTest or AstNodeName.FunctionTest or AstNodeName.TypedFunctionTest => ValueType
+                    .Function,
+                AstNodeName.AnyMapTest or AstNodeName.TypedMapTest => ValueType.Map,
+                AstNodeName.AnyArrayTest or AstNodeName.TypedArrayTest => ValueType.Array,
+                AstNodeName.AtomicType => string.Join(':',
+                        typeAst.StringAttributes.ContainsKey("prefix") ? typeAst.StringAttributes["prefix"] : "",
+                        typeAst.TextContent)
+                    .StringToValueType(),
+                AstNodeName.ParenthesizedItemType => determineType!(typeAst.GetFirstChild()!),
+                AstNodeName.SchemaElementTest or AstNodeName.SchemaAttributeTest or AstNodeName.NamespaceNodeTest =>
+                    throw new Exception(
+                        $"Type declaration '{typeDeclarationAst.GetFirstChild()?.Name}' is not supported."),
+                _ => throw new Exception(
+                    $"Type declaration '{typeDeclarationAst.GetFirstChild()?.Name}' is not supported.")
+            };
+        };
+
+        var valueType = determineType(typeDeclarationAst.GetFirstChild()!);
+
+        string? occurrence = null;
+        var occurrenceNode = typeDeclarationAst.GetFirstChild(AstNodeName.OccurrenceIndicator);
+        if (occurrenceNode != null) occurrence = occurrenceNode.TextContent;
+
+        return occurrence switch
+        {
+            "*" => new SequenceType(valueType, SequenceMultiplicity.ZeroOrMore),
+            "?" => new SequenceType(valueType, SequenceMultiplicity.ZeroOrOne),
+            "+" => new SequenceType(valueType, SequenceMultiplicity.OneOrMore),
+            _ => new SequenceType(valueType, SequenceMultiplicity.ExactlyOne)
+        };
     }
 
     public class StackTraceInfo

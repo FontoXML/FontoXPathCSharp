@@ -34,6 +34,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 
     private readonly Options<TNode> _options = new(_ => "http://www.w3.org/2010/09/qt-fots-catalog");
 
+    // ReSharper disable once CollectionNeverUpdated.Local
     private readonly HashSet<string> _testWhitelist = new()
     {
         // "Axes001-2",

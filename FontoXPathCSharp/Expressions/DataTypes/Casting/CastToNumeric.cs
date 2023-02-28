@@ -15,13 +15,13 @@ public class CastToNumeric
     };
 
     public static CastingFunction ToNumeric(ValueType inputType,
-        Func<ValueType, ValueType, CastingFunction> CastToPrimitiveType)
+        Func<ValueType, ValueType, CastingFunction> castToPrimitiveType)
     {
         return value =>
         {
             foreach (var outputType in NumericTypes)
             {
-                var result = CastToPrimitiveType(inputType, outputType)(value);
+                var result = castToPrimitiveType(inputType, outputType)(value);
                 if (result.Success) return result;
             }
 

@@ -11,7 +11,7 @@ public class KindTest<TNode> : AbstractTestExpression<TNode> where TNode : notnu
     private readonly NodeType _nodeType;
 
     public KindTest(NodeType nodeType) : base(
-        new Specificity(new Dictionary<SpecificityKind, int> { { SpecificityKind.NodeType, 1 } }))
+        new Specificity(SpecificityKind.NodeType, 1))
     {
         _nodeType = nodeType;
     }

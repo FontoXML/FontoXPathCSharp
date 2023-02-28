@@ -20,7 +20,7 @@ public class StringValue : AtomicValue
             AtomicValue a => a.GetValue().ToString() ?? "",
             _ => value.ToString() ?? ""
         };
-        
+
         return new StringValue(stringValue);
     }
 
