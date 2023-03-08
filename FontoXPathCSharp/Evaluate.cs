@@ -173,7 +173,7 @@ public class Evaluate
         ) ?? Array.Empty<int>();
     }
 
-    public static string? EvaluateXPathToString<TSelector, TNode>(
+    public static string EvaluateXPathToString<TSelector, TNode>(
         TSelector selector,
         TNode contextItem,
         IDomFacade<TNode> domFacade,
@@ -186,11 +186,11 @@ public class Evaluate
             domFacade,
             options,
             variables
-        );
+        ) ?? "";
     }
 
     // ReSharper disable once UnusedMember.Local
-    private static string? EvaluateXPathToString<TSelector, TNode>(
+    private static string EvaluateXPathToString<TSelector, TNode>(
         TSelector selector,
         object? contextItem,
         IDomFacade<TNode> domFacade,
@@ -203,7 +203,7 @@ public class Evaluate
             domFacade,
             options,
             variables
-        );
+        ) ?? "";
     }
 
     public static object? EvaluateXPathToAny<TSelector, TNode>(

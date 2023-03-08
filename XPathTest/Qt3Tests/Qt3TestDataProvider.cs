@@ -37,11 +37,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
     // ReSharper disable once CollectionNeverUpdated.Local
     private readonly HashSet<string> _testWhitelist = new()
     {
-        // "Axes001-2",
-        // "Axes001-3",
-        // "Axes002-3",
-        // "Axes002-4",
-        // "Axes033-2"
+        // "fn-except-node-args-021"
     };
 
     private HashSet<string> _shouldRunTestByName = new();
