@@ -5,7 +5,6 @@ namespace FontoXPathCSharp.Value.InternalValues;
 public class DateTime : IComparable<DateTime>, IComparable
 {
     private readonly DateTimeOffset _dateTime;
-    private readonly bool _hasTimezone;
 
     public DateTime(
         int years,
@@ -19,7 +18,7 @@ public class DateTime : IComparable<DateTime>, IComparable
         bool hasTimezone,
         ValueType type)
     {
-        _hasTimezone = hasTimezone && timezone != null;
+        HasTimezone = hasTimezone && timezone != null;
         _dateTime = new DateTimeOffset(
             years,
             months,
@@ -35,7 +34,7 @@ public class DateTime : IComparable<DateTime>, IComparable
 
     public DateTime(DateTimeOffset dateTime, bool hasTimezone, ValueType type)
     {
-        _hasTimezone = hasTimezone;
+        HasTimezone = hasTimezone;
         _dateTime = dateTime;
         GetValueType = type;
     }
@@ -50,7 +49,7 @@ public class DateTime : IComparable<DateTime>, IComparable
     public bool IsPositive => GetYear >= 0;
     public TimeSpan GetTimezone => _dateTime.Offset;
 
-    public bool HasTimezone => _hasTimezone;
+    public bool HasTimezone { get; }
 
     public ValueType GetValueType { get; }
 
@@ -58,7 +57,7 @@ public class DateTime : IComparable<DateTime>, IComparable
     {
         return obj is DateTime dateTime ? CompareTo(dateTime) : 1;
     }
-    
+
     public int CompareTo(DateTime? other)
     {
         return other != null ? _dateTime.CompareTo(other._dateTime) : 1;
@@ -109,7 +108,7 @@ public class DateTime : IComparable<DateTime>, IComparable
 
     private string TimezoneToString(TimeSpan timezone)
     {
-        if (!_hasTimezone) return "";
+        if (!HasTimezone) return "";
 
         if (IsUtc(timezone)) return "Z";
         return $"{(timezone.TotalSeconds >= 0 ? '+' : '-')}{ConvertToTwoCharString(Math.Abs(timezone.Hours))}" +

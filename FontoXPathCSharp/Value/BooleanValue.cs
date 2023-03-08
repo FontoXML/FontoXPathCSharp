@@ -13,8 +13,8 @@ public class BooleanValue : AtomicValue
 
     public static BooleanValue CreateBooleanValue(object? value)
     {
-        var booleanValue = value is string str 
-            ? CreateFromString(str) 
+        var booleanValue = value is string str
+            ? CreateFromString(str)
             : CreateFromValue(value);
 
         return new BooleanValue(booleanValue);

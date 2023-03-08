@@ -11,7 +11,7 @@ public class NamedFunctionRef<TNode> : AbstractExpression<TNode> where TNode : n
     private FunctionProperties<TNode>? _functionProperties;
 
     public NamedFunctionRef(QName functionReference, int arity) : base(
-        new Specificity(new Dictionary<SpecificityKind, int> { { SpecificityKind.External, 1 } }),
+        new Specificity(SpecificityKind.External, 1),
         Array.Empty<AbstractExpression<TNode>>(),
         new OptimizationOptions(true))
     {

@@ -35,14 +35,13 @@ public class AbsolutePathExpression<TNode> : AbstractExpression<TNode> where TNo
         while (!domFacade.IsDocument(documentNode))
         {
             documentNode = domFacade.GetParentNode(documentNode);
-            
+
             if (documentNode == null)
                 throw new XPathException(
                     "XPDY0050",
                     "The root node of the context node is not a document node."
                 );
         }
-        
 
 
         var contextSequence = SequenceFactory.CreateFromValue(new NodeValue<TNode>(documentNode, domFacade));

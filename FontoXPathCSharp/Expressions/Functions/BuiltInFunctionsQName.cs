@@ -13,8 +13,8 @@ public static class BuiltInFunctionsQName<TNode> where TNode : notnull
         return ISequence.ZipSingleton(param, values =>
         {
             var uriValue = values.FirstOrDefault()?.GetAs<StringValue>();
-            var lexicalQNameValue = values[1].GetAs<StringValue>();
-            var lexicalQName = lexicalQNameValue.Value;
+            var lexicalQNameValue = values[1]?.GetAs<StringValue>();
+            var lexicalQName = lexicalQNameValue?.Value ?? string.Empty;
             if (!TypeHelpers.ValidatePattern(lexicalQName, ValueType.XsQName))
                 throw new XPathException("FOCA0002", "The provided QName is invalid.");
 

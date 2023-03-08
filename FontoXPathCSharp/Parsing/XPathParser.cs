@@ -31,6 +31,7 @@ public class XPathParser
     private readonly ParseFunc<Ast> AdditiveExpr;
     private readonly ParseFunc<string> AllowingEmpty;
     private readonly ParseFunc<Ast> AndExpr;
+    private readonly ParseFunc<Ast> Annotation;
     private readonly ParseFunc<Ast> Argument;
     private readonly ParseFunc<Ast[]> ArgumentList;
     private readonly ParseFunc<Ast> ArgumentPlaceholder;
@@ -47,11 +48,14 @@ public class XPathParser
     private readonly ParseFunc<Ast> DocumentTest;
     private readonly ParseFunc<QName> ElementDeclaration;
     private readonly ParseFunc<Ast> ElementTest;
+    private readonly ParseFunc<Ast?> EnclosedExpr;
     private readonly ParseFunc<Ast> FlworExpr;
     private readonly ParseFunc<Ast> ForBinding;
     private readonly ParseFunc<Ast> ForClause;
     private readonly ParseFunc<Ast> ForwardStep;
+    private readonly ParseFunc<Ast> FunctionBody;
     private readonly ParseFunc<Ast> FunctionCall;
+    private readonly ParseFunc<Ast> FunctionItemExpr;
     private readonly ParseFunc<Ast> GroupByClause;
     private readonly ParseFunc<Ast> GroupingSpec;
     private readonly ParseFunc<Ast[]> GroupingSpecList;
@@ -59,6 +63,7 @@ public class XPathParser
     private readonly ParseFunc<Ast> GroupVarInitialize;
     private readonly ParseFunc<Ast> IfExpr;
     private readonly ParseFunc<Ast> InitialClause;
+    private readonly ParseFunc<Ast> InlineFunctionExpr;
     private readonly ParseFunc<Ast> InstanceOfExpr;
     private readonly ParseFunc<Ast> IntermediateClause;
     private readonly ParseFunc<Ast> IntersectExpr;
@@ -71,6 +76,7 @@ public class XPathParser
     private readonly ParseFunc<Ast> MainModule;
     private readonly ParseFunc<Ast> Module;
     private readonly ParseFunc<Ast> MultiplicativeExpr;
+    private readonly ParseFunc<Ast> NamedFunctionRef;
     private readonly ParseFunc<Ast> NameTest;
     private readonly ParseFunc<Ast> NodeTest;
     private readonly ParseFunc<string> OccurenceIndicator;
@@ -79,6 +85,8 @@ public class XPathParser
     private readonly ParseFunc<Ast> OrderSpec;
     private readonly ParseFunc<Ast[]> OrderSpecList;
     private readonly ParseFunc<Ast> OrExpr;
+    private readonly ParseFunc<Ast> Param;
+    private readonly ParseFunc<Ast[]> ParamList;
     private readonly ParseFunc<Ast> ParenthesizedExpr;
     private readonly ParseFunc<Ast> PathExpr;
     private readonly ParseFunc<Ast> PiTest;
@@ -411,6 +419,21 @@ public class XPathParser
 
         OccurenceIndicator = Or(Token("?"), Token("*"), Token("+"));
 
+        NamedFunctionRef = Then(
+            nameParser.EqName,
+            Preceded(Token("#"), literalParser.IntegerLiteral),
+            (functionName, integer) => new Ast(AstNodeName.NamedFunctionRef,
+                functionName.GetAst(AstNodeName.FunctionName), integer)
+        );
+
+        EnclosedExpr = Delimited(
+            Token("{"),
+            Surrounded(Optional(Expr()), _whitespaceParser.Whitespace),
+            Token("}")
+        );
+
+        FunctionBody = Map(EnclosedExpr, x => x ?? new Ast(AstNodeName.SequenceExpr));
+
         SequenceType = Or(
             Map(Token("empty-sequence()"), _ => new[] { new Ast(AstNodeName.VoidSequenceType) }),
             Then(
@@ -424,6 +447,25 @@ public class XPathParser
                         .ToArray())
         );
 
+        Annotation = Then(
+            PrecededMultiple(new[] { Token("%"), _whitespaceParser.Whitespace }, Literal),
+            Optional(
+                Followed(
+                    Then(
+                        PrecededMultiple(new[] { Token("("), _whitespaceParser.Whitespace }, Literal),
+                        Star(PrecededMultiple(new[] { Token(","), _whitespaceParser.Whitespace }, Literal)),
+                        (lhs, rhs) => ParsingUtils.WrapSingleton(lhs).Concat(rhs)
+                    ),
+                    Token(")")
+                )
+            ),
+            (annotationName, parameters) =>
+                new Ast(AstNodeName.Annotation,
+                    ParsingUtils.WrapSingleton(new Ast(AstNodeName.AnnotationName, annotationName))
+                        .Concat(ParsingUtils.IfNotNullWrapOther(parameters,
+                            new Ast(AstNodeName.Arguments, parameters))))
+        );
+
         ItemType = Or(
             KindTest,
             Map(Alias(AstNodeName.AnyItemType, "item()"), name => new Ast(name)),
@@ -434,6 +476,51 @@ public class XPathParser
             PrecededMultiple(new[] { Token("as"), _whitespaceParser.WhitespacePlus }, SequenceType),
             x => new Ast(AstNodeName.TypeDeclaration, x)
         );
+
+        Param = Then(
+            Preceded(Token("$"), nameParser.EqName),
+            Optional(Preceded(_whitespaceParser.WhitespacePlus, TypeDeclaration)),
+            (variableName, typeDecl) => new Ast(
+                AstNodeName.Param,
+                new[] { variableName.GetAst(AstNodeName.VarName) }.Concat(ParsingUtils.WrapNullableInArray(typeDecl))
+            )
+        );
+
+        ParamList = BinaryOperator(
+            Param,
+            Alias(AstNodeName.Arguments, ","),
+            (lhs, rhs) => new[] { lhs }.Concat(rhs.Select(x => x.Item2)).ToArray()
+        );
+
+
+        InlineFunctionExpr = Then4(
+            Star(Annotation),
+            PrecededMultiple(
+                new[]
+                {
+                    _whitespaceParser.Whitespace, Token("function"), _whitespaceParser.Whitespace, Token("("),
+                    _whitespaceParser.Whitespace
+                },
+                Optional(ParamList)
+            ),
+            PrecededMultiple(new[] { _whitespaceParser.Whitespace, Token(")"), _whitespaceParser.Whitespace },
+                Optional(
+                    Map(
+                        PrecededMultiple(new[] { Token("as"), _whitespaceParser.Whitespace },
+                            Followed(SequenceType, _whitespaceParser.Whitespace)),
+                        x => new Ast(AstNodeName.TypeDeclaration, x)
+                    )
+                )
+            ),
+            FunctionBody,
+            (annotations, parameters, typeDecl, body) =>
+                new Ast(AstNodeName.InlineFunctionExpr, annotations)
+                    .AddChild(new Ast(AstNodeName.ParamList, parameters ?? Array.Empty<Ast>()))
+                    .AddChildren(ParsingUtils.WrapNullableInArray(typeDecl))
+                    .AddChild(new Ast(AstNodeName.FunctionBody, body))
+        );
+
+        FunctionItemExpr = Or(NamedFunctionRef, InlineFunctionExpr);
 
         VarName = nameParser.EqName;
 
@@ -446,9 +533,7 @@ public class XPathParser
                 return new Ast(AstNodeName.LetClauseItem,
                     new Ast(AstNodeName.TypedVariableBinding,
                         new[] { variableName.GetAst(AstNodeName.VarName) }
-                            .Concat(typeDecl != null
-                                ? new[] { typeDecl }
-                                : Array.Empty<Ast>())),
+                            .Concat(ParsingUtils.WrapNullableInArray(typeDecl))),
                     new Ast(AstNodeName.LetExpr, letExpr));
             }
         );
@@ -473,11 +558,11 @@ public class XPathParser
                             new Ast(AstNodeName.TypedVariableBinding,
                                 variableName
                                     .GetAst(AstNodeName.VarName)
-                                    .AddChildren(typeDecl != null ? new[] { typeDecl } : Array.Empty<Ast>())
+                                    .AddChildren(ParsingUtils.WrapNullableInArray(typeDecl))
                             )
                         }
                         .Concat(empty != null ? new[] { new Ast(AstNodeName.AllowingEmpty) } : Array.Empty<Ast>())
-                        .Concat(pos != null ? new[] { pos } : Array.Empty<Ast>())
+                        .Concat(ParsingUtils.WrapNullableInArray(pos))
                         .Concat(new[] { new Ast(AstNodeName.ForExpr, forExpr) })
                 )
         );
@@ -534,8 +619,10 @@ public class XPathParser
             (variableName, init, col) => new Ast(
                 AstNodeName.GroupingSpec,
                 new[] { variableName }
-                    .Concat(init != null ? new[] { init } : Array.Empty<Ast>())
-                    .Concat(col != null ? new[] { col } : Array.Empty<Ast>())));
+                    .Concat(ParsingUtils.WrapNullableInArray(init))
+                    .Concat(ParsingUtils.WrapNullableInArray(col))
+            )
+        );
 
         GroupingSpecList = BinaryOperator(
             GroupingSpec,
@@ -577,7 +664,8 @@ public class XPathParser
             (orderByExpr, modifier) =>
                 new Ast(AstNodeName.OrderBySpec,
                     new[] { new Ast(AstNodeName.OrderByExpr, orderByExpr) }
-                        .Concat(modifier != null ? new[] { modifier } : Array.Empty<Ast>()))
+                        .Concat(ParsingUtils.WrapNullableInArray(modifier))
+                )
         );
 
         OrderSpecList = BinaryOperator(
@@ -641,7 +729,8 @@ public class XPathParser
             nameParser.VarRef,
             ParenthesizedExpr,
             literalParser.ContextItemExpr,
-            FunctionCall
+            FunctionCall,
+            FunctionItemExpr
         );
 
         PostfixExprWithStep = Then(

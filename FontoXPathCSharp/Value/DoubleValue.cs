@@ -19,7 +19,7 @@ public class DoubleValue : NumericValue<double>
 
     private static double CreateFromString(string str)
     {
-        return NumericCast(str, v =>
+        return NumericCast(str, _ =>
         {
             return str switch
             {

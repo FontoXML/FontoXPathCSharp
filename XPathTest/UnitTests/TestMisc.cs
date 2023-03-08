@@ -6,7 +6,6 @@ using FontoXPathCSharp;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.Types;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace XPathTest.UnitTests;
 
@@ -17,7 +16,6 @@ public class TestMisc
     // private static readonly XmlDocument XmlSimpleDocument;
     private static readonly XmlNodeDomFacade XmlNodeDomFacade;
     private static readonly Options<XmlNode> XmlNodeOptions;
-    private readonly ITestOutputHelper _testOutputHelper;
 
     private static readonly XmlDocument XmlNodeWorksMod;
     private static readonly XmlDocument XmlAtomicsFile;
@@ -36,11 +34,6 @@ public class TestMisc
         XmlAtomicsFile = new XmlDocument();
         XmlAtomicsFile.LoadXml(TestFileSystem.ReadFile("qt3tests/docs/atomic.xml"));
         
-    }
-
-    public TestMisc(ITestOutputHelper testOutputHelper)
-    {
-        _testOutputHelper = testOutputHelper;
     }
 
     [Fact]
@@ -169,6 +162,26 @@ public class TestMisc
         var res = Evaluate.EvaluateXPathToString(selector, XmlNodeWorksMod, XmlNodeDomFacade, XmlNodeOptions);
 
         Assert.Equal("John Doe 12", res);
+    }
+
+    [Fact]
+    public void InlineFunc()
+    {
+        var selector = "let $fn := function () as xs:boolean { true() } return $fn()";
+
+        var res = Evaluate.EvaluateXPathToBoolean(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+
+        Assert.True(res);
+    }
+
+    [Fact]
+    public void InlineFunc2()
+    {
+        var selector = "let $double_funct := function ($arg) { $arg * 2 } return $double_funct(45)";
+
+        var res = Evaluate.EvaluateXPathToInt(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+
+        Assert.True(res == 90);
     }
 
     [Fact(Skip = "This problem is moved to another issue.")]

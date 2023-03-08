@@ -10,7 +10,7 @@ public class BuiltInFunctionsContext<TNode> where TNode : notnull
     private static readonly FunctionSignature<ISequence, TNode> FnLast =
         (dynamicContext, _, _, _) =>
         {
-            if (dynamicContext.ContextItem == null)
+            if (dynamicContext?.ContextItem == null)
                 throw new XPathException("XPDY0002",
                     "The fn:last() function depends on dynamic context, which is absent.");
 
@@ -29,7 +29,7 @@ public class BuiltInFunctionsContext<TNode> where TNode : notnull
     private static readonly FunctionSignature<ISequence, TNode> FnPosition =
         (dynamicContext, _, _, _) =>
         {
-            if (dynamicContext.ContextItem == null)
+            if (dynamicContext?.ContextItem == null)
                 throw new XPathException("XPDY0002",
                     "The fn:position() function depends on dynamic context, which is absent.");
 

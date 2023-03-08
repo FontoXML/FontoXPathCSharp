@@ -5,7 +5,7 @@ namespace FontoXPathCSharp.Expressions;
 
 public class IfExpression<TNode> : PossiblyUpdatingExpression<TNode> where TNode : notnull
 {
-    private AbstractExpression<TNode> _ifExpr;
+    private readonly AbstractExpression<TNode> _ifExpr;
 
     public IfExpression(AbstractExpression<TNode> ifExpr, AbstractExpression<TNode> thenExpr,
         AbstractExpression<TNode> elseExpr) : base(
@@ -46,5 +46,13 @@ public class IfExpression<TNode> : PossiblyUpdatingExpression<TNode> where TNode
                 return resultIterator(hint);
             }
         );
+    }
+
+    public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
+    {
+        base.PerformStaticEvaluation(staticContext);
+
+        if (_ifExpr.IsUpdating)
+            throw new XPathException("XUST0001", "Can not execute an updating expression in a non-updating context.");
     }
 }

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FontoXPathCSharp.DomFacade;
 using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions.DataTypes;
@@ -19,7 +20,7 @@ public static class BuiltInFunctionsNode<TNode> where TNode : notnull
             var pointerValue = pointerValueList.First();
 
             var domFacade = executionParameters.DomFacade;
-            var pointer = pointerValue.GetAs<NodeValue<TNode>>().Value;
+            var pointer = pointerValue!.GetAs<NodeValue<TNode>>().Value;
             return domFacade.GetNodeType(pointer) switch
             {
                 NodeType.Element =>
@@ -195,9 +196,12 @@ public static class BuiltInFunctionsNode<TNode> where TNode : notnull
             TNode? ancestor;
             for (
                 ancestor = pointer;
-                executionParameters.DomFacade.GetParentNode(ancestor) != null;
+                executionParameters.DomFacade.GetParentNode(ancestor!) != null;
                 ancestor = executionParameters.DomFacade.GetParentNode(ancestor)
             )
+
+            {
+                Debug.Assert(ancestor != null, nameof(ancestor) + " != null");
                 switch (domFacade.GetNodeType(ancestor))
                 {
                     case NodeType.Element:
@@ -232,9 +236,12 @@ public static class BuiltInFunctionsNode<TNode> where TNode : notnull
                         result = $"/comment()[{GetChildIndex(ancestor)}]{result}";
                         break;
                     }
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
+            }
 
-            if (domFacade.GetNodeType(ancestor) == NodeType.Document)
+            if (domFacade.GetNodeType(ancestor!) == NodeType.Document)
                 return SequenceFactory.CreateFromValue(AtomicValue.Create(!string.IsNullOrEmpty(result) ? result : "/",
                     ValueType.XsString));
             result = "Q{http://www.w3.org/2005/xpath-functions}root()" + result;
@@ -259,7 +266,7 @@ public static class BuiltInFunctionsNode<TNode> where TNode : notnull
     };
 
     public static readonly FunctionSignature<ISequence, TNode> FnRoot =
-        (dynamicContext, executionParameters, staticContext, args) =>
+        (_, executionParameters, _, args) =>
         {
             var nodeSequence = args[0];
             return nodeSequence.Map((node, _, _) =>

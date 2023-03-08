@@ -34,10 +34,10 @@ public static class CollectionExtensions
         );
     }
 
-    public static IList<TAccumulator> ReduceRight<TSource, TAccumulator>(
-        this IList<TSource> source,
-        IList<TAccumulator> seed,
-        Func<IList<TAccumulator>, TSource, int, IList<TAccumulator>> func)
+    public static TAccumulator ReduceRight<TSource, TAccumulator>(
+        this IEnumerable<TSource> source,
+        TAccumulator seed,
+        Func<TAccumulator, TSource, int, TAccumulator> func)
     {
         var indexedAndReversed = source.Select((v, i) => (v, i)).Reverse();
         return indexedAndReversed.Aggregate(seed,

@@ -19,7 +19,8 @@ public class Literal<TNode> : AbstractExpression<TNode> where TNode : notnull
     {
         _createValueSequence = type.ValueType switch
         {
-            ValueType.XsInteger => () => SequenceFactory.CreateFromValue(IntegerValue.CreateIntegerValue(value,  type.ValueType)),
+            ValueType.XsInteger => () =>
+                SequenceFactory.CreateFromValue(IntegerValue.CreateIntegerValue(value, type.ValueType)),
             ValueType.XsString => () => SequenceFactory.CreateFromValue(StringValue.CreateStringValue(value)),
             ValueType.XsDouble => () => SequenceFactory.CreateFromValue(DoubleValue.CreateDoubleValue(value)),
             ValueType.XsDecimal => () => SequenceFactory.CreateFromValue(DecimalValue.CreateDecimalValue(value)),

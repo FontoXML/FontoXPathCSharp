@@ -1,3 +1,4 @@
+using FontoXPathCSharp.Expressions.Functions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
 using FontoXPathCSharp.Value.Types;
@@ -16,20 +17,22 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
     private readonly AbstractExpression<TNode>[] _argumentExpressions;
     private readonly int _callArity;
     private readonly AbstractExpression<TNode> _functionReferenceExpression;
+    private readonly bool[] _isGapByOffset;
     private FunctionValue<ISequence, TNode>? _functionReference;
     private StaticContext<TNode>? _staticContext;
 
     public FunctionCall(
         AbstractExpression<TNode> functionReferenceExpression,
-        AbstractExpression<TNode>[] args) : base(
-        new Specificity(new Dictionary<SpecificityKind, int> { { SpecificityKind.External, 1 } }),
-        new[] { functionReferenceExpression }.Concat(args).ToArray(),
+        AbstractExpression<TNode>?[] args) : base(
+        new Specificity(SpecificityKind.External, 1),
+        new[] { functionReferenceExpression }.Concat(args).ToArray()!,
         new OptimizationOptions(false))
     {
-        _argumentExpressions = args;
+        _argumentExpressions = args!;
         _callArity = args.Length;
         _functionReferenceExpression = functionReferenceExpression;
         _staticContext = null;
+        _isGapByOffset = args.Select(arg => arg == null).ToArray();
     }
 
     public override ISequence PerformFunctionalEvaluation(
@@ -53,7 +56,7 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
 
         return sequence.MapAll(item =>
         {
-            var functionItem = ValidateFunctionItem<AbstractValue>(item[0], _callArity);
+            var functionItem = ValidateFunctionItem<ISequence>(item[0], _callArity);
 
             if (functionItem.IsUpdating)
                 throw new XPathException(
@@ -65,21 +68,51 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
                 functionItem.Value,
                 dynamicContext!,
                 executionParameters,
+                _isGapByOffset,
                 createArgumentSequences,
                 _staticContext
             );
         });
     }
 
-    private ISequence CallFunction(
-        AbstractValue functionItem,
-        MulticastDelegate functionItemValue,
+    private ISequence CallFunction<T>(
+        FunctionValue<T, TNode> functionItem,
+        FunctionSignature<T, TNode> functionCall,
         DynamicContext dynamicContext,
         ExecutionParameters<TNode> executionParameters,
+        bool[] isGapByOffset,
         SequenceCallback[] createArgumentSequences,
-        StaticContext<TNode>? staticContext)
+        StaticContext<TNode>? staticContext) where T : ISequence
     {
-        throw new NotImplementedException("Function calls not implemented yet.");
+        var argumentOffset = 0;
+        var evaluatedArgs = isGapByOffset.Select(isGap =>
+            isGap ? null : createArgumentSequences[argumentOffset++](dynamicContext)
+        ).ToArray();
+
+        // Test if we have the correct arguments, and pre-convert the ones we can pre-convert
+        var transformedArguments = TransformArgumentList(
+            functionItem.ArgumentTypes.Cast<SequenceType>().ToArray(),
+            evaluatedArgs,
+            executionParameters,
+            functionItem.Name
+        );
+
+        if (transformedArguments.Contains(null)) return functionItem.ApplyArguments(transformedArguments);
+
+        var toReturn = functionCall(
+            dynamicContext,
+            executionParameters,
+            staticContext,
+            transformedArguments!
+        );
+
+        return ArgumentHelper<TNode>.PerformFunctionConversion(
+            functionItem.ReturnType,
+            toReturn,
+            executionParameters,
+            functionItem.Name,
+            true
+        );
     }
 
     public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
@@ -99,7 +132,35 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
         }
     }
 
+    public static ISequence?[] TransformArgumentList(SequenceType[] argumentTypes, ISequence?[] argumentList,
+        ExecutionParameters<TNode> executionParameters, string functionItem)
+    {
+        var transformedArguments = new List<ISequence?>();
+        for (var i = 0; i < argumentList.Length; ++i)
+        {
+            var current = argumentList[i];
+            if (current == null)
+            {
+                // This is the result of partial application, it will be inserted later
+                transformedArguments.Add(null);
+                continue;
+            }
+
+            var transformedArgument = ArgumentHelper<TNode>.PerformFunctionConversion(
+                argumentTypes[i],
+                current,
+                executionParameters,
+                functionItem,
+                false
+            );
+            transformedArguments.Add(transformedArgument);
+        }
+
+        return transformedArguments.ToArray();
+    }
+
     private static FunctionValue<T, TNode> ValidateFunctionItem<T>(AbstractValue item, int callArity)
+        where T : ISequence
     {
         if (!item.GetValueType().IsSubtypeOf(ValueType.Function))
             throw new XPathException(
