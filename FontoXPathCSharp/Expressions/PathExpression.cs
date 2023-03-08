@@ -106,9 +106,11 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
                 ISequence? sortedResultSequence = null;
 
                 if (!_requireSortedResults)
+                {
                     sortedResultSequence =
                         SortedSequenceUtils<TNode>.ConcatSortedSequences(resultValuesInOrderOfEvaluation);
-                else
+                }
+                else {
                     switch (selector.ExpectedResultOrder)
                     {
                         case ResultOrdering.ReverseSorted:
@@ -165,6 +167,7 @@ public class PathExpression<TNode> : AbstractExpression<TNode> where TNode : not
                                 )
                             );
                     }
+                }
 
                 sequenceHasPeerProperty = sequenceHasPeerProperty && selector.Peer;
                 return sortedResultSequence!;
