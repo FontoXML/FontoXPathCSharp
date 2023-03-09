@@ -11,6 +11,12 @@ namespace XPathTest.UnitTests;
 
 public class TestMisc
 {
+    private static string AtomicXml = @"<?xml version='1.0' encoding = 'UTF-8'?>
+<atomic:root xmlns:atomic=""http://www.w3.org/XQueryTest"">
+  <atomic:duration>P1Y2M3DT10H30M</atomic:duration>
+</atomic:root>";
+    
+    
     private static readonly XmlDocument XmlNodeEmptyContext;
 
     // private static readonly XmlDocument XmlSimpleDocument;
@@ -19,6 +25,7 @@ public class TestMisc
 
     private static readonly XmlDocument XmlNodeWorksMod;
     private static readonly XmlDocument XmlAtomicsFile;
+    private static readonly XmlDocument XmlAtomicsSimple;
     
     static TestMisc()
     {
@@ -26,14 +33,16 @@ public class TestMisc
         // XmlSimpleDocument = new XmlDocument();
         // XmlSimpleDocument.LoadXml("<p />");
         XmlNodeDomFacade = new XmlNodeDomFacade();
-        XmlNodeOptions = new Options<XmlNode>(_ => null);
+        XmlNodeOptions = new Options<XmlNode>(prefix => prefix == "atomic" ? "http://www.w3.org/XQueryTest" : null);
 
         XmlNodeWorksMod = new XmlDocument();
         XmlNodeWorksMod.LoadXml(TestFileSystem.ReadFile("qt3tests/docs/works-mod.xml"));
         
         XmlAtomicsFile = new XmlDocument();
         XmlAtomicsFile.LoadXml(TestFileSystem.ReadFile("qt3tests/docs/atomic.xml"));
-        
+
+        XmlAtomicsSimple = new XmlDocument();
+        XmlAtomicsSimple.LoadXml(AtomicXml);
     }
 
     [Fact]
@@ -184,13 +193,21 @@ public class TestMisc
         Assert.True(res == 90);
     }
 
-    [Fact(Skip = "This problem is moved to another issue.")]
+    [Fact]
     public void TestWeirdIntersect()
     {
-        // var selector = "(/atomic:root/atomic:duration/text()) intersect (/atomic:root/atomic:duration/text())";
-        var selector = "/atomic:root/atomic:duration/text()";
+        var selector = "(/atomic:root/atomic:duration/text()) intersect (/atomic:root/atomic:duration/text())";
+        // var selector = "/atomic:root/atomic:duration/text()";
         var res = Evaluate.EvaluateXPathToString(selector, XmlAtomicsFile, XmlNodeDomFacade, XmlNodeOptions);
 
+        Assert.Equal("P1Y2M3DT10H30M",res);
+    }
+    
+    [Fact]
+    public void TestTextTest()
+    {
+        var selector = "/atomic:root/atomic:duration/text()";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlAtomicsSimple, XmlNodeDomFacade, XmlNodeOptions);
         Assert.Equal("P1Y2M3DT10H30M",res);
     }
 }

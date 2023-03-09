@@ -1946,7 +1946,7 @@ cbcl-codepoints-to-string-018;PRSC Error: Failed to parse query ''
 cbcl-codepoints-to-string-020;Expected XPath for $x in 65 to 75 return boolean(codepoints-to-string($x[. mod 2 = 0] to ($x+9)[. mod 2 = 0])) to resolve to false false false false false false false false false false false, but instead got True True True True True True True True True True True
 cbcl-codepoints-to-string-021;Expected executing the XPath 'let $y := 65536*65536 return for $x in $y to $y+10 return codepoints-to-string(65 to $x)' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FOCH0001, but got Value was either too large or too small for an Int32.
 cbcl-codepoints-to-string-022;Expected XPathException with code FOCH0001, but got Value was either too large or too small for an Int32.
-cbcl-codepoints-to-string-026;Expected XPath for $x in 13 to 13 return codepoints-to-string($x to $x) to resolve to , but instead got 
+cbcl-codepoints-to-string-026;Expected XPath for $x in 13 to 13 return codepoints-to-string($x to $x) to resolve to <empty string>, but instead got 
 cbcl-condexpr-001;The argument passed to fn:zero-or-one contained more than one item.
 cbcl-condexpr-002;The argument passed to fn:zero-or-one contained more than one item.
 cbcl-constr-compattr-001;Expected error code: XQDY0044. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'for $a in attribute { fn:QName("http://www.w3.org/2000/xmlns/", "namespace:foo") } { "bar" } return name($a)'
@@ -2414,7 +2414,7 @@ cbcl-fn-union-001;Expected executing the XPath '' to resolve to one of the expec
 cbcl-fn-union-002;PRSC Error: Failed to parse query ''
 cbcl-fn-unordered-001;A wrong argument type was specified in a function call.
 cbcl-fn-unordered-002;PRSC Error: Failed to parse query ''
-cbcl-fn-unordered-003;Expected XPath floor(unordered((1 to 10)[. div 2 = 0])) to resolve to , but instead got 1 2 3 4 5 6 7 8 9 10
+cbcl-fn-unordered-003;Expected XPath floor(unordered((1 to 10)[. div 2 = 0])) to resolve to <empty string>, but instead got 1 2 3 4 5 6 7 8 9 10
 cbcl-followingAxis-001;PRSC Error: Failed to parse query ''
 cbcl-function-decl-001;PRSC Error: Failed to parse query 'declare function local:nothing() as empty-sequence() { () }; empty(local:nothing())'
 cbcl-function-declaration-002;PRSC Error: Failed to parse query 'declare function local:count($x) { count($x) }; local:count((1 to 100000, 1 to 100000))'
@@ -4757,8 +4757,8 @@ fn-filter-004;Expected XPathException with code XPST0017, but got NamedFunctionR
 fn-filter-005;NamedFunctionRef AST to Expression not yet implemented
 fn-filter-006;Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
 fn-filter-007;Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
-fn-filter-008;Expected error code: XPTY0004. Found error code:  with error message: 
-fn-filter-009;Expected error code: XPTY0004. Found error code:  with error message: 
+fn-filter-008;Expected error code: XPTY0004. Query succeeded with result: 
+fn-filter-009;Expected error code: XPTY0004. Query succeeded with result: 
 fn-filter-012;Expected executing the XPath 'fn:filter( (), fn:string#1 )' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
 fn-filter-013;Arithmetic operation resulted in an overflow.
 fn-filter-014;Arithmetic operation resulted in an overflow.
@@ -5692,8 +5692,8 @@ fn-implicit-timezone-6;Expected error code: FOCA0005. Found error code: XPST0017
 fn-implicit-timezone-7;The function fn:implicit-timezone with arity 0 is not registered.
 fn-implicit-timezone-8;The function fn:implicit-timezone with arity 0 is not registered.
 fn-implicit-timezone-9;PRSC Error: Failed to parse query '(fn:string(fn:implicit-timezone() div xs:double(2))) instance of $xs:string'
-fn-indexof-mix-args-008;Expected XPath fn:index-of((xs:float('NaN')), fn:exactly-one(xs:float('NaN'))) to resolve to , but instead got 1
-fn-indexof-mix-args-009;Expected XPath fn:index-of((xs:double('NaN')), fn:exactly-one(xs:double('NaN'))) to resolve to , but instead got 1
+fn-indexof-mix-args-008;Expected XPath fn:index-of((xs:float('NaN')), fn:exactly-one(xs:float('NaN'))) to resolve to <empty string>, but instead got 1
+fn-indexof-mix-args-009;Expected XPath fn:index-of((xs:double('NaN')), fn:exactly-one(xs:double('NaN'))) to resolve to <empty string>, but instead got 1
 fn-indexof-mix-args-021;Equal not available for XsInteger and XsString
 fn-innermost-002;Expected XPathException with code XPST0017, but got NamedFunctionRef AST to Expression not yet implemented
 fn-innermost-004;Expected XPathException with code XPST0017, but got NamedFunctionRef AST to Expression not yet implemented
@@ -5742,11 +5742,8 @@ fn-insert-before-mix-args-019;Comparison between dates/times not implemented yet
 fn-insert-before-mix-args-020;Comparison between dates/times not implemented yet
 fn-intersect-node-args-005;Haven't implemented Qnames from: PI1:
 fn-intersect-node-args-006;Haven't implemented Qnames from: PI1:
-fn-intersect-node-args-018;Expected XPath (/atomic:root/atomic:duration/text()) intersect (/atomic:root/atomic:duration/text()) to resolve to P1Y2M3DT10H30M, but instead got 
-fn-intersect-node-args-019;Expected XPath (/atomic:root/atomic:date/text()) intersect (/atomic:root/atomic:date/text()) to resolve to 2000-01-01+05:00, but instead got 
-fn-intersect-node-args-020;Expected XPath (/atomic:root/atomic:base64Binary/text()) intersect (/atomic:root/atomic:base64Binary/text()) to resolve to R0lGODlhcgGSALMAAAQCAEMmCZtuMFQxDS8b, but instead got 
-fn-intersect-node-args-021;Expected XPath (/atomic:root/atomic:QName/text()) intersect (/atomic:root/atomic:QName/text()) to resolve to foo:aQname, but instead got 
-fn-intersect-node-args-022;Expected XPath (/atomic:root/atomic:idrefs/text()) intersect (/atomic:root/atomic:idrefs/text()) to resolve to id1 id2, but instead got 
+fn-intersect-node-args-015;Expected results and parsedFragment children to match
+fn-intersect-node-args-016;Expected results and parsedFragment children to match
 fn-intersect-node-args-023;PRSC Error: Failed to parse query ''
 fn-iri-to-uri-14;Expected XPath fn:iri-to-uri("example/example") to resolve to example/example, but instead got example%2fexample
 fn-iri-to-uri-18;PRSC Error: Failed to parse query ''
@@ -6913,11 +6910,9 @@ fn-union-node-args-010;Expected results and parsedFragment children to match
 fn-union-node-args-011;Expected results and parsedFragment children to match
 fn-union-node-args-012;Expected results and parsedFragment children to match
 fn-union-node-args-013;Expected results and parsedFragment children to match
-fn-union-node-args-018;Expected XPath (/atomic:root/atomic:duration/text()) | (/atomic:root/atomic:duration/text()) to resolve to P1Y2M3DT10H30M, but instead got 
-fn-union-node-args-019;Expected XPath (/atomic:root/atomic:date/text()) | (/atomic:root/atomic:date/text()) to resolve to 2000-01-01+05:00, but instead got 
-fn-union-node-args-020;Expected XPath (/atomic:root/atomic:base64Binary/text()) | (/atomic:root/atomic:base64Binary/text()) to resolve to R0lGODlhcgGSALMAAAQCAEMmCZtuMFQxDS8b, but instead got 
-fn-union-node-args-021;Expected XPath (/atomic:root/atomic:QName/text()) | (/atomic:root/atomic:QName/text()) to resolve to foo:aQname, but instead got 
-fn-union-node-args-022;Expected XPath (/atomic:root/atomic:idrefs/text()) | (/atomic:root/atomic:idrefs/text()) to resolve to id1 id2, but instead got 
+fn-union-node-args-015;Expected results and parsedFragment children to match
+fn-union-node-args-016;Expected results and parsedFragment children to match
+fn-union-node-args-017;Expected results and parsedFragment children to match
 fn-unordered-101;Expected XPath count(/works/employee[last()]/unordered(preceding-sibling::*)) to resolve to 12
 fn-unordered-102;Expected XPath count(/works/employee[last()]/unordered(preceding::*)) to resolve to 54
 fn-unordered-103;Expected XPath count((/works//day)[last()]/unordered(ancestor-or-self::*)) to resolve to 4
@@ -7623,8 +7618,8 @@ fold-right-015;Expected XPath fold-right((1, 2, 2, 3, 3, 3, 4, 5, 5), (), functi
 fold-right-016;Expected XPath fold-right((1 to 5), (), function($a, $b){ ($a, $a, $b) }) to (deep equally) resolve to 1, 1, 2, 2, 3, 3, 4, 4, 5, 5
 fold-right-017;ArgumentPlaceholder AST to Expression not yet implemented
 fold-right-018;Casting AbstractValue(XsInteger) to StringValue
-fold-right-019;Expected XPath fold-right( 1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a lt $b) then $b else $a }) to resolve to 10, but instead got null
-fold-right-020;Expected XPath fold-right(1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a gt $b) then $b else $a }) to resolve to 1, but instead got null
+fold-right-019;Expected XPath fold-right( 1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a lt $b) then $b else $a }) to resolve to 10, but instead got 
+fold-right-020;Expected XPath fold-right(1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a gt $b) then $b else $a }) to resolve to 1, but instead got 
 fold-right-101;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right(1 to 5, 0,function($a, $b) { $a + $b }) = 15'
 fold-right-102;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right((2,3,5,7), 1,function($a, $b) { $a * $b }) = 210'
 fold-right-103;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right((true(), false(), false()), false(),function($a, $b) { $a or $b })'
@@ -8409,7 +8404,7 @@ FunctionCall-040;PRSC Error: Failed to parse query ''
 FunctionCall-041;Expected error code: XPTY0117. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare namespace lu = 'http://www.w3.org/XQueryTest/ListUnionTypes' ;\n        import schema "http://www.w3.org/XQueryTest/ListUnionTypes";\n      	let $f := function() as lu:namespaceSensitiveUnionType {xs:untypedAtomic('xsi:type')}\n      	return local-name-from-QName($f())'
 FunctionCall-042;PRSC Error: Failed to parse query '(\n        declare namespace lu = 'http://www.w3.org/XQueryTest/ListUnionTypes' ;\n        import schema "http://www.w3.org/XQueryTest/ListUnionTypes";\n        declare function local:hof($f as function(xs:integer) as xs:integer) as xs:integer {$f(3) + 1};\n      	let $f := function($a as lu:unionType) as xs:integer {$a + 2}\n      	return local:hof($f)) instance of $xs:integer'
 FunctionCall-043;PRSC Error: Failed to parse query '(\n        declare namespace lu = 'http://www.w3.org/XQueryTest/ListUnionTypes' ;\n        import schema "http://www.w3.org/XQueryTest/ListUnionTypes";\n        declare function local:hof($f as function(lu:unionType) as xs:integer) as xs:integer {$f(3) + 1};\n      	let $f := function($a as lu:unionOfUnionType) as xs:integer {$a + 2}\n      	return local:hof($f)) instance of $xs:integer'
-FunctionCall-044;Expected error code: XPST0003. Found error code:  with error message: 
+FunctionCall-044;Expected error code: XPST0003. Query succeeded with result: 
 FunctionCall-049;PRSC Error: Failed to parse query ''
 FunctionCall-050;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 FunctionCall-051;PRSC Error: Failed to parse query ''
@@ -9939,7 +9934,7 @@ hof-917;Expected XPathException with code XPTY0004, but got ArgumentPlaceholder 
 hof-918;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:round($x as xs:double, $algorithm as (function(xs:double) as xs:double)) as xs:double \n        { $algorithm($x) }; \n        declare variable $roundToCeiling := local:round(?, upper-case#1); \n        $roundToCeiling(12.4)\n      '
 hof-919;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      declare function local:round($x as xs:double) as xs:double { fn:floor($x) }; \n      declare function local:ops() as (function(xs:double) as xs:double)* \n      	{ (abs#1, local:round#1, function($x as xs:float){$x+1}, round-half-to-even(?, 2)) }; \n      string-join(for $f in local:ops() return string(round-half-to-even($f(xs:decimal('123.456')), 4)), '~')\n      '
 inline-fn-005;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         (1 to 4) !\n         (let $add := function($x){$x + .} return $add(4))'
-inline-fn-006;Expected error code: XPST0003. Found error code:  with error message: 
+inline-fn-006;Expected error code: XPST0003. Query succeeded with result: 
 inline-fn-013;PRSC Error: Failed to parse query '(\n         let $add := function($x, $y) as xs:double {$x + $y}\n         return $add(3, 4)\n      ) instance of $xs:double'
 inline-fn-014;PRSC Error: Failed to parse query '\n         let $process := function($op, $x, $y) as function(*) {if ($op = "+") then function() {$x + $y} else function() {$x - $y}}\n         return $process("+", 3, 4)()\n       = 7'
 inline-fn-015;PRSC Error: Failed to parse query '\n         let $add := %Q{http://example.com/speed}fast %Q{http://example.com/origin}author("Mike") function($x, $y) {$x + $y} return $add(2,2)\n       = 4'
@@ -17184,7 +17179,6 @@ value-comp-eq-int-7;Can't cast a non-atomic value.
 value-comparison-1;Type casting to XsAnyUri has not been implemented yet.
 value-comparison-10;Expected executing the XPath 'map{} eq ()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '(map{} eq ()) => empty()'
 value-comparison-11;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'map{1:1} eq 1'
-value-comparison-12;Expected XPath //test:comparable[1]/test:int eq //test:comparable[2]/test:int to resolve to true
 value-comparison-13;PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) eq myType:integer-or-nothing(5)'
 value-comparison-14;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) eq myType:integer-or-nothing("")'
 value-comparison-2;Type casting to XsAnyUri has not been implemented yet.
@@ -17540,15 +17534,14 @@ xquery31keywords3;PRSC Error: Failed to parse query ''
 xquery31keywords4;PRSC Error: Failed to parse query ''
 xquery31keywords5;PRSC Error: Failed to parse query ''
 XQueryComment001;PRSC Error: Failed to parse query ''
+XQueryComment002;Expected results and parsedFragment children to match
 XQueryComment003;PRSC Error: Failed to parse query ''
 XQueryComment004;PRSC Error: Failed to parse query ''
 XQueryComment005;PRSC Error: Failed to parse query ''
 XQueryComment006;PRSC Error: Failed to parse query ''
 XQueryComment007;PRSC Error: Failed to parse query ''
 XQueryComment008;PRSC Error: Failed to parse query ''
-XQueryComment009;Expected XPath (: Name: XQueryComment009 :)\n(: Description: Comments inside a conditional expression :)\n\n\n\nif (:test (: yada (: neato :) :) :) (/fs:MyComputer) \n\tthen (: yada :) "true"\n\telse "false" to resolve to true, but instead got false
 XQueryComment010;PRSC Error: Failed to parse query ''
-XQueryComment011;Expected XPath (: Name: XQueryComment011 :)\n(: Description: Comments inside a conditional expression :)\n\n\n\nif (:test:)(:t2:)(:t3:) (/fs:MyComputer) \n\tthen "true"\n\telse "false" to resolve to true, but instead got false
 XQueryComment012;Expected results and parsedFragment children to match
 XQueryComment014;PRSC Error: Failed to parse query '(: Name: XQueryComment014 :)\n(: Description: Comments inside a cast expression :)\n\n\n"10" cast as (: type comment :) xs:integer ?\n\n = 10'
 XQueryComment020;PRSC Error: Failed to parse query ''
