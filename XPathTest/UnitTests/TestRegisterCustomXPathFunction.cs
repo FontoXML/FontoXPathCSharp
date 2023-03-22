@@ -340,32 +340,32 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeOptions)
         );
     }
-
-    [Fact(Skip = "Parser does not support this yet for some reason.")]
+    
+    [Fact]
     public void RegisterFunctionInNamespaceTest()
     {
         const string namespaceUri = "http://www.example.com/customFunctionTest";
         RegisterCustomXPathFunction<XmlNode>.RegisterFunction(
-            new QName("test", "http://www.example.com/customFunctionTest"),
+            new QName("test", namespaceUri),
             Array.Empty<string>(),
-            "xs:boolean*",
+            "xs:boolean",
             dynamicContext =>
             {
                 VerifyDynamicContext(dynamicContext);
-                Assert.Equal(123456789, dynamicContext!.CurrentContext);
+                Assert.Equal(123456789, (dynamicContext!.CurrentContext as Dictionary<string, object>)?["nodeId"]);
                 return true;
             }
         );
 
-        var variables = new Dictionary<string, object> { { "nodeId", 123456789 } };
+        var optionsWithCtx = new Options<XmlNode>(IdentityNamespaceResolver);
+        optionsWithCtx.CurrentContext = new Dictionary<string, object> { { "nodeId", 123456789 } };
 
         Assert.True(
             Evaluate.EvaluateXPathToBoolean(
                 $"Q{{{namespaceUri}}}test()",
                 XmlNodeEmptyContext,
                 XmlNodeDomFacade,
-                XmlNodeOptions,
-                variables
+                optionsWithCtx
             ),
             "Attempt to access the function using the namespace uri"
         );
