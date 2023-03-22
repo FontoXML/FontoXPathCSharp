@@ -210,4 +210,44 @@ public class TestMisc
         var res = Evaluate.EvaluateXPathToString(selector, XmlAtomicsSimple, XmlNodeDomFacade, XmlNodeOptions);
         Assert.Equal("P1Y2M3DT10H30M",res);
     }
+
+    [Fact]
+    public void TestPredicate()
+    {
+        var selector = "(1 to 10)[. div 2 = 0]";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("", res);
+    }
+    
+    [Fact]
+    public void TestPredicate2()
+    {
+        var selector = "10[. = 1]";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("", res);
+    }
+
+    [Fact]
+    public void TestPredicate3()
+    {
+        var selector = "bla[. = 1]";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("", res);
+    }
+    
+    [Fact]
+    public void TestPredicate4()
+    {
+        var selector = "10[. div 2 = 0]";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("", res);
+    }
+    
+    [Fact]
+    public void TestPredicate5()
+    {
+        var selector = "1[2]";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("", res);
+    }
 }
