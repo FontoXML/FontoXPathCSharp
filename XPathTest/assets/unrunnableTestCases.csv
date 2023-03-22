@@ -1,27 +1,17 @@
 ﻿abbreviatedSyntax-2;Expected XPath for $h in (/works/employee[2]) return $h/text() to resolve to Text data from Employee[2], but instead got Text data from Employee[2]
 abbreviatedSyntax-26;PRSC Error: Failed to parse query ''
 abbreviatedSyntax-6;Expected XPath for $h in (/works) return $h/employee[fn:last()]/@name to resolve to Jane Doe 13, but instead got 
-ancestor-10;NodeAfterOp AST to Expression not yet implemented
 ancestor-11;Expected results and parsedFragment children to match
 ancestor-12;Expected results and parsedFragment children to match
 ancestor-13;Expected results and parsedFragment children to match
 ancestor-21;PRSC Error: Failed to parse query ' = 0'
-ancestor-3;IsOp AST to Expression not yet implemented
-ancestor-4;IsOp AST to Expression not yet implemented
 ancestor-5;PRSC Error: Failed to parse query ''
 ancestor-6;PRSC Error: Failed to parse query ''
 ancestor-7;PRSC Error: Failed to parse query ''
-ancestor-8;NodeAfterOp AST to Expression not yet implemented
-ancestor-9;NodeAfterOp AST to Expression not yet implemented
-ancestorself-10;NodeAfterOp AST to Expression not yet implemented
 ancestorself-21;PRSC Error: Failed to parse query ''
-ancestorself-3;IsOp AST to Expression not yet implemented
-ancestorself-4;IsOp AST to Expression not yet implemented
 ancestorself-5;PRSC Error: Failed to parse query ''
 ancestorself-6;PRSC Error: Failed to parse query ''
 ancestorself-7;PRSC Error: Failed to parse query ''
-ancestorself-8;NodeAfterOp AST to Expression not yet implemented
-ancestorself-9;NodeAfterOp AST to Expression not yet implemented
 annex-1;PRSC Error: Failed to parse query ''
 annex-2;PRSC Error: Failed to parse query ''
 annex-3;PRSC Error: Failed to parse query 'declare namespace eg = "http://example.org"; declare function eg:value-union ( $arg1 as xs:anyAtomicType*, $arg2 as xs:anyAtomicType*) as xs:anyAtomicType* { fn:distinct-values(($arg1, $arg2)) }; let $arg1 as xs:anyAtomicType := 1 let $arg2 as xs:anyAtomicType := 2 return eg:value-union($arg1,$arg2)'
@@ -2342,8 +2332,8 @@ cbcl-error-004;Expected executing the XPath 'empty(() eq fn:error())' to resolve
 cbcl-error-005;Expected executing the XPath 'empty(fn:error() eq ())' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
 cbcl-error-006;Expected executing the XPath 'fn:error() = ()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
 cbcl-error-007;Expected executing the XPath '() = fn:error()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
-cbcl-error-008;Expected executing the XPath 'empty(fn:error() is ())' to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
-cbcl-error-009;Expected executing the XPath 'empty(() is fn:error())' to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
+cbcl-error-008;Expected executing the XPath 'empty(fn:error() is ())' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
+cbcl-error-009;Expected executing the XPath 'empty(() is fn:error())' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
 cbcl-error-010;Expected executing the XPath 'fn:error() and false()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
 cbcl-error-011;Expected executing the XPath 'false() and fn:error()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
 cbcl-error-012;Expected executing the XPath 'fn:error() or true()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function fn:error with arity 0 is not registered.
@@ -4115,7 +4105,7 @@ extvardef-027;Expected error code: XPTY0004. Found error code: XPST0003 with err
 filter-001;ArgumentPlaceholder AST to Expression not yet implemented
 filter-003;Arithmetic operation resulted in an overflow.
 filter-004;Expected XPath (1 to 20)[. = filter(1 to position(), function($x){$x idiv 2 * 2 = $x})] to (deep equally) resolve to 2, 4, 6, 8, 10, 12, 14, 16, 18, 20
-filter-005;IsOp AST to Expression not yet implemented
+filter-005;Multiplicity of function argument of type node() for dynamic-function is incorrect. Expected exactly one
 filter-006;Expected XPath  to (deep equally) resolve to 2, 4, 6, 8, 10, 12, 14, 16, 18, 20
 filter-007;Expected XPath  to (deep equally) resolve to 4, 6
 filter-008;Expected XPath  to (deep equally) resolve to 4, 6
@@ -4757,8 +4747,8 @@ fn-filter-004;Expected XPathException with code XPST0017, but got NamedFunctionR
 fn-filter-005;NamedFunctionRef AST to Expression not yet implemented
 fn-filter-006;Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
 fn-filter-007;Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
-fn-filter-008;Expected error code: XPTY0004. Found error code:  with error message: 
-fn-filter-009;Expected error code: XPTY0004. Found error code:  with error message: 
+fn-filter-008;Expected error code: XPTY0004. Query succeeded with result: 
+fn-filter-009;Expected error code: XPTY0004. Query succeeded with result: 
 fn-filter-012;Expected executing the XPath 'fn:filter( (), fn:string#1 )' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
 fn-filter-013;Arithmetic operation resulted in an overflow.
 fn-filter-014;Arithmetic operation resulted in an overflow.
@@ -5652,8 +5642,8 @@ fn-idref-9;PRSC Error: Failed to parse query 'import schema namespace ids="http:
 fn-idref-dtd-10;The function fn:idref with arity 2 is not registered.
 fn-idref-dtd-11;The function fn:idref with arity 2 is not registered.
 fn-idref-dtd-12;The function fn:idref with arity 2 is not registered.
-fn-idref-dtd-13;IsOp AST to Expression not yet implemented
-fn-idref-dtd-14;IsOp AST to Expression not yet implemented
+fn-idref-dtd-13;The function fn:idref with arity 2 is not registered.
+fn-idref-dtd-14;The function fn:idref with arity 2 is not registered.
 fn-idref-dtd-15;The function fn:idref with arity 2 is not registered.
 fn-idref-dtd-16;The function fn:idref with arity 2 is not registered.
 fn-idref-dtd-17;The function fn:idref with arity 2 is not registered.
@@ -7623,41 +7613,31 @@ fold-right-015;Expected XPath fold-right((1, 2, 2, 3, 3, 3, 4, 5, 5), (), functi
 fold-right-016;Expected XPath fold-right((1 to 5), (), function($a, $b){ ($a, $a, $b) }) to (deep equally) resolve to 1, 1, 2, 2, 3, 3, 4, 4, 5, 5
 fold-right-017;ArgumentPlaceholder AST to Expression not yet implemented
 fold-right-018;Casting AbstractValue(XsInteger) to StringValue
-fold-right-019;Expected XPath fold-right( 1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a lt $b) then $b else $a }) to resolve to 10, but instead got null
-fold-right-020;Expected XPath fold-right(1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a gt $b) then $b else $a }) to resolve to 1, but instead got null
+fold-right-019;Expected XPath fold-right( 1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a lt $b) then $b else $a }) to resolve to 10, but instead got 
+fold-right-020;Expected XPath fold-right(1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a gt $b) then $b else $a }) to resolve to 1, but instead got 
 fold-right-101;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right(1 to 5, 0,function($a, $b) { $a + $b }) = 15'
 fold-right-102;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right((2,3,5,7), 1,function($a, $b) { $a * $b }) = 210'
 fold-right-103;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right((true(), false(), false()), false(),function($a, $b) { $a or $b })'
 fold-right-104;PRSC Error: Failed to parse query 'declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          local:fold-right((true(), false(), false()), false(),function($a, $b) { $a and $b })'
 fold-right-105;PRSC Error: Failed to parse query 'deep-equal((declare function local:fold-right(\n          $seq as item()*, \n          $zero as item()*, \n          $f as function(item(), item()*) as item()*) \n          as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else $f(fn:head($seq), fn:fold-right(fn:tail($seq), $zero, $f))\n          };\n          let $f := function($a, $b){($b, $a)} return local:fold-right(1 to 5, (), $f)), (5,4,3,2,1))'
-following-10;NodeAfterOp AST to Expression not yet implemented
 following-11;Expected results and parsedFragment children to match
 following-12;Expected results and parsedFragment children to match
 following-13;Expected results and parsedFragment children to match
 following-15;Expected results and parsedFragment children to match
 following-21;PRSC Error: Failed to parse query ' = 0'
 following-22;Expected XPath exists(//employee[@name="John Doe 10"]/following::text()[.='Monday']) to resolve to true
-following-3;IsOp AST to Expression not yet implemented
-following-4;IsOp AST to Expression not yet implemented
 following-5;PRSC Error: Failed to parse query ''
 following-6;PRSC Error: Failed to parse query ''
 following-7;PRSC Error: Failed to parse query ''
-following-8;NodeAfterOp AST to Expression not yet implemented
-following-9;NodeAfterOp AST to Expression not yet implemented
 following-sibling-attr;PRSC Error: Failed to parse query ''
-followingsibling-10;NodeAfterOp AST to Expression not yet implemented
 followingsibling-11;Expected results and parsedFragment children to match
 followingsibling-12;Expected results and parsedFragment children to match
 followingsibling-13;Expected results and parsedFragment children to match
 followingsibling-15;Expected results and parsedFragment children to match
 followingsibling-21;PRSC Error: Failed to parse query ' = 0'
-followingsibling-3;IsOp AST to Expression not yet implemented
-followingsibling-4;IsOp AST to Expression not yet implemented
 followingsibling-5;PRSC Error: Failed to parse query ''
 followingsibling-6;PRSC Error: Failed to parse query ''
 followingsibling-7;PRSC Error: Failed to parse query ''
-followingsibling-8;NodeAfterOp AST to Expression not yet implemented
-followingsibling-9;NodeAfterOp AST to Expression not yet implemented
 FONS0004-1;Expected error code: FONS0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 for-each-001;NamedFunctionRef AST to Expression not yet implemented
 for-each-002;NamedFunctionRef AST to Expression not yet implemented
@@ -7823,7 +7803,7 @@ function-item-15;PRSC Error: Failed to parse query 'function($a as item()) as it
 function-item-16;PRSC Error: Failed to parse query 'function($a as item()) as xs:integer { $a } instance of function(item(), item()) as item()'
 function-item-17;PRSC Error: Failed to parse query 'function($a as xs:string) as item() { $a } instance of function(item()) as item()'
 function-item-2;NamedFunctionRef AST to Expression not yet implemented
-function-item-3;Expected XPathException with code XPTY0004, but got IsOp AST to Expression not yet implemented
+function-item-3;Expected XPathException with code XPTY0004, but got NamedFunctionRef AST to Expression not yet implemented
 function-item-4;Expected XPathException with code FOTY0013, but got NamedFunctionRef AST to Expression not yet implemented
 function-item-5;Expected error code: XQTY0105. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'element a { avg#1 }'
 function-item-6;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'attribute a { avg#1 }'
@@ -8409,7 +8389,7 @@ FunctionCall-040;PRSC Error: Failed to parse query ''
 FunctionCall-041;Expected error code: XPTY0117. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare namespace lu = 'http://www.w3.org/XQueryTest/ListUnionTypes' ;\n        import schema "http://www.w3.org/XQueryTest/ListUnionTypes";\n      	let $f := function() as lu:namespaceSensitiveUnionType {xs:untypedAtomic('xsi:type')}\n      	return local-name-from-QName($f())'
 FunctionCall-042;PRSC Error: Failed to parse query '(\n        declare namespace lu = 'http://www.w3.org/XQueryTest/ListUnionTypes' ;\n        import schema "http://www.w3.org/XQueryTest/ListUnionTypes";\n        declare function local:hof($f as function(xs:integer) as xs:integer) as xs:integer {$f(3) + 1};\n      	let $f := function($a as lu:unionType) as xs:integer {$a + 2}\n      	return local:hof($f)) instance of $xs:integer'
 FunctionCall-043;PRSC Error: Failed to parse query '(\n        declare namespace lu = 'http://www.w3.org/XQueryTest/ListUnionTypes' ;\n        import schema "http://www.w3.org/XQueryTest/ListUnionTypes";\n        declare function local:hof($f as function(lu:unionType) as xs:integer) as xs:integer {$f(3) + 1};\n      	let $f := function($a as lu:unionOfUnionType) as xs:integer {$a + 2}\n      	return local:hof($f)) instance of $xs:integer'
-FunctionCall-044;Expected error code: XPST0003. Found error code:  with error message: 
+FunctionCall-044;Expected error code: XPST0003. Query succeeded with result: 
 FunctionCall-049;PRSC Error: Failed to parse query ''
 FunctionCall-050;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 FunctionCall-051;PRSC Error: Failed to parse query ''
@@ -9850,7 +9830,7 @@ greaterthaneqonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
 greaterthanonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
 head-002;The function current-dateTime with arity 0 is not registered.
 head-004;Haven't implemented Qnames from: works:
-head-006;IsOp AST to Expression not yet implemented
+head-006;Sequences to compare are not singleton
 head-007;NamedFunctionRef AST to Expression not yet implemented
 head-008;NamedFunctionRef AST to Expression not yet implemented
 hexBinary-1;Type casting to XsHexBinary has not been implemented yet.
@@ -9939,7 +9919,7 @@ hof-917;Expected XPathException with code XPTY0004, but got ArgumentPlaceholder 
 hof-918;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:round($x as xs:double, $algorithm as (function(xs:double) as xs:double)) as xs:double \n        { $algorithm($x) }; \n        declare variable $roundToCeiling := local:round(?, upper-case#1); \n        $roundToCeiling(12.4)\n      '
 hof-919;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      declare function local:round($x as xs:double) as xs:double { fn:floor($x) }; \n      declare function local:ops() as (function(xs:double) as xs:double)* \n      	{ (abs#1, local:round#1, function($x as xs:float){$x+1}, round-half-to-even(?, 2)) }; \n      string-join(for $f in local:ops() return string(round-half-to-even($f(xs:decimal('123.456')), 4)), '~')\n      '
 inline-fn-005;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         (1 to 4) !\n         (let $add := function($x){$x + .} return $add(4))'
-inline-fn-006;Expected error code: XPST0003. Found error code:  with error message: 
+inline-fn-006;Expected error code: XPST0003. Query succeeded with result: 
 inline-fn-013;PRSC Error: Failed to parse query '(\n         let $add := function($x, $y) as xs:double {$x + $y}\n         return $add(3, 4)\n      ) instance of $xs:double'
 inline-fn-014;PRSC Error: Failed to parse query '\n         let $process := function($op, $x, $y) as function(*) {if ($op = "+") then function() {$x + $y} else function() {$x - $y}}\n         return $process("+", 3, 4)()\n       = 7'
 inline-fn-015;PRSC Error: Failed to parse query '\n         let $add := %Q{http://example.com/speed}fast %Q{http://example.com/origin}author("Mike") function($x, $y) {$x + $y} return $add(2,2)\n       = 4'
@@ -10616,10 +10596,6 @@ K-NamespaceURIFromQNameFunc-4;The function namespace-uri-from-QName with arity 1
 K-NamespaceURIFromQNameFunc-5;The function namespace-uri-from-QName with arity 1 is not registered.
 K-NameTest-10;Expected error code: XPST0003. Query succeeded with result: f oo
 K-NameTest-11;Expected error code: XPST0003. Found error code: XPST0017 with error message: The function normalize-unicode with arity 1 is not registered.
-K-NodeAfter-1;Expected executing the XPath 'empty(1 >> ())' to resolve to one of the expected results, but got System.NotImplementedException: NodeAfterOp AST to Expression not yet implemented
-K-NodeAfter-2;Expected executing the XPath 'empty(() >> 1)' to resolve to one of the expected results, but got System.NotImplementedException: NodeAfterOp AST to Expression not yet implemented
-K-NodeAfter-3;Expected XPathException with code XPTY0004, but got NodeAfterOp AST to Expression not yet implemented
-K-NodeAfter-4;Expected executing the XPath 'empty(() >> ())' to resolve to one of the expected results, but got System.NotImplementedException: NodeAfterOp AST to Expression not yet implemented
 K-NodeAfter-6;Expected error code: XPST0003. Query succeeded with result: 
 K-NodeAfter-9;Expected error code: XPST0003. Query succeeded with result: 1
 K-NodeBefore-1;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
@@ -10636,10 +10612,6 @@ K-NodeNumberFunc-15;Expected XPath string(number(xs:gYear("2005"))) eq "NaN" to 
 K-NodeNumberFunc-3;Input string was not in a correct format.
 K-NodeNumberFunc-4;Input string was not in a correct format.
 K-NodeRootFunc-2;Expected error code: XPTY0004. Query succeeded with result: 1 2 3
-K-NodeSame-1;Expected executing the XPath 'empty(1 is ())' to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
-K-NodeSame-2;Expected executing the XPath 'empty(() is 1)' to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
-K-NodeSame-3;Expected XPathException with code XPTY0004, but got IsOp AST to Expression not yet implemented
-K-NodeSame-4;Expected executing the XPath 'empty(() is ())' to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
 K-NodeSame-5;Expected error code: XPST0003. Query succeeded with result: 
 K-NormalizeSpaceFunc-6;Object reference not set to an instance of an object.
 K-NormalizeSpaceFunc-9;Expected executing the XPath 'normalize-space(normalize-space(("foo", current-time())[1])) eq "foo"' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
@@ -14086,7 +14058,7 @@ last-3;Expected XPath for $h in (/works/employee[12]) return $h/overtime[last() 
 last-4;Expected XPath for $h in (/works) return $h/employee[position() = last()]/string(@name) to resolve to Jane Doe 13, but instead got 
 last-5;Expected XPath for $h in (/works) return $h/employee[last() = position()]/string(@name) to resolve to Jane Doe 13, but instead got 
 last-6;PRSC Error: Failed to parse query ''
-last-7;IsOp AST to Expression not yet implemented
+last-7;Expected XPath for $h in (/works) return $h/employee[last()] is $h/employee[last()] to resolve to true
 last-8;Expected XPath for $h in (/works/employee[12]) return $h/overtime[last() = last()]/*/string() to (deep equally) resolve to "Monday", "Tuesday"
 last-9;Expected XPath for $h in (/works) return $h//employee[@name="Jane Doe 13"][last() = 1]/string(@name) to resolve to Jane Doe 13, but instead got 
 lessthaneqonanyuri-1;PRSC Error: Failed to parse query ''
@@ -14699,17 +14671,11 @@ nametest-6;PRSC Error: Failed to parse query ''
 nametest-7;PRSC Error: Failed to parse query ''
 nametest-8;PRSC Error: Failed to parse query ''
 nametest-9;PRSC Error: Failed to parse query ' = 0'
-nodecomparisonerr-1;Expected executing the XPath 'fn:count(() is 100)' to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
 nodecomparisonerr-2;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
-nodecomparisonerr-3;Expected executing the XPath 'fn:count(() >> 100)' to resolve to one of the expected results, but got System.NotImplementedException: NodeAfterOp AST to Expression not yet implemented
-nodeexpression1;Expected executing the XPath 'count(() is ())' to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
 nodeexpression10;PRSC Error: Failed to parse query ''
-nodeexpression11;IsOp AST to Expression not yet implemented
-nodeexpression12;IsOp AST to Expression not yet implemented
-nodeexpression13;Expected executing the XPath 'count((/staff[1]/employee[1]/empnum[1]) is ())' to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
+nodeexpression12;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 nodeexpression14;PRSC Error: Failed to parse query ''
-nodeexpression15;IsOp AST to Expression not yet implemented
-nodeexpression16;IsOp AST to Expression not yet implemented
+nodeexpression15;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 nodeexpression17;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 nodeexpression18;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 nodeexpression19;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
@@ -14724,43 +14690,23 @@ nodeexpression26;Expected executing the XPath '' to resolve to one of the expect
 nodeexpression27;PRSC Error: Failed to parse query ''
 nodeexpression28;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 nodeexpression29;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
-nodeexpression3;Expected executing the XPath 'count(() is /works[1]/employee[1]/empnum[1])' to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
 nodeexpression30;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 nodeexpression31;PRSC Error: Failed to parse query ''
 nodeexpression32;PRSC Error: Failed to parse query ''
-nodeexpression33;Expected executing the XPath 'count(() >> ())' to resolve to one of the expected results, but got System.NotImplementedException: NodeAfterOp AST to Expression not yet implemented
 nodeexpression34;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
-nodeexpression35;Expected executing the XPath 'count(() >> /works[1]/employee[1]/empnum[1])' to resolve to one of the expected results, but got System.NotImplementedException: NodeAfterOp AST to Expression not yet implemented
-nodeexpression36;Expected executing the XPath 'count(() >> (/staff[1]/employee[1]/empnum[1]))' to resolve to one of the expected results, but got System.NotImplementedException: NodeAfterOp AST to Expression not yet implemented
 nodeexpression37;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 nodeexpression38;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 nodeexpression39;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
-nodeexpression4;Expected executing the XPath 'count(() is (/staff[1]/employee[1]/empnum[1]))' to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
 nodeexpression40;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
-nodeexpression41;Expected executing the XPath 'count(/works[1]/employee[1]/empnum[1] >> ())' to resolve to one of the expected results, but got System.NotImplementedException: NodeAfterOp AST to Expression not yet implemented
 nodeexpression42;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
-nodeexpression43;NodeAfterOp AST to Expression not yet implemented
-nodeexpression44;Expected executing the XPath '$works/works[1]/employee[1]/empnum[1] >> ($staff/staff[1]/employee[1]/empnum[1])' to resolve to one of the expected results, but got System.NotImplementedException: NodeAfterOp AST to Expression not yet implemented
-nodeexpression45;Expected executing the XPath 'count((/staff[1]/employee[1]/empnum[1]) >> ())' to resolve to one of the expected results, but got System.NotImplementedException: NodeAfterOp AST to Expression not yet implemented
+nodeexpression44;Expected executing the XPath '$works/works[1]/employee[1]/empnum[1] >> ($staff/staff[1]/employee[1]/empnum[1])' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 nodeexpression46;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 nodeexpression47;PRSC Error: Failed to parse query ''
-nodeexpression48;NodeAfterOp AST to Expression not yet implemented
 nodeexpression5;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 nodeexpression6;PRSC Error: Failed to parse query ''
 nodeexpression7;PRSC Error: Failed to parse query ''
 nodeexpression8;PRSC Error: Failed to parse query ''
-nodeexpression9;Expected executing the XPath 'count(/works[1]/employee[1]/empnum[1] is ())' to resolve to one of the expected results, but got System.NotImplementedException: IsOp AST to Expression not yet implemented
-nodeexpressionhc1;IsOp AST to Expression not yet implemented
 nodeexpressionhc10;PRSC Error: Failed to parse query ''
-nodeexpressionhc11;NodeAfterOp AST to Expression not yet implemented
-nodeexpressionhc12;NodeAfterOp AST to Expression not yet implemented
-nodeexpressionhc13;NodeAfterOp AST to Expression not yet implemented
-nodeexpressionhc14;NodeAfterOp AST to Expression not yet implemented
-nodeexpressionhc15;NodeAfterOp AST to Expression not yet implemented
-nodeexpressionhc2;IsOp AST to Expression not yet implemented
-nodeexpressionhc3;IsOp AST to Expression not yet implemented
-nodeexpressionhc4;IsOp AST to Expression not yet implemented
-nodeexpressionhc5;IsOp AST to Expression not yet implemented
 nodeexpressionhc6;PRSC Error: Failed to parse query ''
 nodeexpressionhc7;PRSC Error: Failed to parse query ''
 nodeexpressionhc8;PRSC Error: Failed to parse query ''
@@ -15654,7 +15600,6 @@ position-22;Expected XPath for $h in (/works) return $h/employee[position() = 12
 position-4;Expected XPath for $h in (/works) return $h/employee[position() = last()]/string(@name) to resolve to Jane Doe 13, but instead got 
 position-5;Expected XPath for $h in (/works) return $h/employee[last() = position()]/string(@name) to resolve to Jane Doe 13, but instead got 
 position-8;Expected XPath for $h in (/works/employee[12]) return $h/overtime[position() = position()]/day/string() to (deep equally) resolve to "Monday", "Tuesday"
-preceding-10;NodeAfterOp AST to Expression not yet implemented
 preceding-11;Expected results and parsedFragment children to match
 preceding-12;Expected results and parsedFragment children to match
 preceding-13;Expected results and parsedFragment children to match
@@ -15662,26 +15607,17 @@ preceding-15;Expected results and parsedFragment children to match
 preceding-21;PRSC Error: Failed to parse query ' = 0'
 preceding-22;PRSC Error: Failed to parse query ''
 preceding-23;PRSC Error: Failed to parse query ''
-preceding-3;IsOp AST to Expression not yet implemented
-preceding-4;IsOp AST to Expression not yet implemented
 preceding-5;PRSC Error: Failed to parse query ''
 preceding-6;PRSC Error: Failed to parse query ''
 preceding-7;PRSC Error: Failed to parse query ''
-preceding-8;NodeAfterOp AST to Expression not yet implemented
-preceding-9;NodeAfterOp AST to Expression not yet implemented
-preceding-sibling-10;NodeAfterOp AST to Expression not yet implemented
 preceding-sibling-11;Expected results and parsedFragment children to match
 preceding-sibling-12;Expected results and parsedFragment children to match
 preceding-sibling-13;Expected results and parsedFragment children to match
 preceding-sibling-15;Expected results and parsedFragment children to match
 preceding-sibling-21;PRSC Error: Failed to parse query ' = 0'
-preceding-sibling-3;IsOp AST to Expression not yet implemented
-preceding-sibling-4;IsOp AST to Expression not yet implemented
 preceding-sibling-5;PRSC Error: Failed to parse query ''
 preceding-sibling-6;PRSC Error: Failed to parse query ''
 preceding-sibling-7;PRSC Error: Failed to parse query ''
-preceding-sibling-8;NodeAfterOp AST to Expression not yet implemented
-preceding-sibling-9;NodeAfterOp AST to Expression not yet implemented
 preceding-sibling-attr;PRSC Error: Failed to parse query ''
 predicates-1;Expected results and parsedFragment children to match
 predicates-10;Can't cast a non-atomic value.
@@ -17388,8 +17324,6 @@ XPTY0004_11;Expected XPathException with code XPTY0004, but got Object reference
 XPTY0004_12;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:error with arity 1 is not registered.
 XPTY0004_12a;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function fn:error with arity 1 is not registered.
 XPTY0004_19;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
-XPTY0004_20;Expected XPathException with code XPTY0004, but got NodeAfterOp AST to Expression not yet implemented
-XPTY0004_21;Expected XPathException with code XPTY0004, but got IsOp AST to Expression not yet implemented
 XPTY0004_28;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace foo = "http://www.example.org"; declare function foo:something($type\n         as xs:integer) { if ($type eq 1) then xs:date('2007-11-28') else 1.0 };\n         abs(foo:something(1))'
 XPTY0004_29;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace foo = "http://www.example.org"; declare function foo:something($type\n         as xs:integer) { if ($type eq 1) then xs:date('2007-11-28') else 'foo' }; element {\n         foo:something(1) } { }'
 XPTY0004_30;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace foo = "http://www.example.org"; declare function foo:something($type\n         as xs:integer) { if ($type eq 1) then xs:date('2007-11-28') else 'foo' };\n         processing-instruction { foo:something(1) } { }'

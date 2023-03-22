@@ -344,6 +344,9 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.LeOp => new ValueCompare<TNode>(CompareType.LessEquals, firstExpression, secondExpression),
             AstNodeName.GtOp => new ValueCompare<TNode>(CompareType.GreaterThan, firstExpression, secondExpression),
             AstNodeName.GeOp => new ValueCompare<TNode>(CompareType.GreaterEquals, firstExpression, secondExpression),
+            AstNodeName.IsOp => new NodeCompare<TNode>(NodeCompareType.IsOp, firstExpression, secondExpression),
+            AstNodeName.NodeBeforeOp => new NodeCompare<TNode>(NodeCompareType.NodeBeforeOp, firstExpression, secondExpression),
+            AstNodeName.NodeAfterOp => new NodeCompare<TNode>(NodeCompareType.NodeAfterOp, firstExpression, secondExpression),
             _ => throw new Exception("Unreachable")
         };
     }
@@ -378,6 +381,9 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
                 or AstNodeName.LeOp
                 or AstNodeName.GtOp
                 or AstNodeName.GeOp => CompileCompareExpr(ast, options),
+            AstNodeName.IsOp 
+                or AstNodeName.NodeBeforeOp 
+                or AstNodeName.NodeAfterOp => CompileCompareExpr(ast, options),
             AstNodeName.AndOp => CompileAndOp(ast, options),
             AstNodeName.OrOp => CompileOrOp(ast, options),
             AstNodeName.SequenceExpr => CompileSequenceExpression(ast, options),
