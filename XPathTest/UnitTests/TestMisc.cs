@@ -18,7 +18,8 @@ public class TestMisc
     private static readonly Options<XmlNode> XmlNodeOptions;
 
     private static readonly XmlDocument XmlNodeWorksMod;
-
+    private static readonly XmlDocument XmlAtomicsFile;
+    
     static TestMisc()
     {
         XmlNodeEmptyContext = new XmlDocument();
@@ -29,6 +30,10 @@ public class TestMisc
 
         XmlNodeWorksMod = new XmlDocument();
         XmlNodeWorksMod.LoadXml(TestFileSystem.ReadFile("qt3tests/docs/works-mod.xml"));
+        
+        XmlAtomicsFile = new XmlDocument();
+        XmlAtomicsFile.LoadXml(TestFileSystem.ReadFile("qt3tests/docs/atomic.xml"));
+        
     }
 
     [Fact]
@@ -177,5 +182,15 @@ public class TestMisc
         var res = Evaluate.EvaluateXPathToInt(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
 
         Assert.True(res == 90);
+    }
+
+    [Fact(Skip = "This problem is moved to another issue.")]
+    public void TestWeirdIntersect()
+    {
+        // var selector = "(/atomic:root/atomic:duration/text()) intersect (/atomic:root/atomic:duration/text())";
+        var selector = "/atomic:root/atomic:duration/text()";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlAtomicsFile, XmlNodeDomFacade, XmlNodeOptions);
+
+        Assert.Equal("P1Y2M3DT10H30M",res);
     }
 }
