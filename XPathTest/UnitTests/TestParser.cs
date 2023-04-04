@@ -110,7 +110,7 @@ public class TestParser
     [Fact]
     public void ParseWildcardBracedUriLiteral()
     {
-        ParseQuery("Q{}*");
+        ParseQuery("Q{x}*");
     }
 
     [Fact]
@@ -342,5 +342,11 @@ public class TestParser
     public void ParsePrefixedFunction()
     {
         ParseQuery("fn:not()");
+    }
+
+    [Fact]
+    public void ParseBracedUriLiteral()
+    {
+        ParseQuery("Q{x}abc");
     }
 }
