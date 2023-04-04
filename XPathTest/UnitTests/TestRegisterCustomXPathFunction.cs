@@ -451,7 +451,8 @@ public class TestRegisterCustomXPathFunction
     [Fact]
     private void RegisteredFunctionCanReturnNullTest()
     {
-        Assert.Null(
+        // Evaluate XPath to String will return an empty string if it has nothing to return.
+        Assert.Empty(
             Evaluate.EvaluateXPathToString(
                 "test:custom-function5('returnNull')",
                 XmlNodeEmptyContext,
@@ -815,7 +816,7 @@ public class TestRegisterCustomXPathFunction
                 XmlNodeOptions
             ));
 
-        Assert.Null(
+        Assert.Empty(
             Evaluate.EvaluateXPathToString(
                 "test:custom-date-function-optional-param(())",
                 XmlNodeEmptyContext,
