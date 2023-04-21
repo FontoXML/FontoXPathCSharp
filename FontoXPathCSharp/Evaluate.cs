@@ -9,14 +9,14 @@ namespace FontoXPathCSharp;
 
 public class Evaluate
 {
-    public static bool EvaluateXPathToBoolean<TSelector, TNode>(
-        TSelector selector,
+    public static bool EvaluateXPathToBoolean<TNode>(
+        string selector,
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<bool, TSelector, TNode>(
+        return EvaluateXPath<bool, string, TNode>(
             selector,
             ParameterUtils.VerifyContextNode(contextItem, domFacade),
             domFacade,
@@ -25,14 +25,14 @@ public class Evaluate
         );
     }
 
-    public static bool EvaluateXPathToBoolean<TSelector, TNode>(
-        TSelector selector,
+    public static bool EvaluateXPathToBoolean<TNode>(
+        string selector,
         object contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<bool, TSelector, TNode>(
+        return EvaluateXPath<bool, string, TNode>(
             selector,
             contextItem,
             domFacade,
@@ -42,14 +42,14 @@ public class Evaluate
     }
 
 
-    public static TNode? EvaluateXPathToFirstNode<TSelector, TNode>(
-        TSelector selector,
+    public static TNode? EvaluateXPathToFirstNode<TNode>(
+        string selector,
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<TNode?, TSelector, TNode>(
+        return EvaluateXPath<TNode?, string, TNode>(
             selector,
             ParameterUtils.VerifyContextNode(contextItem, domFacade),
             domFacade,
@@ -58,14 +58,14 @@ public class Evaluate
         );
     }
 
-    public static TNode? EvaluateXPathToFirstNode<TSelector, TNode>(
-        TSelector selector,
+    public static TNode? EvaluateXPathToFirstNode<TNode>(
+        string selector,
         object contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<TNode?, TSelector, TNode>(
+        return EvaluateXPath<TNode?, string, TNode>(
             selector,
             contextItem,
             domFacade,
@@ -74,14 +74,14 @@ public class Evaluate
         );
     }
 
-    public static IEnumerable<TNode> EvaluateXPathToNodes<TSelector, TNode>(
-        TSelector selector,
+    public static IEnumerable<TNode> EvaluateXPathToNodes<TNode>(
+        string selector,
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<IEnumerable<TNode>, TSelector, TNode>(
+        return EvaluateXPath<IEnumerable<TNode>, string, TNode>(
             selector,
             ParameterUtils.VerifyContextNode(contextItem, domFacade),
             domFacade,
@@ -90,14 +90,14 @@ public class Evaluate
         ) ?? Array.Empty<TNode>();
     }
 
-    public static IEnumerable<TNode> EvaluateXPathToNodes<TSelector, TNode>(
-        TSelector selector,
+    public static IEnumerable<TNode> EvaluateXPathToNodes<TNode>(
+        string selector,
         object? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<IEnumerable<TNode>, TSelector, TNode>(
+        return EvaluateXPath<IEnumerable<TNode>, string, TNode>(
             selector,
             contextItem,
             domFacade,
@@ -106,14 +106,14 @@ public class Evaluate
         ) ?? Array.Empty<TNode>();
     }
 
-    public static long EvaluateXPathToInt<TSelector, TNode>(
-        TSelector selector,
+    public static long EvaluateXPathToInt<TNode>(
+        string selector,
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<long, TSelector, TNode>(
+        return EvaluateXPath<long, string, TNode>(
             selector,
             ParameterUtils.VerifyContextNode(contextItem, domFacade),
             domFacade,
@@ -122,14 +122,14 @@ public class Evaluate
         );
     }
 
-    public static int EvaluateXPathToInt<TSelector, TNode>(
-        TSelector selector,
+    public static int EvaluateXPathToInt<TNode>(
+        string selector,
         object? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<int, TSelector, TNode>(
+        return EvaluateXPath<int, string, TNode>(
             selector,
             contextItem,
             domFacade,
@@ -138,14 +138,14 @@ public class Evaluate
         );
     }
 
-    public static IEnumerable<int> EvaluateXPathToInts<TSelector, TNode>(
-        TSelector selector,
+    public static IEnumerable<int> EvaluateXPathToInts<TNode>(
+        string selector,
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<IEnumerable<int>, TSelector, TNode>(
+        return EvaluateXPath<IEnumerable<int>, string, TNode>(
             selector,
             ParameterUtils.VerifyContextNode(contextItem, domFacade),
             domFacade,
@@ -154,14 +154,14 @@ public class Evaluate
         ) ?? Array.Empty<int>();
     }
 
-    public static IEnumerable<int> EvaluateXPathToInts<TSelector, TNode>(
-        TSelector selector,
+    public static IEnumerable<int> EvaluateXPathToInts<TNode>(
+        string selector,
         object? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<IEnumerable<int>, TSelector, TNode>(
+        return EvaluateXPath<IEnumerable<int>, string, TNode>(
             selector,
             contextItem,
             domFacade,
@@ -170,14 +170,14 @@ public class Evaluate
         ) ?? Array.Empty<int>();
     }
 
-    public static string EvaluateXPathToString<TSelector, TNode>(
-        TSelector selector,
+    public static string EvaluateXPathToString<TNode>(
+        string selector,
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<string, TSelector, TNode>(
+        return EvaluateXPath<string, string, TNode>(
             selector,
             ParameterUtils.VerifyContextNode(contextItem, domFacade),
             domFacade,
@@ -187,14 +187,14 @@ public class Evaluate
     }
 
     // ReSharper disable once UnusedMember.Local
-    private static string EvaluateXPathToString<TSelector, TNode>(
-        TSelector selector,
+    private static string EvaluateXPathToString<TNode>(
+        string selector,
         object? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<string, TSelector, TNode>(
+        return EvaluateXPath<string, string, TNode>(
             selector,
             contextItem,
             domFacade,
@@ -203,14 +203,14 @@ public class Evaluate
         ) ?? "";
     }
 
-    public static IEnumerable<string> EvaluateXPathToStrings<TSelector, TNode>(
-        TSelector selector,
+    public static IEnumerable<string> EvaluateXPathToStrings<TNode>(
+        string selector,
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<IEnumerable<string>, TSelector, TNode>(
+        return EvaluateXPath<IEnumerable<string>, string, TNode>(
             selector,
             ParameterUtils.VerifyContextNode(contextItem, domFacade),
             domFacade,
@@ -220,14 +220,14 @@ public class Evaluate
     }
 
     // ReSharper disable once UnusedMember.Local
-    private static IEnumerable<string> EvaluateXPathToStrings<TSelector, TNode>(
-        TSelector selector,
+    private static IEnumerable<string> EvaluateXPathToStrings<TNode>(
+        string selector,
         object? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<IEnumerable<string>, TSelector, TNode>(
+        return EvaluateXPath<IEnumerable<string>, string, TNode>(
             selector,
             contextItem,
             domFacade,
@@ -236,14 +236,14 @@ public class Evaluate
         ) ?? Array.Empty<string>();
     }
 
-    public static object? EvaluateXPathToAny<TSelector, TNode>(
-        TSelector selector,
+    public static object? EvaluateXPathToAny<TNode>(
+        string selector,
         TNode contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<object, TSelector, TNode>(
+        return EvaluateXPath<object, string, TNode>(
             selector,
             ParameterUtils.VerifyContextNode(contextItem, domFacade),
             domFacade,
@@ -252,14 +252,14 @@ public class Evaluate
         );
     }
 
-    public static object? EvaluateXPathToAny<TSelector, TNode>(
-        TSelector selector,
+    public static object? EvaluateXPathToAny<TNode>(
+        string selector,
         object? contextItem,
         IDomFacade<TNode> domFacade,
         Options<TNode> options,
-        Dictionary<string, object?>? variables = null) where TNode : notnull where TSelector : notnull
+        Dictionary<string, object?>? variables = null) where TNode : notnull
     {
-        return EvaluateXPath<object, TSelector, TNode>(
+        return EvaluateXPath<object, string, TNode>(
             selector,
             contextItem,
             domFacade,
