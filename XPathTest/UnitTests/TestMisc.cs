@@ -40,7 +40,7 @@ public class TestMisc
     public void TestFloat()
     {
         Assert.Equal(1,
-            Evaluate.EvaluateXPathToInt<string, XmlNode>(
+            Evaluate.EvaluateXPathToInt(
                 "xs:float('1')",
                 XmlNodeEmptyContext,
                 XmlNodeDomFacade,
@@ -52,7 +52,7 @@ public class TestMisc
     [Fact]
     public void TestInstanceOf()
     {
-        Assert.False(Evaluate.EvaluateXPathToBoolean<string, XmlNode>(
+        Assert.False(Evaluate.EvaluateXPathToBoolean(
             "xs:boolean(\"true\") instance of xs:string",
             XmlNodeEmptyContext,
             XmlNodeDomFacade,
