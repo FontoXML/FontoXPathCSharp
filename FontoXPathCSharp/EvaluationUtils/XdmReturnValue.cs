@@ -61,7 +61,7 @@ public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notn
             },
             // Integers
             {
-                typeof(IEnumerable<int>), () =>
+                typeof(IEnumerable<long>), () =>
                 {
                     var allValues = rawResults.GetAllValues();
                     return (TReturn)allValues.Select(v =>
@@ -71,7 +71,7 @@ public static class XdmReturnValue<TSelector, TReturn, TNode> where TNode : notn
                                 $"Expected XPath {expression} to resolve to numbers"
                             );
 
-                        return v.GetAs<IntegerValue>();
+                        return v.GetAs<IntegerValue>().Value;
                     });
                 }
             },

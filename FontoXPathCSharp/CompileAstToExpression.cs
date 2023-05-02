@@ -390,6 +390,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
                 or AstNodeName.ModOp => CompileBinaryOperator(ast, options),
             AstNodeName.UnaryPlusOp or AstNodeName.UnaryMinusOp => CompileUnaryOperator(ast, options),
             AstNodeName.CastExpr => CastAs(ast, options),
+            AstNodeName.SimpleMapExpr => CompileSimpleMap(ast, options),
             AstNodeName.IfThenElseExpr => CompileIfThenElseExpr(ast, options),
             AstNodeName.DynamicFunctionInvocationExpr => CompileDynamicFunctionInvocationExpr(ast, options),
             AstNodeName.ArrowExpr => CompileArrowExpr(ast, options),
@@ -398,6 +399,16 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.ExceptOp or AstNodeName.IntersectOp => CompileIntersectExcept(ast, options),
             _ => CompileTestExpression(ast)
         };
+    }
+
+    private static AbstractExpression<TNode> CompileSimpleMap(Ast ast, CompilationOptions options)
+    {
+        return ast.GetChildren(AstNodeName.All).Reduce<Ast, AbstractExpression<TNode>>(null, (lhs, rhs, _) => {
+            if (lhs == null) {
+                return CompileAst(rhs, DisallowUpdating(options));
+            }
+            return new SimpleMapOperator<TNode>(lhs, CompileAst(rhs, DisallowUpdating(options)));
+        });
     }
 
     private static AbstractExpression<TNode> CompileIntersectExcept(Ast ast, CompilationOptions options)

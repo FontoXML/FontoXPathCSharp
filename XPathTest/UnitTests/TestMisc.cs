@@ -193,4 +193,14 @@ public class TestMisc
 
         Assert.Equal("P1Y2M3DT10H30M",res);
     }
+
+
+    [Fact]
+    public void SimpleMapExprTest()
+    {
+        var selector = "(1,2,3)!(. + 2)";
+        var res = Evaluate.EvaluateXPathToInts(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions).ToArray();
+        
+        Assert.Equal(new long[]{3,4,5}, res);
+    }
 }
