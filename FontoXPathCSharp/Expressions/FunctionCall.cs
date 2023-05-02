@@ -40,6 +40,11 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
         ExecutionParameters<TNode> executionParameters,
         SequenceCallback[] createArgumentSequences)
     {
+        // These two are deconstructed with
+        // createFunctionReferenceSequence, ...createArgumentSequences in the TS version.
+        var createFunctionReferenceSequence = createArgumentSequences[0];
+        createArgumentSequences = createArgumentSequences.Skip(1).ToArray();
+        
         if (_functionReference != null)
         {
             return CallFunction(
@@ -52,16 +57,6 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
                 createArgumentSequences,
                 _staticContext);
         }
-        // if (_functionReference != null)
-        //     return _functionReference.Value(
-        //         dynamicContext,
-        //         executionParameters,
-        //         null,
-        //         _argumentExpressions.Select(x => x.Evaluate(dynamicContext, executionParameters)).ToArray());
-
-
-        var createFunctionReferenceSequence = createArgumentSequences[0];
-        createArgumentSequences = createArgumentSequences.Skip(1).ToArray();
 
         var sequence = createFunctionReferenceSequence(dynamicContext!);
         if (!sequence.IsSingleton()) throw Xpty0004;

@@ -631,7 +631,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 
         new(new[]
             {
-                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
             },
             FnCount,
             "count",

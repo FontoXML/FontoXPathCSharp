@@ -198,10 +198,11 @@ public class TestMisc
     [Fact]
     public void TestPartialFunctionApplication()
     {
-        var selector = "filter(('apple', 'pear', 'apricot', 'advocado', 'orange'),starts-with(?, 'a'))";
+        var selector = "filter(('apple', 'pear', 'apricot', 'avocado', 'orange'),starts-with(?, 'a'))";
         
-        var res = Evaluate.EvaluateXPathToStrings(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        var res = Evaluate.EvaluateXPathToStrings(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions).ToArray();
+         
 
-        Assert.Equal(res, new[] { "apple", "apricot", "avocado" });
+        Assert.Equal(new[] { "apple", "apricot", "avocado" }, res);
     }
 }
