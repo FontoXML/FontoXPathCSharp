@@ -34,7 +34,6 @@ public class XPathParser
     private readonly ParseFunc<Ast> Annotation;
     private readonly ParseFunc<Ast> Argument;
     private readonly ParseFunc<Ast[]> ArgumentList;
-    private readonly ParseFunc<Ast> ArgumentPlaceholder;
     private readonly ParseFunc<Ast> ArrowExpr;
     private readonly ParseFunc<Ast> ArrowFunctionSpecifier;
     private readonly ParseFunc<Ast> AtomicOrUnionType;
@@ -375,10 +374,8 @@ public class XPathParser
                 TextContent = x
             })
         ));
-
-        ArgumentPlaceholder = Alias(new Ast(AstNodeName.ArgumentPlaceholder), "?");
-
-        Argument = Or(ExprSingle, ArgumentPlaceholder);
+        
+        Argument = Or(ExprSingle, literalParser.ArgumentPlaceholder);
 
         ArgumentList = Map(
             Delimited(

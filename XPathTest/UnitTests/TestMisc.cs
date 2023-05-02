@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -192,5 +193,15 @@ public class TestMisc
         var res = Evaluate.EvaluateXPathToString(selector, XmlAtomicsFile, XmlNodeDomFacade, XmlNodeOptions);
 
         Assert.Equal("P1Y2M3DT10H30M",res);
+    }
+
+    [Fact]
+    public void TestPartialFunctionApplication()
+    {
+        var selector = "filter(('apple', 'pear', 'apricot', 'advocado', 'orange'),starts-with(?, 'a'))";
+        
+        var res = Evaluate.EvaluateXPathToStrings(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+
+        Assert.Equal(res, new[] { "apple", "apricot", "avocado" });
     }
 }

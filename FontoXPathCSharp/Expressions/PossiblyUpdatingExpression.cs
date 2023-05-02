@@ -6,12 +6,14 @@ public abstract class PossiblyUpdatingExpression<TNode> : UpdatingExpression<TNo
 {
     public delegate ISequence SequenceCallback(DynamicContext context);
 
-    protected PossiblyUpdatingExpression(Specificity specificity, AbstractExpression<TNode>[] childExpressions,
+    protected PossiblyUpdatingExpression(
+        Specificity specificity, 
+        AbstractExpression<TNode>?[] childExpressions,
         OptimizationOptions optimizationOptions)
         : base(specificity, childExpressions, optimizationOptions)
     {
         IsUpdating = childExpressions.Any(
-            childExpression => childExpression.IsUpdating
+            childExpression => childExpression?.IsUpdating ?? false
         );
     }
 
