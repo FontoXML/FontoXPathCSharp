@@ -726,7 +726,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
 
         new(new[]
             {
-                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore),
                 new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
             },
             FnStringJoin,
@@ -749,7 +749,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
 
         new(new[]
             {
-                new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
             },
             FnStringLength,
             "string-length",
@@ -811,12 +811,12 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
 
         new(new[]
             {
-                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrMore)
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
             },
             FnStringToCodepoints,
             "string-to-codepoints",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsString, SequenceMultiplicity.ZeroOrMore)
+            new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ZeroOrMore)
         ),
 
         new(new[]

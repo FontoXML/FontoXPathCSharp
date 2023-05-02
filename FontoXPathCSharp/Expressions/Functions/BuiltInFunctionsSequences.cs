@@ -736,7 +736,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             FnOneOrMore,
             "one-or-more",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
+            new SequenceType(ValueType.Item, SequenceMultiplicity.OneOrMore)
         ),
 
         new(new[]
