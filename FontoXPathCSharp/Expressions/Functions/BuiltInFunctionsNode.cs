@@ -156,10 +156,20 @@ public static class BuiltInFunctionsNode<TNode> where TNode : notnull
         return ISequence.ZipSingleton(new[] { nodeSequence }, sequenceValue =>
         {
             var pointerValue = sequenceValue.FirstOrDefault();
-            var pointer = pointerValue != null ? pointerValue.GetAs<NodeValue<TNode>>().Value : default;
-
-            if (pointer != null && executionParameters.DomFacade.GetFirstChild(pointer) != null)
-                return SequenceFactory.SingletonTrueSequence;
+            
+            if (pointerValue != null)
+            {
+                if (!pointerValue.GetValueType().IsSubtypeOf(ValueType.Node))
+                    throw new XPathException(
+                        "XPTY0004",
+                        "Argument passed to fn:has-children() should be of the type node()"
+                    );
+                
+                var pointer = pointerValue.GetAs<NodeValue<TNode>>().Value;
+                if (pointer != null && executionParameters.DomFacade.GetFirstChild(pointer) != null)
+                    return SequenceFactory.SingletonTrueSequence;
+            }
+            
             return SequenceFactory.SingletonFalseSequence;
         });
     };

@@ -5,16 +5,18 @@ namespace FontoXPathCSharp.Sequences;
 
 internal class SingletonSequence : ISequence
 {
-    private readonly AbstractValue _onlyValue;
+    private readonly AbstractValue[] _onlyValue;
+    private readonly Iterator<AbstractValue> _value;
 
     public SingletonSequence(AbstractValue onlyValue)
     {
-        _onlyValue = onlyValue;
+        _onlyValue = new[] { onlyValue };
+        _value = IteratorUtils.SingleValueIterator(onlyValue);
     }
 
     public IEnumerator<AbstractValue> GetEnumerator()
     {
-        return new[] { _onlyValue }.ToList().GetEnumerator();
+        return _onlyValue.ToList().GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -34,12 +36,12 @@ internal class SingletonSequence : ISequence
 
     public AbstractValue First()
     {
-        return _onlyValue;
+        return _onlyValue[0];
     }
 
     public AbstractValue[] GetAllValues()
     {
-        return new[] { _onlyValue };
+        return _onlyValue;
     }
 
     public int GetLength()
@@ -49,17 +51,17 @@ internal class SingletonSequence : ISequence
 
     public Iterator<AbstractValue> GetValue()
     {
-        return IteratorUtils.SingleValueIterator(_onlyValue);
+        return _value;
     }
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
     {
-        return callback(_onlyValue, 0, this) ? this : SequenceFactory.CreateEmpty();
+        return callback(_onlyValue[0], 0, this) ? this : SequenceFactory.CreateEmpty();
     }
 
     public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
     {
-        return SequenceFactory.CreateFromValue(callback(_onlyValue, 0, this));
+        return SequenceFactory.CreateFromValue(callback(_onlyValue[0], 0, this));
     }
 
     public ISequence MapAll(Func<AbstractValue[], ISequence> callback, IterationHint hint)
@@ -69,6 +71,6 @@ internal class SingletonSequence : ISequence
 
     public bool GetEffectiveBooleanValue()
     {
-        return _onlyValue.GetEffectiveBooleanValue();
+        return _onlyValue[0].GetEffectiveBooleanValue();
     }
 }

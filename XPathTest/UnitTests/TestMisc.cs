@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -19,7 +20,8 @@ public class TestMisc
 
     private static readonly XmlDocument XmlNodeWorksMod;
     private static readonly XmlDocument XmlAtomicsFile;
-    
+    private static readonly XmlDocument XmlHasChildrenFile;
+
     static TestMisc()
     {
         XmlNodeEmptyContext = new XmlDocument();
@@ -33,7 +35,9 @@ public class TestMisc
         
         XmlAtomicsFile = new XmlDocument();
         XmlAtomicsFile.LoadXml(TestFileSystem.ReadFile("qt3tests/docs/atomic.xml"));
-        
+
+        XmlHasChildrenFile = new XmlDocument();
+        XmlHasChildrenFile.LoadXml(TestFileSystem.ReadFile("qt3tests/fn/has-children/has-children.xml"));
     }
 
     [Fact]
@@ -202,5 +206,20 @@ public class TestMisc
         var res = Evaluate.EvaluateXPathToInts(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions).ToArray();
         
         Assert.Equal(new long[]{3,4,5}, res);
+    }
+
+    [Fact]
+    public void SimpleMapExprProblematicTest()
+    {
+        var selector = "(., 1) ! fn:has-children()";
+
+        try
+        {
+            Evaluate.EvaluateXPathToAny(selector, XmlHasChildrenFile, XmlNodeDomFacade, XmlNodeOptions);
+        }
+        catch (XPathException ex)
+        {
+            Assert.Equal("XPTY0004", ex.ErrorCode);
+        }
     }
 }

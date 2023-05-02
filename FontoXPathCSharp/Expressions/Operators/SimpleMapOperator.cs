@@ -59,8 +59,7 @@ public class SimpleMapOperator<TNode> : AbstractExpression<TNode> where TNode : 
 
                 return value;
             }
-
-            throw new Exception("This point should never be reached");
+            return null;
         });
     }
 }
