@@ -365,6 +365,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.DoubleConstantExpr => CompileDoubleConstantExpr(ast),
             AstNodeName.VarRef => CompileVarRef(ast),
             AstNodeName.FlworExpr => CompileFlworExpr(ast, options),
+            AstNodeName.QuantifiedExpr => CompileQuantifiedExpr(ast, options),
             AstNodeName.StringConcatenateOp => CompileStringConcatenateExpr(ast, options),
             AstNodeName.EqualOp
                 or AstNodeName.NotEqualOp
@@ -398,6 +399,26 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.ExceptOp or AstNodeName.IntersectOp => CompileIntersectExcept(ast, options),
             _ => CompileTestExpression(ast)
         };
+    }
+    
+    private static AbstractExpression<TNode> CompileQuantifiedExpr(Ast ast, CompilationOptions options)
+    {
+        var quantifier = ast.GetFirstChild(AstNodeName.Quantifier).TextContent;
+        var predicateExpr = ast.FollowPath(AstNodeName.PredicateExpr, AstNodeName.All);
+        var quantifierInClauses = ast.GetChildren(AstNodeName.QuantifiedExprInClause)
+            .Select(inClause =>
+            {
+                var name = inClause.FollowPath(AstNodeName.TypedVariableBinding, AstNodeName.VarName)?.GetQName();
+                var sourceExpr = inClause.FollowPath(AstNodeName.SourceExpr, AstNodeName.All);
+                return new InClause<TNode>(name, CompileAst(sourceExpr, DisallowUpdating(options)));
+            })
+            .ToArray();
+
+        return new QuantifiedExpression<TNode>(
+            quantifier,
+            quantifierInClauses,
+            CompileAst(predicateExpr, DisallowUpdating(options))
+        );
     }
 
     private static AbstractExpression<TNode> CompileIntersectExcept(Ast ast, CompilationOptions options)
