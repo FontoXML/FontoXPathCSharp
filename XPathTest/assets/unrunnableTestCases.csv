@@ -2919,7 +2919,6 @@ cbcl-subtract-times-004;The function fn:adjust-time-to-timezone with arity 2 is 
 cbcl-subtract-yearMonthDurations-001;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer, $months as xs:integer ) { xs:yearMonthDuration(concat('P', $years, 'Y', $months, 'M')) };\n        local:yearMonthDuration(1, 1) - xs:yearMonthDuration("P0Y")'
 cbcl-subtract-yearMonthDurations-002;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer, $months as xs:integer ) { xs:yearMonthDuration(concat('P', $years, 'Y', $months, 'M')) };\n        local:yearMonthDuration(1, 1) - local:yearMonthDuration(1, 1)'
 cbcl-subtract-yearMonthDurations-003;Expected error code: FODT0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer, $months as xs:integer ) { xs:yearMonthDuration(concat('P', $years, 'Y', $months, 'M')) };\n        xs:yearMonthDuration("-P768614336404564650Y") - local:yearMonthDuration(768614336404564650, 1)'
-cbcl-sum-func-003;Unable to cast argument of type xs:string to type none* while calling 'concat'
 cbcl-times-001;PRSC Error: Failed to parse query '\n        declare function local:f($x) { if ($x) then xs:duration("P1M") else xs:yearMonthDuration("P1M") };\n        local:f(false()) * 2'
 cbcl-times-002;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:f($x) { if ($x) then xs:duration("P1M") else xs:yearMonthDuration("P1M") };\n        local:f(true()) * 2'
 cbcl-times-003;PRSC Error: Failed to parse query '\n        declare function local:f($x) { if ($x) then xs:duration("P1M") else xs:dayTimeDuration("P1D") };\n        local:f(false()) * 2'
@@ -4147,9 +4146,9 @@ fn-absusht1args-2;PRSC Error: Failed to parse query '(fn:abs(xs:unsignedShort("4
 fn-absusht1args-3;PRSC Error: Failed to parse query '(fn:abs(xs:unsignedShort("65535"))) instance of $xs:integer'
 fn-avg-10;PRSC Error: Failed to parse query 'avg([1,2,3,4,5]) = 3'
 fn-avg-3;Items passed to fn:avg are not all numeric.
-fn-avg-4;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-avg-4;Items passed to fn:avg are not all numeric.
 fn-avg-5;Items passed to fn:avg are not all numeric.
-fn-avg-6;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-avg-6;Items passed to fn:avg are not all numeric.
 fn-avg-mix-args-002;Items passed to fn:avg are not all numeric.
 fn-avg-mix-args-004;Overflow when creating a Int64 from NaN.
 fn-avg-mix-args-005;Overflow when creating a Int64 from NaN.
@@ -4306,8 +4305,6 @@ fn-ceilingflt1args-3;Expected XPath fn:ceiling(xs:float("3.4028235E38")) to reso
 fn-ceilingint1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-int external; fn:ceiling($zero-int + xs:int("-2147483648")) = -2147483648'
 fn-codepoint-equal-22;The function normalize-unicode with arity 2 is not registered.
 fn-concat-18;Expected XPathException with code FOTY0013, but got NamedFunctionRef AST to Expression not yet implemented
-fn-concat-2;Unable to cast argument of type xs:string to type none* while calling 'concat'
-fn-concat-4;Unable to cast argument of type xs:string to type none* while calling 'concat'
 fn-concatdbl2args-1;Expected XPath fn:concat(xs:double("-1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to -1.7976931348623157E308-1.7976931348623157E308, but instead got -1.7976931348623157E+308-1.7976931348623157E+308
 fn-concatdbl2args-2;Expected XPath fn:concat(xs:double("0"),xs:double("-1.7976931348623157E308")) to resolve to 0-1.7976931348623157E308, but instead got 0-1.7976931348623157E+308
 fn-concatdbl2args-3;Expected XPath fn:concat(xs:double("1.7976931348623157E308"),xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308, but instead got 1.7976931348623157E+308-1.7976931348623157E+308
@@ -5675,11 +5672,11 @@ fn-matches-4;The function fn:matches with arity 3 is not registered.
 fn-matches-40;Expected XPathException with code FORX0002, but got BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-41;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-42;The function fn:matches with arity 3 is not registered.
-fn-matches-43;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-matches-43;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-44;The function fn:matches with arity 3 is not registered.
-fn-matches-45;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-matches-45;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-46;The function fn:matches with arity 3 is not registered.
-fn-matches-47;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-matches-47;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-48;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-49;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-5;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
@@ -5720,9 +5717,9 @@ fn-max-18;Atomic Value for XsToken is not implemented yet.
 fn-max-19;PRSC Error: Failed to parse query 'max([1,2,3,4,5]) = 5'
 fn-max-2;PRSC Error: Failed to parse query 'fn:max((xs:integer(5000000000),xs:double(3e0))) = 5.0E9'
 fn-max-4;Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.Duration' to type 'System.IConvertible'.
-fn-max-5;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-max-5;Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.Duration' to type 'System.IConvertible'.
 fn-max-6;Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.Duration' to type 'System.IConvertible'.
-fn-max-7;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-max-7;Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.Duration' to type 'System.IConvertible'.
 fn-max-8;Expected executing the XPath 'max((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.Duration' to type 'System.IConvertible'.
 fn-max-9;Expected executing the XPath 'max(xs:duration("P1Y1M1D"))' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FORG0006. Query succeeded with result: PT
 fn-maxdbl1args-1;PRSC Error: Failed to parse query 'fn:max((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
@@ -5749,9 +5746,9 @@ fn-min-18;Atomic Value for XsToken is not implemented yet.
 fn-min-19;PRSC Error: Failed to parse query 'min([1,2,3,4,5]) = 1'
 fn-min-2;PRSC Error: Failed to parse query 'fn:min((xs:integer(5000000),xs:double(3e8))) = 5.0E6'
 fn-min-4;Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.Duration' to type 'System.IConvertible'.
-fn-min-5;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-min-5;Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.Duration' to type 'System.IConvertible'.
 fn-min-6;Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.Duration' to type 'System.IConvertible'.
-fn-min-7;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-min-7;Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.Duration' to type 'System.IConvertible'.
 fn-min-8;Expected executing the XPath 'min((xs:yearMonthDuration("P1Y"), xs:dayTimeDuration("P1D")))' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FORG0006, but got Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.Duration' to type 'System.IConvertible'.
 fn-min-9;Expected executing the XPath 'min(xs:duration("P1Y1M1D"))' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FORG0006. Query succeeded with result: PT
 fn-mindbl1args-1;PRSC Error: Failed to parse query 'fn:min((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
@@ -6251,8 +6248,8 @@ fn-replace-35;Using flags in 'replace' is not supported
 fn-replace-40;Using flags in 'replace' is not supported
 fn-replace-41;Using flags in 'replace' is not supported
 fn-replace-42;Using flags in 'replace' is not supported
-fn-replace-43;Unable to cast argument of type xs:string to type none* while calling 'concat'
-fn-replace-44;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-replace-43;Expected XPath fn:replace(concat('Mary', codepoints-to-string(13), 'Jones'), 'Mary.Jones', 'Jacob Jones') to resolve to concat('Mary', codepoints-to-string(13), 'Jones')
+fn-replace-44;Using flags in 'replace' is not supported
 fn-replace-45;Using $0 in fn:replace to replace substrings with full matches is not supported.
 fn-replace-49;Using flags in 'replace' is not supported
 fn-replace-50;Using flags in 'replace' is not supported
@@ -6503,7 +6500,6 @@ fn-subsequence-mix-args-023;Comparison between dates/times not implemented yet
 fn-substring-1;PRSC Error: Failed to parse query '(fn:substring("motor car", 6)) instance of $xs:string'
 fn-substring-10;Value was either too large or too small for an Int32.
 fn-substring-11;Value was either too large or too small for an Int32.
-fn-substring-22;Length cannot be less than zero. (Parameter 'length')
 fn-substring-23;Expected XPath substring("abcd𐀁efgh", 6) to resolve to "efgh"
 fn-substring-24;Expected XPath substring("abcd𐀁efgh", 5, 2) to resolve to "𐀁e"
 fn-substring-26;Expected XPath substring("𐀁", 2, 1) to resolve to ""
@@ -6561,10 +6557,10 @@ fn-sum-12;The function year-from-date with arity 1 is not registered.
 fn-sum-13;The function year-from-date with arity 1 is not registered.
 fn-sum-14;The function year-from-date with arity 1 is not registered.
 fn-sum-2;Expected XPath sum((), xs:dayTimeDuration("PT0S")) to resolve to PT0S, but instead got PT
-fn-sum-3;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-sum-3;Items passed to fn:sum are not all numeric.
 fn-sum-4;Items passed to fn:sum are not all numeric.
 fn-sum-5;Expected XPath sum((), xs:yearMonthDuration("P0M")) to resolve to P0M, but instead got P
-fn-sum-6;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-sum-6;Items passed to fn:sum are not all numeric.
 fn-sum-8;Expected XPath sum((), xs:duration("P0M")) to resolve to PT0S, but instead got PT
 fn-sumdbl1args-1;PRSC Error: Failed to parse query 'fn:sum((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
 fn-sumdbl1args-3;PRSC Error: Failed to parse query 'fn:sum((xs:double("1.7976931348623157E308"))) = 1.7976931348623157E308'
@@ -6662,11 +6658,11 @@ fn-tokenize-30;Expected XPath fn:tokenize("abracadabraabracadabraabracadabra", "
 fn-tokenize-31;Using flags in 'tokenize' is not supported
 fn-tokenize-32;Using flags in 'tokenize' is not supported
 fn-tokenize-33;Expected XPath fn:tokenize("ABRACADABRA", "A(?:B)") to (deep equally) resolve to "", "RACAD", "RA"
-fn-tokenize-34;Unable to cast argument of type xs:string to type none* while calling 'concat'
-fn-tokenize-35;Unable to cast argument of type xs:string to type none* while calling 'concat'
-fn-tokenize-36;Expected error code: FORX0003. Found error code: XPTY0004 with error message: Unable to cast argument of type xs:string to type none* while calling 'concat'
-fn-tokenize-37;Expected error code: FORX0003. Found error code: XPTY0004 with error message: Unable to cast argument of type xs:string to type none* while calling 'concat'
-fn-tokenize-38;Expected error code: FORX0003. Found error code: XPTY0004 with error message: Unable to cast argument of type xs:string to type none* while calling 'concat'
+fn-tokenize-34;Expected XPath fn:tokenize(concat('Mary', codepoints-to-string(13), 'Jones'), 'y.J') to resolve to concat('Mary', codepoints-to-string(13), 'Jones')
+fn-tokenize-35;Using flags in 'tokenize' is not supported
+fn-tokenize-36;Expected XPathException with code FORX0003, but got Using flags in 'tokenize' is not supported
+fn-tokenize-37;Expected XPathException with code FORX0003, but got Using flags in 'tokenize' is not supported
+fn-tokenize-38;Expected XPathException with code FORX0003, but got Using flags in 'tokenize' is not supported
 fn-tokenize-39;The function tokenize with arity 1 is not registered.
 fn-tokenize-4;Expected XPath fn:tokenize("1, 15, 24, 50", ",\s*") to resolve to 1 15 24 50, but instead got ,  ,  , 
 fn-tokenize-40;The function tokenize with arity 1 is not registered.
@@ -6909,9 +6905,7 @@ fo-test-fn-collation-key-002;PRSC Error: Failed to parse query 'deep-equal((\n  
 fo-test-fn-compare-002;Expected XPath fn:compare('Strasse', 'Straße') to (deep equally) resolve to 0
 fo-test-fn-compare-003;No collations are supported
 fo-test-fn-compare-004;Expected XPath fn:compare('Strassen', 'Straße') to (deep equally) resolve to 1
-fo-test-fn-concat-002;Unable to cast argument of type xs:string to type none* while calling 'concat'
-fo-test-fn-concat-004;Unable to cast argument of type xs:string to type none* while calling 'concat'
-fo-test-fn-concat-005;Unable to cast argument of type xs:integer to type none* while calling 'concat'
+fo-test-fn-concat-005;Expected XPath fn:concat(01, 02, 03, 04, true()) to (deep equally) resolve to "1234true"
 fo-test-fn-contains-004;No collations are supported
 fo-test-fn-contains-005;No collations are supported
 fo-test-fn-contains-006;No collations are supported
@@ -6966,11 +6960,9 @@ fo-test-fn-exists-003;PRSC Error: Failed to parse query '\n        fn:exists([])
 fo-test-fn-exists-004;PRSC Error: Failed to parse query '\n        fn:exists(map{})\n      '
 fo-test-fn-filter-002;The function fn:lang with arity 2 is not registered.
 fo-test-fn-floor-002;Expected XPath fn:floor(-10.5) to (deep equally) resolve to -11
-fo-test-fn-fold-left-006;Unable to cast argument of type xs:integer to type none* while calling 'fn:fold-left'
-fo-test-fn-fold-left-007;Unable to cast argument of type xs:string to type none* while calling 'concat'
 fo-test-fn-fold-left-008;PRSC Error: Failed to parse query 'deep-equal((\n        fn:fold-left(1 to 5, map{}, function($map, $n) {map:put($map, $n, $n*2)})\n      ), (map{1:2, 2:4, 3:6, 4:8, 5:10}))'
-fo-test-fn-fold-right-002;Unable to cast argument of type xs:integer to type none* while calling 'fn:fold-left'
-fo-test-fn-fold-right-003;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fo-test-fn-fold-right-002;Expected XPath fn:fold-right(1 to 5, "", fn:concat(?, ".", ?)) to (deep equally) resolve to "1.2.3.4.5."
+fo-test-fn-fold-right-003;Expected XPath fn:fold-right(1 to 5, "$zero", concat("$f(", ?, ", ", ?,\n                  ")")) to (deep equally) resolve to "$f(1, $f(2, $f(3, $f(4, $f(5, $zero)))))"
 fo-test-fn-for-each-002;NamedFunctionRef AST to Expression not yet implemented
 fo-test-fn-for-each-003;NamedFunctionRef AST to Expression not yet implemented
 fo-test-fn-for-each-pair-001;NamedFunctionRef AST to Expression not yet implemented
@@ -7385,13 +7377,10 @@ FODT0002-9;Expected XPathException with code FODT0002, but got Value was either 
 FODT0003-1;Expected error code: FODT0003. Found error code: XPST0017 with error message: The function adjust-date-to-timezone with arity 2 is not registered.
 FODT0003-2;Expected error code: FODT0003. Found error code: XPST0017 with error message: The function adjust-date-to-timezone with arity 2 is not registered.
 FOER0000;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
-fold-left-006;Unable to cast argument of type xs:integer to type none* while calling 'fn:fold-left'
-fold-left-007;Unable to cast argument of type xs:string to type none* while calling 'concat'
 fold-left-008;PRSC Error: Failed to parse query '(\n            let $hours := function ($emp as element(employee)) as xs:integer { sum($emp/hours/xs:integer(.)) },\n                $highest := function ($f as function(item()) as xs:anyAtomicType, $seq as item()*)  {           \n                    fold-left($seq, (), function($highestSoFar as item()*, $this as item()*) as item()* {\n                          if (empty($highestSoFar))\n                          then $this\n                          else let $thisValue := $f($this),\n                                   $highestValue := $f($highestSoFar[1])\n                               return if ($thisValue gt $highestValue)\n                                      then $this\n                                      else if ($thisValue eq $highestValue)\n                                           then ($highestSoFar, $this)\n                                           else $highestSoFar\n                       })\n            }\n            \n            return $highest($hours, /works/employee) \n        ) => count()'
 fold-left-009;PRSC Error: Failed to parse query ''
 fold-left-011;Expected error code: XPTY0004. Query succeeded with result: 16
 fold-left-016;PRSC Error: Failed to parse query ''
-fold-left-017;Unable to cast argument of type xs:string to type none* while calling 'concat'
 fold-left-018;Expected XPath  to (deep equally) resolve to 2, 2, 2
 fold-left-021;PRSC Error: Failed to parse query ''
 fold-left-101;PRSC Error: Failed to parse query '\n        declare function local:fold-left(\n          $seq as item()*,\n          $zero as item()*,\n          $f as function(item()*, item()) as item()*)\n        as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else fn:fold-left(fn:tail($seq), $f($zero, fn:head($seq)), $f)\n        };\n        local:fold-left(1 to 5, 0, function($a, $b) { $a + $b }) = 15'
@@ -7400,14 +7389,14 @@ fold-left-103;PRSC Error: Failed to parse query '\n        declare function loca
 fold-left-104;PRSC Error: Failed to parse query '\n        declare function local:fold-left(\n          $seq as item()*,\n          $zero as item()*,\n          $f as function(item()*, item()) as item()*)\n        as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else fn:fold-left(fn:tail($seq), $f($zero, fn:head($seq)), $f)\n        };\n        local:fold-left((true(), false(), false()), false(), function($a, $b) { $a and $b })'
 fold-left-105;PRSC Error: Failed to parse query 'deep-equal((\n        declare function local:fold-left(\n          $seq as item()*,\n          $zero as item()*,\n          $f as function(item()*, item()) as item()*)\n        as item()* {\n            if (fn:empty($seq))\n            then $zero\n            else fn:fold-left(fn:tail($seq), $f($zero, fn:head($seq)), $f)\n        };\n        local:fold-left(1 to 5, (), function($a, $b) {($b, $a)})), (5, 4, 3, 2, 1))'
 fold-right-005;Expected XPath let $f := function($a, $b){($b, $a)} return fold-right(1 to 5, (), $f) to (deep equally) resolve to 5,4,3,2,1
-fold-right-006;Unable to cast argument of type xs:integer to type none* while calling 'fn:fold-left'
-fold-right-007;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fold-right-006;Expected XPath fold-right(1 to 5, "", fn:concat(?, ".", ?)) to resolve to '1.2.3.4.5.'
+fold-right-007;Expected XPath fold-right(1 to 5, "$zero", fn:concat("$f(", ?, ", ", ?, ")")) to resolve to $f(1, $f(2, $f(3, $f(4, $f(5, $zero))))), but instead got $f($f($f($f($f($zero, 5), 4), 3), 2), 1)
 fold-right-012;Expected error code: XPTY0004. Query succeeded with result: 15
 fold-right-013;Expected XPath fold-right(1 to 1000000, 0, function($a, $b){ $b + 1 }) to resolve to 1000000, but instead got 2
 fold-right-014;Expected XPath fold-right((1 to 5), (), function($a , $b){ ($b, $a) }) to (deep equally) resolve to 5, 4, 3, 2, 1
 fold-right-015;Expected XPath fold-right((1, 2, 2, 3, 3, 3, 4, 5, 5), (), function($a, $b){ if(exists($b[. eq $a])) then $b else ($a, $b) }) to (deep equally) resolve to 1, 2, 3, 4, 5
 fold-right-016;Expected XPath fold-right((1 to 5), (), function($a, $b){ ($a, $a, $b) }) to (deep equally) resolve to 1, 1, 2, 2, 3, 3, 4, 4, 5, 5
-fold-right-017;Unable to cast argument of type xs:string to type none* while calling 'concat'
+fold-right-017;Expected XPath fold-right((1 to 13), 0, concat("(", ?, "+", ?, ")")) to resolve to (1+(2+(3+(4+(5+(6+(7+(8+(9+(10+(11+(12+(13+0))))))))))))), but instead got (((((((((((((0+13)+12)+11)+10)+9)+8)+7)+6)+5)+4)+3)+2)+1)
 fold-right-018;Unable to cast argument of type xs:integer to type xs:string? while calling 'string-length'
 fold-right-019;Expected XPath fold-right( 1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a lt $b) then $b else $a }) to resolve to 10, but instead got 
 fold-right-020;Expected XPath fold-right(1 to 10, (), function($a, $b){ if(empty($b)) then $a else if($a gt $b) then $b else $a }) to resolve to 1, but instead got 
@@ -8229,8 +8218,6 @@ functx-fn-ceiling-all;Expected XPath (ceiling(5), ceiling(5.1), ceiling(5.5), ce
 functx-fn-codepoint-equal-all;Expected XPath (codepoint-equal('abc', 'abc'), codepoint-equal('abc', 'ab c'), codepoint-equal('abc', ())) to resolve to true false, but instead got True False
 functx-fn-compare-5;Expected XPath (compare('a', 'B')) to resolve to 1
 functx-fn-compare-all;Expected XPath (compare('a', 'b'), compare('a', 'a'), compare('b', 'a'), compare('ab', 'abc'), compare('a', 'B'), compare(upper-case('a'), upper-case('B')), compare('a', ())) to resolve to -1 0 1 -1 1 -1, but instead got -1 0 1 -1 31 -1
-functx-fn-concat-2;Unable to cast argument of type xs:string to type none* while calling 'concat'
-functx-fn-concat-3;Unable to cast argument of type xs:string to type none* while calling 'concat'
 functx-fn-concat-4;PRSC Error: Failed to parse query ''
 functx-fn-concat-all;PRSC Error: Failed to parse query ''
 functx-fn-contains-all;Expected XPath (contains('query', 'e'), contains('query', 'ery'), contains('query', 'query'), contains('query', 'x'), contains('query', ''), contains('query', ()), contains( (), 'q')) to resolve to true true true false true true false, but instead got True True True False True True False
@@ -9837,9 +9824,6 @@ K-CombinedErrorCodes-4;Expected executing the XPath 'import schema "http://examp
 K-CombinedErrorCodes-5;Expected executing the XPath 'import schema namespace prefix = "http://example.com/NSNOTRECOGNIZED" at\n         "http://example.com/DOESNOTEXIST", "http://example.com/2DOESNOTEXIST",\n         "http://example.com/3DOESNOTEXIST"; 1 eq 1' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQST0009. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'import schema namespace prefix = "http://example.com/NSNOTRECOGNIZED" at\n         "http://example.com/DOESNOTEXIST", "http://example.com/2DOESNOTEXIST",\n         "http://example.com/3DOESNOTEXIST"; 1 eq 1'
 K-CombinedErrorCodes-6;Expected executing the XPath 'import schema default element namespace "http://example.com/NSNOTRECOGNIZED" at\n         "http://example.com/DOESNOTEXIST", "http://example.com/2DOESNOTEXIST",\n         "http://example.com/3DOESNOTEXIST"; 1 eq 1' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQST0009. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'import schema default element namespace "http://example.com/NSNOTRECOGNIZED" at\n         "http://example.com/DOESNOTEXIST", "http://example.com/2DOESNOTEXIST",\n         "http://example.com/3DOESNOTEXIST"; 1 eq 1'
 K-CombinedErrorCodes-9;Expected executing the XPath 'validate { 1 }' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XQTY0030. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'validate { 1 }'
-K-ConcatFunc-7;Unable to cast argument of type xs:string to type none* while calling 'concat'
-K-ConcatFunc-8;Unable to cast argument of type xs:integer to type none* while calling 'concat'
-K-ConcatFunc-9;Unable to cast argument of type xs:integer to type none* while calling 'concat'
 K-CondExpr-10;The function current-time with arity 0 is not registered.
 K-CondExpr-11;The function current-time with arity 0 is not registered.
 K-CondExpr-12;TreatExpr AST to Expression not yet implemented
@@ -10293,7 +10277,6 @@ K-Literals-46;PRSC Error: Failed to parse query ''
 K-Literals-47;PRSC Error: Failed to parse query ''
 K-Literals-47a;PRSC Error: Failed to parse query ''
 K-Literals-49;PRSC Error: Failed to parse query ''
-K-Literals-6;Unable to cast argument of type xs:string to type none* while calling 'concat'
 K-LocalNameFromQNameFunc-3;The function local-name-from-QName with arity 1 is not registered.
 K-LocalNameFromQNameFunc-4;The function local-name-from-QName with arity 1 is not registered.
 K-LogicExpr-10;Type casting to XsAnyUri has not been implemented yet.

@@ -27,6 +27,8 @@ public class TestMisc
     private static readonly XmlDocument XmlNodeWorksMod;
     private static readonly XmlDocument XmlAtomicsFile;
     private static readonly XmlDocument XmlAtomicsSimple;
+
+    private static readonly XmlDocument XmlConceptsFile;
     
     static TestMisc()
     {
@@ -41,6 +43,9 @@ public class TestMisc
         
         XmlAtomicsFile = new XmlDocument();
         XmlAtomicsFile.LoadXml(TestFileSystem.ReadFile("qt3tests/docs/atomic.xml"));
+
+        XmlConceptsFile = new XmlDocument();
+        XmlConceptsFile.LoadXml(TestFileSystem.ReadFile("qt3tests/fn/substring/concepts.xml"));
 
         XmlAtomicsSimple = new XmlDocument();
         XmlAtomicsSimple.LoadXml(AtomicXml);
@@ -261,5 +266,13 @@ public class TestMisc
         var selector = "1[2]";
         var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
         Assert.Equal("", res);
+    }
+
+    [Fact]
+    public void ConcatTest()
+    {
+        var selector = "concat('#', fn:substring(./concepts/@id, string-length(./concepts/@id) - 18, 1), '#')";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlConceptsFile, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("##", res);
     }
 }

@@ -236,9 +236,12 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
                 var startItemIndex = Convert.ToInt32(startItem?.GetAs<AtomicValue>().GetValue());
                 var lengthIndex = Convert.ToInt32(lengthItem?.GetAs<AtomicValue>().GetValue());
 
+                var start = Math.Max(startItemIndex - 1, 0);
+                var end = startItemIndex + lengthIndex - 1;
+
                 var slicedString = length != null
-                    ? strValue[Math.Max(startItemIndex - 1, 0)..(startItemIndex + lengthIndex - 1)]
-                    : strValue[Math.Max(startItemIndex - 1, 0)..];
+                    ? end >= 0 ? strValue[start..end] : strValue[start..^-end]
+                    : strValue[start..];
 
                 return IteratorResult<AbstractValue>.Ready(AtomicValue.Create(
                     slicedString,
