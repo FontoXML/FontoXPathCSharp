@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace PrscSharp;
 
@@ -122,7 +122,7 @@ public static class PrscSharp
                     lastError.Expected = lastError.Expected.Concat(resError.Expected).ToArray();
 
                 if (resError.Fatal)
-                    break;
+                    return res;
             }
 
             return lastError ?? new Err<T>(offset, Array.Empty<string>());
