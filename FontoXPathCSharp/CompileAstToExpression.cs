@@ -263,18 +263,19 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
     private static AbstractExpression<TNode> CompileFunctionCallExpression(Ast ast, CompilationOptions options)
     {
         var functionName = ast.GetFirstChild(AstNodeName.FunctionName);
-        if (functionName == null)
-            throw new InvalidDataException(ast.Name.ToString());
+        var functionArguments = ast.GetFirstChild(AstNodeName.Arguments)?.GetChildren(AstNodeName.All);
 
-        var args = ast.GetFirstChild(AstNodeName.Arguments)?.GetChildren(AstNodeName.All);
-        if (args == null)
-            throw new InvalidDataException($"Missing args for {ast}");
-
-        args = args.ToList();
-        var argExpressions = args.Select(arg => CompileAst(arg, options)).ToArray();
-
-        return new FunctionCall<TNode>(new NamedFunctionRef<TNode>(functionName.GetQName(), args.Count()),
-            argExpressions);
+        return new FunctionCall<TNode>(
+            new NamedFunctionRef<TNode>(
+                functionName.GetQName(),
+                functionArguments.Count()
+            ),
+            functionArguments.Select(arg =>
+                arg.Name == AstNodeName.ArgumentPlaceholder
+                    ? null
+                    : CompileAst(arg, options)
+            ).ToArray()
+        );
     }
 
     private static AbstractExpression<TNode> CompileIntegerConstantExpression(Ast ast)

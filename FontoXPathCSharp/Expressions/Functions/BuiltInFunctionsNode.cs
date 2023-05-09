@@ -304,14 +304,14 @@ public static class BuiltInFunctionsNode<TNode> where TNode : notnull
             FnName,
             "name",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
         ),
 
         new(Array.Empty<ParameterType>(),
             BuiltInFunctions<TNode>.ContextItemAsFirstArgument(FnName),
             "name",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
+            new SequenceType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
         ),
 
         new(new[]
@@ -439,7 +439,7 @@ public static class BuiltInFunctionsNode<TNode> where TNode : notnull
 
         new(new[]
             {
-                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
             },
             FnData,
             "data",
