@@ -136,8 +136,7 @@ public class XPathParser
         var pathExprCache = new Dictionary<int, ParseResult<Ast>>();
 
 
-        Predicate = Preceded(Token("["), Followed(Surrounded(Expr(), _whitespaceParser.Whitespace), Token("]")));
-        // Predicate = Delimited(Token("["), Surrounded(Expr(), _whitespaceParser.Whitespace), Token("]"));
+        Predicate = Delimited(Token("["), Surrounded(Expr(), _whitespaceParser.Whitespace), Token("]"));
 
         StringLiteral = Map(_options.XQuery
                 ? Or(

@@ -3940,7 +3940,6 @@ eqname-010;PRSC Error: Failed to parse query ''
 eqname-011;PRSC Error: Failed to parse query ''
 eqname-012;PRSC Error: Failed to parse query ''
 eqname-013;PRSC Error: Failed to parse query ''
-eqname-014;Expected XPath string((//Q{http://www.example.com/AuctionWatch}Start)[1]) to resolve to 3.00, but instead got 3.00 3.00
 eqname-016;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = "3.5"'
 eqname-017;PRSC Error: Failed to parse query ' = "preserve"'
 eqname-018;Skipped test, it was a assert-permutation
@@ -3948,7 +3947,6 @@ eqname-020;The function pi with arity 0 is not registered.
 eqname-021;The function pi with arity 0 is not registered.
 eqname-022;The function pi with arity 0 is not registered.
 eqname-023;Skipped test, it was a assert-permutation
-eqname-026;Expected XPath string((//Q{  http://www.example.com/AuctionWatch  }Start)[1]) to resolve to 3.00, but instead got 3.00 3.00
 eqname-027;Expected XPath string(\n         /Q{  http://www.example.com/AuctionWatch}AuctionWatchList/\n         Q{   http://www.example.com/AuctionWatch}Auction[2]/\n         @Q{  http://www.example.com/auctioneers#yabadoo}ID) to resolve to 13143816, but instead got 
 eqname-029;PRSC Error: Failed to parse query ' = math:pi()'
 eqname-029p;The function pi with arity 0 is not registered.
