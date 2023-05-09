@@ -350,7 +350,7 @@ public class Qt3Assertions<TNode> where TNode : notnull
                         variablesInScope);
                     Assert.True(
                         result == expectedString,
-                        $"Expected XPath {SingleLinePrint(xpath)} to resolve to {expectedString ?? "null"}, but instead got {result ?? "null"}"
+                        $"Expected XPath {SingleLinePrint(xpath)} to resolve to {(string.IsNullOrEmpty(expectedString) ? "<empty string>" : expectedString)}, but instead got {result ?? "null"}"
                     );
                 };
             }
