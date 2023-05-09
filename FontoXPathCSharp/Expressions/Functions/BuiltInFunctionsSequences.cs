@@ -77,7 +77,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         var sequence = args[0];
         var startSequence = args[1];
         var lengthSequence = args[2];
-        return ISequence.ZipSingleton(new[] { startSequence, lengthSequence }, sequences =>
+        var res =  ISequence.ZipSingleton(new[] { startSequence, lengthSequence }, sequences =>
         {
             var startVal = sequences[0]!.GetAs<DoubleValue>().Value;
             var lengthVal = sequences[1];
@@ -96,10 +96,11 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             if (double.IsNaN(startVal)) return SequenceFactory.CreateEmpty();
             return SubSequence(
                 sequence,
-                (int)Math.Round(startVal),
-                lengthVal != null ? (int)Math.Round(lengthVal.GetAs<DoubleValue>().Value) : null
+                (long)Math.Round(startVal),
+                lengthVal != null ? (long)Math.Round(lengthVal.GetAs<DoubleValue>().Value) : null
             );
         });
+        return res;
     };
 
     private static readonly FunctionSignature<ISequence, TNode> FnUnordered = (_, _, _, args) => args[0];
@@ -834,20 +835,20 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         )
     };
 
-    private static ISequence SubSequence(ISequence sequence, int start, int? length = null)
+    private static ISequence SubSequence(ISequence sequence, long start, long? length = null)
     {
         // XPath starts from 1
         var i = 1;
         var iterator = sequence.GetValue();
 
         var predictedLength = sequence.GetLength();
-        int? newSequenceLength = null;
+        long? newSequenceLength = null;
         var startIndex = Math.Max(start - 1, 0);
         if (predictedLength != -1)
         {
             var endIndex = length == null
                 ? predictedLength
-                : Math.Max(0, Math.Min(predictedLength, (int)length + (start - 1)));
+                : Math.Max(0, Math.Min(predictedLength, (long)length + (start - 1)));
             newSequenceLength = Math.Max(0, endIndex - startIndex);
         }
 
@@ -867,7 +868,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 
                 return returnableVal;
             },
-            newSequenceLength
+            (int)newSequenceLength
         );
     }
 

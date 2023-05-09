@@ -280,7 +280,15 @@ public class TestMisc
     public void DateTimeAvgTest()
     {
         var selector = "avg((xs:dayTimeDuration('P1D'), xs:dayTimeDuration('PT2H'))) instance of xs:dayTimeDuration";
-        var res = Evaluate.EvaluateXPathToBoolean(selector, XmlConceptsFile, XmlNodeDomFacade, XmlNodeOptions);
+        var res = Evaluate.EvaluateXPathToBoolean(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
         Assert.True(res);
+    }
+    
+    [Fact]
+    public void SubsequenceTest()
+    {
+        var selector = "subsequence(1 to 100, 99, 2147483648)";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("99 100", res);
     }
 }

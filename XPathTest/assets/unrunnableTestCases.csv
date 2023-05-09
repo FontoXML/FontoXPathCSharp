@@ -2888,7 +2888,6 @@ cbcl-string-less-than-002;The function current-time with arity 0 is not register
 cbcl-string-less-than-003;The function current-time with arity 0 is not registered.
 cbcl-string-less-than-004;The function current-time with arity 0 is not registered.
 cbcl-subsequence-006;The function year-from-date with arity 1 is not registered.
-cbcl-subsequence-008;Expected executing the XPath 'subsequence(1 to 100, 99, 2147483648)' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPath subsequence(1 to 100, 99, 2147483648) to resolve to 99 100, but instead got 
 cbcl-subsequence-010;Expected executing the XPath 'count(subsequence(1 to 3000000000, -2147483648, 2147483647))' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPDY0130, but got Value was either too large or too small for an Int32.
 cbcl-subsequence-011;Expected executing the XPath 'count(subsequence(1 to 3000000000, -2147483649))' to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for an Int32.
 cbcl-subsequence-012;Expected executing the XPath 'count(subsequence(1 to 3000000000, 2147483648))' to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for an Int32.
