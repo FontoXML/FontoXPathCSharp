@@ -77,7 +77,7 @@ public class ArgumentHelper<TNode> where TNode : notnull
                 throw new XPathException(
                     "XPTY0004",
                     $"Unable to convert {(isReturn ? "return" : "argument")} of type " +
-                    $"{argumentItem.GetValueType().Name()} to type {seqType} while calling {functionName}"
+                    $"{argumentItem.GetValueType().Name()} to type {seqType} while calling '{functionName}'"
                 );
             return convertedItem;
         }
@@ -88,7 +88,7 @@ public class ArgumentHelper<TNode> where TNode : notnull
             throw new XPathException(
                 "XPTY0004",
                 $"Unable to cast {(isReturn ? "return" : "argument")} of type " +
-                $"{argumentItem.GetValueType().Name()} to type {seqType} while calling {functionName}");
+                $"{argumentItem.GetValueType().Name()} to type {seqType} while calling '{functionName}'");
         return item;
     }
 
@@ -106,14 +106,14 @@ public class ArgumentHelper<TNode> where TNode : notnull
                 : throw new XPathException(
                     "XPTY0004",
                     $"Multiplicity of {(isReturn ? "function return value" : "function argument")} " +
-                    $"of type {argumentType} for {{functionName}} is incorrect. Expected '?' but got '+'.");
+                    $"of type {argumentType} for '{functionName}' is incorrect. Expected '?' but got '+'.");
 
         if (argumentType.Multiplicity == SequenceMultiplicity.OneOrMore)
             return argument.IsEmpty()
                 ? throw new XPathException(
                     "XPTY0004",
                     $"Multiplicity of {(isReturn ? "function return value" : "function argument")} " +
-                    $"of type {argumentType} for {functionName} is incorrect. Expected '+' but got 'empty-sequence()'")
+                    $"of type {argumentType} for '{functionName}' is incorrect. Expected '+' but got 'empty-sequence()'")
                 : argument.Map((value, _, _) =>
                     MapItem(value, argumentType, executionParameters, functionName, isReturn));
 
@@ -126,6 +126,6 @@ public class ArgumentHelper<TNode> where TNode : notnull
                 MapItem(value, argumentType, executionParameters, functionName, isReturn))
             : throw new XPathException(
                 "XPTY0004",
-                $"Multiplicity of {(isReturn ? "function return value" : "function argument")} of type {argumentType} for {functionName} is incorrect. Expected exactly one");
+                $"Multiplicity of {(isReturn ? "function return value" : "function argument")} of type {argumentType} for '{functionName}' is incorrect. Expected exactly one");
     }
 }
