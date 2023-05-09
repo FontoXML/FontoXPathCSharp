@@ -959,20 +959,22 @@ public class XPathParser
                         rhs)
                     : lhs
         );
-        
+
         QuantifiedExprInClause = Then3(
-            Preceded(Token("$"), VarName),
-            Optional(Preceded(_whitespaceParser.WhitespacePlus, TypeDeclaration)),
-            Preceded(Surrounded(Token("in"), _whitespaceParser.WhitespacePlus), ExprSingle),
+                Preceded(Token("$"), VarName),
+                Optional(Preceded(_whitespaceParser.WhitespacePlus, TypeDeclaration)),
+                // TODO: The whitespace on the next line should be whitespaceplus, but for some reason that's not working with surrounded.
+                Preceded(Surrounded(Token("in"), _whitespaceParser.Whitespace), ExprSingle), 
             (variableName, type, source) => new Ast(AstNodeName.QuantifiedExprInClause,
                 new Ast(AstNodeName.TypedVariableBinding, new[] { variableName.GetAst(AstNodeName.VarName) }
                     .Concat(ParsingUtils.WrapNullableInArray(type))),
                 new Ast(AstNodeName.SourceExpr, source))
         );
 
+
         QuantifiedExprInClauses = BinaryOperator(
             QuantifiedExprInClause,
-            Alias(AstNodeName.QuantifiedExpr),
+            Alias(AstNodeName.QuantifiedExpr, ","),
             (lhs, rhs) => new[] { lhs }.Concat(rhs.Select(x => x.Item2)).ToArray()
         );
 
