@@ -131,4 +131,9 @@ public class DomFacade<TNode> : IDomFacade<TNode>
     {
         return _domFacade.GetTarget(node);
     }
+
+    public IDomFacade<TNode> Unwrap()
+    {
+        return _domFacade;
+    }
 }

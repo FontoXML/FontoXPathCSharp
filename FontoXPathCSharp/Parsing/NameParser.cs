@@ -82,7 +82,7 @@ public class NameParser
         BracedUriLiteral = Followed(
             PrecededMultiple(
                 new[] { Token("Q"), whitespaceParser.Whitespace, Token("{") },
-                Map(Star(Regex("/[^{}]/")), x => Regex.Replace(string.Join("", x), @"\s+", " ").Trim())
+                Map(Star(Regex(@"[^{}]")), x => Regex.Replace(string.Join("", x), @"\s+", " ").Trim())
             ),
             Token("}")
         );
@@ -93,7 +93,7 @@ public class NameParser
             (uri, localName) => new QName(localName, uri)
         );
 
-        EqName = Or(QName, UriQualifiedName);
+        EqName = Or(UriQualifiedName, QName);
 
         ElementName = EqName;
 
