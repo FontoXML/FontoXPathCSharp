@@ -424,8 +424,8 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
                 AtomicValue.Create(
                     Regex.Replace(
                         strValue,
-                        @"([\u00A0-\uD7FF\uE000-\uFDCF\uFDF0-\uFFEF ""<>{}|\\^`/\n\u007f\u0080-\u009f]|[\uD800-\uDBFF][\uDC00-\uDFFF])",
-                        match => HttpUtility.UrlEncode(match.Value)
+                        @"([\u00A0-\uD7FF\uE000-\uFDCF\uFDF0-\uFFEF ""<>{}|\\^`\n\u007f\u0080-\u009f]|[\uD800-\uDBFF][\uDC00-\uDFFF])",
+                        match => Uri.EscapeDataString(match.Value)
                     ),
                     ValueType.XsString
                 )
