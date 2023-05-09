@@ -67,11 +67,13 @@ public class XPathParser
     private readonly ParseFunc<Ast> IntermediateClause;
     private readonly ParseFunc<Ast> IntersectExpr;
     private readonly ParseFunc<Ast> ItemType;
+    private readonly ParseFunc<Ast> KeySpecifier;
     private readonly ParseFunc<Ast> KindTest;
     private readonly ParseFunc<Ast> LetBinding;
     private readonly ParseFunc<Ast> LetClause;
     private readonly ParseFunc<Ast> LibraryModule;
     private readonly ParseFunc<Ast> Literal;
+    private readonly ParseFunc<Ast> Lookup;
     private readonly ParseFunc<Ast> MainModule;
     private readonly ParseFunc<Ast> Module;
     private readonly ParseFunc<Ast> MultiplicativeExpr;
@@ -131,6 +133,7 @@ public class XPathParser
 
         _stackTraceMap = new Dictionary<int, Ast.StackTraceInfo>();
         var pathExprCache = new Dictionary<int, ParseResult<Ast>>();
+
 
         Predicate = Delimited(Token("["), Surrounded(Expr(), _whitespaceParser.Whitespace), Token("]"));
 
@@ -730,6 +733,21 @@ public class XPathParser
             FunctionItemExpr
         );
 
+        // This one is quite different from the original, since all must be mapped to ParseFunc<Ast>
+        // and the original was IAST | string
+        KeySpecifier = Or(
+            Map(nameParser.NcName, name => new Ast(AstNodeName.NcName) { TextContent = name }),
+            literalParser.IntegerLiteral,
+            ParenthesizedExpr,
+            Map(Token("*"), name => new Ast(AstNodeName.Star))
+        );
+
+        // The checking and packing that the original does is already performed in the KeySpecifier here.
+        Lookup = Map(
+            PrecededMultiple(new[] { Token("?"), _whitespaceParser.Whitespace }, KeySpecifier),
+            x => new Ast(AstNodeName.Lookup, x)
+        );
+
         PostfixExprWithStep = Then(
             Map(PrimaryExpr, ParsingUtils.WrapInSequenceExprIfNeeded),
             Star(
@@ -737,36 +755,36 @@ public class XPathParser
                     Map(Preceded(_whitespaceParser.Whitespace, Predicate),
                         x => new Ast(AstNodeName.Predicate, x)),
                     Map(Preceded(_whitespaceParser.Whitespace, ArgumentList),
-                        x => new Ast(AstNodeName.ArgumentList, x))
-                    // TODO: Preceded(WhitespaceParser.Whitespace, Lookup()),
+                        x => new Ast(AstNodeName.ArgumentList, x)),
+                    Preceded(_whitespaceParser.Whitespace, Lookup)
                 )
             ),
             (expression, postfixExpr) =>
             {
                 var toWrap = new[] { expression };
-
                 var predicates = new List<Ast>();
                 var filters = new List<Ast>();
 
                 var allowSinglePredicates = false;
 
-                void FlushPredicates(bool allowSinglePred)
+                var flushPredicates = () =>
                 {
-                    if (allowSinglePred && predicates.Count == 1)
+                    if (allowSinglePredicates && predicates.Count == 1)
                         filters.Add(new Ast(AstNodeName.Predicate) { Children = new List<Ast> { predicates[0] } });
                     else if (predicates.Count != 0)
                         filters.Add(new Ast(AstNodeName.Predicates) { Children = predicates });
-                    predicates.Clear();
-                }
+                    predicates = new List<Ast>();
+                };
 
-                void FlushFilters(bool ensureFilter, bool allowSinglePred)
+                Action<bool> flushFilters = (ensureFilter) =>
                 {
-                    FlushPredicates(allowSinglePred);
+                    flushPredicates();
                     if (filters.Count != 0)
                     {
-                        if (toWrap[0].IsA(AstNodeName.SequenceExpr) &&
-                            toWrap[0].Children.Count > 1)
+                        if (toWrap[0].Name == AstNodeName.SequenceExpr && toWrap[0].Children.Count > 1)
+                        {
                             toWrap = new[] { new Ast(AstNodeName.SequenceExpr, toWrap) };
+                        }
 
                         toWrap = new[] { new Ast(AstNodeName.FilterExpr, toWrap) }.Concat(filters).ToArray();
                         filters.Clear();
@@ -775,7 +793,7 @@ public class XPathParser
                     {
                         toWrap = new[] { new Ast(AstNodeName.FilterExpr, toWrap) };
                     }
-                }
+                };
 
                 foreach (var postfix in postfixExpr)
                     switch (postfix.Name)
@@ -785,11 +803,11 @@ public class XPathParser
                             break;
                         case AstNodeName.Lookup:
                             allowSinglePredicates = true;
-                            FlushPredicates(allowSinglePredicates);
+                            flushPredicates();
                             filters.Add(postfix);
                             break;
                         case AstNodeName.ArgumentList:
-                            FlushFilters(false, allowSinglePredicates);
+                            flushFilters(false);
                             if (toWrap.Length > 1)
                                 toWrap = new[]
                                 {
@@ -810,9 +828,8 @@ public class XPathParser
                         default:
                             throw new Exception("Unreachable");
                     }
-
-                FlushFilters(true, allowSinglePredicates);
-
+                
+                flushFilters(true);
                 return toWrap;
             }
         );
@@ -825,10 +842,9 @@ public class XPathParser
         PostfixExprWithoutStep = Followed(
             PrimaryExpr,
             Peek(
-                // TODO: add lookup
-                Not(
-                    Preceded(_whitespaceParser.Whitespace,
-                        Or(Predicate, Map(ArgumentList, _ => new Ast(AstNodeName.All)))),
+
+                Not(Preceded(_whitespaceParser.Whitespace,
+                        Or(Predicate, Map(ArgumentList, _ => new Ast(AstNodeName.All)), Lookup)),
                     new[]
                     {
                         "Primary expression not followed by predicate, argumentList, or lookup"
@@ -839,19 +855,18 @@ public class XPathParser
         StepExprWithoutStep = PostfixExprWithoutStep;
 
         RelativePathExpr = Or(
-            Then3(StepExprWithForcedStep,
+            Then3(
+                StepExprWithForcedStep,
                 Preceded(_whitespaceParser.Whitespace, literalParser.LocationPathAbbreviation),
                 Preceded(_whitespaceParser.Whitespace, RelativePathExprWithForcedStepIndirect),
-                (lhs, abbrev, rhs) => new Ast(AstNodeName.PathExpr, new[] { lhs, abbrev }.Concat(rhs).ToArray())),
+                (lhs, abbrev, rhs) => new Ast(AstNodeName.PathExpr, new[] { lhs, abbrev }.Concat(rhs).ToArray())
+                ),
             Then(
                 StepExprWithForcedStep,
                 Preceded(Surrounded(Token("/"), _whitespaceParser.Whitespace), RelativePathExprWithForcedStepIndirect),
                 (lhs, rhs) => new Ast(AstNodeName.PathExpr, new[] { lhs }.Concat(rhs).ToArray())),
             StepExprWithoutStep,
-            Map(
-                StepExprWithForcedStep, x =>
-                    new Ast(AstNodeName.PathExpr, x)
-            )
+            Map(StepExprWithForcedStep, x => new Ast(AstNodeName.PathExpr, x))
         );
 
         RelativePathExprWithForcedStep = Or(
@@ -864,7 +879,7 @@ public class XPathParser
             Then(
                 StepExprWithForcedStep,
                 Preceded(Surrounded(Token("/"), _whitespaceParser.Whitespace), RelativePathExprWithForcedStepIndirect),
-                (lhs, rhs) => new[] { lhs }.Concat(rhs).ToArray()), Map(StepExprWithForcedStep, x => new[] { x }),
+                (lhs, rhs) => new[] { lhs }.Concat(rhs).ToArray()),
             Map(StepExprWithForcedStep, x => new[] { x })
         );
 

@@ -26,9 +26,20 @@ public abstract class PossiblyUpdatingExpression<TNode> : UpdatingExpression<TNo
                 expr => innerDynamicContext =>
                     expr.Evaluate(innerDynamicContext, executionParameters)).ToArray());
     }
+    
+    // TODO: EvaluateWithUpdateList
 
     public abstract ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
         ExecutionParameters<TNode> executionParameters, SequenceCallback[] sequenceCallbacks);
 
-    // TODO: this.DetermineUpdatingness();
+    public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
+    {
+        base.PerformStaticEvaluation(staticContext);
+        DetermineUpdatingness();
+    }
+
+    private void DetermineUpdatingness()
+    {
+        if (ChildExpressions.Any(expr => expr.IsUpdating)) IsUpdating = true;
+    }
 }

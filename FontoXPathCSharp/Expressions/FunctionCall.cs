@@ -130,11 +130,15 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
         if (_functionReferenceExpression.CanBeStaticallyEvaluated)
         {
             var functionRefSequence = _functionReferenceExpression.EvaluateMaybeStatically(null, null);
-            if (!functionRefSequence.IsSingleton()) throw new XPathException("XPTY0004", "");
+            
+            if (!functionRefSequence.IsSingleton()) throw Xpty0004;
 
             _functionReference = ValidateFunctionItem<ISequence>(functionRefSequence.First()!, _callArity);
 
-            // TODO: check if function reference is updating
+            if (_functionReference.IsUpdating)
+            {
+                IsUpdating = true;
+            }
         }
     }
 
