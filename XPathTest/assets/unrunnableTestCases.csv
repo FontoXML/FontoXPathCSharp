@@ -1605,8 +1605,8 @@ cbcl-anyURI-013;Type casting to XsAnyUri has not been implemented yet.
 cbcl-avg-001;Expected executing the XPath 'fn:avg((xs:decimal("79000000000000000000000000000"),\n                    xs:decimal("79000000000000000000000000000")))\n            eq 79000000000000000000000000000' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 79000000000000000000000000000.
 cbcl-avg-002;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
 cbcl-avg-003;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
-cbcl-avg-004;Items passed to fn:avg are not all numeric.
-cbcl-avg-006;Items passed to fn:avg are not all numeric.
+cbcl-avg-004;Expected XPath fn:avg((xs:dayTimeDuration("P1DT2H"), xs:dayTimeDuration("PT22H"), xs:dayTimeDuration("P1D"))) to resolve to P1D, but instead got PT
+cbcl-avg-006;Expected XPath fn:avg((xs:yearMonthDuration("P1Y1M"), xs:yearMonthDuration("P11M"), xs:yearMonthDuration("P1Y"))) to resolve to P1Y, but instead got P
 cbcl-avg-008;PRSC Error: Failed to parse query 'typeswitch (fn:avg((xs:float(1), xs:double(2), xs:float(3)))) case $x as xs:double return $x default return "FAIL"'
 cbcl-avg-010;Expected executing the XPath 'avg((xs:double("NaN"), current-date() - xs:date("1997-01-01") ))' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: FORG0006. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
 cbcl-avg-011;The function day-from-date with arity 1 is not registered.
@@ -4145,11 +4145,9 @@ fn-absusht1args-1;PRSC Error: Failed to parse query '(fn:abs(xs:unsignedShort("0
 fn-absusht1args-2;PRSC Error: Failed to parse query '(fn:abs(xs:unsignedShort("44633"))) instance of $xs:integer'
 fn-absusht1args-3;PRSC Error: Failed to parse query '(fn:abs(xs:unsignedShort("65535"))) instance of $xs:integer'
 fn-avg-10;PRSC Error: Failed to parse query 'avg([1,2,3,4,5]) = 3'
-fn-avg-3;Items passed to fn:avg are not all numeric.
-fn-avg-4;Items passed to fn:avg are not all numeric.
-fn-avg-5;Items passed to fn:avg are not all numeric.
-fn-avg-6;Items passed to fn:avg are not all numeric.
-fn-avg-mix-args-002;Items passed to fn:avg are not all numeric.
+fn-avg-4;Expected XPath avg(for $x in 1 to 10 return xs:dayTimeDuration(concat("PT",$x,"H"))) to resolve to PT5H30M, but instead got PT
+fn-avg-6;Expected XPath avg(for $x in 1 to 9 return xs:yearMonthDuration(concat("P",$x,"M"))) to resolve to P5M, but instead got P
+fn-avg-mix-args-002;Expected XPath fn:avg(( xs:yearMonthDuration("P20Y") , xs:yearMonthDuration("P10M") )) to resolve to P10Y5M, but instead got P
 fn-avg-mix-args-004;Overflow when creating a Int64 from NaN.
 fn-avg-mix-args-005;Overflow when creating a Int64 from NaN.
 fn-avg-mix-args-009;Expected executing the XPath 'fn:avg( ( ( xs:decimal("-1.000000000001"), xs:integer("-100"))))' to resolve to one of the expected results, but got System.OverflowException: Value was either too large or too small for a Decimal.
@@ -6896,7 +6894,7 @@ fo-test-fn-analyze-string-001;The function fn:analyze-string with arity 2 is not
 fo-test-fn-analyze-string-002;The function fn:analyze-string with arity 2 is not registered.
 fo-test-fn-analyze-string-003;The function fn:analyze-string with arity 2 is not registered.
 fo-test-fn-apply-001;PRSC Error: Failed to parse query 'deep-equal((\n        fn:apply(fn:concat#3, ["a", "b", "c"])\n      ), ("abc"))'
-fo-test-fn-avg-002;Items passed to fn:avg are not all numeric.
+fo-test-fn-avg-002;Expected XPath let $d1 := xs:yearMonthDuration("P20Y")\n          \n           return \n\n        \n          let $d2 := xs:yearMonthDuration("P10M")\n          \n           return \n\n        \n        fn:avg(($d1, $d2)) to (deep equally) resolve to xs:yearMonthDuration("P10Y5M")
 fo-test-fn-avg-004;Overflow when creating a Int64 from NaN.
 fo-test-fn-avg-005;Overflow when creating a Int64 from NaN.
 fo-test-fn-ceiling-002;Expected XPath fn:ceiling(-10.5) to (deep equally) resolve to -10
@@ -8203,9 +8201,9 @@ functx-fn-adjust-time-to-timezone-2;The function adjust-time-to-timezone with ar
 functx-fn-adjust-time-to-timezone-3;The function adjust-time-to-timezone with arity 2 is not registered.
 functx-fn-adjust-time-to-timezone-4;The function adjust-time-to-timezone with arity 2 is not registered.
 functx-fn-adjust-time-to-timezone-all;The function adjust-time-to-timezone with arity 2 is not registered.
-functx-fn-avg-3;Items passed to fn:avg are not all numeric.
-functx-fn-avg-4;Items passed to fn:avg are not all numeric.
-functx-fn-avg-all;Items passed to fn:avg are not all numeric.
+functx-fn-avg-3;Expected XPath (avg( (xs:yearMonthDuration('P4M'), xs:yearMonthDuration('P6M') ) )) to resolve to P5M, but instead got P
+functx-fn-avg-4;Items passed to fn:avg are not all numeric or duration types are mixed.
+functx-fn-avg-all;Items passed to fn:avg are not all numeric or duration types are mixed.
 functx-fn-base-uri-1;The function base-uri with arity 1 is not registered.
 functx-fn-base-uri-2;The function base-uri with arity 1 is not registered.
 functx-fn-base-uri-3;The function base-uri with arity 1 is not registered.
@@ -10629,7 +10627,6 @@ K-SeqAVGFunc-24;Expected XPath string(avg((1, 2, xs:double("NaN"), 1, 2, 3))) eq
 K-SeqAVGFunc-25;Overflow when creating a Int64 from NaN.
 K-SeqAVGFunc-32;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqAVGFunc-33;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
-K-SeqAVGFunc-39;Items passed to fn:avg are not all numeric.
 K-SeqAVGFunc-41;Overflow when creating a Int64 from NaN.
 K-SeqAVGFunc-42;Overflow when creating a Int64 from NaN.
 K-SeqAVGFunc-6;Expected XPath avg((xs:float(1), xs:integer(3), xs:float(3))) instance of xs:float to resolve to true

@@ -2,6 +2,7 @@ using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions.Operators.Compares;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.InternalValues;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
@@ -176,14 +177,28 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         var sequence = args[0];
         if (sequence.IsEmpty()) return sequence;
 
-
+        
         // TODO: throw FORG0006 if the items contain both yearMonthDurations and dayTimeDurations
-        var items = CastUntypedItemsToDouble(sequence.GetAllValues());
+        var rawItems = sequence.GetAllValues();
+        
+        var items = CastUntypedItemsToDouble(rawItems);
         items = CommonTypeUtils.ConvertItemsToCommonType(items)!;
         if (items == null) throw new XPathException("FORG0006", "Incompatible types to be converted to a common type");
 
         if (!items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsNumeric)))
-            throw new XPathException("FORG0006", "Items passed to fn:avg are not all numeric.");
+        {
+            if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsDayTimeDuration)) ||
+                items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsYearMonthDuration)))
+            {
+                var durationType = items.First().GetValueType();
+                var res = items.Aggregate(
+                    new Duration(0, 0, durationType), 
+                    (sum, item) => sum + ((DurationValue)item).Value) / items.Length;
+                return SequenceFactory.CreateFromValue(AtomicValue.Create(res, durationType));
+            }
+
+            throw new XPathException("FORG0006", "Items passed to fn:avg are not all numeric or duration types are mixed.");
+        }
 
         var resultValue = items.Aggregate(0.0, (sum, item) =>
             sum + Convert.ToDouble(((AtomicValue)item).GetValue())) / items.Length;

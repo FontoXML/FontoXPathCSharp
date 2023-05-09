@@ -275,4 +275,12 @@ public class TestMisc
         var res = Evaluate.EvaluateXPathToString(selector, XmlConceptsFile, XmlNodeDomFacade, XmlNodeOptions);
         Assert.Equal("##", res);
     }
+    
+    [Fact]
+    public void DateTimeAvgTest()
+    {
+        var selector = "avg((xs:dayTimeDuration('P1D'), xs:dayTimeDuration('PT2H'))) instance of xs:dayTimeDuration";
+        var res = Evaluate.EvaluateXPathToBoolean(selector, XmlConceptsFile, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.True(res);
+    }
 }
