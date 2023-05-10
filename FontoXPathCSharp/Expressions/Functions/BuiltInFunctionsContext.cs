@@ -11,8 +11,10 @@ public class BuiltInFunctionsContext<TNode> where TNode : notnull
         (dynamicContext, _, _, _) =>
         {
             if (dynamicContext?.ContextItem == null)
-                throw new XPathException("XPDY0002",
-                    "The fn:last() function depends on dynamic context, which is absent.");
+                throw new XPathException(
+                    "XPDY0002",
+                    "The fn:last() function depends on dynamic context, which is absent."
+                );
 
             var done = false;
             return SequenceFactory.CreateFromIterator(_ =>

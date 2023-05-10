@@ -1,6 +1,5 @@
 ﻿abbreviatedSyntax-2;Expected XPath for $h in (/works/employee[2]) return $h/text() to resolve to Text data from Employee[2], but instead got Text data from Employee[2]
 abbreviatedSyntax-26;PRSC Error: Failed to parse query ''
-abbreviatedSyntax-6;Expected XPath for $h in (/works) return $h/employee[fn:last()]/@name to resolve to Jane Doe 13, but instead got 
 ancestor-11;Expected results and parsedFragment children to match
 ancestor-12;Expected results and parsedFragment children to match
 ancestor-13;Expected results and parsedFragment children to match
@@ -4050,6 +4049,7 @@ filter-limits-009;PRSC Error: Failed to parse query ''
 filter-limits-010;PRSC Error: Failed to parse query ''
 filterexpressionhc1;Expected results and parsedFragment children to match
 filterexpressionhc4;Expected results and parsedFragment children to match
+filterexpressionhc5;Expected results and parsedFragment children to match
 fn-abs-1;The function error with arity 0 is not registered.
 fn-abs-more-args-001;PRSC Error: Failed to parse query '(fn:abs(xs:double("-0"))) instance of $xs:double'
 fn-abs-more-args-002;Expected XPath fn:abs(xs:double("-INF")) to resolve to INF, but instead got Infinity
@@ -5598,8 +5598,8 @@ fn-innermost-030;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //
 fn-innermost-033;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //* ) ! local-name(.)), (('empty-level-0',   'non-empty-level-0',\n                         'empty-level-00',  'non-empty-level-00',\n                         'empty-level-000', 'non-empty-level-000',\n                         'empty-level-01',  'non-empty-level-01',\n                         'empty-level-010', 'non-empty-level-010',\n                         'empty-level-02',  'non-empty-level-02',\n                         'empty-level-020', 'non-empty-level-020')))'
 fn-innermost-035;Expected fn:innermost( //node() ) to resolve to 35
 fn-innermost-036;Expected XPath fn:deep-equal( fn:innermost( //node() ), \n                           let $nodes := //node()\n                           return $nodes except $nodes/ancestor::node() ) to resolve to true
-fn-innermost-043;Expected fn:innermost( /root/level[1]/level[last()]/preceding-sibling::node() ) to resolve to 5
 fn-innermost-045;Expected fn:innermost( /root/level[1]/level[last()]/preceding::node() ) to resolve to 10
+fn-innermost-046;Expected XPath fn:deep-equal( fn:innermost( /root/level[1]/level[last()]/preceding::node() ), \n                           let $nodes := /root/level[1]/level[last()]/preceding::node()\n                           return $nodes except $nodes/ancestor::node() ) to resolve to true
 fn-innermost-049;Expected fn:innermost( /root/level[1]/level[1]/following::node() ) to resolve to 20
 fn-innermost-053;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 fn-innermost-054;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
@@ -5908,7 +5908,6 @@ fn-name-28;Haven't implemented Qnames from: xml-stylesheet:
 fn-name-29;Haven't implemented Qnames from: recorded:
 fn-name-3;Haven't implemented Qnames from: name:
 fn-name-5;Multiplicity of function return value of type xs:string for 'name' is incorrect. Expected exactly one
-fn-name-6;Multiplicity of function return value of type xs:string for 'name' is incorrect. Expected exactly one
 fn-name-7;Expected error code: XPDY0002. Query succeeded with result: 
 fn-name-8;Haven't implemented Qnames from: employee:
 fn-name-9;Haven't implemented Qnames from: employee:
@@ -5923,7 +5922,6 @@ fn-node-name-16;PRSC Error: Failed to parse query ''
 fn-node-name-17;PRSC Error: Failed to parse query ''
 fn-node-name-18;PRSC Error: Failed to parse query 'fn:count(fn:local-name-from-QName(fn:node-name(text {""})))'
 fn-node-name-19;PRSC Error: Failed to parse query 'fn:count(fn:namespace-uri-from-QName(fn:node-name(text {""})))'
-fn-node-name-2;Object reference not set to an instance of an object.
 fn-node-name-20;PRSC Error: Failed to parse query 'fn:count(fn:local-name-from-QName(fn:node-name(text {"a text value"})))'
 fn-node-name-21;PRSC Error: Failed to parse query 'fn:count(fn:namespace-uri-from-QName(fn:node-name(text {"a text value"})))'
 fn-node-name-22;PRSC Error: Failed to parse query 'fn:local-name-from-QName(fn:node-name(processing-instruction piName {"Processing Instruction content"}))'
@@ -6039,8 +6037,8 @@ fn-outermost-030;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //
 fn-outermost-033;PRSC Error: Failed to parse query 'fn:outermost( //* ) ! local-name(.) = ('root')'
 fn-outermost-035;Expected fn:outermost( //node() ) to resolve to 1
 fn-outermost-036;Expected XPath fn:deep-equal( fn:outermost( //node() ), \n                           let $nodes := //node()\n                           return $nodes except $nodes/descendant::node() ) to resolve to true
-fn-outermost-043;Expected fn:outermost( /root/level[1]/level[last()]/preceding-sibling::node() ) to resolve to 5
 fn-outermost-045;Expected fn:outermost( /root/level[1]/level[last()]/preceding::node() ) to resolve to 10
+fn-outermost-046;Expected XPath fn:deep-equal( fn:outermost( /root/level[1]/level[last()]/preceding::node() ), \n                           let $nodes := /root/level[1]/level[last()]/preceding::node()\n                           return $nodes except $nodes/descendant::node() ) to resolve to true
 fn-outermost-053;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 fn-outermost-054;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 fn-outermost-055;Use of XQuery FLWOR expressions in XPath is not allowed
@@ -6695,9 +6693,6 @@ fn-union-node-args-013;Expected results and parsedFragment children to match
 fn-union-node-args-015;Expected results and parsedFragment children to match
 fn-union-node-args-016;Expected results and parsedFragment children to match
 fn-union-node-args-017;Expected results and parsedFragment children to match
-fn-unordered-101;Expected XPath count(/works/employee[last()]/unordered(preceding-sibling::*)) to resolve to 12
-fn-unordered-102;Expected XPath count(/works/employee[last()]/unordered(preceding::*)) to resolve to 54
-fn-unordered-103;Expected XPath count((/works//day)[last()]/unordered(ancestor-or-self::*)) to resolve to 4
 fn-unordered-108;Skipped test, it was a assert-permutation
 fn-unordered-109;Skipped test, it was a assert-permutation
 fn-unordered-mix-args-001;Skipped test, it was a assert-permutation
@@ -7000,7 +6995,6 @@ fo-test-fn-json-to-xml-001;The function json-to-xml with arity 1 is not register
 fo-test-fn-json-to-xml-002;PRSC Error: Failed to parse query '\n        json-to-xml('"abcd"', map{'liberal': false()})\n      '
 fo-test-fn-json-to-xml-003;The function json-to-xml with arity 1 is not registered.
 fo-test-fn-json-to-xml-004;PRSC Error: Failed to parse query '\n        json-to-xml('{"x": "\\", "y": "\u0025"}', map{'escape':\n                  true()})\n      '
-fo-test-fn-last-001;Expected XPath (1 to 20)[fn:last() - 1] to (deep equally) resolve to 19
 fo-test-fn-local-name-from-QName-001;The function fn:local-name-from-QName with arity 1 is not registered.
 fo-test-fn-matches-001;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fo-test-fn-matches-002;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
@@ -8264,6 +8258,7 @@ functx-fn-lang-4;PRSC Error: Failed to parse query ''
 functx-fn-lang-5;PRSC Error: Failed to parse query ''
 functx-fn-lang-6;PRSC Error: Failed to parse query ''
 functx-fn-lang-all;PRSC Error: Failed to parse query ''
+functx-fn-last-1;Expected results and parsedFragment children to match
 functx-fn-local-name-1;PRSC Error: Failed to parse query ''
 functx-fn-local-name-2;PRSC Error: Failed to parse query ''
 functx-fn-local-name-3;PRSC Error: Failed to parse query ''
@@ -9838,8 +9833,6 @@ K-ContextLastFunc-24;TreatExpr AST to Expression not yet implemented
 K-ContextLastFunc-25;TreatExpr AST to Expression not yet implemented
 K-ContextLastFunc-26;TreatExpr AST to Expression not yet implemented
 K-ContextLastFunc-27;TreatExpr AST to Expression not yet implemented
-K-ContextLastFunc-28;Expected XPath (1 to 6)[last()] eq 6 to resolve to true
-K-ContextLastFunc-29;Expected XPath (-20 to -5)[last() - 3] to resolve to -8
 K-ContextLastFunc-5;TreatExpr AST to Expression not yet implemented
 K-ContextLastFunc-6;The function current-time with arity 0 is not registered.
 K-ContextLastFunc-7;Expected executing the XPath 'empty((1, 2, 3, current-time(), current-date(), 6, 7, 8) [last() = 0])' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
@@ -10037,14 +10030,10 @@ K-FilterExpr-51;Expected executing the XPath '((0, 1, 2, "a", "b", "c")[. instan
 K-FilterExpr-52;Expected executing the XPath '((0, 1, 2, "a", "b", "c")[. instance of xs:integer][. treat as xs:integer eq 0] treat as xs:integer) eq 0' to resolve to one of the expected results, but got System.NotImplementedException: TreatExpr AST to Expression not yet implemented
 K-FilterExpr-59;Expected executing the XPath 'empty(()[count(remove((current-time(), 1), 1)) eq 1])' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-FilterExpr-69;Casting AbstractValue(XsDouble) to IntegerValue
-K-FilterExpr-73;Expected XPath (0, 1, 2)[last()] to resolve to 2
-K-FilterExpr-74;Expected XPath (0, 1, "2")[last()] to resolve to 2, but instead got 
-K-FilterExpr-75;Expected error code: XPTY0004. Query succeeded with result: 
 K-FilterExpr-86;The function current-time with arity 0 is not registered.
 K-FilterExpr-87;The function current-time with arity 0 is not registered.
 K-FilterExpr-88;Expected executing the XPath 'empty(remove((1, 2, 3, current-time()), 4)[false()])' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-FilterExpr-89;The function current-time with arity 0 is not registered.
-K-FilterExpr-90;Expected XPath (1, 2, 3)[(last(), last())[2]] to resolve to 3
 K-FilterExpr-91;Expected XPathException with code FORG0006, but got Type casting to XsHexBinary has not been implemented yet.
 K-FilterExpr-92;Expected error code: FORG0006. Query succeeded with result: 1
 K-FilterExpr-93;Expected error code: FORG0006. Query succeeded with result: 1
@@ -11748,9 +11737,6 @@ K-SeqRemoveFunc-23;The function current-time with arity 0 is not registered.
 K-SeqRemoveFunc-24;The function current-time with arity 0 is not registered.
 K-SeqRemoveFunc-26;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'remove(1 to 10, 1.0e0)'
 K-SeqReverseFunc-15;Expected error code: FOER0000. Found error code: XPST0017 with error message: The function error with arity 0 is not registered.
-K-SeqReverseFunc-16;Expected XPath reverse((1, 2, 3))[last()] eq 1 to resolve to true
-K-SeqReverseFunc-17;Expected XPath reverse((1, 2, 3))[last() - 2] to resolve to 3
-K-SeqReverseFunc-18;Expected XPath reverse((1, 2, 3))[last() - 1] to resolve to 2
 K-SeqReverseFunc-20;The function current-time with arity 0 is not registered.
 K-SeqReverseFunc-21;The function current-time with arity 0 is not registered.
 K-SeqReverseFunc-8;The function current-time with arity 0 is not registered.
@@ -11797,13 +11783,6 @@ K-StringFunc-5;The function current-time with arity 0 is not registered.
 K-StringJoinFunc-1;Expected error code: XPST0017. Query succeeded with result: a string
 K-StringLengthFunc-4;Object reference not set to an instance of an object.
 K-StringLengthFunc-6;Object reference not set to an instance of an object.
-K-StringToCodepointFunc-14;Expected XPath string-to-codepoints("Thérèse")[last()] to resolve to 101
-K-StringToCodepointFunc-15;Expected XPath string-to-codepoints("Thérèse")[0 + last()] to resolve to 101
-K-StringToCodepointFunc-16;Expected XPath string-to-codepoints("Thérèse")[last() - 1] to resolve to 115
-K-StringToCodepointFunc-17;Expected XPath string-to-codepoints("Thérèse")[last() - 0] to resolve to 101
-K-StringToCodepointFunc-18;Expected XPath string-to-codepoints("Thérèse")[0 + last()] to resolve to 101
-K-StringToCodepointFunc-19;Expected XPath string-to-codepoints("Thérèse")[last() - 2] to resolve to 232
-K-StringToCodepointFunc-21;Expected XPath string-to-codepoints("Thérèse")[last() - 6] to resolve to 84
 K-SubstringAfterFunc-4;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-after with arity 3 is not registered.
 K-SubstringAfterFunc-5;The function substring-after with arity 3 is not registered.
 K-SubstringBeforeFunc-4;Expected error code: FOCH0002. Found error code: XPST0017 with error message: The function substring-before with arity 3 is not registered.
@@ -12832,8 +12811,6 @@ K2-NodeTest-38;Expected error code: XPTY0018. Found error code: XPST0003 with er
 K2-NodeTest-39;Expected error code: XPTY0018. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-NodeTest-40;Expected error code: XPTY0018. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 K2-NodeTest-41;PRSC Error: Failed to parse query ''
-K2-NodeTest-42;Expected XPath (4, 5)[position() = 2][last() = 1] to resolve to 5
-K2-NodeTest-43;Expected XPath (4, 5)[position() = 2][last() = 1][last() = 1][last()] to resolve to 5
 K2-NumericAdd-2;PRSC Error: Failed to parse query ' = 3'
 K2-NumericAdd-3;PRSC Error: Failed to parse query ' = 3'
 K2-NumericDivide-1;Expected error code: FOAR0001. Found error code: FOCA0001 with error message: Overflow when creating a Decimal from Infinity.
@@ -13628,17 +13605,9 @@ K2-XQueryComment-5;PRSC Error: Failed to parse query ''
 K3-NodeNameFunc-2;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( (<a/>, <b/>))'
 K3-NodeNameFunc-3;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( (<a/>, "mystring"))'
 K3-NodeNameFunc-4;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( node-name(<a/>))'
-last-1;Expected XPath for $h in (/works) return $h//employee[last()]/string(@name) to resolve to Jane Doe 13, but instead got 
-last-10;Expected XPath for $h in (/works) return $h//employee[last() = 13][@name = "Jane Doe 13"]/string(@name) to resolve to Jane Doe 13, but instead got 
 last-2;Expected error code: XPDY0002. Query succeeded with result: 1
-last-23;Expected XPath for $h in (/works) return $h/employee[position() = 5 to last()]/@name/string() to (deep equally) resolve to "Jane Doe 5", "John Doe 6", "Jane Doe 7", "John Doe 8", 
 last-25;PRSC Error: Failed to parse query 'let $result := (/works/employee/*/last()) return every $i in $result satisfies $i = 44'
-last-3;Expected XPath for $h in (/works/employee[12]) return $h/overtime[last() = 1]/*/string() to (deep equally) resolve to "Monday", "Tuesday"
-last-4;Expected XPath for $h in (/works) return $h/employee[position() = last()]/string(@name) to resolve to Jane Doe 13, but instead got 
-last-5;Expected XPath for $h in (/works) return $h/employee[last() = position()]/string(@name) to resolve to Jane Doe 13, but instead got 
 last-6;PRSC Error: Failed to parse query ''
-last-7;Expected XPath for $h in (/works) return $h/employee[last()] is $h/employee[last()] to resolve to true
-last-9;Expected XPath for $h in (/works) return $h//employee[@name="Jane Doe 13"][last() = 1]/string(@name) to resolve to Jane Doe 13, but instead got 
 lessthaneqonanyuri-1;PRSC Error: Failed to parse query ''
 lessthanonanyuri-1;PRSC Error: Failed to parse query ''
 LetExpr003;Expected XPath let $x := 92233720368547758+1 return $x to resolve to 92233720368547759
@@ -15166,8 +15135,6 @@ PathExpr-8p;PRSC Error: Failed to parse query ' = 0'
 PathExpr-9p;PRSC Error: Failed to parse query ' = 0'
 PathExprErr-2;Expected error code: XPTY0018. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''
 position-2;Expected error code: XPDY0002. Query succeeded with result: 1
-position-4;Expected XPath for $h in (/works) return $h/employee[position() = last()]/string(@name) to resolve to Jane Doe 13, but instead got 
-position-5;Expected XPath for $h in (/works) return $h/employee[last() = position()]/string(@name) to resolve to Jane Doe 13, but instead got 
 preceding-11;Expected results and parsedFragment children to match
 preceding-12;Expected results and parsedFragment children to match
 preceding-13;Expected results and parsedFragment children to match
@@ -16582,6 +16549,8 @@ unabbreviatedSyntax-18;Expected results and parsedFragment children to match
 unabbreviatedSyntax-19;Expected results and parsedFragment children to match
 unabbreviatedSyntax-2;Expected results and parsedFragment children to match
 unabbreviatedSyntax-20;Expected results and parsedFragment children to match
+unabbreviatedSyntax-21;Expected results and parsedFragment children to match
+unabbreviatedSyntax-22;Expected results and parsedFragment children to match
 unabbreviatedSyntax-23;Expected results and parsedFragment children to match
 unabbreviatedSyntax-24;Expected results and parsedFragment children to match
 unabbreviatedSyntax-25;Expected results and parsedFragment children to match
@@ -16593,7 +16562,7 @@ unabbreviatedSyntax-3;Expected XPath for $h in (/works[1]/employee[2]) return $h
 unabbreviatedSyntax-30;Expected results and parsedFragment children to match
 unabbreviatedSyntax-31;Expected results and parsedFragment children to match
 unabbreviatedSyntax-32;Expected results and parsedFragment children to match
-unabbreviatedSyntax-5;for $h in (/works/employee[2]) return $h/child::node()
+unabbreviatedSyntax-33;Expected results and parsedFragment children to match
 unabbreviatedSyntax-8;Expected results and parsedFragment children to match
 unabbreviatedSyntax-9;Expected results and parsedFragment children to match
 UnaryLookup-001;PRSC Error: Failed to parse query 'deep-equal(((['a', 'b'], ['c', 'd'])[?1 eq 'c']), (['c', 'd']))'
