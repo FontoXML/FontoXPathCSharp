@@ -173,13 +173,6 @@ public class AdaptToValues<TNode> where TNode : notnull
             throw new Exception($"Cannot convert value '{input}' to the XPath type {valueType} since it is not valid.");
     }
 
-
-    private static object TransformXPathItemToObject(AbstractValue first,
-        ExecutionParameters<TNode> executionParameters)
-    {
-        throw new NotImplementedException();
-    }
-    
     public static object? AdaptXPathValueToValue(
         ISequence valueSequence,
         SequenceType sequenceType,

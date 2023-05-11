@@ -241,7 +241,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
 
         if (isAbsolute != null && steps.Length == 0) return new AbsolutePathExpression<TNode>(null);
 
-        var pathExpression = new PathExpression<TNode>(steps.ToArray(), requireSorting);
+        var pathExpression = new PathExpression<TNode>(steps, requireSorting);
 
         if (isAbsolute != null) return new AbsolutePathExpression<TNode>(pathExpression);
 
@@ -362,6 +362,9 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.PathExpr => CompilePathExpression(ast, options),
             AstNodeName.FunctionCallExpr => CompileFunctionCallExpression(ast, options),
             AstNodeName.InlineFunctionExpr => CompileInlineFunctionExpression(ast, options),
+            AstNodeName.ArrowExpr => CompileArrowExpr(ast, options),
+            AstNodeName.DynamicFunctionInvocationExpr => CompileDynamicFunctionInvocationExpr(ast, options),
+            AstNodeName.NamedFunctionRef => CompileNamedFunctionRef(ast, options),
             AstNodeName.ContextItemExpr => new ContextItemExpression<TNode>(),
             AstNodeName.IntegerConstantExpr => CompileIntegerConstantExpression(ast),
             AstNodeName.StringConstantExpr => CompileStringConstantExpr(ast),
@@ -399,8 +402,6 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.UnaryPlusOp or AstNodeName.UnaryMinusOp => CompileUnaryOperator(ast, options),
             AstNodeName.CastExpr => CastAs(ast, options),
             AstNodeName.IfThenElseExpr => CompileIfThenElseExpr(ast, options),
-            AstNodeName.DynamicFunctionInvocationExpr => CompileDynamicFunctionInvocationExpr(ast, options),
-            AstNodeName.ArrowExpr => CompileArrowExpr(ast, options),
             AstNodeName.RangeSequenceExpr => CompileRangeSequenceExpr(ast, options),
             AstNodeName.InstanceOfExpr => CompileInstanceOfExpr(ast, options),
             AstNodeName.ExceptOp or AstNodeName.IntersectOp => CompileIntersectExcept(ast, options),
@@ -426,6 +427,13 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             quantifierInClauses,
             CompileAst(predicateExpr, DisallowUpdating(options))
         );
+    }
+
+    private static AbstractExpression<TNode> CompileNamedFunctionRef(Ast ast, CompilationOptions options)
+    {
+        var functionName = ast.GetFirstChild(AstNodeName.FunctionName);
+        var arity = ast.FollowPath(AstNodeName.IntegerConstantExpr, AstNodeName.Value)?.TextContent;
+        return new NamedFunctionRef<TNode>(functionName.GetQName(), Convert.ToInt32(arity));
     }
 
     private static AbstractExpression<TNode> CompileIntersectExcept(Ast ast, CompilationOptions options)
