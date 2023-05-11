@@ -291,4 +291,20 @@ public class TestMisc
         var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
         Assert.Equal("99 100", res);
     }
+
+    [Fact]
+    public void QuantifiedExprSome()
+    {
+        var selector = "some $x in (1,2,3) satisfies $x > 2";
+        var res = Evaluate.EvaluateXPathToBoolean(selector, XmlAtomicsFile, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.True(res);
+    }
+    
+    [Fact]
+    public void QuantifiedExprEvery()
+    {
+        var selector = "every $x in (1,2,3) satisfies $x >= 1";
+        var res = Evaluate.EvaluateXPathToBoolean(selector, XmlAtomicsFile, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.True(res);
+    }
 }

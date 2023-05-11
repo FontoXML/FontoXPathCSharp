@@ -98,6 +98,9 @@ public class XPathParser
     private readonly ParseFunc<Ast?> PredicateList;
     private readonly ParseFunc<Ast> PrimaryExpr;
     private readonly ParseFunc<Ast> Prolog;
+    private readonly ParseFunc<Ast> QuantifiedExprInClause;
+    private readonly ParseFunc<Ast[]> QuantifiedExprInClauses;
+    private readonly ParseFunc<Ast> QuantifiedExpr;
     private readonly ParseFunc<Ast> QueryBody;
     private readonly ParseFunc<Ast> RangeExpr;
     private readonly ParseFunc<Ast> RelativePathExpr;
@@ -969,6 +972,34 @@ public class XPathParser
                     : lhs
         );
 
+        QuantifiedExprInClause = Then3(
+                Preceded(Token("$"), VarName),
+                Optional(Preceded(_whitespaceParser.WhitespacePlus, TypeDeclaration)),
+                // TODO: The whitespace on the next line should be whitespaceplus, but for some reason that's not working with surrounded.
+                Preceded(Surrounded(Token("in"), _whitespaceParser.Whitespace), ExprSingle), 
+            (variableName, type, source) => new Ast(AstNodeName.QuantifiedExprInClause,
+                new Ast(AstNodeName.TypedVariableBinding, new[] { variableName.GetAst(AstNodeName.VarName) }
+                    .Concat(ParsingUtils.WrapNullableInArray(type))),
+                new Ast(AstNodeName.SourceExpr, source))
+        );
+
+
+        QuantifiedExprInClauses = BinaryOperator(
+            QuantifiedExprInClause,
+            Alias(AstNodeName.QuantifiedExpr, ","),
+            (lhs, rhs) => new[] { lhs }.Concat(rhs.Select(x => x.Item2)).ToArray()
+        );
+
+        QuantifiedExpr = Then3(
+            Or(Token("some"), Token("every")),
+            Preceded(_whitespaceParser.WhitespacePlus, QuantifiedExprInClauses),
+            Preceded(Surrounded(Token("satisfies"), _whitespaceParser.Whitespace), ExprSingle),
+            (kind, clauses, predicatePart) => new Ast(AstNodeName.QuantifiedExpr,
+                new Ast[] { new(AstNodeName.Quantifier) { TextContent = kind } }
+                    .Concat(clauses)
+                    .Concat(new[] { new Ast(AstNodeName.PredicateExpr, predicatePart) }))
+        );
+
         CastableExpr = Then(
             CastExpr,
             Optional(
@@ -1210,6 +1241,7 @@ public class XPathParser
     {
         return WrapInStackTrace(Or(
             FlworExpr,
+            QuantifiedExpr,
             IfExpr,
             OrExpr)
         )(input, offset);
