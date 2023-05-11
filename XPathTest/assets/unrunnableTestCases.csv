@@ -5601,8 +5601,8 @@ fn-innermost-036;Expected XPath fn:deep-equal( fn:innermost( //node() ), \n     
 fn-innermost-045;Expected fn:innermost( /root/level[1]/level[last()]/preceding::node() ) to resolve to 10
 fn-innermost-046;Expected XPath fn:deep-equal( fn:innermost( /root/level[1]/level[last()]/preceding::node() ), \n                           let $nodes := /root/level[1]/level[last()]/preceding::node()\n                           return $nodes except $nodes/ancestor::node() ) to resolve to true
 fn-innermost-049;Expected fn:innermost( /root/level[1]/level[1]/following::node() ) to resolve to 20
-fn-innermost-053;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-fn-innermost-054;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
+fn-innermost-053;Expected fn:innermost( ($doc1//node(), $doc2//node()) ) to resolve to 26
+fn-innermost-054;Expected XPath fn:deep-equal( fn:innermost( ($doc1//node(), $doc2//node()) ),\n                           let $nodes := ($doc1//node(), $doc2//node())\n                           return $nodes except $nodes/ancestor::node() ) to resolve to true
 fn-innermost-055;Use of XQuery FLWOR expressions in XPath is not allowed
 fn-innermost-056;Use of XQuery FLWOR expressions in XPath is not allowed
 fn-innermost-059;Expected  to resolve to 1
@@ -6039,8 +6039,8 @@ fn-outermost-035;Expected fn:outermost( //node() ) to resolve to 1
 fn-outermost-036;Expected XPath fn:deep-equal( fn:outermost( //node() ), \n                           let $nodes := //node()\n                           return $nodes except $nodes/descendant::node() ) to resolve to true
 fn-outermost-045;Expected fn:outermost( /root/level[1]/level[last()]/preceding::node() ) to resolve to 10
 fn-outermost-046;Expected XPath fn:deep-equal( fn:outermost( /root/level[1]/level[last()]/preceding::node() ), \n                           let $nodes := /root/level[1]/level[last()]/preceding::node()\n                           return $nodes except $nodes/descendant::node() ) to resolve to true
-fn-outermost-053;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-fn-outermost-054;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
+fn-outermost-053;Expected fn:outermost( ($doc1//node(), $doc2//node()) ) to resolve to 2
+fn-outermost-054;Expected XPath fn:deep-equal( fn:outermost( ($doc1//node(), $doc2//node()) ),\n                           let $nodes := ($doc1//node(), $doc2//node())\n                           return $nodes except $nodes/descendant::node() ) to resolve to true
 fn-outermost-055;Use of XQuery FLWOR expressions in XPath is not allowed
 fn-outermost-056;Use of XQuery FLWOR expressions in XPath is not allowed
 fn-parse-json-001;PRSC Error: Failed to parse query 'deep-equal((parse-json("{}")), (map{}))'
@@ -9094,23 +9094,18 @@ GenCompEq-9;PRSC Error: Failed to parse query '[3, 4, 5] = []'
 GenCompLT-10;PRSC Error: Failed to parse query '[[3, 4], 5] < [4, [5, 6]]'
 GenCompLT-11;PRSC Error: Failed to parse query '[3, 4, 5] < []'
 GenCompLT-9;PRSC Error: Failed to parse query '[3, 4, 5] < 4'
-generalexpression10;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression104;PRSC Error: Failed to parse query ''
 generalexpression105;PRSC Error: Failed to parse query ''
 generalexpression106;PRSC Error: Failed to parse query ''
-generalexpression109;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression113;PRSC Error: Failed to parse query ''
 generalexpression114;PRSC Error: Failed to parse query ''
 generalexpression115;PRSC Error: Failed to parse query ''
-generalexpression118;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression123;PRSC Error: Failed to parse query ''
 generalexpression124;PRSC Error: Failed to parse query ''
 generalexpression125;PRSC Error: Failed to parse query ''
-generalexpression128;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression133;PRSC Error: Failed to parse query ''
 generalexpression134;PRSC Error: Failed to parse query ''
 generalexpression135;PRSC Error: Failed to parse query ''
-generalexpression138;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression139;PRSC Error: Failed to parse query ''
 generalexpression14;PRSC Error: Failed to parse query ''
 generalexpression140;PRSC Error: Failed to parse query ''
@@ -9147,22 +9142,12 @@ generalexpression168;PRSC Error: Failed to parse query ''
 generalexpression173;PRSC Error: Failed to parse query ''
 generalexpression174;PRSC Error: Failed to parse query ''
 generalexpression175;PRSC Error: Failed to parse query ''
-generalexpression178;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression183;PRSC Error: Failed to parse query ''
 generalexpression184;PRSC Error: Failed to parse query ''
 generalexpression185;PRSC Error: Failed to parse query ''
-generalexpression188;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression189;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression19;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression190;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression191;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression192;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression193;PRSC Error: Failed to parse query ''
 generalexpression194;PRSC Error: Failed to parse query ''
 generalexpression195;PRSC Error: Failed to parse query ''
-generalexpression196;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression197;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression198;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression199;PRSC Error: Failed to parse query ''
 generalexpression200;PRSC Error: Failed to parse query ''
 generalexpression201;PRSC Error: Failed to parse query ''
@@ -9257,7 +9242,6 @@ generalexpression286;PRSC Error: Failed to parse query ''
 generalexpression287;PRSC Error: Failed to parse query ''
 generalexpression288;PRSC Error: Failed to parse query ''
 generalexpression289;PRSC Error: Failed to parse query ''
-generalexpression29;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression290;PRSC Error: Failed to parse query ''
 generalexpression291;PRSC Error: Failed to parse query ''
 generalexpression292;PRSC Error: Failed to parse query ''
@@ -9361,7 +9345,6 @@ generalexpression386;PRSC Error: Failed to parse query ''
 generalexpression387;PRSC Error: Failed to parse query ''
 generalexpression388;PRSC Error: Failed to parse query ''
 generalexpression389;PRSC Error: Failed to parse query ''
-generalexpression39;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression390;PRSC Error: Failed to parse query ''
 generalexpression391;PRSC Error: Failed to parse query ''
 generalexpression392;PRSC Error: Failed to parse query ''
@@ -9373,22 +9356,18 @@ generalexpression40;PRSC Error: Failed to parse query ''
 generalexpression401;PRSC Error: Failed to parse query ''
 generalexpression402;PRSC Error: Failed to parse query ''
 generalexpression403;PRSC Error: Failed to parse query ''
-generalexpression406;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression41;PRSC Error: Failed to parse query ''
 generalexpression410;PRSC Error: Failed to parse query ''
 generalexpression411;PRSC Error: Failed to parse query ''
 generalexpression412;PRSC Error: Failed to parse query ''
-generalexpression415;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression42;PRSC Error: Failed to parse query ''
 generalexpression420;PRSC Error: Failed to parse query ''
 generalexpression421;PRSC Error: Failed to parse query ''
 generalexpression422;PRSC Error: Failed to parse query ''
-generalexpression425;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression43;PRSC Error: Failed to parse query ''
 generalexpression430;PRSC Error: Failed to parse query ''
 generalexpression431;PRSC Error: Failed to parse query ''
 generalexpression432;PRSC Error: Failed to parse query ''
-generalexpression435;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression436;PRSC Error: Failed to parse query ''
 generalexpression437;PRSC Error: Failed to parse query ''
 generalexpression438;PRSC Error: Failed to parse query ''
@@ -9426,43 +9405,31 @@ generalexpression47;PRSC Error: Failed to parse query ''
 generalexpression470;PRSC Error: Failed to parse query ''
 generalexpression471;PRSC Error: Failed to parse query ''
 generalexpression472;PRSC Error: Failed to parse query ''
-generalexpression475;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression48;PRSC Error: Failed to parse query ''
 generalexpression480;PRSC Error: Failed to parse query ''
 generalexpression481;PRSC Error: Failed to parse query ''
 generalexpression482;PRSC Error: Failed to parse query ''
-generalexpression485;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression486;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression487;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression488;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression489;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression49;PRSC Error: Failed to parse query ''
 generalexpression490;PRSC Error: Failed to parse query ''
 generalexpression491;PRSC Error: Failed to parse query ''
 generalexpression492;PRSC Error: Failed to parse query ''
-generalexpression493;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression494;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression5;PRSC Error: Failed to parse query ''
 generalexpression50;PRSC Error: Failed to parse query ''
 generalexpression500;PRSC Error: Failed to parse query ''
 generalexpression501;PRSC Error: Failed to parse query ''
 generalexpression502;PRSC Error: Failed to parse query ''
-generalexpression505;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression509;PRSC Error: Failed to parse query ''
 generalexpression51;PRSC Error: Failed to parse query ''
 generalexpression510;PRSC Error: Failed to parse query ''
 generalexpression511;PRSC Error: Failed to parse query ''
-generalexpression514;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression519;PRSC Error: Failed to parse query ''
 generalexpression52;PRSC Error: Failed to parse query ''
 generalexpression520;PRSC Error: Failed to parse query ''
 generalexpression521;PRSC Error: Failed to parse query ''
-generalexpression524;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression529;PRSC Error: Failed to parse query ''
 generalexpression53;PRSC Error: Failed to parse query ''
 generalexpression530;PRSC Error: Failed to parse query ''
 generalexpression531;PRSC Error: Failed to parse query ''
-generalexpression534;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression535;PRSC Error: Failed to parse query ''
 generalexpression536;PRSC Error: Failed to parse query ''
 generalexpression537;PRSC Error: Failed to parse query ''
@@ -9500,23 +9467,14 @@ generalexpression569;PRSC Error: Failed to parse query ''
 generalexpression57;PRSC Error: Failed to parse query ''
 generalexpression570;PRSC Error: Failed to parse query ''
 generalexpression571;PRSC Error: Failed to parse query ''
-generalexpression574;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression579;PRSC Error: Failed to parse query ''
 generalexpression58;PRSC Error: Failed to parse query ''
 generalexpression580;PRSC Error: Failed to parse query ''
 generalexpression581;PRSC Error: Failed to parse query ''
-generalexpression584;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression585;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression586;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression587;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression588;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression589;PRSC Error: Failed to parse query ''
 generalexpression59;PRSC Error: Failed to parse query ''
 generalexpression590;PRSC Error: Failed to parse query ''
 generalexpression591;PRSC Error: Failed to parse query ''
-generalexpression592;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression593;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression594;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression6;PRSC Error: Failed to parse query ''
 generalexpression60;PRSC Error: Failed to parse query ''
 generalexpression61;PRSC Error: Failed to parse query ''
@@ -9532,21 +9490,12 @@ generalexpression7;PRSC Error: Failed to parse query ''
 generalexpression74;PRSC Error: Failed to parse query ''
 generalexpression75;PRSC Error: Failed to parse query ''
 generalexpression76;PRSC Error: Failed to parse query ''
-generalexpression79;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression84;PRSC Error: Failed to parse query ''
 generalexpression85;PRSC Error: Failed to parse query ''
 generalexpression86;PRSC Error: Failed to parse query ''
-generalexpression89;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression90;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression91;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression92;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression93;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generalexpression94;PRSC Error: Failed to parse query ''
 generalexpression95;PRSC Error: Failed to parse query ''
 generalexpression96;PRSC Error: Failed to parse query ''
-generalexpression97;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression98;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
-generalexpression99;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 generate-id-000;PRSC Error: Failed to parse query '(generate-id(())) instance of $xs:string'
 generate-id-001;The function generate-id with arity 1 is not registered.
 generate-id-002;The function generate-id with arity 1 is not registered.
@@ -14218,9 +14167,7 @@ nametest-8;PRSC Error: Failed to parse query ''
 nametest-9;PRSC Error: Failed to parse query ' = 0'
 nodecomparisonerr-2;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 nodeexpression10;PRSC Error: Failed to parse query ''
-nodeexpression12;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 nodeexpression14;PRSC Error: Failed to parse query ''
-nodeexpression15;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 nodeexpression17;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 nodeexpression18;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
 nodeexpression19;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
@@ -14244,7 +14191,6 @@ nodeexpression38;Expected executing the XPath '' to resolve to one of the expect
 nodeexpression39;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 nodeexpression40;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 nodeexpression42;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
-nodeexpression44;Expected executing the XPath '$works/works[1]/employee[1]/empnum[1] >> ($staff/staff[1]/employee[1]/empnum[1])' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
 nodeexpression46;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ''
 nodeexpression47;PRSC Error: Failed to parse query ''
 nodeexpression5;Expected executing the XPath '' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query ' = 0'
@@ -16392,7 +16338,7 @@ sequence-type-17;PRSC Error: Failed to parse query '("abc") castable as xs:integ
 sequence-type-18;PRSC Error: Failed to parse query '("abc","def") castable as xs:integer?'
 sequence-type-9;PRSC Error: Failed to parse query '(2) castable as xs:integer?'
 sequenceexpressionhc8;Expected results and parsedFragment children to match
-sequenceexpressionhc9;The result of E1 in a path expression E1/E2 should not evaluate to a sequence of nodes.
+sequenceexpressionhc9;Expected results and parsedFragment children to match
 sgml-queries-results-q1;PRSC Error: Failed to parse query ''
 sgml-queries-results-q10;PRSC Error: Failed to parse query ''
 sgml-queries-results-q2;PRSC Error: Failed to parse query ''
