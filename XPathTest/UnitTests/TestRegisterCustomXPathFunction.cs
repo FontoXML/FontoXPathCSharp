@@ -13,7 +13,7 @@ namespace XPathTest.UnitTests;
 
 public class TestRegisterCustomXPathFunction
 {
-    private static readonly XmlDocument XmlNodeEmptyContext;
+    private static readonly XmlDocument XmlNodeSimpleContext;
     private static readonly XmlNodeDomFacade XmlNodeDomFacade;
     private static readonly Options<XmlNode> XmlNodeOptions;
 
@@ -23,7 +23,8 @@ public class TestRegisterCustomXPathFunction
 
     static TestRegisterCustomXPathFunction()
     {
-        XmlNodeEmptyContext = new XmlDocument();
+        XmlNodeSimpleContext = new XmlDocument();
+        XmlNodeSimpleContext.LoadXml("<someElement someAttribute='someValue'/>");
         XmlNodeDomFacade = new XmlNodeDomFacade();
         XmlNodeOptions = new Options<XmlNode>(IdentityNamespaceResolver);
 
@@ -287,7 +288,7 @@ public class TestRegisterCustomXPathFunction
         Assert.True(
             Evaluate.EvaluateXPathToBoolean(
                 "test:custom-function1('test')",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -295,7 +296,7 @@ public class TestRegisterCustomXPathFunction
         Assert.False(
             Evaluate.EvaluateXPathToBoolean(
                 "test:custom-function1('bla')",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -303,7 +304,7 @@ public class TestRegisterCustomXPathFunction
         Assert.True(
             Evaluate.EvaluateXPathToBoolean(
                 "test:custom-function1(())",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -315,14 +316,14 @@ public class TestRegisterCustomXPathFunction
     {
         Assert.True(Evaluate.EvaluateXPathToBoolean(
             "test:custom-function2('test', true())",
-            XmlNodeEmptyContext,
+            XmlNodeSimpleContext,
             XmlNodeDomFacade,
             XmlNodeOptions
         ));
 
         Assert.False(Evaluate.EvaluateXPathToBoolean(
             "test:custom-function2('test', false())",
-            XmlNodeEmptyContext,
+            XmlNodeSimpleContext,
             XmlNodeDomFacade,
             XmlNodeOptions
         ));
@@ -335,7 +336,7 @@ public class TestRegisterCustomXPathFunction
             "test",
             Evaluate.EvaluateXPathToString(
                 "test:custom-function3('test')",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions)
         );
@@ -363,7 +364,7 @@ public class TestRegisterCustomXPathFunction
         Assert.True(
             Evaluate.EvaluateXPathToBoolean(
                 $"Q{{{namespaceUri}}}test()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 optionsWithCtx
             ),
@@ -401,7 +402,7 @@ public class TestRegisterCustomXPathFunction
         {
             Evaluate.EvaluateXPathToString(
                 "test:custom-function3(//@*)",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             );
@@ -421,7 +422,7 @@ public class TestRegisterCustomXPathFunction
             new[] { "abc-test", "123-test", "XYZ-test" },
             Evaluate.EvaluateXPathToStrings(
                 "test:custom-function4(('abc', '123', 'XYZ'))",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -431,7 +432,7 @@ public class TestRegisterCustomXPathFunction
             "abc-test",
             Evaluate.EvaluateXPathToString(
                 "test:custom-function4(('abc'))",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -441,7 +442,7 @@ public class TestRegisterCustomXPathFunction
             Array.Empty<string>(),
             Evaluate.EvaluateXPathToStrings(
                 "test:custom-function4(())",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -455,7 +456,7 @@ public class TestRegisterCustomXPathFunction
         Assert.Empty(
             Evaluate.EvaluateXPathToString(
                 "test:custom-function5('returnNull')",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -469,7 +470,7 @@ public class TestRegisterCustomXPathFunction
             "test",
             Evaluate.EvaluateXPathToString(
                 "test:custom-function5('abc')",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -483,7 +484,7 @@ public class TestRegisterCustomXPathFunction
             "nullIsPassed",
             Evaluate.EvaluateXPathToString(
                 "test:custom-function5($str)",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions,
                 new Dictionary<string, object?> { { "str", null } }
@@ -498,7 +499,7 @@ public class TestRegisterCustomXPathFunction
             "2018-06-22Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-date-function()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -508,7 +509,7 @@ public class TestRegisterCustomXPathFunction
             "2018-06-22Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-date-function-simple()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -523,7 +524,7 @@ public class TestRegisterCustomXPathFunction
             "10:25:30Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-time-function()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -533,7 +534,7 @@ public class TestRegisterCustomXPathFunction
             "10:25:30Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-time-function-simple()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -547,7 +548,7 @@ public class TestRegisterCustomXPathFunction
             "2018-06-22T10:25:30Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-datetime-function()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -557,7 +558,7 @@ public class TestRegisterCustomXPathFunction
             "2018-06-22T10:25:30Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-datetime-function-simple()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -571,7 +572,7 @@ public class TestRegisterCustomXPathFunction
             "2018-06Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-gYearMonth-function()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -581,7 +582,7 @@ public class TestRegisterCustomXPathFunction
             "2018-06Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-gYearMonth-function-simple()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -595,7 +596,7 @@ public class TestRegisterCustomXPathFunction
             "2018Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-gYear-function()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -605,7 +606,7 @@ public class TestRegisterCustomXPathFunction
             "2018Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-gYear-function-simple()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -619,7 +620,7 @@ public class TestRegisterCustomXPathFunction
             "--06-22Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-gMonthDay-function()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -629,7 +630,7 @@ public class TestRegisterCustomXPathFunction
             "--06-22Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-gMonthDay-function-simple()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -643,7 +644,7 @@ public class TestRegisterCustomXPathFunction
             "--06Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-gMonth-function()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -653,7 +654,7 @@ public class TestRegisterCustomXPathFunction
             "--06Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-gMonth-function-simple()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -667,7 +668,7 @@ public class TestRegisterCustomXPathFunction
             "---22Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-gDay-function()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -677,7 +678,7 @@ public class TestRegisterCustomXPathFunction
             "---22Z",
             Evaluate.EvaluateXPathToString(
                 "test:custom-gDay-function-simple()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             )
@@ -701,7 +702,7 @@ public class TestRegisterCustomXPathFunction
         Assert.True(
             Evaluate.EvaluateXPathToBoolean(
                 "test:custom-function-keeps-the-dom-facade()",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 outerDomFacade,
                 XmlNodeOptions
             )
@@ -799,7 +800,7 @@ public class TestRegisterCustomXPathFunction
         Assert.NotNull(
             Evaluate.EvaluateXPathToString(
                 "test:custom-date-function-param(xs:date('2019-08-29'))",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             ));
@@ -811,7 +812,7 @@ public class TestRegisterCustomXPathFunction
         Assert.NotNull(
             Evaluate.EvaluateXPathToString(
                 "test:custom-date-function-optional-param(xs:date('2019-08-29'))",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             ));
@@ -819,7 +820,7 @@ public class TestRegisterCustomXPathFunction
         Assert.Empty(
             Evaluate.EvaluateXPathToString(
                 "test:custom-date-function-optional-param(())",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             ));
@@ -831,7 +832,7 @@ public class TestRegisterCustomXPathFunction
         Assert.NotNull(
             Evaluate.EvaluateXPathToString(
                 "test:custom-date-function-zero-to-many-param((xs:date('2019-08-29'), xs:date('2019-08-31')))",
-                XmlNodeEmptyContext,
+                XmlNodeSimpleContext,
                 XmlNodeDomFacade,
                 XmlNodeOptions
             ));
@@ -862,4 +863,27 @@ public class TestRegisterCustomXPathFunction
     {
         public const bool ThisIsTheOuterOne = true;
     }
+
+
+    [Fact]
+    private void DebuggingNodeParameter()
+    {
+        RegisterCustomXPathFunction<XmlNode>.RegisterFunction<string, bool>(
+            new QName("woo", "wee"),
+            new []{"xs:string"},
+            "xs:boolean", 
+            (_, arg) => arg == "someValue"
+            );
+
+        Assert.True(
+            Evaluate.EvaluateXPathToBoolean(
+                "Q{wee}woo(./someElement/@someAttribute)",
+                XmlNodeSimpleContext,
+                XmlNodeDomFacade,
+                XmlNodeOptions
+            )
+        );
+    }
+    
+    
 }

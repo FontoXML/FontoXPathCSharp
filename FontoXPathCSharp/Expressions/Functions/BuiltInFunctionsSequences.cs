@@ -2,6 +2,7 @@ using FontoXPathCSharp.EvaluationUtils;
 using FontoXPathCSharp.Expressions.Operators.Compares;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Value;
+using FontoXPathCSharp.Value.InternalValues;
 using FontoXPathCSharp.Value.Types;
 using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
@@ -76,7 +77,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         var sequence = args[0];
         var startSequence = args[1];
         var lengthSequence = args[2];
-        return ISequence.ZipSingleton(new[] { startSequence, lengthSequence }, sequences =>
+        var res =  ISequence.ZipSingleton(new[] { startSequence, lengthSequence }, sequences =>
         {
             var startVal = sequences[0]!.GetAs<DoubleValue>().Value;
             var lengthVal = sequences[1];
@@ -95,10 +96,11 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             if (double.IsNaN(startVal)) return SequenceFactory.CreateEmpty();
             return SubSequence(
                 sequence,
-                (int)Math.Round(startVal),
-                lengthVal != null ? (int)Math.Round(lengthVal.GetAs<DoubleValue>().Value) : null
+                (long)Math.Round(startVal),
+                lengthVal != null ? (long)Math.Round(lengthVal.GetAs<DoubleValue>().Value) : null
             );
         });
+        return res;
     };
 
     private static readonly FunctionSignature<ISequence, TNode> FnUnordered = (_, _, _, args) => args[0];
@@ -176,14 +178,28 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         var sequence = args[0];
         if (sequence.IsEmpty()) return sequence;
 
-
+        
         // TODO: throw FORG0006 if the items contain both yearMonthDurations and dayTimeDurations
-        var items = CastUntypedItemsToDouble(sequence.GetAllValues());
+        var rawItems = sequence.GetAllValues();
+        
+        var items = CastUntypedItemsToDouble(rawItems);
         items = CommonTypeUtils.ConvertItemsToCommonType(items)!;
         if (items == null) throw new XPathException("FORG0006", "Incompatible types to be converted to a common type");
 
         if (!items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsNumeric)))
-            throw new XPathException("FORG0006", "Items passed to fn:avg are not all numeric.");
+        {
+            if (items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsDayTimeDuration)) ||
+                items.All(item => item.GetValueType().IsSubtypeOf(ValueType.XsYearMonthDuration)))
+            {
+                var durationType = items.First().GetValueType();
+                var res = items.Aggregate(
+                    new Duration(0, 0, durationType), 
+                    (sum, item) => sum + ((DurationValue)item).Value) / items.Length;
+                return SequenceFactory.CreateFromValue(AtomicValue.Create(res, durationType));
+            }
+
+            throw new XPathException("FORG0006", "Items passed to fn:avg are not all numeric or duration types are mixed.");
+        }
 
         var resultValue = items.Aggregate(0.0, (sum, item) =>
             sum + Convert.ToDouble(((AtomicValue)item).GetValue())) / items.Length;
@@ -631,7 +647,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 
         new(new[]
             {
-                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
+                new ParameterType(ValueType.Item, SequenceMultiplicity.ZeroOrMore)
             },
             FnCount,
             "count",
@@ -736,7 +752,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
             FnOneOrMore,
             "one-or-more",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.Item, SequenceMultiplicity.ZeroOrOne)
+            new SequenceType(ValueType.Item, SequenceMultiplicity.OneOrMore)
         ),
 
         new(new[]
@@ -819,20 +835,20 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
         )
     };
 
-    private static ISequence SubSequence(ISequence sequence, int start, int? length = null)
+    private static ISequence SubSequence(ISequence sequence, long start, long? length = null)
     {
         // XPath starts from 1
         var i = 1;
         var iterator = sequence.GetValue();
 
         var predictedLength = sequence.GetLength();
-        int? newSequenceLength = null;
+        long? newSequenceLength = null;
         var startIndex = Math.Max(start - 1, 0);
         if (predictedLength != -1)
         {
             var endIndex = length == null
                 ? predictedLength
-                : Math.Max(0, Math.Min(predictedLength, (int)length + (start - 1)));
+                : Math.Max(0, Math.Min(predictedLength, (long)length + (start - 1)));
             newSequenceLength = Math.Max(0, endIndex - startIndex);
         }
 
@@ -852,7 +868,7 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
 
                 return returnableVal;
             },
-            newSequenceLength
+            (int)newSequenceLength
         );
     }
 

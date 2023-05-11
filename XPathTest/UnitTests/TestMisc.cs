@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,6 +12,12 @@ namespace XPathTest.UnitTests;
 
 public class TestMisc
 {
+    private static string AtomicXml = @"<?xml version='1.0' encoding = 'UTF-8'?>
+<atomic:root xmlns:atomic=""http://www.w3.org/XQueryTest"">
+  <atomic:duration>P1Y2M3DT10H30M</atomic:duration>
+</atomic:root>";
+    
+    
     private static readonly XmlDocument XmlNodeEmptyContext;
 
     // private static readonly XmlDocument XmlSimpleDocument;
@@ -19,6 +26,9 @@ public class TestMisc
 
     private static readonly XmlDocument XmlNodeWorksMod;
     private static readonly XmlDocument XmlAtomicsFile;
+    private static readonly XmlDocument XmlAtomicsSimple;
+
+    private static readonly XmlDocument XmlConceptsFile;
     
     static TestMisc()
     {
@@ -26,14 +36,19 @@ public class TestMisc
         // XmlSimpleDocument = new XmlDocument();
         // XmlSimpleDocument.LoadXml("<p />");
         XmlNodeDomFacade = new XmlNodeDomFacade();
-        XmlNodeOptions = new Options<XmlNode>(_ => null);
+        XmlNodeOptions = new Options<XmlNode>(prefix => prefix == "atomic" ? "http://www.w3.org/XQueryTest" : null);
 
         XmlNodeWorksMod = new XmlDocument();
         XmlNodeWorksMod.LoadXml(TestFileSystem.ReadFile("qt3tests/docs/works-mod.xml"));
         
         XmlAtomicsFile = new XmlDocument();
         XmlAtomicsFile.LoadXml(TestFileSystem.ReadFile("qt3tests/docs/atomic.xml"));
-        
+
+        XmlConceptsFile = new XmlDocument();
+        XmlConceptsFile.LoadXml(TestFileSystem.ReadFile("qt3tests/fn/substring/concepts.xml"));
+
+        XmlAtomicsSimple = new XmlDocument();
+        XmlAtomicsSimple.LoadXml(AtomicXml);
     }
 
     [Fact]
@@ -184,14 +199,97 @@ public class TestMisc
         Assert.True(res == 90);
     }
 
-    [Fact(Skip = "This problem is moved to another issue.")]
+    [Fact]
     public void TestWeirdIntersect()
     {
-        // var selector = "(/atomic:root/atomic:duration/text()) intersect (/atomic:root/atomic:duration/text())";
-        var selector = "/atomic:root/atomic:duration/text()";
+        var selector = "(/atomic:root/atomic:duration/text()) intersect (/atomic:root/atomic:duration/text())";
+        // var selector = "/atomic:root/atomic:duration/text()";
         var res = Evaluate.EvaluateXPathToString(selector, XmlAtomicsFile, XmlNodeDomFacade, XmlNodeOptions);
 
         Assert.Equal("P1Y2M3DT10H30M",res);
+    }
+
+    [Fact]
+    public void TestPartialFunctionApplication()
+    {
+        var selector = "filter(('apple', 'pear', 'apricot', 'avocado', 'orange'),starts-with(?, 'a'))";
+        
+        var res = Evaluate.EvaluateXPathToStrings(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions).ToArray();
+         
+
+        Assert.Equal(new[] { "apple", "apricot", "avocado" }, res);
+    }
+    
+    [Fact]
+    public void TestTextTest()
+    {
+        var selector = "/atomic:root/atomic:duration/text()";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlAtomicsSimple, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("P1Y2M3DT10H30M",res);
+    }
+
+    [Fact]
+    public void TestPredicate()
+    {
+        var selector = "(1 to 10)[. div 2 = 0]";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("", res);
+    }
+    
+    [Fact]
+    public void TestPredicate2()
+    {
+        var selector = "10[. = 1]";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("", res);
+    }
+
+    [Fact]
+    public void TestPredicate3()
+    {
+        var selector = "bla[. = 1]";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("", res);
+    }
+    
+    [Fact]
+    public void TestPredicate4()
+    {
+        var selector = "10[. div 2 = 0]";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("", res);
+    }
+    
+    [Fact]
+    public void TestPredicate5()
+    {
+        var selector = "1[2]";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("", res);
+    }
+
+    [Fact]
+    public void ConcatTest()
+    {
+        var selector = "concat('#', fn:substring(./concepts/@id, string-length(./concepts/@id) - 18, 1), '#')";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlConceptsFile, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("##", res);
+    }
+    
+    [Fact]
+    public void DateTimeAvgTest()
+    {
+        var selector = "avg((xs:dayTimeDuration('P1D'), xs:dayTimeDuration('PT2H'))) instance of xs:dayTimeDuration";
+        var res = Evaluate.EvaluateXPathToBoolean(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.True(res);
+    }
+    
+    [Fact]
+    public void SubsequenceTest()
+    {
+        var selector = "subsequence(1 to 100, 99, 2147483648)";
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        Assert.Equal("99 100", res);
     }
 
     [Fact]

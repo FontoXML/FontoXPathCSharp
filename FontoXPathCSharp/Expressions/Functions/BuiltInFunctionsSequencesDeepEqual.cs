@@ -45,8 +45,8 @@ public static class BuiltInFunctionsSequencesDeepEqual<TNode> where TNode : notn
                         textValues1,
                         textValues2
                     );
-                    textValues1.Clear();
-                    textValues2.Clear();
+                    textValues1 = new List<AbstractValue>();
+                    textValues2 = new List<AbstractValue>();
 
                     if (textComparisonResult.Value != null && !textComparisonResult.Value.GetAs<BooleanValue>().Value)
                     {
