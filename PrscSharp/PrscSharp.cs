@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace PrscSharp;
 
@@ -122,7 +122,7 @@ public static class PrscSharp
                     lastError.Expected = lastError.Expected.Concat(resError.Expected).ToArray();
 
                 if (resError.Fatal)
-                    break;
+                    return res;
             }
 
             return lastError ?? new Err<T>(offset, Array.Empty<string>());
@@ -191,12 +191,29 @@ public static class PrscSharp
         return Then(parser, after, (x, _) => x);
     }
 
-    public static ParseFunc<T> Delimited<T, TBefore, TAfter>(
-        ParseFunc<TBefore> before,
-        ParseFunc<T> parser,
-        ParseFunc<TAfter> after)
+    public static ParseFunc<T> Cut<T>(ParseFunc<T> parser)
     {
-        return Preceded(before, Followed(parser, after));
+        return (input, offset) =>
+        {
+            var res = parser(input, offset);
+            return res switch
+            {
+                Err<T> err => new Err<T>(err.Offset, err.Expected, true),
+                Ok<T> ok => ok,
+                _ => throw new ArgumentOutOfRangeException(nameof(res))
+            };
+
+        };
+    }
+
+    public static ParseFunc<T> Delimited<T, TBefore, TAfter>(
+        ParseFunc<TBefore> open,
+        ParseFunc<T> inner,
+        ParseFunc<TAfter> close,
+        bool cutAfterOpen = false)
+    {
+        var rest = cutAfterOpen ? Cut(Followed(inner, close)) : Followed(inner, close);
+        return Preceded(open, rest);
     }
 
     public static ParseFunc<T> Surrounded<T, TAround>(

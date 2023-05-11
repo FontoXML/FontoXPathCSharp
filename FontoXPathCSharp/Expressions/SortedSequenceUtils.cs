@@ -9,7 +9,7 @@ namespace FontoXPathCSharp.Expressions;
 
 public static class SortedSequenceUtils<TNode> where TNode : notnull
 {
-    private static bool AreNodesEqual(NodeValue<TNode> node1, NodeValue<TNode> node2)
+    public static bool AreNodesEqual(NodeValue<TNode> node1, NodeValue<TNode> node2)
     {
         return node1 == node2 || node1.Value.Equals(node2.Value);
     }

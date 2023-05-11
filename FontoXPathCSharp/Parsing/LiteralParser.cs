@@ -101,6 +101,8 @@ public class LiteralParser
             "typeswitch"
         }.Select(Token).ToArray());
 
+    public readonly ParseFunc<Ast> ArgumentPlaceholder = Alias(new Ast(AstNodeName.ArgumentPlaceholder), "?");
+
     public readonly ParseFunc<string> ReverseAxis =
         Map(Or(
             Token("parent::"),

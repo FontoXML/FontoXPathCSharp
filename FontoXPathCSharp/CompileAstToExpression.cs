@@ -263,18 +263,19 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
     private static AbstractExpression<TNode> CompileFunctionCallExpression(Ast ast, CompilationOptions options)
     {
         var functionName = ast.GetFirstChild(AstNodeName.FunctionName);
-        if (functionName == null)
-            throw new InvalidDataException(ast.Name.ToString());
+        var functionArguments = ast.GetFirstChild(AstNodeName.Arguments)?.GetChildren(AstNodeName.All);
 
-        var args = ast.GetFirstChild(AstNodeName.Arguments)?.GetChildren(AstNodeName.All);
-        if (args == null)
-            throw new InvalidDataException($"Missing args for {ast}");
-
-        args = args.ToList();
-        var argExpressions = args.Select(arg => CompileAst(arg, options)).ToArray();
-
-        return new FunctionCall<TNode>(new NamedFunctionRef<TNode>(functionName.GetQName(), args.Count()),
-            argExpressions);
+        return new FunctionCall<TNode>(
+            new NamedFunctionRef<TNode>(
+                functionName.GetQName(),
+                functionArguments.Count()
+            ),
+            functionArguments.Select(arg =>
+                arg.Name == AstNodeName.ArgumentPlaceholder
+                    ? null
+                    : CompileAst(arg, options)
+            ).ToArray()
+        );
     }
 
     private static AbstractExpression<TNode> CompileIntegerConstantExpression(Ast ast)
@@ -344,6 +345,9 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.LeOp => new ValueCompare<TNode>(CompareType.LessEquals, firstExpression, secondExpression),
             AstNodeName.GtOp => new ValueCompare<TNode>(CompareType.GreaterThan, firstExpression, secondExpression),
             AstNodeName.GeOp => new ValueCompare<TNode>(CompareType.GreaterEquals, firstExpression, secondExpression),
+            AstNodeName.IsOp => new NodeCompare<TNode>(NodeCompareType.IsOp, firstExpression, secondExpression),
+            AstNodeName.NodeBeforeOp => new NodeCompare<TNode>(NodeCompareType.NodeBeforeOp, firstExpression, secondExpression),
+            AstNodeName.NodeAfterOp => new NodeCompare<TNode>(NodeCompareType.NodeAfterOp, firstExpression, secondExpression),
             _ => throw new Exception("Unreachable")
         };
     }
@@ -368,6 +372,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.DoubleConstantExpr => CompileDoubleConstantExpr(ast),
             AstNodeName.VarRef => CompileVarRef(ast),
             AstNodeName.FlworExpr => CompileFlworExpr(ast, options),
+            AstNodeName.QuantifiedExpr => CompileQuantifiedExpr(ast, options),
             AstNodeName.StringConcatenateOp => CompileStringConcatenateExpr(ast, options),
             AstNodeName.EqualOp
                 or AstNodeName.NotEqualOp
@@ -381,6 +386,9 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
                 or AstNodeName.LeOp
                 or AstNodeName.GtOp
                 or AstNodeName.GeOp => CompileCompareExpr(ast, options),
+            AstNodeName.IsOp 
+                or AstNodeName.NodeBeforeOp 
+                or AstNodeName.NodeAfterOp => CompileCompareExpr(ast, options),
             AstNodeName.AndOp => CompileAndOp(ast, options),
             AstNodeName.OrOp => CompileOrOp(ast, options),
             AstNodeName.SequenceExpr => CompileSequenceExpression(ast, options),
@@ -399,6 +407,26 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
             AstNodeName.ExceptOp or AstNodeName.IntersectOp => CompileIntersectExcept(ast, options),
             _ => CompileTestExpression(ast)
         };
+    }
+    
+    private static AbstractExpression<TNode> CompileQuantifiedExpr(Ast ast, CompilationOptions options)
+    {
+        var quantifier = ast.GetFirstChild(AstNodeName.Quantifier).TextContent;
+        var predicateExpr = ast.FollowPath(AstNodeName.PredicateExpr, AstNodeName.All);
+        var quantifierInClauses = ast.GetChildren(AstNodeName.QuantifiedExprInClause)
+            .Select(inClause =>
+            {
+                var name = inClause.FollowPath(AstNodeName.TypedVariableBinding, AstNodeName.VarName)?.GetQName();
+                var sourceExpr = inClause.FollowPath(AstNodeName.SourceExpr, AstNodeName.All);
+                return new InClause<TNode>(name, CompileAst(sourceExpr, DisallowUpdating(options)));
+            })
+            .ToArray();
+
+        return new QuantifiedExpression<TNode>(
+            quantifier,
+            quantifierInClauses,
+            CompileAst(predicateExpr, DisallowUpdating(options))
+        );
     }
 
     private static AbstractExpression<TNode> CompileNamedFunctionRef(Ast ast, CompilationOptions options)

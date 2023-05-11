@@ -8,6 +8,10 @@ public class ParameterType : SequenceType
     {
         IsEllipsis = false;
     }
+    
+    public ParameterType(SequenceType sequenceType) : base(sequenceType.ValueType, sequenceType.Multiplicity)
+    {
+    }
 
     private ParameterType() : base(ValueType.None, SequenceMultiplicity.ZeroOrMore)
     {

@@ -22,7 +22,7 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
             environmentNode,
             domFacade,
             options);
-
+        
         var variables = Evaluate.EvaluateXPathToNodes(
                 "source[@role!='.']",
                 environmentNode,
@@ -35,21 +35,22 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
                     variable,
                     domFacade,
                     options)!;
+
+                var testFile = nodeUtils.StringToXmlDocument(TestingUtils.LoadQt3TestFileToString(
+                    baseUrl != null ? Path.Combine(baseUrl, filePath) : filePath
+                ) ?? "");
                 return new KeyValuePair<string, object>(
                     Evaluate.EvaluateXPathToString(
                         "@role",
                         variable,
                         domFacade,
-                        options)?[1..] ?? string.Empty,
-                    TestingUtils.LoadQt3TestFileToString(
-                        baseUrl != null ? Path.Combine(baseUrl, filePath) : filePath
-                    ) ?? string.Empty);
+                        options)[1..] ?? string.Empty,
+                     testFile);
             })
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => x.Value);
 
-
-        // Console.WriteLine($"FILE NAME:{fileName} BASE URL {baseUrl}");
+        
         var contextNode = !string.IsNullOrEmpty(fileName)
             ? nodeUtils.LoadFileToXmlNode(baseUrl != null ? Path.Combine(baseUrl, fileName) : fileName)
             : nodeUtils.CreateDocument();
@@ -67,10 +68,17 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
         //     }
         // });
 
-        // TODO: Integrate namespace resolver here.
+        var namespacesEntries = Evaluate.EvaluateXPathToNodes("./namespace", environmentNode, domFacade, options);
+        var namespaces = new Dictionary<string, string>();
+        foreach (var ns in namespacesEntries)
+        {
+            var prefix = Evaluate.EvaluateXPathToString("@prefix", ns, domFacade, options);
+            var uri = Evaluate.EvaluateXPathToString("@uri", ns, domFacade, options);
+            namespaces.Add(prefix, uri);
+        }
 
         ContextNode = contextNode;
-        NamespaceResolver = _ => null;
+        NamespaceResolver = prefix => namespaces.ContainsKey(prefix) ? namespaces[prefix] : null;
         Variables = variables;
     }
 

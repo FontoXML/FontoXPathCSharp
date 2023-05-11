@@ -236,9 +236,12 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
                 var startItemIndex = Convert.ToInt32(startItem?.GetAs<AtomicValue>().GetValue());
                 var lengthIndex = Convert.ToInt32(lengthItem?.GetAs<AtomicValue>().GetValue());
 
+                var start = Math.Max(startItemIndex - 1, 0);
+                var end = startItemIndex + lengthIndex - 1;
+
                 var slicedString = length != null
-                    ? strValue[Math.Max(startItemIndex - 1, 0)..(startItemIndex + lengthIndex - 1)]
-                    : strValue[Math.Max(startItemIndex - 1, 0)..];
+                    ? end >= 0 ? strValue[start..end] : strValue[start..^-end]
+                    : strValue[start..];
 
                 return IteratorResult<AbstractValue>.Ready(AtomicValue.Create(
                     slicedString,
@@ -424,8 +427,8 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
                 AtomicValue.Create(
                     Regex.Replace(
                         strValue,
-                        @"([\u00A0-\uD7FF\uE000-\uFDCF\uFDF0-\uFFEF ""<>{}|\\^`/\n\u007f\u0080-\u009f]|[\uD800-\uDBFF][\uDC00-\uDFFF])",
-                        match => HttpUtility.UrlEncode(match.Value)
+                        @"([\u00A0-\uD7FF\uE000-\uFDCF\uFDF0-\uFFEF ""<>{}|\\^`\n\u007f\u0080-\u009f]|[\uD800-\uDBFF][\uDC00-\uDFFF])",
+                        match => Uri.EscapeDataString(match.Value)
                     ),
                     ValueType.XsString
                 )
@@ -726,7 +729,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
 
         new(new[]
             {
-                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrOne),
+                new ParameterType(ValueType.XsAnyAtomicType, SequenceMultiplicity.ZeroOrMore),
                 new ParameterType(ValueType.XsString, SequenceMultiplicity.ExactlyOne)
             },
             FnStringJoin,
@@ -749,7 +752,7 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
 
         new(new[]
             {
-                new ParameterType(ValueType.Node, SequenceMultiplicity.ZeroOrOne)
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
             },
             FnStringLength,
             "string-length",
@@ -811,12 +814,12 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
 
         new(new[]
             {
-                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrMore)
+                new ParameterType(ValueType.XsString, SequenceMultiplicity.ZeroOrOne)
             },
             FnStringToCodepoints,
             "string-to-codepoints",
             BuiltInUri.FunctionsNamespaceUri.GetBuiltinNamespaceUri(),
-            new SequenceType(ValueType.XsString, SequenceMultiplicity.ZeroOrMore)
+            new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ZeroOrMore)
         ),
 
         new(new[]
