@@ -22,7 +22,7 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
             environmentNode,
             domFacade,
             options);
-
+        
         var variables = Evaluate.EvaluateXPathToNodes(
                 "source[@role!='.']",
                 environmentNode,
@@ -35,15 +35,17 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
                     variable,
                     domFacade,
                     options)!;
+
+                var testFile = nodeUtils.StringToXmlDocument(TestingUtils.LoadQt3TestFileToString(
+                    baseUrl != null ? Path.Combine(baseUrl, filePath) : filePath
+                ) ?? "");
                 return new KeyValuePair<string, object>(
                     Evaluate.EvaluateXPathToString(
                         "@role",
                         variable,
                         domFacade,
-                        options)?[1..] ?? string.Empty,
-                    TestingUtils.LoadQt3TestFileToString(
-                        baseUrl != null ? Path.Combine(baseUrl, filePath) : filePath
-                    ) ?? string.Empty);
+                        options)[1..] ?? string.Empty,
+                     testFile);
             })
             .DistinctBy(x => x.Key)
             .ToDictionary(x => x.Key, x => x.Value);
@@ -77,7 +79,6 @@ public record Qt3TestEnvironment<TNode> where TNode : notnull
 
         ContextNode = contextNode;
         NamespaceResolver = prefix => namespaces.ContainsKey(prefix) ? namespaces[prefix] : null;
-        // NamespaceResolver = prefix => null;
         Variables = variables;
     }
 

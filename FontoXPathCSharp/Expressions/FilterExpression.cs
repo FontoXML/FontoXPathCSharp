@@ -86,7 +86,7 @@ public class FilterExpression<TNode> : AbstractExpression<TNode> where TNode : n
 
                 if (iteratorItem.IsDone) return iteratorItem;
 
-                var newContext = dynamicContext?.ScopeWithFocus(i, iteratorItem.Value, new EmptySequence());
+                var newContext = dynamicContext?.ScopeWithFocus(i, iteratorItem.Value, valuesToFilter);
                 filterResultSequence ??= _filterExpression.EvaluateMaybeStatically(
                     newContext, executionParameters);
 
