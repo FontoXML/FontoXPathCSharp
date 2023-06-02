@@ -10,8 +10,7 @@ public class KindTest<TNode> : AbstractTestExpression<TNode> where TNode : notnu
 {
     private readonly NodeType _nodeType;
 
-    public KindTest(NodeType nodeType) : base(
-        new Specificity(SpecificityKind.NodeType, 1))
+    public KindTest(NodeType nodeType) : base(new Specificity(SpecificityKind.NodeType, 1))
     {
         _nodeType = nodeType;
     }

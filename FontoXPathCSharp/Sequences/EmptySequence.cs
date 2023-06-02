@@ -52,17 +52,6 @@ internal class EmptySequence : ISequence
         return allvalues(Array.Empty<AbstractValue>());
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public IEnumerator<AbstractValue> GetEnumerator()
-    {
-        // TODO: I think this is correct, but not entirely sure?
-        yield break;
-    }
-
     public bool GetEffectiveBooleanValue()
     {
         return false;

@@ -279,7 +279,7 @@ public class Evaluate
 
         variablesMap ??= new Dictionary<string, object>();
 
-        var variables = ParameterUtils.ConvertToAbstractValueVariables(variablesMap);
+        var variables = ParameterUtils.ConvertToAbstractValueVariables<TNode>(variablesMap, domFacade);
 
         DynamicContext? dynamicContext;
         ExecutionParameters<TNode> executionParameters;

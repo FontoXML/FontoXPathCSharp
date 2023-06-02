@@ -14,16 +14,6 @@ internal class ArrayBackedSequence : ISequence
         _values = values;
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public IEnumerator<AbstractValue> GetEnumerator()
-    {
-        return ((IEnumerable<AbstractValue>)_values).GetEnumerator();
-    }
-
     public bool IsEmpty()
     {
         return false;

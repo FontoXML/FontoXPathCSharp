@@ -32,12 +32,12 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TReturn : ISequ
     {
         Value = value;
         Arity = arity;
-        ArgumentTypes = ExpandParameterTypeToArity(argumentTypes, arity);
-        IsUpdating = isUpdating;
         Name = localName;
+        IsUpdating = isUpdating;
         _namespaceUri = namespaceUri;
         IsAnonymous = isAnonymous;
         ReturnType = returnType;
+        ArgumentTypes = ExpandParameterTypeToArity(argumentTypes, arity);
     }
 
     public FunctionSignature<TReturn, TNode> Value { get; set; }
@@ -50,17 +50,14 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TReturn : ISequ
 
     public bool IsAnonymous { get; }
 
-    private static ParameterType[] ExpandParameterTypeToArity(ParameterType[] argumentTypes, int arity)
+    private ParameterType[] ExpandParameterTypeToArity(ParameterType[] argumentTypes, int arity)
     {
-        var indexOfRest = -1;
-        for (var i = 0; i < argumentTypes.Length; i++)
-            if (argumentTypes[i] == ParameterType.Ellipsis)
-                indexOfRest = i;
+        var indexOfRest = Array.FindLastIndex(argumentTypes, a => a.IsEllipsis);
 
         if (indexOfRest > -1)
         {
             var replacePart = Enumerable.Repeat(argumentTypes[indexOfRest - 1], arity - (argumentTypes.Length - 1));
-            return argumentTypes.Skip(indexOfRest).Concat(replacePart).ToArray();
+            return argumentTypes[..indexOfRest].Concat(replacePart).ToArray();
         }
 
         return argumentTypes;

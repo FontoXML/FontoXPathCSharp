@@ -1,27 +1,20 @@
 using System.Collections;
 using FontoXPathCSharp.Value;
+using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Sequences;
 
 internal class SingletonSequence : ISequence
 {
-    private readonly AbstractValue[] _onlyValue;
     private readonly Iterator<AbstractValue> _value;
+    private readonly AbstractValue _onlyValue;
+    private bool? _effectiveBooleanValue;
 
     public SingletonSequence(AbstractValue onlyValue)
     {
-        _onlyValue = new[] { onlyValue };
         _value = IteratorUtils.SingleValueIterator(onlyValue);
-    }
-
-    public IEnumerator<AbstractValue> GetEnumerator()
-    {
-        return _onlyValue.ToList().GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
+        _onlyValue = onlyValue;
+        _effectiveBooleanValue = null;
     }
 
     public bool IsEmpty()
@@ -36,12 +29,12 @@ internal class SingletonSequence : ISequence
 
     public AbstractValue First()
     {
-        return _onlyValue[0];
+        return _onlyValue;
     }
 
     public AbstractValue[] GetAllValues()
     {
-        return _onlyValue;
+        return new[] { _onlyValue };
     }
 
     public int GetLength()
@@ -56,12 +49,12 @@ internal class SingletonSequence : ISequence
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
     {
-        return callback(_onlyValue[0], 0, this) ? this : SequenceFactory.CreateEmpty();
+        return callback(_onlyValue, 0, this) ? this : SequenceFactory.CreateEmpty();
     }
 
     public ISequence Map(Func<AbstractValue, int, ISequence, AbstractValue> callback)
     {
-        return SequenceFactory.CreateFromValue(callback(_onlyValue[0], 0, this));
+        return SequenceFactory.CreateFromValue(callback(_onlyValue, 0, this));
     }
 
     public ISequence MapAll(Func<AbstractValue[], ISequence> callback, IterationHint hint)
@@ -71,6 +64,7 @@ internal class SingletonSequence : ISequence
 
     public bool GetEffectiveBooleanValue()
     {
-        return _onlyValue[0].GetEffectiveBooleanValue();
+        _effectiveBooleanValue ??= _onlyValue.GetEffectiveBooleanValue();
+        return _effectiveBooleanValue.Value;
     }
 }

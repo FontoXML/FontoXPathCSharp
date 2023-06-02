@@ -156,8 +156,13 @@ public enum AstNodeName
     FunctionTest,
     AnyMapTest,
     AnyArrayTest,
+    SimpleMapExpr,
     NamespaceNodeTest,
-    SimpleMapExpr
+    QuantifiedExpr,
+    Quantifier,
+    PredicateExpr,
+    QuantifiedExprInClause,
+    SourceExpr
 }
 
 public static class AstNodeUtils

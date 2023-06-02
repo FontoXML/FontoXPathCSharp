@@ -34,8 +34,8 @@ public class EnvironmentsByNameCache<TNode> : ResourceCache<string, Qt3TestEnvir
             new Dictionary<string, Qt3TestEnvironment<TNode>>(),
             (envByName, environmentNode) =>
             {
-                envByName[Evaluate.EvaluateXPathToString("@name", environmentNode, domFacade, catalogOptions)!]
-                    = new Qt3TestEnvironment<TNode>("", environmentNode, domFacade, nodeUtils, catalogOptions);
+                var envName = Evaluate.EvaluateXPathToString("@name", environmentNode, domFacade, catalogOptions);
+                envByName[envName] = new Qt3TestEnvironment<TNode>("", environmentNode, domFacade, nodeUtils, catalogOptions);
                 return envByName;
             }
         );

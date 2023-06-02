@@ -77,7 +77,7 @@ public class OrderByExpression<TNode> : FlworExpression<TNode> where TNode : not
                         );
 
                     // Switch to values instead of sequences as we now know we're dealing with singletons only.
-                    values = atomizedSequences.Select(seq => seq.FirstOrDefault()).ToList();
+                    values = atomizedSequences.Select(seq => seq.First()).ToList();
 
                     // Casting values
                     // If the value of an order spec has the dynamic type xs:untypedAtomic, it is cast to the type xs:string.

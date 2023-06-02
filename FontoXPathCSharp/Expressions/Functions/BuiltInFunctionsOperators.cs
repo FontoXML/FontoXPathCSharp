@@ -36,7 +36,7 @@ public static class BuiltInFunctionsOperators<TNode> where TNode : notnull
                 new ParameterType(ValueType.XsInteger, SequenceMultiplicity.ZeroOrOne)
             },
             FnOpTo, "to", "http://fontoxpath/operators",
-            new SequenceType(ValueType.Function, SequenceMultiplicity.ZeroOrMore)
+            new SequenceType(ValueType.XsInteger, SequenceMultiplicity.ZeroOrMore)
         )
     };
 }

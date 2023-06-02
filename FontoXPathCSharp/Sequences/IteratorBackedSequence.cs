@@ -42,21 +42,6 @@ public class IteratorBackedSequence : ISequence
         };
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public IEnumerator<AbstractValue> GetEnumerator()
-    {
-        while (true)
-        {
-            var value = _value(IterationHint.None);
-            if (value.IsDone) break;
-            yield return value.Value!;
-        }
-    }
-
     public bool IsEmpty()
     {
         if (_length == 0) return true;

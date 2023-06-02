@@ -77,7 +77,7 @@ public static class Atomize
                 if (domfacade.IsComment(node) || domfacade.IsProcessingInstruction(node))
                     return;
 
-                if (domfacade.IsText(node))
+                if (domfacade.IsText(node) || domfacade.IsCharacterData(node))
                 {
                     allTexts.Add(domfacade.GetData(node));
                     return;

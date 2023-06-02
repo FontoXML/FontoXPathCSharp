@@ -2,7 +2,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
-public interface ISequence : IEnumerable<AbstractValue>
+public interface ISequence
 {
     delegate ISequence CallbackType(IReadOnlyList<AbstractValue?> values);
 

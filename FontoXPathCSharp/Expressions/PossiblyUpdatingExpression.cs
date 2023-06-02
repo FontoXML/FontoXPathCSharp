@@ -6,12 +6,14 @@ public abstract class PossiblyUpdatingExpression<TNode> : UpdatingExpression<TNo
 {
     public delegate ISequence SequenceCallback(DynamicContext context);
 
-    protected PossiblyUpdatingExpression(Specificity specificity, AbstractExpression<TNode>[] childExpressions,
+    protected PossiblyUpdatingExpression(
+        Specificity specificity, 
+        AbstractExpression<TNode>?[] childExpressions,
         OptimizationOptions optimizationOptions)
         : base(specificity, childExpressions, optimizationOptions)
     {
         IsUpdating = childExpressions.Any(
-            childExpression => childExpression.IsUpdating
+            childExpression => childExpression?.IsUpdating ?? false
         );
     }
 
@@ -24,9 +26,20 @@ public abstract class PossiblyUpdatingExpression<TNode> : UpdatingExpression<TNo
                 expr => innerDynamicContext =>
                     expr.Evaluate(innerDynamicContext, executionParameters)).ToArray());
     }
+    
+    // TODO: EvaluateWithUpdateList
 
     public abstract ISequence PerformFunctionalEvaluation(DynamicContext? dynamicContext,
         ExecutionParameters<TNode> executionParameters, SequenceCallback[] sequenceCallbacks);
 
-    // TODO: this.DetermineUpdatingness();
+    public override void PerformStaticEvaluation(StaticContext<TNode> staticContext)
+    {
+        base.PerformStaticEvaluation(staticContext);
+        DetermineUpdatingness();
+    }
+
+    private void DetermineUpdatingness()
+    {
+        if (ChildExpressions.Any(expr => expr.IsUpdating)) IsUpdating = true;
+    }
 }
