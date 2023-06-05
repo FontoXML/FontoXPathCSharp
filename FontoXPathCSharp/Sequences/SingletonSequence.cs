@@ -1,13 +1,11 @@
-using System.Collections;
 using FontoXPathCSharp.Value;
-using ValueType = FontoXPathCSharp.Value.Types.ValueType;
 
 namespace FontoXPathCSharp.Sequences;
 
 internal class SingletonSequence : ISequence
 {
-    private readonly Iterator<AbstractValue> _value;
     private readonly AbstractValue _onlyValue;
+    private readonly Iterator<AbstractValue> _value;
     private bool? _effectiveBooleanValue;
 
     public SingletonSequence(AbstractValue onlyValue)

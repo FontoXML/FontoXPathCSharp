@@ -107,7 +107,7 @@ public interface ISequence
                     if (i < savedValues.Count) return savedValues[i++];
                     var val = backingIterator(IterationHint.None);
                     if (val.IsDone) return val;
-
+                    
                     if (i < savedValues.Count)
                     {
                         savedValues[i++] = val;
@@ -117,7 +117,7 @@ public interface ISequence
                         savedValues.Add(val);
                         i++;
                     }
-
+                    
                     return val;
                 }
             );

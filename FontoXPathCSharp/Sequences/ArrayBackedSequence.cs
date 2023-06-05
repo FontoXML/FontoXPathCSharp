@@ -8,10 +8,12 @@ namespace FontoXPathCSharp.Sequences;
 internal class ArrayBackedSequence : ISequence
 {
     private readonly AbstractValue[] _values;
+    private readonly Iterator<AbstractValue> _value;
 
     public ArrayBackedSequence(AbstractValue[] values)
     {
         _values = values;
+        _value = IteratorUtils.ArrayIterator(_values);
     }
 
     public bool IsEmpty()
@@ -41,7 +43,7 @@ internal class ArrayBackedSequence : ISequence
 
     public Iterator<AbstractValue> GetValue()
     {
-        return IteratorUtils.ArrayIterator(_values);
+        return _value;
     }
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)

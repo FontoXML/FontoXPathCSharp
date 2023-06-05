@@ -68,7 +68,7 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TReturn : ISequ
         var fn = Value;
 
         var argumentSequenceCreators =
-            appliedArguments.Select(arg => arg == null ? null : ISequence.CreateDoublyIterableSequence(arg));
+            appliedArguments.Select(arg => arg == null ? null : ISequence.CreateDoublyIterableSequence(arg)).ToList();
 
         FunctionSignature<ISequence, TNode> curriedFunction =
             (dynamicContext, executionParameters, staticContext, sequences) =>

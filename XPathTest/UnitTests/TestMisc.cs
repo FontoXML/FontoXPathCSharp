@@ -214,7 +214,7 @@ public class TestMisc
         Assert.Equal("P1Y2M3DT10H30M",res);
     }
 
-    [Fact(Skip = "Something is broken about this argument placeholder")]
+    [Fact]
     public void TestPartialFunctionApplication()
     {
         var selector = "filter(('apple', 'pear', 'apricot', 'avocado', 'orange'),starts-with(?, 'a'))";
