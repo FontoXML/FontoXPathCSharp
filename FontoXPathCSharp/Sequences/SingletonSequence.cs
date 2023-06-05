@@ -1,4 +1,3 @@
-using System.Collections;
 using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
@@ -6,20 +5,14 @@ namespace FontoXPathCSharp.Sequences;
 internal class SingletonSequence : ISequence
 {
     private readonly AbstractValue _onlyValue;
+    private readonly Iterator<AbstractValue> _value;
+    private bool? _effectiveBooleanValue;
 
     public SingletonSequence(AbstractValue onlyValue)
     {
+        _value = IteratorUtils.SingleValueIterator(onlyValue);
         _onlyValue = onlyValue;
-    }
-
-    public IEnumerator<AbstractValue> GetEnumerator()
-    {
-        return new[] { _onlyValue }.ToList().GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
+        _effectiveBooleanValue = null;
     }
 
     public bool IsEmpty()
@@ -49,7 +42,7 @@ internal class SingletonSequence : ISequence
 
     public Iterator<AbstractValue> GetValue()
     {
-        return IteratorUtils.SingleValueIterator(_onlyValue);
+        return _value;
     }
 
     public ISequence Filter(Func<AbstractValue, int, ISequence, bool> callback)
@@ -69,6 +62,7 @@ internal class SingletonSequence : ISequence
 
     public bool GetEffectiveBooleanValue()
     {
-        return _onlyValue.GetEffectiveBooleanValue();
+        _effectiveBooleanValue ??= _onlyValue.GetEffectiveBooleanValue();
+        return _effectiveBooleanValue.Value;
     }
 }

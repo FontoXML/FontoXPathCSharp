@@ -110,6 +110,7 @@ public class XPathParser
     private readonly ParseFunc<Ast> SchemaAttributeTest;
     private readonly ParseFunc<Ast> SchemaElementTest;
     private readonly ParseFunc<Ast[]> SequenceType;
+    private readonly ParseFunc<Ast> SimpleMapExpr;
     private readonly ParseFunc<Ast> StepExprWithForcedStep;
     private readonly ParseFunc<Ast> StepExprWithoutStep;
     private readonly ParseFunc<Ast> StringConcatExpr;
@@ -905,11 +906,39 @@ public class XPathParser
             Or(RelativePathExpr, AbsoluteLocationPath),
             pathExprCache
         );
+        
+        SimpleMapExpr = WrapInStackTrace(
+            BinaryOperator(PathExpr, Alias(AstNodeName.SimpleMapExpr, "!"), (lhs, rhs) =>
+                rhs.Length == 0
+                    ? lhs
+                    : new Ast(AstNodeName.SimpleMapExpr,
+                        lhs.Name == AstNodeName.PathExpr
+                            ? lhs
+                            : new Ast(AstNodeName.PathExpr,
+                                new Ast(AstNodeName.StepExpr,
+                                    new Ast(AstNodeName.FilterExpr, ParsingUtils.WrapInSequenceExprIfNeeded(lhs))
+                                )
+                            )
+                    ).AddChildren(
+                        rhs.Select(value =>
+                        {
+                            var item = value.Item2;
+                            return item.Name == AstNodeName.PathExpr
+                                ? item
+                                : new Ast(AstNodeName.PathExpr,
+                                    new Ast(AstNodeName.StepExpr,
+                                        new Ast(AstNodeName.FilterExpr, ParsingUtils.WrapInSequenceExprIfNeeded(item))
+                                    )
+                                );
+                        })
+                    )
+            )
+        );
 
         ValueExpr = Or(
             // TODO: ValidateExpr(),
             // TODO: ExtensionExpr(),
-            // TODO: SimpleMapExpr(),
+            SimpleMapExpr,
             PathExpr
         );
 

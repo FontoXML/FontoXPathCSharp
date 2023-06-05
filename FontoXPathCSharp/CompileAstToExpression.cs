@@ -401,6 +401,7 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
                 or AstNodeName.ModOp => CompileBinaryOperator(ast, options),
             AstNodeName.UnaryPlusOp or AstNodeName.UnaryMinusOp => CompileUnaryOperator(ast, options),
             AstNodeName.CastExpr => CastAs(ast, options),
+            AstNodeName.SimpleMapExpr => CompileSimpleMap(ast, options),
             AstNodeName.IfThenElseExpr => CompileIfThenElseExpr(ast, options),
             AstNodeName.RangeSequenceExpr => CompileRangeSequenceExpr(ast, options),
             AstNodeName.InstanceOfExpr => CompileInstanceOfExpr(ast, options),
@@ -434,6 +435,16 @@ public static class CompileAstToExpression<TNode> where TNode : notnull
         var functionName = ast.GetFirstChild(AstNodeName.FunctionName);
         var arity = ast.FollowPath(AstNodeName.IntegerConstantExpr, AstNodeName.Value)?.TextContent;
         return new NamedFunctionRef<TNode>(functionName.GetQName(), Convert.ToInt32(arity));
+    }
+
+    private static AbstractExpression<TNode> CompileSimpleMap(Ast ast, CompilationOptions options)
+    {
+        return ast.GetChildren(AstNodeName.All).Reduce<Ast, AbstractExpression<TNode>>(null, (lhs, rhs, _) => {
+            if (lhs == null) {
+                return CompileAst(rhs, DisallowUpdating(options));
+            }
+            return new SimpleMapOperator<TNode>(lhs, CompileAst(rhs, DisallowUpdating(options)));
+        });
     }
 
     private static AbstractExpression<TNode> CompileIntersectExcept(Ast ast, CompilationOptions options)

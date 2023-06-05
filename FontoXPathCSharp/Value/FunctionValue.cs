@@ -32,12 +32,12 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TReturn : ISequ
     {
         Value = value;
         Arity = arity;
-        ArgumentTypes = ExpandParameterTypeToArity(argumentTypes, arity);
-        IsUpdating = isUpdating;
         Name = localName;
+        IsUpdating = isUpdating;
         _namespaceUri = namespaceUri;
         IsAnonymous = isAnonymous;
         ReturnType = returnType;
+        ArgumentTypes = ExpandParameterTypeToArity(argumentTypes, arity);
     }
 
     public FunctionSignature<TReturn, TNode> Value { get; set; }
@@ -52,10 +52,7 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TReturn : ISequ
 
     private ParameterType[] ExpandParameterTypeToArity(ParameterType[] argumentTypes, int arity)
     {
-        var indexOfRest = -1;
-        for (var i = 0; i < argumentTypes.Length; i++)
-            if (argumentTypes[i].IsEllipsis)
-                indexOfRest = i;
+        var indexOfRest = Array.FindLastIndex(argumentTypes, a => a.IsEllipsis);
 
         if (indexOfRest > -1)
         {
@@ -71,7 +68,7 @@ public class FunctionValue<TReturn, TNode> : AbstractValue where TReturn : ISequ
         var fn = Value;
 
         var argumentSequenceCreators =
-            appliedArguments.Select(arg => arg == null ? null : ISequence.CreateDoublyIterableSequence(arg));
+            appliedArguments.Select(arg => arg == null ? null : ISequence.CreateDoublyIterableSequence(arg)).ToList();
 
         FunctionSignature<ISequence, TNode> curriedFunction =
             (dynamicContext, executionParameters, staticContext, sequences) =>

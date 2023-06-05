@@ -44,9 +44,8 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
         // createFunctionReferenceSequence, ...createArgumentSequences in the TS version.
         var createFunctionReferenceSequence = createArgumentSequences[0];
         createArgumentSequences = createArgumentSequences.Skip(1).ToArray();
-        
+
         if (_functionReference != null)
-        {
             return CallFunction(
                 _functionReference,
                 (innerDynamicContext, innerExecutionParameters, staticContext, args) =>
@@ -56,7 +55,6 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
                 _isGapByOffset,
                 createArgumentSequences,
                 _staticContext);
-        }
 
         var sequence = createFunctionReferenceSequence(dynamicContext!);
         if (!sequence.IsSingleton()) throw Xpty0004;
@@ -92,7 +90,9 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
         StaticContext<TNode>? staticContext) where T : ISequence
     {
         var argumentOffset = 0;
-        var evaluatedArgs = isGapByOffset.Select(isGap => isGap ? null : createArgumentSequences[argumentOffset++](dynamicContext)).ToArray();
+        var evaluatedArgs = isGapByOffset.Select(
+            isGap => isGap ? null : createArgumentSequences[argumentOffset++](dynamicContext)
+        ).ToArray();
 
         // Test if we have the correct arguments, and pre-convert the ones we can pre-convert
         var transformedArguments = TransformArgumentList(
@@ -102,8 +102,11 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
             functionItem.Name
         );
 
-        
-        if (transformedArguments.Contains(null)) return functionItem.ApplyArguments(transformedArguments);
+        if (transformedArguments.Contains(null))
+        {
+            var res = functionItem.ApplyArguments(transformedArguments);
+            return res;
+        }
 
         var toReturn = functionCall(
             dynamicContext,
@@ -130,24 +133,21 @@ public class FunctionCall<TNode> : PossiblyUpdatingExpression<TNode> where TNode
         if (_functionReferenceExpression.CanBeStaticallyEvaluated)
         {
             var functionRefSequence = _functionReferenceExpression.EvaluateMaybeStatically(null, null);
-            
+
             if (!functionRefSequence.IsSingleton()) throw Xpty0004;
 
             _functionReference = ValidateFunctionItem<ISequence>(functionRefSequence.First()!, _callArity);
 
-            if (_functionReference.IsUpdating)
-            {
-                IsUpdating = true;
-            }
+            if (_functionReference.IsUpdating) IsUpdating = true;
         }
     }
 
     public static ISequence?[] TransformArgumentList(
-        SequenceType[] argumentTypes, 
+        SequenceType[] argumentTypes,
         ISequence?[] argumentList,
-        ExecutionParameters<TNode> executionParameters, 
+        ExecutionParameters<TNode> executionParameters,
         string functionItem
-        )
+    )
     {
         var transformedArguments = new List<ISequence?>();
         for (var i = 0; i < argumentList.Length; ++i)

@@ -156,6 +156,7 @@ public enum AstNodeName
     FunctionTest,
     AnyMapTest,
     AnyArrayTest,
+    SimpleMapExpr,
     NamespaceNodeTest,
     QuantifiedExpr,
     Quantifier,

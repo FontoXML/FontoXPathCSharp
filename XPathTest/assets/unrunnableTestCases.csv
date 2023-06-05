@@ -251,8 +251,8 @@ ArrowPostfix-027;Skipped test, it was a assert-permutation
 ArrowPostfix-028;Skipped test, it was a assert-permutation
 ArrowPostfix-029;Skipped test, it was a assert-permutation
 ArrowPostfix-030;Skipped test, it was a assert-permutation
-ArrowPostfix-032;PRSC Error: Failed to parse query 'deep-equal((("one two three four five" => tokenize(" ")) ! upper-case(.)), (("ONE", "TWO", "THREE", "FOUR", "FIVE")))'
-ArrowPostfix-101;PRSC Error: Failed to parse query 'deep-equal((("one two three four five" => Q{http://www.w3.org/2005/xpath-functions}tokenize(" ")) ! upper-case(.)), (("ONE", "TWO", "THREE", "FOUR", "FIVE")))'
+ArrowPostfix-032;Expected XPath ("one two three four five" => tokenize(" ")) ! upper-case(.) to (deep equally) resolve to ("ONE", "TWO", "THREE", "FOUR", "FIVE")
+ArrowPostfix-101;Expected XPath ("one two three four five" => Q{http://www.w3.org/2005/xpath-functions}tokenize(" ")) ! upper-case(.) to (deep equally) resolve to ("ONE", "TWO", "THREE", "FOUR", "FIVE")
 ArrowPostfix-105;Expected base expression of a function call to evaluate to a sequence of single function item
 ArrowPostfix-106;Expected base expression of a function call to evaluate to a sequence of single function item
 ArrowPostfix-107;PRSC Error: Failed to parse query '1 => ([2,3],[4,5][6])() = 2'
@@ -319,20 +319,6 @@ Axes125;PRSC Error: Failed to parse query '(/*/*/namespace::*[not(name())]) => c
 Axes126;PRSC Error: Failed to parse query '(/*/*/*/namespace::*[not(name())]) => empty()'
 Axes127;Expected XPathException with code XPST0017, but got NamespaceTest AST to Expression not yet implemented
 axis-err-1;Expected executing the XPath 'let $var := <anElement>Some content</anElement> return $var/20[child::text()]' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPTY0019. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'let $var := <anElement>Some content</anElement> return $var/20[child::text()]'
-bang-1;PRSC Error: Failed to parse query 'deep-equal(((1 to 10)!(.*.)), (1, 4, 9, 16, 25, 36, 49, 64, 81, 100))'
-bang-10;PRSC Error: Failed to parse query 'deep-equal(((1 to 5) ! (1 to .)), (1, 1,2, 1,2,3, 1,2,3,4, 1,2,3,4,5))'
-bang-11;PRSC Error: Failed to parse query 'deep-equal(((1 to 5) ! ((1 to .) ! position())), (1, 1,2, 1,2,3, 1,2,3,4, 1,2,3,4,5))'
-bang-12;PRSC Error: Failed to parse query 'deep-equal(((1 to 5) ! (1 to .) ! position()), (1 to 15))'
-bang-13;PRSC Error: Failed to parse query '/ works ! employee[4] ! preceding-sibling::*[1] ! string(@name)  = "Jane Doe 3"'
-bang-14;PRSC Error: Failed to parse query 'count(/ ! works) = 1'
-bang-2;PRSC Error: Failed to parse query 'deep-equal((("red", "blue", "green")!string-length()), (3, 4, 5))'
-bang-3;PRSC Error: Failed to parse query 'deep-equal((("red", "blue", "green")!position()), (1, 2, 3))'
-bang-4;PRSC Error: Failed to parse query 'deep-equal((("red", "blue", "green")!(position() = last())), (false(), false(), true()))'
-bang-5;PRSC Error: Failed to parse query 'deep-equal((("red", "blue", "green") ! string-length() ! (.+1)), (4, 5, 6))'
-bang-6;PRSC Error: Failed to parse query 'deep-equal(((/works/employee[2], /works/employee[1], /works/employee[2]) ! @name ! string()), ("John Doe 2", "Jane Doe 1", "John Doe 2"))'
-bang-7;PRSC Error: Failed to parse query '/ works ! employee[2] ! hours[2] ! number() = 20'
-bang-8;PRSC Error: Failed to parse query '2 + (/ works ! employee[2] ! hours[2]) ! number() ! (-.) = -18'
-bang-9;PRSC Error: Failed to parse query '-2!(.+1) = -3'
 base64-001;Type casting to XsHexBinary has not been implemented yet.
 base64-002;Type casting to XsHexBinary has not been implemented yet.
 base64-003;Type casting to XsHexBinary has not been implemented yet.
@@ -3047,6 +3033,7 @@ CondExpr004;PRSC Error: Failed to parse query 'if (//CompanyName) then <elem1/> 
 CondExpr005;PRSC Error: Failed to parse query 'if (//NodeDoesNotExist) then <elem1/> else <elem2/>'
 CondExpr006;PRSC Error: Failed to parse query '<out>{ if (1 != 0) then if (4 != 5) then 1 else 2 else 3 }</out>'
 CondExpr007;PRSC Error: Failed to parse query 'if (//MissingNode) then <elem3/> else if (/Root/Customers[@CustomerID='ALFKI']//Country = "Germany") then <elem1/> else <elem2/>'
+CondExpr017;for $file in (//Folder)[1]/File return if( $file/FileName='File00000000000' ) then $file/FileName else data( $file/FileName )
 CondExpr022;The function doc-available with arity 1 is not registered.
 CondExpr20;PRSC Error: Failed to parse query 'if( false() ) then /Folder[1] cast as xs:double ? else 10 cast as xs:double ? = 10'
 CondExpr21;PRSC Error: Failed to parse query 'if( true() ) then 10 cast as xs:double ? else /Folder[1] cast as xs:double ? = 10'
@@ -4033,9 +4020,6 @@ filter-008;PRSC Error: Failed to parse query 'deep-equal((\n            filter((
 filter-904;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
 filter-limits-005;PRSC Error: Failed to parse query '\nfor $i in (-1, 0, 1, 2147483647, 2147483648, 2147483649, 4294967295, 4294967296, 4294967297,\n  -2147483647, -2147483648, -2147483649, -4294967295, -4294967296, -4294967297)\nreturn $i[number(<_>{ $i }</_>)]\n      '
 filter-limits-007;PRSC Error: Failed to parse query '\nfor $i in (-1, 0, 1, 2147483647, 2147483648, 2147483649, 4294967295, 4294967296, 4294967297,\n  -2147483647, -2147483648, -2147483649, -4294967295, -4294967296, -4294967297) ! <_>{ . }</_>\nreturn $i[number($i)]\n      '
-filter-limits-008;PRSC Error: Failed to parse query '\n(-1, 0, 1, 2147483647, 2147483648, 2147483649, 4294967295, 4294967296, 4294967297,\n  -2147483647, -2147483648, -2147483649, -4294967295, -4294967296, -4294967297) ! .[.]\n      '
-filter-limits-009;PRSC Error: Failed to parse query '\n(-1, 0, 1, 2147483647, 2147483648, 2147483649, 4294967295, 4294967296, 4294967297,\n  -2147483647, -2147483648, -2147483649, -4294967295, -4294967296, -4294967297) ! .[position() = .]\n      '
-filter-limits-010;PRSC Error: Failed to parse query '\ncount((-1, 0, 1, 2147483647, 2147483648, 2147483649, 4294967295, 4294967296, 4294967297,\n  -2147483647, -2147483648, -2147483649, -4294967295, -4294967296, -4294967297) ! .[1 + . - .])\n      '
 fn-abs-1;The function error with arity 0 is not registered.
 fn-abs-more-args-001;PRSC Error: Failed to parse query '(fn:abs(xs:double("-0"))) instance of $xs:double'
 fn-abs-more-args-002;Expected XPath fn:abs(xs:double("-INF")) to resolve to INF, but instead got Infinity
@@ -4684,7 +4668,7 @@ fn-function-lookup-018;Expected base expression of a function call to evaluate t
 fn-function-lookup-019;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'base-uri'), 1)) to resolve to true
 fn-function-lookup-020;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-021;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'document-uri'), 0)) to resolve to true
-fn-function-lookup-022;PRSC Error: Failed to parse query 'let $result := (\n      let $fn := /function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'document-uri'), 0)\n      return parse-xml('<a/>')!$fn()\n    ) return ends-with($result, 'function-lookup/function-lookup.xml')'
+fn-function-lookup-022;The function parse-xml with arity 1 is not registered.
 fn-function-lookup-023;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'document-uri'), 1)) to resolve to true
 fn-function-lookup-024;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-025;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'error'), 0)) to resolve to true
@@ -5064,9 +5048,9 @@ fn-function-lookup-398;Expected base expression of a function call to evaluate t
 fn-function-lookup-399;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'serialize'), 2)) to resolve to true
 fn-function-lookup-400;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-401;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'position'), 0)) to resolve to true
-fn-function-lookup-402;PRSC Error: Failed to parse query '(2, 4, 6)!function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'position'), 0)()'
+fn-function-lookup-402;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-403;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'last'), 0)) to resolve to true
-fn-function-lookup-404;PRSC Error: Failed to parse query '(2, 4, 6)!function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'last'), 0)()'
+fn-function-lookup-404;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-405;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'current-dateTime'), 0)) to resolve to true
 fn-function-lookup-406;PRSC Error: Failed to parse query '(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'current-dateTime'), 0)()) instance of $xs:dateTime'
 fn-function-lookup-407;Expected XPath exists(function-lookup(fn:QName('http://www.w3.org/2005/xpath-functions', 'current-date'), 0)) to resolve to true
@@ -5197,7 +5181,7 @@ fn-function-lookup-603;Expected base expression of a function call to evaluate t
 fn-function-lookup-604;Expected base expression of a function call to evaluate to a sequence of single function item
 fn-function-lookup-605;PRSC Error: Failed to parse query '\n        xquery version "3.0";\n      	declare function local:square($i as xs:integer) as xs:integer { $i*$i };\n        function-lookup(QName("http://www.w3.org/2005/xquery-local-functions", "square"), 1)(13)\n       = 169'
 fn-function-lookup-606;PRSC Error: Failed to parse query '\n        xquery version "3.0";\n      	declare %private function local:square($i as xs:integer) as xs:integer { $i*$i };\n        function-lookup(QName("http://www.w3.org/2005/xquery-local-functions", "square"), 1)(13)\n       = 169'
-fn-function-lookup-609;PRSC Error: Failed to parse query '\n        function-lookup(QName("http://www.w3.org/2005/xpath-functions", "round"), 2) ! \n                   (function-name(.) ! (namespace-uri-from-QName(.), local-name-from-QName(.)), function-arity(.))\n      '
+fn-function-lookup-609;The function function-name with arity 1 is not registered.
 fn-function-lookup-610;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        xquery version "3.0";\n      	declare %private function local:square($i as xs:integer) as xs:integer { $i*$i };\n        function-lookup(QName("http://www.w3.org/2005/xquery-local-functions", "square"), 1)(13, 12)\n      '
 fn-function-lookup-611;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        xquery version "3.0";\n      	declare %private function local:square($i as xs:integer) as xs:integer { $i*$i };\n        function-lookup(QName("http://www.w3.org/2005/xquery-local-functions", "square"), 1)("banana")\n      '
 fn-function-lookup-612;Expected base expression of a function call to evaluate to a sequence of single function item
@@ -5340,12 +5324,8 @@ fn-function-name-023;PRSC Error: Failed to parse query '(\n	declare function loc
 fn-function-name-024;PRSC Error: Failed to parse query '\n	declare function local:coerce($arg as function(item()*) as item()*)\n          as function(item()*) as item()*\n        {\n           $arg\n        };\n        \n        let $coerced := local:coerce(fn:abs#1)\n        return if ($coerced instance of function(item()*) as item()*)\n               then fn:function-name( local:coerce(fn:abs#1) )\n               else "error"\n       = fn:QName("http://www.w3.org/2005/xpath-functions", \n                              "fn:abs")'
 fn-has-children-005;Expected executing the XPath 'fn:has-children()' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPDY0002. Query succeeded with result: False
 fn-has-children-006;Expected executing the XPath 'fn:has-children(.)' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPDY0002. Query succeeded with result: False
-fn-has-children-007;Expected executing the XPath '(1)[fn:has-children()]' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInteger) to NodeValue`1
-fn-has-children-008;Expected executing the XPath '(fn:concat#2)[fn:has-children()]' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Casting AbstractValue(Function) to NodeValue`1
-fn-has-children-012;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '( if ( fn:current-dateTime() eq\n                   fn:dateTime( fn:current-date(), fn:current-time() ))\n              then .\n              else 1 ) ! fn:has-children()'
+fn-has-children-012;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:current-dateTime with arity 0 is not registered.
 fn-has-children-013;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:current-dateTime with arity 0 is not registered.
-fn-has-children-014;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '(., 1) ! fn:has-children()'
-fn-has-children-015;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '(., 1) ! fn:has-children(.)'
 fn-has-children-016;PRSC Error: Failed to parse query '(fn:has-children()) instance of $xs:boolean'
 fn-has-children-017;PRSC Error: Failed to parse query '(fn:has-children(.)) instance of $xs:boolean'
 fn-has-children-018;Expected XPath /root/@attribute/fn:has-children() to resolve to false
@@ -5543,18 +5523,14 @@ fn-innermost-008;Expected error code: XPTY0004. Found error code: XPST0017 with 
 fn-innermost-009;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
 fn-innermost-010;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:current-dateTime with arity 0 is not registered.
 fn-innermost-011;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
-fn-innermost-015;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //*/@* ) ! string()), (('0a','00a','000a','01a','010a','02a','020a')))'
 fn-innermost-017;PRSC Error: Failed to parse query '(fn:innermost( //*/namespace::* )) => count()'
 fn-innermost-018;Skipped test, it was a assert-permutation
 fn-innermost-019;Skipped test, it was a assert-permutation
 fn-innermost-020;Skipped test, it was a assert-permutation
 fn-innermost-021;Skipped test, it was a assert-permutation
 fn-innermost-022;PRSC Error: Failed to parse query 'fn:deep-equal( fn:innermost( //*/namespace::* ),\n                           //*/namespace::* )'
-fn-innermost-024;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //processing-instruction() ) ! local-name() ), (('level-0','level-00','level-000','level-01','level-010','level-02','level-020')))'
-fn-innermost-027;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //comment() ) ! string()), (('0c','00c','000c','01c','010c','02c','020c')))'
 fn-innermost-029;Expected fn:innermost( //text() ) to resolve to 14
-fn-innermost-030;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //text() ) ! string() ), (('0t',' ',\n                         '00t',' ','000t',' ',\n                         '01t',' ','010t',' ',\n                         '02t',' ','020t',' ')))'
-fn-innermost-033;PRSC Error: Failed to parse query 'deep-equal((fn:innermost( //* ) ! local-name(.)), (('empty-level-0',   'non-empty-level-0',\n                         'empty-level-00',  'non-empty-level-00',\n                         'empty-level-000', 'non-empty-level-000',\n                         'empty-level-01',  'non-empty-level-01',\n                         'empty-level-010', 'non-empty-level-010',\n                         'empty-level-02',  'non-empty-level-02',\n                         'empty-level-020', 'non-empty-level-020')))'
+fn-innermost-030;Expected XPath fn:innermost( //text() ) ! string() to (deep equally) resolve to ('0t',' ',
 fn-innermost-035;Expected fn:innermost( //node() ) to resolve to 35
 fn-innermost-036;Expected XPath fn:deep-equal( fn:innermost( //node() ), \n                           let $nodes := //node()\n                           return $nodes except $nodes/ancestor::node() ) to resolve to true
 fn-innermost-045;Expected fn:innermost( /root/level[1]/level[last()]/preceding::node() ) to resolve to 10
@@ -5564,7 +5540,7 @@ fn-innermost-053;Expected fn:innermost( ($doc1//node(), $doc2//node()) ) to reso
 fn-innermost-054;Expected XPath fn:deep-equal( fn:innermost( ($doc1//node(), $doc2//node()) ),\n                           let $nodes := ($doc1//node(), $doc2//node())\n                           return $nodes except $nodes/ancestor::node() ) to resolve to true
 fn-innermost-055;Use of XQuery FLWOR expressions in XPath is not allowed
 fn-innermost-056;Use of XQuery FLWOR expressions in XPath is not allowed
-fn-innermost-059;PRSC Error: Failed to parse query '(innermost(parse-xml('<a><b/></a>')//*)!name()) => count()'
+fn-innermost-059;The function parse-xml with arity 1 is not registered.
 fn-insert-before-mix-args-005;Type casting to XsAnyUri has not been implemented yet.
 fn-insert-before-mix-args-018;Comparison between dates/times not implemented yet
 fn-insert-before-mix-args-019;Comparison between dates/times not implemented yet
@@ -5630,14 +5606,14 @@ fn-matches-51;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to b
 fn-matches-52;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-53;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-54;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
-fn-matches-55;PRSC Error: Failed to parse query 'deep-equal((("b", "ab", "aab", "aaab", "aaaab", "aaaaab") ! fn:matches(., "^(a{3,}?)b")), (false(), false(), false(), true(), true(), true()))'
-fn-matches-56;PRSC Error: Failed to parse query 'deep-equal((("b", "ab", "aab", "aaab", "aaaab", "aaaaab") ! fn:matches(., "^(a{0,3}?)b")), (true(), true(), true(), true(), false(), false()))'
-fn-matches-57;PRSC Error: Failed to parse query 'deep-equal((("b", "ab", "aab", "aaab", "aaaab", "aaaaab") ! fn:matches(., "^(a{2,3}?)b")), (false(), false(), true(), true(), false(), false()))'
-fn-matches-58;PRSC Error: Failed to parse query 'deep-equal((("b", "ab", "aab", "aaab", "aaazab", "aaaaab") ! fn:matches(., "^((az?){3,}?)b")), (false(), false(), false(), true(), true(), true()))'
-fn-matches-59;PRSC Error: Failed to parse query 'deep-equal((("b", "ab", "aazb", "aaab", "aaaab", "aaaaab") ! fn:matches(., "^((az?){0,3}?)b")), (true(), true(), true(), true(), false(), false()))'
+fn-matches-55;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
+fn-matches-56;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
+fn-matches-57;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
+fn-matches-58;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
+fn-matches-59;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-6;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
-fn-matches-60;PRSC Error: Failed to parse query 'deep-equal((("b", "ab", "aazb", "aaab", "aaaab", "aaaaab") ! fn:matches(., "^((az?){2,3}?)b")), (false(), false(), true(), true(), false(), false()))'
-fn-matches-61;PRSC Error: Failed to parse query 'deep-equal((("b", "aa", "aaza", "aaaa", "aaaaa", "aaaaaa") ! fn:matches(., "^((az?){2,3}?)a$")), (false(), false(), true(), true(), false(), false()))'
+fn-matches-60;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
+fn-matches-61;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-7;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-8;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
 fn-matches-9;BuiltInFunctionsString.FnMatches, XSD pattern compiling needs to be added.
@@ -5894,7 +5870,7 @@ fn-node-name-28;PRSC Error: Failed to parse query 'namespace{"foo"}{"http://exam
 fn-node-name-29;PRSC Error: Failed to parse query '(<a>abc</a>/text()/node-name()) => empty()'
 fn-node-name-3;The function fn:local-name-from-QName with arity 1 is not registered.
 fn-node-name-30;Expected XPathException with code XPTY0004, but got Casting AbstractValue(XsInteger) to NodeValue`1
-fn-node-name-31;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name#0!node-name()'
+fn-node-name-31;Expected XPathException with code XPTY0004, but got Casting AbstractValue(Function) to NodeValue`1
 fn-node-name-32;Expected error code: XPDY0002. Query succeeded with result: 
 fn-node-name-4;PRSC Error: Failed to parse query 'fn:local-name-from-QName(fn:node-name(<shoe size = "5"/>))'
 fn-node-name-5;PRSC Error: Failed to parse query 'fn:count(fn:node-name(<!-- This a comment node -->))'
@@ -5979,18 +5955,14 @@ fn-outermost-008;Expected error code: XPTY0004. Found error code: XPST0017 with 
 fn-outermost-009;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
 fn-outermost-010;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function fn:current-dateTime with arity 0 is not registered.
 fn-outermost-011;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
-fn-outermost-015;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //*/@* ) ! string()), (('0a','00a','000a','01a','010a','02a','020a')))'
 fn-outermost-017;PRSC Error: Failed to parse query '(fn:outermost( //*/namespace::* )) => count()'
 fn-outermost-018;Skipped test, it was a assert-permutation
 fn-outermost-019;Skipped test, it was a assert-permutation
 fn-outermost-020;Skipped test, it was a assert-permutation
 fn-outermost-021;Skipped test, it was a assert-permutation
 fn-outermost-022;PRSC Error: Failed to parse query 'fn:deep-equal( fn:outermost( //*/namespace::* ),\n                           //*/namespace::* )'
-fn-outermost-024;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //processing-instruction() ) ! local-name() ), (('level-0','level-00','level-000','level-01','level-010','level-02','level-020')))'
-fn-outermost-027;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //comment() ) ! string()), (('0c','00c','000c','01c','010c','02c','020c')))'
 fn-outermost-029;Expected fn:outermost( //text() ) to resolve to 14
-fn-outermost-030;PRSC Error: Failed to parse query 'deep-equal((fn:outermost( //text() ) ! string() ), (('0t',' ',\n                         '00t',' ','000t',' ',\n                         '01t',' ','010t',' ',\n                         '02t',' ','020t',' ')))'
-fn-outermost-033;PRSC Error: Failed to parse query 'fn:outermost( //* ) ! local-name(.) = ('root')'
+fn-outermost-030;Expected XPath fn:outermost( //text() ) ! string() to (deep equally) resolve to ('0t',' ',
 fn-outermost-035;Expected fn:outermost( //node() ) to resolve to 1
 fn-outermost-036;Expected XPath fn:deep-equal( fn:outermost( //node() ), \n                           let $nodes := //node()\n                           return $nodes except $nodes/descendant::node() ) to resolve to true
 fn-outermost-045;Expected fn:outermost( /root/level[1]/level[last()]/preceding::node() ) to resolve to 10
@@ -6415,10 +6387,8 @@ fn-string-9;Expected xs:double('-INF')[string() = '-INF'] to resolve to 1
 fn-string-join-23;PRSC Error: Failed to parse query '\n         let $e := <e><a>1</a><b>2</b><c>3</c></e>\n         return fn:string-join($e/*)\n      '
 fn-string-join-24;PRSC Error: Failed to parse query '\n         let $e := <e><a>1</a><b></b><c>3</c></e>\n         return fn:string-join($e/*)\n      '
 fn-string-join-25;PRSC Error: Failed to parse query '\n         let $e := <e><a>1</a><b></b><c>3</c></e>\n         return fn:string-join($e/d)\n      '
-fn-string-join-26;PRSC Error: Failed to parse query 'fn:string-join((1 to 9)!string())'
 fn-string-join-27;Expected error code: XPTY0004. Query succeeded with result: 12345
 fn-string-join-29;The function current-date with arity 0 is not registered.
-fn-string-join-30;PRSC Error: Failed to parse query 'fn:string-join((xs:string#1, xs:gYear#1, xs:float#1, xs:double#1, xs:integer#1)!'1900', ',')'
 fn-string-join-32;PRSC Error: Failed to parse query '\n         let $x := <a xmlns="http://sj31/"><b/><c/><d/></a> return fn:string-join($x//*/node-name(), '-')\n      '
 fn-string-length-18;Expected XPathException with code XPDY0002, but got Casting AbstractValue(DocumentNode) to StringValue
 fn-string-length-2;Object reference not set to an instance of an object.
@@ -7720,8 +7690,6 @@ function-literal-397;The function serialize with arity 1 is not registered.
 function-literal-398;The function serialize with arity 1 is not registered.
 function-literal-399;The function serialize with arity 2 is not registered.
 function-literal-400;The function serialize with arity 2 is not registered.
-function-literal-402;PRSC Error: Failed to parse query '(2, 4, 6)!Q{http://www.w3.org/2005/xpath-functions}position#0()'
-function-literal-404;PRSC Error: Failed to parse query '(2, 4, 6)!Q{http://www.w3.org/2005/xpath-functions}last#0()'
 function-literal-405;The function current-dateTime with arity 0 is not registered.
 function-literal-406;PRSC Error: Failed to parse query '(Q{http://www.w3.org/2005/xpath-functions}current-dateTime#0()) instance of $xs:dateTime'
 function-literal-407;The function current-date with arity 0 is not registered.
@@ -9095,6 +9063,7 @@ greaterthaneqonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
 greaterthanonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
 head-002;The function current-dateTime with arity 0 is not registered.
 head-004;Haven't implemented Qnames from: works:
+head-006;Expected XPath let $a := /works/* return (head($a) is $a[1]) to resolve to true
 head-007;The function current-date with arity 0 is not registered.
 head-008;The function current-date with arity 0 is not registered.
 hexBinary-1;Type casting to XsHexBinary has not been implemented yet.
@@ -9176,7 +9145,6 @@ hof-913;Expected error code: XPTY0004. Found error code: XPST0003 with error mes
 hof-914;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:apply($fns as (function(xs:string) as xs:string)*, $s as xs:string) as xs:string* \n        { for $f in $fns return $f($s) }; \n        let $ops := (upper-case#1, lower-case#1, function($x as xs:double){string($x)}) \n        return string-join(local:apply($ops, 'Michael Kay'), '~')'
 hof-918;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare function local:round($x as xs:double, $algorithm as (function(xs:double) as xs:double)) as xs:double \n        { $algorithm($x) }; \n        declare variable $roundToCeiling := local:round(?, upper-case#1); \n        $roundToCeiling(12.4)\n      '
 hof-919;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n      declare function local:round($x as xs:double) as xs:double { fn:floor($x) }; \n      declare function local:ops() as (function(xs:double) as xs:double)* \n      	{ (abs#1, local:round#1, function($x as xs:float){$x+1}, round-half-to-even(?, 2)) }; \n      string-join(for $f in local:ops() return string(round-half-to-even($f(xs:decimal('123.456')), 4)), '~')\n      '
-inline-fn-005;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         (1 to 4) !\n         (let $add := function($x){$x + .} return $add(4))'
 inline-fn-006;Expected error code: XPST0003. Query succeeded with result: 
 inline-fn-013;PRSC Error: Failed to parse query '(\n         let $add := function($x, $y) as xs:double {$x + $y}\n         return $add(3, 4)\n      ) instance of $xs:double'
 inline-fn-014;PRSC Error: Failed to parse query '\n         let $process := function($op, $x, $y) as function(*) {if ($op = "+") then function() {$x + $y} else function() {$x - $y}}\n         return $process("+", 3, 4)()\n       = 7'
@@ -9921,7 +9889,7 @@ K-NumericSubtract-37;Expected executing the XPath '1 eq (remove((current-time(),
 K-NumericSubtract-38;Expected executing the XPath '1 eq (0 + remove((current-time(), 1), 1))' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-NumericSubtract-9;Expected XPath (xs:decimal(6) - xs:float(2)) instance of xs:float to resolve to true
 K-NumericUnaryMinus-1;Expected error code: XPTY0004. Query succeeded with result: Infinity
-K-NumericUnaryMinus-15;PRSC Error: Failed to parse query '-1.3!floor(.) = -1'
+K-NumericUnaryMinus-15;Value was either too large or too small for a Decimal.
 K-NumericUnaryPlus-1;Expected error code: XPTY0004. Query succeeded with result: Infinity
 K-OrderExpr-1a;PRSC Error: Failed to parse query '(ordered{}) => empty()'
 K-OrderExpr-2a;PRSC Error: Failed to parse query '(unordered{}) => empty()'
@@ -9939,7 +9907,7 @@ K-QNameEQ-7;Expected XPathException with code XPTY0004, but got PerformValueComp
 K-QNameEQ-8;Expected XPathException with code XPTY0004, but got PerformValueCompare: Handle QName
 K-QNameEQ-9;Expected XPathException with code XPTY0004, but got PerformValueCompare: Handle QName
 K-QuantExprWith-1;The variable 'a' is declared but not in scope.
-K-QuantExprWith-10;Expected error code: XPTY0004. Query succeeded with result: False
+K-QuantExprWith-10;Expected error code: XPTY0004. Query succeeded with result: 
 K-QuantExprWith-11;Expected error code: XPTY0004. Found error code: XQDY0054 with error message: The variable 'a' is declared but not in scope.
 K-QuantExprWith-12;Expected error code: XPTY0004. Found error code: XQDY0054 with error message: The variable 'a' is declared but not in scope.
 K-QuantExprWith-13;Expected error code: XPTY0004. Found error code: XQDY0054 with error message: The variable 'a' is declared but not in scope.
@@ -9957,7 +9925,7 @@ K-QuantExprWith-3;The variable 'a' is declared but not in scope.
 K-QuantExprWith-4;The variable 'a' is declared but not in scope.
 K-QuantExprWith-5;The variable 'a' is declared but not in scope.
 K-QuantExprWith-6;The variable 'a' is declared but not in scope.
-K-QuantExprWith-9;Expected error code: XPTY0004. Query succeeded with result: False
+K-QuantExprWith-9;Expected error code: XPTY0004. Query succeeded with result: 
 K-QuantExprWithout-28;Expected XPathException with code FORG0006, but got Type casting to XsHexBinary has not been implemented yet.
 K-QuantExprWithout-29;Expected XPathException with code FORG0006, but got Type casting to XsHexBinary has not been implemented yet.
 K-QuantExprWithout-30;Expected XPathException with code FORG0006, but got Type casting to XsHexBinary has not been implemented yet.
@@ -9968,6 +9936,12 @@ K-QuantExprWithout-42;PRSC Error: Failed to parse query '\n        declare varia
 K-QuantExprWithout-43;PRSC Error: Failed to parse query '\n        declare variable $i := false(); \n        declare variable $t := false(); \n        some $i in (true(), true()), $t in (true(), true()) satisfies $i eq $t'
 K-QuantExprWithout-44;PRSC Error: Failed to parse query '\n        declare variable $i := false(); \n        declare variable $t := false(); \n        some $i in (true(), true()), $t in (true(), true()) satisfies ($i eq $t)'
 K-QuantExprWithout-45;PRSC Error: Failed to parse query '\n        declare variable $i := false(); \n        every $i in (true(), true()) satisfies $i'
+K-QuantExprWithout-54;Expected XPath true() eq (some $a in 1 satisfies $a) to resolve to true
+K-QuantExprWithout-55;Expected XPath true() eq (every $a in 1 satisfies $a) to resolve to true
+K-QuantExprWithout-56;Expected XPath true() eq (some $fn:name in (1, 2) satisfies $fn:name) to resolve to true
+K-QuantExprWithout-57;Expected XPath true() eq (some $xs:name in (1, 2) satisfies $xs:name) to resolve to true
+K-QuantExprWithout-58;Expected XPath true() eq (every $fn:name in (1, 2) satisfies $fn:name) to resolve to true
+K-QuantExprWithout-59;Expected XPath true() eq (every $xs:name in (1, 2) satisfies $xs:name) to resolve to true
 K-QuantExprWithout-7;TreatExpr AST to Expression not yet implemented
 K-QuantExprWithout-8;TreatExpr AST to Expression not yet implemented
 K-QuantExprWithout-89;The variable 'a' is declared but not in scope.
@@ -11386,7 +11360,7 @@ K2-Axes-102;PRSC Error: Failed to parse query '\n        for $a in (/) return \n
 K2-Axes-103;PRSC Error: Failed to parse query '\n        declare function local:isComplexType($typeID) { string($typeID) }; \n        "|", //*/local:isComplexType(@type), "|"'
 K2-Axes-104;PRSC Error: Failed to parse query '<a/>/<b>{.}</b>'
 K2-Axes-105;PRSC Error: Failed to parse query 'let $result := (\n         let $x := document{<a><b/></a>}, $a := $x/a, $b := $a/b\n         return <out p="{exists($x/self::document-node())}" \n                     q="{exists($x/document-node())}" \n                     r="{exists($a/parent::document-node())}"\n                     s="{exists($b/ancestor::document-node())}"\n                     t="{exists($b/parent::document-node())}"\n                     u="{exists($b/preceding::document-node())}"/>) return $result/self::out/@p = 'true''
-K2-Axes-106;PRSC Error: Failed to parse query 'string-join(//item ! ('[' || position() || ',' || not(*) || ',' || descendant::foo/@id, ']'))'
+K2-Axes-106;Expected XPath string-join(//item ! ('[' || position() || ',' || not(*) || ',' || descendant::foo/@id, ']')) to resolve to [1,true,][2,false,foo1][3,true,][4,false,foo2], but instead got [1,True,][2,False,foo1][3,True,][4,False,foo2]
 K2-Axes-18;PRSC Error: Failed to parse query 'empty(text {"some text"}/..)'
 K2-Axes-19;PRSC Error: Failed to parse query 'empty(processing-instruction theName {"some text"}/..)'
 K2-Axes-2;Expected error code: XPDY0050. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare variable $var := <e><f>f's value</f></e>; $var/(/)/(/)//f'
@@ -11600,7 +11574,6 @@ K2-ConText-6;PRSC Error: Failed to parse query 'data(text {"content"}) instance 
 K2-ConText-7;PRSC Error: Failed to parse query '<e><![CDATA[content]]]></e>'
 K2-ConText-8;PRSC Error: Failed to parse query '<e><![CDATA[content]]]]]]></e>'
 K2-ConText-9;PRSC Error: Failed to parse query '<e><![CDATA[]]]></e>'
-K2-DataFunc-1;PRSC Error: Failed to parse query '1!data() = 1'
 K2-DataFunc-3;PRSC Error: Failed to parse query '\n      	let $x := <e><f>1</f></e>\n      	return $x/data()\n      '
 K2-DataFunc-4;Expected error code: XPDY0002. Query succeeded with result: 
 K2-DataFunc-6;Expected error code: FOTY0012. Query succeeded with result: ns:barns:bar2ns:barDerivurn1test1test2
@@ -12376,7 +12349,7 @@ K2-Predicates-7;PRSC Error: Failed to parse query '<r>{<e xml:lang="ene"/>/(ance
 K2-Predicates-8;PRSC Error: Failed to parse query 'declare function local:foo($arg as item()) { $arg[@arg] }; local:foo(<e arg="">result</e>)'
 K2-Predicates-9;PRSC Error: Failed to parse query 'declare function local:foo($arg as item()) { string($arg/@arg) }; local:foo(<e arg="result"/>)'
 K2-QuantExprWithout-3;PRSC Error: Failed to parse query '<people id=""/>/(some $id in @id satisfies true())'
-K2-QuantExprWithout-4;Expected error code: XPDY0002. Query succeeded with result: False
+K2-QuantExprWithout-4;Expected error code: XPDY0002. Query succeeded with result: 
 K2-QuantExprWithout-5;PRSC Error: Failed to parse query '<e/>/(some $v in self::node() satisfies $v)'
 K2-QuantExprWithout-6;PRSC Error: Failed to parse query '<e/>/(every $v in self::node() satisfies $v)'
 K2-QuantExprWithout-7;PRSC Error: Failed to parse query '<e/>/(every $b in 1, $v in self::node() satisfies $v)'
@@ -12492,7 +12465,7 @@ K2-SeqDeepEqualFunc-4;The function current-time with arity 0 is not registered.
 K2-SeqDeepEqualFunc-40;The function implicit-timezone with arity 0 is not registered.
 K2-SeqDeepEqualFunc-41;PRSC Error: Failed to parse query '\n        import schema namespace p = "http://www.w3.org/XQueryTest/perversity";\n        let $w := validate strict {<p:list><p:e>12</p:e></p:list>}\n        let $y := validate strict {<p:union><p:e>12</p:e></p:union>}\n        return deep-equal($w/p:e, $y/p:e)\n      '
 K2-SeqDeepEqualFunc-42;PRSC Error: Failed to parse query '\n        import schema namespace p = "http://www.w3.org/XQueryTest/perversity";\n        let $w := validate strict {<p:list><p:e></p:e></p:list>}\n        let $y := validate strict {<p:union><p:e></p:e></p:union>}\n        return deep-equal($w/p:e, $y/p:e)\n      '
-K2-SeqDeepEqualFunc-43;Expected executing the XPath 'deep-equal((0 to year-from-date(current-date()))!(10 idiv .), 11 to 22)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'deep-equal((0 to year-from-date(current-date()))!(10 idiv .), 11 to 22)'
+K2-SeqDeepEqualFunc-43;Expected executing the XPath 'deep-equal((0 to year-from-date(current-date()))!(10 idiv .), 11 to 22)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function year-from-date with arity 1 is not registered.
 K2-SeqDeepEqualFunc-5;PRSC Error: Failed to parse query 'deep-equal((1, <e/>, 2), (1, <e/>, 2))'
 K2-SeqDeepEqualFunc-6;PRSC Error: Failed to parse query 'deep-equal((1, <a/>, 2), (1, <b/>, 2))'
 K2-SeqDeepEqualFunc-7;PRSC Error: Failed to parse query 'deep-equal((<a/>, <b/>, 4), (<a/>, <b/>, 2))'
@@ -13032,6 +13005,8 @@ K3-NodeNameFunc-2;Expected error code: XPTY0004. Found error code: XPST0003 with
 K3-NodeNameFunc-3;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( (<a/>, "mystring"))'
 K3-NodeNameFunc-4;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'node-name( node-name(<a/>))'
 last-2;Expected error code: XPDY0002. Query succeeded with result: 1
+last-25;/works/employee/*/last()
+last-7;Expected XPath for $h in (/works) return $h/employee[last()] is $h/employee[last()] to resolve to true
 lessthaneqonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
 lessthanonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
 LetExpr003;Expected XPath let $x := 92233720368547758+1 return $x to resolve to 92233720368547759
@@ -13653,6 +13628,12 @@ nodeexpression5;Expected executing the XPath 'count(<a>50000</a> is ())' to reso
 nodeexpression6;PRSC Error: Failed to parse query '<a>50000</a> is <a>50000</a>'
 nodeexpression7;PRSC Error: Failed to parse query '<a>50000</a> is /works[1]/employee[1]/empnum[1]'
 nodeexpression8;PRSC Error: Failed to parse query '<a>50000</a> is (/staff[1]/employee[1]/empnum[1])'
+nodeexpressionhc10;Expected XPath ((/staff[1]/employee[1]/empnum[1]) << (/staff[1]/employee[1]/empnum[1])) \n         le ((/staff[1]/employee[1]/empnum[1]) << (/staff[1]/employee[1]/empnum[1])) to resolve to true
+nodeexpressionhc13;Expected XPath ((/staff[1]/employee[1]/empnum[1]) >> (/staff[1]/employee[1]/empnum[1])) \n         ge ((/staff[1]/employee[1]/empnum[1]) >> (/staff[1]/employee[1]/empnum[1])) to resolve to true
+nodeexpressionhc15;Expected XPath ((/staff[1]/employee[1]/empnum[1]) >> (/staff[1]/employee[1]/empnum[1])) \n         le ((/staff[1]/employee[1]/empnum[1]) >> (/staff[1]/employee[1]/empnum[1])) to resolve to true
+nodeexpressionhc3;Expected XPath ((/staff[1]/employee[1]/empnum[1]) is (/staff[1]/employee[1]/empnum[1])) ge ((/staff[1]/employee[1]/empnum[1]) is (/staff[1]/employee[1]/empnum[1])) to resolve to true
+nodeexpressionhc5;Expected XPath ((/staff[1]/employee[1]/empnum[1]) is (/staff[1]/employee[1]/empnum[1])) le ((/staff[1]/employee[1]/empnum[1]) is (/staff[1]/employee[1]/empnum[1])) to resolve to true
+nodeexpressionhc8;Expected XPath ((/staff[1]/employee[1]/empnum[1]) << (/staff[1]/employee[1]/empnum[1])) \n         ge\n         ((/staff[1]/employee[1]/empnum[1]) << (/staff[1]/employee[1]/empnum[1])) to resolve to true
 NodeTest003;Haven't implemented Qnames from: Customers:
 NodeTest004;PRSC Error: Failed to parse query '(/.) instance of $document-node(element(Root))'
 NodeTest005;PRSC Error: Failed to parse query '(/*/.) instance of $element(Root)'
@@ -14515,7 +14496,7 @@ path016;PRSC Error: Failed to parse query 'fn:path(attribute name {"fred"})'
 path017;PRSC Error: Failed to parse query 'fn:path(text{"fred"})'
 path018;PRSC Error: Failed to parse query 'fn:path(<a b="c"/>/@b)'
 path019;PRSC Error: Failed to parse query 'fn:path(<a><b/><b/></a>/(b[2]))'
-path020;PRSC Error: Failed to parse query '(//*:all-of)[1] ! fn:path()'
+path020;PRSC Error: Failed to parse query '((//*:all-of)[1] ! fn:path()) instance of $xs:string'
 PathExpr-1;Casting AbstractValue(XsDouble) to IntegerValue
 PathExpr-14;PRSC Error: Failed to parse query 'fn:count(.[/<a/>]) = 1'
 PathExpr-15;Casting AbstractValue(XsDouble) to IntegerValue
@@ -14537,8 +14518,8 @@ predicates-12;PRSC Error: Failed to parse query '(/root/double[xs:double(.) = 12
 predicates-29;Expected error code: FORG0006. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'let $foo := <element1><element2>some content</element2></element1> return $foo[(2 to 5)]'
 predicates-32;PRSC Error: Failed to parse query '\n        declare variable $i := ("x", 1);\n        declare variable $j := $i[position() ne 1];\n        $i[$j]      \n       = "x"'
 predicates-33;The function current-date with arity 0 is not registered.
-predicates-34;PRSC Error: Failed to parse query 'deep-equal(((/works/employee[(xs:integer(hours) gt 40) = xs:untypedAtomic("true"||substring(string(current-date()), 200))]) ! (empnum || pnum)), ("E1P3", "E2P2", "E4P5"))'
-predicates-35;PRSC Error: Failed to parse query 'deep-equal(((/works/employee[(xs:integer(hours) eq 40, empnum, number(hours) - 39) = xs:untypedAtomic("1"||substring(string(current-date()), 200))]) ! (empnum || pnum)), ("E1P1", "E2P1", "E4P4"))'
+predicates-34;The function current-date with arity 0 is not registered.
+predicates-35;The function current-date with arity 0 is not registered.
 predicatesns-11;PRSC Error: Failed to parse query '(/root/float[xs:float(.) = xs:float(1267.43233E12)])'
 predicatesns-12;PRSC Error: Failed to parse query '(/root/double[xs:double(.) = 1267.43233E12])'
 prolog-version-1-v3;PRSC Error: Failed to parse query 'xquery version "3.0" encoding "utf-8"; 1,2'
@@ -14566,8 +14547,8 @@ quantexpr-67;PRSC Error: Failed to parse query '\n        declare function local
 quantexpr-68;PRSC Error: Failed to parse query '\n        declare function local:f($x, $y) {\n            let $a := $x\n            where (every $i in $x satisfies $i = $y) or empty($y)\n            return true()\n        };\n        local:f((current-date(), current-date(), current-date()), (current-date()))\n      '
 rangeExpr-28;Expected executing the XPath '18446744073709551616 to 18446744073709551620' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 18446744073709551616.
 rangeExpr-29;Expected executing the XPath 'count(18446744073709551616 to 18446744073709551620)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 18446744073709551616.
-rangeExpr-30;Expected executing the XPath '(28446744073709551616 to 28446744073709551620)!position()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '(28446744073709551616 to 28446744073709551620)!position()'
-rangeExpr-31;Expected executing the XPath '((28446744073709551616 to 28446744073709551620)!last())[1]' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '((28446744073709551616 to 28446744073709551620)!last())[1] = 5'
+rangeExpr-30;Expected executing the XPath '(28446744073709551616 to 28446744073709551620)!position()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 28446744073709551616.
+rangeExpr-31;Expected executing the XPath '((28446744073709551616 to 28446744073709551620)!last())[1]' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 28446744073709551616.
 rangeExpr-32;Expected executing the XPath 'reverse(28446744073709551616 to 28446744073709551620)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 28446744073709551616.
 rangeExpr-36;The function year-from-date with arity 1 is not registered.
 rangeExpr-37;The function year-from-date with arity 1 is not registered.
@@ -15562,7 +15543,7 @@ WhereExpr023;PRSC Error: Failed to parse query '\n         for $file in //File\n
 WhereExpr024;PRSC Error: Failed to parse query '\n         for $file in //File \n         let $prefix := substring($file/FileName, 1, 4)\n         where ($prefix = 'File')\n         where ($file//Allow/user = 'system\Hyungjeong')\n         return $file/FileName\n      '
 WhereExpr025;Use of XQuery FLWOR expressions in XPath is not allowed
 WhereExpr026;PRSC Error: Failed to parse query '\n         let $doc := (/)\n         return (11 to 15)!\n            (for $file in $doc//File\n            count $c\n            where $c = position()\n            return $file/FileName)\n      '
-WhereExpr027;PRSC Error: Failed to parse query '\n         let $doc := (/)\n         return (11 to 15)!\n            (for $file at $c in $doc//File\n            where $c = last()\n            return string($file/FileName))\n      '
+WhereExpr027;Use of XQuery FLWOR expressions in XPath is not allowed
 WhereExpr028;Use of XQuery FLWOR expressions in XPath is not allowed
 WhereExpr029;Use of XQuery FLWOR expressions in XPath is not allowed
 WhereExpr030;PRSC Error: Failed to parse query '\n         declare variable $n external := 10;\n         for $x allowing empty in 1 to $n\n         where $x lt 5\n         return $x\n      '

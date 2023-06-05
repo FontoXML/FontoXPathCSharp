@@ -30,6 +30,8 @@ public class TestMisc
 
     private static readonly XmlDocument XmlConceptsFile;
     
+    private static readonly XmlDocument XmlHasChildrenFile;
+
     static TestMisc()
     {
         XmlNodeEmptyContext = new XmlDocument();
@@ -49,6 +51,9 @@ public class TestMisc
 
         XmlAtomicsSimple = new XmlDocument();
         XmlAtomicsSimple.LoadXml(AtomicXml);
+
+        XmlHasChildrenFile = new XmlDocument();
+        XmlHasChildrenFile.LoadXml(TestFileSystem.ReadFile("qt3tests/fn/has-children/has-children.xml"));
     }
 
     [Fact]
@@ -215,7 +220,6 @@ public class TestMisc
         var selector = "filter(('apple', 'pear', 'apricot', 'avocado', 'orange'),starts-with(?, 'a'))";
         
         var res = Evaluate.EvaluateXPathToStrings(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions).ToArray();
-         
 
         Assert.Equal(new[] { "apple", "apricot", "avocado" }, res);
     }
@@ -306,5 +310,30 @@ public class TestMisc
         var selector = "every $x in (1,2,3) satisfies $x >= 1";
         var res = Evaluate.EvaluateXPathToBoolean(selector, XmlAtomicsFile, XmlNodeDomFacade, XmlNodeOptions);
         Assert.True(res);
+    }
+
+
+    [Fact]
+    public void SimpleMapExprTest()
+    {
+        var selector = "(1,2,3)!(. + 2)";
+        var res = Evaluate.EvaluateXPathToInts(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions).ToArray();
+        
+        Assert.Equal(new long[]{3,4,5}, res);
+    }
+
+    [Fact]
+    public void SimpleMapExprProblematicTest()
+    {
+        var selector = "(., 1) ! fn:has-children()";
+
+        try
+        {
+            Evaluate.EvaluateXPathToAny(selector, XmlHasChildrenFile, XmlNodeDomFacade, XmlNodeOptions);
+        }
+        catch (XPathException ex)
+        {
+            Assert.Equal("XPTY0004", ex.ErrorCode);
+        }
     }
 }

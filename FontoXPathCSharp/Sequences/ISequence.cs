@@ -2,7 +2,7 @@ using FontoXPathCSharp.Value;
 
 namespace FontoXPathCSharp.Sequences;
 
-public interface ISequence : IEnumerable<AbstractValue>
+public interface ISequence
 {
     delegate ISequence CallbackType(IReadOnlyList<AbstractValue?> values);
 
@@ -107,7 +107,7 @@ public interface ISequence : IEnumerable<AbstractValue>
                     if (i < savedValues.Count) return savedValues[i++];
                     var val = backingIterator(IterationHint.None);
                     if (val.IsDone) return val;
-
+                    
                     if (i < savedValues.Count)
                     {
                         savedValues[i++] = val;
@@ -117,7 +117,7 @@ public interface ISequence : IEnumerable<AbstractValue>
                         savedValues.Add(val);
                         i++;
                     }
-
+                    
                     return val;
                 }
             );

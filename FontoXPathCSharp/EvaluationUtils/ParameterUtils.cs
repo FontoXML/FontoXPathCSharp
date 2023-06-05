@@ -11,8 +11,9 @@ public class ParameterUtils
         IDomFacade<TNode> domFacade)
     {
         var returnVariables = new Dictionary<string, AbstractValue?>();
-        foreach (var (varName, varVal) in variablesMap) returnVariables.Add(varName, ConvertToAbstractValue<TNode>(varVal, domFacade));
-
+        
+        foreach (var (varName, varVal) in variablesMap) returnVariables.Add(varName, ConvertToAbstractValue(varVal, domFacade));
+        
         return returnVariables;
     }
 
