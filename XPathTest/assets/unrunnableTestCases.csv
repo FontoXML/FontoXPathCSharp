@@ -1121,8 +1121,6 @@ CastAs-ListType-13;Expected XPathException with code FORG0001, but got Atomic Va
 CastAs-ListType-14;Atomic Value for XsEntities is not implemented yet.
 CastAs-ListType-15;Expected XPathException with code FORG0001, but got Atomic Value for XsEntities is not implemented yet.
 CastAs-ListType-16;Expected XPathException with code FORG0001, but got Atomic Value for XsEntities is not implemented yet.
-CastAs-ListType-17;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs-ListType-18;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs-ListType-19;Expected XPathException with code XPTY0004, but got Atomic Value for XsEntities is not implemented yet.
 CastAs-ListType-2;PRSC Error: Failed to parse query 'deep-equal((\n       import schema namespace s="http://www.w3.org/XQueryTest/unionListDefined";\n        s:myRestrictedList1("123 987 567 456")), (123, 987, 567, 456))'
 CastAs-ListType-20;Expected XPathException with code XPST0051, but got Atomic Value for XsNmTokens is not implemented yet.
@@ -1226,9 +1224,6 @@ CastAs076;Expected XPathException with code FORG0001, but got Type casting to Xs
 CastAs077;Expected XPathException with code FORG0001, but got Type casting to XsHexBinary has not been implemented yet.
 CastAs078;Type casting to XsHexBinary has not been implemented yet.
 CastAs079;Type casting to XsHexBinary has not been implemented yet.
-CastAs080;Type casting to XsAnyUri has not been implemented yet.
-CastAs081;Type casting to XsAnyUri has not been implemented yet.
-CastAs082;Type casting to XsAnyUri has not been implemented yet.
 CastAs090;Expected XPath xs:string("NaN") cast as xs:float to resolve to NaN, but instead got Infinity
 CastAs091;Expected XPath xs:string("1e-5") cast as xs:float to resolve to 0.00001, but instead got 1E-05
 CastAs092;Expected XPath xs:string("-10000000") cast as xs:float to resolve to -1.0E7, but instead got -10000000
@@ -1271,9 +1266,6 @@ CastAs158;Expected XPathException with code FORG0001, but got Type casting to Xs
 CastAs159;Expected XPathException with code FORG0001, but got Type casting to XsHexBinary has not been implemented yet.
 CastAs160;Type casting to XsHexBinary has not been implemented yet.
 CastAs161;Type casting to XsHexBinary has not been implemented yet.
-CastAs162;Type casting to XsAnyUri has not been implemented yet.
-CastAs163;Type casting to XsAnyUri has not been implemented yet.
-CastAs164;Type casting to XsAnyUri has not been implemented yet.
 CastAs166;Expected XPath xs:float("-INF") cast as xs:untypedAtomic to resolve to -INF, but instead got -Infinity
 CastAs168;Expected XPath xs:float("NaN") cast as xs:string to resolve to NaN, but instead got Infinity
 CastAs171;Expected XPath xs:float("INF") cast as xs:float to resolve to INF, but instead got Infinity
@@ -1281,7 +1273,6 @@ CastAs173;Expected XPath xs:float("-INF") cast as xs:double to resolve to -INF, 
 CastAs195;Expected XPath xs:float("NaN") cast as xs:boolean to resolve to false
 CastAs196;Expected executing the XPath 'xs:float("5.4321E-100") cast as xs:base64Binary' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs197;Expected executing the XPath 'xs:float("5.4321E-100") cast as xs:hexBinary' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs198;Expected executing the XPath 'xs:float("5.4321E-100") cast as xs:anyURI' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs200;Expected XPath xs:double("INF") cast as xs:untypedAtomic to resolve to INF, but instead got Infinity
 CastAs201;Expected XPath xs:double("1e8") cast as xs:string to resolve to 1.0E8, but instead got 100000000
 CastAs202;Expected XPath xs:double("INF") cast as xs:string to resolve to INF, but instead got Infinity
@@ -1289,13 +1280,10 @@ CastAs207;Expected XPath xs:double("NaN") cast as xs:float to resolve to NaN, bu
 CastAs209;Expected XPath xs:double("INF") cast as xs:double to resolve to INF, but instead got Infinity
 CastAs231;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs232;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs233;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs253;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs254;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs255;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs274;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs275;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs276;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs277;Expected XPath xs:duration("P1Y2M3DT10H30M23S") cast as xs:untypedAtomic to resolve to P1Y2M3DT10H30M23S, but instead got PT
 CastAs278;Expected XPath xs:duration("P1Y2M3DT10H30M23S") cast as xs:string to resolve to P1Y2M3DT10H30M23S, but instead got PT
 CastAs283;Expected XPath xs:duration("P1Y2M3DT10H30M23S") cast as xs:duration to resolve to P1Y2M3DT10H30M23S, but instead got PT
@@ -1308,7 +1296,6 @@ CastAs289;Expected XPath xs:duration("PT10H") cast as xs:dayTimeDuration to reso
 CastAs290;Expected XPath xs:duration("P24M") cast as xs:dayTimeDuration to resolve to PT0S, but instead got PT
 CastAs300;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs301;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs302;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs303;Expected XPath xs:yearMonthDuration("P1Y2M") cast as xs:untypedAtomic to resolve to P1Y2M, but instead got P
 CastAs304;Expected XPath xs:yearMonthDuration("P1Y2M") cast as xs:string to resolve to P1Y2M, but instead got P
 CastAs309;Expected XPath xs:yearMonthDuration("P1Y2M") cast as xs:duration to resolve to P1Y2M, but instead got PT
@@ -1317,7 +1304,6 @@ CastAs311;Expected XPath xs:yearMonthDuration("-P21M") cast as xs:yearMonthDurat
 CastAs312;Input string was not in a correct format.
 CastAs322;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs323;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs324;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs325;Expected XPath xs:dayTimeDuration("P3DT10H30M") cast as xs:untypedAtomic to resolve to P3DT10H30M, but instead got PT
 CastAs326;Expected XPath xs:dayTimeDuration("-PT100M") cast as xs:untypedAtomic to resolve to -PT1H40M, but instead got PT
 CastAs327;Expected XPath xs:dayTimeDuration("P3DT10H30M") cast as xs:string to resolve to P3DT10H30M, but instead got PT
@@ -1331,7 +1317,6 @@ CastAs338;Expected XPath xs:dayTimeDuration("P14D") cast as xs:dayTimeDuration t
 CastAs339;Expected XPath xs:dayTimeDuration("-PT100M") cast as xs:dayTimeDuration to resolve to -PT1H40M, but instead got PT
 CastAs349;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs350;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs351;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs353;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs355;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs364;Casting not supported from given type to xs:time or any of its derived types.
@@ -1344,10 +1329,8 @@ CastAs375;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs377;The string '-1999-05-31T13:20:00+14:00' is not a valid AllXsd value.
 CastAs379;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs380;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs381;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs402;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs403;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs404;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs406;Expected executing the XPath 'xs:date("-0012-12-03-05:00") cast as xs:untypedAtomic' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FODT0001, but got The string '-0012-12-03-05:00' is not a valid AllXsd value.
 CastAs408;Expected executing the XPath 'xs:date("-0012-12-03-05:00") cast as xs:string' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected XPathException with code FODT0001, but got The string '-0012-12-03-05:00' is not a valid AllXsd value.
 CastAs416;Casting not supported from given type to xs:dateTime or any of its derived types.
@@ -1364,29 +1347,22 @@ CastAs429;Expected executing the XPath 'xs:date("-0012-12-03-05:00") cast as xs:
 CastAs430;Casting not supported from given type to xs:gMonth or any of its derived types.
 CastAs432;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs433;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs434;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs449;The string '-0012-12-05:00' is not a valid AllXsd value.
 CastAs456;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs457;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs458;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs472;The string '-0012-05:00' is not a valid AllXsd value.
 CastAs478;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs479;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs480;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs501;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs502;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs503;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs524;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs525;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs526;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs547;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs548;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs549;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs550;Expected XPath xs:boolean("true") cast as xs:untypedAtomic to resolve to true, but instead got True
 CastAs551;Expected XPath xs:boolean("true") cast as xs:string to resolve to true, but instead got True
 CastAs573;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 CastAs574;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs575;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 CastAs576;Type casting to XsBase64Binary has not been implemented yet.
 CastAs577;Type casting to XsBase64Binary has not been implemented yet.
 CastAs578;Type casting to XsBase64Binary has not been implemented yet.
@@ -1437,27 +1413,9 @@ CastAs622;Type casting to XsHexBinary has not been implemented yet.
 CastAs623;Type casting to XsHexBinary has not been implemented yet.
 CastAs624;Type casting to XsHexBinary has not been implemented yet.
 CastAs625;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
-CastAs626;Type casting to XsAnyUri has not been implemented yet.
-CastAs627;Type casting to XsAnyUri has not been implemented yet.
-CastAs628;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs629;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs630;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs631;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs632;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs633;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs634;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs635;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs636;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs637;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs638;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs639;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs640;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs641;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs642;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs643;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs644;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs645;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-CastAs646;Type casting to XsAnyUri has not been implemented yet.
+CastAs626;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+CastAs627;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+CastAs646;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 CastAs670;Expected executing the XPath 'let $d1 := '2006-07-12' cast as xs:date let $oneky := xs:yearMonthDuration('P1000Y') let $d2 := $d1 + $oneky let $d3 := $d2 + $oneky let $d4 := $d3 + $oneky let $d5 := $d4 + $oneky let $d6 := $d5 + $oneky let $d7 := $d6 + $oneky let $d8 := $d7 + $oneky let $d9 := $d8 + $oneky let $d10 := $d9 + $oneky return $d10' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'let $d1 := '2006-07-12' cast as xs:date let $oneky := xs:yearMonthDuration('P1000Y') let $d2 := $d1 + $oneky let $d3 := $d2 + $oneky let $d4 := $d3 + $oneky let $d5 := $d4 + $oneky let $d6 := $d5 + $oneky let $d7 := $d6 + $oneky let $d8 := $d7 + $oneky let $d9 := $d8 + $oneky let $d10 := $d9 + $oneky return $d10'
 CastAs671;Atomic Value for XsEntity is not implemented yet.
 CastAs673a;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
@@ -1557,22 +1515,22 @@ cbcl-add-dayTimeDurations-003;PRSC Error: Failed to parse query 'declare functio
 cbcl-add-yearMonthDurations-001;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer, $months as xs:integer ) { xs:yearMonthDuration(concat('P', $years, 'Y', $months, 'M')) };\n        local:yearMonthDuration(1, 1) + xs:yearMonthDuration("P0Y")'
 cbcl-add-yearMonthDurations-002;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer, $months as xs:integer ) { xs:yearMonthDuration(concat('P', $years, 'Y', $months, 'M')) };\n        xs:yearMonthDuration("P0Y") + local:yearMonthDuration(1, 1)'
 cbcl-add-yearMonthDurations-003;PRSC Error: Failed to parse query '\n        declare function local:yearMonthDuration($years as xs:integer, $months as xs:integer ) { xs:yearMonthDuration(concat('P', $years, 'Y', $months, 'M')) };\n        local:yearMonthDuration(1, 1) + local:yearMonthDuration(1, 1)'
-cbcl-anyURI-002;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-003;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-004;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-004b;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-005;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-006;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-006b;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-007;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-008;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-009;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-009b;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-010;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-011;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-012;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-012b;Type casting to XsAnyUri has not been implemented yet.
-cbcl-anyURI-013;Type casting to XsAnyUri has not been implemented yet.
+cbcl-anyURI-002;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-003;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-004;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-004b;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-005;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-006;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-006b;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-007;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-008;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-009;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-009b;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-010;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-011;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-012;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-012b;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+cbcl-anyURI-013;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 cbcl-avg-001;Expected executing the XPath 'fn:avg((xs:decimal("79000000000000000000000000000"),\n                    xs:decimal("79000000000000000000000000000")))\n            eq 79000000000000000000000000000' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Overflow when creating a Int64 from 79000000000000000000000000000.
 cbcl-avg-002;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
 cbcl-avg-003;Expected XPathException with code FODT0002, but got Value was either too large or too small for an Int32.
@@ -1616,7 +1574,6 @@ cbcl-boolean-less-than-007;PRSC Error: Failed to parse query 'declare function l
 cbcl-boolean-less-than-008;PRSC Error: Failed to parse query 'declare function local:is-even($arg as xs:integer) as xs:boolean { (($arg mod 2) eq 0) }; \n      local:is-even(17) le fn:false()'
 cbcl-boolean-less-than-009;PRSC Error: Failed to parse query 'declare function local:is-even($arg as xs:integer) as xs:boolean { (($arg mod 2) eq 0) }; \n      local:is-even(17) lt fn:true()'
 cbcl-boolean-less-than-010;PRSC Error: Failed to parse query 'declare function local:is-even($arg as xs:integer) as xs:boolean { (($arg mod 2) eq 0) }; \n      local:is-even(17) lt fn:false()'
-cbcl-case-anyUri-001;Type casting to XsAnyUri has not been implemented yet.
 cbcl-cast-byte-001;Expected error code: FORG0001. Query succeeded with result: 128
 cbcl-cast-byte-002;Expected error code: FORG0001. Query succeeded with result: -129
 cbcl-cast-byte-003;Expected error code: FORG0001. Query succeeded with result: 128
@@ -2830,7 +2787,7 @@ cbcl-precedingAxis-001;PRSC Error: Failed to parse query 'count(<a><b/><b/></a>/
 cbcl-precedingAxis-002;PRSC Error: Failed to parse query 'count(<a><b/><b/></a>/b[2]/preceding-sibling::b)'
 cbcl-precedingAxis-003;PRSC Error: Failed to parse query 'count(<a><b/><b/></a>/b[1]/preceding-sibling::b)'
 cbcl-product-001;PRSC Error: Failed to parse query 'declare function local:odds($arg as xs:integer*) as xs:integer* { $arg[. mod 2 eq 1] }; boolean(zero-or-one(for $x in local:odds((2,4,8)),$y in local:odds((2,4,8)) return ($x,$y)))'
-cbcl-promotion-001;Type casting to XsAnyUri has not been implemented yet.
+cbcl-promotion-001;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 cbcl-promotion-002;PRSC Error: Failed to parse query '\n        declare function local:index-of($seq as xs:double*, $item as xs:double) { for $x at $p in $seq return if ($x eq $item) then $p else () };\n        declare function local:sequence($x as xs:integer) { ("string", 1, 2.0, xs:float(3))[$x] };\n        local:index-of(for $x in (2,3,4) return local:sequence($x), 2)'
 cbcl-promotion-003;PRSC Error: Failed to parse query '\n        declare function local:index-of($seq as xs:integer*, $item as xs:integer?) as xs:float* { \n          if (empty($item)) \n            then -1\n            else for $x at $p in $seq return if ($x eq $item) then $p else () \n        };\n        local:index-of(1 to 10, 3)'
 cbcl-promotion-004;PRSC Error: Failed to parse query '\n        declare function local:f() as xs:double* { \n          if (day-from-date(current-date()) < 32) then xs:integer(3) else -1\n        };\n        local:f() + 1'
@@ -3531,7 +3488,7 @@ Constr-ws-tag-8;PRSC Error: Failed to parse query 'declare boundary-space preser
 Constr-ws-tag-9;PRSC Error: Failed to parse query 'declare boundary-space preserve; <elem>   	\n      	    <a>          	         \n		\n	\n        </a>	\n<a>        	     </a>             <a>	  <b>\n\n         	 </b>\n\n  </a>	\n\n		\n      </elem>'
 Constr-ws-xmlspace-1;PRSC Error: Failed to parse query 'declare boundary-space strip; <elem xml:space="preserve"> </elem>'
 Constr-ws-xmlspace-2;'strip' is an invalid xml:space value. Line 1, position 12.
-constSeq-16;Type casting to XsAnyUri has not been implemented yet.
+constSeq-16;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 constSeq-18;PRSC Error: Failed to parse query 'deep-equal(( (xs:double(1.2E2), 2.2E2, 3.3E2)), (120, 220, 330))'
 contextDecl-014;PRSC Error: Failed to parse query '\n        declare variable $x := . + 5;\n        declare context item := 17;\n        $x\n       = 22'
 contextDecl-015;Expected executing the XPath 'declare variable $y := /works/employee;\n        declare context item := $y[9];\n        declare variable $x external := if (./*) then fn:position() else 0;\n        ($x, $y)' to resolve to one of the expected results, but got Xunit.Sdk.TrueException: Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n        declare variable $y := /works/employee;\n        declare context item := $y[9];\n        declare variable $x external := if (./*) then fn:position() else 0;\n        ($x, $y)\n      '
@@ -4058,7 +4015,6 @@ fn-abs-more-args-053;Expected error code: FORG0001. Query succeeded with result:
 fn-abs-more-args-058;Expected error code: FORG0001. Query succeeded with result: 0
 fn-abs-more-args-059;Expected error code: FORG0001. Query succeeded with result: 0
 fn-abs-more-args-060;Expected error code: FORG0001. Query succeeded with result: 2
-fn-abs-more-args-086;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 fn-absdbl1args-1-dyn;PRSC Error: Failed to parse query 'declare variable $zero-double external; fn:abs($zero-double + xs:double("-1.7976931348623157E308")) = 1.7976931348623157E308'
 fn-absdbl1args-1;PRSC Error: Failed to parse query 'fn:abs(xs:double("-1.7976931348623157E308")) = 1.7976931348623157E308'
 fn-absdbl1args-2;PRSC Error: Failed to parse query 'fn:abs(xs:double("0")) = 0.0e0'
@@ -4125,8 +4081,8 @@ fn-avg-mix-args-024;Expected XPath fn:avg(( (xs:double("-INF"), xs:integer("-999
 fn-avg-mix-args-025;Expected XPath fn:avg(( (xs:double("NaN"), xs:integer("-999999999999999999") ) )) to resolve to NaN, but instead got Infinity
 fn-avg-mix-args-026;Expected XPath fn:avg(( (xs:double("1.34"), xs:float("INF")))) to resolve to INF, but instead got Infinity
 fn-avg-mix-args-027;Expected XPath fn:avg(( (xs:double("INF"), 2, 3))) to resolve to INF, but instead got Infinity
-fn-avg-mix-args-034;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
-fn-avg-mix-args-042;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
+fn-avg-mix-args-034;Expected error code: FORG0006. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+fn-avg-mix-args-042;Expected error code: FORG0006. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 fn-avg-mix-args-066;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 fn-avgdbl1args-1;PRSC Error: Failed to parse query 'fn:avg((xs:double("-1.7976931348623157E308"))) = -1.7976931348623157E308'
 fn-avgdbl1args-3;PRSC Error: Failed to parse query 'fn:avg((xs:double("1.7976931348623157E308"))) = 1.7976931348623157E308'
@@ -4203,7 +4159,7 @@ fn-boolean-mixed-args-040;Expected XPath fn:boolean(xs:long('-922337203685477580
 fn-boolean-mixed-args-043;Expected XPath fn:boolean(xs:long('-1')) to resolve to true
 fn-boolean-mixed-args-045;Expected XPath fn:boolean(xs:int('-2147483648')) to resolve to true
 fn-boolean-mixed-args-048;Expected XPath fn:boolean(xs:int('-1')) to resolve to true
-fn-boolean-mixed-args-049;Type casting to XsAnyUri has not been implemented yet.
+fn-boolean-mixed-args-049;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 fn-booleandbl1args-1;Expected XPath fn:boolean(xs:double("-1.7976931348623157E308")) to resolve to true
 fn-booleandec1args-1;Expected XPath fn:boolean(xs:decimal("-999999999999999999")) to resolve to true
 fn-booleanflt1args-1;Expected XPath fn:boolean(xs:float("-3.4028235E38")) to resolve to true
@@ -4513,8 +4469,8 @@ fn-deep-equal-maps-6;PRSC Error: Failed to parse query 'fn:deep-equal(map{1:true
 fn-deep-equal-maps-7;PRSC Error: Failed to parse query 'fn:deep-equal(map{xs:double('NaN'):true()}, map{xs:double('NaN'):true()})'
 fn-deep-equal-maps-8;PRSC Error: Failed to parse query 'fn:deep-equal(map{xs:double('NaN'):true()}, map{xs:float('NaN'):true()})'
 fn-deep-equal-maps-9;PRSC Error: Failed to parse query 'fn:deep-equal(map{12:[1,2,3]}, map{12.0:[1.0, 2.0, 3.0]})'
-fn-deep-equal-mix-args-011;Type casting to XsAnyUri has not been implemented yet.
-fn-deep-equal-mix-args-012;Type casting to XsAnyUri has not been implemented yet.
+fn-deep-equal-mix-args-011;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+fn-deep-equal-mix-args-012;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 fn-deep-equal-node-args-1;PRSC Error: Failed to parse query 'fn:deep-equal(<a> {/bib/node()} </a>/node(), <b> {/bib/node()} </b>/node() )'
 fn-deep-equal-node-args-2;PRSC Error: Failed to parse query 'fn:deep-equal(<a> {/bib/node(), /bib/node()} </a>/node(), <b> {/bib/node(), <difference/>, /bib/node()} </b>/node() )'
 fn-deep-equal-node-args-3;PRSC Error: Failed to parse query 'fn:deep-equal(<a> {/node(), /node()} </a>/node(), <b> {/node(), 'difference', /node()} </b>/node() )'
@@ -5541,7 +5497,7 @@ fn-innermost-054;Expected XPath fn:deep-equal( fn:innermost( ($doc1//node(), $do
 fn-innermost-055;Use of XQuery FLWOR expressions in XPath is not allowed
 fn-innermost-056;Use of XQuery FLWOR expressions in XPath is not allowed
 fn-innermost-059;The function parse-xml with arity 1 is not registered.
-fn-insert-before-mix-args-005;Type casting to XsAnyUri has not been implemented yet.
+fn-insert-before-mix-args-005;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 fn-insert-before-mix-args-018;Comparison between dates/times not implemented yet
 fn-insert-before-mix-args-019;Comparison between dates/times not implemented yet
 fn-insert-before-mix-args-020;Comparison between dates/times not implemented yet
@@ -5633,8 +5589,8 @@ fn-max-12;Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.D
 fn-max-13;Atomic Value for XsNcName is not implemented yet.
 fn-max-14;PRSC Error: Failed to parse query '(max((xs:positiveInteger(123), xs:unsignedShort(124)))) instance of $xs:nonNegativeInteger'
 fn-max-15;PRSC Error: Failed to parse query '(max((xs:positiveInteger(123), xs:unsignedShort(124)))) instance of $xs:unsignedShort'
-fn-max-16;Type casting to XsAnyUri has not been implemented yet.
-fn-max-17;Type casting to XsAnyUri has not been implemented yet.
+fn-max-16;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+fn-max-17;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 fn-max-18;Atomic Value for XsToken is not implemented yet.
 fn-max-19;PRSC Error: Failed to parse query 'max([1,2,3,4,5]) = 5'
 fn-max-2;PRSC Error: Failed to parse query 'fn:max((xs:integer(5000000000),xs:double(3e0))) = 5.0E9'
@@ -5662,8 +5618,8 @@ fn-min-12;Unable to cast object of type 'FontoXPathCSharp.Value.InternalValues.D
 fn-min-13;Atomic Value for XsNcName is not implemented yet.
 fn-min-14;PRSC Error: Failed to parse query '(min((xs:positiveInteger(123), xs:unsignedShort(124)))) instance of $xs:nonNegativeInteger'
 fn-min-15;PRSC Error: Failed to parse query '(min((xs:positiveInteger(123), xs:unsignedShort(124)))) instance of $xs:positiveInteger'
-fn-min-16;Type casting to XsAnyUri has not been implemented yet.
-fn-min-17;Type casting to XsAnyUri has not been implemented yet.
+fn-min-16;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+fn-min-17;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 fn-min-18;Atomic Value for XsToken is not implemented yet.
 fn-min-19;PRSC Error: Failed to parse query 'min([1,2,3,4,5]) = 1'
 fn-min-2;PRSC Error: Failed to parse query 'fn:min((xs:integer(5000000),xs:double(3e8))) = 5.0E6'
@@ -6147,10 +6103,10 @@ fn-prefix-from-qname-6;The function fn:prefix-from-QName with arity 1 is not reg
 fn-prefix-from-qname-7;The function fn:prefix-from-QName with arity 1 is not registered.
 fn-prefix-from-qname-8;Expected error code: FONS0004. Found error code: XPST0017 with error message: The function fn:prefix-from-QName with arity 1 is not registered.
 fn-prefix-from-qname-9;The function fn:prefix-from-QName with arity 1 is not registered.
-fn-remove-mix-args-005;Type casting to XsAnyUri has not been implemented yet.
-fn-remove-mix-args-006;Type casting to XsAnyUri has not been implemented yet.
-fn-remove-mix-args-007;Type casting to XsAnyUri has not been implemented yet.
-fn-remove-mix-args-009;Type casting to XsAnyUri has not been implemented yet.
+fn-remove-mix-args-005;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+fn-remove-mix-args-006;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+fn-remove-mix-args-007;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+fn-remove-mix-args-009;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 fn-remove-mix-args-018;Comparison between dates/times not implemented yet
 fn-remove-mix-args-019;Comparison between dates/times not implemented yet
 fn-remove-mix-args-020;Comparison between dates/times not implemented yet
@@ -6403,7 +6359,7 @@ fn-stringdbl1args-3;Expected XPath fn:string(xs:double("1.7976931348623157E308")
 fn-stringflt1args-1;Expected XPath fn:string(xs:float("-3.4028235E38")) to resolve to -3.4028235E38, but instead got -3.4028235E+38
 fn-stringflt1args-2;Expected XPath fn:string(xs:float("0")) to resolve to 0, but instead got -0
 fn-stringflt1args-3;Expected XPath fn:string(xs:float("3.4028235E38")) to resolve to 3.4028235E38, but instead got 3.4028235E+38
-fn-subsequence-mix-args-005;Type casting to XsAnyUri has not been implemented yet.
+fn-subsequence-mix-args-005;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 fn-subsequence-mix-args-008;Expected XPath fn:subsequence( ("a", xs:decimal("-1.000000000001"), xs:integer("-100"), "b", "c"), 2,3) to (deep equally) resolve to -1.000000000001, -100, "b"
 fn-subsequence-mix-args-021;Comparison between dates/times not implemented yet
 fn-subsequence-mix-args-023;Comparison between dates/times not implemented yet
@@ -7623,8 +7579,8 @@ function-literal-261;The function in-scope-prefixes with arity 1 is not register
 function-literal-262;The function in-scope-prefixes with arity 1 is not registered.
 function-literal-264;Haven't implemented Qnames from: root:
 function-literal-266;Haven't implemented Qnames from: root:
-function-literal-272;Atomic Value for XsAnyUri is not implemented yet.
-function-literal-274;Atomic Value for XsAnyUri is not implemented yet.
+function-literal-272;Unable to cast return of type xs:string to type xs:anyURI while calling 'namespace-uri'
+function-literal-274;Unable to cast return of type xs:string to type xs:anyURI while calling 'namespace-uri'
 function-literal-275;The function lang with arity 1 is not registered.
 function-literal-276;The function lang with arity 1 is not registered.
 function-literal-277;The function lang with arity 2 is not registered.
@@ -7724,7 +7680,7 @@ function-literal-510;Atomic Value for XsEntity is not implemented yet.
 function-literal-512;Expected XPath Q{http://www.w3.org/2001/XMLSchema}boolean#1('1') to resolve to true, but instead got True
 function-literal-514;Type casting to XsBase64Binary has not been implemented yet.
 function-literal-516;Type casting to XsHexBinary has not been implemented yet.
-function-literal-518;Type casting to XsAnyUri has not been implemented yet.
+function-literal-518;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 function-literal-520;Haven't implemented Qnames from: QName:fn
 function-literal-524;Atomic Value for XsIdRefs is not implemented yet.
 function-literal-526;Atomic Value for XsNmTokens is not implemented yet.
@@ -9059,11 +9015,10 @@ generate-id-902;Expected error code: XPTY0004. Found error code: XPST0017 with e
 generate-id-903;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function generate-id with arity 1 is not registered.
 generate-id-904;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function generate-id with arity 1 is not registered.
 generate-id-905;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function generate-id with arity 1 is not registered.
-greaterthaneqonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
-greaterthanonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
+greaterthaneqonanyuri-1;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+greaterthanonanyuri-1;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 head-002;The function current-dateTime with arity 0 is not registered.
 head-004;Haven't implemented Qnames from: works:
-head-006;Expected XPath let $a := /works/* return (head($a) is $a[1]) to resolve to true
 head-007;The function current-date with arity 0 is not registered.
 head-008;The function current-date with arity 0 is not registered.
 hexBinary-1;Type casting to XsHexBinary has not been implemented yet.
@@ -9223,17 +9178,17 @@ instanceof63;PRSC Error: Failed to parse query '1267.43233E12 instance of xs:str
 instanceof64;PRSC Error: Failed to parse query '1267.43233E12 instance of xs:decimal'
 instanceof65;PRSC Error: Failed to parse query '1267.43233E12 instance of xs:integer'
 instanceof66;PRSC Error: Failed to parse query '1267.43233E12 instance of xs:int'
-instanceof67;Type casting to XsAnyUri has not been implemented yet.
-instanceof68;Type casting to XsAnyUri has not been implemented yet.
-instanceof69;Type casting to XsAnyUri has not been implemented yet.
-instanceof70;Type casting to XsAnyUri has not been implemented yet.
-instanceof71;Type casting to XsAnyUri has not been implemented yet.
-instanceof72;Type casting to XsAnyUri has not been implemented yet.
-instanceof73;Type casting to XsAnyUri has not been implemented yet.
-instanceof74;Type casting to XsAnyUri has not been implemented yet.
-instanceof75;Type casting to XsAnyUri has not been implemented yet.
-instanceof76;Type casting to XsAnyUri has not been implemented yet.
-instanceof77;Type casting to XsAnyUri has not been implemented yet.
+instanceof67;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+instanceof68;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+instanceof69;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+instanceof70;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+instanceof71;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+instanceof72;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+instanceof73;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+instanceof74;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+instanceof75;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+instanceof76;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+instanceof77;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 internalcontextitem-1;Expected error code: XPDY0002. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare namespace eg = "http://example.org"; declare function eg:noContextFunction() { . }; eg:noContextFunction()'
 internalcontextitem-16;Expected XPath (fn:true(),fn:false(),fn:true())[xs:boolean(.) and xs:boolean(.)] to resolve to true true, but instead got True True
 internalcontextitem-17;Expected XPath (fn:true(),fn:false(),fn:true())[xs:boolean(.) or xs:boolean(.)] to resolve to true true, but instead got True True
@@ -9245,16 +9200,16 @@ internalcontextitem-8;Expected XPath (fn:false(),fn:true(),fn:false())[fn:not(xs
 internalvar-1;PRSC Error: Failed to parse query 'declare(::)variable(::)$var(::)as(::)item((: :))*(::):=(::)1(::);(::) 1(::)eq(::)1(::)'
 internalvar-2;PRSC Error: Failed to parse query '(::)declare(::)variable(::)$var(::):=(::)1(::);(::) 1(::)eq(::)1'
 K-ABSFunc-5;Value was either too large or too small for a Decimal.
-K-AnyURIEqual-1;Type casting to XsAnyUri has not been implemented yet.
-K-AnyURIEqual-10;Type casting to XsAnyUri has not been implemented yet.
-K-AnyURIEqual-2;Type casting to XsAnyUri has not been implemented yet.
-K-AnyURIEqual-3;Type casting to XsAnyUri has not been implemented yet.
-K-AnyURIEqual-4;Type casting to XsAnyUri has not been implemented yet.
-K-AnyURIEqual-5;Type casting to XsAnyUri has not been implemented yet.
-K-AnyURIEqual-6;Type casting to XsAnyUri has not been implemented yet.
-K-AnyURIEqual-7;Type casting to XsAnyUri has not been implemented yet.
-K-AnyURIEqual-8;Type casting to XsAnyUri has not been implemented yet.
-K-AnyURIEqual-9;Type casting to XsAnyUri has not been implemented yet.
+K-AnyURIEqual-1;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-AnyURIEqual-10;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-AnyURIEqual-2;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-AnyURIEqual-3;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-AnyURIEqual-4;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-AnyURIEqual-5;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-AnyURIEqual-6;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-AnyURIEqual-7;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-AnyURIEqual-8;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-AnyURIEqual-9;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-Base64BinaryEQ-1;Type casting to XsHexBinary has not been implemented yet.
 K-Base64BinaryEQ-2;Type casting to XsHexBinary has not been implemented yet.
 K-Base64BinaryEQ-3;Type casting to XsBase64Binary has not been implemented yet.
@@ -9282,8 +9237,8 @@ K-CondExpr-4;TreatExpr AST to Expression not yet implemented
 K-CondExpr-5;The function hours-from-time with arity 1 is not registered.
 K-CondExpr-6;TreatExpr AST to Expression not yet implemented
 K-CondExpr-7;Expected error code: FORG0006. Found error code: XPST0017 with error message: The function current-time with arity 0 is not registered.
-K-CondExpr-8;Type casting to XsAnyUri has not been implemented yet.
-K-CondExpr-9;Type casting to XsAnyUri has not been implemented yet.
+K-CondExpr-8;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-CondExpr-9;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-ConstructionProlog-1;PRSC Error: Failed to parse query '(::)declare(::)construction(::)preserve(::);(::)1(::)eq(::)1(::)'
 K-ConstructionProlog-3;PRSC Error: Failed to parse query 'declare(::)construction(::)strip;(::)1(::)eq(::)1'
 K-ConstructionProlog-4;Expected error code: XQST0067. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare(::)construction(::)strip; declare(::)construction(::)strip;1(::)eq(::)1'
@@ -9504,8 +9459,8 @@ K-FilterExpr-20;PRSC Error: Failed to parse query '(1, 2, 3)[1.0e0] eq 1'
 K-FilterExpr-22;Expected XPath (1, 2, 3)[3.0] eq 3 to resolve to true
 K-FilterExpr-23;PRSC Error: Failed to parse query '(1, 2, 3)[3.0e0] eq 3'
 K-FilterExpr-36;The function current-time with arity 0 is not registered.
-K-FilterExpr-37;Type casting to XsAnyUri has not been implemented yet.
-K-FilterExpr-38;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
+K-FilterExpr-37;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-FilterExpr-38;Expected error code: FORG0006. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-FilterExpr-51;Expected executing the XPath '((0, 1, 2, "a", "b", "c")[. instance of xs:string][. treat as xs:string eq "c"] treat as xs:string) eq "c"' to resolve to one of the expected results, but got System.NotImplementedException: TreatExpr AST to Expression not yet implemented
 K-FilterExpr-52;Expected executing the XPath '((0, 1, 2, "a", "b", "c")[. instance of xs:integer][. treat as xs:integer eq 0] treat as xs:integer) eq 0' to resolve to one of the expected results, but got System.NotImplementedException: TreatExpr AST to Expression not yet implemented
 K-FilterExpr-59;Expected executing the XPath 'empty(()[count(remove((current-time(), 1), 1)) eq 1])' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
@@ -9618,22 +9573,14 @@ K-GenCompEq-19;Expected error code: FOER0000. Found error code: XPST0017 with er
 K-GenCompEq-20;The function current-time with arity 0 is not registered.
 K-GenCompEq-21;The function timezone-from-time with arity 1 is not registered.
 K-GenCompEq-22;The function timezone-from-time with arity 1 is not registered.
-K-GenCompEq-23;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompEq-51;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-GenCompEq-54;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
-K-GenCompEq-55;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompEq-56;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompEq-57;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
-K-GenCompEq-58;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-K-GenCompEq-59;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-K-GenCompGT-16;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-K-GenCompGT-17;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompGT-18;The function timezone-from-time with arity 1 is not registered.
 K-GenCompGT-19;The function timezone-from-time with arity 1 is not registered.
 K-GenCompGTEQ-10;The function timezone-from-time with arity 1 is not registered.
 K-GenCompGTEQ-5;The function timezone-from-time with arity 1 is not registered.
-K-GenCompLT-16;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-K-GenCompLT-17;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-GenCompLT-18;The function timezone-from-time with arity 1 is not registered.
 K-GenCompLT-19;The function timezone-from-time with arity 1 is not registered.
 K-GenCompNE-13;The function timezone-from-time with arity 1 is not registered.
@@ -9641,8 +9588,6 @@ K-GenCompNE-31;Expected XPathException with code FORG0001, but got Input string 
 K-GenCompNE-32;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-GenCompNE-35;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
 K-GenCompNE-39;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Casting not supported from given type to xs:boolean or any of its derived types.
-K-GenCompNE-40;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
-K-GenCompNE-41;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-HexBinaryEQ-1;Type casting to XsHexBinary has not been implemented yet.
 K-HexBinaryEQ-2;Type casting to XsHexBinary has not been implemented yet.
 K-HexBinaryEQ-3;Type casting to XsHexBinary has not been implemented yet.
@@ -9713,8 +9658,8 @@ K-Literals-47;Expected XPath "t" eq "&#x74;" to resolve to true
 K-Literals-48;Expected error code: XPST0003. Query succeeded with result: &#X4A;
 K-LocalNameFromQNameFunc-3;The function local-name-from-QName with arity 1 is not registered.
 K-LocalNameFromQNameFunc-4;The function local-name-from-QName with arity 1 is not registered.
-K-LogicExpr-10;Type casting to XsAnyUri has not been implemented yet.
-K-LogicExpr-11;Type casting to XsAnyUri has not been implemented yet.
+K-LogicExpr-10;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-LogicExpr-11;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-LogicExpr-14;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-15;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-16;Expected error code: FORG0006. Found error code: XPST0017 with error message: The function current-date with arity 0 is not registered.
@@ -9731,17 +9676,17 @@ K-LogicExpr-26;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-27;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-32;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-33;TreatExpr AST to Expression not yet implemented
-K-LogicExpr-34;Type casting to XsAnyUri has not been implemented yet.
-K-LogicExpr-35;Type casting to XsAnyUri has not been implemented yet.
-K-LogicExpr-36;Type casting to XsAnyUri has not been implemented yet.
+K-LogicExpr-34;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-LogicExpr-35;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-LogicExpr-36;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-LogicExpr-39;The function timezone-from-time with arity 1 is not registered.
 K-LogicExpr-40;The function timezone-from-time with arity 1 is not registered.
 K-LogicExpr-41;The function timezone-from-time with arity 1 is not registered.
 K-LogicExpr-42;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-43;TreatExpr AST to Expression not yet implemented
 K-LogicExpr-44;TreatExpr AST to Expression not yet implemented
-K-LogicExpr-8;Type casting to XsAnyUri has not been implemented yet.
-K-LogicExpr-9;Type casting to XsAnyUri has not been implemented yet.
+K-LogicExpr-8;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-LogicExpr-9;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-MatchesFunc-3;Expected error code: XPTY0004. Found error code: XPST0017 with error message: The function matches with arity 3 is not registered.
 K-MatchesFunc-5;Expected error code: FORX0001. Found error code: XPST0017 with error message: The function matches with arity 3 is not registered.
 K-MatchesFunc-6;Expected error code: FORX0001. Found error code: XPST0017 with error message: The function matches with arity 3 is not registered.
@@ -9783,8 +9728,8 @@ K-NodeBefore-9;Expected error code: XPST0003. Query succeeded with result: 1
 K-NodeNameFunc-1;Expected error code: XPST0017. Query succeeded with result: 
 K-NodeNameFunc-1a;Expected error code: XPDY0002. Query succeeded with result: 
 K-NodeNameFunc-3;Object reference not set to an instance of an object.
-K-NodeNumberFunc-12;Type casting to XsAnyUri has not been implemented yet.
-K-NodeNumberFunc-13;Type casting to XsAnyUri has not been implemented yet.
+K-NodeNumberFunc-12;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-NodeNumberFunc-13;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-NodeNumberFunc-15;Expected XPath string(number(xs:gYear("2005"))) eq "NaN" to resolve to true
 K-NodeNumberFunc-16;Casting AbstractValue(XsDouble) to IntegerValue
 K-NodeNumberFunc-17;Casting AbstractValue(XsDouble) to IntegerValue
@@ -9795,8 +9740,8 @@ K-NodeSame-5;Expected error code: XPST0003. Query succeeded with result:
 K-NormalizeSpaceFunc-6;Object reference not set to an instance of an object.
 K-NormalizeSpaceFunc-9;Expected executing the XPath 'normalize-space(normalize-space(("foo", current-time())[1])) eq "foo"' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function current-time with arity 0 is not registered.
 K-NotFunc-10;TreatExpr AST to Expression not yet implemented
-K-NotFunc-8;Type casting to XsAnyUri has not been implemented yet.
-K-NotFunc-9;Type casting to XsAnyUri has not been implemented yet.
+K-NotFunc-8;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-NotFunc-9;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-NumericAdd-10;Expected XPath string(xs:double("NaN") + 3) eq "NaN" to resolve to true
 K-NumericAdd-11;Expected XPath string(3 + xs:float("NaN")) eq "NaN" to resolve to true
 K-NumericAdd-12;Expected XPath string(3 + xs:double("NaN")) eq "NaN" to resolve to true
@@ -9902,7 +9847,6 @@ K-QNameEQ-10;Expected XPathException with code XPTY0004, but got PerformValueCom
 K-QNameEQ-2;PerformValueCompare: Handle QName
 K-QNameEQ-3;PerformValueCompare: Handle QName
 K-QNameEQ-4;PerformValueCompare: Handle QName
-K-QNameEQ-6;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-QNameEQ-7;Expected XPathException with code XPTY0004, but got PerformValueCompare: Handle QName
 K-QNameEQ-8;Expected XPathException with code XPTY0004, but got PerformValueCompare: Handle QName
 K-QNameEQ-9;Expected XPathException with code XPTY0004, but got PerformValueCompare: Handle QName
@@ -9979,8 +9923,8 @@ K-SeqAVGFunc-22;Expected XPath string(avg((xs:double("NaN"), 1, 2, 3))) eq "NaN"
 K-SeqAVGFunc-23;Overflow when creating a Int64 from NaN.
 K-SeqAVGFunc-24;Expected XPath string(avg((1, 2, xs:double("NaN"), 1, 2, 3))) eq "NaN" to resolve to true
 K-SeqAVGFunc-25;Overflow when creating a Int64 from NaN.
-K-SeqAVGFunc-32;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
-K-SeqAVGFunc-33;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
+K-SeqAVGFunc-32;Expected error code: FORG0006. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqAVGFunc-33;Expected error code: FORG0006. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqAVGFunc-41;Overflow when creating a Int64 from NaN.
 K-SeqAVGFunc-42;Overflow when creating a Int64 from NaN.
 K-SeqAVGFunc-6;Expected XPath avg((xs:float(1), xs:integer(3), xs:float(3))) instance of xs:float to resolve to true
@@ -9993,11 +9937,11 @@ K-SeqBooleanFunc-32;The function timezone-from-time with arity 1 is not register
 K-SeqBooleanFunc-4;Expected XPathException with code FORG0006, but got Atomic Value for XsName is not implemented yet.
 K-SeqBooleanFunc-5;Expected XPathException with code FORG0006, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqBooleanFunc-6;Expected XPathException with code FORG0006, but got Type casting to XsBase64Binary has not been implemented yet.
-K-SeqBooleanFunc-7;Type casting to XsAnyUri has not been implemented yet.
-K-SeqBooleanFunc-8;Type casting to XsAnyUri has not been implemented yet.
+K-SeqBooleanFunc-7;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqBooleanFunc-8;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqCountFunc-18;The function current-time with arity 0 is not registered.
-K-SeqDeepEqualFunc-16;Type casting to XsAnyUri has not been implemented yet.
-K-SeqDeepEqualFunc-18;Type casting to XsAnyUri has not been implemented yet.
+K-SeqDeepEqualFunc-16;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqDeepEqualFunc-18;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqDeepEqualFunc-22;Type casting to XsHexBinary has not been implemented yet.
 K-SeqDeepEqualFunc-23;Type casting to XsBase64Binary has not been implemented yet.
 K-SeqDeepEqualFunc-24;Type casting to XsBase64Binary has not been implemented yet.
@@ -10056,7 +10000,6 @@ K-SeqExprCast-1044;Expected XPathException with code XPTY0004, but got Type cast
 K-SeqExprCast-1045;PRSC Error: Failed to parse query 'not(xs:gYear("1999") castable as xs:base64Binary)'
 K-SeqExprCast-1046;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1047;PRSC Error: Failed to parse query 'not(xs:gYear("1999") castable as xs:hexBinary)'
-K-SeqExprCast-1048;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1049;PRSC Error: Failed to parse query 'not(xs:gYear("1999") castable as xs:anyURI)'
 K-SeqExprCast-105;Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1050;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
@@ -10090,7 +10033,6 @@ K-SeqExprCast-1097;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13"
 K-SeqExprCast-1098;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1099;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:hexBinary)'
 K-SeqExprCast-110;Type casting to XsHexBinary has not been implemented yet.
-K-SeqExprCast-1100;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1101;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:anyURI)'
 K-SeqExprCast-1102;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-1103;PRSC Error: Failed to parse query 'not(xs:gMonthDay("--11-13") castable as xs:QName)'
@@ -10123,7 +10065,6 @@ K-SeqExprCast-1149;PRSC Error: Failed to parse query 'not(xs:gDay("---03") casta
 K-SeqExprCast-115;Expected XPathException with code FORG0001, but got Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-1150;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1151;PRSC Error: Failed to parse query 'not(xs:gDay("---03") castable as xs:hexBinary)'
-K-SeqExprCast-1152;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1153;PRSC Error: Failed to parse query 'not(xs:gDay("---03") castable as xs:anyURI)'
 K-SeqExprCast-1154;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-1155;PRSC Error: Failed to parse query 'not(xs:gDay("---03") castable as xs:QName)'
@@ -10156,7 +10097,6 @@ K-SeqExprCast-1200;Expected XPathException with code XPTY0004, but got Type cast
 K-SeqExprCast-1201;PRSC Error: Failed to parse query 'not(xs:gMonth("--11") castable as xs:base64Binary)'
 K-SeqExprCast-1202;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1203;PRSC Error: Failed to parse query 'not(xs:gMonth("--11") castable as xs:hexBinary)'
-K-SeqExprCast-1204;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1205;PRSC Error: Failed to parse query 'not(xs:gMonth("--11") castable as xs:anyURI)'
 K-SeqExprCast-1206;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-1207;PRSC Error: Failed to parse query 'not(xs:gMonth("--11") castable as xs:QName)'
@@ -10189,7 +10129,6 @@ K-SeqExprCast-1252;Expected XPathException with code XPTY0004, but got Type cast
 K-SeqExprCast-1253;PRSC Error: Failed to parse query 'not(xs:boolean("true") castable as xs:base64Binary)'
 K-SeqExprCast-1254;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1255;PRSC Error: Failed to parse query 'not(xs:boolean("true") castable as xs:hexBinary)'
-K-SeqExprCast-1256;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1257;PRSC Error: Failed to parse query 'not(xs:boolean("true") castable as xs:anyURI)'
 K-SeqExprCast-1258;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-1259;PRSC Error: Failed to parse query 'not(xs:boolean("true") castable as xs:QName)'
@@ -10305,59 +10244,40 @@ K-SeqExprCast-1361;PRSC Error: Failed to parse query 'not(xs:hexBinary("0FB7") c
 K-SeqExprCast-1362;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-1363;PRSC Error: Failed to parse query 'not(xs:hexBinary("0FB7") castable as xs:QName)'
 K-SeqExprCast-1364;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:hexBinary("0FB7") castable as xs:NOTATION)'
-K-SeqExprCast-1367;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprCast-1368;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprCast-1369;Type casting to XsAnyUri has not been implemented yet.
+K-SeqExprCast-1367;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqExprCast-1368;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqExprCast-1369;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqExprCast-137;Type casting to XsHexBinary has not been implemented yet.
-K-SeqExprCast-1370;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprCast-1371;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprCast-1372;Type casting to XsAnyUri has not been implemented yet.
+K-SeqExprCast-1370;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqExprCast-1371;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqExprCast-1372;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqExprCast-1373;PRSC Error: Failed to parse query 'xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:untypedAtomic'
-K-SeqExprCast-1374;Type casting to XsAnyUri has not been implemented yet.
+K-SeqExprCast-1374;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqExprCast-1375;PRSC Error: Failed to parse query 'xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:string'
-K-SeqExprCast-1376;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1377;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:float)'
-K-SeqExprCast-1378;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1379;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:double)'
 K-SeqExprCast-138;Type casting to XsHexBinary has not been implemented yet.
-K-SeqExprCast-1380;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1381;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:decimal)'
-K-SeqExprCast-1382;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1383;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:integer)'
-K-SeqExprCast-1384;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1385;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:duration)'
-K-SeqExprCast-1386;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1387;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:yearMonthDuration)'
-K-SeqExprCast-1388;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1389;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:dayTimeDuration)'
 K-SeqExprCast-139;Type casting to XsHexBinary has not been implemented yet.
-K-SeqExprCast-1390;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1391;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:dateTime)'
-K-SeqExprCast-1392;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1393;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:time)'
-K-SeqExprCast-1394;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1395;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:date)'
-K-SeqExprCast-1396;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1397;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:gYearMonth)'
-K-SeqExprCast-1398;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1399;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:gYear)'
 K-SeqExprCast-140;Type casting to XsBase64Binary has not been implemented yet.
-K-SeqExprCast-1400;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1401;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:gMonthDay)'
-K-SeqExprCast-1402;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1403;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:gDay)'
-K-SeqExprCast-1404;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1405;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:gMonth)'
-K-SeqExprCast-1406;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1407;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:boolean)'
-K-SeqExprCast-1408;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1409;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:base64Binary)'
 K-SeqExprCast-141;Type casting to XsBase64Binary has not been implemented yet.
-K-SeqExprCast-1410;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1411;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:hexBinary)'
-K-SeqExprCast-1412;Type casting to XsAnyUri has not been implemented yet.
+K-SeqExprCast-1412;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqExprCast-1413;PRSC Error: Failed to parse query 'xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:anyURI'
-K-SeqExprCast-1414;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-1415;PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:QName)'
 K-SeqExprCast-1416;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:anyURI("http://www.example.com/an/arbitrary/URI.ext") castable as xs:NOTATION)'
 K-SeqExprCast-1419;Atomic Value for XsName is not implemented yet.
@@ -10656,7 +10576,7 @@ K-SeqExprCast-43;Atomic Value for XsName is not implemented yet.
 K-SeqExprCast-433;PRSC Error: Failed to parse query 'xs:string("an arbitrary string") castable as xs:untypedAtomic'
 K-SeqExprCast-435;PRSC Error: Failed to parse query 'xs:string("an arbitrary string") castable as xs:string'
 K-SeqExprCast-436;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:string("an arbitrary string") castable as xs:NOTATION)'
-K-SeqExprCast-44;Type casting to XsAnyUri has not been implemented yet.
+K-SeqExprCast-44;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqExprCast-441;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqExprCast-445;PRSC Error: Failed to parse query 'xs:float("3.4e5") castable as xs:untypedAtomic'
 K-SeqExprCast-447;PRSC Error: Failed to parse query 'xs:float("3.4e5") castable as xs:string'
@@ -10678,7 +10598,6 @@ K-SeqExprCast-476;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-477;PRSC Error: Failed to parse query 'not(xs:float("3.4e5") castable as xs:base64Binary)'
 K-SeqExprCast-478;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-479;PRSC Error: Failed to parse query 'not(xs:float("3.4e5") castable as xs:hexBinary)'
-K-SeqExprCast-480;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-481;PRSC Error: Failed to parse query 'not(xs:float("3.4e5") castable as xs:anyURI)'
 K-SeqExprCast-482;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-483;PRSC Error: Failed to parse query 'not(xs:float("3.4e5") castable as xs:QName)'
@@ -10706,7 +10625,6 @@ K-SeqExprCast-524;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-525;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:base64Binary)'
 K-SeqExprCast-526;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-527;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:hexBinary)'
-K-SeqExprCast-528;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-529;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:anyURI)'
 K-SeqExprCast-530;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-531;PRSC Error: Failed to parse query 'not(xs:double("3.3e3") castable as xs:QName)'
@@ -10724,7 +10642,7 @@ K-SeqExprCast-553;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") cas
 K-SeqExprCast-555;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:yearMonthDuration)'
 K-SeqExprCast-557;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:dayTimeDuration)'
 K-SeqExprCast-559;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:dateTime)'
-K-SeqExprCast-56;Type casting to XsAnyUri has not been implemented yet.
+K-SeqExprCast-56;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqExprCast-561;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:time)'
 K-SeqExprCast-563;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:date)'
 K-SeqExprCast-565;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:gYearMonth)'
@@ -10737,7 +10655,6 @@ K-SeqExprCast-576;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-577;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:base64Binary)'
 K-SeqExprCast-578;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-579;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:hexBinary)'
-K-SeqExprCast-580;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-581;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:anyURI)'
 K-SeqExprCast-582;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-583;PRSC Error: Failed to parse query 'not(xs:decimal("10.01") castable as xs:QName)'
@@ -10765,7 +10682,6 @@ K-SeqExprCast-628;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-629;PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:base64Binary)'
 K-SeqExprCast-630;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-631;PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:hexBinary)'
-K-SeqExprCast-632;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-633;PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:anyURI)'
 K-SeqExprCast-634;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-635;PRSC Error: Failed to parse query 'not(xs:integer("6789") castable as xs:QName)'
@@ -10797,7 +10713,6 @@ K-SeqExprCast-680;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-681;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:base64Binary)'
 K-SeqExprCast-682;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-683;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:hexBinary)'
-K-SeqExprCast-684;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-685;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:anyURI)'
 K-SeqExprCast-686;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-687;PRSC Error: Failed to parse query 'not(xs:duration("P1Y2M3DT10H30M") castable as xs:QName)'
@@ -10821,23 +10736,22 @@ K-SeqExprCast-717;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P
 K-SeqExprCast-719;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:date)'
 K-SeqExprCast-71a;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-71b;Type casting to XsQName has not been implemented yet.
-K-SeqExprCast-72;Type casting to XsAnyUri has not been implemented yet.
+K-SeqExprCast-72;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqExprCast-721;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gYearMonth)'
 K-SeqExprCast-723;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gYear)'
 K-SeqExprCast-725;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gMonthDay)'
 K-SeqExprCast-727;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gDay)'
 K-SeqExprCast-729;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:gMonth)'
-K-SeqExprCast-73;Type casting to XsAnyUri has not been implemented yet.
+K-SeqExprCast-73;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqExprCast-731;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:boolean)'
 K-SeqExprCast-732;Expected XPathException with code XPTY0004, but got Type casting to XsBase64Binary has not been implemented yet.
 K-SeqExprCast-733;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:base64Binary)'
 K-SeqExprCast-734;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-735;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:hexBinary)'
-K-SeqExprCast-736;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-737;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:anyURI)'
 K-SeqExprCast-738;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-739;PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:QName)'
-K-SeqExprCast-74;Type casting to XsAnyUri has not been implemented yet.
+K-SeqExprCast-74;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqExprCast-740;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'not(xs:yearMonthDuration("P1Y12M") castable as xs:NOTATION)'
 K-SeqExprCast-746;Expected XPath xs:dayTimeDuration(xs:untypedAtomic( "P3DT2H" )) eq xs:dayTimeDuration("P3DT2H") to resolve to true
 K-SeqExprCast-749;PRSC Error: Failed to parse query 'xs:dayTimeDuration("P3DT2H") castable as xs:untypedAtomic'
@@ -10865,7 +10779,6 @@ K-SeqExprCast-784;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-785;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:base64Binary)'
 K-SeqExprCast-786;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-787;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:hexBinary)'
-K-SeqExprCast-788;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-789;PRSC Error: Failed to parse query 'not(xs:dayTimeDuration("P3DT2H") castable as xs:anyURI)'
 K-SeqExprCast-79;Expected XPath xs:string(xs:double("-INF")) eq "-INF" to resolve to true
 K-SeqExprCast-790;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
@@ -10898,7 +10811,6 @@ K-SeqExprCast-837;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10
 K-SeqExprCast-838;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-839;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:hexBinary)'
 K-SeqExprCast-84;Expected XPath xs:string(xs:float("-INF")) eq "-INF" to resolve to true
-K-SeqExprCast-840;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-841;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:anyURI)'
 K-SeqExprCast-842;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-843;PRSC Error: Failed to parse query 'not(xs:dateTime("2002-10-10T12:00:00-05:00") castable as xs:QName)'
@@ -10926,7 +10838,6 @@ K-SeqExprCast-888;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-889;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:base64Binary)'
 K-SeqExprCast-890;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-891;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:hexBinary)'
-K-SeqExprCast-892;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-893;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:anyURI)'
 K-SeqExprCast-894;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-895;PRSC Error: Failed to parse query 'not(xs:time("03:20:00-05:00") castable as xs:QName)'
@@ -10962,7 +10873,6 @@ K-SeqExprCast-940;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-941;PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:base64Binary)'
 K-SeqExprCast-942;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-943;PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:hexBinary)'
-K-SeqExprCast-944;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-945;PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:anyURI)'
 K-SeqExprCast-946;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-947;PRSC Error: Failed to parse query 'not(xs:date("2004-10-13") castable as xs:QName)'
@@ -10995,7 +10905,6 @@ K-SeqExprCast-992;Expected XPathException with code XPTY0004, but got Type casti
 K-SeqExprCast-993;PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:base64Binary)'
 K-SeqExprCast-994;Expected XPathException with code XPTY0004, but got Type casting to XsHexBinary has not been implemented yet.
 K-SeqExprCast-995;PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:hexBinary)'
-K-SeqExprCast-996;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K-SeqExprCast-997;PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:anyURI)'
 K-SeqExprCast-998;Expected XPathException with code XPTY0004, but got Type casting to XsQName has not been implemented yet.
 K-SeqExprCast-999;PRSC Error: Failed to parse query 'not(xs:gYearMonth("1999-11") castable as xs:QName)'
@@ -11031,8 +10940,8 @@ K-SeqExprCastable-6a;Expected error code: XQST0052. Found error code: XPST0003 w
 K-SeqExprCastable-7;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query ''string' castable as xs:anyAtomicType'
 K-SeqExprCastable-8;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '"notation is abstract" castable as xs:NOTATION?'
 K-SeqExprCastable-9;Expected error code: XPST0080. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '() castable as xs:NOTATION?'
-K-SeqExprInstanceOf-14;Type casting to XsAnyUri has not been implemented yet.
-K-SeqExprInstanceOf-15;Type casting to XsAnyUri has not been implemented yet.
+K-SeqExprInstanceOf-14;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqExprInstanceOf-15;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqExprInstanceOf-37;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-38;VoidSequenceType AST to Expression not yet implemented
 K-SeqExprInstanceOf-39;VoidSequenceType AST to Expression not yet implemented
@@ -11049,8 +10958,8 @@ K-SeqExprInstanceOf-62;Expected executing the XPath '(1, error()) instance of xs
 K-SeqExprInstanceOf-63;Expected executing the XPath '(error(), 1) instance of xs:integer*' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: The function error with arity 0 is not registered.
 K-SeqIndexOfFunc-10;Expected XPath empty(index-of(xs:double("NaN"), xs:double("NaN"))) to resolve to true
 K-SeqIndexOfFunc-11;Equal not available for XsInteger and XsString
-K-SeqIndexOfFunc-16;Type casting to XsAnyUri has not been implemented yet.
-K-SeqIndexOfFunc-17;Type casting to XsAnyUri has not been implemented yet.
+K-SeqIndexOfFunc-16;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqIndexOfFunc-17;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqIndexOfFunc-18;Equal not available for XsString and XsInteger
 K-SeqIndexOfFunc-6;No collations are supported
 K-SeqIndexOfFunc-7;Value was either too large or too small for a Decimal.
@@ -11078,8 +10987,8 @@ K-SeqMAXFunc-33;Expected XPath string(max(xs:float("NaN"))) eq "NaN" to resolve 
 K-SeqMAXFunc-34;Expected XPath string(max(xs:double("NaN"))) eq "NaN" to resolve to true
 K-SeqMAXFunc-35;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqMAXFunc-38;Expected XPathException with code FORG0006, but got Haven't implemented Qnames from: ncname:
-K-SeqMAXFunc-39;Type casting to XsAnyUri has not been implemented yet.
-K-SeqMAXFunc-40;Type casting to XsAnyUri has not been implemented yet.
+K-SeqMAXFunc-39;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqMAXFunc-40;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqMAXFunc-43;PRSC Error: Failed to parse query 'max((5, 5.0e0)) eq 5.0e0'
 K-SeqMAXFunc-44;PRSC Error: Failed to parse query 'max((5, 5.0e0)) instance of xs:double'
 K-SeqMAXFunc-45;PRSC Error: Failed to parse query 'max((5, 3.0e0)) instance of xs:double'
@@ -11112,8 +11021,8 @@ K-SeqMINFunc-33;Expected XPath string(min(xs:float("NaN"))) eq "NaN" to resolve 
 K-SeqMINFunc-34;Expected XPath string(min(xs:double("NaN"))) eq "NaN" to resolve to true
 K-SeqMINFunc-35;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K-SeqMINFunc-38;Expected XPathException with code FORG0006, but got Haven't implemented Qnames from: ncname:
-K-SeqMINFunc-39;Type casting to XsAnyUri has not been implemented yet.
-K-SeqMINFunc-40;Type casting to XsAnyUri has not been implemented yet.
+K-SeqMINFunc-39;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqMINFunc-40;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqMINFunc-43;PRSC Error: Failed to parse query 'min((5, 5.0e0)) eq 5.0e0'
 K-SeqMINFunc-44;PRSC Error: Failed to parse query 'min((5.0e0, 5)) eq 5.0e0'
 K-SeqMINFunc-45;PRSC Error: Failed to parse query 'min((3, 5.0e0)) eq 3'
@@ -11157,9 +11066,9 @@ K-SeqSUMFunc-13;Expected XPath string(sum((xs:double("NaN"), 1, 2, 3))) eq "NaN"
 K-SeqSUMFunc-14;Expected XPath string(sum((xs:float("NaN"), 1, 2, 3))) eq "NaN" to resolve to true
 K-SeqSUMFunc-15;Expected XPath string(sum((1, 2, xs:double("NaN"), 1, 2, 3))) eq "NaN" to resolve to true
 K-SeqSUMFunc-16;Expected XPath string(sum((1, 2, xs:float("NaN"), 1, 2, 3))) eq "NaN" to resolve to true
-K-SeqSUMFunc-24;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
-K-SeqSUMFunc-25;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
-K-SeqSUMFunc-26;Expected XPathException with code FORG0006, but got Type casting to XsAnyUri has not been implemented yet.
+K-SeqSUMFunc-24;Expected error code: FORG0006. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqSUMFunc-25;Expected error code: FORG0006. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K-SeqSUMFunc-26;Expected error code: FORG0006. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K-SeqSUMFunc-30;Items passed to fn:sum are not all numeric.
 K-sequenceExprTypeswitch-1;PRSC Error: Failed to parse query '(typeswitch((1, 2)) case xs:integer return -1 case xs:integer+ return 1 default return -2) eq 1'
 K-sequenceExprTypeswitch-2;PRSC Error: Failed to parse query '(typeswitch("a string") case xs:anyURI return -1 case xs:string return 1 default return -2) eq 1'
@@ -11323,36 +11232,36 @@ K2-ancestorAxis-6;Expected executing the XPath 'empty(document {<e><f/><f/>text<
 K2-ancestorAxis-7;PRSC Error: Failed to parse query '<a> <b c=""> <c/> </b> <d/> </a>/b/c/ancestor::*'
 K2-ancestorAxis-8;PRSC Error: Failed to parse query '<a> <b c=""> <c/> </b> <d/> </a>/b/c/ancestor::*[1]'
 K2-ancestorAxis-9;PRSC Error: Failed to parse query '<a> <b c=""> <c/> </b> <d/> </a>/b/c/(ancestor::*)[1]'
-K2-AnyURIEqual-1;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURIEqual-10;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURIEqual-11;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURIEqual-12;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURIEqual-2;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURIEqual-3;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURIEqual-4;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURIEqual-5;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURIEqual-6;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURIEqual-7;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURIEqual-8;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURIEqual-9;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILeGe-1;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILeGe-10;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILeGe-2;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILeGe-3;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILeGe-4;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILeGe-5;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILeGe-6;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILeGe-7;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILeGe-8;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILeGe-9;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILtGt-1;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILtGt-2;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILtGt-3;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILtGt-4;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILtGt-5;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILtGt-6;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILtGt-7;Type casting to XsAnyUri has not been implemented yet.
-K2-AnyURILtGt-8;Type casting to XsAnyUri has not been implemented yet.
+K2-AnyURIEqual-1;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURIEqual-10;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURIEqual-11;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURIEqual-12;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURIEqual-2;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURIEqual-3;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURIEqual-4;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURIEqual-5;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURIEqual-6;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURIEqual-7;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURIEqual-8;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURIEqual-9;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILeGe-1;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILeGe-10;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILeGe-2;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILeGe-3;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILeGe-4;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILeGe-5;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILeGe-6;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILeGe-7;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILeGe-8;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILeGe-9;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILtGt-1;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILtGt-2;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILtGt-3;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILtGt-4;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILtGt-5;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILtGt-6;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILtGt-7;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-AnyURILtGt-8;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K2-Axes-1;PRSC Error: Failed to parse query 'declare variable $var := document{<e><f>f's value</f></e>}; $var/(/)/(/)//f'
 K2-Axes-100;Expected executing the XPath 'empty(<a> <b/> <c/> </a>[self::b][last()])' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'empty(<a> <b/> <c/> </a>[self::b][last()])'
 K2-Axes-101;Expected executing the XPath '<b/>[self::b][last()]' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '<b/>[self::b][last()]'
@@ -12013,14 +11922,13 @@ K2-InternalVariablesWithout-8;Expected error code: XQST0054. Found error code: X
 K2-InternalVariablesWithout-8a;Expected error code: XQDY0054. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare variable $local:myVar := local:myFunction();\n\n         declare function local:myFunction2() { local:myFunction4() };\n\n         declare function local:myFunction4() {\n         if (current-date() lt xs:date('1990-01-01')) then local:myFunction2() else (), $local:myVar };\n\n         declare function local:myFunction3() { local:myFunction4() };\n\n         declare function local:myFunction() { local:myFunction3() };\n\n         local:myFunction()'
 K2-InternalVariablesWithout-9;Expected error code: XQST0054. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare variable $local:myVar := local:myFunc(3); declare function local:myFunc($arg) { local:myFunc($local:myVar) }; $local:myVar'
 K2-InternalVariablesWithout-9a;Expected error code: XQDY0054. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'declare variable $local:myVar := local:myFunc(3); declare function local:myFunc($arg) { local:myFunc($local:myVar) }; $local:myVar'
-K2-IRIToURIfunc-5;Type casting to XsAnyUri has not been implemented yet.
+K2-IRIToURIfunc-5;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K2-LetExprWithout-1;PRSC Error: Failed to parse query 'deep-equal((<b/>, <b/>, <b/>, <b/>), (for $v1 in (1, 2, 3, 4) let $v2 := <b/> return ($v2))/.)'
 K2-LetExprWithout-10;Expected error code: XPTY0004. Query succeeded with result: 1.1
 K2-LetExprWithout-11;Expected error code: XPTY0004. Query succeeded with result: 1
 K2-LetExprWithout-12;Expected error code: XPTY0004. Query succeeded with result: 1
 K2-LetExprWithout-13;Expected error code: XPTY0004. Query succeeded with result: 3
 K2-LetExprWithout-14;Expected error code: XPTY0004. Query succeeded with result: a string
-K2-LetExprWithout-15;Expected XPathException with code XPTY0004, but got Type casting to XsAnyUri has not been implemented yet.
 K2-LetExprWithout-16;PRSC Error: Failed to parse query 'declare variable $e := <e/>; for $i in (<a/>, $e, <c/>) return $i is $e'
 K2-LetExprWithout-17;Expected executing the XPath 'declare function local:function() { let $b := (i/a) return () }; empty(local:function())' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query 'declare function local:function() { let $b := (i/a) return () }; empty(local:function())'
 K2-LetExprWithout-18;PRSC Error: Failed to parse query 'declare function local:foo($a as xs:integer) { if($a = 3) then $a else let $a := $a return local:foo($a + 1) }; local:foo(1) = 3'
@@ -12572,10 +12480,10 @@ K2-SeqExprCast-203;Expected XPathException with code FORG0001, but got Atomic Va
 K2-SeqExprCast-204;Expected XPathException with code FORG0001, but got Atomic Value for XsNmToken is not implemented yet.
 K2-SeqExprCast-205;Expected XPathException with code FORG0001, but got Atomic Value for XsNmToken is not implemented yet.
 K2-SeqExprCast-206;Expected XPathException with code FORG0001, but got Atomic Value for XsNmToken is not implemented yet.
-K2-SeqExprCast-207;Expected executing the XPath 'xs:anyURI("http:\\invalid>URI\someURI")' to resolve to one of the expected results, but got System.NotImplementedException: Type casting to XsAnyUri has not been implemented yet.
-K2-SeqExprCast-208;Type casting to XsAnyUri has not been implemented yet.
-K2-SeqExprCast-209;Type casting to XsAnyUri has not been implemented yet.
-K2-SeqExprCast-210;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
+K2-SeqExprCast-207;Expected executing the XPath 'xs:anyURI("http:\\invalid>URI\someURI")' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqExprCast-208;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqExprCast-209;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqExprCast-210;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K2-SeqExprCast-214;Expected XPath xs:double(xs:int("-1873914410")) to resolve to -1.87391441E9, but instead got -1873914410
 K2-SeqExprCast-215;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-216;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
@@ -12635,14 +12543,14 @@ K2-SeqExprCast-416;Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-417;Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-418;Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-419;Atomic Value for XsLanguage is not implemented yet.
-K2-SeqExprCast-420;Type casting to XsAnyUri has not been implemented yet.
-K2-SeqExprCast-421;Expected executing the XPath 'xs:anyURI("foo://")' to resolve to one of the expected results, but got System.NotImplementedException: Type casting to XsAnyUri has not been implemented yet.
-K2-SeqExprCast-422;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
-K2-SeqExprCast-423;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
-K2-SeqExprCast-424;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
+K2-SeqExprCast-420;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqExprCast-421;Expected executing the XPath 'xs:anyURI("foo://")' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqExprCast-422;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqExprCast-423;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqExprCast-424;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K2-SeqExprCast-425;Haven't implemented Qnames from: localName:prefix
 K2-SeqExprCast-426;Haven't implemented Qnames from: localName:prefix
-K2-SeqExprCast-427;Type casting to XsAnyUri has not been implemented yet.
+K2-SeqExprCast-427;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K2-SeqExprCast-428;Expected error code: FORG0001. Query succeeded with result: -9876
 K2-SeqExprCast-429;Expected XPathException with code FORG0001, but got The string '11:-1:11' is not a valid AllXsd value.
 K2-SeqExprCast-430;Expected XPathException with code FORG0001, but got The string '11:+1:11' is not a valid AllXsd value.
@@ -12719,7 +12627,7 @@ K2-SeqExprCast-501;Expected XPathException with code FORG0001, but got Atomic Va
 K2-SeqExprCast-502;Expected XPathException with code FORG0001, but got Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-503;Expected XPathException with code FORG0001, but got Atomic Value for XsLanguage is not implemented yet.
 K2-SeqExprCast-504;Atomic Value for XsNcName is not implemented yet.
-K2-SeqExprCast-505;Expected XPathException with code FORG0001, but got Type casting to XsAnyUri has not been implemented yet.
+K2-SeqExprCast-505;Expected error code: FORG0001. Found error code: XPTY0004 with error message: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K2-SeqExprCast-506;Expected error code: FORG0001. Query succeeded with result: --02
 K2-SeqExprCast-507;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
 K2-SeqExprCast-508;Expected XPathException with code FORG0001, but got Input string was not in a correct format.
@@ -12866,19 +12774,19 @@ K2-SeqIntersect-6;PRSC Error: Failed to parse query 'empty(<e/>/(author intersec
 K2-SeqIntersect-7;PRSC Error: Failed to parse query 'empty(<e/>/(author intersect comment))'
 K2-SeqIntersect-8;PRSC Error: Failed to parse query 'empty(<e/>/(author intersect processing-instruction))'
 K2-SeqIntersect-9;PRSC Error: Failed to parse query 'empty(<e/>/(author intersect item))'
-K2-SeqMAXFunc-1;Type casting to XsAnyUri has not been implemented yet.
-K2-SeqMAXFunc-2;Type casting to XsAnyUri has not been implemented yet.
-K2-SeqMAXFunc-3;Type casting to XsAnyUri has not been implemented yet.
-K2-SeqMAXFunc-6;Expected executing the XPath 'max(xs:anyURI("str1"), "max://example.com/UNSUPPORTED_COLLATION")' to resolve to one of the expected results, but got System.NotImplementedException: Type casting to XsAnyUri has not been implemented yet.
-K2-SeqMINFunc-1;Type casting to XsAnyUri has not been implemented yet.
+K2-SeqMAXFunc-1;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqMAXFunc-2;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqMAXFunc-3;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqMAXFunc-6;Expected executing the XPath 'max(xs:anyURI("str1"), "max://example.com/UNSUPPORTED_COLLATION")' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqMINFunc-1;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K2-SeqMINFunc-10;PRSC Error: Failed to parse query 'min((5.0e0, 3)) instance of xs:double'
 K2-SeqMINFunc-11;Expected XPath min((1, 1, 1, 1, 1.0)) instance of xs:decimal to resolve to true
 K2-SeqMINFunc-12;Expected XPath min((1.0, 1, 1, 1, 1)) instance of xs:decimal to resolve to true
 K2-SeqMINFunc-13;Expected XPath min((1.0, 1, 1.0, 1, 1)) instance of xs:decimal to resolve to true
 K2-SeqMINFunc-14;Input string was not in a correct format.
-K2-SeqMINFunc-2;Type casting to XsAnyUri has not been implemented yet.
-K2-SeqMINFunc-3;Type casting to XsAnyUri has not been implemented yet.
-K2-SeqMINFunc-5;Expected executing the XPath 'min(xs:anyURI("str1"), "http://example.com/UNSUPPORTED_COLLATION")' to resolve to one of the expected results, but got System.NotImplementedException: Type casting to XsAnyUri has not been implemented yet.
+K2-SeqMINFunc-2;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqMINFunc-3;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+K2-SeqMINFunc-5;Expected executing the XPath 'min(xs:anyURI("str1"), "http://example.com/UNSUPPORTED_COLLATION")' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 K2-SeqMINFunc-7;PRSC Error: Failed to parse query 'min((5, 5.0e0)) instance of xs:double'
 K2-SeqMINFunc-8;PRSC Error: Failed to parse query 'min((5.0e0, 5)) instance of xs:double'
 K2-SeqMINFunc-9;PRSC Error: Failed to parse query 'min((3, 5.0e0)) instance of xs:double'
@@ -13007,8 +12915,8 @@ K3-NodeNameFunc-4;Expected error code: XPTY0004. Found error code: XPST0003 with
 last-2;Expected error code: XPDY0002. Query succeeded with result: 1
 last-25;/works/employee/*/last()
 last-7;Expected XPath for $h in (/works) return $h/employee[last()] is $h/employee[last()] to resolve to true
-lessthaneqonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
-lessthanonanyuri-1;Type casting to XsAnyUri has not been implemented yet.
+lessthaneqonanyuri-1;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+lessthanonanyuri-1;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 LetExpr003;Expected XPath let $x := 92233720368547758+1 return $x to resolve to 92233720368547759
 LetExpr005;Expected XPath let $x := xs:long("-92233720368547758")+1 return $x to resolve to -92233720368547757
 LetExpr006;Expected XPath let $x := xs:double("1.7976931348623157E308") return $x to resolve to 1.7976931348623157E308, but instead got 1.7976931348623157E+308
@@ -13759,9 +13667,9 @@ op-concatdbl2args-2;Expected XPath (xs:double("0")||xs:double("-1.79769313486231
 op-concatdbl2args-3;Expected XPath (xs:double("1.7976931348623157E308")||xs:double("-1.7976931348623157E308")) to resolve to 1.7976931348623157E308-1.7976931348623157E308, but instead got 1.7976931348623157E+308-1.7976931348623157E+308
 op-concatdbl2args-4;Expected XPath (xs:double("-1.7976931348623157E308") || xs:double("0")) to resolve to -1.7976931348623157E3080, but instead got -1.7976931348623157E+3080
 op-concatdbl2args-5;Expected XPath (xs:double("-1.7976931348623157E308") || xs:double("1.7976931348623157E308")) to resolve to -1.7976931348623157E3081.7976931348623157E308, but instead got -1.7976931348623157E+3081.7976931348623157E+308
-op-concatenate-mix-args-005;Type casting to XsAnyUri has not been implemented yet.
-op-concatenate-mix-args-006;Type casting to XsAnyUri has not been implemented yet.
-op-concatenate-mix-args-007;Type casting to XsAnyUri has not been implemented yet.
+op-concatenate-mix-args-005;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+op-concatenate-mix-args-006;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
+op-concatenate-mix-args-007;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 op-concatenate-mix-args-008;Expected XPath xs:float("1.01"), xs:float("NaN") to resolve to 1.01 NaN, but instead got 1.01 Infinity
 op-concatenate-mix-args-009;Expected XPath xs:float("INF") , xs:double("NaN") to resolve to INF NaN, but instead got Infinity Infinity
 op-concatenate-mix-args-010;Expected XPath xs:double("INF"), xs:double("-INF"), xs:float("-INF") to resolve to INF -INF -INF, but instead got Infinity -Infinity -Infinity
@@ -15396,12 +15304,12 @@ user-defined-6;PRSC Error: Failed to parse query '\n        import schema namesp
 user-defined-7;PRSC Error: Failed to parse query '\n        import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:sizeType(2) castable as xs:integer'
 user-defined-8;PRSC Error: Failed to parse query '\n        import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        (myType:sizeType(16) cast as myType:floatBased) eq 16'
 user-defined-9;PRSC Error: Failed to parse query '\n        import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:sizeType(16) castable as myType:floatBased'
-value-comparison-1;Type casting to XsAnyUri has not been implemented yet.
+value-comparison-1;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 value-comparison-10;Expected executing the XPath 'map{} eq ()' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '(map{} eq ()) => empty()'
 value-comparison-11;Expected error code: FOTY0013. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query 'map{1:1} eq 1'
 value-comparison-13;PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) eq myType:integer-or-nothing(5)'
 value-comparison-14;Expected error code: XPTY0004. Found error code: XPST0003 with error message: PRSC Error: Failed to parse query '\n         import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n         myType:hatsize(5) eq myType:integer-or-nothing("")'
-value-comparison-2;Type casting to XsAnyUri has not been implemented yet.
+value-comparison-2;Unable to cast return of type xs:string to type xs:anyURI? while calling 'anyURI'
 value-comparison-3;Expected executing the XPath 'import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:hatsize(5) eq myType:shoesize(5)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:hatsize(5) eq myType:shoesize(5)'
 value-comparison-4;Expected executing the XPath 'import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:hatsize(5) ne myType:shoesize(5)' to resolve to one of the expected results, but got FontoXPathCSharp.XPathException: PRSC Error: Failed to parse query '\n        import schema namespace myType="http://www.w3.org/XQueryTest/userDefinedTypes"; \n        myType:hatsize(5) ne myType:shoesize(5)'
 value-comparison-5;PRSC Error: Failed to parse query '[3] eq 3'

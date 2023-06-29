@@ -113,7 +113,7 @@ public class TypeCasting
                     return new ErrorResult<AtomicValue>(
                         $"Cannot cast {value} to {to}, pattern validation failed.", "FORG0001");
 
-                return new SuccessResult<AtomicValue>(new StringValue(strValue));
+                return new SuccessResult<AtomicValue>(AtomicValue.Create(strValue, ValueType.XsString));
             });
 
         if (primitiveFrom != primitiveTo)
@@ -163,6 +163,7 @@ public class TypeCasting
             ValueType.XsDecimal => CastToDecimal.ToDecimal(from),
             ValueType.XsInteger => CastToInteger.ToInteger(from),
             ValueType.XsBoolean => CastToBoolean.ToBoolean(from),
+            ValueType.XsAnyUri => CastToAnyUri.ToAnyUri(from),
             ValueType.XsNumeric => CastToNumeric.ToNumeric(from, CastToPrimitiveType),
             ValueType.XsDuration => CastToDuration.ToDuration(from),
             ValueType.XsYearMonthDuration => CastToYearMonthDuration.ToYearMonthDuration(from),

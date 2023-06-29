@@ -13,10 +13,7 @@ internal static class EffectiveBooleanValue
         if (value.GetValueType().IsSubtypeOf(ValueType.XsBoolean))
             return value.GetAs<BooleanValue>().Value;
 
-        if (value.GetValueType().IsSubtypeOf(ValueType.XsString))
-            return value.GetAs<StringValue>().Value.Length > 0;
-
-        if (value.GetValueType().IsSubtypeOf(ValueType.XsAnyUri))
+        if (value.GetValueType().IsSubtypeOfAny(ValueType.XsString, ValueType.XsAnyUri))
             return value.GetAs<StringValue>().Value.Length > 0;
 
         if (value.GetValueType().IsSubtypeOf(ValueType.XsUntypedAtomic))
@@ -31,6 +28,8 @@ internal static class EffectiveBooleanValue
                 _ => value.GetAs<IntegerValue>().Value > 0
             };
 
-        throw new XPathException("FORG0006", "Could not find a suitable conversion.");
+        throw new XPathException("FORG0006", 
+            $"Cannot determine the effective boolean value of a value with the type {value.GetValueType().Name()}"
+            );
     }
 }

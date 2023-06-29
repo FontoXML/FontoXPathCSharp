@@ -9,92 +9,93 @@ public delegate Result<string> IntermediateStringResultFunction(AbstractValue in
 
 public static class CastToStringLikeType
 {
-    // TODO: CLEAN UP ALL THE VALUE GETTING STUFF
-    public static IntermediateStringResultFunction ToStringLikeType(ValueType from)
-    {
-        if (from.IsSubtypeOfAny(ValueType.XsString, ValueType.XsUntypedAtomic))
-            return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
+	public static IntermediateStringResultFunction ToStringLikeType(ValueType from)
+	{
+		if (from.IsSubtypeOfAny(ValueType.XsString, ValueType.XsAnyUri))
+			return value => new SuccessResult<string>(value.GetAs<StringValue>().GetValue().ToString() ?? string.Empty);
 
-        if (from.IsSubtypeOf(ValueType.XsAnyUri))
-            return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
+		if (from.IsSubtypeOf(ValueType.XsUntypedAtomic))
+			return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
 
-        if (from.IsSubtypeOf(ValueType.XsQName))
-            return value =>
-            {
-                var qNameValue = value.GetAs<QNameValue>().Value;
-                return new SuccessResult<string>(qNameValue.Prefix != null
-                    ? $"{qNameValue.Prefix}:{qNameValue.LocalName}"
-                    : qNameValue.LocalName);
-            };
+		if (from.IsSubtypeOf(ValueType.XsQName))
+			return value =>
+			{
+				var qNameValue = value.GetAs<QNameValue>().Value;
+				return new SuccessResult<string>(qNameValue.Prefix != null
+					? $"{qNameValue.Prefix}:{qNameValue.LocalName}"
+					: qNameValue.LocalName);
+			};
 
-        if (from.IsSubtypeOf(ValueType.XsNotation))
-            return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
+		if (from.IsSubtypeOf(ValueType.XsNotation))
+			return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
 
-        if (from.IsSubtypeOf(ValueType.XsNumeric))
-        {
-            if (from.IsSubtypeOfAny(ValueType.XsInteger, ValueType.XsDecimal))
-                return value =>
-                    new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
+		if (from.IsSubtypeOf(ValueType.XsNumeric))
+		{
+			if (from.IsSubtypeOfAny(ValueType.XsInteger, ValueType.XsDecimal))
+				return value =>
+					new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
 
-            if (from.IsSubtypeOf(ValueType.XsFloat))
-                return value =>
-                {
-                    var floatValue = value.GetAs<FloatValue>().Value;
+			if (from.IsSubtypeOf(ValueType.XsFloat))
+				return value =>
+				{
+					var floatValue = value.GetAs<FloatValue>().Value;
 
-                    if (!float.IsFinite(floatValue))
-                        return new SuccessResult<string>($"{(floatValue < 0 ? "-" : "")}INF");
+					if (!float.IsFinite(floatValue))
+						return new SuccessResult<string>($"{(floatValue < 0 ? "-" : "")}INF");
 
-                    if (float.IsNaN(floatValue)) return new SuccessResult<string>("NaN");
-                    //Yes, this should be precisely equal to -0.0, it's a special case.
-                    // ReSharper disable once CompareOfFloatsByEqualityOperator
-                    if (floatValue == -0.0f) return new SuccessResult<string>("-0");
-                    // C#'s notation for large numbers uses E+, XPath's uses E
-                    return new SuccessResult<string>((floatValue + "").Replace("E+", "E"));
-                };
+					if (float.IsNaN(floatValue)) return new SuccessResult<string>("NaN");
+					//Yes, this should be precisely equal to -0.0, it's a special case.
+					// ReSharper disable once CompareOfFloatsByEqualityOperator
+					if (floatValue == -0.0f) return new SuccessResult<string>("-0");
+					// C#'s notation for large numbers uses E+, XPath's uses E
+					return new SuccessResult<string>((floatValue + "").Replace("E+", "E"));
+				};
 
-            if (from.IsSubtypeOf(ValueType.XsDouble))
-                return value =>
-                {
-                    double doubleValue;
-                    try
-                    {
-                        doubleValue = value.GetAs<DoubleValue>().Value;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new InvalidCastException($"Type: {value.GetType().Name}, Value: {value}", ex);
-                    }
+			if (from.IsSubtypeOf(ValueType.XsDouble))
+				return value =>
+				{
+					double doubleValue;
+					try
+					{
+						doubleValue = value.GetAs<DoubleValue>().Value;
+					}
+					catch (Exception ex)
+					{
+						throw new InvalidCastException($"Type: {value.GetType().Name}, Value: {value}", ex);
+					}
 
-                    if (!double.IsFinite(doubleValue))
-                        return new SuccessResult<string>($"{(doubleValue < 0 ? "-" : "")}INF");
+					if (!double.IsFinite(doubleValue))
+						return new SuccessResult<string>($"{(doubleValue < 0 ? "-" : "")}INF");
 
-                    if (double.IsNaN(doubleValue)) return new SuccessResult<string>("NaN");
-                    // ReSharper disable once CompareOfFloatsByEqualityOperator
-                    if (doubleValue == -0.0) return new SuccessResult<string>("-0");
-                    // C#'s notation for large numbers uses E+, XPath's uses E
-                    return new SuccessResult<string>((doubleValue + "").Replace("E+", "E"));
-                };
-        }
+					if (double.IsNaN(doubleValue)) return new SuccessResult<string>("NaN");
+					// ReSharper disable once CompareOfFloatsByEqualityOperator
+					if (doubleValue == -0.0) return new SuccessResult<string>("-0");
+					// C#'s notation for large numbers uses E+, XPath's uses E
+					return new SuccessResult<string>((doubleValue + "").Replace("E+", "E"));
+				};
+		}
 
-        if (
-            from.IsSubtypeOfAny(
-                ValueType.XsDateTime,
-                ValueType.XsDate,
-                ValueType.XsTime,
-                ValueType.XsGDay,
-                ValueType.XsGMonth,
-                ValueType.XsGMonthDay,
-                ValueType.XsGYear,
-                ValueType.XsGYearMonth,
-                ValueType.XsYearMonthDuration,
-                ValueType.XsDayTimeDuration,
-                ValueType.XsDuration)
-        ) return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
+		//TODO: Clean this up. This should be separated into the dates/times and durations, which respectively
+		//are then retrieved as DateTimeValues and DurationValues.
+		if (
+			from.IsSubtypeOfAny(
+				ValueType.XsDateTime,
+				ValueType.XsDate,
+				ValueType.XsTime,
+				ValueType.XsGDay,
+				ValueType.XsGMonth,
+				ValueType.XsGMonthDay,
+				ValueType.XsGYear,
+				ValueType.XsGYearMonth,
+				ValueType.XsYearMonthDuration,
+				ValueType.XsDayTimeDuration,
+				ValueType.XsDuration)
+		) return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
 
-        if (from.IsSubtypeOfAny(ValueType.XsHexBinary))
-            return value =>
-                new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString()?.ToUpper() ?? string.Empty);
+		if (from.IsSubtypeOfAny(ValueType.XsHexBinary))
+			return value =>
+				new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString()?.ToUpper() ?? string.Empty);
 
-        return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
-    }
+		return value => new SuccessResult<string>(value.GetAs<AtomicValue>().GetValue().ToString() ?? string.Empty);
+	}
 }

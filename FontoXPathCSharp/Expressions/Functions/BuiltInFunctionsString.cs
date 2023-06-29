@@ -36,10 +36,10 @@ public static class BuiltInFunctionsString<TNode> where TNode : notnull
 
     private static readonly FunctionSignature<ISequence, TNode> FnNormalizeSpace = (_, _, _, args) =>
     {
-        if (args.Length == 0) return SequenceFactory.CreateFromValue(new StringValue(""));
+        if (args.Length == 0) return SequenceFactory.CreateFromValue(AtomicValue.Create("", ValueType.XsString));
 
         var stringValue = args[0].First()!.GetAs<StringValue>().Value.Trim();
-        return SequenceFactory.CreateFromValue(new StringValue(Regex.Replace(stringValue, @"\s+", " ")));
+        return SequenceFactory.CreateFromValue(AtomicValue.Create(Regex.Replace(stringValue, @"\s+", " "), ValueType.XsString));
     };
 
     public static readonly FunctionSignature<ISequence, TNode> FnString = (_, executionParameters, _, sequences) =>

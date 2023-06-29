@@ -125,7 +125,7 @@ public class AdaptToValues<TNode> where TNode : notnull
         return value switch
         {
             bool b => b ? AtomicValue.TrueBoolean : AtomicValue.FalseBoolean,
-            string s => StringValue.CreateStringValue(s),
+            string s => StringValue.CreateStringValue(s, ValueType.XsString),
             float f => FloatValue.CreateFloatValue(f),
             double dbl => DoubleValue.CreateDoubleValue(dbl),
             decimal dml => DecimalValue.CreateDecimalValue(dml),

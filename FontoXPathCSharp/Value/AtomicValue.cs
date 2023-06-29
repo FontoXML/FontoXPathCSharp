@@ -100,7 +100,7 @@ public abstract class AtomicValue : AbstractValue
             ValueType.XsDecimal => DecimalValue.CreateDecimalValue(value),
             ValueType.XsQName => new QNameValue(value),
             ValueType.XsUntypedAtomic => new UntypedAtomicValue(value!),
-            ValueType.XsString => StringValue.CreateStringValue(value),
+            ValueType.XsString or ValueType.XsAnyUri => StringValue.CreateStringValue(value, type),
             ValueType.XsDate
                 or ValueType.XsDateTime
                 or ValueType.XsGDay

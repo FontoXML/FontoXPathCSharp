@@ -21,7 +21,7 @@ public class Literal<TNode> : AbstractExpression<TNode> where TNode : notnull
         {
             ValueType.XsInteger => () =>
                 SequenceFactory.CreateFromValue(IntegerValue.CreateIntegerValue(value, type.ValueType)),
-            ValueType.XsString => () => SequenceFactory.CreateFromValue(StringValue.CreateStringValue(value)),
+            ValueType.XsString => () => SequenceFactory.CreateFromValue(StringValue.CreateStringValue(value, ValueType.XsString)),
             ValueType.XsDouble => () => SequenceFactory.CreateFromValue(DoubleValue.CreateDoubleValue(value)),
             ValueType.XsDecimal => () => SequenceFactory.CreateFromValue(DecimalValue.CreateDecimalValue(value)),
             _ => throw new ArgumentOutOfRangeException($"Type '{type}' not expected in literal")

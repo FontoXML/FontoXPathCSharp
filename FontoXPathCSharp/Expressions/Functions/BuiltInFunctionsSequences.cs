@@ -467,14 +467,14 @@ public static class BuiltInFunctionsSequences<TNode> where TNode : notnull
                         callbackArgumentTypes[0],
                         previous,
                         executionParameters,
-                        "fn:fold-left",
+                        "fn:fold-right",
                         false
                     );
                     var currentArg = ArgumentHelper<TNode>.PerformFunctionConversion(
                         callbackArgumentTypes[1],
                         SequenceFactory.CreateFromValue(current),
                         executionParameters,
-                        "fn:fold-left",
+                        "fn:fold-right",
                         false
                     );
                     return callbackFn.Value(

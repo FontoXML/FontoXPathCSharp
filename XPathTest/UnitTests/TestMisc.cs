@@ -336,4 +336,15 @@ public class TestMisc
             Assert.Equal("XPTY0004", ex.ErrorCode);
         }
     }
+    
+    [Fact]
+    public void CastAsAnyUriTest()
+    {
+        var selector = "xs:anyURI('http://www.ietf.org/rfc/rfc2396.txt') cast as xs:untypedAtomic";
+        
+        var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
+        
+        Assert.Equal("http://www.ietf.org/rfc/rfc2396.txt", res );
+        
+    }
 }
