@@ -50,6 +50,17 @@ public static class FunctionRegistry<TNode> where TNode : notnull
         if (!RegisteredFunctionsByName.ContainsKey(index))
             RegisteredFunctionsByName[index] = new List<FunctionProperties<TNode>>();
 
+        for (var i = 0; i < RegisteredFunctionsByName[index].Count; i++)
+        {
+            var functionProperties = RegisteredFunctionsByName[index][i];
+            if (argumentTypes == functionProperties.ArgumentTypes &&
+                returnType == functionProperties.ReturnType)
+            {
+                RegisteredFunctionsByName[index][i] = new FunctionProperties<TNode>(argumentTypes, argumentTypes.Length,
+                    callFunction, false, localName, namespaceUri, returnType);
+            }
+        }
+
         RegisteredFunctionsByName[index].Add(new FunctionProperties<TNode>(argumentTypes, argumentTypes.Length,
             callFunction, false, localName, namespaceUri, returnType));
     }

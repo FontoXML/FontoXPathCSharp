@@ -7,7 +7,7 @@ using FontoXPathCSharp.Types;
 
 namespace FontoXPathCSharp;
 
-public class Evaluate
+public static class Evaluate
 {
     public static bool EvaluateXPathToBoolean<TSelector, TNode>(
         TSelector selector,

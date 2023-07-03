@@ -52,7 +52,7 @@ public abstract class Qt3TestDataProvider<TNode> : IEnumerable<object[]> where T
 
     public IEnumerator<object[]> GetEnumerator()
     {
-        // return Array.Empty<object[]>().Cast<object[]>().GetEnumerator();
+        return Array.Empty<object[]>().Cast<object[]>().GetEnumerator();
         if (TestFileSystem.FileExists("runnableTestSets.csv"))
             _shouldRunTestByName = TestFileSystem.ReadFile("runnableTestSets.csv")
                 .Split(Environment.NewLine)

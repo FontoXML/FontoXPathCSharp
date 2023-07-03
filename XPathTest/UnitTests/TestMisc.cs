@@ -345,6 +345,5 @@ public class TestMisc
         var res = Evaluate.EvaluateXPathToString(selector, XmlNodeEmptyContext, XmlNodeDomFacade, XmlNodeOptions);
         
         Assert.Equal("http://www.ietf.org/rfc/rfc2396.txt", res );
-        
     }
 }

@@ -41,9 +41,10 @@ public class ArgumentHelper<TNode> where TNode : notnull
         }
 
         if (value.GetValueType().IsSubtypeOf(ValueType.XsAnyUri))
-            if (type == ValueType.XsString)
-                throw new NotImplementedException("xs:anyUri is not implemented yet, so this cannot be done yet.");
-        // return AtomicValue.Create(value.value, type);
+        {
+            if (type == ValueType.XsString) return AtomicValue.Create(value.GetAs<StringValue>().Value, ValueType.XsString);
+        }
+
         return null;
     }
 

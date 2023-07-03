@@ -11,6 +11,7 @@ public class StaticContext<TNode> : AbstractContext<TNode> where TNode : notnull
     private readonly List<Dictionary<string, string>> _registeredNamespaceUriByPrefix;
 
     private Dictionary<string, FunctionProperties<TNode>> _registeredFunctionsByHash;
+    
     private int _scopeCount;
 
     private int _scopeDepth;

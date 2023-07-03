@@ -1,3 +1,4 @@
+using FontoXPathCSharp.Expressions.Functions;
 using FontoXPathCSharp.Sequences;
 using FontoXPathCSharp.Types;
 
@@ -6,7 +7,7 @@ namespace FontoXPathCSharp.Expressions;
 public abstract class AbstractContext<TNode> where TNode : notnull
 {
     protected string? RegisteredDefaultFunctionNamespaceUri;
-
+    
     public List<Dictionary<string, string>>? RegisteredVariableBindingByHashKey { get; protected init; }
 
     public Dictionary<string, Func<DynamicContext, ExecutionParameters<TNode>, ISequence>>?
