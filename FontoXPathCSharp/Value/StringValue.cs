@@ -7,7 +7,7 @@ public class StringValue : AtomicValue
 {
     public readonly string Value;
 
-    private StringValue(string value, ValueType type) : base(ValueType.XsString)
+    private StringValue(string value, ValueType type) : base(type)
     {
         Value = value;
     }
@@ -15,7 +15,7 @@ public class StringValue : AtomicValue
     public static StringValue CreateStringValue(object? value, ValueType type)
     {
         if (!type.IsSubtypeOfAny(ValueType.XsString, ValueType.XsAnyUri)) 
-            throw new Exception("Can only create a StringValue for xs:string or xs:anyuri");
+            throw new Exception("Can only create a StringValue for xs:string or xs:anyURI");
         
         var stringValue = value switch
         {

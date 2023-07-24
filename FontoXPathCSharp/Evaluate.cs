@@ -277,9 +277,9 @@ public static class Evaluate
     {
         Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
-        variablesMap ??= new Dictionary<string, object>();
+        variablesMap ??= new Dictionary<string, object?>();
 
-        var variables = ParameterUtils.ConvertToAbstractValueVariables<TNode>(variablesMap, domFacade);
+        var variables = ParameterUtils.ConvertToAbstractValueVariables(variablesMap, domFacade);
 
         DynamicContext? dynamicContext;
         ExecutionParameters<TNode> executionParameters;
