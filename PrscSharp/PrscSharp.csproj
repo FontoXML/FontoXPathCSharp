@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<RuntimeFrameworkVersion>6.0.25</RuntimeFrameworkVersion>
+		<RuntimeFrameworkVersion>6.0.27</RuntimeFrameworkVersion>
 		<Version>7.0.0</Version>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
